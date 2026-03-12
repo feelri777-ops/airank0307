@@ -45,18 +45,50 @@ const GITHUB_MAPPING = {
 };
 
 // 범용 플랫폼 페널티 설정 (거대 기업 도메인 트래픽 노이즈 방지)
-const PLATFORM_PENALTY = {
-  "aws.amazon.com": 0.15,
-  "amazon.com": 0.1,
-  "google.com": 0.1,
-  "microsoft.com": 0.1,
-  "azure.microsoft.com": 0.15,
-  "adobe.com": 0.25,
-  "apple.com": 0.1,
-  "github.com": 0.3,
-  "facebook.com": 0.1,
-  "bing.com": 0.2
+const PLATFORM_PENALTY_MAP = {
+  "aws.amazon.com": 0.5,
+  "amazon.com": 0.5,
+  "google.com": 0.5,
+  "microsoft.com": 0.5,
+  "azure.microsoft.com": 0.5,
+  "adobe.com": 0.5,
+  "apple.com": 0.5,
+  "github.com": 0.5,
+  "facebook.com": 0.5,
+  "bing.com": 0.5,
+  "zoom.us": 0.5,
+  "slack.com": 0.5,
+  "canva.com": 0.5,
+  "figma.com": 0.5,
+  "notion.so": 0.5
 };
+
+function getSmartPenalty(domain, toolName) {
+  if (!domain) return 1.0;
+  const domainLower = domain.toLowerCase();
+  const toolNameLower = toolName.toLowerCase().replace(/\s/g, "").replace(/-/g, "").replace(/\./g, "");
+  
+  // 플랫폼 명을 제외한 핵심 이름 추출
+  const platforms = ["amazon", "google", "microsoft", "adobe", "apple", "facebook", "github"];
+  let coreName = toolNameLower;
+  platforms.forEach(p => coreName = coreName.replace(p, ""));
+  
+  const [host, ...pathParts] = domainLower.split("/");
+  const path = pathParts.join("/");
+
+  // 1. 이름이 경로(/ 뒤)에 있는 경우 -> 50% 페널티
+  if (coreName.length > 2 && path.includes(coreName)) return 0.5;
+
+  // 2. 이름이 호스트(도메인 주소)에 있는 경우 -> 독립 브랜드 인정 (면제)
+  if (coreName.length > 2 && host.includes(coreName)) return 1.0;
+
+  // 3. 거대 플랫폼 도메인인 경우 -> 50% 페널티
+  for (const p in PLATFORM_PENALTY_MAP) {
+    if (host.includes(p)) return 0.5;
+  }
+  
+  return 1.0;
+}
 
 // 3. 데이터 수집 함수들
 async function getOprScore(domains) {
@@ -421,13 +453,14 @@ async function updateRanking() {
     const rawSns = rawSnsData[tool.name] || 0;
     const normalizedSns = Number(((rawSns / maxSnsRatio) * 100).toFixed(2));
     
-    // OPR 점수 보정 (거대 플랫폼 페널티 적용)
+    // OPR 점수 보정 (스마트 브랜드 식별 페널티 적용)
     let opr = tool.metrics_raw.opr;
-    if (PLATFORM_PENALTY[tool.domain]) {
-      const penalty = PLATFORM_PENALTY[tool.domain];
+    const penalty = getSmartPenalty(tool.domain, tool.name);
+    
+    if (penalty < 1.0) {
       const oldOpr = opr;
       opr = opr * penalty;
-      console.log(`    [Platform Scaling] ${tool.name} (${tool.domain}): ${oldOpr.toFixed(2)} -> ${opr.toFixed(2)} (x${penalty})`);
+      console.log(`    [Smart Scaling] ${tool.name} (${tool.domain}): ${oldOpr.toFixed(2)} -> ${opr.toFixed(2)} (x${penalty})`);
     }
 
     const totalScore = Number(((opr * W_OPR) + (normalizedNtv * W_NTV) + (ghs * W_GHS) + (normalizedSns * W_SNS)).toFixed(2));
