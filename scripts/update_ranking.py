@@ -152,15 +152,14 @@ def update_ranking():
         # GitHub repo가 CSV에 없으므로 현재는 기본적으로 0으로 처리, 필요시 추후 컬럼 추가 가능
         gh_repo = "" 
         
-        opr_raw = opr_data.get(domain, 0)
-        opr = opr_raw * 10  # 10점 만점을 100점 만점으로 변환
+        opr = opr_data.get(domain, 0)  # get_opr_score()에서 이미 0~100 범위로 변환됨
         ghs = get_github_score(gh_repo)
         
         # 네이버 트렌드 정규화 (최고점 대비 비율)
         ntv_raw = raw_ntv_data.get(tool_name, 0)
         ntv = round((ntv_raw / max_ntv) * 100, 2)
         
-        sns = get_xpoz_score(tool_name, opr_raw)
+        sns = get_xpoz_score(tool_name, opr)
         
         # 알고리즘 계산 (가중치 적용)
         total_score = round((opr * W_OPR) + (ntv * W_NTV) + (ghs * W_GHS) + (sns * W_SNS), 2)

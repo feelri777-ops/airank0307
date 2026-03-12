@@ -373,8 +373,8 @@ async function updateRanking() {
     const rawSns = rawSnsData[tool.name] || 0;
     const normalizedSns = Number(((rawSns / maxSnsRatio) * 100).toFixed(2));
     
-    // OPR 점수 보정 (10점 만점을 100점 만점으로 변환)
-    const opr = tool.metrics_raw.opr * 10;
+    // OPR 점수는 getOprScore()에서 이미 0~100 범위로 변환됨 (pageRank * 10)
+    const opr = tool.metrics_raw.opr;
     const ghs = tool.metrics_raw.ghs;
     
     const totalScore = Number(((opr * W_OPR) + (normalizedNtv * W_NTV) + (ghs * W_GHS) + (normalizedSns * W_SNS)).toFixed(2));
