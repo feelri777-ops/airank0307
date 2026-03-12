@@ -20,19 +20,19 @@ const ScoreDetailBars = ({ tool }) => {
   }, [tool.id]);
 
   const items = [
-    { label: "구글", key: "opr", color: "#4285F4", gradient: "linear-gradient(90deg, #4285F4, #669DF6)", weight: "50%", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
-    { label: "네이버", key: "ntv", color: "#03C75A", gradient: "linear-gradient(90deg, #03C75A, #2BD97C)", weight: "25%", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
-    { label: "깃허브", key: "ghs", color: "#8B5CF6", gradient: "linear-gradient(90deg, #8B5CF6, #A78BFA)", weight: "10%", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
-    { label: "SNS", key: "sns", color: "#F43F5E", gradient: "linear-gradient(90deg, #F43F5E, #FB7185)", weight: "15%", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
+    { logo: "https://www.google.com/s2/favicons?domain=google.com&sz=32", key: "opr", color: "#4285F4", gradient: "linear-gradient(90deg, #4285F4, #669DF6)", weight: "50%", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
+    { logo: "https://www.google.com/s2/favicons?domain=naver.com&sz=32", key: "ntv", color: "#03C75A", gradient: "linear-gradient(90deg, #03C75A, #2BD97C)", weight: "25%", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
+    { logo: "https://www.google.com/s2/favicons?domain=github.com&sz=32", key: "ghs", color: "#8B5CF6", gradient: "linear-gradient(90deg, #8B5CF6, #A78BFA)", weight: "10%", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
+    { logo: "https://www.google.com/s2/favicons?domain=x.com&sz=32", key: "sns", color: "#F43F5E", gradient: "linear-gradient(90deg, #F43F5E, #FB7185)", weight: "15%", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
   ];
 
   if (!metrics) return null;
 
   return (
     <div style={{ marginBottom: "12px" }} onClick={(e) => e.stopPropagation()}>
-      <div style={{ fontSize: "0.68rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "6px" }}>점수 상세</div>
+      <div style={{ fontSize: "1.36rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "6px" }}>점수 상세</div>
       <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-        {items.map(({ label, key, color, gradient, weight, desc }) => {
+        {items.map(({ logo, key, color, gradient, weight, desc }) => {
           const val = Math.round(metrics[key] ?? 0);
           const isActive = activeTooltip === key;
           return (
@@ -43,18 +43,18 @@ const ScoreDetailBars = ({ tool }) => {
                 onMouseEnter={() => setActiveTooltip(key)}
                 onMouseLeave={() => setActiveTooltip(null)}
               >
-                <span style={{ fontSize: "0.6rem", fontWeight: 600, color: "var(--text-muted)", width: "36px", flexShrink: 0, textAlign: "right" }}>{label}</span>
-                <span style={{ fontSize: "0.5rem", fontWeight: 700, color, opacity: 0.6, width: "20px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
+                <img src={logo} alt="" width={16} height={16} style={{ flexShrink: 0, borderRadius: "3px", objectFit: "contain" }} />
+                <span style={{ fontSize: "1rem", fontWeight: 700, color, opacity: 0.6, width: "28px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
                 <div style={{ flex: 1, height: "3px", background: "var(--bg-tertiary)", borderRadius: "2px", overflow: "hidden" }}>
                   <div style={{ width: `${Math.min(100, val)}%`, height: "100%", background: gradient, borderRadius: "2px", transition: "width 0.8s cubic-bezier(0.4, 0, 0.2, 1)" }} />
                 </div>
-                <span style={{ fontSize: "0.82rem", fontWeight: 900, color, width: "28px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
+                <span style={{ fontSize: "1.64rem", fontWeight: 900, color, width: "36px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
               </div>
               {isActive && (
                 <div style={{
-                  position: "absolute", left: "60px", bottom: "100%", marginBottom: "4px",
-                  fontSize: "0.58rem", color: "var(--text-secondary)", lineHeight: 1.4,
-                  padding: "6px 10px", background: "var(--bg-card)", borderRadius: "6px",
+                  position: "absolute", left: "50px", bottom: "100%", marginBottom: "4px",
+                  fontSize: "1.16rem", color: "var(--text-secondary)", lineHeight: 1.4,
+                  padding: "8px 12px", background: "var(--bg-card)", borderRadius: "6px",
                   border: "1px solid var(--border-primary)",
                   boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
                   zIndex: 10, whiteSpace: "nowrap", pointerEvents: "none",
