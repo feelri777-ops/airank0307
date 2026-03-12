@@ -39,8 +39,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/youtube-videos.json public/scores.json
-          git add public/history/ || true
+          git add .
           git diff --staged --quiet || git commit -m "chore: 랭킹 & 유튜브 자동 갱신 [$(date '+%Y-%m-%d %H:%M UTC')]"
-          git pull --rebase https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/feelri777-ops/airank0307.git main
-          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/feelri777-ops/airank0307.git HEAD:main
+          git push origin main
