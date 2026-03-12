@@ -27,12 +27,8 @@ const ScoreDetailBars = ({ tool }) => {
 
   if (!metrics) return null;
 
-  const handleToggle = (key) => {
-    setActiveTooltip(prev => prev === key ? null : key);
-  };
-
   return (
-    <div style={{ marginTop: "16px", marginBottom: "16px" }}>
+    <div style={{ marginTop: "16px", marginBottom: "16px" }} onClick={(e) => e.stopPropagation()}>
       <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "12px" }}>점수 상세</div>
       <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
         {items.map(({ label, key, color, gradient, weight, desc }) => {
@@ -42,9 +38,9 @@ const ScoreDetailBars = ({ tool }) => {
             <div key={key}>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", padding: "3px 0" }}
+                onClick={(e) => { e.stopPropagation(); setActiveTooltip(prev => prev === key ? null : key); }}
                 onMouseEnter={() => setActiveTooltip(key)}
                 onMouseLeave={() => setActiveTooltip(null)}
-                onTouchStart={() => handleToggle(key)}
               >
                 <span style={{ fontSize: "0.68rem", fontWeight: 600, color: "var(--text-muted)", width: "42px", flexShrink: 0, textAlign: "right" }}>{label}</span>
                 <span style={{ fontSize: "0.55rem", fontWeight: 700, color, opacity: 0.7, width: "22px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
@@ -59,7 +55,7 @@ const ScoreDetailBars = ({ tool }) => {
                   fontSize: "0.6rem", color: "var(--text-muted)", lineHeight: 1.4,
                   padding: "5px 8px", background: "var(--bg-tertiary)", borderRadius: "4px",
                   border: "1px solid var(--border-primary)",
-                  animation: "fadeIn 0.15s ease"
+                  opacity: 1, transition: "opacity 0.15s ease"
                 }}>
                   {desc}
                 </div>
@@ -71,6 +67,7 @@ const ScoreDetailBars = ({ tool }) => {
     </div>
   );
 };
+
 
 
 // 점수 그래프 생성 함수
