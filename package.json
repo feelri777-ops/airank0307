@@ -1,0 +1,28 @@
+{
+  "name": "airank",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "convert-csv": "node scripts/convert-csv.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "dotenv": "^17.3.1",
+    "firebase": "^12.10.0",
+    "openai": "^6.25.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.13.1",
+    "remark-gfm": "^4.0.1",
+    "styled-components": "^6.3.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "google-trends-api": "^4.9.2",
+    "vite": "^6.0.7"
+  }
+}

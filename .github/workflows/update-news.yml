@@ -1,0 +1,40 @@
+name: 뉴스 자동 갱신 (2시간마다)
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'  # 매 2시간마다
+  workflow_dispatch:
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          persist-credentials: true
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 의존성 설치
+        run: npm install
+
+      - name: 뉴스 수집
+        run: node scripts/fetch-news.js
+        env:
+          NAVER_NEWS_CLIENT_ID: ${{ secrets.NAVER_NEWS_CLIENT_ID }}
+          NAVER_NEWS_CLIENT_SECRET: ${{ secrets.NAVER_NEWS_CLIENT_SECRET }}
+
+      - name: 변경사항 커밋 & 푸시
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/news.json
+          git diff --staged --quiet || git commit -m "chore: 뉴스 자동 갱신 [$(date '+%Y-%m-%d %H:%M UTC')]"
+          git pull --rebase https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/feelri777-ops/airank0307.git main
+          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/feelri777-ops/airank0307.git HEAD:main

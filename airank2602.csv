@@ -1,0 +1,250 @@
+ID	Service Name	Analysis Domain	Rank	Score
+1	ChatGPT	chat.openai.com	1	100
+4	DeepSeek	chat.deepseek.com	2	99
+3	Gemini	gemini.google.com	3	97
+2	Claude	claude.ai	4	96
+19	Cursor	cursor.com	5	95
+36	Perplexity	perplexity.ai	6	94
+20	Bolt.new	bolt.new	7	92
+39	MS Copilot	copilot.microsoft.com	8	90
+32	Suno AI	suno.com	9	89
+5	Grok	grok.x.ai	10	88
+204	Groq	groq.com	11	87
+65	Lovable	lovable.dev	12	86
+8	Character.AI	character.ai	13	85
+33	ElevenLabs	elevenlabs.io	14	84
+10	Midjourney	midjourney.com	15	83
+22	v0	v0.dev	16	82
+48	Canva AI	canva.com	17	81
+159	WRTN	wrtn.ai	18	80
+27	Kling AI	klingai.com	19	79
+211	Blackbox AI	blackbox.ai	20	78
+41	Gamma	gamma.app	21	77
+34	Udio	udio.com	22	76
+15	Ideogram	ideogram.ai	23	75
+141	QuillBot	quillbot.com	24	74
+30	Luma AI	lumalabs.ai	25	73
+85	Grammarly	grammarly.com	26	72
+9	Poe	poe.com	27	71
+26	Runway ML	runwayml.com	28	70
+14	Leonardo AI	leonardo.ai	29	69
+29	HeyGen	heygen.com	30	68
+62	Civitai	civitai.com	31	67
+17	Krea AI	krea.ai	32	66
+40	Notion AI	notion.so	33	65
+28	Pika Labs	pika.art	34	64
+178	Opus Clip	opus.pro	35	63
+83	Jasper	jasper.ai	36	62
+201	Ollama	ollama.com	37	61
+238	Devv.ai	devv.ai	38	60
+79	Phind	phind.com	39	59
+93	Framer AI	framer.com	40	58
+80	Consensus	consensus.app	41	57
+216	NotebookLM	notebooklm.google.com	42	56
+192	Napkin AI	napkin.ai	43	55
+123	Captions	captions.ai	44	54
+206	OpenRouter	openrouter.ai	45	53
+16	Flux	blackforestlabs.ai	46	52
+97	Remove.bg	remove.bg	47	51
+232	Coze	coze.com	48	50
+45	Make	make.com	49	49
+46	Zapier AI	zapier.com	50	48
+51	Le Chat	chat.mistral.ai	51	47
+52	Qwen	qwenlm.github.io	52	47
+53	Command R+	cohere.com	53	46
+54	HyperCLOVA X	clova.ai	54	46
+55	Kimi	kimi.moonshot.cn	55	45
+56	Phi-4	azure.microsoft.com	56	45
+57	Amazon Nova	aws.amazon.com	57	44
+58	Playground AI	playground.com	58	44
+59	SeaArt AI	seaart.ai	59	43
+60	NightCafe	nightcafe.studio	60	43
+61	Tensor.Art	tensor.art	61	42
+13	Adobe Firefly	firefly.adobe.com	62	42
+63	Bing Image Creator	bing.com	63	41
+64	Amazon Q	aws.amazon.com	64	41
+66	Cody	sourcegraph.com	65	40
+67	Devin	cognition.ai	66	40
+68	Aider	aider.chat	67	39
+69	CapCut AI	capcut.com	68	39
+70	InVideo AI	invideo.io	69	38
+71	Hailuo AI	hailuoai.video	70	38
+72	Pictory	pictory.ai	71	37
+73	Veed.io AI	veed.io	72	37
+74	AIVA	aiva.ai	73	36
+75	Soundraw	soundraw.io	74	36
+76	Mubert	mubert.com	75	35
+77	Adobe Podcast	podcast.adobe.com	76	35
+78	Lalal.ai	lalal.ai	77	34
+81	Kagi	kagi.com	78	34
+82	Exa	exa.ai	79	33
+84	Copy.ai	copy.ai	80	33
+86	Writesonic	writesonic.com	81	32
+87	Tome	tome.app	82	32
+88	Taskade	taskade.com	83	31
+89	Mem AI	mem.ai	84	31
+90	Reclaim.ai	reclaim.ai	85	30
+91	Rytr	rytr.me	86	30
+92	Wordtune	wordtune.com	87	29
+94	Looka	looka.com	88	29
+95	Khroma	khroma.co	89	28
+96	Relume	relume.io	90	28
+98	Cleanup.pictures	cleanup.pictures	91	27
+99	Spline AI	spline.design	92	27
+100	Visily	visily.ai	93	26
+101	Replika	replika.com	94	26
+102	Pi AI	pi.ai	95	25
+103	Meta AI	meta.ai	96	25
+104	Talkie AI	talkie-ai.com	97	24
+105	Kindroid	kindroid.ai	98	24
+106	Chai AI	chai.ml	99	23
+107	Anima AI	myanima.ai	100	23
+108	Hume AI	hume.ai	101	22
+109	Lensa AI	prisma-ai.com	102	22
+110	Photoroom	photoroom.com	103	21
+111	Remini	remini.ai	104	21
+112	Facetune	facetuneapp.com	105	20
+113	Prisma	prisma-ai.com	106	20
+114	Pixelcut	pixelcut.ai	107	19
+115	Wombo Dream	wombo.ai	108	19
+116	Starryai	starryai.com	109	18
+117	Meitu	meitu.com	110	18
+118	PicsArt AI	picsart.com	111	17
+119	Reface	hey.reface.ai	112	17
+120	FaceApp	faceapp.com	113	16
+121	Photoleap	lightricks.com	114	16
+122	Deep Nostalgia	myheritage.com	115	15
+124	D-ID	d-id.com	116	15
+125	Filmora AI	filmora.wondershare.com	117	14
+126	Pixverse	pixverse.ai	118	14
+127	Haiper	haiper.ai	119	13
+128	Voicemod	voicemod.net	120	13
+129	Resemble AI	resemble.ai	121	12
+130	Play.ht	play.ht	122	12
+131	Podcastle	podcastle.ai	123	11
+132	Boomy	boomy.com	124	11
+134	Motion	usemotion.com	125	10
+135	Krisp	krisp.ai	126	10
+136	Superhuman	superhuman.com	127	9
+137	Lindy AI	lindy.ai	128	9
+138	Duolingo Max	duolingo.com	129	8
+139	Elsa Speak	elsaspeak.com	130	8
+140	Speak	speak.com	131	7
+142	Photomath	photomath.com	132	7
+143	Socratic	socratic.org	133	6
+144	Liner	getliner.com	134	6
+145	Google Lens	lens.google	135	5
+146	Microsoft Designer	designer.microsoft.com	136	5
+147	Adobe Express	adobe.com	137	4
+148	Fotor AI	fotor.com	138	4
+149	Woebot	woebothealth.com	139	3
+150	Kuki AI	kuki.ai	140	3
+151	Devin	devin.ai	141	40
+154	JetBrains AI	jetbrains.com	142	38
+155	Continue.dev	continue.dev	143	35
+157	Zed	zed.dev	144	33
+158	Cline	github.com	145	32
+160	Gemma	ai.google.dev	146	31
+161	EXAONE	lgresearch.ai	147	30
+162	Solar	console.upstage.ai	148	29
+163	InternLM	internlm.intern-ai.org.cn	149	28
+165	SciSpace	typeset.io	150	27
+166	Semantic Scholar	semanticscholar.org	151	26
+167	Research Rabbit	researchrabbitapp.com	152	25
+168	Imagen 3	deepmind.google	153	24
+169	Recraft AI	recraft.ai	154	23
+170	Flair AI	flair.ai	155	22
+171	Clipdrop	clipdrop.co	156	21
+172	Magnific AI	magnific.ai	157	20
+173	ComfyUI	github.com	158	19
+174	InvokeAI	invoke.ai	159	18
+175	Veo 2	deepmind.google	160	17
+177	Wan AI	wanxiang.aliyun.com	161	16
+182	Murf AI	murf.ai	162	15
+187	Coda AI	coda.io	163	14
+188	ClickUp AI	clickup.com	164	13
+189	Tana	tana.inc	165	12
+190	Reflect	reflect.app	166	11
+191	Clova Note	clovanote.naver.com	167	10
+193	Granola	granola.ai	168	9
+195	Topaz Photo AI	topazlabs.com	169	8
+196	Upscayl	upscayl.org	170	7
+197	Pixlr AI	pixlr.com	171	6
+198	AutoGPT	agpt.co	172	5
+199	Dify	dify.ai	173	4
+200	Flowise	flowiseai.com	174	3
+202	LM Studio	lmstudio.ai	175	30
+203	Open WebUI	openwebui.com	176	29
+204	Groq	groq.com	177	28
+205	Together AI	together.ai	178	27
+208	AnythingLLM	anythingllm.com	179	26
+209	GPT4All	gpt4all.io	180	25
+210	Jan.ai	jan.ai	181	24
+212	CrewAI	crewai.com	182	23
+213	AutoGen	microsoft.github.io	183	22
+214	LangChain	langchain.com	184	21
+215	LlamaIndex	llamaindex.ai	185	20
+217	Artbreeder	artbreeder.com	186	19
+218	Freepik AI	freepik.com	187	18
+219	NovelAI	novelai.net	188	17
+220	Sudowrite	sudowrite.com	189	16
+221	Lex	lex.page	190	15
+222	Viggle	viggle.ai	191	14
+223	Hedra	hedra.com	192	13
+224	Stable Video	stability.ai	193	12
+225	Deepgram	deepgram.com	194	11
+226	AssemblyAI	assemblyai.com	195	10
+227	Speechmatics	speechmatics.com	196	9
+228	Retell AI	retellai.com	197	8
+229	Bland AI	bland.ai	198	7
+230	Voiceflow	voiceflow.com	199	6
+231	Botpress	botpress.com	200	5
+233	Notta	notta.ai	201	4
+234	tl;dv	tldv.io	202	3
+235	Fathom	fathom.video	203	3
+236	Avoma	avoma.com	204	2
+237	Glean	glean.com	205	2
+239	Pinecone	pinecone.io	206	30
+240	Chroma	trychroma.com	207	29
+241	Copilot Studio	copilotstudio.microsoft.com	208	28
+242	Adobe GenStudio	business.adobe.com	209	27
+243	Height AI	height.app	210	26
+244	Intercom Fin	intercom.com	211	25
+245	Tidio Lyro	tidio.com	212	24
+246	Manus AI	manus.im	213	23
+247	Lobe Chat	lobehub.com	214	22
+248	Wordware	wordware.ai	215	21
+249	Zoom AI	zoom.us	216	20
+250	Slack AI	slack.com	217	19
+12	DALL-E 3	openai.com	218	18
+11	Stable Diffusion	stability.ai	219	17
+7	Mistral AI	mistral.ai	220	16
+6	Llama	llama.meta.com	221	15
+21	Windsurf	codeium.com	223	13
+23	Replit AI	replit.com	224	12
+24	Tabnine	tabnine.com	225	11
+25	Sora	sora.com	226	10
+31	Synthesia	synthesia.io	227	9
+35	Descript	descript.com	228	8
+37	You.com	you.com	229	7
+38	Elicit	elicit.com	230	6
+42	Otter.ai	otter.ai	231	5
+43	Fireflies.ai	fireflies.ai	232	4
+44	Beautiful.ai	beautiful.ai	233	3
+47	n8n	n8n.io	234	2
+49	Figma AI	figma.com	235	2
+50	Uizard	uizard.io	236	1
+16	Flux (Dev)	blackforestlabs.ai	237	1
+152	Lovable (App)	lovable.dev	238	1
+207	Cohere (API)	cohere.com	239	1
+62	Civitai (Models)	civitai.com	240	72
+185	Whisper (OpenAI)	openai.com	241	10
+122	MyHeritage AI	myheritage.com	242	15
+113	Prisma (App)	prisma-ai.com	243	20
+118	PicsArt (Web)	picsart.com	244	17
+120	FaceApp (Mobile)	faceapp.com	245	16
+128	Voicemod (App)	voicemod.net	246	13
+138	Duolingo (AI)	duolingo.com	247	8
+145	Google Lens (Web)	lens.google	248	5
+159	WRTN (Chat)	wrtn.ai	249	79
+211	Blackbox (Code)	blackbox.ai	250	65

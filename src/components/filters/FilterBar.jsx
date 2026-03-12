@@ -1,0 +1,38 @@
+import { CATEGORIES } from "../../constants";
+
+const pillStyle = (active) => ({
+  padding: "5px 12px",
+  borderRadius: "100px",
+  border: active ? `1px solid var(--accent-indigo)` : "1px solid var(--border-primary)",
+  background: active ? "var(--tag-bg)" : "transparent",
+  color: active ? "var(--accent-indigo)" : "var(--text-secondary)",
+  fontSize: "0.78rem",
+  fontFamily: "'Pretendard', sans-serif",
+  fontWeight: active ? 600 : 400,
+  cursor: "pointer",
+  transition: "all 0.2s ease",
+  whiteSpace: "nowrap",
+  flexShrink: 0,
+});
+
+const FilterBar = ({ category, onCategoryChange }) => (
+  <div className="filter-row" style={{
+    display: "flex",
+    gap: "6px",
+    overflowX: "auto",
+    scrollbarWidth: "none",
+    msOverflowStyle: "none",
+    alignItems: "center",
+    padding: "2px 0",
+    width: "100%",
+    marginBottom: "0.5rem",
+  }}>
+    {CATEGORIES.map((cat) => (
+      <button key={cat.id} onClick={() => onCategoryChange(cat.id)} style={pillStyle(category === cat.id)}>
+        {cat.label}
+      </button>
+    ))}
+  </div>
+);
+
+export default FilterBar;

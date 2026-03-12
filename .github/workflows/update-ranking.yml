@@ -1,0 +1,48 @@
+name: 랭킹 & 유튜브 자동 갱신 (매일 새벽 3시)
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # 매일 새벽 3시 KST (UTC 18:00)
+  workflow_dispatch:
+
+jobs:
+  update-ranking:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          persist-credentials: true
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 의존성 설치
+        run: npm install
+
+      - name: 랭킹 점수 갱신
+        run: node scripts/update_ranking.js
+        env:
+          OPR_API_KEY: ${{ secrets.OPR_API_KEY }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+
+      - name: 유튜브 영상 수집
+        run: node scripts/fetch-youtube.js
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+
+      - name: 변경사항 커밋 & 푸시
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/youtube-videos.json public/scores.json
+          git add public/history/ || true
+          git diff --staged --quiet || git commit -m "chore: 랭킹 & 유튜브 자동 갱신 [$(date '+%Y-%m-%d %H:%M UTC')]"
+          git pull --rebase https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/feelri777-ops/airank0307.git main
+          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/feelri777-ops/airank0307.git HEAD:main
