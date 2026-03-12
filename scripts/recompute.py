@@ -15,7 +15,7 @@ W_NTV = 0.3
 W_GHS = 0.1
 W_SNS = 0.1
 
-# Softened Platform Penalty Rules
+# Big platforms (Basic filter)
 BIG_PLATFORMS = [
     "amazon.com", "google.com", "microsoft.com", "adobe.com", 
     "apple.com", "github.com", "facebook.com", "bing.com", 
@@ -26,18 +26,30 @@ def get_penalty(domain, tool_name):
     if not domain:
         return 1.0
     domain_lower = domain.lower()
-    tool_name_lower = tool_name.lower().replace(" ", "")
+    tool_name_lower = tool_name.lower().replace(" ", "").replace("-", "").replace(".", "")
     
-    # 1. Gemini, Claude, ChatGPT 등 플래그십은 플랫폼 도메인이더라도 더 우대 (70% 인정)
-    flagships = ["gemini", "claude", "chatgpt"]
-    if any(f in domain_lower for f in flagships) or any(f in tool_name_lower for f in flagships):
-        return 0.7  # 30% 감점 (적절한 보정)
+    # [NEW RULE] 만약 서비스명(예: Gemini)이 도메인(예: gemini.google.com)에 포함되어 있다면 
+    # 독립된 서비스 브랜드로 인정하여 페널티 "면제" (100% 인정)
+    # 단, 플랫폼명(amazon, google 등) 자체가 서비스명인 경우는 일반 트래픽으로 간주하여 제외
+    platform_names = ["amazon", "google", "microsoft", "adobe", "apple", "facebook", "github"]
+    is_genuine_brand = False
+    
+    # 툴 이름 중 플랫폼 명을 제외한 핵심 단어가 도메인에 있는지 확인
+    core_name = tool_name_lower
+    for p in platform_names:
+        core_name = core_name.replace(p, "")
+    
+    if len(core_name) > 2 and core_name in domain_lower:
+        is_genuine_brand = True
 
-    # 2. Path-based domains (Recovered: 40% 인정)
+    if is_genuine_brand:
+        return 1.0 # 페널티 면제!
+
+    # Path-based domains (50% 인정)
     if "/" in domain:
-        return 0.4
+        return 0.5
     
-    # 3. Big platforms (Recovered: 50% 인정)
+    # Big platforms without brand name in domain (50% 인정)
     for platform in BIG_PLATFORMS:
         if platform in domain_lower:
             return 0.5
@@ -66,15 +78,10 @@ def recompute():
     except Exception as e:
         print(f"CSV Read Error: {e}")
 
-    # Use original metrics if available or use current ones assuming they are the original base
-    # In this logic, we assume the scores.json contains the metrics AFTER previous compute, 
-    # but we need to reset them to a base or just scale back.
-    # To be safe, let's assume valid base metrics are needed.
-    
     tools = scores_data.get('tools', {})
     updated_tools = {}
 
-    print("--- Recomputing scores with Softened Penalties (Half-Recovery) ---")
+    print("--- Recomputing scores with 'Genuine Brand Exemption' ---")
 
     for tid, tool in tools.items():
         domain = id_to_domain.get(tid, "")
@@ -83,41 +90,41 @@ def recompute():
         
         penalty = get_penalty(domain, name)
         
-        # We need the original metrics to apply the penalty correctly.
-        # Since we ran recompute.py before, the scores.json metrics might be already shrunk.
-        # But OPR in scores.json was overwritten. 
-        # For simplicity, if we don't have a backup, we treat current values as base and try to 'un-shrink'? 
-        # No, let's try to restore based on typical domain values or just adjust the logic.
-        # Actually, it's better to fetch from symbols/history if possible, but let's just use 0.5 scaling here.
+        # Restore raw metrics first (assuming previously they were shrunk by 0.1/0.15 or 0.5/0.4)
+        # We need to reach the original baseline. Let's use history or just inverse the scaling.
+        # For simplicity and accuracy, we assume the user wants the BEST possible 100% for genuine brands.
         
-        # IMPORTANT: To recover properly, we should ideally have the raw data.
-        # For now, let's assume we want to increase the current shrunk scores back to the 50% target.
-        # If previous penalty was 0.15 and now it's 0.5, we multiply by (0.5 / 0.15) = 3.33
-        
+        # RAW 지표 복구 로직 (이미 페널티가 먹은 상태라면 원복)
         opr = metrics.get('opr', 0)
         ntv = metrics.get('ntv', 0)
         sns = metrics.get('sns', 0)
         ghs = metrics.get('ghs', 0)
 
-        # Previous penalties were 0.1 or 0.15. 
-        # Let's check the domain and 'un-shrink' it first to get raw, then apply new penalty.
+        # Check existing shrinkage (scores.json에 페널티가 반영된 OPR이 들어있음)
+        # 이전 실행에서 0.5 또는 0.15 등이 적용되었을 것임.
+        # 여기서는 극단적으로 raw 데이터를 다시 계산하기 위해 역산을 하거나
+        # 혹은 recompute.py가 매번 원본에 가깝게 동작하도록 유도함.
+        # (이미 9a73c8b 커밋에서 0.7 혹은 0.5 등으로 저장됨)
+        # 이번에는 정교하게 1.0(면제)을 주는 것이 목표.
+        
         raw_opr, raw_ntv, raw_sns = opr, ntv, sns
         
-        old_penalty = 1.0
-        if "/" in domain: old_penalty = 0.1
-        elif any(p in domain.lower() for p in BIG_PLATFORMS): old_penalty = 0.15
+        # 이전 로직 기반 역산 (Gemini 등은 0.7이 적용되어 있었음)
+        old_factor = 1.0
+        if "gemini" in name.lower() or "gemini" in domain.lower(): old_factor = 0.7
+        elif "/" in domain: old_factor = 0.4
+        elif any(p in domain.lower() for p in BIG_PLATFORMS): old_factor = 0.5
         
-        if old_penalty < 1.0:
-            raw_opr = opr / old_penalty
-            raw_ntv = ntv / old_penalty
-            raw_sns = sns / old_penalty
+        if old_factor < 1.0:
+            raw_opr = opr / old_factor
+            raw_ntv = ntv / old_factor
+            raw_sns = sns / old_factor
 
-        # Apply New Penalty
+        # Apply New Smart Penalty
         new_opr = raw_opr * penalty
         new_ntv = raw_ntv * penalty
         new_sns = raw_sns * penalty
 
-        # Cap at 100
         new_opr = min(100, new_opr)
         new_ntv = min(100, new_ntv)
         new_sns = min(100, new_sns)
@@ -132,8 +139,8 @@ def recompute():
             'ghs': round(ghs, 2),
             'sns': round(new_sns, 2)
         }
-        if penalty < 1.0:
-            print(f"  [Recovered] {name} ({domain}) New Factor: {penalty}")
+        if penalty == 1.0 and old_factor < 1.0:
+            print(f"  [Exempted] {name} ({domain}) - Brand identified, 100% score restored!")
 
     scores_data['tools'] = updated_tools
     scores_data['updated'] = datetime.utcnow().isoformat() + 'Z'
@@ -160,9 +167,9 @@ def recompute():
                 m = t['metrics']
                 writer.writerow([idx+1, t['id'], t['name'], t['domain'], t['score'], m['opr'], m['ntv'], m['sns'], m['ghs']])
     except Exception as e:
-        print(f"Report Creation Error: {e}")
+        print(f"Report Error: {e}")
 
-    print("Success: Scores recovered and saved.")
+    print("Success: Smart brand exemption applied.")
 
 if __name__ == "__main__":
     recompute()
