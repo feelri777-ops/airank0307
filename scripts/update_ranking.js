@@ -124,9 +124,9 @@ async function getNaverTrendsBatch(keywords, oprScores = {}) {
     startDate.setDate(endDate.getDate() - 7);
     const formatDate = (d) => d.toISOString().split('T')[0];
 
-    const groups = [{ groupName: REF_KEYWORD, keywords: [REF_KEYWORD] }];
+    const groups = [];
     keywords.forEach(k => {
-      if (k !== REF_KEYWORD) groups.push({ groupName: k, keywords: [k] });
+      groups.push({ groupName: k, keywords: [k] });
     });
 
     const body = {
@@ -373,7 +373,8 @@ async function updateRanking() {
     const rawSns = rawSnsData[tool.name] || 0;
     const normalizedSns = Number(((rawSns / maxSnsRatio) * 100).toFixed(2));
     
-    const opr = tool.metrics_raw.opr;
+    // OPR 점수 보정 (10점 만점을 100점 만점으로 변환)
+    const opr = tool.metrics_raw.opr * 10;
     const ghs = tool.metrics_raw.ghs;
     
     const totalScore = Number(((opr * W_OPR) + (normalizedNtv * W_NTV) + (ghs * W_GHS) + (normalizedSns * W_SNS)).toFixed(2));

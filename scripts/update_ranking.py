@@ -133,6 +133,14 @@ def update_ranking():
     
     tools_output = {}
     
+    raw_ntv_data = {}
+    for index, row in df.iterrows():
+        tool_name = str(row['Service Name']).strip()
+        raw_ntv_data[tool_name] = get_naver_trend(tool_name)
+    
+    max_ntv = max(raw_ntv_data.values()) if raw_ntv_data else 1.0
+    if max_ntv == 0: max_ntv = 1.0
+
     for index, row in df.iterrows():
         tool_id = str(row['ID']).strip()
         if not tool_id or tool_id == 'nan':
@@ -144,12 +152,17 @@ def update_ranking():
         # GitHub repo가 CSV에 없으므로 현재는 기본적으로 0으로 처리, 필요시 추후 컬럼 추가 가능
         gh_repo = "" 
         
-        opr = opr_data.get(domain, 0)
+        opr_raw = opr_data.get(domain, 0)
+        opr = opr_raw * 10  # 10점 만점을 100점 만점으로 변환
         ghs = get_github_score(gh_repo)
-        ntv = get_naver_trend(tool_name)
-        sns = get_xpoz_score(tool_name, opr)
         
-        # 알고리즘 계산
+        # 네이버 트렌드 정규화 (최고점 대비 비율)
+        ntv_raw = raw_ntv_data.get(tool_name, 0)
+        ntv = round((ntv_raw / max_ntv) * 100, 2)
+        
+        sns = get_xpoz_score(tool_name, opr_raw)
+        
+        # 알고리즘 계산 (가중치 적용)
         total_score = round((opr * W_OPR) + (ntv * W_NTV) + (ghs * W_GHS) + (sns * W_SNS), 2)
         
         tools_output[tool_id] = {
