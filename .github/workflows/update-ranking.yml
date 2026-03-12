@@ -30,6 +30,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          NAVER_CLIENT_ID_2: ${{ secrets.NAVER_CLIENT_ID_2 }}
+          NAVER_CLIENT_SECRET_2: ${{ secrets.NAVER_CLIENT_SECRET_2 }}
           XPOZ_API_KEY: ${{ secrets.XPOZ_API_KEY }}
 
       - name: 변경사항 커밋 & 푸시

@@ -5,8 +5,12 @@ import { fileURLToPath } from 'url';
 // 1. API 설정 (환경변수 사용)
 const OPR_API_KEY = process.env.OPR_API_KEY || "";
 const GH_TOKEN = process.env.GH_TOKEN || process.env.GITHUB_TOKEN || "";
-const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID || "";
-const NAVER_CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET || "";
+const NAVER_KEYS = [
+  { id: process.env.NAVER_CLIENT_ID || "", secret: process.env.NAVER_CLIENT_SECRET || "" },
+  { id: process.env.NAVER_CLIENT_ID_2 || "", secret: process.env.NAVER_CLIENT_SECRET_2 || "" }
+].filter(k => k.id && k.secret);
+
+let currentKeyIndex = 0;
 const XPOZ_API_KEY = process.env.XPOZ_API_KEY || "";
 
 // 2. 가중치 설정 (유저 요청: OPR 50%, NTV 30%, GHS 10%, SNS 10%)
@@ -115,7 +119,7 @@ async function getNaverTrendsBatch(keywords, oprScores = {}) {
     results[k] = oprScores[k] || 30;
   });
 
-  if (isNaverBlocked) return results;
+  if (isNaverBlocked || NAVER_KEYS.length === 0) return results;
 
   try {
     const endDate = new Date();
@@ -123,10 +127,7 @@ async function getNaverTrendsBatch(keywords, oprScores = {}) {
     startDate.setDate(endDate.getDate() - 7);
     const formatDate = (d) => d.toISOString().split('T')[0];
 
-    const groups = [];
-    keywords.forEach(k => {
-      groups.push({ groupName: k, keywords: [k] });
-    });
+    const groups = keywords.map(k => ({ groupName: k, keywords: [k] }));
 
     const body = {
       startDate: formatDate(startDate),
@@ -135,23 +136,39 @@ async function getNaverTrendsBatch(keywords, oprScores = {}) {
       keywordGroups: groups
     };
 
-    const response = await fetch("https://openapi.naver.com/v1/datalab/search", {
-      method: "POST",
-      headers: {
-        "X-Naver-Client-Id": NAVER_CLIENT_ID,
-        "X-Naver-Client-Secret": NAVER_CLIENT_SECRET,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(body)
-    });
+    let response;
+    let attempt = 0;
 
-    if (response.status === 429) {
-      console.warn(`    [Naver API Blocked] Using intelligent fallback for remaining tools.`);
-      isNaverBlocked = true;
-      return results;
+    while (attempt < NAVER_KEYS.length) {
+      const key = NAVER_KEYS[currentKeyIndex];
+      response = await fetch("https://openapi.naver.com/v1/datalab/search", {
+        method: "POST",
+        headers: {
+          "X-Naver-Client-Id": key.id,
+          "X-Naver-Client-Secret": key.secret,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (response.status === 429) {
+        console.warn(`    [Naver API] Key ${currentKeyIndex + 1} blocked (429). Rotating to next key...`);
+        currentKeyIndex = (currentKeyIndex + 1) % NAVER_KEYS.length;
+        attempt++;
+        if (attempt === NAVER_KEYS.length) {
+          console.error("    [Naver API] All available keys are blocked.");
+          isNaverBlocked = true;
+          return results;
+        }
+        continue;
+      }
+      break;
     }
 
-    if (!response.ok) return results;
+    if (!response || !response.ok) {
+      if (response) console.warn(`    [Naver API] HTTP Error: ${response.status}`);
+      return results;
+    }
     
     const data = await response.json();
     if (data.results) {
