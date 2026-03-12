@@ -463,6 +463,7 @@ async function updateRanking() {
       console.log(`    [Smart Scaling] ${tool.name} (${tool.domain}): ${oldOpr.toFixed(2)} -> ${opr.toFixed(2)} (x${penalty})`);
     }
 
+    const ghs = tool.metrics_raw.ghs || 0;
     const totalScore = Number(((opr * W_OPR) + (normalizedNtv * W_NTV) + (ghs * W_GHS) + (normalizedSns * W_SNS)).toFixed(2));
     
     toolsOutput[tool.id] = {
