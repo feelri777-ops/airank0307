@@ -338,7 +338,8 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
   const [videos, setVideos] = useState(null); // null=로딩중, []=없음, [...]=있음
 
   useEffect(() => {
-    fetch("/youtube-videos.json")
+    // 캐시 방지를 위해 타임스탬프 추가
+    fetch(`/youtube-videos.json?v=${new Date().getTime()}`)
       .then((r) => r.json())
       .then((data) => {
         const toolVideos = data.videos?.[String(tool.id)];
