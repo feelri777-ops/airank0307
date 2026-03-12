@@ -4,6 +4,49 @@ import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { TOOLS_DATA } from "../../data/tools";
 
+// 점수 상세 바 차트 컴포넌트
+const ScoreDetailBars = ({ tool }) => {
+  const [metrics, setMetrics] = useState(null);
+  useEffect(() => {
+    fetch("/scores.json")
+      .then(r => r.json())
+      .then(data => {
+        const m = data.tools?.[String(tool.id)]?.metrics;
+        if (m) setMetrics(m);
+      })
+      .catch(() => {});
+  }, [tool.id]);
+
+  const items = [
+    { label: "구글(OPR)", key: "opr", color: "#4285F4" },
+    { label: "네이버", key: "ntv", color: "#03C75A" },
+    { label: "깃허브", key: "ghs", color: "#8B5CF6" },
+    { label: "SNS", key: "sns", color: "#F43F5E" },
+  ];
+
+  if (!metrics) return null;
+
+  return (
+    <div style={{ marginTop: "16px", marginBottom: "16px" }}>
+      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px" }}>점수 상세</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        {items.map(({ label, key, color }) => {
+          const val = Math.round(metrics[key] ?? 0);
+          return (
+            <div key={key} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "var(--text-secondary)", width: "58px", flexShrink: 0, textAlign: "right" }}>{label}</span>
+              <div style={{ flex: 1, height: "14px", background: "var(--bg-tertiary)", borderRadius: "7px", overflow: "hidden", position: "relative" }}>
+                <div style={{ width: `${Math.min(100, val)}%`, height: "100%", background: color, borderRadius: "7px", transition: "width 0.6s ease" }} />
+              </div>
+              <span style={{ fontSize: "0.7rem", fontWeight: 800, color, width: "28px", textAlign: "right" }}>{val}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 // 점수 그래프 생성 함수
 const generateSparkData = (tool) => {
   const pseudo = (n) => Math.sin(tool.id * 127.1 + n * 311.7) * 0.5 + 0.5;
@@ -188,7 +231,7 @@ const ScoreTrendChart = ({ tool, rank }) => {
     return Math.max(0, Math.min(100, score - dailyChange * daysAgo));
   });
 
-  const W = 260, H = 110, PAD = 10;
+  const W = 260, H = 40, PAD = 4;
   const minV = Math.max(0, Math.min(...points) - 3);
   const maxV = Math.min(100, Math.max(...points) + 3);
   const range = maxV - minV || 1;
@@ -207,13 +250,13 @@ const ScoreTrendChart = ({ tool, rank }) => {
   const days = ["6일전","5일전","4일전","3일전","2일전","어제","오늘"];
 
   return (
-    <div style={{ marginBottom: "1.5rem" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
-        <h3 style={{ fontSize: "1.05rem", fontWeight: 800, margin: 0, color: "var(--text-primary)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
+    <div style={{ marginBottom: "0.75rem" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+        <h3 style={{ fontSize: "0.8rem", fontWeight: 800, margin: 0, color: "var(--text-primary)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
           📈 최근 7일 점수 추이
         </h3>
         <span style={{
-          fontSize: "0.75rem", fontWeight: 700,
+          fontSize: "0.65rem", fontWeight: 700,
           color: isFlat ? "var(--text-muted)" : isUp ? "#22c55e" : "#f87171",
           fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
         }}>
@@ -221,7 +264,7 @@ const ScoreTrendChart = ({ tool, rank }) => {
         </span>
       </div>
 
-      <div style={{ background: "var(--bg-secondary)", borderRadius: "3px", padding: "14px 12px 8px", position: "relative", border: "1px solid var(--border-primary)" }}>
+      <div style={{ background: "var(--bg-secondary)", borderRadius: "3px", padding: "6px 8px 4px", position: "relative", border: "1px solid var(--border-primary)" }}>
         <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ overflow: "visible", display: "block" }}>
           {/* 그리드 라인 */}
           {[0.25, 0.5, 0.75].map((t) => (
@@ -237,43 +280,25 @@ const ScoreTrendChart = ({ tool, rank }) => {
           <path d={pathD} fill="none" stroke={lineColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           {/* 데이터 포인트 */}
           {points.map((v, i) => (
-            <circle key={i} cx={toX(i)} cy={toY(v)} r={i === 6 ? 4.5 : 3}
+            <circle key={i} cx={toX(i)} cy={toY(v)} r={i === 6 ? 3 : 1.5}
               fill={i === 6 ? lineColor : "var(--bg-card)"}
-              stroke={lineColor} strokeWidth={i === 6 ? 0 : 1.5}
+              stroke={lineColor} strokeWidth={i === 6 ? 0 : 1}
             />
           ))}
           {/* 오늘 점수 라벨 */}
-          <text x={toX(6)} y={toY(points[6]) - 9} textAnchor="middle"
-            fill={lineColor} fontSize="11" fontWeight="700" fontFamily="Pretendard, sans-serif">
+          <text x={toX(6)} y={toY(points[6]) - 5} textAnchor="middle"
+            fill={lineColor} fontSize="8" fontWeight="700" fontFamily="Pretendard, sans-serif">
             {Math.round(points[6])}
           </text>
         </svg>
 
         {/* 날짜 레이블 */}
-        <div style={{ display: "flex", justifyContent: "space-between", paddingLeft: `${PAD}px`, paddingRight: `${PAD}px`, marginTop: "6px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", paddingLeft: `${PAD}px`, paddingRight: `${PAD}px`, marginTop: "2px" }}>
           {[0, 3, 6].map((i) => (
-            <span key={i} style={{ fontSize: "0.62rem", color: "var(--text-muted)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
+            <span key={i} style={{ fontSize: "0.55rem", color: "var(--text-muted)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
               {days[i]}
             </span>
           ))}
-        </div>
-
-        {/* 현재 점수 / 순위 인라인 표시 */}
-        <div style={{ display: "flex", gap: "6px", marginTop: "10px" }}>
-          <div style={{ flex: 1, background: "var(--bg-card)", borderRadius: "4px", padding: "6px 10px", textAlign: "center", border: "1px solid var(--border-primary)" }}>
-            <div style={{ fontSize: "1.1rem", fontWeight: 900, color: "#0ea5e9", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", lineHeight: 1 }}>{Math.round(score)}</div>
-            <div style={{ fontSize: "0.6rem", color: "var(--text-muted)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", marginTop: "2px" }}>현재 점수</div>
-          </div>
-          <div style={{ flex: 1, background: "var(--bg-card)", borderRadius: "4px", padding: "6px 10px", textAlign: "center", border: "1px solid var(--border-primary)" }}>
-            <div style={{ fontSize: "1.1rem", fontWeight: 900, color: "var(--text-primary)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", lineHeight: 1 }}>{rank}위</div>
-            <div style={{ fontSize: "0.6rem", color: "var(--text-muted)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", marginTop: "2px" }}>현재 순위</div>
-          </div>
-          {tool.prevRank && (
-            <div style={{ flex: 1, background: "var(--bg-card)", borderRadius: "4px", padding: "6px 10px", textAlign: "center", border: "1px solid var(--border-primary)" }}>
-              <div style={{ fontSize: "1.1rem", fontWeight: 900, color: "var(--text-secondary)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", lineHeight: 1 }}>{tool.prevRank}위</div>
-              <div style={{ fontSize: "0.6rem", color: "var(--text-muted)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", marginTop: "2px" }}>전일 순위</div>
-            </div>
-          )}
         </div>
       </div>
     </div>
@@ -538,6 +563,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
         {tool.life?.length > 0 && ( <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}><span style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>추천 대상</span><div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>{tool.life.map((l) => ( <span key={l} style={{ fontSize: "0.65rem", padding: "3px 8px", borderRadius: "3px", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600 }}>{LIFE_LABEL[l] ?? l}</span>))}</div></div>)}
       </div>
 
+      <ScoreDetailBars tool={tool} />
+
       {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", textAlign: "center", padding: "12px", borderRadius: "14px", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "0.9rem", textDecoration: "none", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }}>공식 사이트 방문 →</a>)}
     </div>
   );
@@ -568,6 +595,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               {tool.cat && ( <div style={{ display: "flex", alignItems: "center", gap: "10px" }}><span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>카테고리</span><span style={{ fontSize: "0.75rem", padding: "4px 12px", borderRadius: "5px", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700 }}>{CAT_LABEL[tool.cat] ?? tool.cat}</span></div>)}
               {tool.life?.length > 0 && ( <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}><span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>추천 대상</span><div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>{tool.life.map((l) => ( <span key={l} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "4px", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600 }}>{LIFE_LABEL[l] ?? l}</span>))}</div></div>)}
             </div>
+            <ScoreDetailBars tool={tool} />
             {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", textAlign: "center", padding: "14px", borderRadius: "4px", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1rem", textDecoration: "none", transition: "all 0.2s ease", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 20px rgba(79, 70, 229, 0.3)"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 16px rgba(79, 70, 229, 0.2)"; }}>공식 사이트 방문 →</a>)}
           </div>
           <ToolAnalysisCard tool={tool} rank={rank} cardWidth="442px" />
