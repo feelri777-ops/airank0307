@@ -69,16 +69,26 @@ async function main() {
 
   for (const tool of sortedTools) {
     const query = tool.yt || tool.name;
-    console.log(`  [${tool.id}] ${tool.name} → "${query} 사용법"`);
+    const queryKo = tool.ytKo || tool.nameKo || tool.name;
+    
+    console.log(`  [${tool.id}] ${tool.name} 수집 시도...`);
     try {
-      const results = await searchYouTube(query);
+      let results = await searchYouTube(query);
+      
+      // 1차 검색 결과가 없으면 한국어 이름으로 재시도
+      if (results.length === 0 && queryKo !== query) {
+        console.log(`      검색어 "${query}" 결과 없음 → "${queryKo}"로 재시도`);
+        results = await searchYouTube(queryKo);
+      }
+      
       videos[String(tool.id)] = results;
-      console.log(`      ${results.length}개 수집 완료`);
+      console.log(`      ✅ ${results.length}개 수집 성공`);
     } catch (err) {
-      console.error(`      실패: ${err.message}`);
-      videos[String(tool.id)] = [];
+      console.error(`      ❌ 실패: ${err.message}`);
+      // 실패해도 기존 데이터가 있다면 유지하거나 빈 배열
+      if (!videos[String(tool.id)]) videos[String(tool.id)] = [];
     }
-    await sleep(300);
+    await sleep(500); // 간격 약간 늘림
   }
 
   writeFileSync(OUTPUT, JSON.stringify({ updated: new Date().toISOString(), topN: TOP_N, videos }, null, 2));
