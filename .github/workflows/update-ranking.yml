@@ -40,16 +40,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 1. 원격의 최신 변경사항(스크립트 수정본 등)을 먼저 가져옴
-          git fetch origin main
-          git rebase origin/main
-          
-          # 2. 새로 생성된 데이터들을 모두 스테이징
+          # 1. 생성된 모든 데이터 스테이징
           git add .
           
-          # 3. 변경사항이 있으면 커밋하고 푸시 (충돌 방지를 위해 force push 또는 rebase 후 push)
+          # 2. 변경사항이 있는 경우에만 커밋 (로컬 상태를 commit 상태로 만들어야 rebase 가능)
           if ! git diff --staged --quiet; then
             git commit -m "chore: 랭킹 & 유튜브 자동 갱신 [$(date '+%Y-%m-%d %H:%M UTC')]"
+            
+            # 3. 원격의 최신 변경사항과 합치기 (이제 로컬이 깨끗하므로 rebase 가능)
+            git pull --rebase origin main
+            
+            # 4. 최종 푸시
             git push origin main
           else
             echo "변경사항이 없습니다."
