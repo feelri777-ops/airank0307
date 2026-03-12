@@ -533,7 +533,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   const faviconUrl = tool ? getFaviconUrl(tool.url) : null;
 
   useEffect(() => {
-    const checkIsMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkIsMobile = () => setIsMobile(window.innerWidth < 1024);
     checkIsMobile();
     window.addEventListener('resize', checkIsMobile);
     return () => window.removeEventListener('resize', checkIsMobile);
@@ -562,14 +562,14 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
 
   if (!tool) return null;
 
-  const CARD_WIDTH = "min(88vw, 360px)";
+  const CARD_WIDTH = "min(92vw, 480px)";
 
   const card1 = (
     <div style={{
       background: "var(--bg-card)",
       border: "1px solid var(--border-primary)",
       borderRadius: "5px",
-      padding: "1rem",
+      padding: "1.2rem",
       width: CARD_WIDTH,
       flexShrink: 0,
       boxShadow: "0 24px 64px rgba(0,0,0,0.25)",
@@ -581,15 +581,15 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
       <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
         {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name} width={32} height={32} style={{ borderRadius: "4px", objectFit: "contain", flexShrink: 0 }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: "1.8rem" }}>{tool.icon}</span> )}
         <div style={{ flex: 1 }}>
-          <h2 style={{ fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.15rem", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>{tool.name}</h2>
+          <h2 style={{ fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.25rem", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>{tool.name}</h2>
         </div>
       </div>
 
-      <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: "12px" }}>{tool.desc}</p>
+      <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: "12.5px" }}>{tool.desc}</p>
 
       <ScoreDetailBars tool={tool} />
 
-      {tool.features && ( <div style={{ marginBottom: "16px" }}><div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.75rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.4 }}>{f}</span></li>))}</ul></div>)}
+      {tool.features && ( <div style={{ marginBottom: "16px" }}><div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.75rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.4 }}>{f}</span></li>))}</ul></div>)}
 
       <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "16px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.65rem", padding: "3px 8px", borderRadius: "3px", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
 
@@ -597,7 +597,6 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
         {tool.cat && ( <div style={{ display: "flex", alignItems: "center", gap: "8px" }}><span style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>카테고리</span><span style={{ fontSize: "0.7rem", padding: "3px 10px", borderRadius: "5px", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700 }}>{CAT_LABEL[tool.cat] ?? tool.cat}</span></div>)}
         {tool.life?.length > 0 && ( <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}><span style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>추천 대상</span><div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>{tool.life.map((l) => ( <span key={l} style={{ fontSize: "0.65rem", padding: "3px 8px", borderRadius: "3px", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600 }}>{LIFE_LABEL[l] ?? l}</span>))}</div></div>)}
       </div>
-
 
       {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", textAlign: "center", padding: "12px", borderRadius: "14px", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "0.9rem", textDecoration: "none", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }}>공식 사이트 방문 →</a>)}
     </div>
@@ -609,11 +608,13 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
     </div>
   );
 
+  const DESKTOP_CARD_WIDTH = "min(442px, 46vw)";
+
   if (!isMobile) {
     return (
       <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 1000, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)", overflowY: "auto", display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "40px 16px" }}>
-        <div onClick={(e) => e.stopPropagation()} style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", gap: "16px", width: "auto", maxWidth: "100%", margin: "auto" }}>
-          <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "3px", padding: "1.5rem", width: "442px", flexShrink: 0, boxShadow: "0 24px 64px rgba(0,0,0,0.25)", position: "relative", height: "fit-content" }}>
+        <div onClick={(e) => e.stopPropagation()} style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "center", gap: "16px", width: "100%", maxWidth: "1000px", margin: "auto" }}>
+          <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "3px", padding: "1.5rem", width: DESKTOP_CARD_WIDTH, flexShrink: 0, boxShadow: "0 24px 64px rgba(0,0,0,0.25)", position: "relative", height: "fit-content" }}>
             <button onClick={onClose} style={{ position: "absolute", top: "16px", right: "16px", background: "var(--bg-tertiary)", border: "none", borderRadius: "50%", width: "32px", height: "32px", cursor: "pointer", fontSize: "1rem", color: "var(--text-muted)", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
             <button onClick={toggleBookmark} title={user ? (bookmarked ? "북마크 해제" : "북마크 저장") : "로그인 후 북마크 가능"} style={{ position: "absolute", top: "16px", right: "56px", background: bookmarked ? "rgba(239,68,68,0.1)" : "var(--bg-tertiary)", border: bookmarked ? "1px solid #ef4444" : "none", borderRadius: "50%", width: "32px", height: "32px", cursor: "pointer", fontSize: "1.1rem", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s ease", color: bookmarked ? "#ef4444" : "var(--text-muted)" }}>{bookmarked ? "♥" : "♡"}</button>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px" }}>
@@ -632,13 +633,13 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             </div>
             {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", textAlign: "center", padding: "14px", borderRadius: "4px", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1rem", textDecoration: "none", transition: "all 0.2s ease", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 20px rgba(79, 70, 229, 0.3)"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 16px rgba(79, 70, 229, 0.2)"; }}>공식 사이트 방문 →</a>)}
           </div>
-          <ToolAnalysisCard tool={tool} rank={rank} cardWidth="442px" />
+          <ToolAnalysisCard tool={tool} rank={rank} cardWidth={DESKTOP_CARD_WIDTH} />
         </div>
       </div>
     );
   }
 
-  // 모바일 세로 스크롤 UI
+  // 모바일/태블릿 세로 스크롤 UI
   return (
     <div
       onClick={onClose}
