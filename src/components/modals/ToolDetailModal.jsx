@@ -35,6 +35,7 @@ const ScoreDetailBars = ({ tool }) => {
         {items.map(({ logo, key, color, gradient, weight, desc }) => {
           const val = Math.round(metrics[key] ?? 0);
           const isActive = activeTooltip === key;
+          const finalDesc = (key === "ghs" && val === 0) ? `${desc} (비오픈소스)` : desc;
           return (
             <div key={key} style={{ position: "relative" }} ref={el => barRefs.current[key] = el}>
               <div
@@ -60,7 +61,7 @@ const ScoreDetailBars = ({ tool }) => {
                   zIndex: 20, whiteSpace: "nowrap", pointerEvents: "none",
                   animation: "fadeIn 0.2s ease"
                 }}>
-                  {desc}
+                  {finalDesc}
                   <div style={{ position: "absolute", top: "100%", left: "20px", width: 0, height: 0, borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "6px solid var(--border-primary)" }} />
                 </div>
               )}
