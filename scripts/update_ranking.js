@@ -44,6 +44,20 @@ const GITHUB_MAPPING = {
   "Zed": "zed-industries/zed"
 };
 
+// 범용 플랫폼 페널티 설정 (거대 기업 도메인 트래픽 노이즈 방지)
+const PLATFORM_PENALTY = {
+  "aws.amazon.com": 0.15,
+  "amazon.com": 0.1,
+  "google.com": 0.1,
+  "microsoft.com": 0.1,
+  "azure.microsoft.com": 0.15,
+  "adobe.com": 0.25,
+  "apple.com": 0.1,
+  "github.com": 0.3,
+  "facebook.com": 0.1,
+  "bing.com": 0.2
+};
+
 // 3. 데이터 수집 함수들
 async function getOprScore(domains) {
   if (!OPR_API_KEY) return {};
@@ -111,12 +125,24 @@ async function getGithubScore(repoPath) {
 
 let isNaverBlocked = false;
 
-async function getNaverTrendsBatch(keywords, oprScores = {}) {
+async function getNaverTrendsBatch(tools, oprScores = {}) {
   const results = {};
-  keywords.forEach(k => {
-    // 폴백 점수: OPR(글로벌 점수)을 기반으로 국내 트렌드 추정 
-    // 기존의 2 + OPR*0.1 방식은 너무 낮게 잡혀서 정규화 시 격차가 너무 커지므로 OPR 점수를 그대로 사용
-    results[k] = oprScores[k] || 30;
+  
+  // 1. 기본 폴백 설정 및 키워드 정제
+  const groups = tools.map(t => {
+    results[t.name] = oprScores[t.name] || 30;
+    
+    // 네이버 검색 노이즈 필터링 (거대 브랜드는 'AI'를 붙여서 정밀 검색)
+    const isGenericBrand = ["Amazon", "Google", "Microsoft", "Adobe", "Apple"].some(b => t.name.includes(b));
+    const keywords = [t.name];
+    if (t.nameKo) keywords.push(t.nameKo);
+    
+    if (isGenericBrand && !t.name.toLowerCase().includes("ai")) {
+      keywords.push(`${t.name} AI`);
+      if (t.nameKo) keywords.push(`${t.nameKo} AI`);
+    }
+    
+    return { groupName: t.name, keywords };
   });
 
   if (isNaverBlocked || NAVER_KEYS.length === 0) return results;
@@ -126,8 +152,6 @@ async function getNaverTrendsBatch(keywords, oprScores = {}) {
     const startDate = new Date();
     startDate.setDate(endDate.getDate() - 7);
     const formatDate = (d) => d.toISOString().split('T')[0];
-
-    const groups = keywords.map(k => ({ groupName: k, keywords: [k] }));
 
     const body = {
       startDate: formatDate(startDate),
@@ -329,19 +353,22 @@ async function updateRanking() {
   const BATCH_SIZE = 4; 
   for (let i = 0; i < toolsList.length; i += BATCH_SIZE) {
     const batch = toolsList.slice(i, i + BATCH_SIZE);
-    const keywords = batch.map(t => t.name);
 
     // Naver 트렌드 원본 비율 수집 (일관된 스케일을 위해 ChatGPT를 항상 기준점으로 포함)
     const oprMap = {};
     batch.forEach(t => oprMap[t.name] = oprData[t.domain] || 30);
     
     // ChatGPT가 배치에 없으면 명시적으로 추가하여 상대적 비율을 구함
-    const keywordsWithRef = [...new Set([REF_KEYWORD, ...keywords])];
-    const oprMapWithRef = { ...oprMap, [REF_KEYWORD]: oprData["chatgpt.com"] || 63.8 };
+    const toolsWithRef = [...batch];
+    if (!batch.some(t => t.name === REF_KEYWORD)) {
+       toolsWithRef.push({ name: REF_KEYWORD, nameKo: "챗지피티" });
+    }
+    const oprMapWithRef = { ...oprMap, [REF_KEYWORD]: 63.8 };
     
-    const ntvBatch = await getNaverTrendsBatch(keywordsWithRef, oprMapWithRef);
+    const ntvBatch = await getNaverTrendsBatch(toolsWithRef, oprMapWithRef);
     
     // SNS 언급량 수집 (OPR 기반 안정적 보정)
+    const keywords = batch.map(t => t.name);
     const snsBatch = await getXpozScoresBatch(keywords, oprMap);
     
     for (const name in ntvBatch) {
@@ -394,10 +421,15 @@ async function updateRanking() {
     const rawSns = rawSnsData[tool.name] || 0;
     const normalizedSns = Number(((rawSns / maxSnsRatio) * 100).toFixed(2));
     
-    // OPR 점수는 getOprScore()에서 이미 0~100 범위로 변환됨 (pageRank * 10)
-    const opr = tool.metrics_raw.opr;
-    const ghs = tool.metrics_raw.ghs;
-    
+    // OPR 점수 보정 (거대 플랫폼 페널티 적용)
+    let opr = tool.metrics_raw.opr;
+    if (PLATFORM_PENALTY[tool.domain]) {
+      const penalty = PLATFORM_PENALTY[tool.domain];
+      const oldOpr = opr;
+      opr = opr * penalty;
+      console.log(`    [Platform Scaling] ${tool.name} (${tool.domain}): ${oldOpr.toFixed(2)} -> ${opr.toFixed(2)} (x${penalty})`);
+    }
+
     const totalScore = Number(((opr * W_OPR) + (normalizedNtv * W_NTV) + (ghs * W_GHS) + (normalizedSns * W_SNS)).toFixed(2));
     
     toolsOutput[tool.id] = {
