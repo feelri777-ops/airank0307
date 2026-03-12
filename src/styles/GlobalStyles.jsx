@@ -45,6 +45,9 @@ const GlobalStyles = () => (
       --rank1-bg: #FFFBEB;
       --rank2-bg: #F0F9FF;
       --rank3-bg: #FFF7ED;
+      --rank1-shadow: var(--shadow-md);
+      --rank2-shadow: var(--shadow-md);
+      --rank3-shadow: var(--shadow-md);
     }
 
     [data-theme="dark"] {
@@ -71,9 +74,12 @@ const GlobalStyles = () => (
       --tag-color: #818cf8;
       --tag-border: rgba(99, 102, 241, 0.3);
       --modal-overlay: rgba(0, 0, 0, 0.8);
-      --rank1-bg: rgba(245, 158, 11, 0.06);
-      --rank2-bg: rgba(148, 163, 184, 0.06);
-      --rank3-bg: rgba(217, 119, 6, 0.06);
+      --rank1-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0.04) 50%, rgba(245, 158, 11, 0.12) 100%);
+      --rank2-bg: linear-gradient(135deg, rgba(148, 163, 184, 0.12) 0%, rgba(148, 163, 184, 0.04) 50%, rgba(148, 163, 184, 0.12) 100%);
+      --rank3-bg: linear-gradient(135deg, rgba(217, 119, 6, 0.12) 0%, rgba(217, 119, 6, 0.04) 50%, rgba(217, 119, 6, 0.12) 100%);
+      --rank1-shadow: 0 0 20px rgba(245, 158, 11, 0.15), inset 0 0 12px rgba(245, 158, 11, 0.05);
+      --rank2-shadow: 0 0 20px rgba(148, 163, 184, 0.15), inset 0 0 12px rgba(148, 163, 184, 0.05);
+      --rank3-shadow: 0 0 20px rgba(217, 119, 6, 0.15), inset 0 0 12px rgba(217, 119, 6, 0.05);
     }
 
 
@@ -323,6 +329,14 @@ const GlobalStyles = () => (
       0%, 100% { box-shadow: 0 0 6px rgba(148,163,184,0.28); }
       50% { box-shadow: 0 0 18px rgba(148,163,184,0.65), 0 0 36px rgba(148,163,184,0.2); }
     }
+    @keyframes scoreGrow { from { width: 0; } }
+    .rank-card-glow { position: relative; overflow: hidden; }
+    .rank-card-glow::after {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      background: linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%);
+      background-size: 200% 100%; animation: shine 3s infinite linear; pointer-events: none;
+    }
+    @keyframes shine { from { background-position: 200% 0; } to { background-position: -200% 0; } }
   `}</style>
 );
 

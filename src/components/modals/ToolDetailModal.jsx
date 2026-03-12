@@ -47,7 +47,11 @@ const ScoreDetailBars = ({ tool }) => {
                 <img src={logo} alt="" width={21} height={21} style={{ flexShrink: 0, borderRadius: "3px", objectFit: "contain" }} />
                 <span style={{ fontSize: "1rem", fontWeight: 700, color, opacity: 0.8, width: "36px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
                 <div style={{ flex: 1, height: "3px", background: "var(--bg-tertiary)", borderRadius: "2px", overflow: "hidden" }}>
-                  <div style={{ width: `${Math.min(100, val)}%`, height: "100%", background: gradient, borderRadius: "2px", transition: "width 0.8s cubic-bezier(0.4, 0, 0.2, 1)" }} />
+                  <div style={{ 
+                    width: `${Math.min(100, val)}%`, height: "100%", background: gradient, borderRadius: "2px", 
+                    transition: "width 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
+                    animation: "scoreGrow 1s ease-out forwards"
+                  }} />
                 </div>
                 <span style={{ fontSize: "0.65rem", fontWeight: 900, color, width: "24px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
               </div>
