@@ -29,29 +29,30 @@ def get_penalty(domain, tool_name):
     domain_lower = domain.lower()
     tool_name_lower = tool_name.lower().replace(" ", "").replace("-", "").replace(".", "")
     
-    # 플랫폼명 제외한 핵심 이름 추출
+    # Extract core name by removing platform names
     platform_names = ["amazon", "google", "microsoft", "adobe", "apple", "facebook", "github"]
     core_name = tool_name_lower
     for p in platform_names:
         core_name = core_name.replace(p, "")
     
-    # 1. 도메인을 Host와 Path로 분리
     parts = domain_lower.split("/", 1)
     host = parts[0]
     path = parts[1] if len(parts) > 1 else ""
 
-    # [Rule] 툴 네임이 도메인 / 뒤쪽(Path)에 붙는다면 무조건 페널티
+    # [REVISED RULE] User requested consistent 50% penalty (0.5 factor) for non-standalone/platform services
+    
+    # 1. If name is in path -> 50% Penalty
     if len(core_name) > 2 and core_name in path:
-        return 0.4 # 60% 감점 (부속 서비스)
+        return 0.5
 
-    # [Rule] 툴 네임이 도메인 앞쪽(Host)에 붙어있다면 독립 브랜드 인정
+    # 2. If name is in host -> standalone brand (100% score)
     if len(core_name) > 2 and core_name in host:
-        return 1.0 # 페널티 면제 (독립 브랜드)
+        return 1.0
 
-    # 2. 일반적인 거대 플랫폼 페널티
+    # 3. If it's a known big platform but name not matched -> 50% Penalty
     for platform in BIG_PLATFORMS:
         if platform in host:
-            return 0.5 # 50% 감점
+            return 0.5
             
     return 1.0
 
@@ -80,7 +81,7 @@ def recompute():
     tools = scores_data.get('tools', {})
     updated_tools = {}
 
-    print("--- Recomputing scores with 'Host vs Path' Smart Penalty ---")
+    print("--- Recomputing scores with Consistent 50% Penalty ---")
 
     for tid, tool in tools.items():
         domain = id_to_domain.get(tid, "")
@@ -89,26 +90,28 @@ def recompute():
         
         penalty = get_penalty(domain, name)
         
-        # 원본 지표 추정 (지난번 저장이 이미 보정본일 수 있으므로 0.5/0.7/0.1 등으로 역산)
-        # recompute.py를 여러번 실행할 때 스케일링이 중첩되지 않도록 안전장치
         opr = metrics.get('opr', 0)
         ntv = metrics.get('ntv', 0)
         sns = metrics.get('sns', 0)
         ghs = metrics.get('ghs', 0)
 
-        # 이전 로직(0.7, 0.5, 1.0 등)의 흔적 제거 및 raw 복구
-        # (현실적으로는 scores.json에 원본 metrics_raw를 따로 두는게 좋으나 현재 구조상 역산 시도)
+        # Restore raw metrics first based on PREVIOUS logic to ensure we don't multiply penalties
+        # Previous recompute.py and github states used 0.7, 0.4, 0.5 etc.
+        # Let's use a safe normalization approach: scale current metrics back to raw estimate
+        # (Assuming the most recent recompute results are what we see in metrics)
+        
         old_factor = 1.0
-        if "gemini" in name.lower() or "gemini" in domain.lower(): old_factor = 1.0 # 지난번에 이미 1.0이었음
-        elif "/" in domain: old_factor = 0.4
+        # This part estimates the factor used in the *current* scores.json to reverse it.
+        # gemini was 1.0, github copilot was 0.4, others were 0.5.
+        if "gemini" in name.lower() or "gemini" in domain.lower(): old_factor = 1.0
+        elif "/" in domain: old_factor = 0.4 # from previous script version
         elif any(p in domain.lower() for p in BIG_PLATFORMS): old_factor = 0.5
         
-        # 안전한 역산을 위해 raw 데이터가 100을 넘지 않도록 조정
         raw_opr = min(100, opr / old_factor) if old_factor > 0 else opr
         raw_ntv = min(100, ntv / old_factor) if old_factor > 0 else ntv
         raw_sns = min(100, sns / old_factor) if old_factor > 0 else sns
 
-        # 새 페널티 적용
+        # Apply New Standardized Penalty (0.5 for all non-standalone cases)
         new_opr = raw_opr * penalty
         new_ntv = raw_ntv * penalty
         new_sns = raw_sns * penalty
@@ -124,7 +127,7 @@ def recompute():
             'sns': round(new_sns, 2)
         }
         if penalty < 1.0:
-            print(f"  [Penalty: Path-based or Platform] {name} ({domain}) Factor: {penalty}")
+            print(f"  [Penalty 50%] {name} ({domain}) applied.")
 
     scores_data['updated'] = datetime.utcnow().isoformat() + 'Z'
     
@@ -152,7 +155,7 @@ def recompute():
     except Exception as e:
         print(f"Report Error: {e}")
 
-    print("Success: Host vs Path based smart penalty applied.")
+    print("Success: Standardized 50% penalty applied.")
 
 if __name__ == "__main__":
     recompute()
