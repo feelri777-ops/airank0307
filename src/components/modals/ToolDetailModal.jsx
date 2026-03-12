@@ -30,29 +30,29 @@ const ScoreDetailBars = ({ tool }) => {
 
   return (
     <div style={{ marginBottom: "12px" }} onClick={(e) => e.stopPropagation()}>
-      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>점수 상세</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "6px" }}>점수 상세</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
         {items.map(({ logo, key, color, gradient, weight, desc }) => {
           const val = Math.round(metrics[key] ?? 0);
           const isActive = activeTooltip === key;
           return (
             <div key={key} style={{ position: "relative" }} ref={el => barRefs.current[key] = el}>
               <div
-                style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", padding: "2px 0" }}
+                style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", padding: "1px 0" }}
                 onClick={(e) => { e.stopPropagation(); setActiveTooltip(prev => prev === key ? null : key); }}
                 onMouseEnter={() => setActiveTooltip(key)}
                 onMouseLeave={() => setActiveTooltip(null)}
               >
-                <img src={logo} alt="" width={14} height={14} style={{ flexShrink: 0, borderRadius: "2px", objectFit: "contain" }} />
-                <span style={{ fontSize: "0.65rem", fontWeight: 700, color, opacity: 0.7, width: "24px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
+                <img src={logo} alt="" width={21} height={21} style={{ flexShrink: 0, borderRadius: "3px", objectFit: "contain" }} />
+                <span style={{ fontSize: "1rem", fontWeight: 700, color, opacity: 0.8, width: "36px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
                 <div style={{ flex: 1, height: "3px", background: "var(--bg-tertiary)", borderRadius: "2px", overflow: "hidden" }}>
                   <div style={{ width: `${Math.min(100, val)}%`, height: "100%", background: gradient, borderRadius: "2px", transition: "width 0.8s cubic-bezier(0.4, 0, 0.2, 1)" }} />
                 </div>
-                <span style={{ fontSize: "0.95rem", fontWeight: 900, color, width: "32px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
+                <span style={{ fontSize: "0.65rem", fontWeight: 900, color, width: "24px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
               </div>
               {isActive && (
                 <div style={{
-                  position: "absolute", left: "50px", bottom: "100%", marginBottom: "6px",
+                  position: "absolute", left: "60px", bottom: "100%", marginBottom: "6px",
                   fontSize: "0.75rem", color: "var(--text-secondary)", lineHeight: 1.4,
                   padding: "8px 12px", background: "var(--bg-card)", borderRadius: "6px",
                   border: "1px solid var(--border-primary)",
