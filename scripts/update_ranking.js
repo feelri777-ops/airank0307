@@ -9,11 +9,11 @@ const NAVER_CLIENT_ID = process.env.NAVER_CLIENT_ID || "";
 const NAVER_CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET || "";
 const XPOZ_API_KEY = process.env.XPOZ_API_KEY || "";
 
-// 2. 가중치 설정 (유저 요청: OPR 50%, NTV 25%, GHS 10%, SNS 15%)
+// 2. 가중치 설정 (유저 요청: OPR 50%, NTV 30%, GHS 10%, SNS 10%)
 const W_OPR = 0.5;  // 글로벌 권위도 (구글 트래픽)
-const W_NTV = 0.25; // 국내 검색 트렌드 (네이버)
+const W_NTV = 0.30; // 국내 검색 트렌드 (네이버)
 const W_GHS = 0.1;  // 기술 파급력 (GitHub)
-const W_SNS = 0.15; // SNS 화제성 (XPOZ)
+const W_SNS = 0.10; // SNS 화제성 (XPOZ)
 
 const REF_KEYWORD = "ChatGPT"; // 데이터 연동을 위한 기준점
 
@@ -110,11 +110,10 @@ let isNaverBlocked = false;
 async function getNaverTrendsBatch(keywords, oprScores = {}) {
   const results = {};
   keywords.forEach(k => {
-    // 지능형 기본값: OPR(글로벌 점수)을 기반으로 국내 트렌드 추정 (쏠림 방지)
-    const baseOPR = oprScores[k] || 30;
-    results[k] = Number((2 + (baseOPR * 0.1)).toFixed(2)); 
+    // 폴백 점수: OPR(글로벌 점수)을 기반으로 국내 트렌드 추정 
+    // 기존의 2 + OPR*0.1 방식은 너무 낮게 잡혀서 정규화 시 격차가 너무 커지므로 OPR 점수를 그대로 사용
+    results[k] = oprScores[k] || 30;
   });
-  results[REF_KEYWORD] = 100.0;
 
   if (isNaverBlocked) return results;
 
@@ -314,11 +313,16 @@ async function updateRanking() {
   for (let i = 0; i < toolsList.length; i += BATCH_SIZE) {
     const batch = toolsList.slice(i, i + BATCH_SIZE);
     const keywords = batch.map(t => t.name);
-    
-    // Naver 트렌드 원본 비율 수집 (ChatGPT를 연결 고리로 사용)
+
+    // Naver 트렌드 원본 비율 수집 (일관된 스케일을 위해 ChatGPT를 항상 기준점으로 포함)
     const oprMap = {};
     batch.forEach(t => oprMap[t.name] = oprData[t.domain] || 30);
-    const ntvBatch = await getNaverTrendsBatch(keywords, oprMap);
+    
+    // ChatGPT가 배치에 없으면 명시적으로 추가하여 상대적 비율을 구함
+    const keywordsWithRef = [...new Set([REF_KEYWORD, ...keywords])];
+    const oprMapWithRef = { ...oprMap, [REF_KEYWORD]: oprData["chatgpt.com"] || 63.8 };
+    
+    const ntvBatch = await getNaverTrendsBatch(keywordsWithRef, oprMapWithRef);
     
     // SNS 언급량 수집 (OPR 기반 안정적 보정)
     const snsBatch = await getXpozScoresBatch(keywords, oprMap);
