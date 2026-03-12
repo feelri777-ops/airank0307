@@ -8,13 +8,12 @@ on:
 jobs:
   update-news:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: 코드 체크아웃
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PAT_TOKEN }}
-          persist-credentials: true
 
       - name: Node.js 설정
         uses: actions/setup-node@v4
@@ -34,7 +33,23 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/news.json
-          git diff --staged --quiet || git commit -m "chore: 뉴스 자동 갱신 [$(date '+%Y-%m-%d %H:%M UTC')]"
-          git pull --rebase https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/feelri777-ops/airank0307.git main
-          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/feelri777-ops/airank0307.git HEAD:main
+          
+          # 1. 생성된 데이터들을 잠시 보관 (Stash)
+          git add .
+          git stash
+          
+          # 2. 원격의 최신 변경사항을 가져와서 합침 (Rebase)
+          git pull --rebase origin main
+          
+          # 3. 보관했던 데이터들을 다시 꺼냄
+          git stash pop || echo "No changes to pop"
+          
+          # 4. 최종 변경 확인 및 KST 날짜로 커밋/푸시
+          git add .
+          if ! git diff --staged --quiet; then
+            COMMIT_MSG="chore: 뉴스 자동 갱신 [$(TZ='Asia/Seoul' date '+%Y-%m-%d %H:%M KST')]"
+            git commit -m "$COMMIT_MSG"
+            git push origin main
+          else
+            echo "변경된 데이터가 없어 푸시를 생략합니다."
+          fi
