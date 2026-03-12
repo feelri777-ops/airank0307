@@ -22,8 +22,8 @@ const ScoreDetailBars = ({ tool }) => {
   const items = [
     { logo: "https://www.google.com/s2/favicons?domain=google.com&sz=32", key: "opr", color: "#4285F4", gradient: "linear-gradient(90deg, #4285F4, #669DF6)", weight: "50%", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
     { logo: "https://www.google.com/s2/favicons?domain=naver.com&sz=32", key: "ntv", color: "#03C75A", gradient: "linear-gradient(90deg, #03C75A, #2BD97C)", weight: "25%", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
-    { logo: "https://www.google.com/s2/favicons?domain=github.com&sz=32", key: "ghs", color: "#8B5CF6", gradient: "linear-gradient(90deg, #8B5CF6, #A78BFA)", weight: "10%", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
     { logo: "https://www.google.com/s2/favicons?domain=x.com&sz=32", key: "sns", color: "#F43F5E", gradient: "linear-gradient(90deg, #F43F5E, #FB7185)", weight: "15%", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
+    { logo: "https://www.google.com/s2/favicons?domain=github.com&sz=32", key: "ghs", color: "#8B5CF6", gradient: "linear-gradient(90deg, #8B5CF6, #A78BFA)", weight: "10%", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
   ];
 
   if (!metrics) return null;
@@ -53,7 +53,7 @@ const ScoreDetailBars = ({ tool }) => {
                     animation: "scoreGrow 1s ease-out forwards"
                   }} />
                 </div>
-                <span style={{ fontSize: "0.65rem", fontWeight: 900, color, width: "24px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
+                <span style={{ fontSize: "1.3rem", fontWeight: 900, color, width: "40px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
               </div>
               {isActive && (
                 <div style={{
