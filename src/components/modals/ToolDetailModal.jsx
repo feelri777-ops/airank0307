@@ -7,6 +7,7 @@ import { TOOLS_DATA } from "../../data/tools";
 // 점수 상세 바 차트 컴포넌트
 const ScoreDetailBars = ({ tool }) => {
   const [metrics, setMetrics] = useState(null);
+  const [activeTooltip, setActiveTooltip] = useState(null);
   useEffect(() => {
     fetch("/scores.json")
       .then(r => r.json())
@@ -18,27 +19,51 @@ const ScoreDetailBars = ({ tool }) => {
   }, [tool.id]);
 
   const items = [
-    { label: "구글(OPR)", key: "opr", color: "#4285F4" },
-    { label: "네이버", key: "ntv", color: "#03C75A" },
-    { label: "깃허브", key: "ghs", color: "#8B5CF6" },
-    { label: "SNS", key: "sns", color: "#F43F5E" },
+    { label: "구글", key: "opr", color: "#4285F4", gradient: "linear-gradient(90deg, #4285F4, #669DF6)", weight: "50%", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
+    { label: "네이버", key: "ntv", color: "#03C75A", gradient: "linear-gradient(90deg, #03C75A, #2BD97C)", weight: "25%", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
+    { label: "깃허브", key: "ghs", color: "#8B5CF6", gradient: "linear-gradient(90deg, #8B5CF6, #A78BFA)", weight: "10%", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
+    { label: "SNS", key: "sns", color: "#F43F5E", gradient: "linear-gradient(90deg, #F43F5E, #FB7185)", weight: "15%", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
   ];
 
   if (!metrics) return null;
 
+  const handleToggle = (key) => {
+    setActiveTooltip(prev => prev === key ? null : key);
+  };
+
   return (
     <div style={{ marginTop: "16px", marginBottom: "16px" }}>
-      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px" }}>점수 상세</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        {items.map(({ label, key, color }) => {
+      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "12px" }}>점수 상세</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+        {items.map(({ label, key, color, gradient, weight, desc }) => {
           const val = Math.round(metrics[key] ?? 0);
+          const isActive = activeTooltip === key;
           return (
-            <div key={key} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "var(--text-secondary)", width: "58px", flexShrink: 0, textAlign: "right" }}>{label}</span>
-              <div style={{ flex: 1, height: "14px", background: "var(--bg-tertiary)", borderRadius: "7px", overflow: "hidden", position: "relative" }}>
-                <div style={{ width: `${Math.min(100, val)}%`, height: "100%", background: color, borderRadius: "7px", transition: "width 0.6s ease" }} />
+            <div key={key}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", padding: "3px 0" }}
+                onMouseEnter={() => setActiveTooltip(key)}
+                onMouseLeave={() => setActiveTooltip(null)}
+                onTouchStart={() => handleToggle(key)}
+              >
+                <span style={{ fontSize: "0.68rem", fontWeight: 600, color: "var(--text-muted)", width: "42px", flexShrink: 0, textAlign: "right" }}>{label}</span>
+                <span style={{ fontSize: "0.55rem", fontWeight: 700, color, opacity: 0.7, width: "22px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
+                <div style={{ flex: 1, height: "7px", background: "var(--bg-tertiary)", borderRadius: "4px", overflow: "hidden", position: "relative" }}>
+                  <div style={{ width: `${Math.min(100, val)}%`, height: "100%", background: gradient, borderRadius: "4px", transition: "width 0.8s cubic-bezier(0.4, 0, 0.2, 1)", boxShadow: `0 0 8px ${color}40` }} />
+                </div>
+                <span style={{ fontSize: "0.85rem", fontWeight: 900, color, width: "30px", textAlign: "right", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>{val}</span>
               </div>
-              <span style={{ fontSize: "0.7rem", fontWeight: 800, color, width: "28px", textAlign: "right" }}>{val}</span>
+              {isActive && (
+                <div style={{
+                  marginLeft: "72px", marginTop: "2px", marginBottom: "2px",
+                  fontSize: "0.6rem", color: "var(--text-muted)", lineHeight: 1.4,
+                  padding: "5px 8px", background: "var(--bg-tertiary)", borderRadius: "4px",
+                  border: "1px solid var(--border-primary)",
+                  animation: "fadeIn 0.15s ease"
+                }}>
+                  {desc}
+                </div>
+              )}
             </div>
           );
         })}
@@ -46,6 +71,7 @@ const ScoreDetailBars = ({ tool }) => {
     </div>
   );
 };
+
 
 // 점수 그래프 생성 함수
 const generateSparkData = (tool) => {
