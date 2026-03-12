@@ -8,6 +8,7 @@ import { TOOLS_DATA } from "../../data/tools";
 const ScoreDetailBars = ({ tool }) => {
   const [metrics, setMetrics] = useState(null);
   const [activeTooltip, setActiveTooltip] = useState(null);
+  const barRefs = useRef({});
   useEffect(() => {
     fetch("/scores.json")
       .then(r => r.json())
@@ -28,36 +29,38 @@ const ScoreDetailBars = ({ tool }) => {
   if (!metrics) return null;
 
   return (
-    <div style={{ marginTop: "16px", marginBottom: "16px" }} onClick={(e) => e.stopPropagation()}>
-      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "12px" }}>점수 상세</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+    <div style={{ marginBottom: "12px" }} onClick={(e) => e.stopPropagation()}>
+      <div style={{ fontSize: "0.68rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "6px" }}>점수 상세</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
         {items.map(({ label, key, color, gradient, weight, desc }) => {
           const val = Math.round(metrics[key] ?? 0);
           const isActive = activeTooltip === key;
           return (
-            <div key={key}>
+            <div key={key} style={{ position: "relative" }} ref={el => barRefs.current[key] = el}>
               <div
-                style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", padding: "3px 0" }}
+                style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer", padding: "2px 0" }}
                 onClick={(e) => { e.stopPropagation(); setActiveTooltip(prev => prev === key ? null : key); }}
                 onMouseEnter={() => setActiveTooltip(key)}
                 onMouseLeave={() => setActiveTooltip(null)}
               >
-                <span style={{ fontSize: "0.68rem", fontWeight: 600, color: "var(--text-muted)", width: "42px", flexShrink: 0, textAlign: "right" }}>{label}</span>
-                <span style={{ fontSize: "0.55rem", fontWeight: 700, color, opacity: 0.7, width: "22px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
-                <div style={{ flex: 1, height: "7px", background: "var(--bg-tertiary)", borderRadius: "4px", overflow: "hidden", position: "relative" }}>
-                  <div style={{ width: `${Math.min(100, val)}%`, height: "100%", background: gradient, borderRadius: "4px", transition: "width 0.8s cubic-bezier(0.4, 0, 0.2, 1)", boxShadow: `0 0 8px ${color}40` }} />
+                <span style={{ fontSize: "0.6rem", fontWeight: 600, color: "var(--text-muted)", width: "36px", flexShrink: 0, textAlign: "right" }}>{label}</span>
+                <span style={{ fontSize: "0.5rem", fontWeight: 700, color, opacity: 0.6, width: "20px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
+                <div style={{ flex: 1, height: "3px", background: "var(--bg-tertiary)", borderRadius: "2px", overflow: "hidden" }}>
+                  <div style={{ width: `${Math.min(100, val)}%`, height: "100%", background: gradient, borderRadius: "2px", transition: "width 0.8s cubic-bezier(0.4, 0, 0.2, 1)" }} />
                 </div>
-                <span style={{ fontSize: "0.85rem", fontWeight: 900, color, width: "30px", textAlign: "right", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>{val}</span>
+                <span style={{ fontSize: "0.82rem", fontWeight: 900, color, width: "28px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
               </div>
               {isActive && (
                 <div style={{
-                  marginLeft: "72px", marginTop: "2px", marginBottom: "2px",
-                  fontSize: "0.6rem", color: "var(--text-muted)", lineHeight: 1.4,
-                  padding: "5px 8px", background: "var(--bg-tertiary)", borderRadius: "4px",
+                  position: "absolute", left: "60px", bottom: "100%", marginBottom: "4px",
+                  fontSize: "0.58rem", color: "var(--text-secondary)", lineHeight: 1.4,
+                  padding: "6px 10px", background: "var(--bg-card)", borderRadius: "6px",
                   border: "1px solid var(--border-primary)",
-                  opacity: 1, transition: "opacity 0.15s ease"
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
+                  zIndex: 10, whiteSpace: "nowrap", pointerEvents: "none",
                 }}>
                   {desc}
+                  <div style={{ position: "absolute", top: "100%", left: "20px", width: 0, height: 0, borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "5px solid var(--border-primary)" }} />
                 </div>
               )}
             </div>
@@ -575,7 +578,9 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
         </div>
       </div>
 
-      <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: "16px" }}>{tool.desc}</p>
+      <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: "12px" }}>{tool.desc}</p>
+
+      <ScoreDetailBars tool={tool} />
 
       {tool.features && ( <div style={{ marginBottom: "16px" }}><div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.75rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.4 }}>{f}</span></li>))}</ul></div>)}
 
@@ -586,7 +591,6 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
         {tool.life?.length > 0 && ( <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}><span style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>추천 대상</span><div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>{tool.life.map((l) => ( <span key={l} style={{ fontSize: "0.65rem", padding: "3px 8px", borderRadius: "3px", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600 }}>{LIFE_LABEL[l] ?? l}</span>))}</div></div>)}
       </div>
 
-      <ScoreDetailBars tool={tool} />
 
       {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", textAlign: "center", padding: "12px", borderRadius: "14px", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "0.9rem", textDecoration: "none", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }}>공식 사이트 방문 →</a>)}
     </div>
@@ -611,14 +615,14 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 <h2 style={{ fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.5rem", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>{tool.name}</h2>
               </div>
             </div>
-            <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>{tool.desc}</p>
+            <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "16px" }}>{tool.desc}</p>
+            <ScoreDetailBars tool={tool} />
             {tool.features && ( <div style={{ marginBottom: "24px" }}><div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.8rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{f}</span></li>))}</ul></div>)}
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "24px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "4px", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
             <div style={{ marginBottom: "24px", display: "flex", flexDirection: "column", gap: "12px" }}>
               {tool.cat && ( <div style={{ display: "flex", alignItems: "center", gap: "10px" }}><span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>카테고리</span><span style={{ fontSize: "0.75rem", padding: "4px 12px", borderRadius: "5px", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700 }}>{CAT_LABEL[tool.cat] ?? tool.cat}</span></div>)}
               {tool.life?.length > 0 && ( <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}><span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>추천 대상</span><div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>{tool.life.map((l) => ( <span key={l} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "4px", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600 }}>{LIFE_LABEL[l] ?? l}</span>))}</div></div>)}
             </div>
-            <ScoreDetailBars tool={tool} />
             {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", textAlign: "center", padding: "14px", borderRadius: "4px", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1rem", textDecoration: "none", transition: "all 0.2s ease", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 20px rgba(79, 70, 229, 0.3)"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 16px rgba(79, 70, 229, 0.2)"; }}>공식 사이트 방문 →</a>)}
           </div>
           <ToolAnalysisCard tool={tool} rank={rank} cardWidth="442px" />
