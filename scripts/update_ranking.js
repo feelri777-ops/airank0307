@@ -479,10 +479,14 @@ async function updateRanking() {
   });
 
   // 결과 생성 전, 어제 데이터(history 파일)를 읽어와서 change 변동폭 계산
-  const todayStr = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  const yesterdayStr = yesterday.toISOString().split('T')[0];
+  const now = new Date();
+  const kstOffset = 9 * 60 * 60 * 1000;
+  const kstDate = new Date(now.getTime() + kstOffset);
+  const todayStr = kstDate.toISOString().split('T')[0]; // YYYY-MM-DD (KST)
+  
+  const yesterday = new Date(now.getTime() - (24 * 60 * 60 * 1000));
+  const yesterdayKst = new Date(yesterday.getTime() + kstOffset);
+  const yesterdayStr = yesterdayKst.toISOString().split('T')[0];
 
   const historyDir = path.join(__dirname, '..', 'public', 'history');
   if (!fs.existsSync(historyDir)) {
