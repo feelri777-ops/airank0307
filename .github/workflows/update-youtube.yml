@@ -1,12 +1,12 @@
-name: 랭킹 자동 갱신 (매일 새벽 3시)
+name: 유튜브 자동 갱신 (매일 새벽 4시)
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 매일 새벽 3시 KST (UTC 18:00)
+    - cron: '0 19 * * *'  # 매일 새벽 4시 KST (UTC 19:00)
   workflow_dispatch:
 
 jobs:
-  update-ranking:
+  update-youtube:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -23,14 +23,10 @@ jobs:
       - name: 의존성 설치
         run: npm install
 
-      - name: 랭킹 점수 갱신
-        run: node scripts/update_ranking.js
+      - name: 유튜브 영상 수집
+        run: node scripts/fetch-youtube.js
         env:
-          OPR_API_KEY: ${{ secrets.OPR_API_KEY }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
-          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
-          XPOZ_API_KEY: ${{ secrets.XPOZ_API_KEY }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
       - name: 변경사항 커밋 & 푸시
         run: |
@@ -50,7 +46,7 @@ jobs:
           # 4. 최종 변경 확인 및 KST 날짜로 커밋/푸시
           git add .
           if ! git diff --staged --quiet; then
-            COMMIT_MSG="chore: 랭킹 자동 갱신 [$(TZ='Asia/Seoul' date '+%Y-%m-%d %H:%M KST')]"
+            COMMIT_MSG="chore: 유튜브 자동 갱신 [$(TZ='Asia/Seoul' date '+%Y-%m-%d %H:%M KST')]"
             git commit -m "$COMMIT_MSG"
             git push origin main
           else
