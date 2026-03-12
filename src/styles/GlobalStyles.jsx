@@ -7,39 +7,44 @@ const GlobalStyles = () => (
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:ital,wght@0,500;1,500&display=swap');
 
     :root {
-      --bg-primary: #e8e8e8;
-      --bg-secondary: #f2f2f2;
-      --bg-tertiary: #e0e0e0;
-      --bg-card: #f5f5f5;
-      --bg-card-hover: #ebebeb;
-      --bg-nav: rgba(232, 232, 232, 0.94);
-      --text-primary: #000000;
-      --text-secondary: #555555;
-      --text-muted: #999999;
-      --border-primary: rgba(0, 0, 0, 0.08);
-      --border-hover: rgba(99, 102, 241, 0.3);
-      --accent-indigo: #6366f1;
-      --accent-cyan: #06b6d4;
-      --accent-gradient: linear-gradient(135deg, #6366f1, #06b6d4);
-      --color-green: #22c55e;
-      --color-red: #ef4444;
-      --color-gold: #f59e0b;
-      --color-silver: #94a3b8;
-      --color-bronze: #d97706;
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
-      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
-      --blob-opacity: 0.05;
-      --noise-opacity: 0.03;
-      --ticker-bg: rgba(99, 102, 241, 0.04);
-      --ticker-border: rgba(99, 102, 241, 0.12);
-      --tag-bg: rgba(99, 102, 241, 0.08);
-      --tag-color: #6366f1;
-      --tag-border: rgba(99, 102, 241, 0.2);
-      --modal-overlay: rgba(0, 0, 0, 0.4);
-      --font-main: 'IBM Plex Sans KR', 'Pretendard', -apple-system, sans-serif;
-      --font-title: 'IBM Plex Sans KR', 'Pretendard', -apple-system, sans-serif;
+      /* ── Cursor.com 스타일 미니멀 화이트 ── */
+      --bg-primary: #FFFFFF;
+      --bg-secondary: #FAFAFA;
+      --bg-tertiary: #F5F5F5;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #FAFAFA;
+      --bg-nav: rgba(255, 255, 255, 0.85);
+      --text-primary: #1A1A1A;
+      --text-secondary: #6B7280;
+      --text-muted: #9CA3AF;
+      --border-primary: #E5E7EB;
+      --border-hover: rgba(124, 58, 237, 0.3);
+      --accent-indigo: #7C3AED;
+      --accent-cyan: #2563EB;
+      --accent-gradient: linear-gradient(135deg, #7C3AED, #2563EB);
+      --color-green: #10B981;
+      --color-red: #EF4444;
+      --color-gold: #F59E0B;
+      --color-silver: #94A3B8;
+      --color-bronze: #D97706;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08);
+      --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+      --blob-opacity: 0.03;
+      --noise-opacity: 0.015;
+      --ticker-bg: rgba(124, 58, 237, 0.03);
+      --ticker-border: rgba(124, 58, 237, 0.08);
+      --tag-bg: rgba(124, 58, 237, 0.05);
+      --tag-color: #7C3AED;
+      --tag-border: rgba(124, 58, 237, 0.12);
+      --modal-overlay: rgba(0, 0, 0, 0.3);
+      --font-main: 'Pretendard', -apple-system, 'Segoe UI', sans-serif;
+      --font-title: 'Pretendard', -apple-system, 'Segoe UI', sans-serif;
+      /* 1, 2, 3위 카드 파스텔 배경 */
+      --rank1-bg: #FFFBEB;
+      --rank2-bg: #F0F9FF;
+      --rank3-bg: #FFF7ED;
     }
 
     [data-theme="dark"] {
@@ -66,6 +71,9 @@ const GlobalStyles = () => (
       --tag-color: #818cf8;
       --tag-border: rgba(99, 102, 241, 0.3);
       --modal-overlay: rgba(0, 0, 0, 0.8);
+      --rank1-bg: rgba(245, 158, 11, 0.06);
+      --rank2-bg: rgba(148, 163, 184, 0.06);
+      --rank3-bg: rgba(217, 119, 6, 0.06);
     }
 
 
@@ -101,6 +109,9 @@ const GlobalStyles = () => (
       --tag-color: #b0b0b0;
       --tag-border: rgba(255, 255, 255, 0.12);
       --modal-overlay: rgba(0, 0, 0, 0.7);
+      --rank1-bg: rgba(255, 255, 255, 0.04);
+      --rank2-bg: rgba(255, 255, 255, 0.03);
+      --rank3-bg: rgba(255, 255, 255, 0.02);
     }
 
     /* ── 조선 머슴 테마 (chosun) — 먹빛 한지 ── */
@@ -140,6 +151,9 @@ const GlobalStyles = () => (
       --font-title: 'Nanum Myeongjo', serif;
       --ticker-bg: rgba(150, 135, 110, 0.06);
       --ticker-border: rgba(150, 135, 110, 0.12);
+      --rank1-bg: rgba(184, 156, 106, 0.08);
+      --rank2-bg: rgba(122, 122, 122, 0.06);
+      --rank3-bg: rgba(140, 110, 74, 0.06);
     }
 
     /* 조선 테마에서 제목 굵기 조정 및 가로 흔들림 방지 */
@@ -156,6 +170,8 @@ const GlobalStyles = () => (
       font-family: var(--font-main);
       font-size: 16px;
       font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.65;
       background: var(--bg-primary);
       color: var(--text-primary);
       transition: background 0.35s ease, color 0.35s ease;

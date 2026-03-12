@@ -137,24 +137,21 @@ const ToolCard = ({ tool, rank, onClick }) => {
     );
   }
 
+  const RANK_BG = { 1: "var(--rank1-bg)", 2: "var(--rank2-bg)", 3: "var(--rank3-bg)" };
   const delay = `${Math.min(rank, 20) * 0.04}s`;
   return (
-    <div style={{
+    <div onClick={onClick} style={{
       borderRadius: "16px",
-      padding: "2px",
-      background: BORDER_GRADIENT[rank],
+      padding: "1rem 1.1rem",
+      background: RANK_BG[rank] || "var(--bg-card)",
+      border: `1px solid var(--border-primary)`,
+      boxShadow: "var(--shadow-md)",
       opacity: 0,
-      animation: `fadeInUp 0.4s ease forwards, ${GLOW_ANIM[rank]} 2.5s ease-in-out infinite`,
-      animationDelay: `${delay}, ${delay}`,
+      animation: `fadeInUp 0.4s ease forwards`,
+      animationDelay: delay,
       cursor: "pointer",
     }}>
-      <div onClick={onClick} style={{
-        borderRadius: "14px",
-        background: "var(--bg-card)",
-        padding: "1rem 1.1rem",
-      }}>
-        {inner}
-      </div>
+      {inner}
     </div>
   );
 };
