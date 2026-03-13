@@ -559,7 +559,10 @@ async function updateRanking() {
   }
 
   const updatedOriginalCsv = ['ID\tService Name\tAnalysis Domain\tRank\tScore\tOpenSource']
-    .concat(toolsList.map(t => `${t.id}\t${t.name}\t${t.domain}\t${t.rank}\t${t.originalScore}\t${t.isOpenSource}`));
+    .concat(sortedList.sort((a,b) => a.id - b.id).map((t, idx) => {
+      const currentRank = sortedList.findIndex(x => x.id === t.id) + 1;
+      return `${t.id}\t${t.name}\t${t.domain}\t${currentRank}\t${t.score}\t${t.isOpenSource}`;
+    }));
   fs.writeFileSync(csvPath, updatedOriginalCsv.join('\n'), 'utf8');
   console.log(`✅ [원본 데이터 연동] data/airank2602.csv 오픈소스 속성 갱신 완료!`);
 }

@@ -1,5 +1,5 @@
 ID	Service Name	Analysis Domain	Rank	Score	OpenSource
-1	ChatGPT	chatgpt.com	1	100	Y
+1	ChatGPT	chat.openai.com	1	100	Y
 2	Claude	claude.ai	2	100	Y
 3	Gemini	gemini.google.com	3	100	N
 4	DeepSeek	chat.deepseek.com	4	100	Y
@@ -10,7 +10,7 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 9	Poe	poe.com	9	100	N
 10	Midjourney	midjourney.com	10	100	N
 11	Stable Diffusion	stability.ai	11	100	Y
-12	DALL-E 3	openai.com/dall-e-3	12	100	N
+12	DALL-E 3	openai.com	12	100	N
 13	Adobe Firefly	firefly.adobe.com	13	100	N
 14	Leonardo AI	leonardo.ai	14	100	N
 15	Ideogram	ideogram.ai	15	100	N
@@ -38,31 +38,31 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 37	You.com	you.com	37	100	N
 38	Elicit	elicit.com	38	100	N
 39	Microsoft Copilot	copilot.microsoft.com	39	100	N
-40	Notion AI	notion.so/product/ai	40	100	N
+40	Notion AI	notion.so	40	100	N
 41	Gamma	gamma.app	41	100	N
 42	Otter.ai	otter.ai	42	100	N
 43	Fireflies.ai	fireflies.ai	43	100	N
 44	Beautiful.ai	beautiful.ai	44	100	N
 45	Make	make.com	45	100	N
-46	Zapier AI	zapier.com/ai	46	100	N
+46	Zapier AI	zapier.com	46	100	N
 47	n8n	n8n.io	47	100	N
-48	Canva AI	canva.com/magic-studio	48	100	N
-49	Figma AI	figma.com/ai	49	100	N
+48	Canva AI	canva.com	48	100	N
+49	Figma AI	figma.com	49	100	N
 50	Uizard	uizard.io	50	100	N
 51	Le Chat	chat.mistral.ai	51	100	N
 52	Qwen	qwenlm.github.io	52	100	Y
 53	Command R+	cohere.com	53	100	N
 54	HyperCLOVA X	clova.ai	54	100	N
 55	Kimi	kimi.moonshot.cn	55	100	N
-56	Phi-4	azure.microsoft.com/phi	56	100	Y
-57	Amazon Nova	nova.amazon.com	57	100	N
+56	Phi-4	azure.microsoft.com	56	100	Y
+57	Amazon Nova	aws.amazon.com	57	100	N
 58	Playground AI	playground.com	58	100	N
 59	SeaArt AI	seaart.ai	59	100	N
 60	NightCafe	nightcafe.studio	60	100	N
 61	Tensor.Art	tensor.art	61	100	N
 62	Civitai	civitai.com	62	100	N
-63	Bing Image Creator	bing.com/images/create	63	100	N
-64	Amazon Q Developer	aws.amazon.com/q/developer	64	100	N
+63	Bing Image Creator	bing.com	63	100	N
+64	Amazon Q Developer	aws.amazon.com	64	100	N
 65	Lovable	lovable.dev	65	100	N
 66	Cody	sourcegraph.com	66	100	N
 67	Devin	cognition.ai	67	100	N
@@ -136,7 +136,7 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 135	Krisp	krisp.ai	135	100	N
 136	Superhuman	superhuman.com	136	100	N
 137	Lindy AI	lindy.ai	137	100	N
-138	Duolingo Max	duolingo.com/max	138	100	N
+138	Duolingo Max	duolingo.com	138	100	N
 139	Elsa Speak	elsaspeak.com	139	100	N
 140	Speak	speak.com	140	100	N
 141	QuillBot	quillbot.com	141	100	N
@@ -145,20 +145,20 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 144	Liner	getliner.com	144	100	N
 145	Google Lens	lens.google	145	100	N
 146	Microsoft Designer	designer.microsoft.com	146	100	N
-147	Adobe Express	adobe.com/express	147	100	N
+147	Adobe Express	adobe.com	147	100	N
 148	Fotor AI	fotor.com	148	100	N
 149	Woebot	woebothealth.com	149	100	N
 150	Kuki AI	kuki.ai	150	100	N
 151	Devin	devin.ai	151	100	N
 152	Lovable	lovable.dev	152	100	N
-153	Amazon Q Developer	aws.amazon.com/q/developer	153	100	N
-154	JetBrains AI	jetbrains.com/ai	154	100	N
+153	Amazon Q Developer	aws.amazon.com	153	100	N
+154	JetBrains AI	jetbrains.com	154	100	N
 155	Continue.dev	continue.dev	155	100	N
 156	Aider	aider.chat	156	100	N
 157	Zed	zed.dev	157	100	Y
 158	Cline	github.com/cline/cline	158	100	Y
 159	WRTN	wrtn.ai	159	100	N
-160	Gemma	ai.google.dev/gemma	160	100	Y
+160	Gemma	ai.google.dev	160	100	Y
 161	EXAONE	lgresearch.ai	161	100	N
 162	Solar	console.upstage.ai	162	100	N
 163	InternLM	internlm.intern-ai.org.cn	163	100	N
@@ -183,10 +183,10 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 182	Murf AI	murf.ai	182	100	N
 183	AIVA	aiva.ai	183	100	N
 184	Soundraw	soundraw.io	184	100	N
-185	Whisper	github.com/openai/whisper	185	100	Y
+185	Whisper	openai.com	185	100	Y
 186	Adobe Podcast	podcast.adobe.com	186	100	N
 187	Coda AI	coda.io	187	100	N
-188	ClickUp AI	clickup.com/ai	188	100	N
+188	ClickUp AI	clickup.com	188	100	N
 189	Tana	tana.inc	189	100	N
 190	Reflect	reflect.app	190	100	N
 191	Clova Note	clovanote.naver.com	191	100	N
@@ -242,7 +242,7 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 241	Copilot Studio	copilotstudio.microsoft.com	241	100	N
 242	Adobe GenStudio	business.adobe.com	242	100	N
 243	Height AI	height.app	243	100	N
-244	Intercom Fin	intercom.com/fin	244	100	N
+244	Intercom Fin	intercom.com	244	100	N
 245	Tidio Lyro	tidio.com	245	100	N
 246	Manus AI	manus.im	246	100	N
 247	Lobe Chat	lobehub.com	247	100	N
