@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { TOOLS_DATA } from "../../data/tools";
 
 // 점수 추이 & 상세 통합 컴포넌트
-const ScoreInsightPanel = ({ tool }) => {
+const ScoreInsightPanel = ({ tool, rank }) => {
   const [metrics, setMetrics] = useState(null);
   const [activeTooltip, setActiveTooltip] = useState(null);
 
@@ -32,14 +32,19 @@ const ScoreInsightPanel = ({ tool }) => {
   const trendColor = isFlat ? "#64748b" : isUp ? "#22c55e" : "#f87171";
   const areaColor = isFlat ? "rgba(100,116,139,0.12)" : isUp ? "rgba(34,197,94,0.12)" : "rgba(248,113,113,0.12)";
 
-  const W = 260, H = 30, PAD = 3;
+  const TW = 100, TH = 52, TPAD = 3;
   const minV = Math.min(...trendPoints) - 2;
   const maxV = Math.max(...trendPoints) + 2;
   const tRange = maxV - minV || 1;
-  const toX = (i) => PAD + (i / 6) * (W - PAD * 2);
-  const toY = (v) => H - PAD - ((v - minV) / tRange) * (H - PAD * 2);
+  const toX = (i) => TPAD + (i / 6) * (TW - TPAD * 2);
+  const toY = (v) => TH - TPAD - ((v - minV) / tRange) * (TH - TPAD * 2);
   const tPathD = trendPoints.map((v, i) => `${i === 0 ? "M" : "L"}${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(" ");
-  const tAreaD = `${tPathD} L${toX(6).toFixed(1)},${H} L${toX(0).toFixed(1)},${H} Z`;
+  const tAreaD = `${tPathD} L${toX(6).toFixed(1)},${TH} L${toX(0).toFixed(1)},${TH} Z`;
+
+  // 랭킹 색상
+  const rankColor = rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : rank === 3 ? "#CD7F32" : "var(--text-muted)";
+  const rankBg   = rank === 1 ? "rgba(245,158,11,0.12)" : rank === 2 ? "rgba(148,163,184,0.12)" : rank === 3 ? "rgba(205,127,50,0.12)" : "var(--bg-tertiary)";
+  const rankEmoji = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : null;
 
   const items = [
     { logo: "https://www.google.com/s2/favicons?domain=google.com&sz=32", key: "opr", color: "#4285F4", weight: "50%", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
@@ -59,8 +64,8 @@ const ScoreInsightPanel = ({ tool }) => {
     });
   };
 
-  // 미니 스파크라인 SVG
-  const Spark = ({ pts, color, sw = 100, sh = 14 }) => {
+  const Spark = ({ pts, color }) => {
+    const sw = 60, sh = 13;
     const mn = Math.min(...pts) - 1;
     const mx = Math.max(...pts) + 1;
     const r = mx - mn || 1;
@@ -80,35 +85,19 @@ const ScoreInsightPanel = ({ tool }) => {
   return (
     <div style={{ marginBottom: "12px" }} onClick={(e) => e.stopPropagation()}>
       {/* 타이틀 + 변동률 */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
         <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)" }}>점수 추이 & 상세</div>
         <span style={{ fontSize: "0.65rem", fontWeight: 700, color: isFlat ? "var(--text-muted)" : isUp ? "#22c55e" : "#f87171" }}>
           {isFlat ? "변동없음" : isUp ? `▲ ${change}%` : `▼ ${Math.abs(change)}%`}
         </span>
       </div>
 
-      {/* 전체 점수 추이 (점만, 날짜 레이블 없음) */}
-      <div style={{ marginBottom: "5px" }}>
-        <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ overflow: "visible", display: "block" }}>
-          <path d={tAreaD} fill={areaColor} />
-          <path d={tPathD} fill="none" stroke={trendColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          {trendPoints.map((v, i) => (
-            <circle key={i} cx={toX(i)} cy={toY(v)} r={i === 6 ? 3 : 1.5}
-              fill={i === 6 ? trendColor : "var(--bg-card)"}
-              stroke={trendColor} strokeWidth={i === 6 ? 0 : 1}
-            />
-          ))}
-          <text x={toX(6)} y={toY(trendPoints[6]) - 5} textAnchor="middle"
-            fill={trendColor} fontSize="8" fontWeight="700" fontFamily="Pretendard, sans-serif">
-            {Math.round(trendPoints[6])}
-          </text>
-        </svg>
-      </div>
+      {/* 좌우 2분할 */}
+      <div style={{ display: "flex", gap: "8px", alignItems: "stretch" }}>
 
-      {/* 지표별 스파크라인 */}
-      {metrics && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-          {items.map(({ logo, key, color, weight, desc }) => {
+        {/* 왼쪽: 지표별 스파크라인 */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "2px" }}>
+          {metrics ? items.map(({ logo, key, color, weight, desc }) => {
             const val = Math.round(metrics[key] ?? 0);
             const pts = genMetricPoints(val, key);
             const finalDesc = (key === "ghs" && val === 0) ? `${desc} (비오픈소스)` : desc;
@@ -116,19 +105,19 @@ const ScoreInsightPanel = ({ tool }) => {
             return (
               <div key={key} style={{ position: "relative" }}>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}
+                  style={{ display: "flex", alignItems: "center", gap: "5px", cursor: "pointer" }}
                   onClick={(e) => { e.stopPropagation(); setActiveTooltip(prev => prev === key ? null : key); }}
                   onMouseEnter={() => setActiveTooltip(key)}
                   onMouseLeave={() => setActiveTooltip(null)}
                 >
-                  <img src={logo} alt="" width={18} height={18} style={{ flexShrink: 0, borderRadius: "3px", objectFit: "contain" }} />
-                  <span style={{ fontSize: "0.7rem", fontWeight: 700, color, opacity: 0.8, width: "30px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
+                  <img src={logo} alt="" width={16} height={16} style={{ flexShrink: 0, borderRadius: "2px", objectFit: "contain" }} />
+                  <span style={{ fontSize: "0.62rem", fontWeight: 700, color, opacity: 0.85, width: "26px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
                   <div style={{ flex: 1 }}><Spark pts={pts} color={color} /></div>
-                  <span style={{ fontSize: "1.1rem", fontWeight: 900, color, width: "34px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
+                  <span style={{ fontSize: "0.95rem", fontWeight: 900, color, width: "28px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
                 </div>
                 {isActive && (
                   <div style={{
-                    position: "absolute", left: "56px", bottom: "100%", marginBottom: "6px",
+                    position: "absolute", left: "48px", bottom: "100%", marginBottom: "6px",
                     fontSize: "0.7rem", color: "var(--text-secondary)", lineHeight: 1.4,
                     padding: "6px 10px", background: "var(--bg-card)", borderRadius: "6px",
                     border: "1px solid var(--border-primary)",
@@ -142,9 +131,38 @@ const ScoreInsightPanel = ({ tool }) => {
                 )}
               </div>
             );
-          })}
+          }) : null}
         </div>
-      )}
+
+        {/* 오른쪽: 추이 차트 + 랭킹 */}
+        <div style={{ width: "88px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "4px" }}>
+          <svg width="100%" viewBox={`0 0 ${TW} ${TH}`} style={{ overflow: "visible", display: "block", flex: 1 }}>
+            <path d={tAreaD} fill={areaColor} />
+            <path d={tPathD} fill="none" stroke={trendColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            {trendPoints.map((v, i) => (
+              <circle key={i} cx={toX(i)} cy={toY(v)} r={i === 6 ? 3 : 1.5}
+                fill={i === 6 ? trendColor : "var(--bg-card)"}
+                stroke={trendColor} strokeWidth={i === 6 ? 0 : 1}
+              />
+            ))}
+            <text x={toX(6)} y={toY(trendPoints[6]) - 5} textAnchor="middle"
+              fill={trendColor} fontSize="8" fontWeight="700" fontFamily="Pretendard, sans-serif">
+              {Math.round(trendPoints[6])}
+            </text>
+          </svg>
+          {rank && (
+            <div style={{
+              display: "flex", alignItems: "center", justifyContent: "center", gap: "3px",
+              padding: "3px 0", borderRadius: "4px",
+              background: rankBg, border: `1px solid ${rankColor}`,
+            }}>
+              {rankEmoji && <span style={{ fontSize: "0.7rem", lineHeight: 1 }}>{rankEmoji}</span>}
+              <span style={{ fontSize: "0.75rem", fontWeight: 800, color: rankColor, fontFamily: "'Pretendard', sans-serif" }}>#{rank}</span>
+            </div>
+          )}
+        </div>
+
+      </div>
     </div>
   );
 };
@@ -569,7 +587,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
 
       <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: "12.5px" }}>{tool.desc}</p>
 
-      <ScoreInsightPanel tool={tool} />
+      <ScoreInsightPanel tool={tool} rank={rank} />
 
       {tool.features && ( <div style={{ marginBottom: "16px" }}><div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.9rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.4 }}>{f}</span></li>))}</ul></div>)}
 
@@ -606,7 +624,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               </div>
             </div>
             <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "16px" }}>{tool.desc}</p>
-            <ScoreInsightPanel tool={tool} />
+            <ScoreInsightPanel tool={tool} rank={rank} />
             {tool.features && ( <div style={{ marginBottom: "24px" }}><div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.95rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "1rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{f}</span></li>))}</ul></div>)}
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "24px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "4px", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
             <div style={{ marginBottom: "24px", display: "flex", flexDirection: "column", gap: "12px" }}>
