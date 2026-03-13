@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { TOOLS_DATA } from '../src/data/tools.js';
 
 const PLATFORM_PENALTY_MAP = {
   "aws.amazon.com": 0.5, "amazon.com": 0.5, "google.com": 0.5,
@@ -57,6 +58,10 @@ async function exportToCsv() {
     const name = cols[1].trim();
     const domain = cols[2].trim();
     
+    const toolInfo = TOOLS_DATA.find(t => String(t.id) === id) || {};
+    const naverKw = Array.isArray(toolInfo.naverKw) ? toolInfo.naverKw.join('|') : (toolInfo.naverKw || '-');
+    const snsKw = `YT:${toolInfo.yt || '-'} | GT:${toolInfo.gt || '-'} | GH:${toolInfo.github || '-'}`;
+
     const penaltyInfo = getSmartPenalty(domain, name);
     const scoreData = scores[id] || { score: 0, metrics: {} };
     
@@ -65,7 +70,9 @@ async function exportToCsv() {
       totalScore: scoreData.score,
       metrics: scoreData.metrics,
       isPenalized: penaltyInfo.p < 1.0 ? "대상" : "해당없음",
-      reason: penaltyInfo.r
+      reason: penaltyInfo.r,
+      naverKw,
+      snsKw
     });
   }
 
@@ -74,7 +81,7 @@ async function exportToCsv() {
   
   // CSV 헤더 (Excel 한글 깨짐 방지 BOM 추가)
   let csvContent = '\uFEFF';
-  csvContent += '순위,툴 이름,도메인,종합점수,구글(OPR),네이버(NTV),SNS(XPOZ),GitHub(GHS),패널티 유무,패널티 이유\n';
+  csvContent += '순위,툴 이름,도메인,종합점수,구글(OPR),네이버(NTV),SNS(XPOZ),GitHub(GHS),패널티 유무,패널티 이유,네이버 키워드,SNS 키워드(YT|GT|GH)\n';
   
   sortedReport.forEach((t, idx) => {
     const m = t.metrics || {};
@@ -88,7 +95,9 @@ async function exportToCsv() {
       m.sns || 0,
       m.ghs || 0,
       t.isPenalized,
-      `"${t.reason}"`
+      `"${t.reason}"`,
+      `"${t.naverKw}"`,
+      `"${t.snsKw}"`
     ];
     csvContent += row.join(',') + '\n';
   });
