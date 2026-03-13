@@ -79,22 +79,25 @@ async function exportToCsv() {
   
   // CSV 헤더 (Excel 한글 깨짐 방지 BOM 추가)
   let csvContent = '\uFEFF';
-  csvContent += '순위,툴 이름,도메인,종합점수,구글(OPR),네이버(NTV),SNS(XPOZ),GitHub(GHS),패널티 유무,패널티 이유,네이버 수집 키워드\n';
+  csvContent += '순위,툴 이름,도메인,종합점수,구글(OPR 점수),원본 OPR 등급,네이버(NTV),SNS(XPOZ),GitHub(GHS),패널티 유무,패널티 이유,네이버 수집 키워드,SNS/GitHub 키워드\n';
   
   sortedReport.forEach((t, idx) => {
     const m = t.metrics || {};
+    const snsKw = TOOLS_DATA.find(tool => String(tool.id) === t.id)?.github || t.name;
     const row = [
       idx + 1,
       `"${t.name}"`,
       `"${t.domain}"`,
       t.totalScore,
       m.opr || 0,
+      `"${(m.opr / 10).toFixed(2)} / 10"`, // normalized OPR / 10 to show raw-ish rank
       m.ntv || 0,
       m.sns || 0,
       m.ghs || 0,
       t.isPenalized,
       `"${t.reason}"`,
-      `"${t.naverKw}"`
+      `"${t.naverKw}"`,
+      `"X:${t.name} | GH:${snsKw}"`
     ];
     csvContent += row.join(',') + '\n';
   });

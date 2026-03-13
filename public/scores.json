@@ -1,2505 +1,2505 @@
 {
-  "updated": "2026-03-13T05:36:33.864Z",
+  "updated": "2026-03-13T06:01:12.944Z",
   "source": "airank2602.csv + update_ranking.js",
   "tools": {
     "1": {
-      "score": 39.22,
-      "change": -32.53,
+      "score": 77.54,
+      "change": 5.79,
       "metrics": {
-        "opr": 0,
+        "opr": 100,
         "ntv": 73.4,
         "ghs": 91.92,
-        "sns": 77.84
+        "sns": 0
       }
     },
     "2": {
-      "score": 33.81,
-      "change": -33.87,
+      "score": 79.4,
+      "change": 11.72,
       "metrics": {
-        "opr": 0,
+        "opr": 92.64,
         "ntv": 69.49,
         "ghs": 78.77,
-        "sns": 57.09
+        "sns": 52.18
       }
     },
     "3": {
-      "score": 29.06,
-      "change": -32.11,
+      "score": 73.73,
+      "change": 12.56,
       "metrics": {
-        "opr": 0,
+        "opr": 95.55,
         "ntv": 71.68,
         "ghs": 0,
-        "sns": 74.24
+        "sns": 53.55
       }
     },
     "4": {
-      "score": 36.46,
-      "change": -24.8,
+      "score": 33.47,
+      "change": -27.79,
       "metrics": {
         "opr": 0,
         "ntv": 59.6,
         "ghs": 100,
-        "sns": 77.09
+        "sns": 57.15
       }
     },
     "5": {
-      "score": 27.17,
+      "score": 62.66,
+      "change": 19.81,
+      "metrics": {
+        "opr": 89.57,
+        "ntv": 48.67,
+        "ghs": 0,
+        "sns": 38.06
+      }
+    },
+    "6": {
+      "score": 65.55,
+      "change": 10.23,
+      "metrics": {
+        "opr": 69.63,
+        "ntv": 52.23,
+        "ghs": 97.27,
+        "sns": 53.01
+      }
+    },
+    "7": {
+      "score": 76.01,
+      "change": 11,
+      "metrics": {
+        "opr": 86.81,
+        "ntv": 65.12,
+        "ghs": 88.36,
+        "sns": 49.95
+      }
+    },
+    "8": {
+      "score": 58.69,
+      "change": 9.38,
+      "metrics": {
+        "opr": 78.53,
+        "ntv": 58.9,
+        "ghs": 0,
+        "sns": 31.35
+      }
+    },
+    "9": {
+      "score": 59.94,
+      "change": 9.56,
+      "metrics": {
+        "opr": 77.15,
+        "ntv": 57.87,
+        "ghs": 0,
+        "sns": 45.96
+      }
+    },
+    "10": {
+      "score": 30.15,
+      "change": -22.58,
+      "metrics": {
+        "opr": 0,
+        "ntv": 61.9,
+        "ghs": 0,
+        "sns": 97.85
+      }
+    },
+    "11": {
+      "score": 63.34,
+      "change": 7.47,
+      "metrics": {
+        "opr": 88.04,
+        "ntv": 66.04,
+        "ghs": 0,
+        "sns": 18.7
+      }
+    },
+    "12": {
+      "score": 50.93,
+      "change": -14.64,
+      "metrics": {
+        "opr": 52.07,
+        "ntv": 78.12,
+        "ghs": 0,
+        "sns": 35.78
+      }
+    },
+    "13": {
+      "score": 53.4,
+      "change": 6.72,
+      "metrics": {
+        "opr": 71.93,
+        "ntv": 53.96,
+        "ghs": 0,
+        "sns": 26.33
+      }
+    },
+    "14": {
+      "score": 58.46,
+      "change": 11.94,
+      "metrics": {
+        "opr": 73.62,
+        "ntv": 55.22,
+        "ghs": 0,
+        "sns": 52.3
+      }
+    },
+    "15": {
+      "score": 55.72,
+      "change": 8.12,
+      "metrics": {
+        "opr": 72.85,
+        "ntv": 54.65,
+        "ghs": 0,
+        "sns": 37.54
+      }
+    },
+    "16": {
+      "score": 54.91,
+      "change": 12.16,
+      "metrics": {
+        "opr": 67.94,
+        "ntv": 50.97,
+        "ghs": 0,
+        "sns": 54.63
+      }
+    },
+    "17": {
+      "score": 23.24,
+      "change": -19.64,
+      "metrics": {
+        "opr": 0,
+        "ntv": 51.43,
+        "ghs": 0,
+        "sns": 69.21
+      }
+    },
+    "18": {
+      "score": 66.9,
+      "change": 51.62,
+      "metrics": {
+        "opr": 65.87,
+        "ntv": 98.83,
+        "ghs": 0,
+        "sns": 61.7
+      }
+    },
+    "19": {
+      "score": 36.17,
+      "change": -15.96,
+      "metrics": {
+        "opr": 0,
+        "ntv": 49.01,
+        "ghs": 94.13,
+        "sns": 96.67
+      }
+    },
+    "20": {
+      "score": 55.84,
+      "change": 12.25,
+      "metrics": {
+        "opr": 69.94,
+        "ntv": 52.46,
+        "ghs": 0,
+        "sns": 51.71
+      }
+    },
+    "21": {
+      "score": 35.07,
+      "change": -8.87,
+      "metrics": {
+        "opr": 33.9,
+        "ntv": 50.85,
+        "ghs": 0,
+        "sns": 36.07
+      }
+    },
+    "22": {
+      "score": 48.72,
+      "change": 6.53,
+      "metrics": {
+        "opr": 67.18,
+        "ntv": 50.39,
+        "ghs": 0,
+        "sns": 16.86
+      }
+    },
+    "23": {
+      "score": 61.87,
+      "change": 10.06,
+      "metrics": {
+        "opr": 80.98,
+        "ntv": 60.75,
+        "ghs": 0,
+        "sns": 41.26
+      }
+    },
+    "24": {
+      "score": 21.48,
+      "change": -24.34,
+      "metrics": {
+        "opr": 0,
+        "ntv": 52.35,
+        "ghs": 0,
+        "sns": 55.95
+      }
+    },
+    "25": {
+      "score": 53,
+      "change": 6.48,
+      "metrics": {
+        "opr": 71.17,
+        "ntv": 53.38,
+        "ghs": 0,
+        "sns": 27.12
+      }
+    },
+    "26": {
+      "score": 59.58,
+      "change": 7.1,
+      "metrics": {
+        "opr": 81.9,
+        "ntv": 61.44,
+        "ghs": 0,
+        "sns": 21.83
+      }
+    },
+    "27": {
+      "score": 54.19,
+      "change": 11.1,
+      "metrics": {
+        "opr": 68.25,
+        "ntv": 51.2,
+        "ghs": 0,
+        "sns": 48.43
+      }
+    },
+    "28": {
+      "score": 58.65,
+      "change": 12.01,
+      "metrics": {
+        "opr": 74.54,
+        "ntv": 55.91,
+        "ghs": 0,
+        "sns": 49.36
+      }
+    },
+    "29": {
+      "score": 22.25,
+      "change": -23.02,
+      "metrics": {
+        "opr": 0,
+        "ntv": 54.3,
+        "ghs": 0,
+        "sns": 57.81
+      }
+    },
+    "30": {
+      "score": 57.02,
+      "change": 9.83,
+      "metrics": {
+        "opr": 72.55,
+        "ntv": 54.42,
+        "ghs": 0,
+        "sns": 47.6
+      }
+    },
+    "31": {
+      "score": 27.27,
+      "change": -23.15,
+      "metrics": {
+        "opr": 0,
+        "ntv": 59.02,
+        "ghs": 0,
+        "sns": 83.43
+      }
+    },
+    "32": {
+      "score": 55.34,
+      "change": 5.89,
+      "metrics": {
+        "opr": 76.84,
+        "ntv": 57.64,
+        "ghs": 0,
+        "sns": 16.76
+      }
+    },
+    "33": {
+      "score": 63.13,
+      "change": 6.68,
+      "metrics": {
+        "opr": 89.42,
+        "ntv": 67.07,
+        "ghs": 0,
+        "sns": 11.01
+      }
+    },
+    "34": {
+      "score": 26.91,
+      "change": -16.27,
+      "metrics": {
+        "opr": 0,
+        "ntv": 51.31,
+        "ghs": 0,
+        "sns": 93.88
+      }
+    },
+    "35": {
+      "score": 28.67,
+      "change": -20.65,
+      "metrics": {
+        "opr": 0,
+        "ntv": 57.29,
+        "ghs": 0,
+        "sns": 95.62
+      }
+    },
+    "36": {
+      "score": 29.69,
+      "change": -27.91,
+      "metrics": {
+        "opr": 0,
+        "ntv": 68.68,
+        "ghs": 0,
+        "sns": 83.46
+      }
+    },
+    "37": {
+      "score": 56.87,
+      "change": 7.11,
+      "metrics": {
+        "opr": 78.07,
+        "ntv": 58.56,
+        "ghs": 0,
+        "sns": 21.27
+      }
+    },
+    "38": {
+      "score": 50.18,
+      "change": 7.81,
+      "metrics": {
+        "opr": 67.18,
+        "ntv": 50.39,
+        "ghs": 0,
+        "sns": 26.6
+      }
+    },
+    "39": {
+      "score": 61.63,
+      "change": 5.57,
+      "metrics": {
+        "opr": 86.66,
+        "ntv": 65,
+        "ghs": 0,
+        "sns": 13.66
+      }
+    },
+    "40": {
+      "score": 27.08,
+      "change": -20.24,
+      "metrics": {
+        "opr": 0,
+        "ntv": 74.78,
+        "ghs": 0,
+        "sns": 55.92
+      }
+    },
+    "41": {
+      "score": 55.97,
+      "change": 8.13,
+      "metrics": {
+        "opr": 75.15,
+        "ntv": 56.37,
+        "ghs": 0,
+        "sns": 28.71
+      }
+    },
+    "42": {
+      "score": 58.05,
+      "change": 5.8,
+      "metrics": {
+        "opr": 81.9,
+        "ntv": 61.44,
+        "ghs": 0,
+        "sns": 11.58
+      }
+    },
+    "43": {
+      "score": 52.45,
+      "change": 7.64,
+      "metrics": {
+        "opr": 67.94,
+        "ntv": 50.97,
+        "ghs": 0,
+        "sns": 38.23
+      }
+    },
+    "44": {
+      "score": 25.18,
+      "change": -18.37,
+      "metrics": {
+        "opr": 0,
+        "ntv": 51.54,
+        "ghs": 0,
+        "sns": 81.96
+      }
+    },
+    "45": {
+      "score": 27.24,
+      "change": -26.57,
+      "metrics": {
+        "opr": 0,
+        "ntv": 62.93,
+        "ghs": 0,
+        "sns": 76.73
+      }
+    },
+    "46": {
+      "score": 72.42,
+      "change": 10.66,
+      "metrics": {
+        "opr": 95.55,
+        "ntv": 71.68,
+        "ghs": 0,
+        "sns": 44.86
+      }
+    },
+    "47": {
+      "score": 59.65,
+      "change": 8.16,
+      "metrics": {
+        "opr": 78.68,
+        "ntv": 59.02,
+        "ghs": 0,
+        "sns": 37
+      }
+    },
+    "48": {
+      "score": 27.94,
+      "change": -22.09,
+      "metrics": {
+        "opr": 0,
+        "ntv": 80.19,
+        "ghs": 0,
+        "sns": 52.62
+      }
+    },
+    "49": {
+      "score": 31.7,
+      "change": -16.22,
+      "metrics": {
+        "opr": 0,
+        "ntv": 74.44,
+        "ghs": 0,
+        "sns": 87.27
+      }
+    },
+    "50": {
+      "score": 51.75,
+      "change": 7.22,
+      "metrics": {
+        "opr": 68.25,
+        "ntv": 51.2,
+        "ghs": 0,
+        "sns": 32.16
+      }
+    },
+    "51": {
+      "score": 53.47,
+      "change": 7.28,
+      "metrics": {
+        "opr": 71.93,
+        "ntv": 53.96,
+        "ghs": 0,
+        "sns": 26.77
+      }
+    },
+    "52": {
+      "score": 59.49,
+      "change": 6.41,
+      "metrics": {
+        "opr": 68.56,
+        "ntv": 51.43,
+        "ghs": 91.79,
+        "sns": 21.17
+      }
+    },
+    "53": {
+      "score": 60.13,
+      "change": 10.69,
+      "metrics": {
+        "opr": 77.3,
+        "ntv": 57.98,
+        "ghs": 0,
+        "sns": 46.55
+      }
+    },
+    "54": {
+      "score": 45.34,
+      "change": 6.65,
+      "metrics": {
+        "opr": 61.2,
+        "ntv": 45.9,
+        "ghs": 0,
+        "sns": 21.76
+      }
+    },
+    "55": {
+      "score": 51.84,
+      "change": 7.4,
+      "metrics": {
+        "opr": 68.25,
+        "ntv": 51.2,
+        "ghs": 0,
+        "sns": 32.79
+      }
+    },
+    "56": {
+      "score": 49.45,
+      "change": 4.37,
+      "metrics": {
+        "opr": 47.39,
+        "ntv": 71.1,
+        "ghs": 0,
+        "sns": 53.23
+      }
+    },
+    "57": {
+      "score": 45.96,
+      "change": -5.7,
+      "metrics": {
+        "opr": 53.6,
+        "ntv": 46.36,
+        "ghs": 0,
+        "sns": 50.49
+      }
+    },
+    "58": {
+      "score": 52.62,
+      "change": 9.49,
+      "metrics": {
+        "opr": 66.26,
+        "ntv": 49.7,
+        "ghs": 0,
+        "sns": 47.11
+      }
+    },
+    "59": {
+      "score": 22.22,
+      "change": -19.4,
+      "metrics": {
+        "opr": 0,
+        "ntv": 49.24,
+        "ghs": 0,
+        "sns": 66.08
+      }
+    },
+    "60": {
+      "score": 49.41,
+      "change": 5.63,
+      "metrics": {
+        "opr": 66.41,
+        "ntv": 49.82,
+        "ghs": 0,
+        "sns": 24.99
+      }
+    },
+    "61": {
+      "score": 48.12,
+      "change": 6.92,
+      "metrics": {
+        "opr": 62.12,
+        "ntv": 46.59,
+        "ghs": 0,
+        "sns": 36.07
+      }
+    },
+    "62": {
+      "score": 57.5,
+      "change": 10.86,
+      "metrics": {
+        "opr": 73.47,
+        "ntv": 55.11,
+        "ghs": 0,
+        "sns": 46.57
+      }
+    },
+    "63": {
+      "score": 31.47,
+      "change": -22.04,
+      "metrics": {
+        "opr": 0,
+        "ntv": 83.41,
+        "ghs": 0,
+        "sns": 70.78
+      }
+    },
+    "64": {
+      "score": 49.93,
+      "change": 0.65,
+      "metrics": {
+        "opr": 53.6,
+        "ntv": 80.42,
+        "ghs": 0,
+        "sns": 20.14
+      }
+    },
+    "65": {
+      "score": 56.53,
+      "change": 7.51,
+      "metrics": {
+        "opr": 75,
+        "ntv": 56.26,
+        "ghs": 0,
+        "sns": 33.09
+      }
+    },
+    "66": {
+      "score": 51.17,
+      "change": 6.78,
+      "metrics": {
+        "opr": 70.55,
+        "ntv": 52.92,
+        "ghs": 0,
+        "sns": 17.77
+      }
+    },
+    "67": {
+      "score": 25.42,
+      "change": -19.26,
+      "metrics": {
+        "opr": 0,
+        "ntv": 48.9,
+        "ghs": 0,
+        "sns": 87.96
+      }
+    },
+    "68": {
+      "score": 51.93,
+      "change": 10.46,
+      "metrics": {
+        "opr": 65.49,
+        "ntv": 49.13,
+        "ghs": 0,
+        "sns": 46.01
+      }
+    },
+    "69": {
+      "score": 56.86,
+      "change": 9.55,
+      "metrics": {
+        "opr": 74.23,
+        "ntv": 55.68,
+        "ghs": 0,
+        "sns": 38.86
+      }
+    },
+    "70": {
+      "score": 58.69,
+      "change": 6.55,
+      "metrics": {
+        "opr": 80.52,
+        "ntv": 60.4,
+        "ghs": 0,
+        "sns": 22.2
+      }
+    },
+    "71": {
+      "score": 22.19,
+      "change": -17.7,
+      "metrics": {
+        "opr": 0,
+        "ntv": 47.75,
+        "ghs": 0,
+        "sns": 68.33
+      }
+    },
+    "72": {
+      "score": 58.8,
+      "change": 11.19,
+      "metrics": {
+        "opr": 73.77,
+        "ntv": 55.34,
+        "ghs": 0,
+        "sns": 53.87
+      }
+    },
+    "73": {
+      "score": 56.5,
+      "change": 5.85,
+      "metrics": {
+        "opr": 77.76,
+        "ntv": 58.33,
+        "ghs": 0,
+        "sns": 20.22
+      }
+    },
+    "74": {
+      "score": 25.62,
+      "change": -15.75,
+      "metrics": {
+        "opr": 0,
+        "ntv": 49.13,
+        "ghs": 0,
+        "sns": 88.94
+      }
+    },
+    "75": {
+      "score": 51.81,
+      "change": 8.07,
+      "metrics": {
+        "opr": 68.4,
+        "ntv": 51.31,
+        "ghs": 0,
+        "sns": 31.86
+      }
+    },
+    "76": {
+      "score": 50.85,
+      "change": 8.24,
+      "metrics": {
+        "opr": 68.25,
+        "ntv": 51.2,
+        "ghs": 0,
+        "sns": 26.14
+      }
+    },
+    "77": {
+      "score": 32.82,
+      "change": 0.59,
+      "metrics": {
+        "opr": 34.59,
+        "ntv": 51.89,
+        "ghs": 0,
+        "sns": 17.01
+      }
+    },
+    "78": {
+      "score": 26.66,
+      "change": -17.73,
+      "metrics": {
+        "opr": 0,
+        "ntv": 50.97,
+        "ghs": 0,
+        "sns": 92.78
+      }
+    },
+    "79": {
+      "score": 24.96,
       "change": -15.68,
       "metrics": {
         "opr": 0,
         "ntv": 48.67,
         "ghs": 0,
-        "sns": 100
-      }
-    },
-    "6": {
-      "score": 32.71,
-      "change": -22.61,
-      "metrics": {
-        "opr": 0,
-        "ntv": 52.23,
-        "ghs": 97.27,
-        "sns": 66.18
-      }
-    },
-    "7": {
-      "score": 37.74,
-      "change": -27.27,
-      "metrics": {
-        "opr": 0,
-        "ntv": 65.12,
-        "ghs": 88.36,
-        "sns": 84.19
-      }
-    },
-    "8": {
-      "score": 25.51,
-      "change": -23.8,
-      "metrics": {
-        "opr": 0,
-        "ntv": 58.9,
-        "ghs": 0,
-        "sns": 71.9
-      }
-    },
-    "9": {
-      "score": 28.81,
-      "change": -21.57,
-      "metrics": {
-        "opr": 0,
-        "ntv": 57.87,
-        "ghs": 0,
-        "sns": 95.6
-      }
-    },
-    "10": {
-      "score": 26.19,
-      "change": -26.54,
-      "metrics": {
-        "opr": 0,
-        "ntv": 61.9,
-        "ghs": 0,
-        "sns": 71.44
-      }
-    },
-    "11": {
-      "score": 25.61,
-      "change": -30.26,
-      "metrics": {
-        "opr": 0,
-        "ntv": 66.04,
-        "ghs": 0,
-        "sns": 60.65
-      }
-    },
-    "12": {
-      "score": 31.74,
-      "change": -33.83,
-      "metrics": {
-        "opr": 0,
-        "ntv": 78.12,
-        "ghs": 0,
-        "sns": 81.39
-      }
-    },
-    "13": {
-      "score": 24.36,
-      "change": -22.32,
-      "metrics": {
-        "opr": 0,
-        "ntv": 53.96,
-        "ghs": 0,
-        "sns": 72.44
-      }
-    },
-    "14": {
-      "score": 24.05,
-      "change": -22.47,
-      "metrics": {
-        "opr": 0,
-        "ntv": 55.22,
-        "ghs": 0,
-        "sns": 68.3
-      }
-    },
-    "15": {
-      "score": 27.81,
-      "change": -19.79,
-      "metrics": {
-        "opr": 0,
-        "ntv": 54.65,
-        "ghs": 0,
-        "sns": 94.35
-      }
-    },
-    "16": {
-      "score": 23.93,
-      "change": -18.82,
-      "metrics": {
-        "opr": 0,
-        "ntv": 50.97,
-        "ghs": 0,
-        "sns": 74.58
-      }
-    },
-    "17": {
-      "score": 26.23,
-      "change": -16.65,
-      "metrics": {
-        "opr": 0,
-        "ntv": 51.43,
-        "ghs": 0,
-        "sns": 89.16
-      }
-    },
-    "18": {
-      "score": 38.42,
-      "change": 23.14,
-      "metrics": {
-        "opr": 0,
-        "ntv": 98.83,
-        "ghs": 0,
-        "sns": 91.44
-      }
-    },
-    "19": {
-      "score": 32.15,
-      "change": -19.98,
-      "metrics": {
-        "opr": 0,
-        "ntv": 49.01,
-        "ghs": 94.13,
-        "sns": 69.87
-      }
-    },
-    "20": {
-      "score": 23.36,
-      "change": -20.23,
-      "metrics": {
-        "opr": 0,
-        "ntv": 52.46,
-        "ghs": 0,
-        "sns": 68.28
-      }
-    },
-    "21": {
-      "score": 23.87,
-      "change": -20.07,
-      "metrics": {
-        "opr": 0,
-        "ntv": 50.85,
-        "ghs": 0,
-        "sns": 74.36
-      }
-    },
-    "22": {
-      "score": 26.62,
-      "change": -15.57,
-      "metrics": {
-        "opr": 0,
-        "ntv": 50.39,
-        "ghs": 0,
-        "sns": 93.51
-      }
-    },
-    "23": {
-      "score": 29.61,
-      "change": -22.2,
-      "metrics": {
-        "opr": 0,
-        "ntv": 60.75,
-        "ghs": 0,
-        "sns": 96.17
-      }
-    },
-    "24": {
-      "score": 25.3,
-      "change": -20.52,
-      "metrics": {
-        "opr": 0,
-        "ntv": 52.35,
-        "ghs": 0,
-        "sns": 81.42
-      }
-    },
-    "25": {
-      "score": 27.76,
-      "change": -18.76,
-      "metrics": {
-        "opr": 0,
-        "ntv": 53.38,
-        "ghs": 0,
-        "sns": 96.13
-      }
-    },
-    "26": {
-      "score": 26.66,
-      "change": -25.82,
-      "metrics": {
-        "opr": 0,
-        "ntv": 61.44,
-        "ghs": 0,
-        "sns": 75.36
-      }
-    },
-    "27": {
-      "score": 26.55,
-      "change": -16.54,
-      "metrics": {
-        "opr": 0,
-        "ntv": 51.2,
-        "ghs": 0,
-        "sns": 91.66
-      }
-    },
-    "28": {
-      "score": 23.11,
-      "change": -23.53,
-      "metrics": {
-        "opr": 0,
-        "ntv": 55.91,
-        "ghs": 0,
-        "sns": 60.87
-      }
-    },
-    "29": {
-      "score": 26.79,
-      "change": -18.48,
-      "metrics": {
-        "opr": 0,
-        "ntv": 54.3,
-        "ghs": 0,
-        "sns": 88.07
-      }
-    },
-    "30": {
-      "score": 22.19,
-      "change": -25,
-      "metrics": {
-        "opr": 0,
-        "ntv": 54.42,
-        "ghs": 0,
-        "sns": 57.25
-      }
-    },
-    "31": {
-      "score": 25.67,
-      "change": -24.75,
-      "metrics": {
-        "opr": 0,
-        "ntv": 59.02,
-        "ghs": 0,
-        "sns": 72.76
-      }
-    },
-    "32": {
-      "score": 28.77,
-      "change": -20.68,
-      "metrics": {
-        "opr": 0,
-        "ntv": 57.64,
-        "ghs": 0,
-        "sns": 95.7
-      }
-    },
-    "33": {
-      "score": 29.62,
-      "change": -26.83,
-      "metrics": {
-        "opr": 0,
-        "ntv": 67.07,
-        "ghs": 0,
-        "sns": 85.68
-      }
-    },
-    "34": {
-      "score": 24.43,
-      "change": -18.75,
-      "metrics": {
-        "opr": 0,
-        "ntv": 51.31,
-        "ghs": 0,
-        "sns": 77.32
-      }
-    },
-    "35": {
-      "score": 24.35,
-      "change": -24.97,
-      "metrics": {
-        "opr": 0,
-        "ntv": 57.29,
-        "ghs": 0,
-        "sns": 66.84
-      }
-    },
-    "36": {
-      "score": 30.34,
-      "change": -27.26,
-      "metrics": {
-        "opr": 0,
-        "ntv": 68.68,
-        "ghs": 0,
-        "sns": 87.79
-      }
-    },
-    "37": {
-      "score": 28.43,
-      "change": -21.33,
-      "metrics": {
-        "opr": 0,
-        "ntv": 58.56,
-        "ghs": 0,
-        "sns": 91.94
-      }
-    },
-    "38": {
-      "score": 27.31,
-      "change": -15.06,
-      "metrics": {
-        "opr": 0,
-        "ntv": 50.39,
-        "ghs": 0,
-        "sns": 98.11
-      }
-    },
-    "39": {
-      "score": 27.8,
-      "change": -28.26,
-      "metrics": {
-        "opr": 0,
-        "ntv": 65,
-        "ghs": 0,
-        "sns": 77
-      }
-    },
-    "40": {
-      "score": 29.05,
-      "change": -18.27,
-      "metrics": {
-        "opr": 0,
-        "ntv": 74.78,
-        "ghs": 0,
-        "sns": 69.03
-      }
-    },
-    "41": {
-      "score": 24.73,
-      "change": -23.11,
-      "metrics": {
-        "opr": 0,
-        "ntv": 56.37,
-        "ghs": 0,
-        "sns": 70.94
-      }
-    },
-    "42": {
-      "score": 26.06,
-      "change": -26.19,
-      "metrics": {
-        "opr": 0,
-        "ntv": 61.44,
-        "ghs": 0,
-        "sns": 71.33
-      }
-    },
-    "43": {
-      "score": 24.24,
-      "change": -20.57,
-      "metrics": {
-        "opr": 0,
-        "ntv": 50.97,
-        "ghs": 0,
-        "sns": 76.66
-      }
-    },
-    "44": {
-      "score": 23.11,
-      "change": -20.44,
-      "metrics": {
-        "opr": 0,
-        "ntv": 51.54,
-        "ghs": 0,
-        "sns": 68.14
-      }
-    },
-    "45": {
-      "score": 29.46,
-      "change": -24.35,
-      "metrics": {
-        "opr": 0,
-        "ntv": 62.93,
-        "ghs": 0,
-        "sns": 91.55
-      }
-    },
-    "46": {
-      "score": 32.37,
-      "change": -29.39,
-      "metrics": {
-        "opr": 0,
-        "ntv": 71.68,
-        "ghs": 0,
-        "sns": 96.36
-      }
-    },
-    "47": {
-      "score": 24.79,
-      "change": -26.7,
-      "metrics": {
-        "opr": 0,
-        "ntv": 59.02,
-        "ghs": 0,
-        "sns": 66.91
-      }
-    },
-    "48": {
-      "score": 32.16,
-      "change": -17.87,
-      "metrics": {
-        "opr": 0,
-        "ntv": 80.19,
-        "ghs": 0,
-        "sns": 80.78
-      }
-    },
-    "49": {
-      "score": 29.44,
-      "change": -18.48,
-      "metrics": {
-        "opr": 0,
-        "ntv": 74.44,
-        "ghs": 0,
-        "sns": 72.19
-      }
-    },
-    "50": {
-      "score": 23.88,
-      "change": -20.65,
-      "metrics": {
-        "opr": 0,
-        "ntv": 51.2,
-        "ghs": 0,
-        "sns": 73.88
-      }
-    },
-    "51": {
-      "score": 24.36,
-      "change": -21.83,
-      "metrics": {
-        "opr": 0,
-        "ntv": 53.96,
-        "ghs": 0,
-        "sns": 72.44
-      }
-    },
-    "52": {
-      "score": 33.42,
-      "change": -19.66,
-      "metrics": {
-        "opr": 0,
-        "ntv": 51.43,
-        "ghs": 91.79,
-        "sns": 75.88
-      }
-    },
-    "53": {
-      "score": 26.88,
-      "change": -22.56,
-      "metrics": {
-        "opr": 0,
-        "ntv": 57.98,
-        "ghs": 0,
-        "sns": 82.58
-      }
-    },
-    "54": {
-      "score": 26.46,
-      "change": -12.23,
-      "metrics": {
-        "opr": 0,
-        "ntv": 45.9,
-        "ghs": 0,
-        "sns": 99.89
-      }
-    },
-    "55": {
-      "score": 27.01,
-      "change": -17.43,
-      "metrics": {
-        "opr": 0,
-        "ntv": 51.2,
-        "ghs": 0,
-        "sns": 94.72
-      }
-    },
-    "56": {
-      "score": 29.96,
-      "change": -15.12,
-      "metrics": {
-        "opr": 0,
-        "ntv": 71.1,
-        "ghs": 0,
-        "sns": 81.21
-      }
-    },
-    "57": {
-      "score": 21.81,
-      "change": -29.85,
-      "metrics": {
-        "opr": 0,
-        "ntv": 46.36,
-        "ghs": 0,
-        "sns": 68.14
-      }
-    },
-    "58": {
-      "score": 24.67,
-      "change": -18.46,
-      "metrics": {
-        "opr": 0,
-        "ntv": 49.7,
-        "ghs": 0,
-        "sns": 81.64
-      }
-    },
-    "59": {
-      "score": 22.68,
-      "change": -18.94,
-      "metrics": {
-        "opr": 0,
-        "ntv": 49.24,
-        "ghs": 0,
-        "sns": 69.14
-      }
-    },
-    "60": {
-      "score": 23.65,
-      "change": -20.13,
-      "metrics": {
-        "opr": 0,
-        "ntv": 49.82,
-        "ghs": 0,
-        "sns": 74.65
-      }
-    },
-    "61": {
-      "score": 26.1,
-      "change": -15.1,
-      "metrics": {
-        "opr": 0,
-        "ntv": 46.59,
-        "ghs": 0,
-        "sns": 96.33
-      }
-    },
-    "62": {
-      "score": 26.6,
-      "change": -20.04,
-      "metrics": {
-        "opr": 0,
-        "ntv": 55.11,
-        "ghs": 0,
-        "sns": 85.47
-      }
-    },
-    "63": {
-      "score": 29.14,
-      "change": -24.37,
-      "metrics": {
-        "opr": 0,
-        "ntv": 83.41,
-        "ghs": 0,
-        "sns": 55.27
-      }
-    },
-    "64": {
-      "score": 32.36,
-      "change": -16.92,
-      "metrics": {
-        "opr": 0,
-        "ntv": 80.42,
-        "ghs": 0,
-        "sns": 81.69
-      }
-    },
-    "65": {
-      "score": 27.38,
-      "change": -21.64,
-      "metrics": {
-        "opr": 0,
-        "ntv": 56.26,
-        "ghs": 0,
-        "sns": 88.8
-      }
-    },
-    "66": {
-      "score": 25.58,
-      "change": -18.81,
-      "metrics": {
-        "opr": 0,
-        "ntv": 52.92,
-        "ghs": 0,
-        "sns": 82.35
-      }
-    },
-    "67": {
-      "score": 20.85,
-      "change": -23.83,
-      "metrics": {
-        "opr": 0,
-        "ntv": 48.9,
-        "ghs": 0,
-        "sns": 57.48
-      }
-    },
-    "68": {
-      "score": 23.33,
-      "change": -18.14,
-      "metrics": {
-        "opr": 0,
-        "ntv": 49.13,
-        "ghs": 0,
-        "sns": 73.65
-      }
-    },
-    "69": {
-      "score": 22.23,
-      "change": -25.08,
-      "metrics": {
-        "opr": 0,
-        "ntv": 55.68,
-        "ghs": 0,
-        "sns": 55.39
-      }
-    },
-    "70": {
-      "score": 28.51,
-      "change": -23.63,
-      "metrics": {
-        "opr": 0,
-        "ntv": 60.4,
-        "ghs": 0,
-        "sns": 89.41
-      }
-    },
-    "71": {
-      "score": 24.31,
-      "change": -15.58,
-      "metrics": {
-        "opr": 0,
-        "ntv": 47.75,
-        "ghs": 0,
-        "sns": 82.49
-      }
-    },
-    "72": {
-      "score": 28.41,
-      "change": -19.2,
-      "metrics": {
-        "opr": 0,
-        "ntv": 55.34,
-        "ghs": 0,
-        "sns": 97.18
-      }
-    },
-    "73": {
-      "score": 28.7,
-      "change": -21.95,
-      "metrics": {
-        "opr": 0,
-        "ntv": 58.33,
-        "ghs": 0,
-        "sns": 94.1
-      }
-    },
-    "74": {
-      "score": 23.48,
-      "change": -17.89,
-      "metrics": {
-        "opr": 0,
-        "ntv": 49.13,
-        "ghs": 0,
-        "sns": 74.65
-      }
-    },
-    "75": {
-      "score": 22.13,
-      "change": -21.61,
-      "metrics": {
-        "opr": 0,
-        "ntv": 51.31,
-        "ghs": 0,
-        "sns": 62.04
-      }
-    },
-    "76": {
-      "score": 24.36,
-      "change": -18.25,
-      "metrics": {
-        "opr": 0,
-        "ntv": 51.2,
-        "ghs": 0,
-        "sns": 77.09
-      }
-    },
-    "77": {
-      "score": 24.21,
-      "change": -8.02,
-      "metrics": {
-        "opr": 0,
-        "ntv": 51.89,
-        "ghs": 0,
-        "sns": 74.95
-      }
-    },
-    "78": {
-      "score": 23.15,
-      "change": -21.24,
-      "metrics": {
-        "opr": 0,
-        "ntv": 50.97,
-        "ghs": 0,
-        "sns": 69.37
-      }
-    },
-    "79": {
-      "score": 26.98,
-      "change": -13.66,
-      "metrics": {
-        "opr": 0,
-        "ntv": 48.67,
-        "ghs": 0,
-        "sns": 98.75
+        "sns": 85.29
       }
     },
     "80": {
-      "score": 25.65,
-      "change": -20.82,
+      "score": 55.41,
+      "change": 8.94,
       "metrics": {
-        "opr": 0,
+        "opr": 72.7,
         "ntv": 54.53,
         "ghs": 0,
-        "sns": 80.14
+        "sns": 36.17
       }
     },
     "81": {
-      "score": 24.07,
-      "change": -25.96,
+      "score": 60.14,
+      "change": 10.11,
       "metrics": {
-        "opr": 0,
+        "opr": 79.75,
         "ntv": 59.83,
         "ghs": 0,
-        "sns": 60.76
+        "sns": 35.39
       }
     },
     "82": {
-      "score": 25.75,
-      "change": -16.96,
+      "score": 51.43,
+      "change": 8.72,
       "metrics": {
-        "opr": 0,
+        "opr": 67.18,
         "ntv": 50.39,
         "ghs": 0,
-        "sns": 87.66
+        "sns": 34.97
       }
     },
     "83": {
-      "score": 24.49,
-      "change": -25.96,
+      "score": 26.4,
+      "change": -24.05,
       "metrics": {
         "opr": 0,
         "ntv": 58.33,
         "ghs": 0,
-        "sns": 66.02
+        "sns": 78.81
       }
     },
     "84": {
-      "score": 24.26,
-      "change": -27.39,
+      "score": 29.81,
+      "change": -21.84,
       "metrics": {
         "opr": 0,
         "ntv": 59.25,
         "ghs": 0,
-        "sns": 62.99
+        "sns": 100
       }
     },
     "85": {
-      "score": 25.58,
-      "change": -30.91,
+      "score": 27.43,
+      "change": -29.06,
       "metrics": {
         "opr": 0,
         "ntv": 67.53,
         "ghs": 0,
-        "sns": 57.96
+        "sns": 70.29
       }
     },
     "86": {
-      "score": 26.55,
-      "change": -25.55,
+      "score": 58.55,
+      "change": 6.45,
       "metrics": {
-        "opr": 0,
+        "opr": 82.67,
         "ntv": 62.01,
         "ghs": 0,
-        "sns": 73.65
+        "sns": 11.45
       }
     },
     "87": {
-      "score": 23.7,
-      "change": -17.7,
+      "score": 50.06,
+      "change": 8.66,
       "metrics": {
-        "opr": 0,
+        "opr": 63.8,
         "ntv": 47.86,
         "ghs": 0,
-        "sns": 78.23
+        "sns": 41.29
       }
     },
     "88": {
-      "score": 28.96,
-      "change": -20.09,
+      "score": 23.34,
+      "change": -25.71,
       "metrics": {
         "opr": 0,
         "ntv": 57.18,
         "ghs": 0,
-        "sns": 97.79
+        "sns": 60.3
       }
     },
     "89": {
-      "score": 26.4,
-      "change": -15.04,
+      "score": 50.29,
+      "change": 8.85,
       "metrics": {
-        "opr": 0,
+        "opr": 63.96,
         "ntv": 47.98,
         "ghs": 0,
-        "sns": 96.04
+        "sns": 42.07
       }
     },
     "90": {
-      "score": 25.17,
-      "change": -16.92,
+      "score": 53.4,
+      "change": 11.31,
       "metrics": {
-        "opr": 0,
+        "opr": 65.64,
         "ntv": 49.24,
         "ghs": 0,
-        "sns": 85.72
+        "sns": 55.16
       }
     },
     "91": {
-      "score": 24.86,
-      "change": -21.84,
+      "score": 55.85,
+      "change": 9.15,
       "metrics": {
-        "opr": 0,
+        "opr": 72.7,
         "ntv": 54.53,
         "ghs": 0,
-        "sns": 74.83
+        "sns": 39.13
       }
     },
     "92": {
-      "score": 22.42,
-      "change": -24.61,
+      "score": 22.34,
+      "change": -24.69,
       "metrics": {
         "opr": 0,
         "ntv": 54.3,
         "ghs": 0,
-        "sns": 58.96
+        "sns": 58.42
       }
     },
     "93": {
-      "score": 29.06,
-      "change": -19.72,
+      "score": 27.62,
+      "change": -21.16,
       "metrics": {
         "opr": 0,
         "ntv": 57.87,
         "ghs": 0,
-        "sns": 97.29
+        "sns": 87.71
       }
     },
     "94": {
-      "score": 25.05,
-      "change": -23.89,
+      "score": 59.69,
+      "change": 10.75,
       "metrics": {
-        "opr": 0,
+        "opr": 74.69,
         "ntv": 56.03,
         "ghs": 0,
-        "sns": 73.61
+        "sns": 55.6
       }
     },
     "95": {
-      "score": 20.07,
-      "change": -18.12,
+      "score": 47.87,
+      "change": 9.68,
       "metrics": {
-        "opr": 0,
+        "opr": 60.89,
         "ntv": 45.67,
         "ghs": 0,
-        "sns": 57.69
+        "sns": 40.04
       }
     },
     "96": {
-      "score": 26.25,
-      "change": -17.23,
+      "score": 21.52,
+      "change": -21.96,
       "metrics": {
         "opr": 0,
         "ntv": 50.51,
         "ghs": 0,
-        "sns": 90.8
+        "sns": 59.25
       }
     },
     "97": {
-      "score": 25.61,
-      "change": -24.21,
+      "score": 23.66,
+      "change": -26.16,
       "metrics": {
         "opr": 0,
         "ntv": 59.94,
         "ghs": 0,
-        "sns": 70.83
+        "sns": 57.81
       }
     },
     "98": {
-      "score": 22.48,
-      "change": -20.05,
+      "score": 48.67,
+      "change": 6.14,
       "metrics": {
-        "opr": 0,
+        "opr": 65.64,
         "ntv": 49.24,
         "ghs": 0,
-        "sns": 67.8
+        "sns": 23.57
       }
     },
     "99": {
-      "score": 26.86,
-      "change": -16.38,
+      "score": 48.84,
+      "change": 5.6,
       "metrics": {
-        "opr": 0,
+        "opr": 68.25,
         "ntv": 51.2,
         "ghs": 0,
-        "sns": 93.71
+        "sns": 12.75
       }
     },
     "100": {
-      "score": 20.59,
-      "change": -15.1,
+      "score": 20.62,
+      "change": -15.07,
       "metrics": {
         "opr": 0,
         "ntv": 40.61,
         "ghs": 0,
-        "sns": 69.6
+        "sns": 69.8
       }
     },
     "101": {
-      "score": 22.23,
-      "change": -18.27,
+      "score": 46.91,
+      "change": 6.41,
       "metrics": {
-        "opr": 0,
+        "opr": 64.42,
         "ntv": 48.32,
         "ghs": 0,
-        "sns": 67.66
+        "sns": 17.5
       }
     },
     "102": {
-      "score": 24.2,
-      "change": -25.02,
+      "score": 56.28,
+      "change": 7.06,
       "metrics": {
-        "opr": 0,
+        "opr": 77.91,
         "ntv": 58.44,
         "ghs": 0,
-        "sns": 63.9
+        "sns": 18.11
       }
     },
     "103": {
-      "score": 26.43,
-      "change": -20.04,
+      "score": 57.37,
+      "change": 10.9,
       "metrics": {
-        "opr": 0,
+        "opr": 71.47,
         "ntv": 53.61,
         "ghs": 0,
-        "sns": 86.84
+        "sns": 54.85
       }
     },
     "104": {
-      "score": 22.24,
-      "change": -20.63,
+      "score": 27.71,
+      "change": -15.16,
       "metrics": {
         "opr": 0,
         "ntv": 51.54,
         "ghs": 0,
-        "sns": 62.35
+        "sns": 98.83
       }
     },
     "105": {
-      "score": 21.47,
-      "change": -8.69,
+      "score": 34.65,
+      "change": 4.49,
       "metrics": {
-        "opr": 0,
+        "opr": 47.39,
         "ntv": 35.55,
         "ghs": 0,
-        "sns": 83.88
+        "sns": 13.78
       }
     },
     "106": {
-      "score": 18.15,
-      "change": -11.06,
+      "score": 16.66,
+      "change": -12.55,
       "metrics": {
         "opr": 0,
         "ntv": 34.97,
         "ghs": 0,
-        "sns": 62.72
+        "sns": 52.81
       }
     },
     "107": {
-      "score": 19.59,
-      "change": -15.66,
+      "score": 46.07,
+      "change": 10.82,
       "metrics": {
-        "opr": 0,
+        "opr": 56.44,
         "ntv": 42.34,
         "ghs": 0,
-        "sns": 60.05
+        "sns": 48.46
       }
     },
     "108": {
-      "score": 22.93,
-      "change": -17.98,
+      "score": 50.94,
+      "change": 10.03,
       "metrics": {
-        "opr": 0,
+        "opr": 65.64,
         "ntv": 49.24,
         "ghs": 0,
-        "sns": 70.8
+        "sns": 38.72
       }
     },
     "109": {
-      "score": 22.99,
-      "change": -25.95,
+      "score": 58.87,
+      "change": 9.93,
       "metrics": {
-        "opr": 0,
+        "opr": 75,
         "ntv": 56.26,
         "ghs": 0,
-        "sns": 59.53
+        "sns": 48.68
       }
     },
     "110": {
-      "score": 27.37,
-      "change": -20.21,
+      "score": 27.57,
+      "change": -20.01,
       "metrics": {
         "opr": 0,
         "ntv": 55.91,
         "ghs": 0,
-        "sns": 89.27
+        "sns": 90.65
       }
     },
     "111": {
-      "score": 24.36,
-      "change": -19.8,
+      "score": 48.33,
+      "change": 4.17,
       "metrics": {
-        "opr": 0,
+        "opr": 68.1,
         "ntv": 51.08,
         "ghs": 0,
-        "sns": 77.25
+        "sns": 10.06
       }
     },
     "112": {
-      "score": 23.91,
-      "change": -20.79,
+      "score": 52.34,
+      "change": 7.64,
       "metrics": {
-        "opr": 0,
+        "opr": 70.55,
         "ntv": 52.92,
         "ghs": 0,
-        "sns": 71.17
+        "sns": 25.6
       }
     },
     "113": {
-      "score": 23.53,
-      "change": -24.07,
+      "score": 57.67,
+      "change": 10.07,
       "metrics": {
-        "opr": 0,
+        "opr": 75,
         "ntv": 56.26,
         "ghs": 0,
-        "sns": 63.11
+        "sns": 40.72
       }
     },
     "114": {
-      "score": 25.05,
-      "change": -17.97,
+      "score": 23.69,
+      "change": -19.33,
       "metrics": {
         "opr": 0,
         "ntv": 50.51,
         "ghs": 0,
-        "sns": 82.83
+        "sns": 73.74
       }
     },
     "115": {
-      "score": 23.89,
-      "change": -18.35,
+      "score": 21.99,
+      "change": -20.25,
       "metrics": {
         "opr": 0,
         "ntv": 50.74,
         "ghs": 0,
-        "sns": 74.72
+        "sns": 62.04
       }
     },
     "116": {
-      "score": 28.42,
-      "change": -19.62,
+      "score": 53.98,
+      "change": 5.94,
       "metrics": {
-        "opr": 0,
+        "opr": 73.77,
         "ntv": 55.34,
         "ghs": 0,
-        "sns": 97.24
+        "sns": 21.76
       }
     },
     "117": {
-      "score": 19.79,
-      "change": -16.34,
+      "score": 41.74,
+      "change": 5.61,
       "metrics": {
-        "opr": 0,
+        "opr": 56.44,
         "ntv": 42.34,
         "ghs": 0,
-        "sns": 61.38
+        "sns": 19.6
       }
     },
     "118": {
-      "score": 28.62,
-      "change": -25.31,
+      "score": 66.38,
+      "change": 12.45,
       "metrics": {
-        "opr": 0,
+        "opr": 85.28,
         "ntv": 63.97,
         "ghs": 0,
-        "sns": 84.19
+        "sns": 51.64
       }
     },
     "119": {
-      "score": 23.51,
-      "change": -20.12,
+      "score": 51.36,
+      "change": 7.73,
       "metrics": {
-        "opr": 0,
+        "opr": 67.02,
         "ntv": 50.28,
         "ghs": 0,
-        "sns": 72.9
+        "sns": 35.19
       }
     },
     "120": {
-      "score": 23.76,
-      "change": -21.98,
+      "score": 21.01,
+      "change": -24.73,
       "metrics": {
         "opr": 0,
         "ntv": 52.46,
         "ghs": 0,
-        "sns": 70.99
+        "sns": 52.62
       }
     },
     "121": {
-      "score": 27.28,
-      "change": -18.23,
+      "score": 53.31,
+      "change": 7.8,
       "metrics": {
-        "opr": 0,
+        "opr": 72.39,
         "ntv": 54.3,
         "ghs": 0,
-        "sns": 91.37
+        "sns": 23.59
       }
     },
     "122": {
-      "score": 27.76,
-      "change": -22.43,
+      "score": 28.09,
+      "change": -22.1,
       "metrics": {
         "opr": 0,
         "ntv": 59.36,
         "ghs": 0,
-        "sns": 86.15
+        "sns": 88.35
       }
     },
     "123": {
-      "score": 24.94,
-      "change": -20.74,
+      "score": 22.23,
+      "change": -23.45,
       "metrics": {
         "opr": 0,
         "ntv": 54.3,
         "ghs": 0,
-        "sns": 75.77
+        "sns": 57.68
       }
     },
     "124": {
-      "score": 28.32,
-      "change": -17.03,
+      "score": 24.73,
+      "change": -20.62,
       "metrics": {
         "opr": 0,
         "ntv": 53.61,
         "ghs": 0,
-        "sns": 99.43
+        "sns": 75.55
       }
     },
     "125": {
-      "score": 22.98,
-      "change": -23.24,
+      "score": 53.12,
+      "change": 6.9,
       "metrics": {
-        "opr": 0,
+        "opr": 73.93,
         "ntv": 55.45,
         "ghs": 0,
-        "sns": 60.78
+        "sns": 15.3
       }
     },
     "126": {
-      "score": 22.63,
-      "change": -13.76,
+      "score": 43.3,
+      "change": 6.91,
       "metrics": {
-        "opr": 0,
+        "opr": 57.06,
         "ntv": 42.8,
         "ghs": 0,
-        "sns": 79.53
+        "sns": 27.14
       }
     },
     "127": {
-      "score": 21.79,
-      "change": -16.66,
+      "score": 44.78,
+      "change": 6.33,
       "metrics": {
-        "opr": 0,
+        "opr": 59.66,
         "ntv": 44.75,
         "ghs": 0,
-        "sns": 70.71
+        "sns": 25.11
       }
     },
     "128": {
-      "score": 27.44,
-      "change": -16.19,
+      "score": 27.92,
+      "change": -15.71,
       "metrics": {
         "opr": 0,
         "ntv": 51.77,
         "ghs": 0,
-        "sns": 96.63
+        "sns": 99.85
       }
     },
     "129": {
-      "score": 22.24,
-      "change": -20.95,
+      "score": 24.69,
+      "change": -18.5,
       "metrics": {
         "opr": 0,
         "ntv": 49.82,
         "ghs": 0,
-        "sns": 65.22
+        "sns": 81.57
       }
     },
     "130": {
-      "score": 25.78,
-      "change": -22.09,
+      "score": 55.93,
+      "change": 8.06,
       "metrics": {
-        "opr": 0,
+        "opr": 73.93,
         "ntv": 55.45,
         "ghs": 0,
-        "sns": 79.44
+        "sns": 34.02
       }
     },
     "131": {
-      "score": 25.48,
-      "change": -19.57,
+      "score": 51.09,
+      "change": 6.04,
       "metrics": {
-        "opr": 0,
+        "opr": 71.17,
         "ntv": 53.38,
         "ghs": 0,
-        "sns": 80.87
+        "sns": 14.39
       }
     },
     "132": {
-      "score": 23.01,
-      "change": -16.38,
+      "score": 48.62,
+      "change": 9.23,
       "metrics": {
-        "opr": 0,
+        "opr": 62.73,
         "ntv": 47.05,
         "ghs": 0,
-        "sns": 74.99
+        "sns": 36.64
       }
     },
     "133": {
-      "score": 26.48,
-      "change": -23.17,
+      "score": 54.22,
+      "change": 4.57,
       "metrics": {
-        "opr": 0,
+        "opr": 76.69,
         "ntv": 57.52,
         "ghs": 0,
-        "sns": 80.69
+        "sns": 9.94
       }
     },
     "134": {
-      "score": 23.55,
-      "change": -22.71,
+      "score": 57.29,
+      "change": 11.03,
       "metrics": {
-        "opr": 0,
+        "opr": 73.77,
         "ntv": 55.34,
         "ghs": 0,
-        "sns": 64.79
+        "sns": 43.81
       }
     },
     "135": {
-      "score": 21.89,
-      "change": -24.06,
+      "score": 56.21,
+      "change": 10.26,
       "metrics": {
-        "opr": 0,
+        "opr": 70.25,
         "ntv": 52.69,
         "ghs": 0,
-        "sns": 58.12
+        "sns": 52.72
       }
     },
     "136": {
-      "score": 28.04,
-      "change": -19.83,
+      "score": 52.5,
+      "change": 4.63,
       "metrics": {
-        "opr": 0,
+        "opr": 74.08,
         "ntv": 55.57,
         "ghs": 0,
-        "sns": 94.33
+        "sns": 10.43
       }
     },
     "137": {
-      "score": 21.38,
-      "change": -20.82,
+      "score": 50.99,
+      "change": 8.79,
       "metrics": {
-        "opr": 0,
+        "opr": 65.95,
         "ntv": 49.47,
         "ghs": 0,
-        "sns": 60.1
+        "sns": 37.67
       }
     },
     "138": {
-      "score": 26.46,
-      "change": -28.6,
+      "score": 25.52,
+      "change": -29.54,
       "metrics": {
         "opr": 0,
         "ntv": 63.74,
         "ghs": 0,
-        "sns": 70.19
+        "sns": 63.88
       }
     },
     "139": {
-      "score": 27.89,
-      "change": -16.31,
+      "score": 53,
+      "change": 8.8,
       "metrics": {
-        "opr": 0,
+        "opr": 70.55,
         "ntv": 52.92,
         "ghs": 0,
-        "sns": 97.75
+        "sns": 30
       }
     },
     "140": {
-      "score": 24.42,
-      "change": -20.43,
+      "score": 49.35,
+      "change": 4.5,
       "metrics": {
-        "opr": 0,
+        "opr": 69.33,
         "ntv": 52,
         "ghs": 0,
-        "sns": 76.16
+        "sns": 11.23
       }
     },
     "141": {
-      "score": 26.23,
-      "change": -25.89,
+      "score": 59.06,
+      "change": 6.94,
       "metrics": {
-        "opr": 0,
+        "opr": 82.82,
         "ntv": 62.13,
         "ghs": 0,
-        "sns": 71.35
+        "sns": 14.1
       }
     },
     "142": {
-      "score": 22.92,
-      "change": -23,
+      "score": 51.56,
+      "change": 5.64,
       "metrics": {
-        "opr": 0,
+        "opr": 72.24,
         "ntv": 54.19,
         "ghs": 0,
-        "sns": 62.47
+        "sns": 12.65
       }
     },
     "143": {
-      "score": 21.98,
-      "change": -24.85,
+      "score": 55.28,
+      "change": 8.45,
       "metrics": {
-        "opr": 0,
+        "opr": 72.85,
         "ntv": 54.65,
         "ghs": 0,
-        "sns": 55.48
+        "sns": 34.63
       }
     },
     "144": {
-      "score": 27.01,
-      "change": -13.3,
+      "score": 50.33,
+      "change": 10.02,
       "metrics": {
-        "opr": 0,
+        "opr": 64.57,
         "ntv": 48.44,
         "ghs": 0,
-        "sns": 99.36
+        "sns": 39.57
       }
     },
     "145": {
-      "score": 25.73,
-      "change": -21.97,
+      "score": 57.41,
+      "change": 9.71,
       "metrics": {
-        "opr": 0,
+        "opr": 74.39,
         "ntv": 55.8,
         "ghs": 0,
-        "sns": 78.55
+        "sns": 41.8
       }
     },
     "146": {
-      "score": 25.41,
-      "change": -24.47,
+      "score": 61.98,
+      "change": 12.1,
       "metrics": {
-        "opr": 0,
+        "opr": 79.6,
         "ntv": 59.71,
         "ghs": 0,
-        "sns": 69.89
+        "sns": 48.36
       }
     },
     "147": {
-      "score": 35.15,
-      "change": -16.62,
+      "score": 31.86,
+      "change": -19.91,
       "metrics": {
         "opr": 0,
         "ntv": 84.22,
         "ghs": 0,
-        "sns": 93.94
+        "sns": 72.05
       }
     },
     "148": {
-      "score": 26.79,
-      "change": -23.86,
+      "score": 22.68,
+      "change": -27.97,
       "metrics": {
         "opr": 0,
         "ntv": 57.98,
         "ghs": 0,
-        "sns": 81.96
+        "sns": 54.58
       }
     },
     "149": {
-      "score": 27.71,
-      "change": -17.12,
+      "score": 50.15,
+      "change": 5.32,
       "metrics": {
-        "opr": 0,
+        "opr": 70.25,
         "ntv": 52.69,
         "ghs": 0,
-        "sns": 96.93
+        "sns": 12.38
       }
     },
     "150": {
-      "score": 18.73,
-      "change": -17.34,
+      "score": 17.94,
+      "change": -18.13,
       "metrics": {
         "opr": 0,
         "ntv": 40.61,
         "ghs": 0,
-        "sns": 57.21
+        "sns": 51.93
       }
     },
     "151": {
-      "score": 20.85,
-      "change": -22.08,
+      "score": 25.42,
+      "change": -17.51,
       "metrics": {
         "opr": 0,
         "ntv": 48.9,
         "ghs": 0,
-        "sns": 57.48
+        "sns": 87.96
       }
     },
     "152": {
-      "score": 27.38,
-      "change": -21.64,
+      "score": 56.53,
+      "change": 7.51,
       "metrics": {
-        "opr": 0,
+        "opr": 75,
         "ntv": 56.26,
         "ghs": 0,
-        "sns": 88.8
+        "sns": 33.09
       }
     },
     "153": {
-      "score": 32.36,
-      "change": -16.92,
+      "score": 49.93,
+      "change": 0.65,
       "metrics": {
-        "opr": 0,
+        "opr": 53.6,
         "ntv": 80.42,
         "ghs": 0,
-        "sns": 81.69
+        "sns": 20.14
       }
     },
     "154": {
-      "score": 31,
-      "change": -30.21,
+      "score": 69.71,
+      "change": 8.5,
       "metrics": {
-        "opr": 0,
+        "opr": 98.01,
         "ntv": 73.52,
         "ghs": 0,
-        "sns": 84.15
+        "sns": 15.52
       }
     },
     "155": {
-      "score": 27.05,
-      "change": -13.84,
+      "score": 46.17,
+      "change": 5.28,
       "metrics": {
-        "opr": 0,
+        "opr": 65.49,
         "ntv": 49.13,
         "ghs": 0,
-        "sns": 98.47
+        "sns": 7.61
       }
     },
     "156": {
-      "score": 23.33,
-      "change": -18.14,
+      "score": 51.93,
+      "change": 10.46,
       "metrics": {
-        "opr": 0,
+        "opr": 65.49,
         "ntv": 49.13,
         "ghs": 0,
-        "sns": 73.65
+        "sns": 46.01
       }
     },
     "157": {
-      "score": 37.48,
-      "change": -17.03,
+      "score": 63.39,
+      "change": 8.88,
       "metrics": {
-        "opr": 0,
+        "opr": 70.25,
         "ntv": 52.69,
         "ghs": 98.64,
-        "sns": 96.31
+        "sns": 34.83
       }
     },
     "158": {
-      "score": 48.5,
-      "change": 24.93,
+      "score": 71.43,
+      "change": 47.86,
       "metrics": {
-        "opr": 0,
+        "opr": 65.87,
         "ntv": 98.83,
         "ghs": 97.25,
-        "sns": 93.81
+        "sns": 27.09
       }
     },
     "159": {
-      "score": 27.6,
-      "change": -18.15,
+      "score": 55.5,
+      "change": 9.75,
       "metrics": {
-        "opr": 0,
+        "opr": 70.71,
         "ntv": 53.04,
         "ghs": 0,
-        "sns": 95.6
+        "sns": 45.91
       }
     },
     "160": {
-      "score": 39.72,
-      "change": -25.07,
+      "score": 52.46,
+      "change": -12.33,
       "metrics": {
-        "opr": 0,
+        "opr": 43.79,
         "ntv": 65.69,
         "ghs": 84.99,
-        "sns": 98.68
+        "sns": 37.64
       }
     },
     "161": {
-      "score": 26.19,
-      "change": -13.76,
+      "score": 25.14,
+      "change": -14.81,
       "metrics": {
         "opr": 0,
         "ntv": 46.25,
         "ghs": 0,
-        "sns": 97.49
+        "sns": 90.53
       }
     },
     "162": {
-      "score": 25.14,
-      "change": -9.42,
+      "score": 19.19,
+      "change": -15.37,
       "metrics": {
         "opr": 0,
         "ntv": 41.07,
         "ghs": 0,
-        "sns": 99.18
+        "sns": 59.45
       }
     },
     "163": {
-      "score": 18.93,
-      "change": -12.32,
+      "score": 37.34,
+      "change": 6.09,
       "metrics": {
-        "opr": 0,
+        "opr": 46.17,
         "ntv": 34.63,
         "ghs": 0,
-        "sns": 68.5
+        "sns": 37.32
       }
     },
     "164": {
-      "score": 25.65,
-      "change": -20.82,
+      "score": 55.41,
+      "change": 8.94,
       "metrics": {
-        "opr": 0,
+        "opr": 72.7,
         "ntv": 54.53,
         "ghs": 0,
-        "sns": 80.14
+        "sns": 36.17
       }
     },
     "165": {
-      "score": 25.64,
-      "change": -20.27,
+      "score": 55.36,
+      "change": 9.45,
       "metrics": {
-        "opr": 0,
+        "opr": 72.24,
         "ntv": 54.19,
         "ghs": 0,
-        "sns": 80.64
+        "sns": 37.96
       }
     },
     "166": {
-      "score": 28.65,
-      "change": -23.26,
+      "score": 28.59,
+      "change": -23.32,
       "metrics": {
         "opr": 0,
         "ntv": 62.47,
         "ghs": 0,
-        "sns": 86.86
+        "sns": 86.51
       }
     },
     "167": {
-      "score": 23.35,
-      "change": -17.98,
+      "score": 52.83,
+      "change": 11.5,
       "metrics": {
-        "opr": 0,
+        "opr": 64.88,
         "ntv": 48.67,
         "ghs": 0,
-        "sns": 74.52
+        "sns": 54.82
       }
     },
     "168": {
-      "score": 26.57,
-      "change": -28.41,
+      "score": 65.65,
+      "change": 10.67,
       "metrics": {
-        "opr": 0,
+        "opr": 84.82,
         "ntv": 63.62,
         "ghs": 0,
-        "sns": 71.08
+        "sns": 48.92
       }
     },
     "169": {
-      "score": 26.49,
-      "change": -22.12,
+      "score": 24.92,
+      "change": -23.69,
       "metrics": {
         "opr": 0,
         "ntv": 55.8,
         "ghs": 0,
-        "sns": 83.6
+        "sns": 73.13
       }
     },
     "170": {
-      "score": 20.39,
-      "change": -22.05,
+      "score": 50.62,
+      "change": 8.18,
       "metrics": {
-        "opr": 0,
+        "opr": 64.88,
         "ntv": 48.67,
         "ghs": 0,
-        "sns": 54.84
+        "sns": 40.11
       }
     },
     "171": {
-      "score": 22.98,
-      "change": -25.91,
+      "score": 58.83,
+      "change": 9.94,
       "metrics": {
-        "opr": 0,
+        "opr": 75.92,
         "ntv": 56.95,
         "ghs": 0,
-        "sns": 58.3
+        "sns": 44.2
       }
     },
     "172": {
-      "score": 22.06,
-      "change": -13.01,
+      "score": 37.84,
+      "change": 2.77,
       "metrics": {
-        "opr": 0,
+        "opr": 53.68,
         "ntv": 40.27,
         "ghs": 0,
-        "sns": 79.96
+        "sns": 6.19
       }
     },
     "173": {
-      "score": 18.84,
-      "change": -6.93,
+      "score": 48.81,
+      "change": 23.04,
       "metrics": {
-        "opr": 0,
+        "opr": 65.87,
         "ntv": 0,
         "ghs": 100,
-        "sns": 58.92
+        "sns": 39.16
       }
     },
     "174": {
-      "score": 18.46,
-      "change": -14.12,
+      "score": 38.1,
+      "change": 5.52,
       "metrics": {
-        "opr": 0,
+        "opr": 50.61,
         "ntv": 37.97,
         "ghs": 0,
-        "sns": 59.8
+        "sns": 22
       }
     },
     "175": {
-      "score": 25.7,
-      "change": -28.83,
+      "score": 63.35,
+      "change": 8.82,
       "metrics": {
-        "opr": 0,
+        "opr": 84.82,
         "ntv": 63.62,
         "ghs": 0,
-        "sns": 65.29
+        "sns": 33.58
       }
     },
     "176": {
-      "score": 24.31,
-      "change": -15.58,
+      "score": 22.19,
+      "change": -17.7,
       "metrics": {
         "opr": 0,
         "ntv": 47.75,
         "ghs": 0,
-        "sns": 82.49
+        "sns": 68.33
       }
     },
     "177": {
-      "score": 20.19,
-      "change": -7.38,
+      "score": 33.77,
+      "change": 6.2,
       "metrics": {
-        "opr": 0,
+        "opr": 41.26,
         "ntv": 30.95,
         "ghs": 0,
-        "sns": 83.01
+        "sns": 36.05
       }
     },
     "178": {
-      "score": 27.85,
-      "change": -20.71,
+      "score": 22.71,
+      "change": -25.85,
       "metrics": {
         "opr": 0,
         "ntv": 56.26,
         "ghs": 0,
-        "sns": 91.92
+        "sns": 57.66
       }
     },
     "179": {
-      "score": 27.37,
-      "change": -22.34,
+      "score": 26.94,
+      "change": -22.77,
       "metrics": {
         "opr": 0,
         "ntv": 58.33,
         "ghs": 0,
-        "sns": 85.27
+        "sns": 82.38
       }
     },
     "180": {
-      "score": 24.15,
-      "change": -20.12,
+      "score": 25.99,
+      "change": -18.28,
       "metrics": {
         "opr": 0,
         "ntv": 52.81,
         "ghs": 0,
-        "sns": 72.97
+        "sns": 85.24
       }
     },
     "181": {
-      "score": 28.51,
-      "change": -23.63,
+      "score": 58.69,
+      "change": 6.55,
       "metrics": {
-        "opr": 0,
+        "opr": 80.52,
         "ntv": 60.4,
         "ghs": 0,
-        "sns": 89.41
+        "sns": 22.2
       }
     },
     "182": {
-      "score": 22.53,
-      "change": -25.35,
+      "score": 57.8,
+      "change": 9.92,
       "metrics": {
-        "opr": 0,
+        "opr": 74.54,
         "ntv": 55.91,
         "ghs": 0,
-        "sns": 57.03
+        "sns": 43.71
       }
     },
     "183": {
-      "score": 23.48,
-      "change": -17.89,
+      "score": 25.62,
+      "change": -15.75,
       "metrics": {
         "opr": 0,
         "ntv": 49.13,
         "ghs": 0,
-        "sns": 74.65
+        "sns": 88.94
       }
     },
     "184": {
-      "score": 22.13,
-      "change": -21.61,
+      "score": 51.81,
+      "change": 8.07,
       "metrics": {
-        "opr": 0,
+        "opr": 68.4,
         "ntv": 51.31,
         "ghs": 0,
-        "sns": 62.04
+        "sns": 31.86
       }
     },
     "185": {
-      "score": 19.68,
-      "change": -55.91,
+      "score": 42.76,
+      "change": -32.83,
       "metrics": {
-        "opr": 0,
+        "opr": 52.07,
         "ntv": 0,
         "ghs": 99.78,
-        "sns": 64.65
+        "sns": 44.98
       }
     },
     "186": {
-      "score": 26.13,
-      "change": -17.6,
+      "score": 50.72,
+      "change": 6.99,
       "metrics": {
-        "opr": 0,
+        "opr": 69.17,
         "ntv": 51.89,
         "ghs": 0,
-        "sns": 87.75
+        "sns": 21.1
       }
     },
     "187": {
-      "score": 28.45,
-      "change": -24.85,
+      "score": 64.48,
+      "change": 11.18,
       "metrics": {
-        "opr": 0,
+        "opr": 82.52,
         "ntv": 61.9,
         "ghs": 0,
-        "sns": 86.47
+        "sns": 51.62
       }
     },
     "188": {
-      "score": 29.66,
-      "change": -26.98,
+      "score": 65.25,
+      "change": 8.61,
       "metrics": {
-        "opr": 0,
+        "opr": 87.88,
         "ntv": 65.92,
         "ghs": 0,
-        "sns": 87.86
+        "sns": 32.18
       }
     },
     "189": {
-      "score": 26.35,
-      "change": -15.32,
+      "score": 47.65,
+      "change": 5.98,
       "metrics": {
-        "opr": 0,
+        "opr": 64.72,
         "ntv": 48.55,
         "ghs": 0,
-        "sns": 94.78
+        "sns": 21
       }
     },
     "190": {
-      "score": 26.57,
-      "change": -17.99,
+      "score": 49.69,
+      "change": 5.13,
       "metrics": {
-        "opr": 0,
+        "opr": 69.33,
         "ntv": 52,
         "ghs": 0,
-        "sns": 90.5
+        "sns": 13.53
       }
     },
     "191": {
-      "score": 17.35,
-      "change": -8.41,
+      "score": 33.58,
+      "change": 7.82,
       "metrics": {
-        "opr": 0,
+        "opr": 38.04,
         "ntv": 28.53,
         "ghs": 0,
-        "sns": 68.12
+        "sns": 49.49
       }
     },
     "192": {
-      "score": 21.3,
-      "change": -23.82,
+      "score": 53.14,
+      "change": 8.02,
       "metrics": {
-        "opr": 0,
+        "opr": 68.71,
         "ntv": 51.54,
         "ghs": 0,
-        "sns": 56.09
+        "sns": 39.35
       }
     },
     "193": {
-      "score": 20.72,
-      "change": -17.43,
+      "score": 48.4,
+      "change": 10.25,
       "metrics": {
-        "opr": 0,
+        "opr": 60.43,
         "ntv": 45.33,
         "ghs": 0,
-        "sns": 62.58
+        "sns": 45.69
       }
     },
     "194": {
-      "score": 21.97,
-      "change": -24.09,
+      "score": 21.71,
+      "change": -24.35,
       "metrics": {
         "opr": 0,
         "ntv": 52.46,
         "ghs": 0,
-        "sns": 59.05
+        "sns": 57.32
       }
     },
     "195": {
-      "score": 24.28,
-      "change": -18.67,
+      "score": 52.72,
+      "change": 9.77,
       "metrics": {
-        "opr": 0,
+        "opr": 67.18,
         "ntv": 50.39,
         "ghs": 0,
-        "sns": 77.89
+        "sns": 43.54
       }
     },
     "196": {
-      "score": 26.17,
-      "change": -17.06,
+      "score": 24.81,
+      "change": -18.42,
       "metrics": {
         "opr": 0,
         "ntv": 50.28,
         "ghs": 0,
-        "sns": 90.69
+        "sns": 81.57
       }
     },
     "197": {
-      "score": 24.23,
-      "change": -29.35,
+      "score": 64.59,
+      "change": 11.01,
       "metrics": {
-        "opr": 0,
+        "opr": 84.66,
         "ntv": 63.51,
         "ghs": 0,
-        "sns": 55.66
+        "sns": 42.58
       }
     },
     "198": {
-      "score": 35.61,
-      "change": -18.44,
+      "score": 59.91,
+      "change": 5.86,
       "metrics": {
-        "opr": 0,
+        "opr": 67.94,
         "ntv": 50.97,
         "ghs": 100,
-        "sns": 85.81
+        "sns": 21.29
       }
     },
     "199": {
-      "score": 36.23,
-      "change": -17.42,
+      "score": 63.45,
+      "change": 9.8,
       "metrics": {
-        "opr": 0,
+        "opr": 66.1,
         "ntv": 49.59,
         "ghs": 100,
-        "sns": 92.23
+        "sns": 53.35
       }
     },
     "200": {
-      "score": 22.16,
-      "change": -19.35,
+      "score": 48.23,
+      "change": 6.72,
       "metrics": {
-        "opr": 0,
+        "opr": 64.11,
         "ntv": 48.09,
         "ghs": 0,
-        "sns": 67.59
+        "sns": 27.7
       }
     },
     "201": {
-      "score": 35.87,
-      "change": -18.66,
+      "score": 63.01,
+      "change": 8.48,
       "metrics": {
-        "opr": 0,
+        "opr": 71.47,
         "ntv": 53.61,
         "ghs": 100,
-        "sns": 83.12
+        "sns": 25.84
       }
     },
     "202": {
-      "score": 21.8,
-      "change": -20.45,
+      "score": 54.59,
+      "change": 12.34,
       "metrics": {
-        "opr": 0,
+        "opr": 67.18,
         "ntv": 50.39,
         "ghs": 0,
-        "sns": 61.35
+        "sns": 56
       }
     },
     "203": {
-      "score": 24.33,
-      "change": -17.95,
+      "score": 53.49,
+      "change": 11.21,
       "metrics": {
-        "opr": 0,
+        "opr": 65.64,
         "ntv": 49.24,
         "ghs": 0,
-        "sns": 80.12
+        "sns": 55.73
       }
     },
     "204": {
-      "score": 27.83,
-      "change": -19.57,
+      "score": 53.45,
+      "change": 6.05,
       "metrics": {
-        "opr": 0,
+        "opr": 73.77,
         "ntv": 55.34,
         "ghs": 0,
-        "sns": 93.33
+        "sns": 18.18
       }
     },
     "205": {
-      "score": 25.68,
-      "change": -18.01,
+      "score": 24.52,
+      "change": -19.17,
       "metrics": {
         "opr": 0,
         "ntv": 52.58,
         "ghs": 0,
-        "sns": 83.56
+        "sns": 75.82
       }
     },
     "206": {
-      "score": 28.38,
-      "change": -21.15,
+      "score": 60.38,
+      "change": 10.85,
       "metrics": {
-        "opr": 0,
+        "opr": 76.69,
         "ntv": 57.52,
         "ghs": 0,
-        "sns": 93.35
+        "sns": 51.03
       }
     },
     "207": {
-      "score": 26.41,
-      "change": -24.13,
+      "score": 58.77,
+      "change": 8.23,
       "metrics": {
-        "opr": 0,
+        "opr": 77.3,
         "ntv": 57.98,
         "ghs": 0,
-        "sns": 79.46
+        "sns": 37.47
       }
     },
     "208": {
-      "score": 23.48,
-      "change": -18.35,
+      "score": 49.52,
+      "change": 7.69,
       "metrics": {
-        "opr": 0,
+        "opr": 63.5,
         "ntv": 47.63,
         "ghs": 0,
-        "sns": 77.14
+        "sns": 39.06
       }
     },
     "209": {
-      "score": 26.31,
-      "change": -15.31,
+      "score": 45.58,
+      "change": 3.96,
       "metrics": {
-        "opr": 0,
+        "opr": 64.72,
         "ntv": 48.55,
         "ghs": 0,
-        "sns": 94.49
+        "sns": 7.24
       }
     },
     "210": {
-      "score": 23.66,
-      "change": -22.69,
+      "score": 52.35,
+      "change": 6,
       "metrics": {
-        "opr": 0,
+        "opr": 72.39,
         "ntv": 54.3,
         "ghs": 0,
-        "sns": 67.25
+        "sns": 17.21
       }
     },
     "211": {
-      "score": 20.58,
-      "change": -18.27,
+      "score": 24.06,
+      "change": -14.79,
       "metrics": {
         "opr": 0,
         "ntv": 45.56,
         "ghs": 0,
-        "sns": 61.26
+        "sns": 84.48
       }
     },
     "212": {
-      "score": 22.34,
-      "change": -21.18,
+      "score": 24.66,
+      "change": -18.86,
       "metrics": {
         "opr": 0,
         "ntv": 49.82,
         "ghs": 0,
-        "sns": 65.93
+        "sns": 81.35
       }
     },
     "213": {
-      "score": 25.75,
-      "change": -26.92,
+      "score": 37.07,
+      "change": -15.6,
       "metrics": {
-        "opr": 0,
+        "opr": 40.64,
         "ntv": 60.98,
         "ghs": 0,
-        "sns": 70.01
+        "sns": 10.01
       }
     },
     "214": {
-      "score": 34.67,
-      "change": -21.15,
+      "score": 32.46,
+      "change": -23.36,
       "metrics": {
         "opr": 0,
         "ntv": 54.76,
         "ghs": 100,
-        "sns": 73.17
+        "sns": 58.49
       }
     },
     "215": {
-      "score": 24.34,
-      "change": -18.73,
+      "score": 21.39,
+      "change": -21.68,
       "metrics": {
         "opr": 0,
         "ntv": 50.85,
         "ghs": 0,
-        "sns": 77.5
+        "sns": 57.83
       }
     },
     "216": {
-      "score": 27.03,
-      "change": -19.48,
+      "score": 56.81,
+      "change": 10.3,
       "metrics": {
-        "opr": 0,
+        "opr": 73.77,
         "ntv": 55.34,
         "ghs": 0,
-        "sns": 87.95
+        "sns": 40.58
       }
     },
     "217": {
-      "score": 27.5,
-      "change": -19.72,
+      "score": 25.54,
+      "change": -21.68,
       "metrics": {
         "opr": 0,
         "ntv": 54.65,
         "ghs": 0,
-        "sns": 92.23
+        "sns": 79.17
       }
     },
     "218": {
-      "score": 26.72,
-      "change": -33.19,
+      "score": 73.45,
+      "change": 13.54,
       "metrics": {
-        "opr": 0,
+        "opr": 95.86,
         "ntv": 71.91,
         "ghs": 0,
-        "sns": 58.26
+        "sns": 50.29
       }
     },
     "219": {
-      "score": 22.96,
-      "change": -11.93,
+      "score": 40.23,
+      "change": 5.34,
       "metrics": {
-        "opr": 0,
+        "opr": 55.98,
         "ntv": 41.99,
         "ghs": 0,
-        "sns": 83.1
+        "sns": 11.65
       }
     },
     "220": {
-      "score": 21.52,
-      "change": -16.71,
+      "score": 45.71,
+      "change": 7.48,
       "metrics": {
-        "opr": 0,
+        "opr": 60.43,
         "ntv": 45.33,
         "ghs": 0,
-        "sns": 67.89
+        "sns": 27.73
       }
     },
     "221": {
-      "score": 19.73,
-      "change": -16.25,
+      "score": 44.27,
+      "change": 8.29,
       "metrics": {
-        "opr": 0,
+        "opr": 55.21,
         "ntv": 41.42,
         "ghs": 0,
-        "sns": 62.51
+        "sns": 42.09
       }
     },
     "222": {
-      "score": 25.65,
-      "change": -11.04,
+      "score": 40.96,
+      "change": 4.27,
       "metrics": {
-        "opr": 0,
+        "opr": 57.98,
         "ntv": 43.49,
         "ghs": 0,
-        "sns": 98.54
+        "sns": 7.32
       }
     },
     "223": {
-      "score": 22.3,
-      "change": -18.75,
+      "score": 49.51,
+      "change": 8.46,
       "metrics": {
-        "opr": 0,
+        "opr": 62.88,
         "ntv": 47.17,
         "ghs": 0,
-        "sns": 70.05
+        "sns": 41.87
       }
     },
     "224": {
-      "score": 31.25,
-      "change": -24.14,
+      "score": 26.61,
+      "change": -28.78,
       "metrics": {
         "opr": 0,
         "ntv": 66.04,
         "ghs": 0,
-        "sns": 98.27
+        "sns": 67.33
       }
     },
     "225": {
-      "score": 22.88,
-      "change": -24.81,
+      "score": 57.89,
+      "change": 10.2,
       "metrics": {
-        "opr": 0,
+        "opr": 72.7,
         "ntv": 54.53,
         "ghs": 0,
-        "sns": 61.63
+        "sns": 52.69
       }
     },
     "226": {
-      "score": 23.6,
-      "change": -22.29,
+      "score": 22.32,
+      "change": -23.57,
       "metrics": {
         "opr": 0,
         "ntv": 53.96,
         "ghs": 0,
-        "sns": 67.39
+        "sns": 58.88
       }
     },
     "227": {
-      "score": 26.45,
-      "change": -17.72,
+      "score": 21.19,
+      "change": -22.98,
       "metrics": {
         "opr": 0,
         "ntv": 50.16,
         "ghs": 0,
-        "sns": 92.74
+        "sns": 57.68
       }
     },
     "228": {
-      "score": 21.83,
-      "change": -20.76,
+      "score": 20.6,
+      "change": -21.99,
       "metrics": {
         "opr": 0,
         "ntv": 48.32,
         "ghs": 0,
-        "sns": 64.97
+        "sns": 56.78
       }
     },
     "229": {
-      "score": 20.19,
-      "change": -19.18,
+      "score": 21.22,
+      "change": -18.15,
       "metrics": {
         "opr": 0,
         "ntv": 45.67,
         "ghs": 0,
-        "sns": 58.46
+        "sns": 65.32
       }
     },
     "230": {
-      "score": 21.63,
-      "change": -22.27,
+      "score": 24.77,
+      "change": -19.13,
       "metrics": {
         "opr": 0,
         "ntv": 50.97,
         "ghs": 0,
-        "sns": 59.28
+        "sns": 80.15
       }
     },
     "231": {
-      "score": 27.42,
-      "change": -18.06,
+      "score": 53.06,
+      "change": 7.58,
       "metrics": {
-        "opr": 0,
+        "opr": 70.09,
         "ntv": 52.58,
         "ghs": 0,
-        "sns": 95.19
+        "sns": 32.48
       }
     },
     "232": {
-      "score": 20,
-      "change": -16.42,
+      "score": 42.27,
+      "change": 5.85,
       "metrics": {
-        "opr": 0,
+        "opr": 54.45,
         "ntv": 40.84,
         "ghs": 0,
-        "sns": 65.25
+        "sns": 32.21
       }
     },
     "233": {
-      "score": 26.33,
-      "change": -18.88,
+      "score": 23.14,
+      "change": -22.07,
       "metrics": {
         "opr": 0,
         "ntv": 52.23,
         "ghs": 0,
-        "sns": 88.5
+        "sns": 67.25
       }
     },
     "234": {
-      "score": 23.21,
-      "change": -15.36,
+      "score": 48.73,
+      "change": 10.16,
       "metrics": {
-        "opr": 0,
+        "opr": 59.97,
         "ntv": 44.98,
         "ghs": 0,
-        "sns": 79.8
+        "sns": 50
       }
     },
     "235": {
-      "score": 26.04,
-      "change": -13.26,
+      "score": 49.99,
+      "change": 10.69,
       "metrics": {
-        "opr": 0,
+        "opr": 61.96,
         "ntv": 46.48,
         "ghs": 0,
-        "sns": 96.13
+        "sns": 49.27
       }
     },
     "236": {
-      "score": 23.51,
-      "change": -14.12,
+      "score": 24.53,
+      "change": -13.1,
       "metrics": {
         "opr": 0,
         "ntv": 44.87,
         "ghs": 0,
-        "sns": 81.94
+        "sns": 88.77
       }
     },
     "237": {
-      "score": 23.12,
-      "change": -18.13,
+      "score": 20.99,
+      "change": -20.26,
       "metrics": {
         "opr": 0,
         "ntv": 49.7,
         "ghs": 0,
-        "sns": 71.33
+        "sns": 57.12
       }
     },
     "238": {
-      "score": 17.53,
-      "change": -15.43,
+      "score": 38.55,
+      "change": 5.59,
       "metrics": {
-        "opr": 0,
+        "opr": 49.23,
         "ntv": 36.93,
         "ghs": 0,
-        "sns": 55.29
+        "sns": 31.38
       }
     },
     "239": {
-      "score": 27.11,
-      "change": -20.38,
+      "score": 28.4,
+      "change": -19.09,
       "metrics": {
         "opr": 0,
         "ntv": 56.49,
         "ghs": 0,
-        "sns": 86.59
+        "sns": 95.18
       }
     },
     "240": {
-      "score": 25.51,
-      "change": -17.51,
+      "score": 21.98,
+      "change": -21.04,
       "metrics": {
         "opr": 0,
         "ntv": 50.39,
         "ghs": 0,
-        "sns": 86.06
+        "sns": 62.56
       }
     },
     "241": {
-      "score": 23.51,
-      "change": -13.5,
+      "score": 46.18,
+      "change": 9.17,
       "metrics": {
-        "opr": 0,
+        "opr": 58.44,
         "ntv": 43.83,
         "ghs": 0,
-        "sns": 83.67
+        "sns": 39.99
       }
     },
     "242": {
-      "score": 29.72,
-      "change": -11.32,
+      "score": 40.05,
+      "change": -0.99,
       "metrics": {
-        "opr": 0,
+        "opr": 42.33,
         "ntv": 63.51,
         "ghs": 0,
-        "sns": 92.28
+        "sns": 20.07
       }
     },
     "243": {
-      "score": 19.48,
-      "change": -18.02,
+      "score": 41.45,
+      "change": 3.95,
       "metrics": {
-        "opr": 0,
+        "opr": 57.98,
         "ntv": 43.49,
         "ghs": 0,
-        "sns": 57.39
+        "sns": 10.6
       }
     },
     "244": {
-      "score": 30.4,
-      "change": -22.25,
+      "score": 25.84,
+      "change": -26.81,
       "metrics": {
         "opr": 0,
         "ntv": 63.39,
         "ghs": 0,
-        "sns": 96.99
+        "sns": 66.62
       }
     },
     "245": {
-      "score": 25.75,
-      "change": -29.44,
+      "score": 24.6,
+      "change": -30.59,
       "metrics": {
         "opr": 0,
         "ntv": 63.51,
         "ghs": 0,
-        "sns": 65.84
+        "sns": 58.13
       }
     },
     "246": {
-      "score": 25.45,
-      "change": -18,
+      "score": 51.22,
+      "change": 7.77,
       "metrics": {
-        "opr": 0,
+        "opr": 67.48,
         "ntv": 50.62,
         "ghs": 0,
-        "sns": 85.31
+        "sns": 32.16
       }
     },
     "247": {
-      "score": 22.44,
-      "change": -17.25,
+      "score": 50.36,
+      "change": 10.67,
       "metrics": {
-        "opr": 0,
+        "opr": 63.04,
         "ntv": 47.28,
         "ghs": 0,
-        "sns": 70.83
+        "sns": 46.77
       }
     },
     "248": {
-      "score": 26.71,
-      "change": -15.29,
+      "score": 47.14,
+      "change": 5.14,
       "metrics": {
-        "opr": 0,
+        "opr": 63.34,
         "ntv": 47.51,
         "ghs": 0,
-        "sns": 98.86
+        "sns": 23.96
       }
     },
     "249": {
-      "score": 31.5,
-      "change": -16.51,
+      "score": 30.68,
+      "change": -17.33,
       "metrics": {
         "opr": 0,
         "ntv": 78.23,
         "ghs": 0,
-        "sns": 79.64
+        "sns": 74.16
       }
     },
     "250": {
-      "score": 29.09,
-      "change": -19.79,
+      "score": 50.82,
+      "change": 1.94,
       "metrics": {
-        "opr": 0,
+        "opr": 51.07,
         "ntv": 76.62,
         "ghs": 0,
-        "sns": 66.25
+        "sns": 40.9
       }
     }
   }

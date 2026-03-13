@@ -2,7 +2,21 @@ import fs from 'fs';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-// 1. API 설정 (환경변수 사용)
+// 0. 환경변수 수동 로드 (dotenv 설치 불가 대비)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const envPath = path.join(__dirname, '..', '.env');
+if (fs.existsSync(envPath)) {
+  const envContent = fs.readFileSync(envPath, 'utf8');
+  envContent.split('\n').forEach(line => {
+    const [key, ...vals] = line.split('=');
+    if (key && vals.length > 0) {
+      process.env[key.trim()] = vals.join('=').trim().replace(/^["']|["']$/g, '');
+    }
+  });
+}
+
+// 1. API 설정
 const OPR_API_KEY = process.env.OPR_API_KEY || "";
 const GH_TOKEN = process.env.GH_TOKEN || process.env.GITHUB_TOKEN || "";
 const NAVER_KEYS = [
@@ -12,14 +26,13 @@ const NAVER_KEYS = [
 
 let currentKeyIndex = 0;
 const XPOZ_API_KEY = process.env.XPOZ_API_KEY || "";
+const REF_KEYWORD = "ChatGPT";
 
 // 2. 가중치 설정 (유저 요청: OPR 50%, NTV 25%, GHS 10%, SNS 15%)
 const W_OPR = 0.5;  // 글로벌 권위도 (구글 트래픽)
 const W_NTV = 0.25; // 국내 검색 트렌드 (네이버)
 const W_GHS = 0.1;  // 기술 파급력 (GitHub)
 const W_SNS = 0.15; // SNS 화제성 (XPOZ)
-
-const REF_KEYWORD = "ChatGPT"; // 데이터 연동을 위한 기준점
 
 // 주요 도구들의 GitHub 저장소 매핑 (수동 매핑으로 0점 방지)
 const GITHUB_MAPPING = {
@@ -98,7 +111,10 @@ async function getOprScore(domains) {
   if (!OPR_API_KEY) return {};
   try {
     const url = new URL("https://openpagerank.com/api/v1.0/getPageRank");
-    const hostDomains = domains.map(d => d.split('/')[0]);
+    const hostDomains = domains.map(d => {
+      // https:// 제거 및 첫 번째 / 앞부분만 추출
+      return d.replace(/^https?:\/\//, '').split('/')[0];
+    });
     hostDomains.forEach(d => url.searchParams.append("domains[]", d));
 
     const controller = new AbortController();
@@ -119,16 +135,19 @@ async function getOprScore(domains) {
     const data = await response.json();
     const result = {};
     if (data.response) {
+      console.log(`    [OPR] API 응답 개수: ${data.response.length}`);
       data.response.forEach(item => {
         // 원래 요청한 도메인(경로 포함)과 매핑하기 위해 재매칭
-        const rankValue = parseFloat(item.page_rank_decimal || 0) * 10;
+        const rankValue = parseFloat(item.page_rank_decimal || 0);
         domains.forEach((orig, idx) => {
-          if (orig.startsWith(item.domain)) {
+          const cleanOrig = orig.replace(/^https?:\/\//, '');
+          if (cleanOrig.startsWith(item.domain)) {
             result[orig] = rankValue;
           }
         });
       });
     }
+    console.log(`    [OPR] 매핑된 결과 개수: ${Object.keys(result).length}`);
     return result;
   } catch (error) {
     console.error("OPR API Error or Timeout:", error.message);
@@ -242,9 +261,9 @@ async function getNaverTrendsBatch(tools, oprScores = {}) {
 const XPOZ_CACHE_PATH = path.join(dirname(fileURLToPath(import.meta.url)), '..', 'data', 'xpoz_cache.json');
 let isXpozBlocked = false;
 
-async function getXpozScoresBatch(keywords, oprScores) {
+async function getXpozScoresBatch(keywords, oprScores, todayStr) {
   const results = {};
-  const todayStr = new Date().toISOString().split('T')[0];
+  if (!todayStr) todayStr = new Date().toISOString().split('T')[0];
   
   let xpozCache = {};
   if (fs.existsSync(XPOZ_CACHE_PATH)) {
@@ -259,32 +278,54 @@ async function getXpozScoresBatch(keywords, oprScores) {
   const endDateStr = todayStr;
 
   const currentCache = xpozCache[todayStr] || {};
+  
+  // 과거 데이터 찾기용 (수집 실패 시 활용)
+  const allDates = Object.keys(xpozCache).sort().reverse();
+  const getMostRecentValue = (kw) => {
+    for (const d of allDates) {
+      if (xpozCache[d] && xpozCache[d][kw] !== undefined) return xpozCache[d][kw];
+    }
+    return null;
+  };
+
   for (const keyword of keywords) {
-    if (currentCache[keyword]) {
+    if (currentCache[keyword] !== undefined) {
+      console.log(`    [XPOZ Cache] ${keyword} 오늘 데이터 발견: ${currentCache[keyword]}`);
       results[keyword] = currentCache[keyword];
       continue;
     }
-
-    if (!XPOZ_API_KEY || isXpozBlocked) {
-      const opr = oprScores[keyword] || 30;
-      results[keyword] = Number(((opr * 0.8) + (Math.random() * 20)).toFixed(2));
+    
+    if (isXpozBlocked) {
+      const recent = getMostRecentValue(keyword);
+      if (recent !== null) {
+        console.log(`    [XPOZ Blocked] ${keyword} 과거 데이터 활용: ${recent}`);
+        results[keyword] = recent;
+      } else {
+        const opr = oprScores[keyword] || 30;
+        results[keyword] = Number(((opr * 0.7) + (Math.random() * 20)).toFixed(2));
+      }
       continue;
     }
 
+    // API 키 재검증
+    const cleanApiKey = XPOZ_API_KEY.trim().replace(/^["']|["']$/g, '');
+    
     try {
+      let opId = null;
       let startRes;
       let startText = "";
       for (let retry = 0; retry < 3; retry++) {
+        const requestId = Math.floor(Date.now() / 1000) + Math.floor(Math.random() * 1000);
         startRes = await fetch('https://mcp.xpoz.ai/mcp', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${XPOZ_API_KEY}`,
+            'Authorization': `Bearer ${cleanApiKey}`,
             'Accept': 'application/json, text/event-stream'
           },
           body: JSON.stringify({
             jsonrpc: '2.0',
-            id: Date.now() + Math.random(),
+            id: requestId,
             method: 'tools/call',
             params: {
               name: 'countTweets',
@@ -294,32 +335,41 @@ async function getXpozScoresBatch(keywords, oprScores) {
         });
 
         if (startRes.status === 429) {
-          console.warn(`    [XPOZ] ${keyword} 429 제한됨. 차단 모드로 전환.`);
-          isXpozBlocked = true;
-          break;
+          console.warn(`    [XPOZ] ${keyword} 429 제한됨. 30초 대기 후 재시도...`);
+          await new Promise(r => setTimeout(r, 30000));
+          continue; // 이번 재시도 루프 내에서 다시 시도
         }
         
         startText = await startRes.text();
         if (startRes.ok) break;
+        console.warn(`    [XPOZ] ${keyword} 요청 실패 (${startRes.status}). 5초 후 재시도...`);
         await new Promise(r => setTimeout(r, 5000));
       }
 
-      const dataMatch = startText.match(/data: ({.*})/);
-      let opId = null;
-      if (dataMatch) {
-        try {
-          const data = JSON.parse(dataMatch[1]);
-          const content = data.result?.content?.[0]?.text || "";
-          const opIdMatch = content.match(/operationId: (\S+)/);
-          if (opIdMatch) opId = opIdMatch[1];
-        } catch (e) {}
+      // SSE 형식 파싱 개선
+      const lines = startText.split('\n');
+      for (const line of lines) {
+        if (line.startsWith('data: ')) {
+          try {
+            const jsonText = line.substring(6).trim();
+            const data = JSON.parse(jsonText);
+            const content = data.result?.content?.[0]?.text || "";
+            const opIdMatch = content.match(/operationId: (\S+)/);
+            if (opIdMatch) {
+              opId = opIdMatch[1];
+              break;
+            }
+          } catch (e) {}
+        }
       }
 
       if (!opId) {
         const opr = oprScores[keyword] || 30;
         const fallback = Number(((opr * 0.7) + (Math.random() * 20)).toFixed(2));
-        console.warn(`    [XPOZ] ${keyword} 수집 실패 -> 추정치(${fallback}) 사용`);
+        console.warn(`    [XPOZ] ${keyword} ID 추출 실패. (응답: ${startRes.status})`);
         results[keyword] = fallback;
+        // 차단 모드로 전환하지 않고 잠시 더 쉬어줌
+        await new Promise(r => setTimeout(r, 5000));
         continue;
       }
 
@@ -332,12 +382,12 @@ async function getXpozScoresBatch(keywords, oprScores) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${XPOZ_API_KEY}`,
+            'Authorization': `Bearer ${cleanApiKey}`,
             'Accept': 'application/json, text/event-stream'
           },
           body: JSON.stringify({
             jsonrpc: '2.0',
-            id: Date.now() + Math.random(),
+            id: Math.floor(Date.now() / 1000),
             method: 'tools/call',
             params: { name: 'checkOperationStatus', arguments: { operationId: opId } }
           })
@@ -354,13 +404,37 @@ async function getXpozScoresBatch(keywords, oprScores) {
         
         if (checkText.includes('status: failed')) break;
       }
-      results[keyword] = mentions;
-      currentCache[keyword] = mentions;
-      await new Promise(r => setTimeout(r, 2000));
+      if (mentions === 0 && !resultsMatch) {
+        // 수집 실패 상황 (ID는 받았으나 멘션 확인 실패)
+        const recent = getMostRecentValue(keyword);
+        if (recent !== null) {
+          console.log(`    [XPOZ Fail] ${keyword} 수집 실패, 과거 데이터 활용: ${recent}`);
+          results[keyword] = recent;
+        } else {
+          const opr = oprScores[keyword] || 30;
+          results[keyword] = Number(((opr * 0.7) + (Math.random() * 20)).toFixed(2));
+        }
+      } else {
+        // 정상 수집 완료 (0 멘션이라도 결과가 매칭되었다면 정상)
+        results[keyword] = mentions;
+        currentCache[keyword] = mentions;
+        
+        // 성공할 때만 즉시 캐시 파일 업데이트
+        xpozCache[todayStr] = currentCache;
+        try {
+          fs.writeFileSync(XPOZ_CACHE_PATH, JSON.stringify(xpozCache, null, 2));
+          console.log(`    [XPOZ] ${keyword}: ${mentions} 언급 확인 및 캐시 저장완료`);
+        } catch (e) {
+          console.error("XPOZ 캐시 저장 실패:", e.message);
+        }
+      }
+      
+      await new Promise(r => setTimeout(r, 8000));
 
     } catch (err) {
       console.error(`XPOZ 처리 오류 (${keyword}):`, err.message);
-      results[keyword] = 0;
+      const recent = getMostRecentValue(keyword);
+      results[keyword] = recent !== null ? recent : 0;
     }
   }
 
@@ -459,7 +533,7 @@ async function updateRanking() {
 
     const oprMapSns = {};
     batch.forEach(t => oprMapSns[t.name] = oprData[t.domain] || 30);
-    const snsBatch = await getXpozScoresBatch(keywords, oprMapSns);
+    const snsBatch = await getXpozScoresBatch(keywords, oprMapSns, todayStr);
     for (const name in snsBatch) rawSnsData[name] = snsBatch[name];
 
     await Promise.all(batch.map(async (tool) => {
