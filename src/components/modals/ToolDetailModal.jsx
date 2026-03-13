@@ -4,7 +4,7 @@ import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { TOOLS_DATA } from "../../data/tools";
 
-// 점수 추이 & 상세 통합 컴포넌트
+// 점수 상세 바 컴포넌트
 const ScoreInsightPanel = ({ tool, rank }) => {
   const [metrics, setMetrics] = useState(null);
   const [activeTooltip, setActiveTooltip] = useState(null);
@@ -19,149 +19,90 @@ const ScoreInsightPanel = ({ tool, rank }) => {
       .catch(() => {});
   }, [tool.id]);
 
-  // 전체 점수 7일 추이
-  const score = tool.score ?? 0;
-  const change = tool.change ?? 0;
-  const dailyChange = change / 6;
-  const trendPoints = Array.from({ length: 7 }, (_, i) => {
-    const daysAgo = 6 - i;
-    return Math.max(0, Math.min(100, score - dailyChange * daysAgo));
-  });
-  const isUp = change > 0;
-  const isFlat = change === 0;
-  const trendColor = isFlat ? "#64748b" : isUp ? "#22c55e" : "#f87171";
-  const areaColor = isFlat ? "rgba(100,116,139,0.12)" : isUp ? "rgba(34,197,94,0.12)" : "rgba(248,113,113,0.12)";
-
-  const TW = 100, TH = 52, TPAD = 3;
-  const minV = Math.min(...trendPoints) - 2;
-  const maxV = Math.max(...trendPoints) + 2;
-  const tRange = maxV - minV || 1;
-  const toX = (i) => TPAD + (i / 6) * (TW - TPAD * 2);
-  const toY = (v) => TH - TPAD - ((v - minV) / tRange) * (TH - TPAD * 2);
-  const tPathD = trendPoints.map((v, i) => `${i === 0 ? "M" : "L"}${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(" ");
-  const tAreaD = `${tPathD} L${toX(6).toFixed(1)},${TH} L${toX(0).toFixed(1)},${TH} Z`;
-
-  // 랭킹 색상
-  const rankColor = rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : rank === 3 ? "#CD7F32" : "var(--text-muted)";
-  const rankBg   = rank === 1 ? "rgba(245,158,11,0.12)" : rank === 2 ? "rgba(148,163,184,0.12)" : rank === 3 ? "rgba(205,127,50,0.12)" : "var(--bg-tertiary)";
+  const isUp = (tool.change ?? 0) > 0;
+  const isFlat = (tool.change ?? 0) === 0;
+  const rankColor = rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : rank === 3 ? "#CD7F32" : null;
   const rankEmoji = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : null;
 
-  const items = [
-    { logo: "https://www.google.com/s2/favicons?domain=google.com&sz=32", key: "opr", color: "#4285F4", weight: "50%", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
-    { logo: "https://www.google.com/s2/favicons?domain=naver.com&sz=32", key: "ntv", color: "#03C75A", weight: "25%", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
-    { logo: "https://www.google.com/s2/favicons?domain=x.com&sz=32", key: "sns", color: "#F43F5E", weight: "15%", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
-    { logo: "https://www.google.com/s2/favicons?domain=github.com&sz=32", key: "ghs", color: "#8B5CF6", weight: "10%", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
+  const rows = [
+    { icon: null,  label: "종합점수", val: Math.round(tool.score ?? 0), color: isFlat ? "#64748b" : isUp ? "#22c55e" : "#f87171", gradient: isFlat ? "linear-gradient(90deg,#64748b,#94a3b8)" : isUp ? "linear-gradient(90deg,#22c55e,#4ade80)" : "linear-gradient(90deg,#f87171,#fca5a5)", desc: null },
+    { icon: "https://www.google.com/s2/favicons?domain=google.com&sz=32", label: "구글",    key: "opr", color: "#4285F4", gradient: "linear-gradient(90deg,#4285F4,#669DF6)", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
+    { icon: "https://www.google.com/s2/favicons?domain=naver.com&sz=32",  label: "네이버",  key: "ntv", color: "#03C75A", gradient: "linear-gradient(90deg,#03C75A,#2BD97C)", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
+    { icon: "https://www.google.com/s2/favicons?domain=x.com&sz=32",      label: "엑스",    key: "sns", color: "#F43F5E", gradient: "linear-gradient(90deg,#F43F5E,#FB7185)", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
+    { icon: "https://www.google.com/s2/favicons?domain=github.com&sz=32", label: "깃허브",  key: "ghs", color: "#8B5CF6", gradient: "linear-gradient(90deg,#8B5CF6,#A78BFA)", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
   ];
 
-  // 지표별 pseudo 스파크 데이터 (변동폭 ±4, 오늘값으로 수렴)
-  const genMetricPoints = (val, key) => {
-    const seed = tool.id * 31 + key.charCodeAt(0) * 17;
-    const pseudo = (n) => Math.sin(seed + n * 137.5) * 0.5 + 0.5;
-    return Array.from({ length: 7 }, (_, i) => {
-      if (i === 6) return val;
-      const noise = (pseudo(i) - 0.5) * 8 * (1 - i / 6);
-      return Math.max(0, Math.min(100, val + noise));
-    });
-  };
-
-  const Spark = ({ pts, color }) => {
-    const sw = 60, sh = 13;
-    const mn = Math.min(...pts) - 1;
-    const mx = Math.max(...pts) + 1;
-    const r = mx - mn || 1;
-    const sx = (i) => (i / (pts.length - 1)) * sw;
-    const sy = (v) => sh - ((v - mn) / r) * sh;
-    const pd = pts.map((v, i) => `${i === 0 ? "M" : "L"}${sx(i).toFixed(1)},${sy(v).toFixed(1)}`).join(" ");
-    const ad = `${pd} L${sw},${sh} L0,${sh} Z`;
-    return (
-      <svg viewBox={`0 0 ${sw} ${sh}`} width="100%" height={sh} style={{ overflow: "visible", display: "block" }}>
-        <path d={ad} fill={color} fillOpacity="0.12" />
-        <path d={pd} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        {pts.map((v, i) => <circle key={i} cx={sx(i)} cy={sy(v)} r={i === pts.length - 1 ? 2.5 : 1.5} fill={color} />)}
-      </svg>
-    );
-  };
-
   return (
-    <div style={{ marginBottom: "12px" }} onClick={(e) => e.stopPropagation()}>
-      {/* 타이틀 + 변동률 */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-        <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)" }}>점수 추이 & 상세</div>
-        <span style={{ fontSize: "0.65rem", fontWeight: 700, color: isFlat ? "var(--text-muted)" : isUp ? "#22c55e" : "#f87171" }}>
-          {isFlat ? "변동없음" : isUp ? `▲ ${change}%` : `▼ ${Math.abs(change)}%`}
+    <div style={{ marginBottom: "14px" }} onClick={(e) => e.stopPropagation()}>
+      {/* 타이틀 행 */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-muted)" }}>점수 상세</span>
+          {rankEmoji ? (
+            <span style={{ fontSize: "0.75rem", fontWeight: 800, color: rankColor, background: `${rankColor}18`, border: `1px solid ${rankColor}`, borderRadius: "4px", padding: "1px 7px" }}>
+              {rankEmoji} #{rank}
+            </span>
+          ) : rank ? (
+            <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "4px", padding: "1px 7px" }}>
+              #{rank}
+            </span>
+          ) : null}
+        </div>
+        <span style={{ fontSize: "0.68rem", fontWeight: 700, color: isFlat ? "var(--text-muted)" : isUp ? "#22c55e" : "#f87171" }}>
+          {isFlat ? "변동없음" : isUp ? `▲ ${tool.change}%` : `▼ ${Math.abs(tool.change)}%`}
         </span>
       </div>
 
-      {/* 좌우 2분할 */}
-      <div style={{ display: "flex", gap: "8px", alignItems: "stretch" }}>
-
-        {/* 왼쪽: 지표별 스파크라인 */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "2px" }}>
-          {metrics ? items.map(({ logo, key, color, weight, desc }) => {
-            const val = Math.round(metrics[key] ?? 0);
-            const pts = genMetricPoints(val, key);
-            const finalDesc = (key === "ghs" && val === 0) ? `${desc} (비오픈소스)` : desc;
-            const isActive = activeTooltip === key;
-            return (
-              <div key={key} style={{ position: "relative" }}>
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "5px", cursor: "pointer" }}
-                  onClick={(e) => { e.stopPropagation(); setActiveTooltip(prev => prev === key ? null : key); }}
-                  onMouseEnter={() => setActiveTooltip(key)}
-                  onMouseLeave={() => setActiveTooltip(null)}
-                >
-                  <img src={logo} alt="" width={16} height={16} style={{ flexShrink: 0, borderRadius: "2px", objectFit: "contain" }} />
-                  <span style={{ fontSize: "0.62rem", fontWeight: 700, color, opacity: 0.85, width: "26px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
-                  <div style={{ flex: 1 }}><Spark pts={pts} color={color} /></div>
-                  <span style={{ fontSize: "0.95rem", fontWeight: 900, color, width: "28px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
+      {/* 바 목록 */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
+        {rows.map(({ icon, label, key, val: fixedVal, color, gradient, desc }, idx) => {
+          const val = fixedVal ?? Math.round(metrics?.[key] ?? 0);
+          const finalDesc = (key === "ghs" && val === 0) ? `${desc} (비오픈소스)` : desc;
+          const isActive = activeTooltip === idx;
+          const isSummary = idx === 0;
+          return (
+            <div key={idx} style={{ position: "relative" }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "9px", cursor: desc ? "pointer" : "default" }}
+                onClick={(e) => { if (desc) { e.stopPropagation(); setActiveTooltip(prev => prev === idx ? null : idx); } }}
+                onMouseEnter={() => { if (desc) setActiveTooltip(idx); }}
+                onMouseLeave={() => setActiveTooltip(null)}
+              >
+                {/* 로고 */}
+                <div style={{ width: 28, height: 28, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {icon
+                    ? <img src={icon} alt={label} width={26} height={26} style={{ borderRadius: "5px", objectFit: "contain" }} />
+                    : <span style={{ fontSize: "1.1rem" }}>📊</span>
+                  }
                 </div>
-                {isActive && (
+                {/* 레이블 */}
+                <span style={{ fontSize: isSummary ? "0.88rem" : "0.82rem", fontWeight: 700, color: isSummary ? "var(--text-primary)" : "var(--text-secondary)", width: "44px", flexShrink: 0 }}>{label}</span>
+                {/* 바 */}
+                <div style={{ flex: 1, height: isSummary ? "8px" : "6px", background: "var(--bg-tertiary)", borderRadius: "99px", overflow: "hidden" }}>
                   <div style={{
-                    position: "absolute", left: "48px", bottom: "100%", marginBottom: "6px",
-                    fontSize: "0.7rem", color: "var(--text-secondary)", lineHeight: 1.4,
-                    padding: "6px 10px", background: "var(--bg-card)", borderRadius: "6px",
-                    border: "1px solid var(--border-primary)",
-                    boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
-                    zIndex: 20, whiteSpace: "nowrap", pointerEvents: "none",
-                    animation: "fadeIn 0.2s ease"
-                  }}>
-                    {finalDesc}
-                    <div style={{ position: "absolute", top: "100%", left: "16px", width: 0, height: 0, borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "6px solid var(--border-primary)" }} />
-                  </div>
-                )}
+                    width: (metrics || isSummary) ? `${Math.min(100, val)}%` : "0%",
+                    height: "100%", background: gradient, borderRadius: "99px",
+                    transition: "width 0.9s cubic-bezier(0.4,0,0.2,1)"
+                  }} />
+                </div>
+                {/* 점수 */}
+                <span style={{ fontSize: isSummary ? "1.35rem" : "1.15rem", fontWeight: 900, color, width: "38px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
               </div>
-            );
-          }) : null}
-        </div>
-
-        {/* 오른쪽: 추이 차트 + 랭킹 */}
-        <div style={{ width: "88px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "4px" }}>
-          <svg width="100%" viewBox={`0 0 ${TW} ${TH}`} style={{ overflow: "visible", display: "block", flex: 1 }}>
-            <path d={tAreaD} fill={areaColor} />
-            <path d={tPathD} fill="none" stroke={trendColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            {trendPoints.map((v, i) => (
-              <circle key={i} cx={toX(i)} cy={toY(v)} r={i === 6 ? 3 : 1.5}
-                fill={i === 6 ? trendColor : "var(--bg-card)"}
-                stroke={trendColor} strokeWidth={i === 6 ? 0 : 1}
-              />
-            ))}
-            <text x={toX(6)} y={toY(trendPoints[6]) - 5} textAnchor="middle"
-              fill={trendColor} fontSize="8" fontWeight="700" fontFamily="Pretendard, sans-serif">
-              {Math.round(trendPoints[6])}
-            </text>
-          </svg>
-          {rank && (
-            <div style={{
-              display: "flex", alignItems: "center", justifyContent: "center", gap: "3px",
-              padding: "3px 0", borderRadius: "4px",
-              background: rankBg, border: `1px solid ${rankColor}`,
-            }}>
-              {rankEmoji && <span style={{ fontSize: "0.7rem", lineHeight: 1 }}>{rankEmoji}</span>}
-              <span style={{ fontSize: "0.75rem", fontWeight: 800, color: rankColor, fontFamily: "'Pretendard', sans-serif" }}>#{rank}</span>
+              {isActive && finalDesc && (
+                <div style={{
+                  position: "absolute", left: "80px", bottom: "100%", marginBottom: "6px",
+                  fontSize: "0.72rem", color: "var(--text-secondary)", lineHeight: 1.4,
+                  padding: "7px 11px", background: "var(--bg-card)", borderRadius: "6px",
+                  border: "1px solid var(--border-primary)", boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+                  zIndex: 20, whiteSpace: "nowrap", pointerEvents: "none", animation: "fadeIn 0.2s ease"
+                }}>
+                  {finalDesc}
+                  <div style={{ position: "absolute", top: "100%", left: "18px", width: 0, height: 0, borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "6px solid var(--border-primary)" }} />
+                </div>
+              )}
             </div>
-          )}
-        </div>
-
+          );
+        })}
       </div>
     </div>
   );
