@@ -279,9 +279,15 @@ async function getXpozScoresBatch(keywords, oprScores, todayStr) {
 
   const currentCache = xpozCache[todayStr] || {};
   
-  // 과거 데이터 찾기용 (수집 실패 시 활용)
+  // 과거 데이터 찾기용 (수집 실패 또는 0점 보정 시 활용)
   const allDates = Object.keys(xpozCache).sort().reverse();
-  const getMostRecentValue = (kw) => {
+  const getMostRecentNonZero = (kw) => {
+    for (const d of allDates) {
+      if (xpozCache[d] && xpozCache[d][kw] > 0) return xpozCache[d][kw];
+    }
+    return null;
+  };
+  const getAnyRecentValue = (kw) => {
     for (const d of allDates) {
       if (xpozCache[d] && xpozCache[d][kw] !== undefined) return xpozCache[d][kw];
     }
@@ -289,14 +295,31 @@ async function getXpozScoresBatch(keywords, oprScores, todayStr) {
   };
 
   for (const keyword of keywords) {
-    if (currentCache[keyword] !== undefined) {
+    // 오늘 캐시가 0보다 크면 즉시 사용
+    if (currentCache[keyword] > 0) {
       console.log(`    [XPOZ Cache] ${keyword} 오늘 데이터 발견: ${currentCache[keyword]}`);
       results[keyword] = currentCache[keyword];
       continue;
     }
     
+    // 오늘 캐시가 0이거나 아예 없으면 과거 데이터에서 non-zero 탐색
+    const recentNonZero = getMostRecentNonZero(keyword);
+    if (recentNonZero !== null) {
+      console.log(`    [XPOZ Correction] ${keyword} 0점(또는 누락) -> 과거 데이터(${recentNonZero})로 보정`);
+      results[keyword] = recentNonZero;
+      currentCache[keyword] = recentNonZero; // 메모리 캐시 업데이트 (저장은 나중에)
+      continue;
+    }
+
+    // 과거 데이터도 없는데 오늘 캐시가 0이면 그대로 사용 (이미 전수조사 실패했던 건)
+    if (currentCache[keyword] === 0) {
+      console.log(`    [XPOZ Cache] ${keyword} 오늘 데이터가 0이며 과거 기록 없음. 기존 0 유지.`);
+      results[keyword] = 0;
+      continue;
+    }
+    
     if (isXpozBlocked) {
-      const recent = getMostRecentValue(keyword);
+      const recent = getMostRecentNonZero(keyword) || getAnyRecentValue(keyword);
       if (recent !== null) {
         console.log(`    [XPOZ Blocked] ${keyword} 과거 데이터 활용: ${recent}`);
         results[keyword] = recent;
@@ -376,6 +399,7 @@ async function getXpozScoresBatch(keywords, oprScores, todayStr) {
       console.log(`    [XPOZ] ${keyword} 수집 시작 (ID: ${opId})`);
       
       let mentions = 0;
+      let resultsFound = false;
       for (let attempt = 0; attempt < 5; attempt++) {
         await new Promise(r => setTimeout(r, 5000));
         const checkRes = await fetch('https://mcp.xpoz.ai/mcp', {
@@ -397,16 +421,28 @@ async function getXpozScoresBatch(keywords, oprScores, todayStr) {
         const resultsMatch = checkText.match(/results: (\d+)/i) || checkText.match(/\"results\": (\d+)/i);
         
         if (resultsMatch) {
-          mentions = parseInt(resultsMatch[1], 10);
-          console.log(`    [XPOZ] ${keyword}: ${mentions} 언급 확인`);
+          resultsFound = true;
+          const val = parseInt(resultsMatch[1], 10);
+          if (val === 0) {
+            const recent = getMostRecentNonZero(keyword);
+            if (recent !== null) {
+              mentions = recent;
+              console.log(`    [XPOZ Zero-Correction] ${keyword}: 결과 0 -> 과거 데이터(${recent}) 보정`);
+            } else {
+              mentions = 0;
+            }
+          } else {
+            mentions = val;
+            console.log(`    [XPOZ] ${keyword}: ${mentions} 언급 확인`);
+          }
           break;
         }
         
         if (checkText.includes('status: failed')) break;
       }
-      if (mentions === 0 && !resultsMatch) {
+      if (mentions === 0 && !resultsFound) {
         // 수집 실패 상황 (ID는 받았으나 멘션 확인 실패)
-        const recent = getMostRecentValue(keyword);
+        const recent = getMostRecentNonZero(keyword) || getAnyRecentValue(keyword);
         if (recent !== null) {
           console.log(`    [XPOZ Fail] ${keyword} 수집 실패, 과거 데이터 활용: ${recent}`);
           results[keyword] = recent;
@@ -433,7 +469,7 @@ async function getXpozScoresBatch(keywords, oprScores, todayStr) {
 
     } catch (err) {
       console.error(`XPOZ 처리 오류 (${keyword}):`, err.message);
-      const recent = getMostRecentValue(keyword);
+      const recent = getMostRecentNonZero(keyword) || getAnyRecentValue(keyword);
       results[keyword] = recent !== null ? recent : 0;
     }
   }
