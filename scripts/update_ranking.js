@@ -63,8 +63,15 @@ const PLATFORM_PENALTY_MAP = {
   "notion.so": 0.5
 };
 
+// 플랫폼 도메인을 쓰지만 예외적으로 독립 브랜드로 인정할 도구들
+const PENALTY_EXCEPTIONS = ["Canva AI", "Figma AI", "Notion AI", "Adobe Firefly"];
+
 function getSmartPenalty(domain, toolName) {
   if (!domain) return 1.0;
+  
+  // 유저 피드백 반영: 주요 플랫폼의 핵심 AI 서비스는 페널티 면제
+  if (PENALTY_EXCEPTIONS.includes(toolName)) return 1.0;
+
   const domainLower = domain.toLowerCase();
   const toolNameLower = toolName.toLowerCase().replace(/\s/g, "").replace(/-/g, "").replace(/\./g, "");
   
@@ -74,8 +81,9 @@ function getSmartPenalty(domain, toolName) {
   
   const [host, ...pathParts] = domainLower.split("/");
   const path = pathParts.join("/");
+  const pathClean = path.replace(/-/g, "").replace(/_/g, "");
 
-  if (coreName.length > 2 && path.includes(coreName)) return 0.5;
+  if (coreName.length > 2 && pathClean.includes(coreName)) return 0.5;
   if (coreName.length > 2 && host.includes(coreName)) return 1.0;
 
   for (const p in PLATFORM_PENALTY_MAP) {
@@ -90,7 +98,8 @@ async function getOprScore(domains) {
   if (!OPR_API_KEY) return {};
   try {
     const url = new URL("https://openpagerank.com/api/v1.0/getPageRank");
-    domains.forEach(d => url.searchParams.append("domains[]", d));
+    const hostDomains = domains.map(d => d.split('/')[0]);
+    hostDomains.forEach(d => url.searchParams.append("domains[]", d));
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 15000);
@@ -111,7 +120,13 @@ async function getOprScore(domains) {
     const result = {};
     if (data.response) {
       data.response.forEach(item => {
-        result[item.domain] = parseFloat(item.page_rank_decimal || 0) * 10;
+        // 원래 요청한 도메인(경로 포함)과 매핑하기 위해 재매칭
+        const rankValue = parseFloat(item.page_rank_decimal || 0) * 10;
+        domains.forEach((orig, idx) => {
+          if (orig.startsWith(item.domain)) {
+            result[orig] = rankValue;
+          }
+        });
       });
     }
     return result;
