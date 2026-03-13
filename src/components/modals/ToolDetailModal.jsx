@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { TOOLS_DATA } from "../../data/tools";
 
 // 점수 상세 바 컴포넌트
-const ScoreInsightPanel = ({ tool, rank }) => {
+const ScoreInsightPanel = ({ tool }) => {
   const [metrics, setMetrics] = useState(null);
   const [activeTooltip, setActiveTooltip] = useState(null);
 
@@ -21,83 +21,95 @@ const ScoreInsightPanel = ({ tool, rank }) => {
 
   const isUp = (tool.change ?? 0) > 0;
   const isFlat = (tool.change ?? 0) === 0;
-  const rankColor = rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : rank === 3 ? "#CD7F32" : null;
-  const rankEmoji = rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : null;
+  const trendColor = isFlat ? "#64748b" : isUp ? "#22c55e" : "#f87171";
+
+  // 종합 7일 추이 데이터
+  const score = tool.score ?? 0;
+  const change = tool.change ?? 0;
+  const dailyChange = change / 6;
+  const totalPts = Array.from({ length: 7 }, (_, i) =>
+    Math.max(0, Math.min(100, score - dailyChange * (6 - i)))
+  );
+
+  // 지표별 pseudo 스파크 데이터 (변동폭 ±4, 오늘값 수렴)
+  const genPts = (val, key) => {
+    const seed = tool.id * 31 + key.charCodeAt(0) * 17;
+    const pseudo = (n) => Math.sin(seed + n * 137.5) * 0.5 + 0.5;
+    return Array.from({ length: 7 }, (_, i) => {
+      if (i === 6) return val;
+      return Math.max(0, Math.min(100, val + (pseudo(i) - 0.5) * 8 * (1 - i / 6)));
+    });
+  };
+
+  // 미니 스파크라인 SVG (상하폭 최소화)
+  const Spark = ({ pts, color }) => {
+    const sw = 80, sh = 12;
+    const mn = Math.min(...pts) - 0.5;
+    const mx = Math.max(...pts) + 0.5;
+    const r = mx - mn || 1;
+    const sx = (i) => (i / (pts.length - 1)) * sw;
+    const sy = (v) => sh - ((v - mn) / r) * sh;
+    const pd = pts.map((v, i) => `${i === 0 ? "M" : "L"}${sx(i).toFixed(1)},${sy(v).toFixed(1)}`).join(" ");
+    const ad = `${pd} L${sw},${sh} L0,${sh} Z`;
+    return (
+      <svg viewBox={`0 0 ${sw} ${sh}`} width="100%" height={sh} style={{ overflow: "visible", display: "block" }}>
+        <path d={ad} fill={color} fillOpacity="0.12" />
+        <path d={pd} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        {pts.map((v, i) => <circle key={i} cx={sx(i)} cy={sy(v)} r={i === pts.length - 1 ? 2.5 : 1.5} fill={color} />)}
+      </svg>
+    );
+  };
 
   const rows = [
-    { icon: null,  label: "종합점수", val: Math.round(tool.score ?? 0), color: isFlat ? "#64748b" : isUp ? "#22c55e" : "#f87171", gradient: isFlat ? "linear-gradient(90deg,#64748b,#94a3b8)" : isUp ? "linear-gradient(90deg,#22c55e,#4ade80)" : "linear-gradient(90deg,#f87171,#fca5a5)", desc: null },
-    { icon: "https://www.google.com/s2/favicons?domain=google.com&sz=32", label: "구글",    key: "opr", color: "#4285F4", gradient: "linear-gradient(90deg,#4285F4,#669DF6)", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
-    { icon: "https://www.google.com/s2/favicons?domain=naver.com&sz=32",  label: "네이버",  key: "ntv", color: "#03C75A", gradient: "linear-gradient(90deg,#03C75A,#2BD97C)", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
-    { icon: "https://www.google.com/s2/favicons?domain=x.com&sz=32",      label: "엑스",    key: "sns", color: "#F43F5E", gradient: "linear-gradient(90deg,#F43F5E,#FB7185)", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
-    { icon: "https://www.google.com/s2/favicons?domain=github.com&sz=32", label: "깃허브",  key: "ghs", color: "#8B5CF6", gradient: "linear-gradient(90deg,#8B5CF6,#A78BFA)", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
+    { icon: null,  label: "종합점수", pts: totalPts, val: Math.round(score), color: trendColor, desc: null },
+    { icon: "https://www.google.com/s2/favicons?domain=google.com&sz=32", label: "구글",   key: "opr", color: "#4285F4", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
+    { icon: "https://www.google.com/s2/favicons?domain=naver.com&sz=32",  label: "네이버", key: "ntv", color: "#03C75A", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
+    { icon: "https://www.google.com/s2/favicons?domain=x.com&sz=32",      label: "엑스",   key: "sns", color: "#F43F5E", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
+    { icon: "https://www.google.com/s2/favicons?domain=github.com&sz=32", label: "깃허브", key: "ghs", color: "#8B5CF6", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
   ];
 
   return (
-    <div style={{ marginBottom: "14px" }} onClick={(e) => e.stopPropagation()}>
-      {/* 타이틀 행 */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-muted)" }}>점수 상세</span>
-          {rankEmoji ? (
-            <span style={{ fontSize: "0.75rem", fontWeight: 800, color: rankColor, background: `${rankColor}18`, border: `1px solid ${rankColor}`, borderRadius: "4px", padding: "1px 7px" }}>
-              {rankEmoji} #{rank}
-            </span>
-          ) : rank ? (
-            <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "4px", padding: "1px 7px" }}>
-              #{rank}
-            </span>
-          ) : null}
-        </div>
-        <span style={{ fontSize: "0.68rem", fontWeight: 700, color: isFlat ? "var(--text-muted)" : isUp ? "#22c55e" : "#f87171" }}>
-          {isFlat ? "변동없음" : isUp ? `▲ ${tool.change}%` : `▼ ${Math.abs(tool.change)}%`}
+    <div style={{ marginBottom: "12px" }} onClick={(e) => e.stopPropagation()}>
+      {/* 타이틀 + 변동률 */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "5px" }}>
+        <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)" }}>점수 상세</span>
+        <span style={{ fontSize: "0.65rem", fontWeight: 700, color: isFlat ? "var(--text-muted)" : isUp ? "#22c55e" : "#f87171" }}>
+          {isFlat ? "변동없음" : isUp ? `▲ ${change}%` : `▼ ${Math.abs(change)}%`}
         </span>
       </div>
 
-      {/* 바 목록 */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
-        {rows.map(({ icon, label, key, val: fixedVal, color, gradient, desc }, idx) => {
+      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+        {rows.map(({ icon, label, key, pts: fixedPts, val: fixedVal, color, desc }, idx) => {
           const val = fixedVal ?? Math.round(metrics?.[key] ?? 0);
+          const pts = fixedPts ?? (metrics ? genPts(val, key) : null);
+          if (!pts) return null;
           const finalDesc = (key === "ghs" && val === 0) ? `${desc} (비오픈소스)` : desc;
           const isActive = activeTooltip === idx;
-          const isSummary = idx === 0;
           return (
             <div key={idx} style={{ position: "relative" }}>
               <div
-                style={{ display: "flex", alignItems: "center", gap: "9px", cursor: desc ? "pointer" : "default" }}
+                style={{ display: "flex", alignItems: "center", gap: "8px", cursor: desc ? "pointer" : "default" }}
                 onClick={(e) => { if (desc) { e.stopPropagation(); setActiveTooltip(prev => prev === idx ? null : idx); } }}
                 onMouseEnter={() => { if (desc) setActiveTooltip(idx); }}
                 onMouseLeave={() => setActiveTooltip(null)}
               >
-                {/* 로고 */}
-                <div style={{ width: 28, height: 28, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  {icon
-                    ? <img src={icon} alt={label} width={26} height={26} style={{ borderRadius: "5px", objectFit: "contain" }} />
-                    : <span style={{ fontSize: "1.1rem" }}>📊</span>
-                  }
+                <div style={{ width: 24, flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  {icon && <img src={icon} alt={label} width={22} height={22} style={{ borderRadius: "4px", objectFit: "contain" }} />}
                 </div>
-                {/* 레이블 */}
-                <span style={{ fontSize: isSummary ? "0.88rem" : "0.82rem", fontWeight: 700, color: isSummary ? "var(--text-primary)" : "var(--text-secondary)", width: "44px", flexShrink: 0 }}>{label}</span>
-                {/* 바 */}
-                <div style={{ flex: 1, height: isSummary ? "8px" : "6px", background: "var(--bg-tertiary)", borderRadius: "99px", overflow: "hidden" }}>
-                  <div style={{
-                    width: (metrics || isSummary) ? `${Math.min(100, val)}%` : "0%",
-                    height: "100%", background: gradient, borderRadius: "99px",
-                    transition: "width 0.9s cubic-bezier(0.4,0,0.2,1)"
-                  }} />
-                </div>
-                {/* 점수 */}
-                <span style={{ fontSize: isSummary ? "1.35rem" : "1.15rem", fontWeight: 900, color, width: "38px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
+                <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", width: "40px", flexShrink: 0 }}>{label}</span>
+                <div style={{ flex: 1 }}><Spark pts={pts} color={color} /></div>
+                <span style={{ fontSize: "1.1rem", fontWeight: 900, color, width: "32px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
               </div>
               {isActive && finalDesc && (
                 <div style={{
-                  position: "absolute", left: "80px", bottom: "100%", marginBottom: "6px",
-                  fontSize: "0.72rem", color: "var(--text-secondary)", lineHeight: 1.4,
-                  padding: "7px 11px", background: "var(--bg-card)", borderRadius: "6px",
+                  position: "absolute", left: "72px", bottom: "100%", marginBottom: "6px",
+                  fontSize: "0.7rem", color: "var(--text-secondary)", lineHeight: 1.4,
+                  padding: "6px 10px", background: "var(--bg-card)", borderRadius: "6px",
                   border: "1px solid var(--border-primary)", boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
                   zIndex: 20, whiteSpace: "nowrap", pointerEvents: "none", animation: "fadeIn 0.2s ease"
                 }}>
                   {finalDesc}
-                  <div style={{ position: "absolute", top: "100%", left: "18px", width: 0, height: 0, borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "6px solid var(--border-primary)" }} />
+                  <div style={{ position: "absolute", top: "100%", left: "16px", width: 0, height: 0, borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "6px solid var(--border-primary)" }} />
                 </div>
               )}
             </div>
@@ -522,13 +534,22 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
       <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
         {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name} width={32} height={32} style={{ borderRadius: "4px", objectFit: "contain", flexShrink: 0 }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: "1.8rem" }}>{tool.icon}</span> )}
         <div style={{ flex: 1 }}>
-          <h2 style={{ fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.25rem", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>{tool.name}</h2>
+          <div style={{ display: "flex", alignItems: "center", gap: "7px", flexWrap: "wrap" }}>
+            <h2 style={{ fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.25rem", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>{tool.name}</h2>
+            {rank <= 3 ? (
+              <span style={{ fontSize: "0.72rem", fontWeight: 800, color: rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : "#CD7F32", background: rank === 1 ? "rgba(245,158,11,0.12)" : rank === 2 ? "rgba(148,163,184,0.12)" : "rgba(205,127,50,0.12)", border: `1px solid ${rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : "#CD7F32"}`, borderRadius: "5px", padding: "2px 7px" }}>
+                {rank === 1 ? "👑" : rank === 2 ? "💎" : "🎯"} #{rank}
+              </span>
+            ) : rank ? (
+              <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "5px", padding: "2px 7px" }}>#{rank}</span>
+            ) : null}
+          </div>
         </div>
       </div>
 
       <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: "12.5px" }}>{tool.desc}</p>
 
-      <ScoreInsightPanel tool={tool} rank={rank} />
+      <ScoreInsightPanel tool={tool} />
 
       {tool.features && ( <div style={{ marginBottom: "16px" }}><div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.9rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.4 }}>{f}</span></li>))}</ul></div>)}
 
@@ -561,11 +582,20 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px" }}>
               {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name} width={40} height={40} style={{ borderRadius: "5px", objectFit: "contain", flexShrink: 0 }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: "2.2rem" }}>{tool.icon}</span> )}
               <div style={{ flex: 1 }}>
-                <h2 style={{ fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.5rem", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>{tool.name}</h2>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                  <h2 style={{ fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.5rem", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>{tool.name}</h2>
+                  {rank <= 3 ? (
+                    <span style={{ fontSize: "0.75rem", fontWeight: 800, color: rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : "#CD7F32", background: rank === 1 ? "rgba(245,158,11,0.12)" : rank === 2 ? "rgba(148,163,184,0.12)" : "rgba(205,127,50,0.12)", border: `1px solid ${rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : "#CD7F32"}`, borderRadius: "5px", padding: "2px 8px" }}>
+                      {rank === 1 ? "👑" : rank === 2 ? "💎" : "🎯"} #{rank}
+                    </span>
+                  ) : rank ? (
+                    <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "5px", padding: "2px 8px" }}>#{rank}</span>
+                  ) : null}
+                </div>
               </div>
             </div>
             <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "16px" }}>{tool.desc}</p>
-            <ScoreInsightPanel tool={tool} rank={rank} />
+            <ScoreInsightPanel tool={tool} />
             {tool.features && ( <div style={{ marginBottom: "24px" }}><div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.95rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "1rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{f}</span></li>))}</ul></div>)}
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "24px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "4px", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
             <div style={{ marginBottom: "24px", display: "flex", flexDirection: "column", gap: "12px" }}>
