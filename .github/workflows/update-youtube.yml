@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    defaults:
+      run:
+        working-directory: airank-feelri0227-main
 
     steps:
       - name: 코드 체크아웃

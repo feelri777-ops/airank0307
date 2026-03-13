@@ -70,25 +70,36 @@ async function main() {
   for (const tool of sortedTools) {
     const query = tool.yt || tool.name;
     const queryKo = tool.ytKo || tool.nameKo || tool.name;
-    
+
+    // 기존에 영상이 있으면 API 호출 없이 유지 (쿼터 절약)
+    if (videos[String(tool.id)]?.length > 0) {
+      console.log(`  [${tool.id}] ${tool.name} 기존 데이터 유지 (${videos[String(tool.id)].length}개)`);
+      continue;
+    }
+
     console.log(`  [${tool.id}] ${tool.name} 수집 시도...`);
     try {
       let results = await searchYouTube(query);
-      
+
       // 1차 검색 결과가 없으면 한국어 이름으로 재시도
       if (results.length === 0 && queryKo !== query) {
         console.log(`      검색어 "${query}" 결과 없음 → "${queryKo}"로 재시도`);
         results = await searchYouTube(queryKo);
       }
-      
-      videos[String(tool.id)] = results;
-      console.log(`      ✅ ${results.length}개 수집 성공`);
+
+      // 새 결과가 없으면 기존 데이터 유지 (덮어쓰지 않음)
+      if (results.length > 0) {
+        videos[String(tool.id)] = results;
+        console.log(`      ✅ ${results.length}개 수집 성공`);
+      } else {
+        console.log(`      ⚠️ 결과 없음, 기존 데이터 유지`);
+      }
     } catch (err) {
       console.error(`      ❌ 실패: ${err.message}`);
-      // 실패해도 기존 데이터가 있다면 유지하거나 빈 배열
+      // 실패해도 기존 데이터가 있다면 유지
       if (!videos[String(tool.id)]) videos[String(tool.id)] = [];
     }
-    await sleep(500); // 간격 약간 늘림
+    await sleep(500);
   }
 
   writeFileSync(OUTPUT, JSON.stringify({ updated: new Date().toISOString(), topN: TOP_N, videos }, null, 2));

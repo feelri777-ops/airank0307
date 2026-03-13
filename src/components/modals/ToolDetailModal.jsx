@@ -352,7 +352,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
       .catch(() => setVideos([]));
   }, [tool.id]);
 
-  const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent((tool.yt || tool.name) + " tutorial")}`;
+  const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent((tool.yt || tool.name) + " 사용법")}`;
 
   return (
     <div style={{
