@@ -1,5 +1,5 @@
 import fs from 'fs';
-import path from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 // 1. API 설정 (환경변수 사용)
@@ -13,11 +13,11 @@ const NAVER_KEYS = [
 let currentKeyIndex = 0;
 const XPOZ_API_KEY = process.env.XPOZ_API_KEY || "";
 
-// 2. 가중치 설정 (유저 요청: OPR 50%, NTV 30%, GHS 10%, SNS 10%)
+// 2. 가중치 설정 (유저 요청: OPR 50%, NTV 25%, GHS 10%, SNS 15%)
 const W_OPR = 0.5;  // 글로벌 권위도 (구글 트래픽)
-const W_NTV = 0.30; // 국내 검색 트렌드 (네이버)
+const W_NTV = 0.25; // 국내 검색 트렌드 (네이버)
 const W_GHS = 0.1;  // 기술 파급력 (GitHub)
-const W_SNS = 0.10; // SNS 화제성 (XPOZ)
+const W_SNS = 0.15; // SNS 화제성 (XPOZ)
 
 const REF_KEYWORD = "ChatGPT"; // 데이터 연동을 위한 기준점
 
@@ -68,7 +68,6 @@ function getSmartPenalty(domain, toolName) {
   const domainLower = domain.toLowerCase();
   const toolNameLower = toolName.toLowerCase().replace(/\s/g, "").replace(/-/g, "").replace(/\./g, "");
   
-  // 플랫폼 명을 제외한 핵심 이름 추출
   const platforms = ["amazon", "google", "microsoft", "adobe", "apple", "facebook", "github"];
   let coreName = toolNameLower;
   platforms.forEach(p => coreName = coreName.replace(p, ""));
@@ -76,13 +75,9 @@ function getSmartPenalty(domain, toolName) {
   const [host, ...pathParts] = domainLower.split("/");
   const path = pathParts.join("/");
 
-  // 1. 이름이 경로(/ 뒤)에 있는 경우 -> 50% 페널티
   if (coreName.length > 2 && path.includes(coreName)) return 0.5;
-
-  // 2. 이름이 호스트(도메인 주소)에 있는 경우 -> 독립 브랜드 인정 (면제)
   if (coreName.length > 2 && host.includes(coreName)) return 1.0;
 
-  // 3. 거대 플랫폼 도메인인 경우 -> 50% 페널티
   for (const p in PLATFORM_PENALTY_MAP) {
     if (host.includes(p)) return 0.5;
   }
@@ -98,7 +93,7 @@ async function getOprScore(domains) {
     domains.forEach(d => url.searchParams.append("domains[]", d));
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
 
     const response = await fetch(url, {
       headers: { "API-OPR": OPR_API_KEY },
@@ -113,7 +108,6 @@ async function getOprScore(domains) {
     }
     
     const data = await response.json();
-    
     const result = {};
     if (data.response) {
       data.response.forEach(item => {
@@ -135,7 +129,6 @@ async function getGithubScore(repoPath) {
     const headers = GH_TOKEN ? { "Authorization": `token ${GH_TOKEN}` } : {};
     let response = await fetch(`https://api.github.com/repos/${repoPath}`, { headers });
     
-    // 만약 토큰 오류(401)가 발생하면 토큰 없이 재시도 (Public Repo인 경우)
     if (!response.ok && response.status === 401 && GH_TOKEN) {
       response = await fetch(`https://api.github.com/repos/${repoPath}`);
     }
@@ -145,8 +138,6 @@ async function getGithubScore(repoPath) {
     const stars = data.stargazers_count || 0;
     
     if (stars > 0) {
-      // 깃허브 점수 보정: 스타 수에 따라 40~100점 사이로 매핑
-      // 1000개 이하면 기본 점수, 그 이상은 로그 스케일
       return Math.min(100, 40 + (Math.log10(stars + 1) * 12));
     }
     return 0;
@@ -159,12 +150,8 @@ let isNaverBlocked = false;
 
 async function getNaverTrendsBatch(tools, oprScores = {}) {
   const results = {};
-  
-  // 1. 기본 폴백 설정 및 키워드 정제
   const groups = tools.map(t => {
     results[t.name] = oprScores[t.name] || 30;
-    
-    // 네이버 검색 노이즈 필터링 (거대 브랜드는 'AI'를 붙여서 정밀 검색)
     const isGenericBrand = ["Amazon", "Google", "Microsoft", "Adobe", "Apple"].some(b => t.name.includes(b));
     const keywords = [t.name];
     if (t.nameKo) keywords.push(t.nameKo);
@@ -208,11 +195,10 @@ async function getNaverTrendsBatch(tools, oprScores = {}) {
       });
 
       if (response.status === 429) {
-        console.warn(`    [Naver API] Key ${currentKeyIndex + 1} blocked (429). Rotating to next key...`);
+        console.warn(`    [Naver API] Key ${currentKeyIndex + 1} blocked (429). Rotating...`);
         currentKeyIndex = (currentKeyIndex + 1) % NAVER_KEYS.length;
         attempt++;
         if (attempt === NAVER_KEYS.length) {
-          console.error("    [Naver API] All available keys are blocked.");
           isNaverBlocked = true;
           return results;
         }
@@ -221,10 +207,7 @@ async function getNaverTrendsBatch(tools, oprScores = {}) {
       break;
     }
 
-    if (!response || !response.ok) {
-      if (response) console.warn(`    [Naver API] HTTP Error: ${response.status}`);
-      return results;
-    }
+    if (!response || !response.ok) return results;
     
     const data = await response.json();
     if (data.results) {
@@ -241,70 +224,139 @@ async function getNaverTrendsBatch(tools, oprScores = {}) {
   }
 }
 
+const XPOZ_CACHE_PATH = path.join(dirname(fileURLToPath(import.meta.url)), '..', 'data', 'xpoz_cache.json');
+let isXpozBlocked = false;
+
 async function getXpozScoresBatch(keywords, oprScores) {
   const results = {};
-  if (!XPOZ_API_KEY) {
-    console.warn("    [XPOZ API] API Key missing. Using dummy data.");
-    for (const keyword of keywords) {
-      const opr = oprScores[keyword] || 30;
-      const base = (opr * 0.8) + (Math.random() * 20); 
-      results[keyword] = Number(Math.min(100, base).toFixed(2));
-    }
-    return results;
-  }
-
-  for (const keyword of keywords) {
+  const todayStr = new Date().toISOString().split('T')[0];
+  
+  let xpozCache = {};
+  if (fs.existsSync(XPOZ_CACHE_PATH)) {
     try {
-      const response = await fetch("https://mcp.xpoz.ai/mcp", {
-        method: "POST",
-        headers: {
-          'Authorization': `Bearer ${XPOZ_API_KEY}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json, text/event-stream',
-          'Mcp-Protocol-Version': '2024-11-05'
-        },
-        body: JSON.stringify({
-          jsonrpc: "2.0",
-          id: 1,
-          method: "tools/call",
-          params: {
-            name: "getTwitterPostsByKeywords",
-            arguments: { query: keyword }
-          }
-        })
-      });
+      xpozCache = JSON.parse(fs.readFileSync(XPOZ_CACHE_PATH, 'utf8'));
+    } catch (e) { console.error("XPOZ 캐시 읽기 실패:", e.message); }
+  }
 
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      
-      const responseText = await response.text();
-      // "data: {...}" 패턴 추출 (SSE 응답 파싱)
-      const dataMatch = responseText.match(/data:\s*({.+})/);
-      
-      if (dataMatch) {
-         const jsonResponse = JSON.parse(dataMatch[1]);
-         const contentText = jsonResponse.result?.content?.[0]?.text || "";
-         
-         // 텍스트 결과 내의 count 수치 추출
-         const countMatch = contentText.match(/count:\s*(\d+)/i);
-         const count = countMatch ? parseInt(countMatch[1]) : 0;
-         
-         // 300개 언급을 100점으로 환산하여 정규화
-         const snsScore = Math.min(100, (count / 300) * 100);
-         results[keyword] = Number(snsScore.toFixed(2));
-         console.log(`    [XPOZ API] ${keyword}: ${count} mentions -> Score: ${results[keyword]}`);
-      } else {
-         throw new Error("Invalid response format");
-      }
-      
-      // API 예절을 위한 짧은 대기
-      await new Promise(resolve => setTimeout(resolve, 500));
-    } catch (error) {
-      console.warn(`    [XPOZ API Error] ${keyword}: ${error.message} (Using OPR fallback)`);
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - 14);
+  const startDateStr = startDate.toISOString().split('T')[0];
+  const endDateStr = todayStr;
+
+  const currentCache = xpozCache[todayStr] || {};
+  for (const keyword of keywords) {
+    if (currentCache[keyword]) {
+      results[keyword] = currentCache[keyword];
+      continue;
+    }
+
+    if (!XPOZ_API_KEY || isXpozBlocked) {
       const opr = oprScores[keyword] || 30;
-      const base = (opr * 0.8) + (Math.random() * 20); 
-      results[keyword] = Number(Math.min(100, base).toFixed(2));
+      results[keyword] = Number(((opr * 0.8) + (Math.random() * 20)).toFixed(2));
+      continue;
+    }
+
+    try {
+      let startRes;
+      let startText = "";
+      for (let retry = 0; retry < 3; retry++) {
+        startRes = await fetch('https://mcp.xpoz.ai/mcp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${XPOZ_API_KEY}`,
+            'Accept': 'application/json, text/event-stream'
+          },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: Date.now() + Math.random(),
+            method: 'tools/call',
+            params: {
+              name: 'countTweets',
+              arguments: { phrase: keyword, startDate: startDateStr, endDate: endDateStr }
+            }
+          })
+        });
+
+        if (startRes.status === 429) {
+          console.warn(`    [XPOZ] ${keyword} 429 제한됨. 차단 모드로 전환.`);
+          isXpozBlocked = true;
+          break;
+        }
+        
+        startText = await startRes.text();
+        if (startRes.ok) break;
+        await new Promise(r => setTimeout(r, 5000));
+      }
+
+      const dataMatch = startText.match(/data: ({.*})/);
+      let opId = null;
+      if (dataMatch) {
+        try {
+          const data = JSON.parse(dataMatch[1]);
+          const content = data.result?.content?.[0]?.text || "";
+          const opIdMatch = content.match(/operationId: (\S+)/);
+          if (opIdMatch) opId = opIdMatch[1];
+        } catch (e) {}
+      }
+
+      if (!opId) {
+        const opr = oprScores[keyword] || 30;
+        const fallback = Number(((opr * 0.7) + (Math.random() * 20)).toFixed(2));
+        console.warn(`    [XPOZ] ${keyword} 수집 실패 -> 추정치(${fallback}) 사용`);
+        results[keyword] = fallback;
+        continue;
+      }
+
+      console.log(`    [XPOZ] ${keyword} 수집 시작 (ID: ${opId})`);
+      
+      let mentions = 0;
+      for (let attempt = 0; attempt < 5; attempt++) {
+        await new Promise(r => setTimeout(r, 5000));
+        const checkRes = await fetch('https://mcp.xpoz.ai/mcp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${XPOZ_API_KEY}`,
+            'Accept': 'application/json, text/event-stream'
+          },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: Date.now() + Math.random(),
+            method: 'tools/call',
+            params: { name: 'checkOperationStatus', arguments: { operationId: opId } }
+          })
+        });
+
+        const checkText = await checkRes.text();
+        const resultsMatch = checkText.match(/results: (\d+)/i) || checkText.match(/\"results\": (\d+)/i);
+        
+        if (resultsMatch) {
+          mentions = parseInt(resultsMatch[1], 10);
+          console.log(`    [XPOZ] ${keyword}: ${mentions} 언급 확인`);
+          break;
+        }
+        
+        if (checkText.includes('status: failed')) break;
+      }
+      results[keyword] = mentions;
+      currentCache[keyword] = mentions;
+      await new Promise(r => setTimeout(r, 2000));
+
+    } catch (err) {
+      console.error(`XPOZ 처리 오류 (${keyword}):`, err.message);
+      results[keyword] = 0;
     }
   }
+
+  xpozCache[todayStr] = currentCache;
+  const dates = Object.keys(xpozCache).sort().reverse();
+  if (dates.length > 3) dates.slice(3).forEach(d => delete xpozCache[d]);
+  
+  try {
+    fs.writeFileSync(XPOZ_CACHE_PATH, JSON.stringify(xpozCache, null, 2), 'utf8');
+  } catch (e) {}
+
   return results;
 }
 
@@ -312,7 +364,6 @@ async function getXpozScoresBatch(keywords, oprScores) {
 async function updateRanking() {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  
   const csvPath = path.join(__dirname, '..', 'data', 'airank2602.csv');
   
   if (!fs.existsSync(csvPath)) {
@@ -320,51 +371,31 @@ async function updateRanking() {
     return;
   }
 
-  // CSV 읽기 및 파싱
   const rawCsv = fs.readFileSync(csvPath, 'utf8');
   const lines = rawCsv.split('\n').filter(line => line.trim() !== '');
-  const headers = lines[0].split('\t').map(h => h.trim());
-  
   const toolsList = [];
   const seenIds = new Set();
-  const duplicates = [];
 
   for (let i = 1; i < lines.length; i++) {
     const cols = lines[i].split('\t');
     if (cols.length < 5) continue;
-    
     const id = cols[0].trim();
-    const name = cols[1].trim();
-
-    if (seenIds.has(id)) {
-      duplicates.push({ line: i + 1, id, name });
-    } else {
-      seenIds.add(id);
-    }
+    if (seenIds.has(id)) continue;
+    seenIds.add(id);
 
     toolsList.push({
       id: id,
-      name: name,
+      name: cols[1].trim(),
       domain: cols[2].trim(),
       rank: parseInt(cols[3].trim(), 10),
       originalScore: parseInt(cols[4].trim(), 10),
-      isOpenSource: 'N' // 기본값 N, 데이터 수집 시 판단
+      isOpenSource: 'N'
     });
   }
 
   console.log(`총 ${toolsList.length}개의 항목을 읽었습니다.`);
-  if (duplicates.length > 0) {
-    console.warn(`\n⚠️ 경고: CSV 파일 내에 중복된 ID가 ${duplicates.length}개 있습니다! (동일한 ID는 나중에 읽힌 데이터로 덮어쓰기 됩니다.)`);
-    console.warn(`중복 ID 목록:`);
-    duplicates.forEach(d => console.warn(`  - Line ${d.line}: ID [${d.id}] (${d.name})`));
-    console.warn(`\n올바른 랭킹을 위해 CSV 파일이나 tools.js의 고유 ID를 수정해 주세요.\n`);
-  }
-  console.log("API 점수 수집을 시작합니다...");
-
-  // 도메인 추출 (빈 값 제외)
-  const validDomains = toolsList.map(t => t.domain).filter(d => d);
   
-  // OPR API 수집 (50개 단위 청크 - 100개는 URL 쿼리가 너무 길어져서 Hang 발생 가능성 높음)
+  const validDomains = toolsList.map(t => t.domain).filter(d => d);
   let oprData = {};
   const chunkSize = 50;
   console.log("OPR(도메인) 점수 수집 중...");
@@ -373,200 +404,148 @@ async function updateRanking() {
     const chunkResult = await getOprScore(chunk);
     oprData = { ...oprData, ...chunkResult };
     console.log(`  - OPR 수집 진행률: ${Math.min(i + chunkSize, validDomains.length)} / ${validDomains.length}`);
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Rate limit 방지 보수적 대기
+    await new Promise(resolve => setTimeout(resolve, 1000));
   }
 
-  const toolsOutput = {};
+  const now = new Date();
+  const kstOffset = 9 * 60 * 60 * 1000;
+  const kstDate = new Date(now.getTime() + kstOffset);
+  const todayStr = kstDate.toISOString().split('T')[0];
   
-  const rawNtvData = {};
+  const naverCachePath = path.join(__dirname, '..', 'data', 'naver_cache.json');
+  let naverCache = {};
+  if (fs.existsSync(naverCachePath)) {
+    try {
+      naverCache = JSON.parse(fs.readFileSync(naverCachePath, 'utf8'));
+    } catch (e) {}
+  }
+
+  const isNaverCached = !!naverCache[todayStr];
+  const rawNtvData = isNaverCached ? { ...naverCache[todayStr] } : {};
+  if (isNaverCached) console.log(`✅ [Naver Cache] 오늘(${todayStr}) 날짜의 캐시 데이터를 발견했습니다.`);
+
   const rawSnsData = {};
-  
-  // 도구별 데이터 수집 (배치 처리)
-  const BATCH_SIZE = 4; 
+  const BATCH_SIZE = 4;
   for (let i = 0; i < toolsList.length; i += BATCH_SIZE) {
     const batch = toolsList.slice(i, i + BATCH_SIZE);
-
-    // Naver 트렌드 원본 비율 수집 (일관된 스케일을 위해 ChatGPT를 항상 기준점으로 포함)
-    const oprMap = {};
-    batch.forEach(t => oprMap[t.name] = oprData[t.domain] || 30);
-    
-    // ChatGPT가 배치에 없으면 명시적으로 추가하여 상대적 비율을 구함
-    const toolsWithRef = [...batch];
-    if (!batch.some(t => t.name === REF_KEYWORD)) {
-       toolsWithRef.push({ name: REF_KEYWORD, nameKo: "챗지피티" });
-    }
-    const oprMapWithRef = { ...oprMap, [REF_KEYWORD]: 63.8 };
-    
-    const ntvBatch = await getNaverTrendsBatch(toolsWithRef, oprMapWithRef);
-    
-    // SNS 언급량 수집 (OPR 기반 안정적 보정)
     const keywords = batch.map(t => t.name);
-    const snsBatch = await getXpozScoresBatch(keywords, oprMap);
-    
-    for (const name in ntvBatch) {
-      rawNtvData[name] = ntvBatch[name];
+
+    if (!isNaverCached) {
+      const oprMap = {};
+      batch.forEach(t => oprMap[t.name] = oprData[t.domain] || 30);
+      const toolsWithRef = batch.map(t => ({ name: t.name, nameKo: t.name }));
+      if (!keywords.includes(REF_KEYWORD)) {
+        toolsWithRef.push({ name: REF_KEYWORD, nameKo: "챗지피티" });
+      }
+      const oprMapWithRef = { ...oprMap, [REF_KEYWORD]: 63.8 };
+      const ntvBatch = await getNaverTrendsBatch(toolsWithRef, oprMapWithRef);
+      for (const name in ntvBatch) rawNtvData[name] = ntvBatch[name];
     }
-    for (const name in snsBatch) {
-      rawSnsData[name] = snsBatch[name];
-    }
-    
+
+    const oprMapSns = {};
+    batch.forEach(t => oprMapSns[t.name] = oprData[t.domain] || 30);
+    const snsBatch = await getXpozScoresBatch(keywords, oprMapSns);
+    for (const name in snsBatch) rawSnsData[name] = snsBatch[name];
+
     await Promise.all(batch.map(async (tool) => {
-      if (!tool.id) return;
-      
       let ghRepo = GITHUB_MAPPING[tool.name] || "";
       if (!ghRepo && tool.domain.includes("github.com")) {
          const parts = tool.domain.split("github.com/")[1];
          if (parts) ghRepo = parts.split("/").slice(0, 2).join("/");
       }
-      
       let ghScore = 0;
       if (ghRepo) {
         tool.isOpenSource = 'Y';
         ghScore = await getGithubScore(ghRepo);
       }
-      
-      tool.metrics_raw = {
-        opr: oprData[tool.domain] || 0,
-        ghs: ghScore
-      };
-
+      tool.metrics_raw = { opr: oprData[tool.domain] || 0, ghs: ghScore };
     }));
-    
+
     console.log(`수집 진행률: ${Math.min(i + BATCH_SIZE, toolsList.length)} / ${toolsList.length} 완료...`);
-    // Naver API가 차단되지 않은 경우에만 짧게 대기, 차단 시에는 빠르게 진행
     await new Promise(resolve => setTimeout(resolve, isNaverBlocked ? 100 : 1500));
   }
 
-  // --- 네이버/SNS 점수 전역 정규화 (최고점을 100으로) ---
   const allNtvValues = Object.values(rawNtvData);
   const maxNtvRatio = Math.max(...allNtvValues, 0.1);
-  
   const allSnsValues = Object.values(rawSnsData);
   const maxSnsRatio = Math.max(...allSnsValues, 0.1);
 
-  console.log(`\n📊 분석 완료 - NTV 최고점: ${maxNtvRatio}, SNS 최고점: ${maxSnsRatio}`);
+  if (!isNaverCached && Object.keys(rawNtvData).length > 0) {
+    naverCache[todayStr] = rawNtvData;
+    const dates = Object.keys(naverCache).sort().reverse();
+    if (dates.length > 7) dates.slice(7).forEach(d => delete naverCache[d]);
+    fs.writeFileSync(naverCachePath, JSON.stringify(naverCache, null, 2), 'utf8');
+  }
 
-  toolsList.forEach(tool => {
+  const toolsOutput = {};
+  for (const tool of toolsList) {
     const rawNtv = rawNtvData[tool.name] || 0;
     const normalizedNtv = Number(((rawNtv / maxNtvRatio) * 100).toFixed(2));
-    
     const rawSns = rawSnsData[tool.name] || 0;
     const normalizedSns = Number(((rawSns / maxSnsRatio) * 100).toFixed(2));
-    
-    // OPR 점수 보정 (스마트 브랜드 식별 페널티 적용)
     let opr = tool.metrics_raw.opr;
     const penalty = getSmartPenalty(tool.domain, tool.name);
-    
-    if (penalty < 1.0) {
-      const oldOpr = opr;
-      opr = opr * penalty;
-      console.log(`    [Smart Scaling] ${tool.name} (${tool.domain}): ${oldOpr.toFixed(2)} -> ${opr.toFixed(2)} (x${penalty})`);
-    }
-
+    if (penalty < 1.0) opr = opr * penalty;
     const ghs = tool.metrics_raw.ghs || 0;
     const totalScore = Number(((opr * W_OPR) + (normalizedNtv * W_NTV) + (ghs * W_GHS) + (normalizedSns * W_SNS)).toFixed(2));
     
     toolsOutput[tool.id] = {
       score: totalScore,
       change: 0,
-      metrics: {
-        opr: Number(opr.toFixed(2)),
-        ntv: normalizedNtv,
-        ghs: Number(ghs.toFixed(2)),
-        sns: normalizedSns
-      }
+      metrics: { opr: Number(opr.toFixed(2)), ntv: normalizedNtv, ghs: Number(ghs.toFixed(2)), sns: normalizedSns }
     };
-  });
+  }
 
-  // 결과 생성 전, 어제 데이터(history 파일)를 읽어와서 change 변동폭 계산
-  const now = new Date();
-  const kstOffset = 9 * 60 * 60 * 1000;
-  const kstDate = new Date(now.getTime() + kstOffset);
-  const todayStr = kstDate.toISOString().split('T')[0]; // YYYY-MM-DD (KST)
-  
   const yesterday = new Date(now.getTime() - (24 * 60 * 60 * 1000));
   const yesterdayKst = new Date(yesterday.getTime() + kstOffset);
   const yesterdayStr = yesterdayKst.toISOString().split('T')[0];
-
   const historyDir = path.join(__dirname, '..', 'public', 'history');
-  if (!fs.existsSync(historyDir)) {
-    fs.mkdirSync(historyDir, { recursive: true });
-  }
+  if (!fs.existsSync(historyDir)) fs.mkdirSync(historyDir, { recursive: true });
 
   const yesterdayPath = path.join(historyDir, `scores-${yesterdayStr}.json`);
-  let yesterdayData = null;
-  
-  // 어제 파일이 없으면 기존 메인 scores.json 이라도 읽어서 비교 시도 (최초 1회용 백업)
   const mainScoresPath = path.join(__dirname, '..', 'public', 'scores.json');
+  let yesterdayData = null;
   if (fs.existsSync(yesterdayPath)) {
-    try {
-      yesterdayData = JSON.parse(fs.readFileSync(yesterdayPath, 'utf8'));
-    } catch (e) { console.error("어제 히스토리 파일 읽기 실패:", e.message); }
+    try { yesterdayData = JSON.parse(fs.readFileSync(yesterdayPath, 'utf8')); } catch (e) {}
   } else if (fs.existsSync(mainScoresPath)) {
-    try {
-      yesterdayData = JSON.parse(fs.readFileSync(mainScoresPath, 'utf8'));
-    } catch (e) { /* 무시 */ }
+    try { yesterdayData = JSON.parse(fs.readFileSync(mainScoresPath, 'utf8')); } catch (e) {}
   }
 
-  // change (증감폭) 계산
   for (const toolId in toolsOutput) {
     if (yesterdayData && yesterdayData.tools && yesterdayData.tools[toolId]) {
       const oldScore = yesterdayData.tools[toolId].score || 0;
-      const newScore = toolsOutput[toolId].score;
-      // 소수점 2자리까지만 표현
-      toolsOutput[toolId].change = Number((newScore - oldScore).toFixed(2));
+      toolsOutput[toolId].change = Number((toolsOutput[toolId].score - oldScore).toFixed(2));
     }
   }
 
-  // 최종 결과 생성
-  const result = {
-    updated: new Date().toISOString(),
-    source: "airank2602.csv + update_ranking.js",
-    tools: toolsOutput
-  };
-
-  // 1. History 폴더에 오늘 날짜로 백업 저장
-  const todayHistoryPath = path.join(historyDir, `scores-${todayStr}.json`);
-  fs.writeFileSync(todayHistoryPath, JSON.stringify(result, null, 2), 'utf8');
-
-  // 2. public/scores.json 에 최신본 덮어쓰기 저장 (기존 시스템 지원)
+  const result = { updated: new Date().toISOString(), source: "airank2602.csv + update_ranking.js", tools: toolsOutput };
+  fs.writeFileSync(path.join(historyDir, `scores-${todayStr}.json`), JSON.stringify(result, null, 2), 'utf8');
   fs.writeFileSync(mainScoresPath, JSON.stringify(result, null, 2), 'utf8');
-  
-  // 3. 엑셀(CSV) 리포트 생성 (OpenSource 컬럼 추가)
+
   const csvReportPath = path.join(__dirname, '..', 'ai_rank_full_report.csv');
-  let csvHeader = '\uFEFF'; // Excel 한글 깨짐 방지 BOM
-  csvHeader += '순위,ID,오픈소스,툴이름,도메인,종합점수,구글(50%),네이버(25%),SNS(15%),깃허브(10%)\n';
-  
+  let csvReport = '\uFEFF' + '순위,ID,오픈소스,툴이름,도메인,종합점수,구글(50%),네이버(25%),SNS(15%),깃허브(10%)\n';
   const sortedList = toolsList.map(t => ({
-    ...t,
-    score: toolsOutput[t.id].score,
-    metrics: toolsOutput[t.id].metrics
+    ...t, score: toolsOutput[t.id].score, metrics: toolsOutput[t.id].metrics
   })).sort((a, b) => b.score - a.score);
 
-  const csvContent = sortedList.map((t, idx) => {
-    return `${idx + 1},${t.id},${t.isOpenSource},"${t.name}","${t.domain}",${t.score},${t.metrics.opr},${t.metrics.ntv},${t.metrics.sns},${t.metrics.ghs}`;
-  }).join('\n');
+  csvReport += sortedList.map((t, idx) => 
+    `${idx + 1},${t.id},${t.isOpenSource},"${t.name}","${t.domain}",${t.score},${t.metrics.opr},${t.metrics.ntv},${t.metrics.sns},${t.metrics.ghs}`
+  ).join('\n');
 
   try {
-    fs.writeFileSync(csvReportPath, csvHeader + csvContent, 'utf8');
-    console.log(`✅ [Excel 생성] ${csvReportPath} 생성 완료! (250개 도구 전수 리포트)`);
+    fs.writeFileSync(csvReportPath, csvReport, 'utf8');
+    console.log(`✅ [Excel 생성] ${csvReportPath} 완료!`);
   } catch (err) {
     if (err.code === 'EBUSY') {
-      const fallbackCsvPath = path.join(__dirname, '..', `ai_rank_full_report_${Date.now()}.csv`);
-      fs.writeFileSync(fallbackCsvPath, csvHeader + csvContent, 'utf8');
-      console.log(`⚠️ 원본 CSV 파일이 열려있어 새로운 파일로 저장했습니다: ${fallbackCsvPath}`);
-    } else {
-      console.error('CSV 생성 중 오류:', err);
+      const fallback = path.join(__dirname, '..', `ai_rank_full_report_${Date.now()}.csv`);
+      fs.writeFileSync(fallback, csvReport, 'utf8');
+      console.log(`⚠️ 원본 사용 중. 파일 저장: ${fallback}`);
     }
   }
 
-  // 4. 원본 data/airank2602.csv 에도 OpenSource 속성 업데이트
-  const updatedOriginalCsvLines = ['ID\tService Name\tAnalysis Domain\tRank\tScore\tOpenSource'];
-  toolsList.forEach(t => {
-    // 기존 포맷 유지하면서 마지막에 OpenSource 탭 추가
-    updatedOriginalCsvLines.push(`${t.id}\t${t.name}\t${t.domain}\t${t.rank}\t${t.originalScore}\t${t.isOpenSource}`);
-  });
-  fs.writeFileSync(csvPath, updatedOriginalCsvLines.join('\n'), 'utf8');
+  const updatedOriginalCsv = ['ID\tService Name\tAnalysis Domain\tRank\tScore\tOpenSource']
+    .concat(toolsList.map(t => `${t.id}\t${t.name}\t${t.domain}\t${t.rank}\t${t.originalScore}\t${t.isOpenSource}`));
+  fs.writeFileSync(csvPath, updatedOriginalCsv.join('\n'), 'utf8');
   console.log(`✅ [원본 데이터 연동] data/airank2602.csv 오픈소스 속성 갱신 완료!`);
 }
 
