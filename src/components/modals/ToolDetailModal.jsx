@@ -41,9 +41,9 @@ const ScoreInsightPanel = ({ tool }) => {
     });
   };
 
-  // 미니 스파크라인 SVG (상하폭 최소화)
+  // 미니 스파크라인 SVG (상하폭 최소화 + 드로잉 애니메이션)
   const Spark = ({ pts, color }) => {
-    const sw = 80, sh = 12;
+    const sw = 120, sh = 12;
     const mn = Math.min(...pts) - 0.5;
     const mx = Math.max(...pts) + 0.5;
     const r = mx - mn || 1;
@@ -53,9 +53,14 @@ const ScoreInsightPanel = ({ tool }) => {
     const ad = `${pd} L${sw},${sh} L0,${sh} Z`;
     return (
       <svg viewBox={`0 0 ${sw} ${sh}`} width="100%" height={sh} style={{ overflow: "visible", display: "block" }}>
-        <path d={ad} fill={color} fillOpacity="0.12" />
-        <path d={pd} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        {pts.map((v, i) => <circle key={i} cx={sx(i)} cy={sy(v)} r={i === pts.length - 1 ? 2.5 : 1.5} fill={color} />)}
+        <path d={ad} fill={color} style={{ fillOpacity: 0, animation: "sparkFade 0.8s ease 0.2s forwards" }} />
+        <path d={pd} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+          pathLength="1"
+          style={{ strokeDasharray: 1, strokeDashoffset: 1, animation: "sparkDraw 0.8s ease forwards" }}
+        />
+        {pts.map((v, i) => <circle key={i} cx={sx(i)} cy={sy(v)} r={i === pts.length - 1 ? 2.5 : 1.5} fill={color}
+          style={{ opacity: 0, animation: `sparkFade 0.3s ease ${0.1 + i * 0.08}s forwards` }}
+        />)}
       </svg>
     );
   };
@@ -314,7 +319,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
     <div style={{
       background: "var(--bg-card)",
       border: "1px solid var(--border-primary)",
-      borderRadius: "3px",
+      borderRadius: "16px",
       padding: "1.5rem",
       width: cardWidth || "340px",
       flexShrink: 0,
@@ -521,7 +526,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
     <div style={{
       background: "var(--bg-card)",
       border: "1px solid var(--border-primary)",
-      borderRadius: "5px",
+      borderRadius: "16px",
       padding: "1.2rem",
       width: CARD_WIDTH,
       flexShrink: 0,
@@ -576,7 +581,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
     return (
       <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 1000, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)", overflowY: "auto", display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "40px 16px" }}>
         <div onClick={(e) => e.stopPropagation()} style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "center", gap: "16px", width: "100%", maxWidth: "1000px", margin: "auto" }}>
-          <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "3px", padding: "1.5rem", width: DESKTOP_CARD_WIDTH, flexShrink: 0, boxShadow: "0 24px 64px rgba(0,0,0,0.25)", position: "relative", height: "fit-content" }}>
+          <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "16px", padding: "1.5rem", width: DESKTOP_CARD_WIDTH, flexShrink: 0, boxShadow: "0 24px 64px rgba(0,0,0,0.25)", position: "relative", height: "fit-content" }}>
             <button onClick={onClose} style={{ position: "absolute", top: "16px", right: "16px", background: "var(--bg-tertiary)", border: "none", borderRadius: "50%", width: "32px", height: "32px", cursor: "pointer", fontSize: "1rem", color: "var(--text-muted)", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
             <button onClick={toggleBookmark} title={user ? (bookmarked ? "북마크 해제" : "북마크 저장") : "로그인 후 북마크 가능"} style={{ position: "absolute", top: "16px", right: "56px", background: bookmarked ? "rgba(239,68,68,0.1)" : "var(--bg-tertiary)", border: bookmarked ? "1px solid #ef4444" : "none", borderRadius: "50%", width: "32px", height: "32px", cursor: "pointer", fontSize: "1.1rem", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s ease", color: bookmarked ? "#ef4444" : "var(--text-muted)" }}>{bookmarked ? "♥" : "♡"}</button>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px" }}>
