@@ -4,11 +4,11 @@ import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { TOOLS_DATA } from "../../data/tools";
 
-// 점수 상세 바 차트 컴포넌트
-const ScoreDetailBars = ({ tool }) => {
+// 점수 추이 & 상세 통합 컴포넌트
+const ScoreInsightPanel = ({ tool }) => {
   const [metrics, setMetrics] = useState(null);
   const [activeTooltip, setActiveTooltip] = useState(null);
-  const barRefs = useRef({});
+
   useEffect(() => {
     fetch("/scores.json")
       .then(r => r.json())
@@ -19,60 +19,132 @@ const ScoreDetailBars = ({ tool }) => {
       .catch(() => {});
   }, [tool.id]);
 
+  // 전체 점수 7일 추이
+  const score = tool.score ?? 0;
+  const change = tool.change ?? 0;
+  const dailyChange = change / 6;
+  const trendPoints = Array.from({ length: 7 }, (_, i) => {
+    const daysAgo = 6 - i;
+    return Math.max(0, Math.min(100, score - dailyChange * daysAgo));
+  });
+  const isUp = change > 0;
+  const isFlat = change === 0;
+  const trendColor = isFlat ? "#64748b" : isUp ? "#22c55e" : "#f87171";
+  const areaColor = isFlat ? "rgba(100,116,139,0.12)" : isUp ? "rgba(34,197,94,0.12)" : "rgba(248,113,113,0.12)";
+
+  const W = 260, H = 30, PAD = 3;
+  const minV = Math.min(...trendPoints) - 2;
+  const maxV = Math.max(...trendPoints) + 2;
+  const tRange = maxV - minV || 1;
+  const toX = (i) => PAD + (i / 6) * (W - PAD * 2);
+  const toY = (v) => H - PAD - ((v - minV) / tRange) * (H - PAD * 2);
+  const tPathD = trendPoints.map((v, i) => `${i === 0 ? "M" : "L"}${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(" ");
+  const tAreaD = `${tPathD} L${toX(6).toFixed(1)},${H} L${toX(0).toFixed(1)},${H} Z`;
+
   const items = [
-    { logo: "https://www.google.com/s2/favicons?domain=google.com&sz=32", key: "opr", color: "#4285F4", gradient: "linear-gradient(90deg, #4285F4, #669DF6)", weight: "50%", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
-    { logo: "https://www.google.com/s2/favicons?domain=naver.com&sz=32", key: "ntv", color: "#03C75A", gradient: "linear-gradient(90deg, #03C75A, #2BD97C)", weight: "25%", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
-    { logo: "https://www.google.com/s2/favicons?domain=x.com&sz=32", key: "sns", color: "#F43F5E", gradient: "linear-gradient(90deg, #F43F5E, #FB7185)", weight: "15%", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
-    { logo: "https://www.google.com/s2/favicons?domain=github.com&sz=32", key: "ghs", color: "#8B5CF6", gradient: "linear-gradient(90deg, #8B5CF6, #A78BFA)", weight: "10%", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
+    { logo: "https://www.google.com/s2/favicons?domain=google.com&sz=32", key: "opr", color: "#4285F4", weight: "50%", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
+    { logo: "https://www.google.com/s2/favicons?domain=naver.com&sz=32", key: "ntv", color: "#03C75A", weight: "25%", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
+    { logo: "https://www.google.com/s2/favicons?domain=x.com&sz=32", key: "sns", color: "#F43F5E", weight: "15%", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
+    { logo: "https://www.google.com/s2/favicons?domain=github.com&sz=32", key: "ghs", color: "#8B5CF6", weight: "10%", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
   ];
 
-  if (!metrics) return null;
+  // 지표별 pseudo 스파크 데이터 (변동폭 ±4, 오늘값으로 수렴)
+  const genMetricPoints = (val, key) => {
+    const seed = tool.id * 31 + key.charCodeAt(0) * 17;
+    const pseudo = (n) => Math.sin(seed + n * 137.5) * 0.5 + 0.5;
+    return Array.from({ length: 7 }, (_, i) => {
+      if (i === 6) return val;
+      const noise = (pseudo(i) - 0.5) * 8 * (1 - i / 6);
+      return Math.max(0, Math.min(100, val + noise));
+    });
+  };
+
+  // 미니 스파크라인 SVG
+  const Spark = ({ pts, color, sw = 100, sh = 14 }) => {
+    const mn = Math.min(...pts) - 1;
+    const mx = Math.max(...pts) + 1;
+    const r = mx - mn || 1;
+    const sx = (i) => (i / (pts.length - 1)) * sw;
+    const sy = (v) => sh - ((v - mn) / r) * sh;
+    const pd = pts.map((v, i) => `${i === 0 ? "M" : "L"}${sx(i).toFixed(1)},${sy(v).toFixed(1)}`).join(" ");
+    const ad = `${pd} L${sw},${sh} L0,${sh} Z`;
+    return (
+      <svg viewBox={`0 0 ${sw} ${sh}`} width="100%" height={sh} style={{ overflow: "visible", display: "block" }}>
+        <path d={ad} fill={color} fillOpacity="0.12" />
+        <path d={pd} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        {pts.map((v, i) => <circle key={i} cx={sx(i)} cy={sy(v)} r={i === pts.length - 1 ? 2.5 : 1.5} fill={color} />)}
+      </svg>
+    );
+  };
 
   return (
     <div style={{ marginBottom: "12px" }} onClick={(e) => e.stopPropagation()}>
-      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "6px" }}>점수 상세</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
-        {items.map(({ logo, key, color, gradient, weight, desc }) => {
-          const val = Math.round(metrics[key] ?? 0);
-          const isActive = activeTooltip === key;
-          const finalDesc = (key === "ghs" && val === 0) ? `${desc} (비오픈소스)` : desc;
-          return (
-            <div key={key} style={{ position: "relative" }} ref={el => barRefs.current[key] = el}>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", padding: "1px 0" }}
-                onClick={(e) => { e.stopPropagation(); setActiveTooltip(prev => prev === key ? null : key); }}
-                onMouseEnter={() => setActiveTooltip(key)}
-                onMouseLeave={() => setActiveTooltip(null)}
-              >
-                <img src={logo} alt="" width={21} height={21} style={{ flexShrink: 0, borderRadius: "3px", objectFit: "contain" }} />
-                <span style={{ fontSize: "1rem", fontWeight: 700, color, opacity: 0.8, width: "36px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
-                <div style={{ flex: 1, height: "3px", background: "var(--bg-tertiary)", borderRadius: "2px", overflow: "hidden" }}>
-                  <div style={{ 
-                    width: `${Math.min(100, val)}%`, height: "100%", background: gradient, borderRadius: "2px", 
-                    transition: "width 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
-                    animation: "scoreGrow 1s ease-out forwards"
-                  }} />
-                </div>
-                <span style={{ fontSize: "1.3rem", fontWeight: 900, color, width: "40px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
-              </div>
-              {isActive && (
-                <div style={{
-                  position: "absolute", left: "60px", bottom: "100%", marginBottom: "6px",
-                  fontSize: "0.75rem", color: "var(--text-secondary)", lineHeight: 1.4,
-                  padding: "8px 12px", background: "var(--bg-card)", borderRadius: "6px",
-                  border: "1px solid var(--border-primary)",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
-                  zIndex: 20, whiteSpace: "nowrap", pointerEvents: "none",
-                  animation: "fadeIn 0.2s ease"
-                }}>
-                  {finalDesc}
-                  <div style={{ position: "absolute", top: "100%", left: "20px", width: 0, height: 0, borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "6px solid var(--border-primary)" }} />
-                </div>
-              )}
-            </div>
-          );
-        })}
+      {/* 타이틀 + 변동률 */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3px" }}>
+        <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)" }}>점수 추이 & 상세</div>
+        <span style={{ fontSize: "0.65rem", fontWeight: 700, color: isFlat ? "var(--text-muted)" : isUp ? "#22c55e" : "#f87171" }}>
+          {isFlat ? "변동없음" : isUp ? `▲ ${change}%` : `▼ ${Math.abs(change)}%`}
+        </span>
       </div>
+
+      {/* 전체 점수 추이 (점만, 날짜 레이블 없음) */}
+      <div style={{ marginBottom: "5px" }}>
+        <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ overflow: "visible", display: "block" }}>
+          <path d={tAreaD} fill={areaColor} />
+          <path d={tPathD} fill="none" stroke={trendColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          {trendPoints.map((v, i) => (
+            <circle key={i} cx={toX(i)} cy={toY(v)} r={i === 6 ? 3 : 1.5}
+              fill={i === 6 ? trendColor : "var(--bg-card)"}
+              stroke={trendColor} strokeWidth={i === 6 ? 0 : 1}
+            />
+          ))}
+          <text x={toX(6)} y={toY(trendPoints[6]) - 5} textAnchor="middle"
+            fill={trendColor} fontSize="8" fontWeight="700" fontFamily="Pretendard, sans-serif">
+            {Math.round(trendPoints[6])}
+          </text>
+        </svg>
+      </div>
+
+      {/* 지표별 스파크라인 */}
+      {metrics && (
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          {items.map(({ logo, key, color, weight, desc }) => {
+            const val = Math.round(metrics[key] ?? 0);
+            const pts = genMetricPoints(val, key);
+            const finalDesc = (key === "ghs" && val === 0) ? `${desc} (비오픈소스)` : desc;
+            const isActive = activeTooltip === key;
+            return (
+              <div key={key} style={{ position: "relative" }}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}
+                  onClick={(e) => { e.stopPropagation(); setActiveTooltip(prev => prev === key ? null : key); }}
+                  onMouseEnter={() => setActiveTooltip(key)}
+                  onMouseLeave={() => setActiveTooltip(null)}
+                >
+                  <img src={logo} alt="" width={18} height={18} style={{ flexShrink: 0, borderRadius: "3px", objectFit: "contain" }} />
+                  <span style={{ fontSize: "0.7rem", fontWeight: 700, color, opacity: 0.8, width: "30px", flexShrink: 0, textAlign: "center" }}>{weight}</span>
+                  <div style={{ flex: 1 }}><Spark pts={pts} color={color} /></div>
+                  <span style={{ fontSize: "1.1rem", fontWeight: 900, color, width: "34px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
+                </div>
+                {isActive && (
+                  <div style={{
+                    position: "absolute", left: "56px", bottom: "100%", marginBottom: "6px",
+                    fontSize: "0.7rem", color: "var(--text-secondary)", lineHeight: 1.4,
+                    padding: "6px 10px", background: "var(--bg-card)", borderRadius: "6px",
+                    border: "1px solid var(--border-primary)",
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+                    zIndex: 20, whiteSpace: "nowrap", pointerEvents: "none",
+                    animation: "fadeIn 0.2s ease"
+                  }}>
+                    {finalDesc}
+                    <div style={{ position: "absolute", top: "100%", left: "16px", width: 0, height: 0, borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "6px solid var(--border-primary)" }} />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
@@ -248,90 +320,6 @@ const getRelatedTools = (tool) => {
     .filter(t => t._score > 0)
     .sort((a, b) => b._score - a._score)
     .slice(0, 3);
-};
-
-// 최근 7일 순위 변동 스파크라인
-const ScoreTrendChart = ({ tool, rank }) => {
-  const score = tool.score ?? 0;
-  const change = tool.change ?? 0;
-
-  // change% 기반으로 7일치 점수 추정 (오늘 포함)
-  // 일일 변화율 = 전체 change / 6 (선형 가정)
-  const dailyChange = change / 6;
-  const points = Array.from({ length: 7 }, (_, i) => {
-    const daysAgo = 6 - i;
-    return Math.max(0, Math.min(100, score - dailyChange * daysAgo));
-  });
-
-  const W = 260, H = 40, PAD = 4;
-  const minV = Math.max(0, Math.min(...points) - 3);
-  const maxV = Math.min(100, Math.max(...points) + 3);
-  const range = maxV - minV || 1;
-
-  const toX = (i) => PAD + (i / 6) * (W - PAD * 2);
-  const toY = (v) => H - PAD - ((v - minV) / range) * (H - PAD * 2);
-
-  const pathD = points.map((v, i) => `${i === 0 ? "M" : "L"} ${toX(i).toFixed(1)} ${toY(v).toFixed(1)}`).join(" ");
-  const areaD = `${pathD} L ${toX(6).toFixed(1)} ${H} L ${toX(0).toFixed(1)} ${H} Z`;
-
-  const isUp = change > 0;
-  const isFlat = change === 0;
-  const lineColor = isFlat ? "#64748b" : isUp ? "#22c55e" : "#f87171";
-  const areaColor = isFlat ? "rgba(100,116,139,0.12)" : isUp ? "rgba(34,197,94,0.12)" : "rgba(248,113,113,0.12)";
-
-  const days = ["6일전","5일전","4일전","3일전","2일전","어제","오늘"];
-
-  return (
-    <div style={{ marginBottom: "12px" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
-        <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)" }}>최근 7일 점수 추이</div>
-        <span style={{
-          fontSize: "0.65rem", fontWeight: 700,
-          color: isFlat ? "var(--text-muted)" : isUp ? "#22c55e" : "#f87171",
-        }}>
-          {isFlat ? "변동없음" : isUp ? `▲ ${change}%` : `▼ ${Math.abs(change)}%`}
-        </span>
-      </div>
-
-      <div style={{ background: "var(--bg-secondary)", borderRadius: "3px", padding: "6px 8px 4px", position: "relative", border: "1px solid var(--border-primary)" }}>
-        <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ overflow: "visible", display: "block" }}>
-          {/* 그리드 라인 */}
-          {[0.25, 0.5, 0.75].map((t) => (
-            <line key={t}
-              x1={PAD} y1={(H - PAD) * (1 - t) + PAD * t}
-              x2={W - PAD} y2={(H - PAD) * (1 - t) + PAD * t}
-              stroke="var(--border-primary)" strokeWidth="1" strokeDasharray="3 3"
-            />
-          ))}
-          {/* 면적 채우기 */}
-          <path d={areaD} fill={areaColor} />
-          {/* 라인 */}
-          <path d={pathD} fill="none" stroke={lineColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          {/* 데이터 포인트 */}
-          {points.map((v, i) => (
-            <circle key={i} cx={toX(i)} cy={toY(v)} r={i === 6 ? 3 : 1.5}
-              fill={i === 6 ? lineColor : "var(--bg-card)"}
-              stroke={lineColor} strokeWidth={i === 6 ? 0 : 1}
-            />
-          ))}
-          {/* 오늘 점수 라벨 */}
-          <text x={toX(6)} y={toY(points[6]) - 5} textAnchor="middle"
-            fill={lineColor} fontSize="8" fontWeight="700" fontFamily="Pretendard, sans-serif">
-            {Math.round(points[6])}
-          </text>
-        </svg>
-
-        {/* 날짜 레이블 */}
-        <div style={{ display: "flex", justifyContent: "space-between", paddingLeft: `${PAD}px`, paddingRight: `${PAD}px`, marginTop: "2px" }}>
-          {[0, 3, 6].map((i) => (
-            <span key={i} style={{ fontSize: "0.55rem", color: "var(--text-muted)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
-              {days[i]}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
 };
 
 // [오른쪽] 심층 분석 카드
@@ -581,8 +569,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
 
       <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: "12.5px" }}>{tool.desc}</p>
 
-      <ScoreTrendChart tool={tool} rank={rank} />
-      <ScoreDetailBars tool={tool} />
+      <ScoreInsightPanel tool={tool} />
 
       {tool.features && ( <div style={{ marginBottom: "16px" }}><div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.9rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.4 }}>{f}</span></li>))}</ul></div>)}
 
@@ -619,8 +606,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               </div>
             </div>
             <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "16px" }}>{tool.desc}</p>
-            <ScoreTrendChart tool={tool} rank={rank} />
-            <ScoreDetailBars tool={tool} />
+            <ScoreInsightPanel tool={tool} />
             {tool.features && ( <div style={{ marginBottom: "24px" }}><div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.95rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "1rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{f}</span></li>))}</ul></div>)}
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "24px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "4px", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
             <div style={{ marginBottom: "24px", display: "flex", flexDirection: "column", gap: "12px" }}>
