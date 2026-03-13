@@ -43,7 +43,7 @@ const ScoreInsightPanel = ({ tool }) => {
 
   // 미니 스파크라인 SVG (상하폭 최소화 + 드로잉 애니메이션)
   const Spark = ({ pts, color }) => {
-    const sw = 120, sh = 12;
+    const sw = 180, sh = 12;
     const mn = Math.min(...pts) - 0.5;
     const mx = Math.max(...pts) + 0.5;
     const r = mx - mn || 1;
@@ -98,10 +98,12 @@ const ScoreInsightPanel = ({ tool }) => {
                 onMouseEnter={() => { if (desc) setActiveTooltip(idx); }}
                 onMouseLeave={() => setActiveTooltip(null)}
               >
-                <div style={{ width: 24, flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  {icon && <img src={icon} alt={label} width={22} height={22} style={{ borderRadius: "4px", objectFit: "contain" }} />}
-                </div>
-                <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", width: "40px", flexShrink: 0 }}>{label}</span>
+                {idx !== 0 && (
+                  <div style={{ width: 24, flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    {icon && <img src={icon} alt={label} width={22} height={22} style={{ borderRadius: "4px", objectFit: "contain" }} />}
+                  </div>
+                )}
+                {idx !== 0 && <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", width: "40px", flexShrink: 0 }}>{label}</span>}
                 <div style={{ flex: 1 }}><Spark pts={pts} color={color} /></div>
                 <span style={{ fontSize: "1.1rem", fontWeight: 900, color, width: "32px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
               </div>
