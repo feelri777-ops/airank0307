@@ -493,21 +493,37 @@ async function updateRanking() {
   }
 
   const toolsOutput = {};
+  
+  // 1단계: 각 도구의 패널티 적용된 OPR 점수 미리 계산 (정규화를 위함)
+  let maxPenalizedOpr = 0.1;
+  const toolOprMap = {};
+  
+  for (const tool of toolsList) {
+    let opr = tool.metrics_raw.opr;
+    const penalty = getSmartPenalty(tool.domain, tool.name);
+    if (penalty < 1.0) opr = opr * penalty;
+    toolOprMap[tool.id] = opr;
+    if (opr > maxPenalizedOpr) maxPenalizedOpr = opr;
+  }
+
+  // 2단계: 정규화 및 최종 종합 점수 계산
   for (const tool of toolsList) {
     const rawNtv = rawNtvData[tool.name] || 0;
     const normalizedNtv = Number(((rawNtv / maxNtvRatio) * 100).toFixed(2));
     const rawSns = rawSnsData[tool.name] || 0;
     const normalizedSns = Number(((rawSns / maxSnsRatio) * 100).toFixed(2));
-    let opr = tool.metrics_raw.opr;
-    const penalty = getSmartPenalty(tool.domain, tool.name);
-    if (penalty < 1.0) opr = opr * penalty;
+    
+    // OPR 정규화: 패널티 후 처리된 값 중 1등을 100점으로 정규화
+    const penalizedOpr = toolOprMap[tool.id];
+    const normalizedOpr = Number(((penalizedOpr / maxPenalizedOpr) * 100).toFixed(2));
+    
     const ghs = tool.metrics_raw.ghs || 0;
-    const totalScore = Number(((opr * W_OPR) + (normalizedNtv * W_NTV) + (ghs * W_GHS) + (normalizedSns * W_SNS)).toFixed(2));
+    const totalScore = Number(((normalizedOpr * W_OPR) + (normalizedNtv * W_NTV) + (ghs * W_GHS) + (normalizedSns * W_SNS)).toFixed(2));
     
     toolsOutput[tool.id] = {
       score: totalScore,
       change: 0,
-      metrics: { opr: Number(opr.toFixed(2)), ntv: normalizedNtv, ghs: Number(ghs.toFixed(2)), sns: normalizedSns }
+      metrics: { opr: normalizedOpr, ntv: normalizedNtv, ghs: Number(ghs.toFixed(2)), sns: normalizedSns }
     };
   }
 
