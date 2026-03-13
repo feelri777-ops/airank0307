@@ -60,7 +60,6 @@ async function exportToCsv() {
     
     const toolInfo = TOOLS_DATA.find(t => String(t.id) === id) || {};
     const naverKw = Array.isArray(toolInfo.naverKw) ? toolInfo.naverKw.join('|') : (toolInfo.naverKw || '-');
-    const snsKw = `YT:${toolInfo.yt || '-'} | GT:${toolInfo.gt || '-'} | GH:${toolInfo.github || '-'}`;
 
     const penaltyInfo = getSmartPenalty(domain, name);
     const scoreData = scores[id] || { score: 0, metrics: {} };
@@ -71,8 +70,7 @@ async function exportToCsv() {
       metrics: scoreData.metrics,
       isPenalized: penaltyInfo.p < 1.0 ? "대상" : "해당없음",
       reason: penaltyInfo.r,
-      naverKw,
-      snsKw
+      naverKw
     });
   }
 
@@ -81,7 +79,7 @@ async function exportToCsv() {
   
   // CSV 헤더 (Excel 한글 깨짐 방지 BOM 추가)
   let csvContent = '\uFEFF';
-  csvContent += '순위,툴 이름,도메인,종합점수,구글(OPR),네이버(NTV),SNS(XPOZ),GitHub(GHS),패널티 유무,패널티 이유,네이버 키워드,SNS 키워드(YT|GT|GH)\n';
+  csvContent += '순위,툴 이름,도메인,종합점수,구글(OPR),네이버(NTV),SNS(XPOZ),GitHub(GHS),패널티 유무,패널티 이유,네이버 수집 키워드\n';
   
   sortedReport.forEach((t, idx) => {
     const m = t.metrics || {};
@@ -96,15 +94,24 @@ async function exportToCsv() {
       m.ghs || 0,
       t.isPenalized,
       `"${t.reason}"`,
-      `"${t.naverKw}"`,
-      `"${t.snsKw}"`
+      `"${t.naverKw}"`
     ];
     csvContent += row.join(',') + '\n';
   });
 
   const outputPath = path.join(__dirname, '..', 'ai_rank_final_report_detail.csv');
-  fs.writeFileSync(outputPath, csvContent, 'utf8');
-  console.log(`✅ [CSV 생성 완료] ${outputPath}`);
+  try {
+    fs.writeFileSync(outputPath, csvContent, 'utf8');
+    console.log(`✅ [CSV 생성 완료] ${outputPath}`);
+  } catch (err) {
+    if (err.code === 'EBUSY') {
+      const fallback = path.join(__dirname, '..', `ai_rank_final_report_detail_${Date.now()}.csv`);
+      fs.writeFileSync(fallback, csvContent, 'utf8');
+      console.log(`⚠️ 원본 사용 중. 파일 저장: ${fallback}`);
+    } else {
+      throw err;
+    }
+  }
 }
 
 exportToCsv();

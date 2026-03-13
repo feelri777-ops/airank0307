@@ -11,7 +11,7 @@ export const TOOLS_DATA = [
     features: ["GPT-4o 기반 대화형 AI", "파일·이미지 첨부 분석", "웹 검색 실시간 지원", "코드 작성 및 디버깅", "커스텀 GPT 생성"],
     tags: ["텍스트", "무료", "API"], score: 86.17, change: 0.25, sns: { naver: 100, youtube: 100, google: 99, github: 78 },
     life: ["office", "student", "freelancer", "marketer", "startup", "creator"],
-    naverKw: ["ChatGPT","챗지피티"], yt: "ChatGPT", ytKo: "챗지피티", gt: "ChatGPT", gtKo: "챗지피티", github: "ChatGPT",
+    naverKw: ["ChatGPT","챗지피티"],
   },
   {
     id: 2, cat: "text", icon: "🧠", name: "Claude", nameKo: "클로드", free: true,
@@ -20,7 +20,7 @@ export const TOOLS_DATA = [
     features: ["200K 토큰 긴 문서 처리", "코드 생성 및 분석", "창의적 글쓰기", "Artifacts로 결과물 미리보기", "정확하고 안전한 답변"],
     tags: ["텍스트", "무료", "API"], score: 81.59, change: 0.78, sns: { naver: 82, youtube: 85, google: 88, github: 62 },
     life: ["office", "student", "freelancer", "startup"],
-    naverKw: ["Claude AI","클로드 AI","클로드"], yt: "Claude", ytKo: "클로드", gt: "Claude", gtKo: "클로드", github: "Claude",
+    naverKw: ["Claude AI","클로드 AI","클로드"],
   },
   {
     id: 3, cat: "text", icon: "💎", name: "Gemini", nameKo: "제미나이", free: true,
@@ -29,7 +29,7 @@ export const TOOLS_DATA = [
     features: ["텍스트·이미지·오디오 멀티모달", "Google 검색 실시간 연동", "Google Docs·Gmail 통합", "1M 토큰 초장문 컨텍스트", "Gemini Advanced 업무 자동화"],
     tags: ["멀티모달", "무료", "API"], score: 72.97, change: -1.74, sns: { naver: 88, youtube: 88, google: 82, github: 65 },
     life: ["office", "student", "startup", "marketer"],
-    naverKw: ["Gemini AI","제미나이"], yt: "Gemini", ytKo: "제미나이", gt: "Gemini", gtKo: "제미나이", github: "Gemini",
+    naverKw: ["Gemini AI","제미나이"],
   },
   {
     id: 4, cat: "text", icon: "🐋", name: "DeepSeek", nameKo: "딥시크", free: true,
@@ -38,7 +38,7 @@ export const TOOLS_DATA = [
     features: ["GPT-4급 성능을 오픈소스로", "수학·코딩 특화 추론 능력", "API 비용 ChatGPT의 1/10 수준", "Chain-of-Thought 추론 공개", "로컬 실행 가능한 오픈소스"],
     tags: ["텍스트", "무료", "오픈소스"], score: 71.49, change: -1.03, sns: { naver: 88, youtube: 92, google: 88, github: 95 },
     life: ["office", "student", "startup", "freelancer"],
-    naverKw: ["DeepSeek","딥시크"], yt: "DeepSeek", ytKo: "딥시크", gt: "DeepSeek", gtKo: "딥시크", github: "DeepSeek",
+    naverKw: ["DeepSeek","딥시크"],
   },
   {
     id: 5, cat: "text", icon: "🦅", name: "Grok", nameKo: "그록", free: false,
@@ -47,7 +47,7 @@ export const TOOLS_DATA = [
     features: ["실시간 X(트위터) 데이터 접근", "직설적이고 유머러스한 답변", "검열이 적은 자유로운 응답", "Grok-2 비전 모델 지원", "X Premium 구독으로 이용"],
     tags: ["텍스트", "유료", "API"], score: 51.85, change: -0.19, sns: { naver: 72, youtube: 75, google: 72, github: 80 },
     life: ["office", "startup", "student"],
-    naverKw: ["Grok","그록"], yt: "Grok", ytKo: "그록", gt: "Grok", gtKo: "그록", github: "Grok",
+    naverKw: ["Grok","그록"],
   },
   {
     id: 6, cat: "text", icon: "🦙", name: "Llama", nameKo: "라마", free: true,
@@ -56,7 +56,7 @@ export const TOOLS_DATA = [
     features: ["로컬 완전 무료 실행 가능", "파인튜닝 및 커스터마이즈 자유", "8B~405B 다양한 크기 선택", "상업적 이용 허가 (Meta 정책)", "Ollama 등 다양한 방법으로 실행"],
     tags: ["텍스트", "무료", "오픈소스"], score: 65.58, change: 0.39, sns: { naver: 55, youtube: 78, google: 92, github: 98 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Llama","라마"], yt: "Llama", ytKo: "라마AI", gt: "Llama", gtKo: "라마AI", github: "Llama",
+    naverKw: ["Llama","라마"],
   },
   {
     id: 7, cat: "text", icon: "🌪️", name: "Mistral AI", nameKo: "미스트랄", free: true,
@@ -65,7 +65,7 @@ export const TOOLS_DATA = [
     features: ["유럽 기반 오픈소스 LLM", "자체 서버 배포로 완전 프라이버시", "7B~8x22B 다양한 모델 선택", "Mistral Large로 GPT-4급 성능", "코드 특화 모델 Codestral 제공"],
     tags: ["텍스트", "무료", "오픈소스"], score: 75.61, change: -1.71, sns: { naver: 45, youtube: 62, google: 78, github: 92 },
     life: ["startup", "freelancer"],
-    naverKw: ["Mistral AI","미스트랄"], yt: "Mistral AI", ytKo: "미스트랄", gt: "Mistral AI", gtKo: "미스트랄", github: "Mistral AI",
+    naverKw: ["Mistral AI","미스트랄"],
   },
   {
     id: 8, cat: "chatbot", icon: "💬", name: "Character.AI", nameKo: "캐릭터 AI", free: true,
@@ -74,7 +74,7 @@ export const TOOLS_DATA = [
     features: ["수천 가지 AI 캐릭터와 대화", "직접 AI 페르소나 커스텀 생성", "셀럽·애니메이션 캐릭터 제공", "멀티 캐릭터 그룹 채팅", "언어 학습 AI 캐릭터 활용"],
     tags: ["텍스트", "무료", "채팅"], score: 59.72, change: -0.72, sns: { naver: 75, youtube: 82, google: 90, github: 25 },
     life: ["student", "creator"],
-    naverKw: ["Character.AI","캐릭터 AI"], yt: "Character.AI", ytKo: "캐릭터AI", gt: "Character.AI", gtKo: "캐릭터AI", github: "Character.AI",
+    naverKw: ["Character.AI","캐릭터 AI"],
   },
   {
     id: 9, cat: "chatbot", icon: "📚", name: "Poe", nameKo: "포AI", free: true,
@@ -83,7 +83,7 @@ export const TOOLS_DATA = [
     features: ["GPT-4·Claude·Gemini 한 곳에서", "사용량 초과 없는 다모델 전환", "커스텀 봇 생성 및 공유", "이미지 생성 모델도 지원", "웹·iOS·Android 지원"],
     tags: ["텍스트", "무료", "멀티모델"], score: 60.8, change: -0.52, sns: { naver: 60, youtube: 65, google: 62, github: 20 },
     life: ["office", "student", "freelancer"],
-    naverKw: ["Poe","포AI"], yt: "Poe", ytKo: "포AI", gt: "Poe", gtKo: "포AI", github: "Poe",
+    naverKw: ["Poe","포AI"],
   },
 
   {
@@ -93,7 +93,7 @@ export const TOOLS_DATA = [
     features: ["고품질 아트·사진 수준 이미지", "Discord 명령어 기반 생성", "Style 파라미터로 스타일 조정", "Vary·Remix로 세밀한 수정", "커뮤니티 갤러리에서 프롬프트 학습"],
     tags: ["이미지 생성", "유료", "Discord"], score: 65.41, change: 0.98, sns: { naver: 78, youtube: 95, google: 92, github: 28 },
     life: ["creator", "freelancer", "marketer"],
-    naverKw: ["Midjourney","미드저니"], yt: "Midjourney", ytKo: "미드저니", gt: "Midjourney", gtKo: "미드저니", github: "Midjourney",
+    naverKw: ["Midjourney","미드저니"],
   },
   {
     id: 11, cat: "image", icon: "🖼️", name: "Stable Diffusion", nameKo: "스테이블 디퓨전", free: true,
@@ -102,7 +102,7 @@ export const TOOLS_DATA = [
     features: ["완전 로컬 무료 실행 지원", "수천 가지 커뮤니티 모델 선택", "ControlNet으로 자세·구도 제어", "인페인팅·아웃페인팅 지원", "AUTOMATIC1111·ComfyUI로 운영"],
     tags: ["이미지 생성", "무료", "오픈소스"], score: 67.66, change: -0.68, sns: { naver: 65, youtube: 90, google: 95, github: 98 },
     life: ["creator", "freelancer", "startup"],
-    naverKw: ["Stable Diffusion","스테이블 디퓨전"], yt: "Stable Diffusion", ytKo: "스테이블디퓨전", gt: "Stable Diffusion", gtKo: "스테이블디퓨전", github: "Stable Diffusion",
+    naverKw: ["Stable Diffusion","스테이블 디퓨전"],
   },
   {
     id: 12, cat: "image", icon: "🎯", name: "DALL-E 3", nameKo: "달리AI", free: false,
@@ -111,7 +111,7 @@ export const TOOLS_DATA = [
     features: ["ChatGPT 내 대화 중 이미지 생성", "텍스트 프롬프트 정밀 해석", "상업적 이용 가능한 안전한 데이터", "이미지 내 텍스트 렌더링 개선", "Bing Image Creator 무료 제공"],
     tags: ["이미지 생성", "유료", "API"], score: 54.39, change: -18.56, sns: { naver: 78, youtube: 85, google: 80, github: 32 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["DALL-E 3","달리AI"], yt: "DALL-E 3", ytKo: "달리AI", gt: "DALL-E 3", gtKo: "달리AI", github: "DALL-E 3",
+    naverKw: ["DALL-E 3","달리AI"],
   },
   {
     id: 13, cat: "image", icon: "🦋", name: "Adobe Firefly", nameKo: "파이어플라이", free: false,
@@ -120,7 +120,7 @@ export const TOOLS_DATA = [
     features: ["상업적으로 안전한 학습 데이터", "Photoshop Generative Fill 통합", "생성형 AI로 배경 자동 확장", "텍스트 이펙트 이미지 생성", "Creative Cloud와 완벽 연동"],
     tags: ["이미지 생성", "유료", "Adobe"], score: 57.71, change: 0.84, sns: { naver: 72, youtube: 82, google: 72, github: 30 },
     life: ["creator", "marketer", "freelancer", "office"],
-    naverKw: ["Adobe Firefly","파이어플라이"], yt: "Adobe Firefly", ytKo: "파이어플라이", gt: "Adobe Firefly", gtKo: "파이어플라이", github: "Adobe Firefly",
+    naverKw: ["Adobe Firefly","파이어플라이"],
   },
   {
     id: 14, cat: "image", icon: "🏛️", name: "Leonardo AI", nameKo: "레오나르도 AI", free: true,
@@ -129,7 +129,7 @@ export const TOOLS_DATA = [
     features: ["게임 아트·캐릭터 디자인 특화", "파인튜닝 모델로 일관된 스타일", "Motion 기능으로 이미지→영상 변환", "3D 텍스처 생성 기능", "일일 무료 크레딧 제공"],
     tags: ["이미지 생성", "무료"], score: 57.47, change: 0.51, sns: { naver: 55, youtube: 72, google: 70, github: 28 },
     life: ["creator", "freelancer"],
-    naverKw: ["Leonardo AI","레오나르도 AI"], yt: "Leonardo AI", ytKo: "레오나르도AI", gt: "Leonardo AI", gtKo: "레오나르도AI", github: "Leonardo AI",
+    naverKw: ["Leonardo AI","레오나르도 AI"],
   },
   {
     id: 15, cat: "image", icon: "💡", name: "Ideogram", nameKo: "아이디오그램", free: true,
@@ -138,7 +138,7 @@ export const TOOLS_DATA = [
     features: ["이미지 내 텍스트 정확한 렌더링", "로고·포스터 디자인 최적화", "타이포그래피 AI 생성", "다양한 스타일 선택 (사진/일러스트/3D)", "무료로 하루 10회 생성"],
     tags: ["이미지 생성", "무료"], score: 58.19, change: 0.26, sns: { naver: 45, youtube: 62, google: 65, github: 25 },
     life: ["marketer", "creator"],
-    naverKw: ["Ideogram","아이디오그램"], yt: "Ideogram", ytKo: "아이디오그램", gt: "Ideogram", gtKo: "아이디오그램", github: "Ideogram",
+    naverKw: ["Ideogram","아이디오그램"],
   },
   {
     id: 16, cat: "image", icon: "🌊", name: "Flux", nameKo: "블랙포레스트 AI", free: true,
@@ -147,7 +147,7 @@ export const TOOLS_DATA = [
     features: ["Stable Diffusion 창시자팀 개발", "텍스트 표현력 뛰어난 이미지", "Flux.1 Pro·Dev·Schnell 선택", "오픈소스 버전 무료 사용 가능", "ComfyUI 등 외부 툴 통합"],
     tags: ["이미지 생성", "무료", "오픈소스"], score: 54.24, change: 1.86, sns: { naver: 52, youtube: 70, google: 72, github: 85 },
     life: ["creator", "freelancer", "startup"],
-    naverKw: ["Flux","블랙포레스트 AI"], yt: "Flux", ytKo: "블랙포레스트", gt: "Flux", gtKo: "블랙포레스트", github: "Flux",
+    naverKw: ["Flux","블랙포레스트 AI"],
   },
   {
     id: 17, cat: "image", icon: "🌈", name: "Krea AI", nameKo: "크레아 AI", free: true,
@@ -156,7 +156,7 @@ export const TOOLS_DATA = [
     features: ["실시간 스케치→이미지 변환", "AI 캔버스 라이브 생성", "이미지 고해상도 향상(Upscale)", "LoRA 스타일 학습 가능", "영상 키프레임 생성 지원"],
     tags: ["이미지 생성", "무료"], score: 55.41, change: 2.82, sns: { naver: 50, youtube: 65, google: 60, github: 30 },
     life: ["creator", "freelancer"],
-    naverKw: ["Krea AI","크레아 AI"], yt: "Krea AI", ytKo: "크레아", gt: "Krea AI", gtKo: "크레아", github: "Krea AI",
+    naverKw: ["Krea AI","크레아 AI"],
   },
 
   {
@@ -166,7 +166,7 @@ export const TOOLS_DATA = [
     features: ["VS Code·JetBrains 등 IDE 통합", "코드 자동완성 및 함수 생성", "Chat 기능으로 코드 질문·설명", "PR 설명 자동 작성", "CLI 터미널 명령어 제안"],
     tags: ["코딩", "유료", "API"], score: 69.67, change: 45.06, sns: { naver: 75, youtube: 88, google: 95, github: 90 },
     life: ["office", "freelancer", "student", "startup"],
-    naverKw: ["GitHub Copilot","깃허브 코파일럿"], yt: "GitHub Copilot", ytKo: "깃허브코파일럿", gt: "GitHub Copilot", gtKo: "깃허브코파일럿", github: "GitHub Copilot",
+    naverKw: ["GitHub Copilot","깃허브 코파일럿"],
   },
   {
     id: 19, cat: "code", icon: "🖱️", name: "Cursor", nameKo: "커서", free: true,
@@ -175,7 +175,7 @@ export const TOOLS_DATA = [
     features: ["VS Code 기반 AI 내장 에디터", "코드베이스 전체 맥락 이해", "Composer로 멀티파일 동시 수정", "자연어로 코드 작성·리팩토링", "인터넷 검색 통합 코딩 지원"],
     tags: ["코딩", "무료", "에디터"], score: 61.59, change: 0.2, sns: { naver: 70, youtube: 82, google: 90, github: 85 },
     life: ["freelancer", "startup", "student"],
-    naverKw: ["Cursor","커서"], yt: "Cursor", ytKo: "커서", gt: "Cursor", gtKo: "커서", github: "Cursor",
+    naverKw: ["Cursor","커서"],
   },
   {
     id: 20, cat: "code", icon: "⚡", name: "Bolt.new", nameKo: "볼트 풀스택", free: true,
@@ -184,7 +184,7 @@ export const TOOLS_DATA = [
     features: ["브라우저에서 풀스택 앱 즉시 개발", "프롬프트로 완성된 웹앱 생성", "Netlify·Vercel 즉시 배포", "Node.js 환경 완전 실행 가능", "npm 패키지 설치 및 실행"],
     tags: ["코딩", "무료", "풀스택"], score: 53.68, change: 0.18, sns: { naver: 65, youtube: 80, google: 82, github: 88 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Bolt.new","볼트 풀스택"], yt: "Bolt.new", ytKo: "볼트풀스택", gt: "Bolt.new", gtKo: "볼트풀스택", github: "Bolt.new",
+    naverKw: ["Bolt.new","볼트 풀스택"],
   },
   {
     id: 21, cat: "code", icon: "🏄", name: "Windsurf", nameKo: "윈드서프", free: true,
@@ -193,7 +193,7 @@ export const TOOLS_DATA = [
     features: ["Cascade 기능으로 전체 프로젝트 이해", "AI 에이전트 자율 코딩", "무료 플랜 넉넉한 사용량", "VS Code 기반 친숙한 UI", "실시간 코드 제안 및 수정"],
     tags: ["코딩", "무료", "에디터"], score: 53.09, change: -0.45, sns: { naver: 60, youtube: 72, google: 75, github: 65 },
     life: ["freelancer", "startup", "student"],
-    naverKw: ["Windsurf","윈드서프"], yt: "Windsurf", ytKo: "윈드서프", gt: "Windsurf", gtKo: "윈드서프", github: "Windsurf",
+    naverKw: ["Windsurf","윈드서프"],
   },
   {
     id: 22, cat: "code", icon: "🔷", name: "v0", nameKo: "v0 버셀", free: true,
@@ -202,7 +202,7 @@ export const TOOLS_DATA = [
     features: ["텍스트로 React UI 즉시 생성", "shadcn/ui·Tailwind CSS 기반", "Vercel 원클릭 배포", "반복 수정으로 UI 정밀 조정", "퍼블릭 컴포넌트 갤러리 공유"],
     tags: ["코딩", "무료", "UI"], score: 51.49, change: -0.22, sns: { naver: 62, youtube: 78, google: 78, github: 45 },
     life: ["startup", "freelancer"],
-    naverKw: ["v0","v0 버셀"], yt: "v0", ytKo: "v0버셀", gt: "v0", gtKo: "v0버셀", github: "v0",
+    naverKw: ["v0","v0 버셀"],
   },
   {
     id: 23, cat: "code", icon: "🔁", name: "Replit AI", nameKo: "리플릿 AI", free: true,
@@ -211,7 +211,7 @@ export const TOOLS_DATA = [
     features: ["브라우저에서 60개 이상 언어 개발", "AI Agent가 앱 자동 구현", "설치 없는 즉시 실행 환경", "공유 링크로 팀 협업", "Ghostwriter AI 코드 자동완성"],
     tags: ["코딩", "무료", "클라우드"], score: 63.27, change: -0.01, sns: { naver: 55, youtube: 72, google: 72, github: 55 },
     life: ["student", "startup", "freelancer"],
-    naverKw: ["Replit AI","리플릿 AI"], yt: "Replit AI", ytKo: "리플릿", gt: "Replit AI", gtKo: "리플릿", github: "Replit AI",
+    naverKw: ["Replit AI","리플릿 AI"],
   },
   {
     id: 24, cat: "code", icon: "⌨️", name: "Tabnine", nameKo: "탭나인", free: false,
@@ -220,7 +220,7 @@ export const TOOLS_DATA = [
     features: ["프라이빗 코드베이스로 팀 맞춤 학습", "데이터 외부 전송 없는 보안", "모든 주요 IDE 지원", "기업 전용 커스텀 모델", "코드 컨텍스트 인식 자동완성"],
     tags: ["코딩", "유료"], score: 54.57, change: -1.14, sns: { naver: 52, youtube: 65, google: 65, github: 60 },
     life: ["office", "freelancer", "startup"],
-    naverKw: ["Tabnine","탭나인"], yt: "Tabnine", ytKo: "탭나인", gt: "Tabnine", gtKo: "탭나인", github: "Tabnine",
+    naverKw: ["Tabnine","탭나인"],
   },
 
   {
@@ -230,7 +230,7 @@ export const TOOLS_DATA = [
     features: ["텍스트로 최대 1분 HD 영상 생성", "이미지→영상 변환 기능", "영상 연장·편집 기능", "스토리보드 방식 씬 구성", "ChatGPT Plus/Pro 구독으로 이용"],
     tags: ["영상 생성", "유료"], score: 55.61, change: -1, sns: { naver: 85, youtube: 95, google: 85, github: 20 },
     life: ["creator", "marketer"],
-    naverKw: ["Sora","소라"], yt: "Sora", ytKo: "소라AI", gt: "Sora", gtKo: "소라AI", github: "Sora",
+    naverKw: ["Sora","소라"],
   },
   {
     id: 26, cat: "video", icon: "🎥", name: "Runway ML", nameKo: "런웨이", free: false,
@@ -239,7 +239,7 @@ export const TOOLS_DATA = [
     features: ["Gen-3 Alpha 영상 생성 모델", "모션 브러시로 특정 영역만 애니메이션", "영상 배경 자동 제거", "텍스트·이미지·영상→영상 변환", "AI 그린스크린 기능"],
     tags: ["영상 생성", "유료"], score: 62.93, change: -1.15, sns: { naver: 62, youtube: 80, google: 78, github: 35 },
     life: ["creator", "freelancer", "marketer"],
-    naverKw: ["Runway ML","런웨이"], yt: "Runway ML", ytKo: "런웨이AI", gt: "Runway ML", gtKo: "런웨이AI", github: "Runway ML",
+    naverKw: ["Runway ML","런웨이"],
   },
   {
     id: 27, cat: "video", icon: "🎞️", name: "Kling AI", nameKo: "클링 AI", free: true,
@@ -248,7 +248,7 @@ export const TOOLS_DATA = [
     features: ["최대 2분 고품질 영상 생성", "텍스트·이미지 기반 영상 생성", "카메라 컨트롤 기능", "얼굴 스왑 및 립싱크", "무료로 매일 크레딧 제공"],
     tags: ["영상 생성", "무료"], score: 52.62, change: -0.15, sns: { naver: 68, youtube: 72, google: 65, github: 28 },
     life: ["creator", "marketer"],
-    naverKw: ["Kling AI","클링 AI"], yt: "Kling AI", ytKo: "클링", gt: "Kling AI", gtKo: "클링", github: "Kling AI",
+    naverKw: ["Kling AI","클링 AI"],
   },
   {
     id: 28, cat: "video", icon: "🌟", name: "Pika Labs", nameKo: "피카 AI", free: true,
@@ -257,7 +257,7 @@ export const TOOLS_DATA = [
     features: ["텍스트·이미지→영상 변환", "영상 스타일 변경(Pikaffects)", "배경음악·사운드 자동 생성", "빠른 생성 속도", "Discord 및 웹 인터페이스 지원"],
     tags: ["영상 생성", "무료"], score: 56.39, change: -0.82, sns: { naver: 55, youtube: 70, google: 70, github: 22 },
     life: ["creator", "freelancer"],
-    naverKw: ["Pika Labs","피카 AI"], yt: "Pika Labs", ytKo: "피카", gt: "Pika Labs", gtKo: "피카", github: "Pika Labs",
+    naverKw: ["Pika Labs","피카 AI"],
   },
   {
     id: 29, cat: "video", icon: "🧑‍💼", name: "HeyGen", nameKo: "헤이젠", free: false,
@@ -266,7 +266,7 @@ export const TOOLS_DATA = [
     features: ["AI 아바타 발표 영상 자동 생성", "130개 언어 지원 번역·더빙", "얼굴 립싱크 변환", "커스텀 AI 아바타 생성", "마케팅·교육·글로벌 영상 특화"],
     tags: ["영상 생성", "유료", "아바타"], score: 55.85, change: 0.32, sns: { naver: 65, youtube: 78, google: 68, github: 25 },
     life: ["marketer", "creator", "office"],
-    naverKw: ["HeyGen","헤이젠"], yt: "HeyGen", ytKo: "헤이젠", gt: "HeyGen", gtKo: "헤이젠", github: "HeyGen",
+    naverKw: ["HeyGen","헤이젠"],
   },
   {
     id: 30, cat: "video", icon: "🌙", name: "Luma AI", nameKo: "루마AI", free: true,
@@ -275,7 +275,7 @@ export const TOOLS_DATA = [
     features: ["Dream Machine 고품질 영상 생성", "자연스러운 물리 시뮬레이션", "이미지→영상 부드러운 애니메이션", "3D 모델 캡처(NeRF) 지원", "무료 플랜 월 30회 생성"],
     tags: ["영상 생성", "무료"], score: 56.29, change: -1.18, sns: { naver: 52, youtube: 70, google: 70, github: 38 },
     life: ["creator", "marketer"],
-    naverKw: ["Luma AI","루마AI"], yt: "Luma AI", ytKo: "루마AI", gt: "Luma AI", gtKo: "루마AI", github: "Luma AI",
+    naverKw: ["Luma AI","루마AI"],
   },
   {
     id: 31, cat: "video", icon: "👤", name: "Synthesia", nameKo: "신데시아", free: false,
@@ -284,7 +284,7 @@ export const TOOLS_DATA = [
     features: ["130개 언어 AI 아바타 영상", "스크립트만으로 발표 영상 생성", "커스텀 기업 아바타 제작", "기업 LMS·교육 플랫폼 연동", "브랜드 템플릿 관리"],
     tags: ["영상 생성", "유료", "아바타"], score: 62.53, change: 0.96, sns: { naver: 58, youtube: 72, google: 62, github: 28 },
     life: ["marketer", "office", "creator"],
-    naverKw: ["Synthesia","신데시아"], yt: "Synthesia", ytKo: "신데시아", gt: "Synthesia", gtKo: "신데시아", github: "Synthesia",
+    naverKw: ["Synthesia","신데시아"],
   },
 
   {
@@ -294,7 +294,7 @@ export const TOOLS_DATA = [
     features: ["텍스트로 완성된 노래 즉시 생성", "장르·분위기·가사 세부 조정", "가사 없는 배경음악 생성", "v4 업데이트로 음질 대폭 향상", "무료로 하루 50곡 생성"],
     tags: ["오디오", "무료"], score: 58.83, change: -1.51, sns: { naver: 65, youtube: 85, google: 78, github: 18 },
     life: ["creator", "freelancer"],
-    naverKw: ["Suno AI","수노 AI"], yt: "Suno AI", ytKo: "수노", gt: "Suno AI", gtKo: "수노", github: "Suno AI",
+    naverKw: ["Suno AI","수노 AI"],
   },
   {
     id: 33, cat: "audio", icon: "🗣️", name: "ElevenLabs", nameKo: "일레븐랩스", free: true,
@@ -303,7 +303,7 @@ export const TOOLS_DATA = [
     features: ["1분 샘플로 목소리 복제", "30개 이상 언어 음성 합성", "감정·톤 세밀하게 조절", "대화형 AI 에이전트 음성 지원", "오디오북·팟캐스트 자동화"],
     tags: ["오디오", "무료", "API"], score: 71.28, change: 2.16, sns: { naver: 68, youtube: 82, google: 80, github: 58 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["ElevenLabs","일레븐랩스"], yt: "ElevenLabs", ytKo: "일레븐랩스", gt: "ElevenLabs", gtKo: "일레븐랩스", github: "ElevenLabs",
+    naverKw: ["ElevenLabs","일레븐랩스"],
   },
   {
     id: 34, cat: "audio", icon: "🎶", name: "Udio", nameKo: "유디오 AI", free: true,
@@ -312,7 +312,7 @@ export const TOOLS_DATA = [
     features: ["고품질 AI 음악 생성", "다양한 장르·스타일 지원", "60초 무제한 연장 기능", "트랙 믹싱 및 리믹스", "무료로 하루 크레딧 제공"],
     tags: ["오디오", "무료"], score: 51.86, change: -1.01, sns: { naver: 58, youtube: 70, google: 72, github: 20 },
     life: ["creator", "freelancer"],
-    naverKw: ["Udio","유디오 AI"], yt: "Udio", ytKo: "유디오", gt: "Udio", gtKo: "유디오", github: "Udio",
+    naverKw: ["Udio","유디오 AI"],
   },
   {
     id: 35, cat: "audio", icon: "📼", name: "Descript", nameKo: "데스크립트", free: true,
@@ -321,7 +321,7 @@ export const TOOLS_DATA = [
     features: ["텍스트 편집으로 영상·음성 수정", "말 삭제=영상 구간 자동 삭제", "AI 더빙·보이스 클론", "배경 소음 자동 제거", "자막·자동 전사 지원"],
     tags: ["오디오", "무료", "영상편집"], score: 60.91, change: 0.77, sns: { naver: 55, youtube: 70, google: 65, github: 35 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Descript","데스크립트"], yt: "Descript", ytKo: "데스크립트", gt: "Descript", gtKo: "데스크립트", github: "Descript",
+    naverKw: ["Descript","데스크립트"],
   },
 
   {
@@ -331,7 +331,7 @@ export const TOOLS_DATA = [
     features: ["실시간 웹 검색 통합 AI", "출처 링크 명시로 신뢰성 확보", "파일 첨부 분석 가능", "AI 기반 리서치 보고서 생성", "Pro 플랜으로 고급 모델 선택"],
     tags: ["검색", "무료", "API"], score: 72.06, change: 1.48, sns: { naver: 68, youtube: 80, google: 82, github: 48 },
     life: ["student", "office", "startup", "freelancer"],
-    naverKw: ["Perplexity AI","퍼플렉시티"], yt: "Perplexity AI", ytKo: "퍼플렉시티", gt: "Perplexity AI", gtKo: "퍼플렉시티", github: "Perplexity AI",
+    naverKw: ["Perplexity AI","퍼플렉시티"],
   },
   {
     id: 37, cat: "search", icon: "🌐", name: "You.com", nameKo: "유닷컴AI", free: true,
@@ -340,7 +340,7 @@ export const TOOLS_DATA = [
     features: ["AI 검색과 생산성 도구 통합", "코딩·리서치·글쓰기 모드 전환", "광고 없는 개인 맞춤 검색", "웹 출처 기반 신뢰성 높은 답변", "YouCode로 AI 코딩 지원"],
     tags: ["검색", "무료"], score: 62.7, change: 1.88, sns: { naver: 42, youtube: 62, google: 60, github: 35 },
     life: ["office", "student"],
-    naverKw: ["You.com","유닷컴AI"], yt: "You.com", ytKo: "유닷컴AI", gt: "You.com", gtKo: "유닷컴AI", github: "You.com",
+    naverKw: ["You.com","유닷컴AI"],
   },
   {
     id: 38, cat: "search", icon: "🔬", name: "Elicit", nameKo: "엘리싯 AI", free: true,
@@ -349,7 +349,7 @@ export const TOOLS_DATA = [
     features: ["학술 논문 자동 검색·요약", "리서치 질문 기반 관련 논문 추출", "논문 내 데이터 표로 자동 정리", "체계적 문헌 고찰 자동화", "연구자 전용 AI 워크플로우"],
     tags: ["검색", "무료", "학술"], score: 53.21, change: 1.32, sns: { naver: 38, youtube: 50, google: 58, github: 42 },
     life: ["student", "office"],
-    naverKw: ["Elicit","엘리싯 AI"], yt: "Elicit", ytKo: "엘리싯", gt: "Elicit", gtKo: "엘리싯", github: "Elicit",
+    naverKw: ["Elicit","엘리싯 AI"],
   },
 
   {
@@ -359,7 +359,7 @@ export const TOOLS_DATA = [
     features: ["Word·Excel·PowerPoint 통합 AI", "회의 요약 및 Teams 연동", "Excel 데이터 분석 자동화", "Outlook 이메일 초안 자동 작성", "Microsoft 365 구독에 포함"],
     tags: ["생산성", "유료", "Office"], score: 66.64, change: -1.7, sns: { naver: 85, youtube: 90, google: 80, github: 72 },
     life: ["office", "student"],
-    naverKw: ["Microsoft Copilot","코파일럿"], yt: "Microsoft Copilot", ytKo: "코파일럿", gt: "Microsoft Copilot", gtKo: "코파일럿", github: "Microsoft Copilot",
+    naverKw: ["Microsoft Copilot","코파일럿"],
   },
   {
     id: 40, cat: "productivity", icon: "📝", name: "Notion AI", nameKo: "노션 AI", free: false,
@@ -368,7 +368,7 @@ export const TOOLS_DATA = [
     features: ["회의록 자동 요약", "페이지 내용 기반 Q&A", "글쓰기·번역·어조 변환", "프로젝트 플랜 자동 생성", "액션 아이템 자동 추출"],
     tags: ["생산성", "유료"], score: 77.34, change: 15.89, sns: { naver: 80, youtube: 82, google: 75, github: 35 },
     life: ["office", "startup", "student"],
-    naverKw: ["Notion AI","노션 AI"], yt: "Notion AI", ytKo: "노션", gt: "Notion AI", gtKo: "노션", github: "Notion AI",
+    naverKw: ["Notion AI","노션 AI"],
   },
   {
     id: 41, cat: "productivity", icon: "📊", name: "Gamma", nameKo: "감마 AI", free: true,
@@ -377,7 +377,7 @@ export const TOOLS_DATA = [
     features: ["텍스트 입력만으로 PT 자동 생성", "AI 디자인 레이아웃 자동 최적화", "웹·PDF·PPT로 내보내기", "팀 협업 실시간 편집", "AI 이미지 자동 삽입"],
     tags: ["생산성", "무료", "PT"], score: 60.39, change: 1.9, sns: { naver: 75, youtube: 80, google: 62, github: 28 },
     life: ["office", "startup", "marketer", "student"],
-    naverKw: ["Gamma","감마 AI"], yt: "Gamma", ytKo: "감마AI", gt: "Gamma", gtKo: "감마AI", github: "Gamma",
+    naverKw: ["Gamma","감마 AI"],
   },
   {
     id: 42, cat: "productivity", icon: "🦦", name: "Otter.ai", nameKo: "오터 AI", free: true,
@@ -386,7 +386,7 @@ export const TOOLS_DATA = [
     features: ["실시간 회의 자동 녹음·전사", "Zoom·Meet·Teams 자동 연동", "화자 구분 자동 식별", "회의 요약 및 액션 아이템 추출", "팀 공유 및 검색 가능한 회의록"],
     tags: ["생산성", "무료", "회의"], score: 64.88, change: 1.03, sns: { naver: 55, youtube: 68, google: 60, github: 30 },
     life: ["office", "startup"],
-    naverKw: ["Otter.ai","오터 AI"], yt: "Otter.ai", ytKo: "오터AI", gt: "Otter.ai", gtKo: "오터AI", github: "Otter.ai",
+    naverKw: ["Otter.ai","오터 AI"],
   },
   {
     id: 43, cat: "productivity", icon: "🔥", name: "Fireflies.ai", nameKo: "파이어플라이즈", free: false,
@@ -395,7 +395,7 @@ export const TOOLS_DATA = [
     features: ["회의 전 과정 AI 자동 분석", "감정 분석 및 발언 비율 통계", "CRM(Salesforce 등) 자동 연동", "질문·결정사항 자동 추출", "Slack·Notion 연동 워크플로우"],
     tags: ["생산성", "유료", "회의"], score: 53.17, change: -1.27, sns: { naver: 50, youtube: 65, google: 58, github: 28 },
     life: ["office", "startup"],
-    naverKw: ["Fireflies.ai","파이어플라이즈"], yt: "Fireflies.ai", ytKo: "파이어플라이즈", gt: "Fireflies.ai", gtKo: "파이어플라이즈", github: "Fireflies.ai",
+    naverKw: ["Fireflies.ai","파이어플라이즈"],
   },
   {
     id: 44, cat: "productivity", icon: "✨", name: "Beautiful.ai", nameKo: "뷰티풀AI", free: false,
@@ -404,7 +404,7 @@ export const TOOLS_DATA = [
     features: ["AI가 슬라이드 레이아웃 자동 정렬", "스마트 슬라이드 템플릿 60종+", "콘텐츠 추가 시 디자인 자동 최적화", "팀 브랜드 가이드라인 통합", "PowerPoint로 내보내기"],
     tags: ["생산성", "유료", "PT"], score: 55.44, change: 2.15, sns: { naver: 48, youtube: 62, google: 52, github: 22 },
     life: ["office", "startup", "marketer"],
-    naverKw: ["Beautiful.ai","뷰티풀AI"], yt: "Beautiful.ai", ytKo: "뷰티풀AI", gt: "Beautiful.ai", gtKo: "뷰티풀AI", github: "Beautiful.ai",
+    naverKw: ["Beautiful.ai","뷰티풀AI"],
   },
   {
     id: 45, cat: "automation", icon: "⚙️", name: "Make", nameKo: "메이크AI", free: true,
@@ -413,7 +413,7 @@ export const TOOLS_DATA = [
     features: ["수천 개 앱 시각적 플로우 연결", "노코드 드래그앤드롭 자동화", "복잡한 조건 분기 처리 가능", "데이터 변환 및 필터링", "무료 1,000 ops/월 제공"],
     tags: ["자동화", "무료", "노코드"], score: 65.12, change: -0.58, sns: { naver: 58, youtube: 70, google: 68, github: 40 },
     life: ["startup", "freelancer", "office"],
-    naverKw: ["Make","메이크AI"], yt: "Make", ytKo: "메이크AI", gt: "Make", gtKo: "메이크AI", github: "Make",
+    naverKw: ["Make","메이크AI"],
   },
   {
     id: 46, cat: "automation", icon: "🔌", name: "Zapier AI", nameKo: "재피어", free: false,
@@ -422,7 +422,7 @@ export const TOOLS_DATA = [
     features: ["5,000개 이상 앱 연결 지원", "자연어로 자동화 생성", "AI Actions로 AI 워크플로우", "트리거-액션 조합 무한 설정", "비개발자도 쉬운 자동화 구축"],
     tags: ["자동화", "유료", "노코드"], score: 75.95, change: 0.65, sns: { naver: 60, youtube: 72, google: 70, github: 45 },
     life: ["startup", "office", "freelancer"],
-    naverKw: ["Zapier AI","재피어"], yt: "Zapier AI", ytKo: "재피어", gt: "Zapier AI", gtKo: "재피어", github: "Zapier AI",
+    naverKw: ["Zapier AI","재피어"],
   },
   {
     id: 47, cat: "automation", icon: "🔗", name: "n8n", nameKo: "n8n", free: true,
@@ -431,7 +431,7 @@ export const TOOLS_DATA = [
     features: ["오픈소스 자체 서버 배포", "AI 에이전트 워크플로우 구축", "400개 이상 앱 연동 노드", "코드 노드로 커스텀 로직 추가", "무제한 실행 자체 호스팅"],
     tags: ["자동화", "무료", "오픈소스"], score: 62.75, change: 0.11, sns: { naver: 52, youtube: 65, google: 72, github: 88 },
     life: ["startup", "freelancer"],
-    naverKw: ["n8n"], yt: "n8n", ytKo: "n8n", gt: "n8n", gtKo: "n8n", github: "n8n",
+    naverKw: ["n8n"],
   },
 
   {
@@ -441,7 +441,7 @@ export const TOOLS_DATA = [
     features: ["Magic Design로 자동 디자인 생성", "배경 제거 원클릭", "텍스트→이미지 생성", "AI 프레젠테이션 자동 생성", "Magic Write 카피라이팅 보조"],
     tags: ["디자인", "무료"], score: 83.28, change: 18.1, sns: { naver: 82, youtube: 88, google: 70, github: 22 },
     life: ["marketer", "office", "freelancer", "student", "creator"],
-    naverKw: ["Canva AI","캔바 AI"], yt: "Canva AI", ytKo: "캔바", gt: "Canva AI", gtKo: "캔바", github: "Canva AI",
+    naverKw: ["Canva AI","캔바 AI"],
   },
   {
     id: 49, cat: "design", icon: "📐", name: "Figma AI", nameKo: "피그마 AI", free: false,
@@ -450,7 +450,7 @@ export const TOOLS_DATA = [
     features: ["텍스트로 UI 레이어 자동 생성", "디자인 시스템 자동 정리", "프로토타입 인터랙션 제안", "First Draft로 빠른 와이어프레임", "Dev Mode AI 코드 스니펫 생성"],
     tags: ["디자인", "유료"], score: 75.59, change: 13.61, sns: { naver: 70, youtube: 80, google: 78, github: 55 },
     life: ["creator", "freelancer", "startup"],
-    naverKw: ["Figma AI","피그마 AI"], yt: "Figma AI", ytKo: "피그마", gt: "Figma AI", gtKo: "피그마", github: "Figma AI",
+    naverKw: ["Figma AI","피그마 AI"],
   },
   {
     id: 50, cat: "design", icon: "🪄", name: "Uizard", nameKo: "유아이자드", free: true,
@@ -459,7 +459,7 @@ export const TOOLS_DATA = [
     features: ["손 스케치를 UI로 자동 변환", "텍스트로 앱 UI 즉시 생성", "스크린샷을 편집 가능한 디자인으로", "팀 협업 실시간 프로토타입", "비개발자용 드래그앤드롭 UI"],
     tags: ["디자인", "무료"], score: 54.64, change: 0.43, sns: { naver: 45, youtube: 60, google: 55, github: 30 },
     life: ["startup", "freelancer"],
-    naverKw: ["Uizard","유아이자드"], yt: "Uizard", ytKo: "유아이자드", gt: "Uizard", gtKo: "유아이자드", github: "Uizard",
+    naverKw: ["Uizard","유아이자드"],
   },
 
   // ── 텍스트 추가 (51-57) ──
@@ -470,7 +470,7 @@ export const TOOLS_DATA = [
     features: ["Mistral Large 최신 모델 탑재", "빠른 응답 속도", "유럽 GDPR 완전 준수", "무료 이용 가능", "다국어 대화 지원"],
     tags: ["텍스트", "무료", "API"], score: 54.81, change: -1.58, sns: { naver: 38, youtube: 52, google: 62, github: 58 },
     life: ["office", "student", "freelancer"],
-    naverKw: ["Le Chat","르챗AI"], yt: "Le Chat", ytKo: "르챗AI", gt: "Le Chat", gtKo: "르챗AI", github: "Le Chat",
+    naverKw: ["Le Chat","르챗AI"],
   },
   {
     id: 52, cat: "text", icon: "🐼", name: "Qwen", nameKo: "알리바바AI", free: true,
@@ -479,7 +479,7 @@ export const TOOLS_DATA = [
     features: ["0.5B~72B 다양한 크기 선택", "로컬 실행 가능한 오픈소스", "코딩·수학 특화 성능", "100개 이상 언어 지원", "Qwen-VL 비전 모델 포함"],
     tags: ["텍스트", "무료", "오픈소스"], score: 62.88, change: 0.09, sns: { naver: 55, youtube: 72, google: 75, github: 90 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Qwen","알리바바AI"], yt: "Qwen", ytKo: "알리바바AI", gt: "Qwen", gtKo: "알리바바AI", github: "Qwen",
+    naverKw: ["Qwen","알리바바AI"],
   },
   {
     id: 53, cat: "text", icon: "🔮", name: "Command R+", nameKo: "코히어 AI", free: true,
@@ -488,7 +488,7 @@ export const TOOLS_DATA = [
     features: ["RAG(검색 증강 생성) 특화", "긴 문서 정확한 인용 답변", "기업용 엔터프라이즈 API", "128K 컨텍스트 지원", "100개 언어 지원"],
     tags: ["텍스트", "무료", "API"], score: 59.57, change: -0.83, sns: { naver: 32, youtube: 48, google: 65, github: 72 },
     life: ["startup", "office", "freelancer"],
-    naverKw: ["Command R+","코히어 AI"], yt: "Command R+", ytKo: "코히어", gt: "Command R+", gtKo: "코히어", github: "Command R+",
+    naverKw: ["Command R+","코히어 AI"],
   },
   {
     id: 54, cat: "text", icon: "🟢", name: "HyperCLOVA X", nameKo: "하이퍼클로바", free: true,
@@ -497,7 +497,7 @@ export const TOOLS_DATA = [
     features: ["한국어 최적화 언어 모델", "한국 문화·법률·상식 학습", "네이버 서비스 전반 통합", "CLOVA Studio API 제공", "기업 맞춤 파인튜닝 지원"],
     tags: ["텍스트", "무료", "한국어"], score: 49.33, change: 1.96, sns: { naver: 95, youtube: 70, google: 52, github: 42 },
     life: ["office", "startup", "marketer"],
-    naverKw: ["HyperCLOVA X","하이퍼클로바"], yt: "HyperCLOVA X", ytKo: "하이퍼클로바", gt: "HyperCLOVA X", gtKo: "하이퍼클로바", github: "HyperCLOVA X",
+    naverKw: ["HyperCLOVA X","하이퍼클로바"],
   },
   {
     id: 55, cat: "text", icon: "🌙", name: "Kimi", nameKo: "키미 AI", free: true,
@@ -506,7 +506,7 @@ export const TOOLS_DATA = [
     features: ["200만 토큰 초장문 컨텍스트", "PDF·논문 통째로 분석", "웹 검색 실시간 연동", "코드 생성 및 실행 지원", "무료로 넉넉한 사용량"],
     tags: ["텍스트", "무료"], score: 51.7, change: -2.42, sns: { naver: 60, youtube: 68, google: 70, github: 75 },
     life: ["student", "office", "freelancer"],
-    naverKw: ["Kimi","키미 AI"], yt: "Kimi", ytKo: "키미", gt: "Kimi", gtKo: "키미", github: "Kimi",
+    naverKw: ["Kimi","키미 AI"],
   },
   {
     id: 56, cat: "text", icon: "🔷", name: "Phi-4", nameKo: "파이4 AI", free: true,
@@ -515,7 +515,7 @@ export const TOOLS_DATA = [
     features: ["14B 소형이지만 GPT-4급 추론", "수학·코딩 특화 고성능", "로컬 실행 가능한 경량 모델", "Ollama 등으로 무료 실행", "엣지 디바이스 배포 가능"],
     tags: ["텍스트", "무료", "오픈소스"], score: 50.87, change: -0.92, sns: { naver: 42, youtube: 62, google: 68, github: 82 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Phi-4","파이4 AI"], yt: "Phi-4", ytKo: "파이4", gt: "Phi-4", gtKo: "파이4", github: "Phi-4",
+    naverKw: ["Phi-4","파이4 AI"],
   },
   {
     id: 57, cat: "text", icon: "☁️", name: "Amazon Nova", nameKo: "아마존 노바", free: false,
@@ -524,7 +524,7 @@ export const TOOLS_DATA = [
     features: ["Micro·Lite·Pro·Premier 4종 라인업", "AWS 서비스 완전 통합", "멀티모달 텍스트·이미지 처리", "가성비 뛰어난 API 가격", "엔터프라이즈 보안 준수"],
     tags: ["텍스트", "유료", "API"], score: 46.89, change: -13.53, sns: { naver: 40, youtube: 55, google: 65, github: 70 },
     life: ["startup", "office"],
-    naverKw: ["Amazon Nova","아마존 노바"], yt: "Amazon Nova", ytKo: "아마존노바", gt: "Amazon Nova", gtKo: "아마존노바", github: "Amazon Nova",
+    naverKw: ["Amazon Nova","아마존 노바"],
   },
 
   // ── 이미지 추가 (58-63) ──
@@ -535,7 +535,7 @@ export const TOOLS_DATA = [
     features: ["하루 500장 무료 이미지 생성", "Playground v3 자체 모델 탑재", "다양한 스타일 필터 제공", "인페인팅·편집 기능 지원", "커뮤니티 공유 및 리믹스"],
     tags: ["이미지 생성", "무료"], score: 50.67, change: -1.84, sns: { naver: 48, youtube: 65, google: 68, github: 38 },
     life: ["creator", "freelancer"],
-    naverKw: ["Playground AI","플레이그라운드AI"], yt: "Playground AI", ytKo: "플레이그라운드AI", gt: "Playground AI", gtKo: "플레이그라운드AI", github: "Playground AI",
+    naverKw: ["Playground AI","플레이그라운드AI"],
   },
   {
     id: 59, cat: "image", icon: "🌊", name: "SeaArt AI", nameKo: "씨아트 AI", free: true,
@@ -544,7 +544,7 @@ export const TOOLS_DATA = [
     features: ["애니·일러스트 스타일 특화", "무료 크레딧 매일 제공", "커스텀 LoRA 모델 적용", "이미지→이미지 변환", "한국어 프롬프트 지원"],
     tags: ["이미지 생성", "무료"], score: 51.14, change: 0.21, sns: { naver: 72, youtube: 65, google: 52, github: 25 },
     life: ["creator", "student", "freelancer"],
-    naverKw: ["SeaArt AI","씨아트 AI"], yt: "SeaArt AI", ytKo: "씨아트", gt: "SeaArt AI", gtKo: "씨아트", github: "SeaArt AI",
+    naverKw: ["SeaArt AI","씨아트 AI"],
   },
   {
     id: 60, cat: "image", icon: "🌃", name: "NightCafe", nameKo: "나이트카페 AI", free: true,
@@ -553,7 +553,7 @@ export const TOOLS_DATA = [
     features: ["Stable Diffusion·DALL-E 등 다수 지원", "매일 무료 크레딧 제공", "AI 아트 챌린지 커뮤니티", "고해상도 출력 지원", "NFT 민팅 옵션"],
     tags: ["이미지 생성", "무료"], score: 51.33, change: -1.86, sns: { naver: 42, youtube: 60, google: 62, github: 28 },
     life: ["creator", "freelancer"],
-    naverKw: ["NightCafe","나이트카페 AI"], yt: "NightCafe", ytKo: "나이트카페", gt: "NightCafe", gtKo: "나이트카페", github: "NightCafe",
+    naverKw: ["NightCafe","나이트카페 AI"],
   },
   {
     id: 61, cat: "image", icon: "🔲", name: "Tensor.Art", nameKo: "텐서아트 AI", free: true,
@@ -562,7 +562,7 @@ export const TOOLS_DATA = [
     features: ["수천 가지 SD 커뮤니티 모델", "모바일 앱에서 생성 가능", "무료 크레딧 매일 충전", "LoRA·VAE 커스텀 적용", "고화질 업스케일 지원"],
     tags: ["이미지 생성", "무료"], score: 50.36, change: 0.35, sns: { naver: 55, youtube: 62, google: 55, github: 30 },
     life: ["creator", "freelancer"],
-    naverKw: ["Tensor.Art","텐서아트 AI"], yt: "Tensor.Art", ytKo: "텐서아트", gt: "Tensor.Art", gtKo: "텐서아트", github: "Tensor.Art",
+    naverKw: ["Tensor.Art","텐서아트 AI"],
   },
   {
     id: 62, cat: "image", icon: "🏙️", name: "Civitai", nameKo: "시비타이", free: true,
@@ -571,7 +571,7 @@ export const TOOLS_DATA = [
     features: ["수십만 가지 SD 모델 무료 공유", "LoRA·임베딩·VAE 전체 지원", "온라인 이미지 생성 기능", "커뮤니티 리뷰·평점 시스템", "NSFW 필터 설정 가능"],
     tags: ["이미지 생성", "무료", "오픈소스"], score: 55.68, change: -1.37, sns: { naver: 58, youtube: 80, google: 72, github: 78 },
     life: ["creator", "freelancer"],
-    naverKw: ["Civitai","시비타이"], yt: "Civitai", ytKo: "시비타이", gt: "Civitai", gtKo: "시비타이", github: "Civitai",
+    naverKw: ["Civitai","시비타이"],
   },
   {
     id: 63, cat: "image", icon: "🔵", name: "Bing Image Creator", nameKo: "빙 이미지", free: true,
@@ -580,7 +580,7 @@ export const TOOLS_DATA = [
     features: ["DALL-E 3 기반 고품질 이미지", "Microsoft 계정으로 무료 사용", "Edge·Copilot에서 바로 생성", "생성 이미지 저장 및 공유", "한국어 프롬프트 지원"],
     tags: ["이미지 생성", "무료"], score: 61.86, change: 0.47, sns: { naver: 70, youtube: 75, google: 72, github: 20 },
     life: ["office", "marketer", "student", "creator"],
-    naverKw: ["Bing Image Creator","빙 이미지"], yt: "Bing Image Creator", ytKo: "빙이미지", gt: "Bing Image Creator", gtKo: "빙이미지", github: "Bing Image Creator",
+    naverKw: ["Bing Image Creator","빙 이미지"],
   },
 
   // ── 코딩 추가 (64-68) ──
@@ -591,7 +591,7 @@ export const TOOLS_DATA = [
     features: ["VS Code·JetBrains IDE 플러그인", "AWS 서비스 연동 코드 자동 생성", "보안 취약점 자동 탐지·수정", "코드 변환 및 마이그레이션 지원", "무료 플랜 3,000 추천/월"],
     tags: ["코딩", "무료", "AWS"], score: 56.05, change: -0.82, sns: { naver: 48, youtube: 65, google: 70, github: 65 },
     life: ["startup", "office", "freelancer"],
-    naverKw: ["Amazon Q Developer","아마존Q"], yt: "Amazon Q Developer", ytKo: "아마존Q", gt: "Amazon Q Developer", gtKo: "아마존Q", github: "Amazon Q Developer",
+    naverKw: ["Amazon Q Developer","아마존Q"],
   },
   {
     id: 65, cat: "code", icon: "❤️", name: "Lovable", nameKo: "러버블AI", free: true,
@@ -600,7 +600,7 @@ export const TOOLS_DATA = [
     features: ["자연어로 React 웹앱 완전 생성", "Supabase 백엔드 자동 연동", "GitHub 코드 저장 및 관리", "Vercel·Netlify 즉시 배포", "비개발자 친화적 UI"],
     tags: ["코딩", "무료", "풀스택"], score: 57.71, change: -1.94, sns: { naver: 58, youtube: 75, google: 72, github: 75 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Lovable","러버블AI"], yt: "Lovable", ytKo: "러버블AI", gt: "Lovable", gtKo: "러버블AI", github: "Lovable",
+    naverKw: ["Lovable","러버블AI"],
   },
   {
     id: 66, cat: "code", icon: "🔎", name: "Cody", nameKo: "코디AI", free: true,
@@ -609,7 +609,7 @@ export const TOOLS_DATA = [
     features: ["전체 코드베이스 컨텍스트 이해", "코드 설명·문서화 자동 생성", "VS Code·JetBrains 통합", "대규모 레포지토리 검색", "엔터프라이즈 자체 호스팅 가능"],
     tags: ["코딩", "무료"], score: 56.37, change: 1.98, sns: { naver: 35, youtube: 55, google: 62, github: 80 },
     life: ["startup", "freelancer", "office"],
-    naverKw: ["Cody","코디AI"], yt: "Cody", ytKo: "코디AI", gt: "Cody", gtKo: "코디AI", github: "Cody",
+    naverKw: ["Cody","코디AI"],
   },
   {
     id: 67, cat: "code", icon: "🤖", name: "Devin", nameKo: "데빈 AI", free: false,
@@ -618,7 +618,7 @@ export const TOOLS_DATA = [
     features: ["자율적으로 코딩 계획 수립·실행", "버그 수정·기능 구현 자동화", "웹 검색 및 문서 참고 자율화", "테스트 작성 및 실행 자동화", "GitHub PR 자동 생성"],
     tags: ["코딩", "유료", "AI에이전트"], score: 54.9, change: 0.22, sns: { naver: 55, youtube: 78, google: 68, github: 60 },
     life: ["startup", "freelancer"],
-    naverKw: ["Devin","데빈 AI"], yt: "Devin", ytKo: "데빈", gt: "Devin", gtKo: "데빈", github: "Devin",
+    naverKw: ["Devin","데빈 AI"],
   },
   {
     id: 68, cat: "code", icon: "⌨️", name: "Aider", nameKo: "에이더 AI", free: true,
@@ -627,7 +627,7 @@ export const TOOLS_DATA = [
     features: ["터미널에서 AI 페어 프로그래밍", "Git 자동 커밋 및 변경 추적", "GPT-4·Claude 등 여러 모델 지원", "기존 프로젝트 전체 맥락 파악", "오픈소스 완전 무료"],
     tags: ["코딩", "무료", "오픈소스"], score: 52.31, change: 1.56, sns: { naver: 30, youtube: 58, google: 62, github: 92 },
     life: ["freelancer", "startup", "student"],
-    naverKw: ["Aider","에이더 AI"], yt: "Aider", ytKo: "에이더", gt: "Aider", gtKo: "에이더", github: "Aider",
+    naverKw: ["Aider","에이더 AI"],
   },
 
   // ── 영상 추가 (69-73) ──
@@ -638,7 +638,7 @@ export const TOOLS_DATA = [
     features: ["AI 자동 자막 생성", "배경 자동 제거·교체", "텍스트→영상 자동 생성", "AI 음성 더빙·번역", "틱톡 최적화 숏폼 편집"],
     tags: ["영상 편집", "무료"], score: 57.29, change: -0.54, sns: { naver: 85, youtube: 92, google: 80, github: 55 },
     life: ["creator", "marketer", "student"],
-    naverKw: ["CapCut AI","캡컷 AI"], yt: "CapCut AI", ytKo: "캡컷", gt: "CapCut AI", gtKo: "캡컷", github: "CapCut AI",
+    naverKw: ["CapCut AI","캡컷 AI"],
   },
   {
     id: 70, cat: "video", icon: "🎞️", name: "InVideo AI", nameKo: "인비디오 AI", free: true,
@@ -647,7 +647,7 @@ export const TOOLS_DATA = [
     features: ["텍스트 스크립트→완성 영상 변환", "스톡 영상·이미지 자동 매칭", "AI 내레이션 자동 생성", "SNS 플랫폼별 포맷 최적화", "무료로 월 4개 영상 생성"],
     tags: ["영상 생성", "무료"], score: 63.73, change: 0.18, sns: { naver: 55, youtube: 72, google: 65, github: 30 },
     life: ["marketer", "creator", "office"],
-    naverKw: ["InVideo AI","인비디오 AI"], yt: "InVideo AI", ytKo: "인비디오", gt: "InVideo AI", gtKo: "인비디오", github: "InVideo AI",
+    naverKw: ["InVideo AI","인비디오 AI"],
   },
   {
     id: 71, cat: "video", icon: "🌊", name: "Hailuo AI", nameKo: "하이루오 AI", free: true,
@@ -656,7 +656,7 @@ export const TOOLS_DATA = [
     features: ["실사 수준 고품질 영상 생성", "자연스러운 물리 시뮬레이션", "텍스트·이미지 기반 영상 생성", "무료로 매일 크레딧 제공", "Director Mode 카메라 컨트롤"],
     tags: ["영상 생성", "무료"], score: 49.78, change: 0.88, sns: { naver: 62, youtube: 75, google: 62, github: 50 },
     life: ["creator", "marketer"],
-    naverKw: ["Hailuo AI","하이루오 AI"], yt: "Hailuo AI", ytKo: "하이루오", gt: "Hailuo AI", gtKo: "하이루오", github: "Hailuo AI",
+    naverKw: ["Hailuo AI","하이루오 AI"],
   },
   {
     id: 72, cat: "video", icon: "📖", name: "Pictory", nameKo: "픽토리 AI", free: false,
@@ -665,7 +665,7 @@ export const TOOLS_DATA = [
     features: ["블로그·텍스트→영상 자동 변환", "스톡 미디어 자동 매칭", "AI 음성 내레이션 추가", "SNS 포맷 자동 최적화", "팀 협업 영상 관리"],
     tags: ["영상 생성", "유료"], score: 58.47, change: 0.4, sns: { naver: 45, youtube: 65, google: 60, github: 28 },
     life: ["marketer", "creator", "office"],
-    naverKw: ["Pictory","픽토리 AI"], yt: "Pictory", ytKo: "픽토리", gt: "Pictory", gtKo: "픽토리", github: "Pictory",
+    naverKw: ["Pictory","픽토리 AI"],
   },
   {
     id: 73, cat: "video", icon: "🎬", name: "Veed.io AI", nameKo: "비드 AI", free: true,
@@ -674,7 +674,7 @@ export const TOOLS_DATA = [
     features: ["브라우저 기반 영상 편집", "AI 자동 자막 생성·번역", "원클릭 배경 제거", "화면 녹화 및 웹캠 결합", "무료로 기본 기능 사용"],
     tags: ["영상 편집", "무료"], score: 59.65, change: -2.02, sns: { naver: 52, youtube: 68, google: 65, github: 42 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Veed.io AI","비드 AI"], yt: "Veed.io AI", ytKo: "비드", gt: "Veed.io AI", gtKo: "비드", github: "Veed.io AI",
+    naverKw: ["Veed.io AI","비드 AI"],
   },
 
   // ── 오디오 추가 (74-78) ──
@@ -685,7 +685,7 @@ export const TOOLS_DATA = [
     features: ["영화·게임·광고 음악 작곡", "감정·스타일·악기 세부 설정", "MIDI 파일 내보내기 지원", "300가지 이상 스타일 프리셋", "저작권 없는 음악 생성"],
     tags: ["오디오", "무료"], score: 52.55, change: 1.9, sns: { naver: 48, youtube: 65, google: 62, github: 35 },
     life: ["creator", "freelancer", "marketer"],
-    naverKw: ["AIVA","아이바 AI"], yt: "AIVA", ytKo: "아이바", gt: "AIVA", gtKo: "아이바", github: "AIVA",
+    naverKw: ["AIVA","아이바 AI"],
   },
   {
     id: 75, cat: "audio", icon: "🎹", name: "Soundraw", nameKo: "사운드로우", free: false,
@@ -694,7 +694,7 @@ export const TOOLS_DATA = [
     features: ["분위기·장르·BPM 세밀한 설정", "유튜브 저작권 걱정 없는 음악", "생성 후 구간별 편집 가능", "무제한 음악 생성 (유료)", "WAV·MP3 고품질 다운로드"],
     tags: ["오디오", "유료"], score: 54.13, change: 0.7, sns: { naver: 55, youtube: 72, google: 60, github: 28 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Soundraw","사운드로우"], yt: "Soundraw", ytKo: "사운드로우", gt: "Soundraw", gtKo: "사운드로우", github: "Soundraw",
+    naverKw: ["Soundraw","사운드로우"],
   },
   {
     id: 76, cat: "audio", icon: "🎧", name: "Mubert", nameKo: "뮤버트 AI", free: true,
@@ -703,7 +703,7 @@ export const TOOLS_DATA = [
     features: ["실시간 AI 음악 생성 스트리밍", "작업 집중·휴식 등 분위기 선택", "API로 앱 연동 가능", "유튜브 등 저작권 면제", "무료 개인 사용 가능"],
     tags: ["오디오", "무료", "API"], score: 52.69, change: 0.4, sns: { naver: 40, youtube: 58, google: 55, github: 40 },
     life: ["creator", "freelancer", "office"],
-    naverKw: ["Mubert","뮤버트 AI"], yt: "Mubert", ytKo: "뮤버트", gt: "Mubert", gtKo: "뮤버트", github: "Mubert",
+    naverKw: ["Mubert","뮤버트 AI"],
   },
   {
     id: 77, cat: "audio", icon: "🎤", name: "Adobe Podcast AI", nameKo: "어도비 팟캐스트", free: true,
@@ -712,7 +712,7 @@ export const TOOLS_DATA = [
     features: ["배경 소음 AI 자동 제거", "마이크 음질 스튜디오급 향상", "에코·잡음 실시간 제거", "무료 온라인 오디오 향상", "Adobe Creative Cloud 연동"],
     tags: ["오디오", "무료", "Adobe"], score: 36.23, change: -0.9, sns: { naver: 55, youtube: 72, google: 62, github: 40 },
     life: ["creator", "freelancer", "marketer"],
-    naverKw: ["Adobe Podcast AI","어도비 팟캐스트"], yt: "Adobe Podcast AI", ytKo: "어도비팟캐스트", gt: "Adobe Podcast AI", gtKo: "어도비팟캐스트", github: "Adobe Podcast AI",
+    naverKw: ["Adobe Podcast AI","어도비 팟캐스트"],
   },
   {
     id: 78, cat: "audio", icon: "🎸", name: "Lalal.ai", nameKo: "라랄 AI", free: true,
@@ -721,7 +721,7 @@ export const TOOLS_DATA = [
     features: ["보컬·드럼·베이스 등 스템 분리", "MR(반주) 자동 제거", "고품질 파트 추출 지원", "드래그앤드롭 간편 업로드", "무료로 90초 체험 가능"],
     tags: ["오디오", "무료"], score: 54.35, change: 0.33, sns: { naver: 62, youtube: 70, google: 58, github: 25 },
     life: ["creator", "freelancer", "student"],
-    naverKw: ["Lalal.ai","라랄 AI"], yt: "Lalal.ai", ytKo: "라랄", gt: "Lalal.ai", gtKo: "라랄", github: "Lalal.ai",
+    naverKw: ["Lalal.ai","라랄 AI"],
   },
 
   // ── 검색 추가 (79-82) ──
@@ -732,7 +732,7 @@ export const TOOLS_DATA = [
     features: ["개발자 특화 코딩 질문 답변", "실시간 웹 검색 통합", "코드 예제·문서 자동 링크", "GPT-4·Claude 모델 선택", "무료 무제한 사용 가능"],
     tags: ["검색", "무료", "코딩"], score: 52.4, change: 2.56, sns: { naver: 35, youtube: 55, google: 65, github: 72 },
     life: ["student", "freelancer", "startup"],
-    naverKw: ["Phind","파인드AI"], yt: "Phind", ytKo: "파인드AI", gt: "Phind", gtKo: "파인드AI", github: "Phind",
+    naverKw: ["Phind","파인드AI"],
   },
   {
     id: 80, cat: "search", icon: "📚", name: "Consensus", nameKo: "컨센서스 AI", free: true,
@@ -741,7 +741,7 @@ export const TOOLS_DATA = [
     features: ["2억 편 이상 학술 논문 검색", "근거 기반 팩트체크 답변", "논문 핵심 요약 자동 제공", "연구 트렌드 분석 기능", "연구자·학생 전용 무료 플랜"],
     tags: ["검색", "무료", "학술"], score: 58.25, change: 1.48, sns: { naver: 42, youtube: 55, google: 62, github: 50 },
     life: ["student", "office"],
-    naverKw: ["Consensus","컨센서스 AI"], yt: "Consensus", ytKo: "컨센서스", gt: "Consensus", gtKo: "컨센서스", github: "Consensus",
+    naverKw: ["Consensus","컨센서스 AI"],
   },
   {
     id: 81, cat: "search", icon: "🔑", name: "Kagi", nameKo: "카기", free: false,
@@ -750,7 +750,7 @@ export const TOOLS_DATA = [
     features: ["광고·추적 완전 없는 검색", "AI 요약 Fast GPT 기능", "검색 결과 개인화 설정", "Lenses로 도메인 필터링", "월 구독 완전 무제한 검색"],
     tags: ["검색", "유료"], score: 63.4, change: 2.06, sns: { naver: 28, youtube: 48, google: 52, github: 62 },
     life: ["office", "student", "startup"],
-    naverKw: ["Kagi","카기"], yt: "Kagi", ytKo: "카기", gt: "Kagi", gtKo: "카기", github: "Kagi",
+    naverKw: ["Kagi","카기"],
   },
   {
     id: 82, cat: "search", icon: "🌐", name: "Exa", nameKo: "엑사AI", free: true,
@@ -759,7 +759,7 @@ export const TOOLS_DATA = [
     features: ["의미 기반 뉴럴 검색 API", "AI 에이전트 연동 최적화", "실시간 웹 크롤링·인덱싱", "키워드+의미 하이브리드 검색", "개발자 무료 API 크레딧"],
     tags: ["검색", "무료", "API"], score: 51.04, change: -1.19, sns: { naver: 22, youtube: 42, google: 52, github: 62 },
     life: ["startup", "freelancer"],
-    naverKw: ["Exa","엑사AI"], yt: "Exa", ytKo: "엑사AI", gt: "Exa", gtKo: "엑사AI", github: "Exa",
+    naverKw: ["Exa","엑사AI"],
   },
 
   // ── 생산성 추가 (83-92) ──
@@ -770,7 +770,7 @@ export const TOOLS_DATA = [
     features: ["브랜드 보이스 학습·적용", "50가지 이상 콘텐츠 템플릿", "SEO 최적화 콘텐츠 생성", "팀 협업 워크플로우 지원", "Jasper Art 이미지 생성 포함"],
     tags: ["생산성", "유료", "마케팅"], score: 61.67, change: 0.2, sns: { naver: 55, youtube: 68, google: 65, github: 42 },
     life: ["marketer", "office", "startup"],
-    naverKw: ["Jasper","재스퍼 AI"], yt: "Jasper", ytKo: "재스퍼", gt: "Jasper", gtKo: "재스퍼", github: "Jasper",
+    naverKw: ["Jasper","재스퍼 AI"],
   },
   {
     id: 84, cat: "productivity", icon: "📋", name: "Copy.ai", nameKo: "카피 AI", free: true,
@@ -779,7 +779,7 @@ export const TOOLS_DATA = [
     features: ["마케팅 카피 자동 생성", "세일즈 이메일·스크립트 작성", "GTM(Go-to-Market) AI 자동화", "90개 이상 카피라이팅 템플릿", "무료로 2,000 단어/월"],
     tags: ["생산성", "무료", "마케팅"], score: 62.13, change: -0.72, sns: { naver: 45, youtube: 60, google: 60, github: 40 },
     life: ["marketer", "startup", "freelancer"],
-    naverKw: ["Copy.ai","카피 AI"], yt: "Copy.ai", ytKo: "카피AI", gt: "Copy.ai", gtKo: "카피AI", github: "Copy.ai",
+    naverKw: ["Copy.ai","카피 AI"],
   },
   {
     id: 85, cat: "productivity", icon: "📝", name: "Grammarly", nameKo: "그래머리", free: true,
@@ -788,7 +788,7 @@ export const TOOLS_DATA = [
     features: ["실시간 문법·맞춤법 교정", "어조·명확성·일관성 분석", "이메일·문서 전반 통합 지원", "GrammarlyGO AI 문장 생성", "크롬 확장으로 어디서나 사용"],
     tags: ["생산성", "무료", "글쓰기"], score: 71.35, change: 2.1, sns: { naver: 70, youtube: 80, google: 80, github: 58 },
     life: ["office", "student", "freelancer", "startup"],
-    naverKw: ["Grammarly","그래머리"], yt: "Grammarly", ytKo: "그래머리", gt: "Grammarly", gtKo: "그래머리", github: "Grammarly",
+    naverKw: ["Grammarly","그래머리"],
   },
   {
     id: 86, cat: "productivity", icon: "📰", name: "Writesonic", nameKo: "라이트소닉", free: true,
@@ -797,7 +797,7 @@ export const TOOLS_DATA = [
     features: ["SEO 최적화 블로그 자동 생성", "구글 검색 광고 문구 작성", "랜딩페이지 카피 자동화", "Chatsonic AI 챗봇 포함", "무료로 월 10,000 단어"],
     tags: ["생산성", "무료", "글쓰기"], score: 63.93, change: 0.11, sns: { naver: 45, youtube: 62, google: 62, github: 42 },
     life: ["marketer", "freelancer", "startup"],
-    naverKw: ["Writesonic","라이트소닉"], yt: "Writesonic", ytKo: "라이트소닉", gt: "Writesonic", gtKo: "라이트소닉", github: "Writesonic",
+    naverKw: ["Writesonic","라이트소닉"],
   },
   {
     id: 87, cat: "productivity", icon: "📖", name: "Tome", nameKo: "톰AI", free: true,
@@ -806,7 +806,7 @@ export const TOOLS_DATA = [
     features: ["AI 스토리 기반 PT 자동 생성", "DALL-E 이미지 자동 삽입", "애니메이션 효과 자동 적용", "공유 링크로 웹에서 바로 열람", "무료로 기본 기능 사용"],
     tags: ["생산성", "무료", "PT"], score: 49.3, change: -1.14, sns: { naver: 55, youtube: 70, google: 62, github: 32 },
     life: ["startup", "marketer", "office", "student"],
-    naverKw: ["Tome","톰AI"], yt: "Tome", ytKo: "톰AI", gt: "Tome", gtKo: "톰AI", github: "Tome",
+    naverKw: ["Tome","톰AI"],
   },
   {
     id: 88, cat: "productivity", icon: "✅", name: "Taskade", nameKo: "태스크에이드", free: true,
@@ -815,7 +815,7 @@ export const TOOLS_DATA = [
     features: ["AI 에이전트 자동 태스크 생성", "프로젝트·노트·마인드맵 통합", "팀 실시간 협업 지원", "AI 워크플로우 자동화", "무료 플랜 3개 워크스페이스"],
     tags: ["생산성", "무료", "프로젝트관리"], score: 61.17, change: 1.32, sns: { naver: 42, youtube: 58, google: 58, github: 48 },
     life: ["startup", "office", "freelancer"],
-    naverKw: ["Taskade","태스크에이드"], yt: "Taskade", ytKo: "태스크에이드", gt: "Taskade", gtKo: "태스크에이드", github: "Taskade",
+    naverKw: ["Taskade","태스크에이드"],
   },
   {
     id: 89, cat: "productivity", icon: "🧠", name: "Mem AI", nameKo: "멤AI", free: true,
@@ -824,7 +824,7 @@ export const TOOLS_DATA = [
     features: ["AI 자동 태그·연결 노트 관리", "회의 중 실시간 메모 구조화", "Ask Mem AI 지식 Q&A", "이메일·캘린더 자동 연동", "Slack·Gmail 통합"],
     tags: ["생산성", "무료", "노트"], score: 48.35, change: -2.15, sns: { naver: 38, youtube: 52, google: 55, github: 45 },
     life: ["office", "startup", "student"],
-    naverKw: ["Mem AI","멤AI"], yt: "Mem AI", ytKo: "멤AI", gt: "Mem AI", gtKo: "멤AI", github: "Mem AI",
+    naverKw: ["Mem AI","멤AI"],
   },
   {
     id: 90, cat: "productivity", icon: "📅", name: "Reclaim.ai", nameKo: "리클레임 AI", free: true,
@@ -833,7 +833,7 @@ export const TOOLS_DATA = [
     features: ["AI가 일정 자동 최적화·배치", "습관 시간 블록 자동 확보", "Google Calendar 완전 연동", "팀 회의 최적 시간대 자동 탐색", "무료 플랜 캘린더 5개 연동"],
     tags: ["생산성", "무료", "캘린더"], score: 49.92, change: -1.47, sns: { naver: 35, youtube: 55, google: 58, github: 52 },
     life: ["office", "startup", "freelancer"],
-    naverKw: ["Reclaim.ai","리클레임 AI"], yt: "Reclaim.ai", ytKo: "리클레임", gt: "Reclaim.ai", gtKo: "리클레임", github: "Reclaim.ai",
+    naverKw: ["Reclaim.ai","리클레임 AI"],
   },
   {
     id: 91, cat: "productivity", icon: "✒️", name: "Rytr", nameKo: "라이터AI", free: true,
@@ -842,7 +842,7 @@ export const TOOLS_DATA = [
     features: ["40가지 이상 글쓰기 유즈케이스", "30개 언어 지원 다국어 작성", "AI 어조·스타일 세밀한 조정", "크롬 확장으로 어디서나 사용", "무료로 월 10,000자"],
     tags: ["생산성", "무료", "글쓰기"], score: 56.23, change: -0.77, sns: { naver: 42, youtube: 55, google: 55, github: 38 },
     life: ["marketer", "freelancer", "student"],
-    naverKw: ["Rytr","라이터AI"], yt: "Rytr", ytKo: "라이터AI", gt: "Rytr", gtKo: "라이터AI", github: "Rytr",
+    naverKw: ["Rytr","라이터AI"],
   },
   {
     id: 92, cat: "productivity", icon: "🔄", name: "Wordtune", nameKo: "워드튠", free: true,
@@ -851,7 +851,7 @@ export const TOOLS_DATA = [
     features: ["문장 의미 유지하며 표현 개선", "축약·확장·어조 변환 기능", "크롬 확장으로 어디서나 사용", "한국어 포함 다국어 지원", "무료로 일 10회 리라이팅"],
     tags: ["생산성", "무료", "글쓰기"], score: 57.75, change: 0.46, sns: { naver: 50, youtube: 60, google: 60, github: 35 },
     life: ["office", "student", "freelancer", "marketer"],
-    naverKw: ["Wordtune","워드튠"], yt: "Wordtune", ytKo: "워드튠", gt: "Wordtune", gtKo: "워드튠", github: "Wordtune",
+    naverKw: ["Wordtune","워드튠"],
   },
 
   // ── 디자인 추가 (93-100) ──
@@ -862,7 +862,7 @@ export const TOOLS_DATA = [
     features: ["텍스트로 웹사이트 자동 생성", "반응형 디자인 자동 최적화", "AI 카피·이미지 자동 삽입", "커스텀 도메인 즉시 배포", "무료 framer.site 도메인"],
     tags: ["디자인", "무료", "웹빌더"], score: 58.74, change: -0.97, sns: { naver: 60, youtube: 75, google: 70, github: 55 },
     life: ["startup", "freelancer", "marketer"],
-    naverKw: ["Framer AI","프레이머AI"], yt: "Framer AI", ytKo: "프레이머AI", gt: "Framer AI", gtKo: "프레이머AI", github: "Framer AI",
+    naverKw: ["Framer AI","프레이머AI"],
   },
   {
     id: 94, cat: "design", icon: "🏷️", name: "Looka", nameKo: "루카 AI", free: false,
@@ -871,7 +871,7 @@ export const TOOLS_DATA = [
     features: ["AI 자동 로고 디자인 생성", "업종·색상·스타일 기반 맞춤", "100가지 이상 로고 옵션 제안", "완성 후 브랜드 키트 다운로드", "명함·소셜 자산 자동 생성"],
     tags: ["디자인", "유료", "로고"], score: 57.47, change: -2.05, sns: { naver: 60, youtube: 68, google: 65, github: 30 },
     life: ["startup", "freelancer", "marketer"],
-    naverKw: ["Looka","루카 AI"], yt: "Looka", ytKo: "루카", gt: "Looka", gtKo: "루카", github: "Looka",
+    naverKw: ["Looka","루카 AI"],
   },
   {
     id: 95, cat: "design", icon: "🎨", name: "Khroma", nameKo: "크로마 AI", free: true,
@@ -880,7 +880,7 @@ export const TOOLS_DATA = [
     features: ["AI 맞춤 컬러 팔레트 무한 생성", "좋아하는 색 기반 개인화", "텍스트·포스터·그라디언트 미리보기", "색상 저장 및 즐겨찾기 관리", "HEX·RGB 코드 즉시 복사"],
     tags: ["디자인", "무료", "컬러"], score: 48.27, change: 1.45, sns: { naver: 38, youtube: 52, google: 52, github: 42 },
     life: ["creator", "freelancer", "startup"],
-    naverKw: ["Khroma","크로마 AI"], yt: "Khroma", ytKo: "크로마", gt: "Khroma", gtKo: "크로마", github: "Khroma",
+    naverKw: ["Khroma","크로마 AI"],
   },
   {
     id: 96, cat: "design", icon: "🗺️", name: "Relume", nameKo: "릴루미 AI", free: true,
@@ -889,7 +889,7 @@ export const TOOLS_DATA = [
     features: ["AI 사이트맵 자동 생성", "와이어프레임 AI 자동 설계", "Figma 플러그인 연동", "Webflow 컴포넌트 라이브러리", "무료로 기본 기능 사용"],
     tags: ["디자인", "무료", "UI"], score: 52.69, change: -0.33, sns: { naver: 42, youtube: 62, google: 62, github: 48 },
     life: ["freelancer", "startup", "creator"],
-    naverKw: ["Relume","릴루미 AI"], yt: "Relume", ytKo: "릴루미", gt: "Relume", gtKo: "릴루미", github: "Relume",
+    naverKw: ["Relume","릴루미 AI"],
   },
   {
     id: 97, cat: "design", icon: "🗑️", name: "Remove.bg", nameKo: "리무브AI", free: true,
@@ -898,7 +898,7 @@ export const TOOLS_DATA = [
     features: ["5초 안에 배경 자동 제거", "API 연동 대량 배경 제거", "다양한 배경 이미지 교체", "고해상도 다운로드 지원", "Photoshop 플러그인 연동"],
     tags: ["디자인", "무료", "이미지편집"], score: 63.75, change: 2.61, sns: { naver: 82, youtube: 80, google: 72, github: 38 },
     life: ["marketer", "creator", "freelancer", "office"],
-    naverKw: ["Remove.bg","리무브AI"], yt: "Remove.bg", ytKo: "리무브AI", gt: "Remove.bg", gtKo: "리무브AI", github: "Remove.bg",
+    naverKw: ["Remove.bg","리무브AI"],
   },
   {
     id: 98, cat: "design", icon: "🧹", name: "Cleanup.pictures", nameKo: "클린업AI", free: true,
@@ -907,7 +907,7 @@ export const TOOLS_DATA = [
     features: ["원하는 오브젝트 클릭으로 제거", "워터마크·전선·사람 제거", "AI가 빈 공간 자연스럽게 채움", "무료로 고해상도 사용 가능", "API 연동 지원"],
     tags: ["디자인", "무료", "이미지편집"], score: 52.94, change: 1.11, sns: { naver: 65, youtube: 72, google: 65, github: 32 },
     life: ["marketer", "creator", "freelancer"],
-    naverKw: ["Cleanup.pictures","클린업AI"], yt: "Cleanup.pictures", ytKo: "클린업AI", gt: "Cleanup.pictures", gtKo: "클린업AI", github: "Cleanup.pictures",
+    naverKw: ["Cleanup.pictures","클린업AI"],
   },
   {
     id: 99, cat: "design", icon: "🌐", name: "Spline AI", nameKo: "스플라인AI", free: true,
@@ -916,7 +916,7 @@ export const TOOLS_DATA = [
     features: ["텍스트로 3D 오브젝트 즉시 생성", "브라우저 기반 3D 편집", "웹·앱 3D 임베드 코드 제공", "애니메이션·인터랙션 설정", "무료로 기본 기능 사용"],
     tags: ["디자인", "무료", "3D"], score: 52.12, change: -0.8, sns: { naver: 48, youtube: 68, google: 65, github: 52 },
     life: ["creator", "startup", "freelancer"],
-    naverKw: ["Spline AI","스플라인AI"], yt: "Spline AI", ytKo: "스플라인AI", gt: "Spline AI", gtKo: "스플라인AI", github: "Spline AI",
+    naverKw: ["Spline AI","스플라인AI"],
   },
   {
     id: 100, cat: "design", icon: "🎭", name: "Visily", nameKo: "비질리 AI", free: true,
@@ -925,7 +925,7 @@ export const TOOLS_DATA = [
     features: ["스크린샷→편집 가능한 UI 변환", "손 스케치 디지털 와이어프레임화", "AI 텍스트로 UI 자동 생성", "100가지 이상 컴포넌트 라이브러리", "Figma 내보내기 지원"],
     tags: ["디자인", "무료", "UI"], score: 43.98, change: 0.62, sns: { naver: 40, youtube: 55, google: 58, github: 45 },
     life: ["startup", "office", "freelancer"],
-    naverKw: ["Visily","비질리 AI"], yt: "Visily", ytKo: "비질리", gt: "Visily", gtKo: "비질리", github: "Visily",
+    naverKw: ["Visily","비질리 AI"],
   },
 
   // ── 앱스토어·플레이스토어 AI 앱 (101-150) ──
@@ -938,7 +938,7 @@ export const TOOLS_DATA = [
     features: ["감정 인식 공감형 대화", "일상·고민 상담 AI 친구", "롤플레이·페르소나 커스텀", "감정 일기·메모리 기록", "음성 대화 지원"],
     tags: ["AI동반자", "무료", "감성"], score: 49.42, change: -0.21, sns: { naver: 55, youtube: 75, google: 70, github: 35 },
     life: ["student", "creator", "freelancer"],
-    naverKw: ["Replika","레플리카AI"], yt: "Replika", ytKo: "레플리카AI", gt: "Replika", gtKo: "레플리카AI", github: "Replika",
+    naverKw: ["Replika","레플리카AI"],
   },
   {
     id: 102, cat: "chatbot", icon: "🥧", name: "Pi AI", nameKo: "파이AI", free: true,
@@ -947,7 +947,7 @@ export const TOOLS_DATA = [
     features: ["공감형 자연스러운 대화", "일상 고민·조언 상담", "음성 대화 모드 지원", "맥락 기억 장기 대화", "iOS·Android 앱 제공"],
     tags: ["텍스트", "무료", "대화형"], score: 61.7, change: 1.44, sns: { naver: 38, youtube: 55, google: 58, github: 25 },
     life: ["office", "student", "freelancer"],
-    naverKw: ["Pi AI","파이AI"], yt: "Pi AI", ytKo: "파이AI", gt: "Pi AI", gtKo: "파이AI", github: "Pi AI",
+    naverKw: ["Pi AI","파이AI"],
   },
   {
     id: 103, cat: "chatbot", icon: "🌐", name: "Meta AI", nameKo: "메타AI", free: true,
@@ -956,7 +956,7 @@ export const TOOLS_DATA = [
     features: ["WhatsApp·Instagram 내 AI 대화", "이미지 생성(Imagine) 기능", "실시간 웹 검색 연동", "그룹챗에서 @Meta AI 호출", "Llama 3 기반 고성능 대화"],
     tags: ["텍스트", "무료", "멀티모달"], score: 57.1, change: 0.5, sns: { naver: 70, youtube: 78, google: 80, github: 45 },
     life: ["office", "student", "marketer", "creator"],
-    naverKw: ["Meta AI","메타AI"], yt: "Meta AI", ytKo: "메타AI", gt: "Meta AI", gtKo: "메타AI", github: "Meta AI",
+    naverKw: ["Meta AI","메타AI"],
   },
   {
     id: 104, cat: "chatbot", icon: "🎭", name: "Talkie AI", nameKo: "토키 AI", free: true,
@@ -965,7 +965,7 @@ export const TOOLS_DATA = [
     features: ["수천 가지 AI 캐릭터 선택", "몰입형 롤플레이·스토리텔링", "목소리 커스텀 음성 대화", "나만의 캐릭터 생성", "10대·20대 인기 앱"],
     tags: ["캐릭터", "무료", "롤플레이"], score: 52.98, change: 0.37, sns: { naver: 35, youtube: 55, google: 50, github: 10 },
     life: ["student", "creator"],
-    naverKw: ["Talkie AI","토키 AI"], yt: "Talkie AI", ytKo: "토키", gt: "Talkie AI", gtKo: "토키", github: "Talkie AI",
+    naverKw: ["Talkie AI","토키 AI"],
   },
   {
     id: 105, cat: "chatbot", icon: "🤖", name: "Kindroid", nameKo: "킨드로이드 AI", free: true,
@@ -974,7 +974,7 @@ export const TOOLS_DATA = [
     features: ["AI 페르소나 외모·성격 커스텀", "장기 기억 유지 대화", "음성 통화 모드 지원", "이미지 생성으로 AI 모습 시각화", "개인화된 친밀 관계 형성"],
     tags: ["AI동반자", "무료", "챗봇"], score: 38.29, change: 1.42, sns: { naver: 18, youtube: 42, google: 38, github: 15 },
     life: ["student", "creator"],
-    naverKw: ["Kindroid","킨드로이드 AI"], yt: "Kindroid", ytKo: "킨드로이드", gt: "Kindroid", gtKo: "킨드로이드", github: "Kindroid",
+    naverKw: ["Kindroid","킨드로이드 AI"],
   },
   {
     id: 106, cat: "chatbot", icon: "🍵", name: "Chai AI", nameKo: "차이 AI", free: true,
@@ -983,7 +983,7 @@ export const TOOLS_DATA = [
     features: ["수천 가지 커뮤니티 AI 봇", "나만의 AI 봇 제작·공유", "무료 메시지 일정량 제공", "다양한 장르·스타일 캐릭터", "iOS·Android 전용 앱"],
     tags: ["챗봇", "무료", "캐릭터"], score: 35.64, change: -0.17, sns: { naver: 28, youtube: 52, google: 48, github: 20 },
     life: ["student", "creator"],
-    naverKw: ["Chai AI","차이 AI"], yt: "Chai AI", ytKo: "차이AI", gt: "Chai AI", gtKo: "차이AI", github: "Chai AI",
+    naverKw: ["Chai AI","차이 AI"],
   },
   {
     id: 107, cat: "chatbot", icon: "💙", name: "Anima AI", nameKo: "애니마 AI", free: true,
@@ -992,7 +992,7 @@ export const TOOLS_DATA = [
     features: ["공감·격려 감성 대화", "친구·멘토·파트너 관계 설정", "매일 활동·챌린지 제안", "감정 체크인·웰빙 지원", "아바타 커스텀 외모 설정"],
     tags: ["AI친구", "무료", "감성"], score: 46.52, change: 3.27, sns: { naver: 22, youtube: 45, google: 40, github: 12 },
     life: ["student", "creator"],
-    naverKw: ["Anima AI","애니마 AI"], yt: "Anima AI", ytKo: "애니마", gt: "Anima AI", gtKo: "애니마", github: "Anima AI",
+    naverKw: ["Anima AI","애니마 AI"],
   },
   {
     id: 108, cat: "chatbot", icon: "🎯", name: "Hume AI", nameKo: "휴미 AI", free: false,
@@ -1001,7 +1001,7 @@ export const TOOLS_DATA = [
     features: ["음성 감정 실시간 분석", "공감형 자연스러운 음성 응답", "감정 표현 TTS 출력", "EVI API 개발자 지원", "멀티모달 감정 인식"],
     tags: ["음성", "감정AI", "API"], score: 52.91, change: 2.69, sns: { naver: 20, youtube: 45, google: 48, github: 35 },
     life: ["startup", "freelancer", "office"],
-    naverKw: ["Hume AI","휴미 AI"], yt: "Hume AI", ytKo: "휴미", gt: "Hume AI", gtKo: "휴미", github: "Hume AI",
+    naverKw: ["Hume AI","휴미 AI"],
   },
 
   // 이미지
@@ -1012,7 +1012,7 @@ export const TOOLS_DATA = [
     features: ["셀카→AI 매직 아바타 생성", "50가지 이상 예술 스타일", "배경 자동 제거·편집", "초상화·바디 슬리밍 필터", "Prisma Labs 최신 AI 모델"],
     tags: ["이미지", "아바타", "포트레이트"], score: 59.53, change: -0.04, sns: { naver: 58, youtube: 68, google: 65, github: 18 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Lensa AI","렌사"], yt: "Lensa AI", ytKo: "렌사", gt: "Lensa AI", gtKo: "렌사", github: "Lensa AI",
+    naverKw: ["Lensa AI","렌사"],
   },
   {
     id: 110, cat: "photo", icon: "📸", name: "Photoroom", nameKo: "포토룸", free: true,
@@ -1021,7 +1021,7 @@ export const TOOLS_DATA = [
     features: ["AI 배경 자동 제거 1초 완성", "전문 제품 사진 배경 수백 가지", "AI 그림자·반사 자동 추가", "배치 편집으로 대량 처리", "Shopify·Amazon 최적화 크기"],
     tags: ["이미지", "무료", "배경제거"], score: 58.07, change: -0.08, sns: { naver: 52, youtube: 68, google: 70, github: 25 },
     life: ["marketer", "freelancer", "startup", "creator"],
-    naverKw: ["Photoroom","포토룸"], yt: "Photoroom", ytKo: "포토룸", gt: "Photoroom", gtKo: "포토룸", github: "Photoroom",
+    naverKw: ["Photoroom","포토룸"],
   },
   {
     id: 111, cat: "photo", icon: "✨", name: "Remini", nameKo: "리미니", free: true,
@@ -1030,7 +1030,7 @@ export const TOOLS_DATA = [
     features: ["흐릿한 사진 AI 선명화·복원", "저화질→HD 업스케일", "AI 프로필 사진 생성", "오래된 가족사진 복원", "얼굴 디테일 정밀 향상"],
     tags: ["이미지", "무료", "사진향상"], score: 52.83, change: -0.98, sns: { naver: 58, youtube: 65, google: 62, github: 10 },
     life: ["creator", "marketer", "office"],
-    naverKw: ["Remini","리미니"], yt: "Remini", ytKo: "리미니", gt: "Remini", gtKo: "리미니", github: "Remini",
+    naverKw: ["Remini","리미니"],
   },
   {
     id: 112, cat: "photo", icon: "💄", name: "Facetune", nameKo: "페이스튠", free: false,
@@ -1039,7 +1039,7 @@ export const TOOLS_DATA = [
     features: ["AI 피부 잡티·주름 자동 보정", "치아 미백·눈 선명도 강화", "배경 AI 교체 및 블러", "메이크업·헤어 컬러 가상 적용", "전문가급 리터칭 자동화"],
     tags: ["이미지", "포트레이트", "리터칭"], score: 56.35, change: 1.65, sns: { naver: 45, youtube: 60, google: 58, github: 8 },
     life: ["creator", "marketer"],
-    naverKw: ["Facetune","페이스튠"], yt: "Facetune", ytKo: "페이스튠", gt: "Facetune", gtKo: "페이스튠", github: "Facetune",
+    naverKw: ["Facetune","페이스튠"],
   },
   {
     id: 113, cat: "photo", icon: "🎨", name: "Prisma", nameKo: "프리즈마", free: true,
@@ -1048,7 +1048,7 @@ export const TOOLS_DATA = [
     features: ["수백 가지 명화 스타일 필터", "AI 신경망 예술 스타일 변환", "동영상에도 아트 필터 적용", "고해상도 출력 지원", "오프라인 모드 일부 지원"],
     tags: ["이미지", "무료", "아트필터"], score: 60.39, change: 2.16, sns: { naver: 30, youtube: 45, google: 42, github: 15 },
     life: ["creator", "student"],
-    naverKw: ["Prisma","프리즈마"], yt: "Prisma", ytKo: "프리즈마", gt: "Prisma", gtKo: "프리즈마", github: "Prisma",
+    naverKw: ["Prisma","프리즈마"],
   },
   {
     id: 114, cat: "photo", icon: "✂️", name: "Pixelcut", nameKo: "픽셀컷", free: true,
@@ -1057,7 +1057,7 @@ export const TOOLS_DATA = [
     features: ["AI 배경 제거 및 교체", "제품 사진 전문 배경 생성", "텍스트·스티커·로고 추가", "배치 편집 대량 처리", "스마트폰에서 원터치 완성"],
     tags: ["이미지", "무료", "제품사진"], score: 52.46, change: -0.1, sns: { naver: 38, youtube: 55, google: 55, github: 12 },
     life: ["marketer", "startup", "creator", "freelancer"],
-    naverKw: ["Pixelcut","픽셀컷"], yt: "Pixelcut", ytKo: "픽셀컷", gt: "Pixelcut", gtKo: "픽셀컷", github: "Pixelcut",
+    naverKw: ["Pixelcut","픽셀컷"],
   },
   {
     id: 115, cat: "photo", icon: "🌀", name: "Wombo Dream", nameKo: "웜보 드림", free: true,
@@ -1066,7 +1066,7 @@ export const TOOLS_DATA = [
     features: ["텍스트로 AI 아트 즉시 생성", "60가지 이상 아트 스타일", "입력 이미지 기반 스타일 변환", "NFT 민팅 연동 기능", "iOS·Android 무료 앱"],
     tags: ["이미지", "무료", "AI아트"], score: 51.61, change: -0.21, sns: { naver: 40, youtube: 58, google: 52, github: 18 },
     life: ["creator", "student"],
-    naverKw: ["Wombo Dream","웜보 드림"], yt: "Wombo Dream", ytKo: "웜보드림", gt: "Wombo Dream", gtKo: "웜보드림", github: "Wombo Dream",
+    naverKw: ["Wombo Dream","웜보 드림"],
   },
   {
     id: 116, cat: "image", icon: "⭐", name: "Starryai", nameKo: "스타리AI", free: true,
@@ -1075,7 +1075,7 @@ export const TOOLS_DATA = [
     features: ["매일 무료 크레딧 5개 제공", "생성 이미지 저작권 100% 보유", "Argo·Altair 두 가지 AI 모델", "프롬프트 없이 스타일만으로 생성", "커뮤니티 갤러리·공유"],
     tags: ["이미지", "무료", "AI아트"], score: 58.52, change: 0.03, sns: { naver: 30, youtube: 50, google: 45, github: 12 },
     life: ["creator", "student"],
-    naverKw: ["Starryai","스타리AI"], yt: "Starryai", ytKo: "스타리AI", gt: "Starryai", gtKo: "스타리AI", github: "Starryai",
+    naverKw: ["Starryai","스타리AI"],
   },
   {
     id: 117, cat: "photo", icon: "🌸", name: "Meitu", nameKo: "메이투", free: true,
@@ -1084,7 +1084,7 @@ export const TOOLS_DATA = [
     features: ["AI 메이크업·뷰티 자동 보정", "AI 아바타·캐릭터 생성", "AR 메이크업 가상 체험", "배경 AI 교체·포트레이트 모드", "한국·중국·일본 트렌드 필터"],
     tags: ["이미지", "무료", "뷰티"], score: 42.73, change: -1.4, sns: { naver: 50, youtube: 55, google: 58, github: 8 },
     life: ["creator", "marketer", "student"],
-    naverKw: ["Meitu","메이투"], yt: "Meitu", ytKo: "메이투", gt: "Meitu", gtKo: "메이투", github: "Meitu",
+    naverKw: ["Meitu","메이투"],
   },
   {
     id: 118, cat: "photo", icon: "🖌️", name: "PicsArt AI", nameKo: "픽스아트", free: true,
@@ -1093,7 +1093,7 @@ export const TOOLS_DATA = [
     features: ["AI 배경 제거 및 생성", "텍스트→AI 이미지 생성", "AI 스타일 변환·필터", "비디오 편집 및 슬라이드쇼", "크리에이터 템플릿 수백만 개"],
     tags: ["이미지", "무료", "편집"], score: 66.46, change: 0.44, sns: { naver: 55, youtube: 65, google: 65, github: 15 },
     life: ["creator", "marketer", "student", "freelancer"],
-    naverKw: ["PicsArt AI","픽스아트"], yt: "PicsArt AI", ytKo: "픽스아트", gt: "PicsArt AI", gtKo: "픽스아트", github: "PicsArt AI",
+    naverKw: ["PicsArt AI","픽스아트"],
   },
   {
     id: 119, cat: "photo", icon: "🔄", name: "Reface", nameKo: "리페이스", free: true,
@@ -1102,7 +1102,7 @@ export const TOOLS_DATA = [
     features: ["영화·GIF에 얼굴 AI 합성", "셀카 한 장으로 즉시 적용", "AI 아바타·캐릭터 생성", "밈·스티커 얼굴 교체", "동영상 페이스스왑 지원"],
     tags: ["이미지", "무료", "얼굴교체"], score: 51.3, change: -1.83, sns: { naver: 38, youtube: 58, google: 50, github: 8 },
     life: ["creator", "student"],
-    naverKw: ["Reface","리페이스"], yt: "Reface", ytKo: "리페이스", gt: "Reface", gtKo: "리페이스", github: "Reface",
+    naverKw: ["Reface","리페이스"],
   },
   {
     id: 120, cat: "photo", icon: "😊", name: "FaceApp", nameKo: "페이스앱", free: true,
@@ -1111,7 +1111,7 @@ export const TOOLS_DATA = [
     features: ["AI 노화·젊어지기 변환", "성별 변환 필터", "헤어스타일·수염 가상 체험", "배경 교체 및 보정", "프로 리터칭 AI 자동화"],
     tags: ["이미지", "무료", "얼굴변환"], score: 53.61, change: -2.04, sns: { naver: 48, youtube: 62, google: 55, github: 8 },
     life: ["creator", "student"],
-    naverKw: ["FaceApp","페이스앱"], yt: "FaceApp", ytKo: "페이스앱", gt: "FaceApp", gtKo: "페이스앱", github: "FaceApp",
+    naverKw: ["FaceApp","페이스앱"],
   },
   {
     id: 121, cat: "photo", icon: "🌈", name: "Photoleap", nameKo: "포토립", free: true,
@@ -1120,7 +1120,7 @@ export const TOOLS_DATA = [
     features: ["텍스트→이미지 AI 생성", "AI 스타일 변환·페인팅 효과", "레이어 기반 전문 편집", "AI 배경 교체·오브젝트 제거", "Facetune 제작사 Lightricks 출시"],
     tags: ["이미지", "무료", "AI편집"], score: 54.96, change: -0.81, sns: { naver: 30, youtube: 52, google: 50, github: 10 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Photoleap","포토립"], yt: "Photoleap", ytKo: "포토립", gt: "Photoleap", gtKo: "포토립", github: "Photoleap",
+    naverKw: ["Photoleap","포토립"],
   },
   {
     id: 122, cat: "photo", icon: "📷", name: "Deep Nostalgia", nameKo: "딥 노스탤지아", free: true,
@@ -1129,7 +1129,7 @@ export const TOOLS_DATA = [
     features: ["정지 사진→움직이는 영상 변환", "여러 인물 동시 애니메이션화", "자연스러운 눈·입·고개 움직임", "가족사진·오래된 흑백사진 특화", "MyHeritage 앱에서 바로 사용"],
     tags: ["이미지", "무료", "사진애니메이션"], score: 59.88, change: -1.52, sns: { naver: 42, youtube: 55, google: 48, github: 8 },
     life: ["creator", "student"],
-    naverKw: ["Deep Nostalgia","딥 노스탤지아"], yt: "Deep Nostalgia", ytKo: "딥노스탤지아", gt: "Deep Nostalgia", gtKo: "딥노스탤지아", github: "Deep Nostalgia",
+    naverKw: ["Deep Nostalgia","딥 노스탤지아"],
   },
 
   // 영상
@@ -1140,7 +1140,7 @@ export const TOOLS_DATA = [
     features: ["AI 자동 자막 생성·번역", "아이컨택(눈 맞춤) AI 보정", "필러워드(음..어..) 자동 제거", "B-roll 자동 추천·삽입", "쇼츠·릴스 최적화 편집"],
     tags: ["영상", "무료", "자막"], score: 57.9, change: 1.96, sns: { naver: 40, youtube: 65, google: 60, github: 18 },
     life: ["creator", "marketer", "startup"],
-    naverKw: ["Captions","캡션스"], yt: "Captions", ytKo: "캡션스", gt: "Captions", gtKo: "캡션스", github: "Captions",
+    naverKw: ["Captions","캡션스"],
   },
   {
     id: 124, cat: "video", icon: "👤", name: "D-ID", nameKo: "디아이디", free: false,
@@ -1149,7 +1149,7 @@ export const TOOLS_DATA = [
     features: ["사진→말하는 AI 아바타 생성", "텍스트·오디오로 입술 동기화", "100개 이상 언어 지원", "API로 대량 영상 자동 생성", "실시간 스트리밍 아바타"],
     tags: ["영상", "아바타", "API"], score: 56.97, change: 1.49, sns: { naver: 42, youtube: 60, google: 58, github: 28 },
     life: ["marketer", "startup", "creator", "office"],
-    naverKw: ["D-ID","디아이디"], yt: "D-ID", ytKo: "디아이디", gt: "D-ID", gtKo: "디아이디", github: "D-ID",
+    naverKw: ["D-ID","디아이디"],
   },
   {
     id: 125, cat: "video", icon: "🎥", name: "Filmora AI", nameKo: "필모라", free: true,
@@ -1158,7 +1158,7 @@ export const TOOLS_DATA = [
     features: ["AI 자동 자막·번역 생성", "AI 배경 제거·그린스크린", "노이즈 자동 제거·음질 향상", "AI 장면 감지 자동 컷편집", "모바일·PC 크로스플랫폼"],
     tags: ["영상", "무료", "편집"], score: 56, change: -0.69, sns: { naver: 55, youtube: 65, google: 62, github: 12 },
     life: ["creator", "marketer", "student", "freelancer"],
-    naverKw: ["Filmora AI","필모라"], yt: "Filmora AI", ytKo: "필모라", gt: "Filmora AI", gtKo: "필모라", github: "Filmora AI",
+    naverKw: ["Filmora AI","필모라"],
   },
   {
     id: 126, cat: "video", icon: "🎞️", name: "Pixverse", nameKo: "픽스버스", free: true,
@@ -1167,7 +1167,7 @@ export const TOOLS_DATA = [
     features: ["텍스트→AI 영상 즉시 생성", "이미지→동영상 변환", "캐릭터 일관성 유지 기능", "4K 고해상도 출력", "모바일 앱으로 간편 생성"],
     tags: ["영상", "무료", "AI생성"], score: 46.17, change: 1.7, sns: { naver: 32, youtube: 55, google: 50, github: 18 },
     life: ["creator", "marketer", "startup"],
-    naverKw: ["Pixverse","픽스버스"], yt: "Pixverse", ytKo: "픽스버스", gt: "Pixverse", gtKo: "픽스버스", github: "Pixverse",
+    naverKw: ["Pixverse","픽스버스"],
   },
   {
     id: 127, cat: "video", icon: "🌊", name: "Haiper", nameKo: "하이퍼", free: true,
@@ -1176,7 +1176,7 @@ export const TOOLS_DATA = [
     features: ["텍스트·이미지→부드러운 AI 영상", "2초·4초 영상 생성 선택", "영상 리페인팅·스타일 변환", "무료 크레딧 매일 제공", "딥마인드 출신 팀 개발"],
     tags: ["영상", "무료", "AI생성"], score: 48.7, change: 1.79, sns: { naver: 20, youtube: 45, google: 45, github: 20 },
     life: ["creator", "startup", "marketer"],
-    naverKw: ["Haiper","하이퍼"], yt: "Haiper", ytKo: "하이퍼AI", gt: "Haiper", gtKo: "하이퍼AI", github: "Haiper",
+    naverKw: ["Haiper","하이퍼"],
   },
 
   // 오디오
@@ -1187,7 +1187,7 @@ export const TOOLS_DATA = [
     features: ["실시간 AI 음성 변조", "90가지 이상 음성 이펙트", "Discord·Zoom·게임 연동", "커스텀 사운드보드 생성", "텍스트→음성 변환 기능"],
     tags: ["오디오", "무료", "음성변조"], score: 52.47, change: -0.94, sns: { naver: 40, youtube: 62, google: 58, github: 15 },
     life: ["creator", "student", "freelancer"],
-    naverKw: ["Voicemod","보이스모드"], yt: "Voicemod", ytKo: "보이스모드", gt: "Voicemod", gtKo: "보이스모드", github: "Voicemod",
+    naverKw: ["Voicemod","보이스모드"],
   },
   {
     id: 129, cat: "audio", icon: "🗣️", name: "Resemble AI", nameKo: "리젬블", free: false,
@@ -1196,7 +1196,7 @@ export const TOOLS_DATA = [
     features: ["30초 샘플로 음성 복제", "감정 조절 가능한 TTS", "실시간 음성 변환 API", "워터마킹으로 딥페이크 탐지", "100개 이상 사전 학습 음성"],
     tags: ["오디오", "음성복제", "API"], score: 53.94, change: 1.34, sns: { naver: 25, youtube: 48, google: 52, github: 38 },
     life: ["startup", "freelancer", "marketer", "creator"],
-    naverKw: ["Resemble AI","리젬블"], yt: "Resemble AI", ytKo: "리젬블", gt: "Resemble AI", gtKo: "리젬블", github: "Resemble AI",
+    naverKw: ["Resemble AI","리젬블"],
   },
   {
     id: 130, cat: "audio", icon: "▶️", name: "Play.ht", nameKo: "플레이HT", free: true,
@@ -1205,7 +1205,7 @@ export const TOOLS_DATA = [
     features: ["900개 이상 다국어 AI 음성", "감정·속도·피치 세밀 조절", "블로그 글 원클릭 팟캐스트화", "API로 앱 내 음성 생성", "Ultra Realistic 초사실 음성"],
     tags: ["오디오", "무료", "TTS"], score: 56.19, change: -2.16, sns: { naver: 30, youtube: 52, google: 55, github: 28 },
     life: ["marketer", "creator", "startup", "freelancer"],
-    naverKw: ["Play.ht","플레이HT"], yt: "Play.ht", ytKo: "플레이HT", gt: "Play.ht", gtKo: "플레이HT", github: "Play.ht",
+    naverKw: ["Play.ht","플레이HT"],
   },
   {
     id: 131, cat: "audio", icon: "🎧", name: "Podcastle", nameKo: "팟캐슬", free: true,
@@ -1214,7 +1214,7 @@ export const TOOLS_DATA = [
     features: ["AI 노이즈 제거·음질 향상", "다인 원격 녹음 지원", "AI 자동 편집·무음 제거", "텍스트→AI 팟캐스트 생성", "Spotify·Apple 직접 배포"],
     tags: ["오디오", "무료", "팟캐스트"], score: 55.25, change: 0.12, sns: { naver: 22, youtube: 48, google: 48, github: 12 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Podcastle","팟캐슬"], yt: "Podcastle", ytKo: "팟캐슬", gt: "Podcastle", gtKo: "팟캐슬", github: "Podcastle",
+    naverKw: ["Podcastle","팟캐슬"],
   },
   {
     id: 132, cat: "audio", icon: "🎵", name: "Boomy", nameKo: "부미", free: true,
@@ -1223,7 +1223,7 @@ export const TOOLS_DATA = [
     features: ["AI 오리지널 음악 즉시 생성", "장르·분위기 클릭으로 선택", "Spotify·TikTok 직접 배포", "스트리밍 수익 공유", "모바일 앱에서 전체 작업"],
     tags: ["오디오", "무료", "음악생성"], score: 48.83, change: 0.55, sns: { naver: 25, youtube: 52, google: 50, github: 10 },
     life: ["creator", "student", "freelancer"],
-    naverKw: ["Boomy","부미"], yt: "Boomy", ytKo: "부미", gt: "Boomy", gtKo: "부미", github: "Boomy",
+    naverKw: ["Boomy","부미"],
   },
 
   // 생산성
@@ -1234,7 +1234,7 @@ export const TOOLS_DATA = [
     features: ["어떤 텍스트든 AI 음성으로 변환", "최대 4.5배속 청취 훈련", "PDF·이메일·웹페이지 임포트", "유명인 AI 음성 선택 가능", "난독증·시각장애 접근성 지원"],
     tags: ["생산성", "무료", "TTS"], score: 61.56, change: 1.04, sns: { naver: 45, youtube: 72, google: 70, github: 18 },
     life: ["student", "office", "freelancer", "creator"],
-    naverKw: ["Speechify","스피치파이"], yt: "Speechify", ytKo: "스피치파이", gt: "Speechify", gtKo: "스피치파이", github: "Speechify",
+    naverKw: ["Speechify","스피치파이"],
   },
   {
     id: 134, cat: "productivity", icon: "📅", name: "Motion", nameKo: "모션", free: false,
@@ -1243,7 +1243,7 @@ export const TOOLS_DATA = [
     features: ["AI 자동 일정 최적화", "할 일·회의·프로젝트 통합 관리", "우선순위 기반 자동 재배치", "팀 협업 일정 조율", "Google·Outlook 캘린더 연동"],
     tags: ["생산성", "일정관리", "자동화"], score: 55.86, change: -0.86, sns: { naver: 28, youtube: 58, google: 60, github: 22 },
     life: ["office", "freelancer", "startup"],
-    naverKw: ["Motion AI","모션"], yt: "Motion", ytKo: "모션AI", gt: "Motion", gtKo: "모션AI", github: "Motion",
+    naverKw: ["Motion AI","모션"],
   },
   {
     id: 135, cat: "productivity", icon: "🔇", name: "Krisp", nameKo: "크리스프", free: true,
@@ -1252,7 +1252,7 @@ export const TOOLS_DATA = [
     features: ["실시간 AI 소음·에코 제거", "Zoom·Teams·Meet 전체 연동", "AI 음성만 선택적 통과", "회의 녹음·요약 기능", "하루 60분 무료 사용"],
     tags: ["생산성", "무료", "노이즈제거"], score: 56.63, change: 0.72, sns: { naver: 38, youtube: 62, google: 62, github: 28 },
     life: ["office", "freelancer", "startup", "student"],
-    naverKw: ["Krisp","크리스프"], yt: "Krisp", ytKo: "크리스프", gt: "Krisp", gtKo: "크리스프", github: "Krisp",
+    naverKw: ["Krisp","크리스프"],
   },
   {
     id: 136, cat: "productivity", icon: "⚡", name: "Superhuman", nameKo: "슈퍼휴먼", free: false,
@@ -1261,7 +1261,7 @@ export const TOOLS_DATA = [
     features: ["AI 이메일 응답 초안 자동 생성", "스레드 자동 요약", "단축키 기반 초고속 처리", "중요 이메일 AI 자동 분류", "Gmail·Outlook 완전 연동"],
     tags: ["생산성", "이메일", "AI"], score: 59.73, change: 1.36, sns: { naver: 22, youtube: 55, google: 58, github: 25 },
     life: ["office", "startup", "freelancer"],
-    naverKw: ["Superhuman","슈퍼휴먼"], yt: "Superhuman", ytKo: "슈퍼휴먼", gt: "Superhuman", gtKo: "슈퍼휴먼", github: "Superhuman",
+    naverKw: ["Superhuman","슈퍼휴먼"],
   },
   {
     id: 137, cat: "automation", icon: "🔗", name: "Lindy AI", nameKo: "린디", free: true,
@@ -1270,7 +1270,7 @@ export const TOOLS_DATA = [
     features: ["노코드 AI 에이전트 생성", "이메일·캘린더 자동 처리", "CRM 데이터 자동 업데이트", "회의 녹취·요약·액션아이템 추출", "2,000개 이상 앱 연동"],
     tags: ["생산성", "무료", "자동화"], score: 53.3, change: 1.76, sns: { naver: 18, youtube: 45, google: 48, github: 28 },
     life: ["office", "startup", "freelancer"],
-    naverKw: ["Lindy AI","린디"], yt: "Lindy AI", ytKo: "린디", gt: "Lindy AI", gtKo: "린디", github: "Lindy AI",
+    naverKw: ["Lindy AI","린디"],
   },
   {
     id: 138, cat: "education", icon: "🦉", name: "Duolingo Max", nameKo: "듀오링고", free: true,
@@ -1279,7 +1279,7 @@ export const TOOLS_DATA = [
     features: ["GPT-4 AI 튜터 '릴로' 대화 연습", "실수 자동 분석·설명", "AI 롤플레이 상황 대화 연습", "게임형 학습으로 동기 유지", "40개 이상 언어 지원"],
     tags: ["생산성", "무료", "언어학습"], score: 66.97, change: -0.13, sns: { naver: 75, youtube: 78, google: 78, github: 28 },
     life: ["student", "office", "freelancer", "creator"],
-    naverKw: ["Duolingo Max","듀오링고"], yt: "Duolingo Max", ytKo: "듀오링고", gt: "Duolingo Max", gtKo: "듀오링고", github: "Duolingo Max",
+    naverKw: ["Duolingo Max","듀오링고"],
   },
   {
     id: 139, cat: "education", icon: "🗣️", name: "Elsa Speak", nameKo: "엘사 스피크", free: true,
@@ -1288,7 +1288,7 @@ export const TOOLS_DATA = [
     features: ["AI 실시간 발음 정확도 분석", "음소 단위 세밀한 피드백", "비즈니스 영어·IELTS 특화 코스", "22개 영어 억양 선택", "발음 진도·통계 대시보드"],
     tags: ["생산성", "무료", "영어발음"], score: 55.85, change: 1.65, sns: { naver: 42, youtube: 58, google: 58, github: 8 },
     life: ["student", "office"],
-    naverKw: ["Elsa Speak","엘사 스피크"], yt: "Elsa Speak", ytKo: "엘사스피크", gt: "Elsa Speak", gtKo: "엘사스피크", github: "Elsa Speak",
+    naverKw: ["Elsa Speak","엘사 스피크"],
   },
   {
     id: 140, cat: "education", icon: "💬", name: "Speak", nameKo: "스피크", free: false,
@@ -1297,7 +1297,7 @@ export const TOOLS_DATA = [
     features: ["AI 원어민과 실시간 회화 연습", "즉각 발음·문법 피드백", "일상·비즈니스·여행 상황 대화", "AI 레슨 맞춤 커리큘럼", "말하기 중심 학습 방법론"],
     tags: ["생산성", "언어학습", "AI튜터"], score: 55.02, change: 0.34, sns: { naver: 38, youtube: 52, google: 52, github: 12 },
     life: ["student", "office"],
-    naverKw: ["Speak","스피크"], yt: "Speak", ytKo: "스피크", gt: "Speak", gtKo: "스피크", github: "Speak",
+    naverKw: ["Speak","스피크"],
   },
   {
     id: 141, cat: "productivity", icon: "🖊️", name: "QuillBot", nameKo: "퀼봇", free: true,
@@ -1306,7 +1306,7 @@ export const TOOLS_DATA = [
     features: ["AI 문장 패러프레이징 7가지 모드", "텍스트 자동 요약", "문법·철자 자동 교정", "표절 검사 기능", "Word·Chrome 확장 연동"],
     tags: ["생산성", "무료", "글쓰기"], score: 65.25, change: 1.39, sns: { naver: 52, youtube: 70, google: 68, github: 15 },
     life: ["student", "office", "freelancer", "marketer"],
-    naverKw: ["QuillBot","퀼봇"], yt: "QuillBot", ytKo: "퀼봇", gt: "QuillBot", gtKo: "퀼봇", github: "QuillBot",
+    naverKw: ["QuillBot","퀼봇"],
   },
 
   // 검색·학습
@@ -1317,7 +1317,7 @@ export const TOOLS_DATA = [
     features: ["카메라로 수식 인식·즉시 풀이", "단계별 상세 풀이 과정 설명", "손으로 쓴 수식도 인식", "수학 개념 애니메이션 강의", "그래프·함수 시각화"],
     tags: ["검색", "무료", "수학"], score: 57.11, change: 0.95, sns: { naver: 62, youtube: 75, google: 72, github: 10 },
     life: ["student"],
-    naverKw: ["Photomath","포토매스"], yt: "Photomath", ytKo: "포토매스", gt: "Photomath", gtKo: "포토매스", github: "Photomath",
+    naverKw: ["Photomath","포토매스"],
   },
   {
     id: 143, cat: "education", icon: "🎓", name: "Socratic", nameKo: "소크라틱", free: true,
@@ -1326,7 +1326,7 @@ export const TOOLS_DATA = [
     features: ["문제 사진→AI 개념 설명", "수학·과학·영어·역사 전 과목", "관련 유튜브 강의 자동 연결", "단계별 풀이 가이드", "구글 AI 기반 학습 최적화"],
     tags: ["검색", "무료", "학습도우미"], score: 57.35, change: 0.2, sns: { naver: 45, youtube: 62, google: 62, github: 12 },
     life: ["student"],
-    naverKw: ["Socratic","소크라틱"], yt: "Socratic", ytKo: "소크라틱", gt: "Socratic", gtKo: "소크라틱", github: "Socratic",
+    naverKw: ["Socratic","소크라틱"],
   },
   {
     id: 144, cat: "search", icon: "🖍️", name: "Liner", nameKo: "라이너", free: true,
@@ -1335,7 +1335,7 @@ export const TOOLS_DATA = [
     features: ["웹페이지·PDF AI 하이라이트", "하이라이트 기반 AI 요약", "AI 질의응답 리서치 도우미", "하이라이트 노트 클라우드 동기화", "Chrome·iOS·Android 지원"],
     tags: ["검색", "무료", "AI하이라이팅"], score: 49.76, change: 0.3, sns: { naver: 40, youtube: 42, google: 48, github: 12 },
     life: ["student", "office", "freelancer"],
-    naverKw: ["Liner","라이너"], yt: "Liner", ytKo: "라이너AI", gt: "Liner", gtKo: "라이너AI", github: "Liner",
+    naverKw: ["Liner","라이너"],
   },
   {
     id: 145, cat: "search", icon: "🔍", name: "Google Lens", nameKo: "구글 렌즈", free: true,
@@ -1344,7 +1344,7 @@ export const TOOLS_DATA = [
     features: ["카메라로 사물·식물·동물 즉시 검색", "이미지 내 텍스트 추출·번역", "옷·가구 등 쇼핑 아이템 검색", "숙제 문제 사진→AI 풀이", "Google 포토와 완전 통합"],
     tags: ["검색", "무료", "시각검색"], score: 59.38, change: 1.14, sns: { naver: 72, youtube: 75, google: 85, github: 18 },
     life: ["student", "office", "marketer", "creator"],
-    naverKw: ["Google Lens","구글 렌즈"], yt: "Google Lens", ytKo: "구글렌즈", gt: "Google Lens", gtKo: "구글렌즈", github: "Google Lens",
+    naverKw: ["Google Lens","구글 렌즈"],
   },
 
   // 디자인
@@ -1355,7 +1355,7 @@ export const TOOLS_DATA = [
     features: ["DALL-E AI 이미지 생성 내장", "SNS·포스터·배너 템플릿", "AI 텍스트 효과·레이아웃 제안", "Microsoft 365 계정 무료 사용", "모바일 앱에서 전체 편집"],
     tags: ["디자인", "무료", "AI생성"], score: 60.77, change: -0.39, sns: { naver: 45, youtube: 62, google: 62, github: 22 },
     life: ["office", "marketer", "freelancer", "startup"],
-    naverKw: ["Microsoft Designer","마이크로소프트 디자이너"], yt: "Microsoft Designer", ytKo: "마이크로소프트디자이너", gt: "Microsoft Designer", gtKo: "마이크로소프트디자이너", github: "Microsoft Designer",
+    naverKw: ["Microsoft Designer","마이크로소프트 디자이너"],
   },
   {
     id: 147, cat: "design", icon: "🅰️", name: "Adobe Express", nameKo: "어도비 익스프레스", free: true,
@@ -1364,7 +1364,7 @@ export const TOOLS_DATA = [
     features: ["Adobe Firefly AI 이미지 생성", "AI 배경 제거·오브젝트 지우기", "수천 가지 전문 템플릿", "SNS 예약 게시 기능", "Adobe CC 파일 연동"],
     tags: ["디자인", "무료", "크리에이티브"], score: 60.9, change: 1.18, sns: { naver: 52, youtube: 65, google: 68, github: 18 },
     life: ["marketer", "creator", "freelancer", "student"],
-    naverKw: ["Adobe Express","어도비 익스프레스"], yt: "Adobe Express", ytKo: "어도비익스프레스", gt: "Adobe Express", gtKo: "어도비익스프레스", github: "Adobe Express",
+    naverKw: ["Adobe Express","어도비 익스프레스"],
   },
   {
     id: 148, cat: "design", icon: "🖼️", name: "Fotor AI", nameKo: "포터", free: true,
@@ -1373,7 +1373,7 @@ export const TOOLS_DATA = [
     features: ["AI 사진 원클릭 향상", "AI 배경 제거·교체", "텍스트→AI 이미지 생성", "포스터·카드·배너 템플릿", "AI 포트레이트 리터칭"],
     tags: ["디자인", "무료", "사진편집"], score: 60.67, change: -0.94, sns: { naver: 38, youtube: 52, google: 52, github: 10 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Fotor AI","포터"], yt: "Fotor AI", ytKo: "포터", gt: "Fotor AI", gtKo: "포터", github: "Fotor AI",
+    naverKw: ["Fotor AI","포터"],
   },
 
   // 텍스트 추가
@@ -1384,7 +1384,7 @@ export const TOOLS_DATA = [
     features: ["인지행동치료 CBT 기반 대화", "스트레스·불안·우울 관리", "일일 감정 체크인", "심리 기법 게임화 학습", "24/7 익명 비밀 상담"],
     tags: ["텍스트", "무료", "멘탈헬스"], score: 56.38, change: 1.6, sns: { naver: 20, youtube: 42, google: 45, github: 18 },
     life: ["student", "office", "freelancer"],
-    naverKw: ["Woebot","우봇"], yt: "Woebot", ytKo: "우봇", gt: "Woebot", gtKo: "우봇", github: "Woebot",
+    naverKw: ["Woebot","우봇"],
   },
   {
     id: 150, cat: "chatbot", icon: "👾", name: "Kuki AI", nameKo: "쿠키", free: true,
@@ -1393,7 +1393,7 @@ export const TOOLS_DATA = [
     features: ["수상 경력 AI 소셜 챗봇", "자연스러운 잡담·유머 대화", "브랜드 커스텀 챗봇 구축", "메타버스·가상 인플루언서 연동", "다국어 대화 지원"],
     tags: ["텍스트", "무료", "챗봇"], score: 43.23, change: -0.51, sns: { naver: 15, youtube: 38, google: 42, github: 22 },
     life: ["student", "creator"],
-    naverKw: ["Kuki AI","쿠키"], yt: "Kuki AI", ytKo: "쿠키AI", gt: "Kuki AI", gtKo: "쿠키AI", github: "Kuki AI",
+    naverKw: ["Kuki AI","쿠키"],
   },
 
   // ── 코딩 추가 (151-158) ──
@@ -1404,7 +1404,7 @@ export const TOOLS_DATA = [
     features: ["전체 소프트웨어 개발 주기 자동화", "GitHub 이슈 자동 처리·PR 생성", "자체 브라우저·터미널 사용 가능", "멀티 에이전트 병렬 작업 지원", "SWE-bench 기준 최고 성능"],
     tags: ["코딩", "유료", "AI에이전트"], score: 52.39, change: 0.22, sns: { naver: 35, youtube: 65, google: 68, github: 55 },
     life: ["startup", "office", "freelancer"],
-    naverKw: ["Devin","데빈 AI"], yt: "Devin", ytKo: "데빈", gt: "Devin", gtKo: "데빈", github: "Devin",
+    naverKw: ["Devin","데빈 AI"],
   },
   {
     id: 152, cat: "code", icon: "💝", name: "Lovable", nameKo: "러버블 AI", free: true,
@@ -1413,7 +1413,7 @@ export const TOOLS_DATA = [
     features: ["텍스트→풀스택 앱 자동 생성", "Supabase 백엔드 자동 연동", "React + Tailwind 기반 코드 생성", "실시간 미리보기·수정 가능", "GitHub 연동 및 Netlify 배포"],
     tags: ["코딩", "무료", "노코드"], score: 57.71, change: -1.94, sns: { naver: 25, youtube: 58, google: 60, github: 52 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Lovable","러버블 AI"], yt: "Lovable", ytKo: "러버블", gt: "Lovable", gtKo: "러버블", github: "Lovable",
+    naverKw: ["Lovable","러버블 AI"],
   },
   {
     id: 153, cat: "code", icon: "☁️", name: "Amazon Q Developer", nameKo: "아마존 Q", free: true,
@@ -1422,7 +1422,7 @@ export const TOOLS_DATA = [
     features: ["AWS 서비스 전문 코드 자동 완성", "보안 취약점 AI 자동 스캔", "레거시 코드 현대화 변환", "터미널 자연어 명령 지원", "IDE 플러그인 무료 제공"],
     tags: ["코딩", "무료", "AWS"], score: 56.05, change: -0.82, sns: { naver: 38, youtube: 58, google: 65, github: 62 },
     life: ["office", "startup", "freelancer"],
-    naverKw: ["Amazon Q Developer","아마존 Q"], yt: "Amazon Q Developer", ytKo: "아마존Q", gt: "Amazon Q Developer", gtKo: "아마존Q", github: "Amazon Q Developer",
+    naverKw: ["Amazon Q Developer","아마존 Q"],
   },
   {
     id: 154, cat: "code", icon: "🧩", name: "JetBrains AI", nameKo: "젯브레인 AI", free: false,
@@ -1431,7 +1431,7 @@ export const TOOLS_DATA = [
     features: ["JetBrains 전 IDE 통합 AI 지원", "GPT-4·Claude 선택 사용 가능", "프로젝트 전체 컨텍스트 코드 완성", "AI 코드 리뷰·리팩토링 제안", "테스트·문서 자동 생성"],
     tags: ["코딩", "유료", "IDE"], score: 77.22, change: 2.12, sns: { naver: 42, youtube: 62, google: 62, github: 58 },
     life: ["office", "freelancer", "startup"],
-    naverKw: ["JetBrains AI","젯브레인 AI"], yt: "JetBrains AI", ytKo: "젯브레인", gt: "JetBrains AI", gtKo: "젯브레인", github: "JetBrains AI",
+    naverKw: ["JetBrains AI","젯브레인 AI"],
   },
   {
     id: 155, cat: "code", icon: "🔗", name: "Continue.dev", nameKo: "컨티뉴 AI", free: true,
@@ -1440,7 +1440,7 @@ export const TOOLS_DATA = [
     features: ["VS Code·JetBrains 플러그인 무료", "어떤 LLM도 자유롭게 연결 가능", "코드베이스 전체 컨텍스트 참조", "자동 완성·채팅·편집 통합", "로컬 Ollama 모델 지원"],
     tags: ["코딩", "무료", "오픈소스"], score: 50.79, change: 0.62, sns: { naver: 15, youtube: 42, google: 48, github: 75 },
     life: ["freelancer", "startup", "student"],
-    naverKw: ["Continue.dev","컨티뉴 AI"], yt: "Continue.dev", ytKo: "컨티뉴", gt: "Continue.dev", gtKo: "컨티뉴", github: "Continue.dev",
+    naverKw: ["Continue.dev","컨티뉴 AI"],
   },
   {
     id: 156, cat: "code", icon: "⌨️", name: "Aider", nameKo: "에이더 AI", free: true,
@@ -1449,7 +1449,7 @@ export const TOOLS_DATA = [
     features: ["터미널 CLI 기반 AI 코딩", "Git 커밋 자동 생성 및 관리", "100여 개 LLM 모델 지원", "기존 코드베이스 전체 파악", "GPT-4o·Claude 최고 성능 지원"],
     tags: ["코딩", "무료", "오픈소스"], score: 52.31, change: 1.56, sns: { naver: 15, youtube: 48, google: 52, github: 78 },
     life: ["freelancer", "startup", "student"],
-    naverKw: ["Aider","에이더 AI"], yt: "Aider", ytKo: "에이더", gt: "Aider", gtKo: "에이더", github: "Aider",
+    naverKw: ["Aider","에이더 AI"],
   },
   {
     id: 157, cat: "code", icon: "⚡", name: "Zed", nameKo: "제드 AI 에디터", free: true,
@@ -1458,7 +1458,7 @@ export const TOOLS_DATA = [
     features: ["Rust 기반 초고속 실행 성능", "AI 인라인 편집·채팅 기본 내장", "멀티플레이어 실시간 협업 편집", "Claude·GPT·로컬 LLM 연결", "오픈소스로 무료 사용 가능"],
     tags: ["코딩", "무료", "에디터"], score: 63.68, change: -0.79, sns: { naver: 18, youtube: 55, google: 55, github: 72 },
     life: ["freelancer", "startup", "student"],
-    naverKw: ["Zed","제드 에디터","제드 AI 에디터"], yt: "Zed", ytKo: "제드에디터", gt: "Zed", gtKo: "제드에디터", github: "Zed",
+    naverKw: ["Zed","제드 에디터","제드 AI 에디터"],
   },
   {
     id: 158, cat: "code", icon: "🦾", name: "Cline", nameKo: "클라인 AI", free: true,
@@ -1467,7 +1467,7 @@ export const TOOLS_DATA = [
     features: ["VS Code에서 자율 코딩 에이전트 실행", "파일·폴더 생성·편집 자동화", "터미널 명령 자율 실행", "브라우저 조작·스크린샷 분석", "Claude·GPT 등 멀티 모델 지원"],
     tags: ["코딩", "무료", "오픈소스"], score: 63.94, change: 46.54, sns: { naver: 22, youtube: 60, google: 62, github: 82 },
     life: ["freelancer", "startup", "office"],
-    naverKw: ["Cline AI","클라인 AI","Cline VS Code"], yt: "Cline AI", ytKo: "클라인 AI", gt: "Cline AI", gtKo: "클라인 AI", github: "Cline",
+    naverKw: ["Cline AI","클라인 AI","Cline VS Code"],
   },
 
   // ── 텍스트 추가 (159-163) ──
@@ -1478,7 +1478,7 @@ export const TOOLS_DATA = [
     features: ["GPT-4o·Claude 무료 무제한 사용", "AI 이미지 생성 기능 내장", "AI 스토어에서 다양한 도구 이용", "한국어 최적화 서비스", "AI 캐릭터 대화 기능"],
     tags: ["텍스트", "무료", "한국어"], score: 54.08, change: -1.69, sns: { naver: 92, youtube: 75, google: 58, github: 48 },
     life: ["office", "student", "marketer", "freelancer"],
-    naverKw: ["WRTN","뤼튼 AI"], yt: "WRTN", ytKo: "뤼튼", gt: "WRTN", gtKo: "뤼튼", github: "WRTN",
+    naverKw: ["WRTN","뤼튼 AI"],
   },
   {
     id: 160, cat: "text", icon: "💎", name: "Gemma", nameKo: "구글 젬마", free: true,
@@ -1487,7 +1487,7 @@ export const TOOLS_DATA = [
     features: ["2B·7B·27B 다양한 경량 모델", "로컬 실행 최적화 설계", "Gemini 기술 기반 고성능", "Keras·JAX·PyTorch 지원", "오픈소스 완전 무료 공개"],
     tags: ["텍스트", "무료", "오픈소스"], score: 58.02, change: -12.98, sns: { naver: 38, youtube: 62, google: 70, github: 85 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Gemma","구글 젬마"], yt: "Gemma", ytKo: "구글젬마", gt: "Gemma", gtKo: "구글젬마", github: "Gemma",
+    naverKw: ["Gemma","구글 젬마"],
   },
   {
     id: 161, cat: "text", icon: "🦁", name: "EXAONE", nameKo: "엑사원", free: true,
@@ -1496,7 +1496,7 @@ export const TOOLS_DATA = [
     features: ["한국어·영어 최적화 이중언어 모델", "국내 법률·의료·금융 도메인 특화", "2.4B·7.8B·32B 모델 라인업", "오픈소스로 상업적 이용 가능", "벤치마크 한국어 최고 수준"],
     tags: ["텍스트", "무료", "한국어"], score: 47.99, change: -0.7, sns: { naver: 55, youtube: 45, google: 38, github: 52 },
     life: ["office", "startup", "student"],
-    naverKw: ["EXAONE","엑사원"], yt: "EXAONE", ytKo: "엑사원", gt: "EXAONE", gtKo: "엑사원", github: "EXAONE",
+    naverKw: ["EXAONE","엑사원"],
   },
   {
     id: 162, cat: "text", icon: "☀️", name: "Solar", nameKo: "솔라 AI", free: true,
@@ -1505,7 +1505,7 @@ export const TOOLS_DATA = [
     features: ["Solar Pro·Mini 다양한 크기 제공", "한국어·영어 동급 최고 성능", "Document AI 문서 분석 특화", "RAG 파이프라인 최적화 설계", "저렴한 API 가격 정책"],
     tags: ["텍스트", "무료", "한국어"], score: 44.79, change: 2.47, sns: { naver: 50, youtube: 42, google: 45, github: 55 },
     life: ["office", "startup", "freelancer"],
-    naverKw: ["Solar","솔라 AI"], yt: "Solar", ytKo: "솔라AI", gt: "Solar", gtKo: "솔라AI", github: "Solar",
+    naverKw: ["Solar","솔라 AI"],
   },
   {
     id: 163, cat: "text", icon: "🔬", name: "InternLM", nameKo: "인턴LM", free: true,
@@ -1514,7 +1514,7 @@ export const TOOLS_DATA = [
     features: ["1M 토큰 초장문 컨텍스트 지원", "수학·코딩·추론 특화 성능", "도구 호출·에이전트 기능 내장", "오픈소스 Apache 2.0 라이선스", "MathBench 수학 벤치마크 1위"],
     tags: ["텍스트", "무료", "오픈소스"], score: 37.78, change: -0.01, sns: { naver: 20, youtube: 38, google: 45, github: 70 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["InternLM","인턴LM"], yt: "InternLM", ytKo: "인턴LM", gt: "InternLM", gtKo: "인턴LM", github: "InternLM",
+    naverKw: ["InternLM","인턴LM"],
   },
 
   // ── 검색·리서치 추가 (164-167) ──
@@ -1525,7 +1525,7 @@ export const TOOLS_DATA = [
     features: ["질문 기반 학술 논문 AI 검색", "논문 핵심 결론 자동 요약", "200M+ 논문 데이터베이스", "근거 수준·신뢰도 자동 평가", "Copilot으로 종합 분석 리포트"],
     tags: ["검색", "무료", "학술"], score: 58.25, change: 1.48, sns: { naver: 22, youtube: 48, google: 55, github: 35 },
     life: ["student", "office", "freelancer"],
-    naverKw: ["Consensus","컨센서스 AI"], yt: "Consensus", ytKo: "컨센서스", gt: "Consensus", gtKo: "컨센서스", github: "Consensus",
+    naverKw: ["Consensus","컨센서스 AI"],
   },
   {
     id: 165, cat: "search", icon: "🧪", name: "SciSpace", nameKo: "사이스페이스 AI", free: true,
@@ -1534,7 +1534,7 @@ export const TOOLS_DATA = [
     features: ["논문 PDF 업로드 즉시 AI 질문", "어려운 수식·용어 자동 설명", "관련 논문 자동 추천·연결", "200M 논문 AI 검색 가능", "AI 요약·리뷰 초안 생성"],
     tags: ["검색", "무료", "학술"], score: 55.68, change: -0.47, sns: { naver: 20, youtube: 45, google: 52, github: 30 },
     life: ["student", "office"],
-    naverKw: ["SciSpace","사이스페이스 AI"], yt: "SciSpace", ytKo: "사이스페이스", gt: "SciSpace", gtKo: "사이스페이스", github: "SciSpace",
+    naverKw: ["SciSpace","사이스페이스 AI"],
   },
   {
     id: 166, cat: "search", icon: "📚", name: "Semantic Scholar", nameKo: "시맨틱 스칼라", free: true,
@@ -1543,7 +1543,7 @@ export const TOOLS_DATA = [
     features: ["2억+ 논문 AI 검색·분석", "인용 네트워크 시각화", "논문 영향력·신뢰도 평가", "관련 연구 자동 추천", "무료 API 제공 (개발자용)"],
     tags: ["검색", "무료", "학술"], score: 64.06, change: 0.34, sns: { naver: 18, youtube: 38, google: 50, github: 35 },
     life: ["student", "office"],
-    naverKw: ["Semantic Scholar","시맨틱 스칼라"], yt: "Semantic Scholar", ytKo: "시맨틱스칼라", gt: "Semantic Scholar", gtKo: "시맨틱스칼라", github: "Semantic Scholar",
+    naverKw: ["Semantic Scholar","시맨틱 스칼라"],
   },
   {
     id: 167, cat: "search", icon: "🐇", name: "Research Rabbit", nameKo: "리서치 래빗", free: true,
@@ -1552,7 +1552,7 @@ export const TOOLS_DATA = [
     features: ["논문 연결 네트워크 시각화", "씨드 논문 기반 관련 연구 자동 탐색", "Zotero 연동 라이브러리 관리", "저자·인용 관계 그래프", "완전 무료 서비스"],
     tags: ["검색", "무료", "학술"], score: 52.18, change: 1.65, sns: { naver: 12, youtube: 35, google: 45, github: 30 },
     life: ["student", "office"],
-    naverKw: ["Research Rabbit","리서치 래빗"], yt: "Research Rabbit", ytKo: "리서치래빗", gt: "Research Rabbit", gtKo: "리서치래빗", github: "Research Rabbit",
+    naverKw: ["Research Rabbit","리서치 래빗"],
   },
 
   // ── 이미지 추가 (168-174) ──
@@ -1563,7 +1563,7 @@ export const TOOLS_DATA = [
     features: ["최고 수준 포토리얼리스틱 이미지", "이미지 내 텍스트 정확 렌더링", "다양한 예술·사진 스타일 지원", "Gemini·Vertex AI API 연동", "안전 필터링 내장"],
     tags: ["이미지", "유료", "API"], score: 66.76, change: -0.24, sns: { naver: 42, youtube: 68, google: 78, github: 55 },
     life: ["creator", "marketer", "startup"],
-    naverKw: ["Imagen 3","구글 이마젠"], yt: "Imagen 3", ytKo: "구글이마젠", gt: "Imagen 3", gtKo: "구글이마젠", github: "Imagen 3",
+    naverKw: ["Imagen 3","구글 이마젠"],
   },
   {
     id: 169, cat: "image", icon: "🎯", name: "Recraft AI", nameKo: "리크래프트 AI", free: true,
@@ -1572,7 +1572,7 @@ export const TOOLS_DATA = [
     features: ["SVG 벡터 이미지 생성 지원", "브랜드 스타일 일관성 유지", "목업·UI 이미지 제작 특화", "AI 스타일 세밀 조정 가능", "무료 크레딧 매일 제공"],
     tags: ["이미지", "무료", "벡터"], score: 58.1, change: -1.05, sns: { naver: 20, youtube: 52, google: 58, github: 48 },
     life: ["creator", "freelancer", "marketer"],
-    naverKw: ["Recraft AI","리크래프트 AI"], yt: "Recraft AI", ytKo: "리크래프트", gt: "Recraft AI", gtKo: "리크래프트", github: "Recraft AI",
+    naverKw: ["Recraft AI","리크래프트 AI"],
   },
   {
     id: 170, cat: "image", icon: "📦", name: "Flair AI", nameKo: "플레어 AI", free: true,
@@ -1581,7 +1581,7 @@ export const TOOLS_DATA = [
     features: ["제품 사진 AI 배경 자동 생성", "드래그앤드롭 소품 배치", "브랜드 스타일 가이드 적용", "AI 조명·그림자 자동 조정", "무료로 이미지 10장/월 제공"],
     tags: ["이미지", "무료", "제품사진"], score: 49.25, change: -2.38, sns: { naver: 18, youtube: 48, google: 52, github: 28 },
     life: ["marketer", "startup", "creator"],
-    naverKw: ["Flair AI","플레어 AI"], yt: "Flair AI", ytKo: "플레어", gt: "Flair AI", gtKo: "플레어", github: "Flair AI",
+    naverKw: ["Flair AI","플레어 AI"],
   },
   {
     id: 171, cat: "image", icon: "🖱️", name: "Clipdrop", nameKo: "클립드롭", free: true,
@@ -1590,7 +1590,7 @@ export const TOOLS_DATA = [
     features: ["원클릭 배경 자동 제거", "이미지 AI 업스케일 4x", "AI 조명·배경 교체(Reimagine)", "텍스트·워터마크 자동 제거", "무료로 충분한 기본 기능"],
     tags: ["이미지", "무료", "편집"], score: 59.23, change: -0.42, sns: { naver: 38, youtube: 62, google: 65, github: 38 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Clipdrop","클립드롭"], yt: "Clipdrop", ytKo: "클립드롭", gt: "Clipdrop", gtKo: "클립드롭", github: "Clipdrop",
+    naverKw: ["Clipdrop","클립드롭"],
   },
   {
     id: 172, cat: "image", icon: "✨", name: "Magnific AI", nameKo: "매그니픽 AI", free: false,
@@ -1599,7 +1599,7 @@ export const TOOLS_DATA = [
     features: ["최대 16K 초고해상도 업스케일", "AI 창의적 디테일 강화 추가", "사진·일러스트·CG 스타일별 최적화", "Photoshop·Lightroom 플러그인", "포토리얼 강화 특화"],
     tags: ["이미지", "유료", "업스케일"], score: 43.31, change: 0.63, sns: { naver: 22, youtube: 60, google: 62, github: 38 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Magnific AI","매그니픽 AI"], yt: "Magnific AI", ytKo: "매그니픽", gt: "Magnific AI", gtKo: "매그니픽", github: "Magnific AI",
+    naverKw: ["Magnific AI","매그니픽 AI"],
   },
   {
     id: 173, cat: "image", icon: "🔧", name: "ComfyUI", nameKo: "컴피UI", free: true,
@@ -1608,7 +1608,7 @@ export const TOOLS_DATA = [
     features: ["노드 기반 시각적 워크플로우 편집", "SD 1.5·SDXL·Flux 모든 모델 지원", "커스텀 노드 수천 개 플러그인", "완전 무료 오픈소스", "전문가급 정밀 파라미터 제어"],
     tags: ["이미지", "무료", "오픈소스"], score: 63.11, change: 44.69, sns: { naver: 38, youtube: 72, google: 68, github: 88 },
     life: ["creator", "freelancer", "startup"],
-    naverKw: ["ComfyUI","컴피UI"], yt: "ComfyUI", ytKo: "컴피UI", gt: "ComfyUI", gtKo: "컴피UI", github: "ComfyUI",
+    naverKw: ["ComfyUI","컴피UI"],
   },
   {
     id: 174, cat: "image", icon: "🎨", name: "InvokeAI", nameKo: "인보크 AI", free: true,
@@ -1617,7 +1617,7 @@ export const TOOLS_DATA = [
     features: ["전문가용 캔버스 편집 인터페이스", "AI 인페인팅·아웃페인팅", "ControlNet·LoRA 완전 지원", "워크플로우 저장·공유 가능", "클라우드·로컬 모두 실행 가능"],
     tags: ["이미지", "무료", "오픈소스"], score: 41.43, change: 1.68, sns: { naver: 18, youtube: 52, google: 55, github: 78 },
     life: ["creator", "freelancer"],
-    naverKw: ["InvokeAI","인보크 AI"], yt: "InvokeAI", ytKo: "인보크", gt: "InvokeAI", gtKo: "인보크", github: "InvokeAI",
+    naverKw: ["InvokeAI","인보크 AI"],
   },
 
   // ── 영상 추가 (175-181) ──
@@ -1628,7 +1628,7 @@ export const TOOLS_DATA = [
     features: ["최대 4K 고해상도 영상 생성", "카메라 무브먼트 정밀 제어", "물리 법칙·자연현상 사실적 표현", "이미지→영상 변환 지원", "Google Vertex AI API 연동"],
     tags: ["영상", "유료", "AI생성"], score: 65.19, change: -1.36, sns: { naver: 45, youtube: 72, google: 80, github: 52 },
     life: ["creator", "marketer", "startup"],
-    naverKw: ["Veo 2","구글 베오"], yt: "Veo 2", ytKo: "구글베오", gt: "Veo 2", gtKo: "구글베오", github: "Veo 2",
+    naverKw: ["Veo 2","구글 베오"],
   },
   {
     id: 176, cat: "video", icon: "🌊", name: "Hailuo AI", nameKo: "하이루오 AI", free: true,
@@ -1637,7 +1637,7 @@ export const TOOLS_DATA = [
     features: ["텍스트·이미지→자연스러운 AI 영상", "빠른 생성 속도·무료 크레딧 넉넉", "캐릭터 일관성 유지 기능", "I2V 이미지→비디오 변환", "화면 비율 다양하게 선택 가능"],
     tags: ["영상", "무료", "AI생성"], score: 49.78, change: 0.88, sns: { naver: 45, youtube: 58, google: 55, github: 28 },
     life: ["creator", "marketer", "startup"],
-    naverKw: ["Hailuo AI","하이루오 AI"], yt: "Hailuo AI", ytKo: "하이루오", gt: "Hailuo AI", gtKo: "하이루오", github: "Hailuo AI",
+    naverKw: ["Hailuo AI","하이루오 AI"],
   },
   {
     id: 177, cat: "video", icon: "🌀", name: "Wan AI", nameKo: "완 AI", free: true,
@@ -1646,7 +1646,7 @@ export const TOOLS_DATA = [
     features: ["텍스트·이미지→영상 생성", "오픈소스로 로컬 실행 가능", "14B 고품질 영상 모델 무료 공개", "다양한 해상도·프레임 지원", "ComfyUI 등 워크플로우 연동"],
     tags: ["영상", "무료", "오픈소스"], score: 33.4, change: -0.02, sns: { naver: 35, youtube: 60, google: 60, github: 80 },
     life: ["creator", "startup", "freelancer"],
-    naverKw: ["Wan AI","완 AI"], yt: "Wan AI", ytKo: "완AI", gt: "Wan AI", gtKo: "완AI", github: "Wan AI",
+    naverKw: ["Wan AI","완 AI"],
   },
   {
     id: 178, cat: "video", icon: "✂️", name: "Opus Clip", nameKo: "오퍼스 클립", free: true,
@@ -1655,7 +1655,7 @@ export const TOOLS_DATA = [
     features: ["긴 영상→숏폼 클립 AI 자동 추출", "AI 화자 추적·자동 리프레임", "자동 자막·이모지·키워드 강조", "바이럴 점수로 최고 순간 예측", "소셜 미디어 직접 예약 게시"],
     tags: ["영상", "무료", "숏폼"], score: 57.49, change: -1.7, sns: { naver: 38, youtube: 65, google: 65, github: 25 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Opus Clip","오퍼스 클립"], yt: "Opus Clip", ytKo: "오퍼스클립", gt: "Opus Clip", gtKo: "오퍼스클립", github: "Opus Clip",
+    naverKw: ["Opus Clip","오퍼스 클립"],
   },
   {
     id: 179, cat: "video", icon: "🖥️", name: "Veed.io", nameKo: "비드 AI", free: true,
@@ -1664,7 +1664,7 @@ export const TOOLS_DATA = [
     features: ["브라우저 기반 설치 없이 편집", "AI 자동 자막·다국어 번역", "AI 배경 제거 및 화면 효과", "AI 아바타로 영상 없이 제작", "팀 협업 실시간 공동 편집"],
     tags: ["영상", "무료", "편집"], score: 60.52, change: -0.21, sns: { naver: 42, youtube: 65, google: 65, github: 20 },
     life: ["creator", "marketer", "office", "freelancer"],
-    naverKw: ["Veed.io","비드 AI"], yt: "Veed.io", ytKo: "비드", gt: "Veed.io", gtKo: "비드", github: "Veed.io",
+    naverKw: ["Veed.io","비드 AI"],
   },
   {
     id: 180, cat: "video", icon: "🎞️", name: "Kapwing", nameKo: "캡윙 AI", free: true,
@@ -1673,7 +1673,7 @@ export const TOOLS_DATA = [
     features: ["AI 자동 자막·한국어 번역", "AI 배경 제거 및 합성", "타임라인 기반 비선형 편집", "팀 워크스페이스 협업 기능", "무료 플랜 월 4개 영상"],
     tags: ["영상", "무료", "편집"], score: 53.74, change: -0.5, sns: { naver: 35, youtube: 60, google: 60, github: 18 },
     life: ["creator", "marketer", "student"],
-    naverKw: ["Kapwing","캡윙 AI"], yt: "Kapwing", ytKo: "캡윙", gt: "Kapwing", gtKo: "캡윙", github: "Kapwing",
+    naverKw: ["Kapwing","캡윙 AI"],
   },
   {
     id: 181, cat: "video", icon: "🎯", name: "InVideo AI", nameKo: "인비디오 AI", free: true,
@@ -1682,7 +1682,7 @@ export const TOOLS_DATA = [
     features: ["텍스트→완성 영상 AI 자동 생성", "1600만+ 스톡 미디어 자동 삽입", "AI 보이스오버 50개 언어", "YouTube·TikTok 맞춤 포맷", "무료로 영상 10분/주 제공"],
     tags: ["영상", "무료", "AI생성"], score: 63.73, change: 0.18, sns: { naver: 35, youtube: 62, google: 62, github: 22 },
     life: ["creator", "marketer", "startup"],
-    naverKw: ["InVideo AI","인비디오 AI"], yt: "InVideo AI", ytKo: "인비디오", gt: "InVideo AI", gtKo: "인비디오", github: "InVideo AI",
+    naverKw: ["InVideo AI","인비디오 AI"],
   },
 
   // ── 오디오 추가 (182-186) ──
@@ -1693,7 +1693,7 @@ export const TOOLS_DATA = [
     features: ["120+ 언어·음성 AI 보이스", "감정·강조·포즈 세밀 조정", "AI 음성으로 비디오 내레이션", "영상+음성 타임라인 편집", "팀 협업 프로젝트 공유"],
     tags: ["오디오", "무료", "TTS"], score: 56.72, change: -1.72, sns: { naver: 32, youtube: 60, google: 62, github: 25 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Murf AI","머프 AI"], yt: "Murf AI", ytKo: "머프", gt: "Murf AI", gtKo: "머프", github: "Murf AI",
+    naverKw: ["Murf AI","머프 AI"],
   },
   {
     id: 183, cat: "audio", icon: "🎼", name: "AIVA", nameKo: "아이바 AI", free: true,
@@ -1702,7 +1702,7 @@ export const TOOLS_DATA = [
     features: ["영화·게임·광고용 배경음악 생성", "다양한 악기·장르·분위기 설정", "멜로디·코드진행 세밀 편집", "저작권 프리 음악 생성", "MIDI·MP3·WAV 다운로드"],
     tags: ["오디오", "무료", "음악생성"], score: 52.55, change: 1.9, sns: { naver: 25, youtube: 55, google: 55, github: 22 },
     life: ["creator", "freelancer"],
-    naverKw: ["AIVA","아이바 AI"], yt: "AIVA", ytKo: "아이바", gt: "AIVA", gtKo: "아이바", github: "AIVA",
+    naverKw: ["AIVA","아이바 AI"],
   },
   {
     id: 184, cat: "audio", icon: "🎵", name: "Soundraw", nameKo: "사운드로우", free: false,
@@ -1711,7 +1711,7 @@ export const TOOLS_DATA = [
     features: ["분위기·장르·BPM 선택 즉시 생성", "생성 후 세그먼트별 편집 가능", "로열티 프리 상업 사용 허가", "YouTube·SNS 콘텐츠 최적화", "무제한 음악 생성 구독 플랜"],
     tags: ["오디오", "유료", "음악생성"], score: 54.13, change: 0.7, sns: { naver: 25, youtube: 52, google: 52, github: 18 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Soundraw","사운드로우"], yt: "Soundraw", ytKo: "사운드로우", gt: "Soundraw", gtKo: "사운드로우", github: "Soundraw",
+    naverKw: ["Soundraw","사운드로우"],
   },
   {
     id: 185, cat: "audio", icon: "🎙️", name: "Whisper", nameKo: "위스퍼", free: true,
@@ -1720,7 +1720,7 @@ export const TOOLS_DATA = [
     features: ["99개 언어 음성→텍스트 변환", "잡음 환경에서도 높은 정확도", "오픈소스로 로컬 실행 가능", "번역 기능 내장 (영어 변환)", "API 및 다양한 래퍼 라이브러리"],
     tags: ["오디오", "무료", "오픈소스"], score: 61.43, change: -5.14, sns: { naver: 45, youtube: 72, google: 75, github: 92 },
     life: ["office", "startup", "freelancer", "student"],
-    naverKw: ["Whisper AI","OpenAI Whisper","오픈에이아이 위스퍼"], yt: "OpenAI Whisper", ytKo: "오픈에이아이 위스퍼", gt: "Whisper AI", gtKo: "위스퍼 AI", github: "Whisper",
+    naverKw: ["Whisper AI","OpenAI Whisper","오픈에이아이 위스퍼"],
   },
   {
     id: 186, cat: "audio", icon: "🔊", name: "Adobe Podcast", nameKo: "어도비 팟캐스트", free: true,
@@ -1729,7 +1729,7 @@ export const TOOLS_DATA = [
     features: ["AI Enhance Speech 음질 즉시 향상", "배경 소음·울림 자동 제거", "브라우저 기반 녹음·편집", "마이크 없이도 스튜디오급 음질", "다인 원격 녹음 지원"],
     tags: ["오디오", "무료", "팟캐스트"], score: 54.92, change: 1.38, sns: { naver: 45, youtube: 68, google: 68, github: 25 },
     life: ["creator", "marketer", "office"],
-    naverKw: ["Adobe Podcast","어도비 팟캐스트"], yt: "Adobe Podcast", ytKo: "어도비팟캐스트", gt: "Adobe Podcast", gtKo: "어도비팟캐스트", github: "Adobe Podcast",
+    naverKw: ["Adobe Podcast","어도비 팟캐스트"],
   },
 
   // ── 생산성 추가 (187-193) ──
@@ -1740,7 +1740,7 @@ export const TOOLS_DATA = [
     features: ["문서·데이터베이스·앱 통합 플랫폼", "AI 데이터 분석·요약·자동화", "수식·워크플로우 AI 자동 생성", "팀 협업·공유 실시간 편집", "Slack·Jira 등 600+ 연동"],
     tags: ["생산성", "무료", "문서"], score: 65.69, change: 0.69, sns: { naver: 28, youtube: 58, google: 60, github: 35 },
     life: ["office", "startup", "freelancer"],
-    naverKw: ["Coda AI","코다 AI"], yt: "Coda AI", ytKo: "코다", gt: "Coda AI", gtKo: "코다", github: "Coda AI",
+    naverKw: ["Coda AI","코다 AI"],
   },
   {
     id: 188, cat: "productivity", icon: "✅", name: "ClickUp AI", nameKo: "클릭업 AI", free: true,
@@ -1749,7 +1749,7 @@ export const TOOLS_DATA = [
     features: ["AI 작업 요약·진행 보고서 생성", "AI 글쓰기·이메일 초안 작성", "자연어로 작업·문서 자동 생성", "100개 이상 자동화 레시피", "무료 플랜 무제한 작업 관리"],
     tags: ["생산성", "무료", "프로젝트관리"], score: 67.21, change: -1.88, sns: { naver: 45, youtube: 65, google: 65, github: 38 },
     life: ["office", "startup", "freelancer"],
-    naverKw: ["ClickUp AI","클릭업 AI"], yt: "ClickUp AI", ytKo: "클릭업", gt: "ClickUp AI", gtKo: "클릭업", github: "ClickUp AI",
+    naverKw: ["ClickUp AI","클릭업 AI"],
   },
   {
     id: 189, cat: "productivity", icon: "🕸️", name: "Tana", nameKo: "타나 AI", free: true,
@@ -1758,7 +1758,7 @@ export const TOOLS_DATA = [
     features: ["슈퍼태그 기반 지식 그래프 구축", "AI 인라인 명령 즉시 실행", "노드 기반 유연한 데이터 구조", "AI 아웃라이너 자동 정리", "팀 워크스페이스 공유 협업"],
     tags: ["생산성", "무료", "노트"], score: 51.23, change: 0.39, sns: { naver: 15, youtube: 42, google: 45, github: 35 },
     life: ["office", "freelancer", "student"],
-    naverKw: ["Tana","타나 AI"], yt: "Tana", ytKo: "타나", gt: "Tana", gtKo: "타나", github: "Tana",
+    naverKw: ["Tana","타나 AI"],
   },
   {
     id: 190, cat: "productivity", icon: "🪞", name: "Reflect", nameKo: "리플렉트 AI", free: false,
@@ -1767,7 +1767,7 @@ export const TOOLS_DATA = [
     features: ["백링크로 아이디어 자동 연결", "AI 회의 노트 자동 정리", "캘린더 연동 일간 노트", "암호화된 안전한 데이터 저장", "Apple Silicon 최적화 앱"],
     tags: ["생산성", "유료", "노트"], score: 54.29, change: -0.1, sns: { naver: 12, youtube: 38, google: 42, github: 32 },
     life: ["office", "freelancer", "student"],
-    naverKw: ["Reflect","리플렉트 AI"], yt: "Reflect", ytKo: "리플렉트", gt: "Reflect", gtKo: "리플렉트", github: "Reflect",
+    naverKw: ["Reflect","리플렉트 AI"],
   },
   {
     id: 191, cat: "productivity", icon: "🗒️", name: "Clova Note", nameKo: "클로바 노트", free: true,
@@ -1776,7 +1776,7 @@ export const TOOLS_DATA = [
     features: ["회의 음성 자동 텍스트 변환", "AI 화자 분리·구분 표시", "핵심 내용 자동 요약·태그", "한국어 인식 최고 정확도", "PC·모바일 동기화"],
     tags: ["생산성", "무료", "한국어"], score: 29.15, change: -2, sns: { naver: 85, youtube: 58, google: 42, github: 18 },
     life: ["office", "student", "freelancer"],
-    naverKw: ["Clova Note","클로바 노트"], yt: "Clova Note", ytKo: "클로바노트", gt: "Clova Note", gtKo: "클로바노트", github: "Clova Note",
+    naverKw: ["Clova Note","클로바 노트"],
   },
   {
     id: 192, cat: "productivity", icon: "🗂️", name: "Napkin AI", nameKo: "냅킨 AI", free: true,
@@ -1785,7 +1785,7 @@ export const TOOLS_DATA = [
     features: ["텍스트→다이어그램 AI 자동 변환", "플로우차트·마인드맵·타임라인 생성", "드래그앤드롭 편집 및 커스텀", "프레젠테이션·보고서 즉시 활용", "무료 플랜 기본 기능 충분"],
     tags: ["생산성", "무료", "다이어그램"], score: 54.38, change: -0.47, sns: { naver: 20, youtube: 52, google: 58, github: 38 },
     life: ["office", "startup", "marketer"],
-    naverKw: ["Napkin AI","냅킨 AI"], yt: "Napkin AI", ytKo: "냅킨AI", gt: "Napkin AI", gtKo: "냅킨AI", github: "Napkin AI",
+    naverKw: ["Napkin AI","냅킨 AI"],
   },
   {
     id: 193, cat: "productivity", icon: "🌿", name: "Granola", nameKo: "그래놀라 AI", free: true,
@@ -1794,7 +1794,7 @@ export const TOOLS_DATA = [
     features: ["회의 중 간단 메모→AI 자동 완성", "액션아이템·결정사항 자동 추출", "Google Meet·Zoom 등 연동", "Custom AI 템플릿 적용 가능", "Mac 전용 앱 (무료 플랜 포함)"],
     tags: ["생산성", "무료", "회의록"], score: 48.52, change: 1.8, sns: { naver: 12, youtube: 42, google: 48, github: 28 },
     life: ["office", "startup", "freelancer"],
-    naverKw: ["Granola","그래놀라 AI"], yt: "Granola", ytKo: "그래놀라AI", gt: "Granola", gtKo: "그래놀라AI", github: "Granola",
+    naverKw: ["Granola","그래놀라 AI"],
   },
 
   // ── 디자인·이미지 추가 (194-197) ──
@@ -1805,7 +1805,7 @@ export const TOOLS_DATA = [
     features: ["AI 텍스트 효과·레터링 자동화", "1000+ 전문 디자인 템플릿", "벡터 편집 및 SVG 내보내기", "POD(주문제작) 상품 디자인 특화", "무료로 충분한 기본 기능"],
     tags: ["디자인", "무료", "그래픽"], score: 54.01, change: -1.96, sns: { naver: 32, youtube: 62, google: 62, github: 28 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Kittl","키틀 AI"], yt: "Kittl", ytKo: "키틀", gt: "Kittl", gtKo: "키틀", github: "Kittl",
+    naverKw: ["Kittl","키틀 AI"],
   },
   {
     id: 195, cat: "photo", icon: "🔍", name: "Topaz Photo AI", nameKo: "토파즈 AI", free: false,
@@ -1814,7 +1814,7 @@ export const TOOLS_DATA = [
     features: ["AI 업스케일 최대 6배 고품질", "노이즈·그레인 AI 자동 제거", "모션 블러·피사체 흔들림 보정", "배치 처리로 대량 사진 편집", "Photoshop·Lightroom 플러그인"],
     tags: ["이미지", "유료", "사진향상"], score: 53.94, change: 1.47, sns: { naver: 38, youtube: 68, google: 68, github: 25 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Topaz Photo AI","토파즈 AI"], yt: "Topaz Photo AI", ytKo: "토파즈", gt: "Topaz Photo AI", gtKo: "토파즈", github: "Topaz Photo AI",
+    naverKw: ["Topaz Photo AI","토파즈 AI"],
   },
   {
     id: 196, cat: "image", icon: "📐", name: "Upscayl", nameKo: "업스케일 AI", free: true,
@@ -1823,7 +1823,7 @@ export const TOOLS_DATA = [
     features: ["완전 무료 오픈소스 로컬 실행", "최대 16배 AI 업스케일 지원", "Real-ESRGAN 기반 고품질", "배치 처리 여러 이미지 동시 변환", "Windows·Mac·Linux 전체 지원"],
     tags: ["이미지", "무료", "오픈소스"], score: 53.29, change: 0.56, sns: { naver: 18, youtube: 52, google: 52, github: 78 },
     life: ["creator", "freelancer", "student"],
-    naverKw: ["Upscayl","업스케일 AI"], yt: "Upscayl", ytKo: "업스케일", gt: "Upscayl", gtKo: "업스케일", github: "Upscayl",
+    naverKw: ["Upscayl","업스케일 AI"],
   },
   {
     id: 197, cat: "photo", icon: "🖌️", name: "Pixlr AI", nameKo: "픽슬러 AI", free: true,
@@ -1832,7 +1832,7 @@ export const TOOLS_DATA = [
     features: ["브라우저에서 Photoshop급 편집", "AI 배경 제거·교체·생성", "AI 인페인팅·오브젝트 제거", "1000+ 템플릿·오버레이 제공", "무료로 기본 AI 편집 가능"],
     tags: ["이미지", "무료", "편집"], score: 67.06, change: 1.48, sns: { naver: 40, youtube: 58, google: 60, github: 18 },
     life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Pixlr AI","픽슬러 AI"], yt: "Pixlr AI", ytKo: "픽슬러", gt: "Pixlr AI", gtKo: "픽슬러", github: "Pixlr AI",
+    naverKw: ["Pixlr AI","픽슬러 AI"],
   },
 
   // ── 자동화·에이전트 추가 (198-200) ──
@@ -1843,7 +1843,7 @@ export const TOOLS_DATA = [
     features: ["목표 기반 자율 AI 에이전트 실행", "웹 검색·코딩·파일 관리 자동화", "플러그인으로 기능 무한 확장", "오픈소스 완전 무료 공개", "Forge·Benchmark 생태계 포함"],
     tags: ["자동화", "무료", "오픈소스"], score: 61.66, change: -2.02, sns: { naver: 42, youtube: 68, google: 72, github: 90 },
     life: ["startup", "freelancer", "office"],
-    naverKw: ["AutoGPT","오토GPT"], yt: "AutoGPT", ytKo: "오토GPT", gt: "AutoGPT", gtKo: "오토GPT", github: "AutoGPT",
+    naverKw: ["AutoGPT","오토GPT"],
   },
   {
     id: 199, cat: "automation", icon: "🔧", name: "Dify", nameKo: "다이파이 AI", free: true,
@@ -1852,7 +1852,7 @@ export const TOOLS_DATA = [
     features: ["노코드 AI 앱·챗봇 빠른 구축", "RAG 파이프라인 시각적 설계", "100개 이상 LLM 모델 연동", "에이전트·워크플로우 자동화", "오픈소스 셀프호스팅 가능"],
     tags: ["자동화", "무료", "오픈소스"], score: 60.08, change: -2.95, sns: { naver: 22, youtube: 55, google: 60, github: 88 },
     life: ["startup", "freelancer", "office"],
-    naverKw: ["Dify","다이파이 AI"], yt: "Dify", ytKo: "다이파이", gt: "Dify", gtKo: "다이파이", github: "Dify",
+    naverKw: ["Dify","다이파이 AI"],
   },
   {
     id: 200, cat: "automation", icon: "🌊", name: "Flowise", nameKo: "플로와이즈 AI", free: true,
@@ -1861,7 +1861,7 @@ export const TOOLS_DATA = [
     features: ["드래그앤드롭 LLM 플로우 설계", "LangChain·LlamaIndex 완전 지원", "RAG·에이전트·챗봇 즉시 구현", "오픈소스 셀프호스팅 가능", "REST API로 앱에 즉시 연동"],
     tags: ["자동화", "무료", "오픈소스"], score: 49.92, change: -0.68, sns: { naver: 15, youtube: 48, google: 52, github: 82 },
     life: ["startup", "freelancer", "office"],
-    naverKw: ["Flowise","플로와이즈 AI"], yt: "Flowise", ytKo: "플로와이즈", gt: "Flowise", gtKo: "플로와이즈", github: "Flowise",
+    naverKw: ["Flowise","플로와이즈 AI"],
   },
 
   // ── 201~250: 신규 추가 도구 ──
@@ -1872,7 +1872,7 @@ export const TOOLS_DATA = [
     features: ["터미널 한 줄로 LLM 로컬 실행", "Llama·Gemma·Mistral 등 100+ 모델 지원", "Mac·Windows·Linux 전 플랫폼 지원", "REST API로 앱 연동 가능", "완전 오프라인·프라이버시 보장"],
     tags: ["코딩", "무료", "오픈소스"], score: 67.02, change: 2.36, sns: { naver: 42, youtube: 72, google: 75, github: 98 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Ollama","올라마"], yt: "Ollama", ytKo: "올라마", gt: "Ollama", gtKo: "올라마", github: "Ollama",
+    naverKw: ["Ollama","올라마"],
   },
   {
     id: 202, cat: "code", icon: "🖥️", name: "LM Studio", nameKo: "LM 스튜디오", free: true,
@@ -1881,7 +1881,7 @@ export const TOOLS_DATA = [
     features: ["GUI 기반 LLM 다운로드 및 실행", "HuggingFace 모델 직접 검색·설치", "로컬 ChatGPT처럼 채팅 인터페이스", "OpenAI 호환 로컬 API 서버 제공", "Mac·Windows·Linux 지원"],
     tags: ["코딩", "무료", "로컬AI"], score: 51.39, change: -0.38, sns: { naver: 28, youtube: 62, google: 65, github: 88 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["LM Studio","LM 스튜디오"], yt: "LM Studio", ytKo: "LM스튜디오", gt: "LM Studio", gtKo: "LM스튜디오", github: "LM Studio",
+    naverKw: ["LM Studio","LM 스튜디오"],
   },
   {
     id: 203, cat: "chatbot", icon: "🌐", name: "Open WebUI", nameKo: "오픈 웹UI", free: true,
@@ -1890,7 +1890,7 @@ export const TOOLS_DATA = [
     features: ["Ollama·OpenAI 모델 통합 UI", "문서 업로드 RAG 기능 내장", "멀티모달 이미지·파일 처리", "사용자·팀 관리 기능 제공", "Docker로 5분 내 셀프호스팅 완료"],
     tags: ["챗봇", "무료", "오픈소스"], score: 50.8, change: -0.78, sns: { naver: 20, youtube: 55, google: 60, github: 95 },
     life: ["startup", "freelancer"],
-    naverKw: ["Open WebUI","오픈 웹UI"], yt: "Open WebUI", ytKo: "오픈웹UI", gt: "Open WebUI", gtKo: "오픈웹UI", github: "Open WebUI",
+    naverKw: ["Open WebUI","오픈 웹UI"],
   },
   {
     id: 204, cat: "text", icon: "⚡", name: "Groq", nameKo: "그록 클라우드", free: true,
@@ -1899,7 +1899,7 @@ export const TOOLS_DATA = [
     features: ["초당 300+ 토큰 초고속 응답", "Llama·Mixtral·Gemma 최신 모델 지원", "무료 API 티어 제공", "LPU 전용 하드웨어 가속", "OpenAI 호환 API 형식 지원"],
     tags: ["텍스트", "무료", "API"], score: 56.9, change: -0.95, sns: { naver: 22, youtube: 55, google: 65, github: 80 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Groq","그록 클라우드"], yt: "Groq AI", ytKo: "그록클라우드", gt: "Groq AI", gtKo: "그록클라우드", github: "Groq",
+    naverKw: ["Groq","그록 클라우드"],
   },
   {
     id: 205, cat: "text", icon: "🤝", name: "Together AI", nameKo: "투게더 AI", free: true,
@@ -1908,7 +1908,7 @@ export const TOOLS_DATA = [
     features: ["70+ 오픈소스 LLM 클라우드 제공", "$1 스타터 크레딧 무료 제공", "파인튜닝·임베딩 API 포함", "OpenAI 호환 SDK 즉시 사용", "빠른 응답 속도와 저렴한 비용"],
     tags: ["텍스트", "무료", "API"], score: 54.71, change: 1.09, sns: { naver: 12, youtube: 42, google: 52, github: 75 },
     life: ["startup", "freelancer"],
-    naverKw: ["Together AI","투게더 AI"], yt: "Together AI", ytKo: "투게더AI", gt: "Together AI", gtKo: "투게더AI", github: "Together AI",
+    naverKw: ["Together AI","투게더 AI"],
   },
   {
     id: 206, cat: "text", icon: "🔀", name: "OpenRouter", nameKo: "오픈라우터", free: true,
@@ -1917,7 +1917,7 @@ export const TOOLS_DATA = [
     features: ["200+ AI 모델 단일 API로 통합", "무료 모델 다수 포함", "자동 폴백·비용 최적화 라우팅", "OpenAI 호환 API 형식 지원", "실시간 모델별 가격·성능 비교"],
     tags: ["텍스트", "무료", "API"], score: 61.12, change: 0.72, sns: { naver: 15, youtube: 48, google: 58, github: 72 },
     life: ["startup", "freelancer"],
-    naverKw: ["OpenRouter","오픈라우터"], yt: "OpenRouter", ytKo: "오픈라우터", gt: "OpenRouter", gtKo: "오픈라우터", github: "OpenRouter",
+    naverKw: ["OpenRouter","오픈라우터"],
   },
   {
     id: 207, cat: "text", icon: "🔷", name: "Cohere", nameKo: "코히어 AI", free: true,
@@ -1926,7 +1926,7 @@ export const TOOLS_DATA = [
     features: ["RAG 최적화 Command R+ 모델", "기업 문서 검색·임베딩 특화", "온프레미스 배포 지원", "무료 개발자 API 제공", "한국어 포함 100+ 언어 지원"],
     tags: ["텍스트", "무료", "API"], score: 60.87, change: -0.62, sns: { naver: 15, youtube: 38, google: 52, github: 70 },
     life: ["startup", "office"],
-    naverKw: ["Cohere","코히어 AI"], yt: "Cohere AI", ytKo: "코히어", gt: "Cohere AI", gtKo: "코히어", github: "Cohere",
+    naverKw: ["Cohere","코히어 AI"],
   },
   {
     id: 208, cat: "productivity", icon: "📦", name: "AnythingLLM", nameKo: "애니씽LLM", free: true,
@@ -1935,7 +1935,7 @@ export const TOOLS_DATA = [
     features: ["PDF·Word·웹사이트 등 다양한 소스 지원", "로컬·클라우드 LLM 모두 연결 가능", "팀 공유 멀티유저 지원", "완전 로컬 오프라인 실행 지원", "커스텀 AI 에이전트 구성 가능"],
     tags: ["생산성", "무료", "오픈소스"], score: 49.72, change: -1.11, sns: { naver: 18, youtube: 52, google: 55, github: 90 },
     life: ["startup", "office", "student"],
-    naverKw: ["AnythingLLM","애니씽LLM"], yt: "AnythingLLM", ytKo: "애니씽LLM", gt: "AnythingLLM", gtKo: "애니씽LLM", github: "AnythingLLM",
+    naverKw: ["AnythingLLM","애니씽LLM"],
   },
   {
     id: 209, cat: "text", icon: "🆓", name: "GPT4All", nameKo: "GPT포올", free: true,
@@ -1944,7 +1944,7 @@ export const TOOLS_DATA = [
     features: ["완전 오프라인 로컬 AI 실행", "Windows·Mac·Linux 설치 즉시 사용", "로컬 파일·PDF 문서 채팅 지원", "다양한 오픈소스 모델 선택", "GPU 없이도 CPU로 실행 가능"],
     tags: ["텍스트", "무료", "오픈소스"], score: 51.82, change: 1.02, sns: { naver: 20, youtube: 50, google: 55, github: 85 },
     life: ["student", "freelancer", "startup"],
-    naverKw: ["GPT4All","GPT포올"], yt: "GPT4All", ytKo: "GPT포올", gt: "GPT4All", gtKo: "GPT포올", github: "GPT4All",
+    naverKw: ["GPT4All","GPT포올"],
   },
   {
     id: 210, cat: "chatbot", icon: "🔒", name: "Jan.ai", nameKo: "잔 AI", free: true,
@@ -1953,7 +1953,7 @@ export const TOOLS_DATA = [
     features: ["100% 오프라인 로컬 AI 실행", "클린한 ChatGPT 스타일 UI", "OpenAI·Groq 등 외부 API 연결도 지원", "확장 가능한 플러그인 시스템", "오픈소스로 완전 투명한 코드"],
     tags: ["챗봇", "무료", "오픈소스"], score: 55.42, change: -1.19, sns: { naver: 12, youtube: 45, google: 50, github: 85 },
     life: ["freelancer", "startup", "student"],
-    naverKw: ["Jan.ai","잔AI"], yt: "Jan AI", ytKo: "잔AI", gt: "Jan AI", gtKo: "잔AI", github: "Jan AI",
+    naverKw: ["Jan.ai","잔AI"],
   },
   {
     id: 211, cat: "code", icon: "🖤", name: "Blackbox AI", nameKo: "블랙박스 AI", free: true,
@@ -1962,7 +1962,7 @@ export const TOOLS_DATA = [
     features: ["AI 코드 자동완성 및 생성", "코드 설명·디버깅·리팩터링 지원", "GitHub·GitLab 코드 검색 통합", "20+ 프로그래밍 언어 지원", "VS Code 확장 무료 설치"],
     tags: ["코딩", "무료", "자동완성"], score: 49.6, change: 2.15, sns: { naver: 20, youtube: 42, google: 48, github: 40 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Blackbox AI","블랙박스 AI"], yt: "Blackbox AI", ytKo: "블랙박스", gt: "Blackbox AI", gtKo: "블랙박스", github: "Blackbox AI",
+    naverKw: ["Blackbox AI","블랙박스 AI"],
   },
   {
     id: 212, cat: "code", icon: "👥", name: "CrewAI", nameKo: "크루AI", free: true,
@@ -1971,7 +1971,7 @@ export const TOOLS_DATA = [
     features: ["역할 기반 멀티에이전트 협업 구성", "리서처·작가·분석가 등 에이전트 역할 정의", "LangChain·OpenAI 등 다양한 LLM 연결", "Sequential·Hierarchical 실행 지원", "엔터프라이즈 멀티에이전트 솔루션 제공"],
     tags: ["코딩", "무료", "오픈소스"], score: 50.8, change: -2.13, sns: { naver: 18, youtube: 55, google: 62, github: 88 },
     life: ["startup", "freelancer"],
-    naverKw: ["CrewAI","크루AI"], yt: "CrewAI", ytKo: "크루AI", gt: "CrewAI", gtKo: "크루AI", github: "CrewAI",
+    naverKw: ["CrewAI","크루AI"],
   },
   {
     id: 213, cat: "code", icon: "🤖", name: "AutoGen", nameKo: "오토젠", free: true,
@@ -1980,7 +1980,7 @@ export const TOOLS_DATA = [
     features: ["AI 에이전트 간 자동 대화·협업", "코딩·디버깅·연구 에이전트 내장", "Human-in-the-Loop 인간 개입 지원", "GPT·Claude·로컬LLM 모두 연결", "Microsoft Research 공식 지원"],
     tags: ["코딩", "무료", "오픈소스"], score: 62.86, change: -1.33, sns: { naver: 15, youtube: 52, google: 58, github: 90 },
     life: ["startup", "freelancer"],
-    naverKw: ["AutoGen","오토젠"], yt: "AutoGen", ytKo: "오토젠", gt: "AutoGen Microsoft", gtKo: "오토젠", github: "AutoGen",
+    naverKw: ["AutoGen","오토젠"],
   },
   {
     id: 214, cat: "code", icon: "🔗", name: "LangChain", nameKo: "랭체인", free: true,
@@ -1989,7 +1989,7 @@ export const TOOLS_DATA = [
     features: ["LLM 앱 개발 표준 프레임워크", "RAG 파이프라인 빠른 구성", "100+ LLM·벡터DB·툴 연동 지원", "LangSmith로 디버깅·모니터링", "Python·JavaScript SDK 모두 지원"],
     tags: ["코딩", "무료", "오픈소스"], score: 66.44, change: 0.28, sns: { naver: 35, youtube: 68, google: 75, github: 98 },
     life: ["startup", "freelancer"],
-    naverKw: ["LangChain","랭체인"], yt: "LangChain", ytKo: "랭체인", gt: "LangChain", gtKo: "랭체인", github: "LangChain",
+    naverKw: ["LangChain","랭체인"],
   },
   {
     id: 215, cat: "code", icon: "📚", name: "LlamaIndex", nameKo: "라마인덱스", free: true,
@@ -1998,7 +1998,7 @@ export const TOOLS_DATA = [
     features: ["문서→LLM RAG 파이프라인 특화", "PDF·데이터베이스·API 등 다양한 소스 연결", "고급 청킹·임베딩·재순위 전략 지원", "LlamaCloud 매니지드 서비스 제공", "에이전트 워크플로우 구성 지원"],
     tags: ["코딩", "무료", "오픈소스"], score: 53.02, change: 0.34, sns: { naver: 18, youtube: 55, google: 62, github: 90 },
     life: ["startup", "freelancer"],
-    naverKw: ["LlamaIndex","라마인덱스"], yt: "LlamaIndex", ytKo: "라마인덱스", gt: "LlamaIndex", gtKo: "라마인덱스", github: "LlamaIndex",
+    naverKw: ["LlamaIndex","라마인덱스"],
   },
   {
     id: 216, cat: "productivity", icon: "📓", name: "NotebookLM", nameKo: "노트북LM", free: true,
@@ -2007,7 +2007,7 @@ export const TOOLS_DATA = [
     features: ["PDF·유튜브·웹사이트 소스 업로드 분석", "소스 기반 정확한 AI 답변 제공", "오디오 팟캐스트 자동 생성 기능", "공유 가능한 노트북 협업 지원", "Google 계정으로 무료 이용"],
     tags: ["생산성", "무료", "리서치"], score: 57.3, change: 0.33, sns: { naver: 52, youtube: 72, google: 78, github: 10 },
     life: ["student", "office", "freelancer"],
-    naverKw: ["NotebookLM","노트북LM"], yt: "NotebookLM", ytKo: "노트북LM", gt: "NotebookLM", gtKo: "노트북LM", github: "NotebookLM",
+    naverKw: ["NotebookLM","노트북LM"],
   },
   {
     id: 217, cat: "image", icon: "🎨", name: "Artbreeder", nameKo: "아트브리더", free: true,
@@ -2016,7 +2016,7 @@ export const TOOLS_DATA = [
     features: ["이미지 간 AI 믹싱 및 합성", "슬라이더로 스타일·얼굴·색상 세밀 조정", "초상화·풍경·애니메이션 캐릭터 특화", "커뮤니티 이미지 공유 및 리믹스", "무료 기본 사용 가능"],
     tags: ["이미지 생성", "무료", "아트"], score: 57.8, change: 0.25, sns: { naver: 22, youtube: 42, google: 50, github: 15 },
     life: ["creator", "freelancer"],
-    naverKw: ["Artbreeder","아트브리더"], yt: "Artbreeder", ytKo: "아트브리더", gt: "Artbreeder", gtKo: "아트브리더", github: "Artbreeder",
+    naverKw: ["Artbreeder","아트브리더"],
   },
   {
     id: 218, cat: "image", icon: "🖼️", name: "Freepik AI", nameKo: "프리픽 AI", free: true,
@@ -2025,7 +2025,7 @@ export const TOOLS_DATA = [
     features: ["텍스트→이미지 즉시 생성", "일러스트·사진·벡터 스타일 선택", "Flux·SDXL 등 최신 모델 탑재", "생성 이미지 상업적 이용 가능", "월 10회 무료 생성 제공"],
     tags: ["이미지 생성", "무료", "디자인"], score: 73.7, change: 0.21, sns: { naver: 28, youtube: 48, google: 58, github: 5 },
     life: ["creator", "freelancer", "marketer"],
-    naverKw: ["Freepik AI","프리픽 AI"], yt: "Freepik AI", ytKo: "프리픽", gt: "Freepik AI", gtKo: "프리픽", github: "Freepik AI",
+    naverKw: ["Freepik AI","프리픽 AI"],
   },
   {
     id: 219, cat: "text", icon: "📖", name: "NovelAI", nameKo: "노벨AI", free: false,
@@ -2034,7 +2034,7 @@ export const TOOLS_DATA = [
     features: ["소설·스토리 AI 공동 집필", "애니메이션 특화 AI 이미지 생성", "커스텀 AI 학습 모델 지원", "프라이버시 중심 서버 정책", "캐릭터·세계관 설정 도구 내장"],
     tags: ["텍스트", "유료", "창작"], score: 43.31, change: 0.49, sns: { naver: 35, youtube: 48, google: 45, github: 20 },
     life: ["creator", "student"],
-    naverKw: ["NovelAI","노벨AI"], yt: "NovelAI", ytKo: "노벨AI", gt: "NovelAI", gtKo: "노벨AI", github: "NovelAI",
+    naverKw: ["NovelAI","노벨AI"],
   },
   {
     id: 220, cat: "text", icon: "✍️", name: "Sudowrite", nameKo: "수도라이트", free: false,
@@ -2043,7 +2043,7 @@ export const TOOLS_DATA = [
     features: ["픽션·소설 집필 전용 AI 특화", "스토리 흐름 예측 및 제안 기능", "캐릭터·감정·배경 묘사 자동 생성", "막힌 장면 대안 3가지 즉시 생성", "소설 전체 일관성 유지 지원"],
     tags: ["텍스트", "유료", "창작"], score: 48.93, change: 2.14, sns: { naver: 12, youtube: 35, google: 40, github: 5 },
     life: ["creator", "freelancer"],
-    naverKw: ["Sudowrite","수도라이트"], yt: "Sudowrite", ytKo: "수도라이트", gt: "Sudowrite", gtKo: "수도라이트", github: "Sudowrite",
+    naverKw: ["Sudowrite","수도라이트"],
   },
   {
     id: 221, cat: "text", icon: "📝", name: "Lex", nameKo: "렉스 AI", free: true,
@@ -2052,7 +2052,7 @@ export const TOOLS_DATA = [
     features: ["AI 다음 문장 자동 제안 기능", "글쓰기 막힘 방지 AI 브레인스토밍", "피드백·요약·제목 자동 생성", "깔끔한 노이즈 프리 글쓰기 환경", "뉴스레터·에세이·블로그 작성 특화"],
     tags: ["텍스트", "무료", "글쓰기"], score: 44.88, change: 1.08, sns: { naver: 8, youtube: 32, google: 40, github: 5 },
     life: ["freelancer", "creator", "student"],
-    naverKw: ["Lex AI","렉스 AI"], yt: "Lex AI", ytKo: "렉스", gt: "Lex AI writer", gtKo: "렉스", github: "Lex AI",
+    naverKw: ["Lex AI","렉스 AI"],
   },
   {
     id: 222, cat: "video", icon: "🕺", name: "Viggle", nameKo: "비글 AI", free: true,
@@ -2061,7 +2061,7 @@ export const TOOLS_DATA = [
     features: ["사진 한 장으로 움직이는 영상 생성", "100+ 댄스·모션 템플릿 제공", "캐릭터 배경 합성 영상 제작", "Discord 봇으로 무료 사용 가능", "숏폼 콘텐츠 제작에 최적화"],
     tags: ["영상", "무료", "AI영상"], score: 46.92, change: 2.01, sns: { naver: 32, youtube: 55, google: 55, github: 10 },
     life: ["creator", "marketer"],
-    naverKw: ["Viggle AI","비글 AI"], yt: "Viggle AI", ytKo: "비글AI", gt: "Viggle AI", gtKo: "비글AI", github: "Viggle",
+    naverKw: ["Viggle AI","비글 AI"],
   },
   {
     id: 223, cat: "video", icon: "🎭", name: "Hedra", nameKo: "헤드라 AI", free: true,
@@ -2070,7 +2070,7 @@ export const TOOLS_DATA = [
     features: ["사진+음성→자연스러운 립싱크 영상", "AI 음성 생성 또는 직접 녹음 지원", "인물·캐릭터·애니 등 다양한 스타일", "웹에서 간단하게 무료 생성", "교육·마케팅·SNS 영상 특화"],
     tags: ["영상", "무료", "아바타"], score: 51.1, change: 1.14, sns: { naver: 22, youtube: 48, google: 52, github: 8 },
     life: ["creator", "marketer", "office"],
-    naverKw: ["Hedra AI","헤드라 AI"], yt: "Hedra AI", ytKo: "헤드라", gt: "Hedra AI", gtKo: "헤드라", github: "Hedra",
+    naverKw: ["Hedra AI","헤드라 AI"],
   },
   {
     id: 224, cat: "video", icon: "🎞️", name: "Stable Video", nameKo: "스테이블 비디오", free: true,
@@ -2079,7 +2079,7 @@ export const TOOLS_DATA = [
     features: ["이미지 한 장으로 영상 클립 생성", "자연스러운 카메라 모션 자동 추가", "오픈소스 로컬 실행 가능", "ComfyUI로 커스텀 워크플로우 구성", "게임·제품 시각화에 활용"],
     tags: ["영상", "무료", "오픈소스"], score: 67.8, change: -0.07, sns: { naver: 20, youtube: 45, google: 52, github: 72 },
     life: ["creator", "freelancer"],
-    naverKw: ["Stable Video","스테이블 비디오"], yt: "Stable Video Diffusion", ytKo: "스테이블비디오", gt: "Stable Video Diffusion", gtKo: "스테이블비디오", github: "Stable Video",
+    naverKw: ["Stable Video","스테이블 비디오"],
   },
   {
     id: 225, cat: "audio", icon: "🎤", name: "Deepgram", nameKo: "딥그램", free: true,
@@ -2088,7 +2088,7 @@ export const TOOLS_DATA = [
     features: ["실시간 스트리밍 음성인식 API", "배치 오디오 전사 고속 처리", "스피커 분리(Diarization) 기능", "30+ 언어 지원 및 한국어 포함", "$200 무료 크레딧 제공"],
     tags: ["오디오", "무료", "API"], score: 57.32, change: -0.67, sns: { naver: 12, youtube: 40, google: 52, github: 65 },
     life: ["startup", "freelancer", "office"],
-    naverKw: ["Deepgram","딥그램"], yt: "Deepgram", ytKo: "딥그램", gt: "Deepgram", gtKo: "딥그램", github: "Deepgram",
+    naverKw: ["Deepgram","딥그램"],
   },
   {
     id: 226, cat: "audio", icon: "📡", name: "AssemblyAI", nameKo: "어셈블리AI", free: true,
@@ -2097,7 +2097,7 @@ export const TOOLS_DATA = [
     features: ["고정확도 음성→텍스트 전사 API", "자동 요약·챕터 분리 AI 기능", "감정 분석·주제 태깅 포함", "실시간 스트리밍 전사 지원", "무료 크레딧으로 시작 가능"],
     tags: ["오디오", "무료", "API"], score: 55.33, change: -0.75, sns: { naver: 10, youtube: 38, google: 48, github: 60 },
     life: ["startup", "freelancer", "office"],
-    naverKw: ["AssemblyAI","어셈블리AI"], yt: "AssemblyAI", ytKo: "어셈블리AI", gt: "AssemblyAI", gtKo: "어셈블리AI", github: "AssemblyAI",
+    naverKw: ["AssemblyAI","어셈블리AI"],
   },
   {
     id: 227, cat: "audio", icon: "🗣️", name: "Speechmatics", nameKo: "스피치매틱스", free: true,
@@ -2106,7 +2106,7 @@ export const TOOLS_DATA = [
     features: ["50+ 언어 실시간 음성인식 지원", "방언·악센트에 강한 인식 엔진", "실시간·배치 전사 모두 지원", "온프레미스 배포 옵션 제공", "무료 개발자 체험판 제공"],
     tags: ["오디오", "무료", "API"], score: 52.83, change: -0.81, sns: { naver: 5, youtube: 28, google: 42, github: 45 },
     life: ["startup", "office"],
-    naverKw: ["Speechmatics","스피치매틱스"], yt: "Speechmatics", ytKo: "스피치매틱스", gt: "Speechmatics", gtKo: "스피치매틱스", github: "Speechmatics",
+    naverKw: ["Speechmatics","스피치매틱스"],
   },
   {
     id: 228, cat: "audio", icon: "📞", name: "Retell AI", nameKo: "리텔 AI", free: true,
@@ -2115,7 +2115,7 @@ export const TOOLS_DATA = [
     features: ["사람같은 자연스러운 AI 전화 에이전트", "저지연 실시간 음성 대화 처리", "CRM·캘린더 등 외부 시스템 연동", "커스텀 에이전트 시나리오 설계", "무료 체험 제공"],
     tags: ["오디오", "무료", "자동화"], score: 49.58, change: -2.14, sns: { naver: 8, youtube: 38, google: 45, github: 40 },
     life: ["startup", "office"],
-    naverKw: ["Retell AI","리텔 AI"], yt: "Retell AI", ytKo: "리텔", gt: "Retell AI", gtKo: "리텔", github: "Retell AI",
+    naverKw: ["Retell AI","리텔 AI"],
   },
   {
     id: 229, cat: "audio", icon: "📱", name: "Bland AI", nameKo: "블랜드 AI", free: true,
@@ -2124,7 +2124,7 @@ export const TOOLS_DATA = [
     features: ["AI 자동 발신·수신 전화 에이전트", "스크립트 없이 자연스러운 대화", "한국어 포함 다국어 지원", "통화 내용 자동 요약 및 전사", "API로 기존 시스템과 연동 가능"],
     tags: ["오디오", "무료", "자동화"], score: 48.43, change: 0.43, sns: { naver: 8, youtube: 35, google: 42, github: 38 },
     life: ["startup", "office", "marketer"],
-    naverKw: ["Bland AI","블랜드 AI"], yt: "Bland AI", ytKo: "블랜드", gt: "Bland AI", gtKo: "블랜드", github: "Bland AI",
+    naverKw: ["Bland AI","블랜드 AI"],
   },
   {
     id: 230, cat: "automation", icon: "🔊", name: "Voiceflow", nameKo: "보이스플로우", free: true,
@@ -2133,7 +2133,7 @@ export const TOOLS_DATA = [
     features: ["드래그앤드롭 챗봇·음성봇 설계", "GPT·Claude 등 AI 모델 연결", "웹·WhatsApp·Slack 다채널 배포", "대화 분석 대시보드 내장", "팀 협업 프로토타입 제작 지원"],
     tags: ["자동화", "무료", "노코드"], score: 54.68, change: 1.15, sns: { naver: 15, youtube: 42, google: 52, github: 45 },
     life: ["startup", "office", "marketer"],
-    naverKw: ["Voiceflow","보이스플로우"], yt: "Voiceflow", ytKo: "보이스플로우", gt: "Voiceflow", gtKo: "보이스플로우", github: "Voiceflow",
+    naverKw: ["Voiceflow","보이스플로우"],
   },
   {
     id: 231, cat: "automation", icon: "🤖", name: "Botpress", nameKo: "봇프레스", free: true,
@@ -2142,7 +2142,7 @@ export const TOOLS_DATA = [
     features: ["GPT 기반 AI 챗봇 빠른 구축", "지식베이스 문서 업로드 QA 봇", "웹·Telegram·Slack 등 채널 배포", "시각적 플로우 편집기 제공", "오픈소스 셀프호스팅 지원"],
     tags: ["자동화", "무료", "오픈소스"], score: 55.81, change: 0.4, sns: { naver: 12, youtube: 40, google: 50, github: 72 },
     life: ["startup", "office"],
-    naverKw: ["Botpress","봇프레스"], yt: "Botpress", ytKo: "봇프레스", gt: "Botpress", gtKo: "봇프레스", github: "Botpress",
+    naverKw: ["Botpress","봇프레스"],
   },
   {
     id: 232, cat: "chatbot", icon: "🤗", name: "Coze", nameKo: "코즈 AI", free: true,
@@ -2151,7 +2151,7 @@ export const TOOLS_DATA = [
     features: ["노코드 AI 봇 빌더 플랫폼", "웹검색·이미지생성·코드 실행 플러그인", "Telegram·Discord·웹 즉시 배포", "멀티모달 텍스트+이미지 처리", "무료로 봇 생성 및 배포 가능"],
     tags: ["챗봇", "무료", "노코드"], score: 43.14, change: -1, sns: { naver: 30, youtube: 52, google: 55, github: 25 },
     life: ["startup", "marketer", "creator"],
-    naverKw: ["Coze","코즈 AI"], yt: "Coze AI", ytKo: "코즈", gt: "Coze AI", gtKo: "코즈", github: "Coze",
+    naverKw: ["Coze","코즈 AI"],
   },
   {
     id: 233, cat: "productivity", icon: "📝", name: "Notta", nameKo: "노타 AI", free: true,
@@ -2160,7 +2160,7 @@ export const TOOLS_DATA = [
     features: ["실시간 회의 자동 전사 및 요약", "줌·구글밋·팀즈 자동 녹취 연동", "AI 액션아이템·주요 결정사항 추출", "58개 언어 지원 및 한국어 최적화", "무료 300분/월 제공"],
     tags: ["생산성", "무료", "회의록"], score: 56.46, change: 1.38, sns: { naver: 38, youtube: 48, google: 52, github: 5 },
     life: ["office", "student", "freelancer"],
-    naverKw: ["Notta","노타 AI"], yt: "Notta AI", ytKo: "노타", gt: "Notta AI", gtKo: "노타", github: "Notta",
+    naverKw: ["Notta","노타 AI"],
   },
   {
     id: 234, cat: "productivity", icon: "🎬", name: "tl;dv", nameKo: "틸디브이", free: true,
@@ -2169,7 +2169,7 @@ export const TOOLS_DATA = [
     features: ["줌·구글밋 자동 녹화 및 전사", "AI 회의 요약 및 핵심 내용 추출", "타임스탬프 기반 중요 순간 북마크", "CRM·Slack·Notion 자동 연동", "무료 무제한 녹화 제공"],
     tags: ["생산성", "무료", "회의록"], score: 47.8, change: 0.73, sns: { naver: 25, youtube: 45, google: 52, github: 8 },
     life: ["office", "startup", "freelancer"],
-    naverKw: ["tl;dv","틸디브이"], yt: "tldv", ytKo: "틸디브이", gt: "tldv", gtKo: "틸디브이", github: "tldv",
+    naverKw: ["tl;dv","틸디브이"],
   },
   {
     id: 235, cat: "productivity", icon: "🎯", name: "Fathom", nameKo: "패텀 AI", free: true,
@@ -2178,7 +2178,7 @@ export const TOOLS_DATA = [
     features: ["줌 회의 자동 녹화·전사 무료 제공", "AI 회의 요약 즉시 생성", "Salesforce·HubSpot CRM 자동 기록", "팀 공유 및 클립 하이라이트 기능", "무료 무제한 사용 가능"],
     tags: ["생산성", "무료", "회의록"], score: 50.27, change: 2.19, sns: { naver: 18, youtube: 42, google: 48, github: 5 },
     life: ["office", "startup", "marketer"],
-    naverKw: ["Fathom","패텀 AI"], yt: "Fathom AI", ytKo: "패텀", gt: "Fathom AI", gtKo: "패텀", github: "Fathom",
+    naverKw: ["Fathom","패텀 AI"],
   },
   {
     id: 236, cat: "productivity", icon: "🎙️", name: "Avoma", nameKo: "아보마 AI", free: true,
@@ -2187,7 +2187,7 @@ export const TOOLS_DATA = [
     features: ["영업 통화 자동 전사 및 분석", "AI 코칭 및 성과 인사이트 제공", "CRM 자동 업데이트 연동", "미팅 준비·후속 이메일 자동화", "팀 전체 통화 품질 모니터링"],
     tags: ["생산성", "무료", "영업"], score: 48.1, change: 2, sns: { naver: 8, youtube: 30, google: 42, github: 5 },
     life: ["office", "startup", "marketer"],
-    naverKw: ["Avoma","아보마 AI"], yt: "Avoma AI", ytKo: "아보마", gt: "Avoma AI", gtKo: "아보마", github: "Avoma",
+    naverKw: ["Avoma","아보마 AI"],
   },
   {
     id: 237, cat: "search", icon: "🔍", name: "Glean", nameKo: "글린 AI", free: false,
@@ -2196,7 +2196,7 @@ export const TOOLS_DATA = [
     features: ["기업 내 전체 데이터 통합 AI 검색", "Slack·Drive·Notion·Jira 등 100+ 연동", "AI가 문서 내용 기반으로 직접 답변", "직원 개인화 검색 결과 제공", "기업 보안·권한 관리 완벽 지원"],
     tags: ["검색", "유료", "엔터프라이즈"], score: 51.9, change: 1.26, sns: { naver: 10, youtube: 35, google: 52, github: 20 },
     life: ["office", "startup"],
-    naverKw: ["Glean AI","글린 AI"], yt: "Glean AI", ytKo: "글린", gt: "Glean AI", gtKo: "글린", github: "Glean",
+    naverKw: ["Glean AI","글린 AI"],
   },
   {
     id: 238, cat: "search", icon: "💡", name: "Devv.ai", nameKo: "데브 AI", free: true,
@@ -2205,7 +2205,7 @@ export const TOOLS_DATA = [
     features: ["개발자 특화 AI 검색 엔진", "Stack Overflow·GitHub·공식 문서 실시간 검색", "코드 예제 포함 직접 답변 생성", "최신 라이브러리·프레임워크 정보 반영", "무료로 즉시 사용 가능"],
     tags: ["검색", "무료", "개발자"], score: 39.33, change: -0.6, sns: { naver: 12, youtube: 35, google: 45, github: 50 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Devv AI","데브 AI"], yt: "Devv AI", ytKo: "데브", gt: "Devv AI", gtKo: "데브", github: "Devv",
+    naverKw: ["Devv AI","데브 AI"],
   },
   {
     id: 239, cat: "code", icon: "🌲", name: "Pinecone", nameKo: "파인콘 DB", free: true,
@@ -2214,7 +2214,7 @@ export const TOOLS_DATA = [
     features: ["클라우드 네이티브 벡터 데이터베이스", "수십억 벡터 밀리초 유사도 검색", "LangChain·LlamaIndex 완벽 연동", "서버리스·Pod 기반 유연한 배포", "무료 스타터 티어 제공"],
     tags: ["코딩", "무료", "데이터베이스"], score: 60.26, change: 2.1, sns: { naver: 15, youtube: 48, google: 58, github: 70 },
     life: ["startup", "freelancer"],
-    naverKw: ["Pinecone","파인콘 DB"], yt: "Pinecone", ytKo: "파인콘DB", gt: "Pinecone vector database", gtKo: "파인콘DB", github: "Pinecone",
+    naverKw: ["Pinecone","파인콘 DB"],
   },
   {
     id: 240, cat: "code", icon: "🌈", name: "Chroma", nameKo: "크로마 DB", free: true,
@@ -2223,7 +2223,7 @@ export const TOOLS_DATA = [
     features: ["오픈소스 로컬 벡터 DB 즉시 실행", "Python·JavaScript SDK 완벽 지원", "LangChain·LlamaIndex 기본 연동", "메타데이터 필터링 검색 지원", "클라우드 매니지드 서비스 제공"],
     tags: ["코딩", "무료", "오픈소스"], score: 53.11, change: 0.57, sns: { naver: 12, youtube: 42, google: 52, github: 88 },
     life: ["startup", "freelancer"],
-    naverKw: ["Chroma DB","크로마 DB"], yt: "Chroma vector database", ytKo: "크로마DB", gt: "Chroma vector database", gtKo: "크로마DB", github: "Chroma",
+    naverKw: ["Chroma DB","크로마 DB"],
   },
   {
     id: 241, cat: "automation", icon: "🔧", name: "Copilot Studio", nameKo: "코파일럿 스튜디오", free: false,
@@ -2232,7 +2232,7 @@ export const TOOLS_DATA = [
     features: ["노코드 AI 코파일럿 빌더", "Microsoft 365·Teams 완벽 통합", "기업 데이터 SharePoint·SAP 연결", "Power Automate 워크플로우 연동", "Azure AD 기업 보안 정책 지원"],
     tags: ["자동화", "유료", "엔터프라이즈"], score: 46.95, change: 1.66, sns: { naver: 22, youtube: 42, google: 50, github: 20 },
     life: ["office", "startup"],
-    naverKw: ["Copilot Studio","코파일럿 스튜디오"], yt: "Copilot Studio", ytKo: "코파일럿스튜디오", gt: "Microsoft Copilot Studio", gtKo: "코파일럿스튜디오", github: "Copilot Studio",
+    naverKw: ["Copilot Studio","코파일럿 스튜디오"],
   },
   {
     id: 242, cat: "design", icon: "🏢", name: "Adobe GenStudio", nameKo: "어도비 젠스튜디오", free: false,
@@ -2241,7 +2241,7 @@ export const TOOLS_DATA = [
     features: ["브랜드 가이드라인 기반 콘텐츠 생성", "이메일·배너·SNS 광고 대량 제작", "마케팅 팀 협업 워크플로우 지원", "성과 측정 콘텐츠 인사이트 제공", "Adobe Creative Cloud 완전 연동"],
     tags: ["디자인", "유료", "엔터프라이즈"], score: 44.28, change: -2.76, sns: { naver: 12, youtube: 35, google: 45, github: 5 },
     life: ["marketer", "office"],
-    naverKw: ["Adobe GenStudio","어도비 젠스튜디오"], yt: "Adobe GenStudio", ytKo: "어도비젠스튜디오", gt: "Adobe GenStudio", gtKo: "어도비젠스튜디오", github: "Adobe GenStudio",
+    naverKw: ["Adobe GenStudio","어도비 젠스튜디오"],
   },
   {
     id: 243, cat: "productivity", icon: "📊", name: "Height AI", nameKo: "하이트 AI", free: true,
@@ -2250,7 +2250,7 @@ export const TOOLS_DATA = [
     features: ["AI 자동 태스크 생성 및 분배", "프로젝트 진행 상황 AI 요약", "GitHub·Figma·Slack 연동 지원", "스프린트 계획 AI 자동화", "무료 팀 플랜 제공"],
     tags: ["생산성", "무료", "프로젝트"], score: 45.42, change: -0.3, sns: { naver: 8, youtube: 30, google: 40, github: 35 },
     life: ["startup", "office", "freelancer"],
-    naverKw: ["Height AI","하이트AI"], yt: "Height AI", ytKo: "하이트AI", gt: "Height AI", gtKo: "하이트AI", github: "Height",
+    naverKw: ["Height AI","하이트AI"],
   },
   {
     id: 244, cat: "chatbot", icon: "💁", name: "Intercom Fin", nameKo: "인터콤 핀", free: false,
@@ -2259,7 +2259,7 @@ export const TOOLS_DATA = [
     features: ["AI가 고객 문의 자동 해결", "지식베이스 학습 기반 정확한 답변", "해결 못하면 상담원에게 자동 전환", "이메일·채팅·WhatsApp 멀티채널 지원", "해결률 기반 투명한 성과 측정"],
     tags: ["챗봇", "유료", "고객지원"], score: 65.11, change: 0.49, sns: { naver: 15, youtube: 38, google: 50, github: 15 },
     life: ["startup", "office", "marketer"],
-    naverKw: ["Intercom Fin","인터콤 핀"], yt: "Intercom Fin AI", ytKo: "인터콤핀", gt: "Intercom Fin", gtKo: "인터콤핀", github: "Intercom",
+    naverKw: ["Intercom Fin","인터콤 핀"],
   },
   {
     id: 245, cat: "chatbot", icon: "💬", name: "Tidio Lyro", nameKo: "티디오 리로", free: true,
@@ -2268,7 +2268,7 @@ export const TOOLS_DATA = [
     features: ["5분 내 웹사이트 AI 챗봇 설치", "FAQ·상품 정보 학습 자동 답변", "이메일·라이브챗 통합 고객 관리", "Shopify·WordPress 즉시 연동", "무료 플랜으로 시작 가능"],
     tags: ["챗봇", "무료", "고객지원"], score: 66.02, change: -1.17, sns: { naver: 12, youtube: 35, google: 45, github: 20 },
     life: ["startup", "marketer", "office"],
-    naverKw: ["Tidio Lyro","티디오 리로"], yt: "Tidio AI", ytKo: "티디오리로", gt: "Tidio Lyro", gtKo: "티디오리로", github: "Tidio",
+    naverKw: ["Tidio Lyro","티디오 리로"],
   },
   {
     id: 246, cat: "text", icon: "🦾", name: "Manus AI", nameKo: "매너스 AI", free: false,
@@ -2277,7 +2277,7 @@ export const TOOLS_DATA = [
     features: ["다단계 복잡 태스크 자율 수행", "웹 검색·코딩·파일 조작 통합", "컴퓨터를 직접 조작하는 AI 에이전트", "이메일·캘린더 등 실제 업무 자동화", "초대장 기반 제한적 공개 서비스"],
     tags: ["텍스트", "유료", "AI에이전트"], score: 53.81, change: 0.8, sns: { naver: 55, youtube: 65, google: 60, github: 20 },
     life: ["office", "startup", "freelancer"],
-    naverKw: ["Manus AI","매너스 AI"], yt: "Manus AI", ytKo: "매너스", gt: "Manus AI", gtKo: "매너스", github: "Manus AI",
+    naverKw: ["Manus AI","매너스 AI"],
   },
   {
     id: 247, cat: "chatbot", icon: "💭", name: "Lobe Chat", nameKo: "로브 챗", free: true,
@@ -2286,7 +2286,7 @@ export const TOOLS_DATA = [
     features: ["GPT·Claude·Gemini 등 멀티LLM 통합", "이미지·파일·음성 멀티모달 지원", "플러그인 마켓플레이스 내장", "로컬 LLM Ollama 연동 지원", "Docker 셀프호스팅 완전 무료"],
     tags: ["챗봇", "무료", "오픈소스"], score: 49.95, change: 1.33, sns: { naver: 18, youtube: 52, google: 55, github: 90 },
     life: ["startup", "freelancer", "student"],
-    naverKw: ["Lobe Chat","로브 챗"], yt: "Lobe Chat", ytKo: "로브챗", gt: "Lobe Chat", gtKo: "로브챗", github: "Lobe Chat",
+    naverKw: ["Lobe Chat","로브 챗"],
   },
   {
     id: 248, cat: "code", icon: "🪄", name: "Wordware", nameKo: "워드웨어", free: true,
@@ -2295,7 +2295,7 @@ export const TOOLS_DATA = [
     features: ["자연어로 AI 앱 작성 및 배포", "노코드 AI 에이전트 플로우 구성", "GPT·Claude·Gemini 등 멀티LLM 지원", "API로 외부 시스템에 즉시 연동", "팀 협업 AI 앱 개발 지원"],
     tags: ["코딩", "무료", "노코드"], score: 50.47, change: -0.51, sns: { naver: 8, youtube: 38, google: 45, github: 45 },
     life: ["startup", "freelancer"],
-    naverKw: ["Wordware","워드웨어"], yt: "Wordware AI", ytKo: "워드웨어", gt: "Wordware AI", gtKo: "워드웨어", github: "Wordware",
+    naverKw: ["Wordware","워드웨어"],
   },
   {
     id: 249, cat: "productivity", icon: "📹", name: "Zoom AI", nameKo: "줌 AI", free: true,
@@ -2304,7 +2304,7 @@ export const TOOLS_DATA = [
     features: ["회의 실시간 AI 요약 및 전사", "다음 단계·액션아이템 자동 추출", "채팅 답장 AI 초안 작성 지원", "회의 중 질문·검색 AI 응답", "Zoom 유료 플랜 포함 기본 제공"],
     tags: ["생산성", "무료", "회의"], score: 54.77, change: -0.63, sns: { naver: 42, youtube: 55, google: 62, github: 5 },
     life: ["office", "startup", "freelancer"],
-    naverKw: ["Zoom AI","줌 AI"], yt: "Zoom AI", ytKo: "줌AI", gt: "Zoom AI Companion", gtKo: "줌AI", github: "Zoom AI",
+    naverKw: ["Zoom AI","줌 AI"],
   },
   {
     id: 250, cat: "productivity", icon: "💼", name: "Slack AI", nameKo: "슬랙 AI", free: false,
@@ -2313,7 +2313,7 @@ export const TOOLS_DATA = [
     features: ["채널·스레드 대화 AI 즉시 요약", "자연어 검색으로 과거 대화 탐색", "업무 FAQ AI 자동 답변", "하이라이트 요약으로 빠른 업무 파악", "Slack Pro 이상 플랜에서 사용 가능"],
     tags: ["생산성", "유료", "협업"], score: 54.59, change: -1.53, sns: { naver: 38, youtube: 52, google: 60, github: 5 },
     life: ["office", "startup"],
-    naverKw: ["Slack AI","슬랙 AI"], yt: "Slack AI", ytKo: "슬랙AI", gt: "Slack AI", gtKo: "슬랙AI", github: "Slack AI",
+    naverKw: ["Slack AI","슬랙 AI"],
   },
 ];
 
