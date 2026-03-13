@@ -58,9 +58,14 @@ const ScoreInsightPanel = ({ tool }) => {
           pathLength="1"
           style={{ strokeDasharray: 1, strokeDashoffset: 1, animation: "sparkDraw 0.8s ease forwards" }}
         />
-        {pts.map((v, i) => <circle key={i} cx={sx(i)} cy={sy(v)} r={i === pts.length - 1 ? 2.5 : 1.5} fill={color}
-          style={{ opacity: 0, animation: `sparkFade 0.3s ease ${0.1 + i * 0.08}s forwards` }}
-        />)}
+        {pts.map((v, i) => (
+          <circle key={i} cx={sx(i)} cy={sy(v)}
+            r={i === pts.length - 1 ? 3 : 2}
+            fill={i === pts.length - 1 ? color : "var(--bg-card)"}
+            stroke={color} strokeWidth={i === pts.length - 1 ? 0 : 1.2}
+            style={{ opacity: 0, animation: `sparkFade 0.3s ease ${0.1 + i * 0.08}s forwards` }}
+          />
+        ))}
       </svg>
     );
   };
@@ -98,12 +103,10 @@ const ScoreInsightPanel = ({ tool }) => {
                 onMouseEnter={() => { if (desc) setActiveTooltip(idx); }}
                 onMouseLeave={() => setActiveTooltip(null)}
               >
-                {idx !== 0 && (
-                  <div style={{ width: 24, flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    {icon && <img src={icon} alt={label} width={22} height={22} style={{ borderRadius: "4px", objectFit: "contain" }} />}
-                  </div>
-                )}
-                {idx !== 0 && <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", width: "40px", flexShrink: 0 }}>{label}</span>}
+                <div style={{ width: 24, flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  {icon && <img src={icon} alt={label} width={22} height={22} style={{ borderRadius: "4px", objectFit: "contain" }} />}
+                </div>
+                <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", width: "40px", flexShrink: 0 }}>{label}</span>
                 <div style={{ flex: 1 }}><Spark pts={pts} color={color} /></div>
                 <span style={{ fontSize: "1.1rem", fontWeight: 900, color, width: "32px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
               </div>
