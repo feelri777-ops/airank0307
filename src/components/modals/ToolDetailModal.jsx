@@ -282,15 +282,12 @@ const ScoreTrendChart = ({ tool, rank }) => {
   const days = ["6일전","5일전","4일전","3일전","2일전","어제","오늘"];
 
   return (
-    <div style={{ marginBottom: "0.75rem" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-        <h3 style={{ fontSize: "0.8rem", fontWeight: 800, margin: 0, color: "var(--text-primary)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
-          📈 최근 7일 점수 추이
-        </h3>
+    <div style={{ marginBottom: "12px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+        <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)" }}>최근 7일 점수 추이</div>
         <span style={{
           fontSize: "0.65rem", fontWeight: 700,
           color: isFlat ? "var(--text-muted)" : isUp ? "#22c55e" : "#f87171",
-          fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
         }}>
           {isFlat ? "변동없음" : isUp ? `▲ ${change}%` : `▼ ${Math.abs(change)}%`}
         </span>
@@ -366,9 +363,6 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
       boxShadow: "0 24px 64px rgba(0,0,0,0.25)",
       height: "fit-content"
     }}>
-      {/* 최근 7일 순위 변동 그래프 */}
-      <ScoreTrendChart tool={tool} rank={rank} />
-
       <div style={{ padding: "12px 14px", background: "var(--bg-secondary)", borderRadius: "3px", marginBottom: "1.5rem" }}>
         <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
           <span style={{ color: "var(--accent-indigo)", fontWeight: 700 }}>💡 이렇게 써보세요</span><br/>
@@ -587,9 +581,10 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
 
       <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.5, marginBottom: "12.5px" }}>{tool.desc}</p>
 
+      <ScoreTrendChart tool={tool} rank={rank} />
       <ScoreDetailBars tool={tool} />
 
-      {tool.features && ( <div style={{ marginBottom: "16px" }}><div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.75rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.4 }}>{f}</span></li>))}</ul></div>)}
+      {tool.features && ( <div style={{ marginBottom: "16px" }}><div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.9rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.4 }}>{f}</span></li>))}</ul></div>)}
 
       <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "16px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.65rem", padding: "3px 8px", borderRadius: "3px", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
 
@@ -624,8 +619,9 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               </div>
             </div>
             <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "16px" }}>{tool.desc}</p>
+            <ScoreTrendChart tool={tool} rank={rank} />
             <ScoreDetailBars tool={tool} />
-            {tool.features && ( <div style={{ marginBottom: "24px" }}><div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.8rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{f}</span></li>))}</ul></div>)}
+            {tool.features && ( <div style={{ marginBottom: "24px" }}><div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.95rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "1rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{f}</span></li>))}</ul></div>)}
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "24px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "4px", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
             <div style={{ marginBottom: "24px", display: "flex", flexDirection: "column", gap: "12px" }}>
               {tool.cat && ( <div style={{ display: "flex", alignItems: "center", gap: "10px" }}><span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>카테고리</span><span style={{ fontSize: "0.75rem", padding: "4px 12px", borderRadius: "5px", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700 }}>{CAT_LABEL[tool.cat] ?? tool.cat}</span></div>)}
