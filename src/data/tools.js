@@ -1606,7 +1606,7 @@ export const TOOLS_DATA = [
     desc: "노드 기반 Stable Diffusion 워크플로우 빌더. 이미지 생성 파이프라인을 시각적으로 구성하는 가장 강력한 오픈소스 SD 인터페이스.",
     url: "https://github.com/comfyanonymous/ComfyUI",
     features: ["노드 기반 시각적 워크플로우 편집", "SD 1.5·SDXL·Flux 모든 모델 지원", "커스텀 노드 수천 개 플러그인", "완전 무료 오픈소스", "전문가급 정밀 파라미터 제어"],
-    tags: ["이미지", "무료", "오픈소스"], score: 79.79, change: 44.69, sns: { naver: 38, youtube: 72, google: 68, github: 88 },
+    tags: ["이미지", "무료", "오픈소스"], score: 63.11, change: 44.69, sns: { naver: 38, youtube: 72, google: 68, github: 88 },
     life: ["creator", "freelancer", "startup"],
     naverKw: ["ComfyUI","컴피UI"], yt: "ComfyUI", ytKo: "컴피UI", gt: "ComfyUI", gtKo: "컴피UI", github: "ComfyUI",
   },
@@ -1716,11 +1716,11 @@ export const TOOLS_DATA = [
   {
     id: 185, cat: "audio", icon: "🎙️", name: "Whisper", nameKo: "위스퍼", free: true,
     desc: "OpenAI의 오픈소스 음성 인식 AI. 99개 언어를 지원하고 잡음이 많은 환경에서도 높은 정확도로 텍스트를 변환하는 업계 표준 ASR 모델.",
-    url: "https://openai.com/research/whisper",
+    url: "https://openai.com/ko-KR/index/whisper/",
     features: ["99개 언어 음성→텍스트 변환", "잡음 환경에서도 높은 정확도", "오픈소스로 로컬 실행 가능", "번역 기능 내장 (영어 변환)", "API 및 다양한 래퍼 라이브러리"],
-    tags: ["오디오", "무료", "오픈소스"], score: 79.79, change: -5.14, sns: { naver: 45, youtube: 72, google: 75, github: 92 },
+    tags: ["오디오", "무료", "오픈소스"], score: 61.43, change: -5.14, sns: { naver: 45, youtube: 72, google: 75, github: 92 },
     life: ["office", "startup", "freelancer", "student"],
-    naverKw: ["Whisper","위스퍼"], yt: "Whisper", ytKo: "위스퍼", gt: "Whisper", gtKo: "위스퍼", github: "Whisper",
+    naverKw: ["Whisper AI","OpenAI Whisper","오픈에이아이 위스퍼"], yt: "OpenAI Whisper", ytKo: "오픈에이아이 위스퍼", gt: "Whisper AI", gtKo: "위스퍼 AI", github: "Whisper",
   },
   {
     id: 186, cat: "audio", icon: "🔊", name: "Adobe Podcast", nameKo: "어도비 팟캐스트", free: true,
