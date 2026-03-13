@@ -1465,9 +1465,9 @@ export const TOOLS_DATA = [
     desc: "VS Code 확장 프로그램 기반의 AI 코딩 에이전트. 파일 생성·편집·터미널 실행·브라우저 조작을 AI가 자율 수행하는 강력한 자동화 도구.",
     url: "https://github.com/cline/cline",
     features: ["VS Code에서 자율 코딩 에이전트 실행", "파일·폴더 생성·편집 자동화", "터미널 명령 자율 실행", "브라우저 조작·스크린샷 분석", "Claude·GPT 등 멀티 모델 지원"],
-    tags: ["코딩", "무료", "오픈소스"], score: 79.45, change: 46.54, sns: { naver: 22, youtube: 60, google: 62, github: 82 },
+    tags: ["코딩", "무료", "오픈소스"], score: 63.94, change: 46.54, sns: { naver: 22, youtube: 60, google: 62, github: 82 },
     life: ["freelancer", "startup", "office"],
-    naverKw: ["Cline","클라인 AI"], yt: "Cline", ytKo: "클라인", gt: "Cline", gtKo: "클라인", github: "Cline",
+    naverKw: ["Cline AI","클라인 AI","Cline VS Code"], yt: "Cline AI", ytKo: "클라인 AI", gt: "Cline AI", gtKo: "클라인 AI", github: "Cline",
   },
 
   // ── 텍스트 추가 (159-163) ──

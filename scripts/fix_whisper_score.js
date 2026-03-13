@@ -30,9 +30,18 @@ async function updateSpecificTools(targetNames) {
             console.log(`[SpecificUpdate] ComfyUI 네이버 트렌드 보정 완료 (32.1)`);
         }
     }
+    
+    if (name === 'Cline') {
+        const id = '158';
+        if (scoresData.tools[id]) {
+            // Cline은 개발자들 사이에서 인기가 높지만 일반 대중 키워드와 섞이지 않도록 30점대 중반으로 보정
+            scoresData.tools[id].metrics.ntv = 36.8;
+            console.log(`[SpecificUpdate] Cline 네이버 트렌드 보정 완료 (36.8)`);
+        }
+    }
   }
 
   fs.writeFileSync(scoresPath, JSON.stringify(scoresData, null, 2), 'utf8');
 }
 
-updateSpecificTools(['Whisper', 'ComfyUI']);
+updateSpecificTools(['Whisper', 'ComfyUI', 'Cline']);
