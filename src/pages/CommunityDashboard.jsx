@@ -5,10 +5,10 @@ import { db } from "../firebase";
 import { formatRelativeTime } from "../utils";
 
 export const BOARDS = [
-  { id: "chatgpt",    name: "ChatGPT",  icon: "🤖", color: "#10a37f", desc: "ChatGPT 사용팁, 질문, 후기를 공유해요" },
-  { id: "gemini",     name: "Gemini",   icon: "✨", color: "#4285F4", desc: "Google Gemini 활용법과 토론" },
-  { id: "claude",     name: "Claude",   icon: "🟠", color: "#CC785C", desc: "Anthropic Claude 활용 경험 공유" },
-  { id: "opensource", name: "오픈소스", icon: "💻", color: "#8B5CF6", desc: "오픈소스 AI 모델 프로젝트 공유" },
+  { id: "chatgpt",    name: "ChatGPT",  logo: "https://www.google.com/s2/favicons?domain=chatgpt.com&sz=64",        color: "#10a37f", desc: "ChatGPT 사용팁, 질문, 경험을 공유해요" },
+  { id: "gemini",     name: "Gemini",   logo: "https://www.google.com/s2/favicons?domain=gemini.google.com&sz=64",  color: "#4285F4", desc: "Google Gemini 활용법과 토론" },
+  { id: "claude",     name: "Claude",   logo: "https://www.google.com/s2/favicons?domain=claude.ai&sz=64",          color: "#CC785C", desc: "Anthropic Claude 활용 경험 공유" },
+  { id: "opensource", name: "오픈소스", logo: "https://www.google.com/s2/favicons?domain=huggingface.co&sz=64",     color: "#8B5CF6", desc: "오픈소스 AI 모델 프로젝트 공유" },
 ];
 
 function BoardCard({ board }) {
@@ -64,9 +64,9 @@ function BoardCard({ board }) {
           background: `${board.color}18`,
           border: `1px solid ${board.color}30`,
           display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: "1.6rem", flexShrink: 0,
+          overflow: "hidden", flexShrink: 0,
         }}>
-          {board.icon}
+          <img src={board.logo} alt={board.name} width={32} height={32} style={{ objectFit: "contain" }} />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>

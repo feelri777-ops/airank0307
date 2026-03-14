@@ -7,17 +7,17 @@ const GlobalStyles = () => (
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:ital,wght@0,500;1,500&display=swap');
 
     :root {
-      /* ── Cursor.com 스타일 미니멀 화이트 ── */
-      --bg-primary: #FFFFFF;
-      --bg-secondary: #FAFAFA;
-      --bg-tertiary: #F5F5F5;
-      --bg-card: #FFFFFF;
-      --bg-card-hover: #FAFAFA;
-      --bg-nav: rgba(255, 255, 255, 0.85);
-      --text-primary: #1A1A1A;
-      --text-secondary: #6B7280;
-      --text-muted: #9CA3AF;
-      --border-primary: #E5E7EB;
+      /* ── 브라운 크림 라이트 테마 ── */
+      --bg-primary: #FAF7F4;
+      --bg-secondary: #F2EDE8;
+      --bg-tertiary: #EAE3DB;
+      --bg-card: #FFFEFB;
+      --bg-card-hover: #F7F2EC;
+      --bg-nav: rgba(250, 247, 244, 0.92);
+      --text-primary: #1C1008;
+      --text-secondary: #6B5A4E;
+      --text-muted: #A08878;
+      --border-primary: #DDD0C4;
       --border-hover: rgba(124, 58, 237, 0.3);
       --accent-indigo: #7C3AED;
       --accent-cyan: #2563EB;
@@ -27,24 +27,23 @@ const GlobalStyles = () => (
       --color-gold: #F59E0B;
       --color-silver: #94A3B8;
       --color-bronze: #D97706;
-      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08);
-      --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-      --blob-opacity: 0.03;
+      --shadow-sm: 0 1px 2px rgba(80, 50, 20, 0.06);
+      --shadow-md: 0 4px 16px rgba(80, 50, 20, 0.09);
+      --shadow-lg: 0 12px 40px rgba(80, 50, 20, 0.12);
+      --shadow-card: 0 1px 3px rgba(80, 50, 20, 0.06), 0 1px 2px rgba(80, 50, 20, 0.04);
+      --blob-opacity: 0.04;
       --noise-opacity: 0.015;
-      --ticker-bg: rgba(124, 58, 237, 0.03);
-      --ticker-border: rgba(124, 58, 237, 0.08);
-      --tag-bg: rgba(124, 58, 237, 0.05);
+      --ticker-bg: rgba(124, 58, 237, 0.04);
+      --ticker-border: rgba(180, 140, 110, 0.2);
+      --tag-bg: rgba(124, 58, 237, 0.06);
       --tag-color: #7C3AED;
-      --tag-border: rgba(124, 58, 237, 0.12);
-      --modal-overlay: rgba(0, 0, 0, 0.3);
+      --tag-border: rgba(124, 58, 237, 0.15);
+      --modal-overlay: rgba(28, 16, 8, 0.35);
       --font-main: 'Pretendard', -apple-system, 'Segoe UI', sans-serif;
       --font-title: 'Pretendard', -apple-system, 'Segoe UI', sans-serif;
-      /* 1, 2, 3위 카드 파스텔 배경 */
-      --rank1-bg: #FFFBEB;
-      --rank2-bg: #F0F9FF;
-      --rank3-bg: #FFF7ED;
+      --rank1-bg: #FFF8EC;
+      --rank2-bg: #F0F4FF;
+      --rank3-bg: #FFF3E8;
       --rank1-shadow: var(--shadow-md);
       --rank2-shadow: var(--shadow-md);
       --rank3-shadow: var(--shadow-md);

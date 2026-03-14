@@ -49,7 +49,6 @@ export const SORT_OPTIONS = [
 /** 커뮤니티 카테고리 */
 export const COMMUNITY_CATEGORIES = [
   { id: "all", label: "전체" },
-  { id: "review", label: "후기" },
   { id: "question", label: "질문" },
   { id: "tips", label: "팁&노하우" },
   { id: "free", label: "자유" },
