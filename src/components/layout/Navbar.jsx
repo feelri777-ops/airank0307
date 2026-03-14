@@ -212,7 +212,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
 
           <button
             onClick={onToggleTheme}
-            title={theme === "dark" ? "라이트 모드" : "다크 모드"}
+            title={{ light: "다크 모드로", dark: "모노 모드로", mono: "라이트 모드로" }[theme] || "테마 변경"}
             style={{
               background: "var(--bg-tertiary)",
               border: "1px solid var(--border-primary)",
@@ -228,7 +228,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
               color: "var(--text-secondary)",
             }}
           >
-            {theme === "dark" ? "☀️" : "🌙"}
+            {{ light: "🌙", dark: "🎨", mono: "☀️" }[theme] || "🌙"}
           </button>
         </div>
       </div>

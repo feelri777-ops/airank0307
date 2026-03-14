@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, query, where, getDocs, orderBy, limit } from "firebase/firestore";
 import { db } from "../firebase";
@@ -129,19 +129,77 @@ function BoardCard({ board }) {
   );
 }
 
+const STORAGE_KEY = "communityBoardOrder";
+
+function getOrderedBoards() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return BOARDS;
+    const ids = JSON.parse(saved);
+    const map = Object.fromEntries(BOARDS.map((b) => [b.id, b]));
+    const ordered = ids.map((id) => map[id]).filter(Boolean);
+    // 새로 추가된 게시판은 뒤에 붙임
+    BOARDS.forEach((b) => { if (!ids.includes(b.id)) ordered.push(b); });
+    return ordered;
+  } catch {
+    return BOARDS;
+  }
+}
+
 export default function CommunityDashboard() {
+  const [boards, setBoards] = useState(getOrderedBoards);
+  const dragId = useRef(null);
+
+  const handleDragStart = (id) => { dragId.current = id; };
+
+  const handleDrop = (targetId) => {
+    if (!dragId.current || dragId.current === targetId) return;
+    setBoards((prev) => {
+      const next = [...prev];
+      const fromIdx = next.findIndex((b) => b.id === dragId.current);
+      const toIdx = next.findIndex((b) => b.id === targetId);
+      const [item] = next.splice(fromIdx, 1);
+      next.splice(toIdx, 0, item);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next.map((b) => b.id)));
+      return next;
+    });
+    dragId.current = null;
+  };
+
+  const resetOrder = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    setBoards(BOARDS);
+  };
+
   return (
     <div style={{ maxWidth: "960px", margin: "0 auto", padding: "2.5rem 1.5rem" }}>
       {/* 헤더 */}
       <div style={{ marginBottom: "2rem" }}>
-        <h1 style={{
-          fontFamily: "'Outfit', sans-serif", fontSize: "1.8rem", fontWeight: 800,
-          color: "var(--text-primary)", marginBottom: "0.4rem",
-        }}>
-          💬 커뮤니티
-        </h1>
-        <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
-          AI 도구별 게시판에서 경험을 공유하고 질문해보세요
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px", flexWrap: "wrap" }}>
+          <div>
+            <h1 style={{
+              fontFamily: "'Outfit', sans-serif", fontSize: "1.8rem", fontWeight: 800,
+              color: "var(--text-primary)", marginBottom: "0.4rem",
+            }}>
+              💬 커뮤니티
+            </h1>
+            <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
+              AI 도구별 게시판에서 경험을 공유하고 질문해보세요
+            </p>
+          </div>
+          <button
+            onClick={resetOrder}
+            style={{
+              padding: "7px 14px", borderRadius: "8px", fontSize: "0.78rem", fontWeight: 600,
+              border: "1px solid var(--border-primary)", background: "var(--bg-card)",
+              color: "var(--text-muted)", cursor: "pointer", flexShrink: 0, marginTop: "4px",
+            }}
+          >
+            순서 초기화
+          </button>
+        </div>
+        <p style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: "8px" }}>
+          ⠿ 핸들을 드래그해서 게시판 순서를 변경할 수 있어요
         </p>
       </div>
 
@@ -151,8 +209,29 @@ export default function CommunityDashboard() {
         gridTemplateColumns: "repeat(auto-fill, minmax(min(440px, 100%), 1fr))",
         gap: "16px",
       }}>
-        {BOARDS.map((board) => (
-          <BoardCard key={board.id} board={board} />
+        {boards.map((board) => (
+          <div
+            key={board.id}
+            draggable
+            onDragStart={() => handleDragStart(board.id)}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={() => handleDrop(board.id)}
+            style={{ position: "relative" }}
+          >
+            {/* 드래그 핸들 */}
+            <div
+              onMouseDown={(e) => e.stopPropagation()}
+              style={{
+                position: "absolute", top: "14px", right: "14px",
+                fontSize: "1rem", color: "var(--text-muted)", cursor: "grab",
+                zIndex: 1, lineHeight: 1, userSelect: "none",
+              }}
+              title="드래그하여 순서 변경"
+            >
+              ⠿
+            </div>
+            <BoardCard board={board} />
+          </div>
         ))}
       </div>
     </div>
