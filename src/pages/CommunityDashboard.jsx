@@ -149,20 +149,55 @@ function getOrderedBoards() {
 export default function CommunityDashboard() {
   const [boards, setBoards] = useState(getOrderedBoards);
   const dragId = useRef(null);
+  const [dragOverId, setDragOverId] = useState(null); // 현재 호버 중인 카드
+  const [dropPosition, setDropPosition] = useState(null); // "before" | "after"
 
   const handleDragStart = (id) => { dragId.current = id; };
 
-  const handleDrop = (targetId) => {
-    if (!dragId.current || dragId.current === targetId) return;
+  const handleDragOver = (e, id) => {
+    e.preventDefault();
+    if (!dragId.current || dragId.current === id) return;
+    // 마우스 Y 위치로 카드의 위/아래 절반 판단
+    const rect = e.currentTarget.getBoundingClientRect();
+    const midY = rect.top + rect.height / 2;
+    setDragOverId(id);
+    setDropPosition(e.clientY < midY ? "before" : "after");
+  };
+
+  const handleDragLeave = (e) => {
+    // 자식 요소로 이동 시 깜빡임 방지
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setDragOverId(null);
+      setDropPosition(null);
+    }
+  };
+
+  const handleDrop = (e, targetId) => {
+    e.preventDefault();
+    if (!dragId.current || dragId.current === targetId) {
+      setDragOverId(null); setDropPosition(null);
+      return;
+    }
     setBoards((prev) => {
       const next = [...prev];
       const fromIdx = next.findIndex((b) => b.id === dragId.current);
-      const toIdx = next.findIndex((b) => b.id === targetId);
+      let toIdx = next.findIndex((b) => b.id === targetId);
       const [item] = next.splice(fromIdx, 1);
-      next.splice(toIdx, 0, item);
+      // splice 후 인덱스 재계산
+      toIdx = next.findIndex((b) => b.id === targetId);
+      const insertAt = dropPosition === "before" ? toIdx : toIdx + 1;
+      next.splice(insertAt, 0, item);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(next.map((b) => b.id)));
       return next;
     });
+    dragId.current = null;
+    setDragOverId(null);
+    setDropPosition(null);
+  };
+
+  const handleDragEnd = () => {
+    setDragOverId(null);
+    setDropPosition(null);
     dragId.current = null;
   };
 
@@ -209,30 +244,43 @@ export default function CommunityDashboard() {
         gridTemplateColumns: "repeat(auto-fill, minmax(min(440px, 100%), 1fr))",
         gap: "16px",
       }}>
-        {boards.map((board) => (
-          <div
-            key={board.id}
-            draggable
-            onDragStart={() => handleDragStart(board.id)}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={() => handleDrop(board.id)}
-            style={{ position: "relative" }}
-          >
-            {/* 드래그 핸들 */}
+        {boards.map((board) => {
+          const isOver = dragOverId === board.id;
+          const isDragging = dragId.current === board.id;
+          return (
             <div
-              onMouseDown={(e) => e.stopPropagation()}
+              key={board.id}
+              draggable
+              onDragStart={() => handleDragStart(board.id)}
+              onDragOver={(e) => handleDragOver(e, board.id)}
+              onDragLeave={handleDragLeave}
+              onDrop={(e) => handleDrop(e, board.id)}
+              onDragEnd={handleDragEnd}
               style={{
-                position: "absolute", top: "14px", right: "14px",
-                fontSize: "1rem", color: "var(--text-muted)", cursor: "grab",
-                zIndex: 1, lineHeight: 1, userSelect: "none",
+                position: "relative",
+                opacity: isDragging ? 0.4 : 1,
+                transition: "opacity 0.15s",
+                // 삽입 위치 표시 — 위 or 아래 굵은 선
+                borderTop: isOver && dropPosition === "before" ? "3px solid var(--accent-indigo)" : "3px solid transparent",
+                borderBottom: isOver && dropPosition === "after" ? "3px solid var(--accent-indigo)" : "3px solid transparent",
+                borderRadius: "2px",
               }}
-              title="드래그하여 순서 변경"
             >
-              ⠿
+              {/* 드래그 핸들 */}
+              <div
+                style={{
+                  position: "absolute", top: "14px", right: "14px",
+                  fontSize: "1rem", color: "var(--text-muted)", cursor: "grab",
+                  zIndex: 1, lineHeight: 1, userSelect: "none",
+                }}
+                title="드래그하여 순서 변경"
+              >
+                ⠿
+              </div>
+              <BoardCard board={board} />
             </div>
-            <BoardCard board={board} />
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
