@@ -12,7 +12,7 @@ const EMOJI_LIST = [
 ];
 
 /* ─── styled ─── */
-const Wrap = styled.div`position: relative;`;
+const Wrap = styled.div`position: relative; width: 100%; overflow: hidden;`;
 
 const Toolbar = styled.div`
   display: flex; align-items: center; gap: 2px; flex-wrap: wrap;
@@ -38,14 +38,15 @@ const TB = styled.button`
 const TDiv = styled.div`width: 1px; height: 20px; background: var(--border-primary); margin: 0 3px; flex-shrink: 0;`;
 
 const EditorArea = styled.div`
-  min-height: 320px; max-height: 600px; overflow-y: auto;
+  min-height: 320px; max-height: 600px; overflow-y: auto; overflow-x: hidden;
+  width: 100%; box-sizing: border-box;
   padding: 1.1rem 1.25rem;
   border: 1px solid var(--border-primary);
   border-radius: 0 0 10px 10px;
   background: var(--bg-card); color: var(--text-primary);
   font-size: 0.95rem; line-height: 1.85;
   font-family: var(--font-main); outline: none;
-  cursor: text;
+  cursor: text; word-break: break-word; overflow-wrap: break-word;
   transition: border-color 0.15s;
   &:focus { border-color: var(--accent-indigo); }
 
@@ -78,6 +79,7 @@ const EditorArea = styled.div`
     background: var(--bg-tertiary); padding: 0.9rem 1rem;
     border-radius: 8px; overflow-x: auto; font-size: 0.875rem;
     border: 1px solid var(--border-primary); margin: 0.5rem 0;
+    white-space: pre-wrap; word-break: break-word;
   }
   code {
     background: var(--bg-tertiary); padding: 0.15rem 0.4rem;
@@ -86,7 +88,7 @@ const EditorArea = styled.div`
   }
   a { color: var(--accent-indigo); text-decoration: underline; }
   hr { border: none; border-top: 1px solid var(--border-primary); margin: 0.8rem 0; }
-  img { max-width: 100%; border-radius: 8px; }
+  img { max-width: 100%; width: auto; height: auto; border-radius: 8px; display: block; }
 `;
 
 /* 버블 메뉴 */
