@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
+import FileUploader from "./FileUploader";
 
 /* ─── 이모지 목록 ─── */
 const EMOJI_LIST = [
@@ -163,7 +164,7 @@ const Footer = styled.div`
 `;
 
 /* ─── 컴포넌트 ─── */
-export default function RichEditor({ value, onChange, placeholder = "내용을 입력하세요..." }) {
+export default function RichEditor({ value, onChange, placeholder = "내용을 입력하세요...", postKey }) {
   const editorRef = useRef(null);
   const emojiRef = useRef(null);
   const [showEmoji, setShowEmoji] = useState(false);
@@ -396,6 +397,23 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
         <span>텍스트 선택 후 버블 메뉴 활용 · 탭 키로 들여쓰기</span>
         <span>{charCount.toLocaleString()}자</span>
       </Footer>
+
+      {/* ─── 파일 첨부 ─── */}
+      <div style={{ marginTop: "0.75rem" }}>
+        <FileUploader
+          postKey={postKey}
+          onInsertImage={(url, name) => {
+            editorRef.current?.focus();
+            document.execCommand("insertHTML", false, `<img src="${url}" alt="${name}" style="max-width:100%;border-radius:8px;margin:0.5rem 0;" /><p><br></p>`);
+            updateCount();
+          }}
+          onInsertAudio={(url, name) => {
+            editorRef.current?.focus();
+            document.execCommand("insertHTML", false, `<div style="margin:0.75rem 0;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:10px;"><div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:6px;">🎵 ${name}</div><audio controls style="width:100%;height:36px;"><source src="${url}" /></audio></div><p><br></p>`);
+            updateCount();
+          }}
+        />
+      </div>
     </Wrap>
   );
 }

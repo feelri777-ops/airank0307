@@ -149,6 +149,7 @@ export default function CommunityWrite() {
         <RichEditor
           value={content}
           onChange={setContent}
+          postKey={postId || `new_${user?.uid}`}
           placeholder="내용을 입력하세요.&#10;&#10;텍스트 선택 시 버블 메뉴가 나타납니다.&#10;툴바에서 서식, 이모지, 링크를 삽입할 수 있어요."
         />
       </FormGroup>
