@@ -15,17 +15,19 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 import { TOOLS_DATA } from '../src/data/tools.js';
 
-async function searchYouTube(query) {
+async function searchYouTube(query, { lang = true } = {}) {
   const params = new URLSearchParams({
     part: 'snippet',
-    q: `${query} 사용법`,
+    q: lang ? `${query} 사용법` : `${query} tutorial`,
     type: 'video',
     order: 'viewCount',
     maxResults: 5,
-    relevanceLanguage: 'ko',
-    regionCode: 'KR',
     key: YOUTUBE_API_KEY,
   });
+  if (lang) {
+    params.set('relevanceLanguage', 'ko');
+    params.set('regionCode', 'KR');
+  }
   const res = await fetch(`https://www.googleapis.com/youtube/v3/search?${params}`);
   if (!res.ok) {
     const err = await res.text();
@@ -73,24 +75,33 @@ async function main() {
 
     console.log(`  [${tool.id}] ${tool.name} 수집 시도...`);
     try {
+      // 1차: 한국어 검색
       let results = await searchYouTube(query);
+      await sleep(300);
 
-      // 1차 검색 결과가 없으면 한국어 이름으로 재시도
+      // 2차: 한국어 이름으로 재시도
       if (results.length === 0 && queryKo !== query) {
-        console.log(`      검색어 "${query}" 결과 없음 → "${queryKo}"로 재시도`);
+        console.log(`      결과 없음 → 한국어 이름 "${queryKo}"로 재시도`);
         results = await searchYouTube(queryKo);
+        await sleep(300);
       }
 
-      // 새 결과가 없으면 기존 데이터 유지 (덮어쓰지 않음)
+      // 3차: 언어 제한 없이 영어 tutorial 검색 (폴백)
+      if (results.length === 0) {
+        console.log(`      결과 없음 → 언어 제한 없이 영어 검색 폴백`);
+        results = await searchYouTube(query, { lang: false });
+        await sleep(300);
+      }
+
       if (results.length > 0) {
         videos[String(tool.id)] = results;
         console.log(`      ✅ ${results.length}개 수집 성공`);
       } else {
-        console.log(`      ⚠️ 결과 없음, 기존 데이터 유지`);
+        videos[String(tool.id)] = [];
+        console.log(`      ⚠️ 최종 결과 없음`);
       }
     } catch (err) {
       console.error(`      ❌ 실패: ${err.message}`);
-      // 실패해도 기존 데이터가 있다면 유지
       if (!videos[String(tool.id)]) videos[String(tool.id)] = [];
     }
     await sleep(500);
