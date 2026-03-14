@@ -61,22 +61,27 @@ async function main() {
 
   console.log(`YouTube 영상 수집 시작 (상위 ${TOP_N}개 도구)...`);
 
-  // 기존 데이터 유지 (없는 도구는 보존)
-  let existing = { updated: '', topN: TOP_N, videos: {} };
+  // 기존 데이터 로드
+  let existing = { updated: '', topN: TOP_N, videos: {}, fetchedAt: {} };
   if (existsSync(OUTPUT)) {
     try { existing = JSON.parse(readFileSync(OUTPUT, 'utf8')); } catch {}
   }
 
   const videos = { ...existing.videos };
+  const fetchedAt = { ...existing.fetchedAt }; // 각 툴별 마지막 갱신 시간
+  const REFRESH_DAYS = 30; // 30일마다 재갱신
+  const now = Date.now();
 
   for (const tool of sortedTools) {
     const query = tool.yt || tool.name;
     const queryKo = tool.ytKo || tool.nameKo || tool.name;
     const existing_id = String(tool.id);
 
-    // 이미 영상 데이터가 있으면 쿼터 절약을 위해 스킵
-    if (videos[existing_id] && videos[existing_id].length > 0) {
-      console.log(`  [${tool.id}] ${tool.name} → 기존 데이터 유지 (${videos[existing_id].length}개)`);
+    // 데이터 있고 30일 이내면 스킵 (쿼터 절약)
+    const lastFetch = fetchedAt[existing_id] ? new Date(fetchedAt[existing_id]).getTime() : 0;
+    const daysSinceFetch = (now - lastFetch) / (1000 * 60 * 60 * 24);
+    if (videos[existing_id] && videos[existing_id].length > 0 && daysSinceFetch < REFRESH_DAYS) {
+      console.log(`  [${tool.id}] ${tool.name} → 유지 (${Math.floor(daysSinceFetch)}일 전 수집)`);
       continue;
     }
 
@@ -102,6 +107,7 @@ async function main() {
 
       if (results.length > 0) {
         videos[existing_id] = results;
+        fetchedAt[existing_id] = new Date().toISOString();
         console.log(`      ✅ ${results.length}개 수집 성공`);
       } else {
         // 결과 없으면 기존 데이터 유지 (덮어쓰지 않음)
@@ -114,7 +120,7 @@ async function main() {
     await sleep(500);
   }
 
-  writeFileSync(OUTPUT, JSON.stringify({ updated: new Date().toISOString(), topN: TOP_N, videos }, null, 2));
+  writeFileSync(OUTPUT, JSON.stringify({ updated: new Date().toISOString(), topN: TOP_N, videos, fetchedAt }, null, 2));
   console.log(`\n완료! youtube-videos.json 저장 (${TOP_N}개 도구)`);
 }
 
