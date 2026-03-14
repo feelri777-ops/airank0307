@@ -79,15 +79,7 @@ const ScoreInsightPanel = ({ tool }) => {
   ];
 
   return (
-    <div style={{ marginBottom: "12px" }} onClick={(e) => e.stopPropagation()}>
-      {/* 타이틀 + 변동률 */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "5px" }}>
-        <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)" }}>점수 상세</span>
-        <span style={{ fontSize: "0.65rem", fontWeight: 700, color: isFlat ? "var(--text-muted)" : isUp ? "#22c55e" : "#f87171" }}>
-          {isFlat ? "변동없음" : isUp ? `▲ ${change}%` : `▼ ${Math.abs(change)}%`}
-        </span>
-      </div>
-
+    <div style={{ marginBottom: "6px" }} onClick={(e) => e.stopPropagation()}>
       <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
         {rows.map(({ icon, label, key, pts: fixedPts, val: fixedVal, color, desc }, idx) => {
           const val = fixedVal ?? Math.round(metrics?.[key] ?? 0);
@@ -103,10 +95,10 @@ const ScoreInsightPanel = ({ tool }) => {
                 onMouseEnter={() => { if (desc) setActiveTooltip(idx); }}
                 onMouseLeave={() => setActiveTooltip(null)}
               >
-                <div style={{ width: 24, flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  {icon && <img src={icon} alt={label} width={22} height={22} style={{ borderRadius: "4px", objectFit: "contain" }} />}
+                <div style={{ width: 20, flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  {icon && <img src={icon} alt={label} width={18} height={18} style={{ borderRadius: "3px", objectFit: "contain" }} />}
                 </div>
-                <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", width: "52px", flexShrink: 0, whiteSpace: "nowrap" }}>{label}</span>
+                <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-secondary)", width: "40px", flexShrink: 0, whiteSpace: "nowrap" }}>{label}</span>
                 <div style={{ flex: 1 }}><Spark pts={pts} color={color} /></div>
                 <span style={{ fontSize: idx === 0 ? "1.6rem" : "1.1rem", fontWeight: 900, color: idx === 0 ? trendColor : color, width: "36px", textAlign: "right", fontFamily: "'Pretendard', sans-serif", lineHeight: 1 }}>{val}</span>
               </div>
