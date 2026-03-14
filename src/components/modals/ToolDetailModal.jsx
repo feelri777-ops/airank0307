@@ -327,79 +327,23 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
       boxShadow: "0 24px 64px rgba(0,0,0,0.25)",
       height: "fit-content"
     }}>
-      <div style={{ padding: "12px 14px", background: "var(--bg-secondary)", borderRadius: "3px", marginBottom: "1.5rem" }}>
-        <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
-          <span style={{ color: "var(--accent-indigo)", fontWeight: 700 }}>💡 이렇게 써보세요</span><br/>
-          {getScenario(tool)}
-        </p>
-      </div>
 
-      {/* 함께 쓰면 좋은 툴 추천 */}
-      {(() => {
-        const related = getRelatedTools(tool);
-        if (!related.length) return null;
-        return (
-          <div style={{ marginBottom: "1.5rem" }}>
-            <h3 style={{ fontSize: "1.05rem", fontWeight: 800, marginBottom: "0.75rem", color: "var(--text-primary)" }}>
-              🤝 함께 쓰면 좋은 툴
-            </h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-              {related.map(rt => (
-                <a
-                  key={rt.id}
-                  href={rt.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "flex", alignItems: "center", gap: "10px",
-                    padding: "10px 12px", borderRadius: "3px",
-                    background: "var(--bg-secondary)",
-                    border: "1px solid var(--border-primary)",
-                    textDecoration: "none",
-                    transition: "all 0.2s",
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--accent-indigo)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border-primary)"; e.currentTarget.style.transform = "translateY(0)"; }}
-                >
-                  <img
-                    src={`https://www.google.com/s2/favicons?domain=${new URL(rt.url).hostname}&sz=32`}
-                    alt={rt.name}
-                    style={{ width: 28, height: 28, borderRadius: "3px", flexShrink: 0 }}
-                    onError={e => { e.currentTarget.style.display = "none"; }}
-                  />
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.3 }}>{rt.name}</div>
-                    <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: "2px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                      {getPairReason(tool.cat, rt.cat)}
-                    </div>
-                  </div>
-                  <span style={{ fontSize: "0.62rem", padding: "2px 7px", borderRadius: "5px", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700, flexShrink: 0 }}>
-                    {CAT_LABEL[rt.cat]?.replace(/^.\s/, "") ?? rt.cat}
-                  </span>
-                </a>
-              ))}
-            </div>
-          </div>
-        );
-      })()}
-
+      {/* 튜토리얼 & 리뷰 — 최상단 */}
       {rank <= 30 && <>
-      <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: "1rem", color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "8px" }}>
-        🎥 튜토리얼 & 리뷰
+      <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: "0.75rem", color: "var(--text-primary)" }}>
+        튜토리얼 & 리뷰
       </h3>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "4px", marginBottom: "1.5rem" }}>
         {videos === null ? (
-          // 로딩 중
           [1, 2, 3].map((i) => (
             <div key={i} style={{
-              height: "70px", borderRadius: "4px",
+              height: "80px", borderRadius: "4px",
               background: "var(--bg-secondary)", border: "1px solid var(--border-primary)",
               animation: "pulse 1.5s ease-in-out infinite",
             }} />
           ))
         ) : videos.length > 0 ? (
-          // 실제 YouTube 영상 (최대 3개)
           videos.slice(0, 3).map((video) => (
             <a
               key={video.videoId}
@@ -407,8 +351,8 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                display: "flex", gap: "12px", textDecoration: "none",
-                padding: "8px", borderRadius: "4px", background: "var(--bg-secondary)",
+                display: "flex", gap: "10px", textDecoration: "none",
+                padding: "4px", borderRadius: "4px", background: "var(--bg-secondary)",
                 transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
               }}
               onMouseEnter={(e) => {
@@ -421,7 +365,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
               }}
             >
               <div style={{
-                width: "120px", height: "68px", borderRadius: "5px",
+                width: "140px", height: "82px", borderRadius: "5px",
                 overflow: "hidden", flexShrink: 0, position: "relative", background: "#000"
               }}>
                 <img
@@ -434,11 +378,11 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
                   background: "rgba(0,0,0,0.2)"
                 }}>
                   <div style={{
-                    width: "20px", height: "20px", background: "#FF0000", borderRadius: "50%",
+                    width: "22px", height: "22px", background: "#FF0000", borderRadius: "50%",
                     display: "flex", alignItems: "center", justifyContent: "center",
                     boxShadow: "0 4px 8px rgba(255,0,0,0.3)"
                   }}>
-                    <div style={{ width: 0, height: 0, borderTop: "4px solid transparent", borderBottom: "4px solid transparent", borderLeft: "6px solid white", marginLeft: "1.5px" }} />
+                    <div style={{ width: 0, height: 0, borderTop: "4px solid transparent", borderBottom: "4px solid transparent", borderLeft: "7px solid white", marginLeft: "2px" }} />
                   </div>
                 </div>
               </div>
@@ -455,7 +399,6 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
             </a>
           ))
         ) : (
-          // 영상 없음 → YouTube 검색 링크
           <a
             href={searchUrl}
             target="_blank"
@@ -476,6 +419,62 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
         )}
       </div>
       </>}
+
+      <div style={{ padding: "12px 14px", background: "var(--bg-secondary)", borderRadius: "3px", marginBottom: "1.5rem" }}>
+        <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
+          <span style={{ color: "var(--accent-indigo)", fontWeight: 700 }}>💡 이렇게 써보세요</span><br/>
+          {getScenario(tool)}
+        </p>
+      </div>
+
+      {/* 함께 쓰면 좋은 툴 추천 */}
+      {(() => {
+        const related = getRelatedTools(tool);
+        if (!related.length) return null;
+        return (
+          <div style={{ marginBottom: "1.5rem" }}>
+            <h3 style={{ fontSize: "1.05rem", fontWeight: 800, marginBottom: "0.75rem", color: "var(--text-primary)" }}>
+              함께 쓰면 좋은 툴
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              {related.map(rt => (
+                <a
+                  key={rt.id}
+                  href={rt.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "flex", alignItems: "center", gap: "10px",
+                    padding: "10px 12px", borderRadius: "3px",
+                    background: "var(--bg-secondary)",
+                    border: "1px solid var(--border-primary)",
+                    textDecoration: "none",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--accent-indigo)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border-primary)"; e.currentTarget.style.transform = "translateY(0)"; }}
+                >
+                  <img
+                    src={`https://www.google.com/s2/favicons?domain=${new URL(rt.url).hostname}&sz=64`}
+                    alt={rt.name}
+                    style={{ width: 36, height: 36, borderRadius: "5px", flexShrink: 0 }}
+                    onError={e => { e.currentTarget.style.display = "none"; }}
+                  />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.3 }}>{rt.name}</div>
+                    <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: "2px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {getPairReason(tool.cat, rt.cat)}
+                    </div>
+                  </div>
+                  <span style={{ fontSize: "0.62rem", padding: "2px 7px", borderRadius: "5px", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700, flexShrink: 0 }}>
+                    {CAT_LABEL[rt.cat]?.replace(/^.\s/, "") ?? rt.cat}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 };
