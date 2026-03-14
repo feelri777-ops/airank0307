@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, query, where, getDocs, orderBy, limit } from "firebase/firestore";
 import { db } from "../firebase";
@@ -24,7 +24,7 @@ export const BOARDS = [
   { id: "free",       name: "자유게시판", logo: "https://www.google.com/s2/favicons?domain=airank.kr&sz=64",               color: "#F59E0B", desc: "AI 전반에 관한 자유로운 이야기" },
 ];
 
-function BoardCard({ board }) {
+function BoardCard({ board, isFavorited, onToggleFavorite }) {
   const navigate = useNavigate();
   const [recentPosts, setRecentPosts] = useState([]);
   const [totalCount, setTotalCount] = useState(null);
@@ -100,7 +100,22 @@ function BoardCard({ board }) {
             {board.desc}
           </div>
         </div>
-        <span style={{ fontSize: "1.1rem", color: "var(--text-muted)" }}>→</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+          <button
+            onClick={(e) => { e.stopPropagation(); onToggleFavorite(e, board.id); }}
+            title={isFavorited ? "즐겨찾기 해제" : "즐겨찾기 추가"}
+            style={{
+              background: "none", border: "none", cursor: "pointer", padding: "2px",
+              fontSize: "1.1rem", lineHeight: 1, color: isFavorited ? "#f59e0b" : "var(--text-muted)",
+              transition: "transform 0.15s, color 0.15s",
+            }}
+            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.25)"}
+            onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+          >
+            {isFavorited ? "★" : "☆"}
+          </button>
+          <span style={{ fontSize: "1.1rem", color: "var(--text-muted)" }}>→</span>
+        </div>
       </div>
 
       {/* 최신글 미리보기 */}
@@ -136,6 +151,7 @@ function BoardCard({ board }) {
 }
 
 const STORAGE_KEY = "communityBoardOrder";
+const FAVORITES_KEY = "communityBoardFavorites";
 
 function getOrderedBoards() {
   try {
@@ -154,9 +170,45 @@ function getOrderedBoards() {
 
 export default function CommunityDashboard() {
   const [boards, setBoards] = useState(getOrderedBoards);
+  const [favorites, setFavorites] = useState(() => {
+    try { return new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]")); }
+    catch { return new Set(); }
+  });
   const dragId = useRef(null);
-  const [dragOverId, setDragOverId] = useState(null); // 현재 호버 중인 카드
-  const [dropPosition, setDropPosition] = useState(null); // "before" | "after"
+  const [dragOverId, setDragOverId] = useState(null);
+  const [dropPosition, setDropPosition] = useState(null);
+
+  const toggleFavorite = (e, boardId) => {
+    e.stopPropagation();
+    setFavorites(prev => {
+      const isFav = prev.has(boardId);
+      const next = new Set(prev);
+      if (isFav) {
+        next.delete(boardId);
+      } else {
+        next.add(boardId);
+        // 즐겨찾기 추가 시 해당 게시판을 상단으로 이동
+        setBoards(prevBoards => {
+          const idx = prevBoards.findIndex(b => b.id === boardId);
+          if (idx <= 0) return prevBoards;
+          const updated = [...prevBoards];
+          const [item] = updated.splice(idx, 1);
+          updated.unshift(item);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(updated.map(b => b.id)));
+          return updated;
+        });
+      }
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify([...next]));
+      return next;
+    });
+  };
+
+  // 즐겨찾기 게시판을 상단에 표시
+  const displayBoards = useMemo(() => {
+    const fav = boards.filter(b => favorites.has(b.id));
+    const rest = boards.filter(b => !favorites.has(b.id));
+    return [...fav, ...rest];
+  }, [boards, favorites]);
 
   const handleDragStart = (id) => { dragId.current = id; };
 
@@ -250,7 +302,7 @@ export default function CommunityDashboard() {
         gridTemplateColumns: "repeat(auto-fill, minmax(min(440px, 100%), 1fr))",
         gap: "16px",
       }}>
-        {boards.map((board) => {
+        {displayBoards.map((board) => {
           const isOver = dragOverId === board.id;
           const isDragging = dragId.current === board.id;
           return (
@@ -266,7 +318,6 @@ export default function CommunityDashboard() {
                 position: "relative",
                 opacity: isDragging ? 0.4 : 1,
                 transition: "opacity 0.15s",
-                // 삽입 위치 표시 — 위 or 아래 굵은 선
                 borderTop: isOver && dropPosition === "before" ? "3px solid var(--accent-indigo)" : "3px solid transparent",
                 borderBottom: isOver && dropPosition === "after" ? "3px solid var(--accent-indigo)" : "3px solid transparent",
                 borderRadius: "2px",
@@ -275,7 +326,7 @@ export default function CommunityDashboard() {
               {/* 드래그 핸들 */}
               <div
                 style={{
-                  position: "absolute", top: "14px", right: "14px",
+                  position: "absolute", top: "14px", right: "44px",
                   fontSize: "1rem", color: "var(--text-muted)", cursor: "grab",
                   zIndex: 1, lineHeight: 1, userSelect: "none",
                 }}
@@ -283,7 +334,11 @@ export default function CommunityDashboard() {
               >
                 ⠿
               </div>
-              <BoardCard board={board} />
+              <BoardCard
+                board={board}
+                isFavorited={favorites.has(board.id)}
+                onToggleFavorite={toggleFavorite}
+              />
             </div>
           );
         })}

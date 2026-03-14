@@ -281,25 +281,31 @@ const GlobalStyles = () => (
       50% { box-shadow: 0 0 18px rgba(148,163,184,0.65), 0 0 36px rgba(148,163,184,0.2); }
     }
     @keyframes rankSparkGold {
-      0%   { text-shadow: 0 0 6px #f59e0b, 0 0 12px #f59e0b88; }
-      25%  { text-shadow: 0 0 14px #fbbf24, 0 0 28px #f59e0bcc, 0 0 48px #f59e0b66; }
-      50%  { text-shadow: 0 0 4px #f59e0b, 0 0 8px #f59e0b55; }
-      75%  { text-shadow: 0 0 18px #fde68a, 0 0 36px #f59e0bdd, 0 0 60px #f59e0b44; }
-      100% { text-shadow: 0 0 6px #f59e0b, 0 0 12px #f59e0b88; }
+      0%   { text-shadow: 0 0 4px #f59e0b, 0 0 8px #f59e0b66; }
+      12%  { text-shadow: 0 0 22px #fde68a, 0 0 42px #f59e0bcc, 0 0 72px #f59e0b55, 0 0 5px #fffae0; }
+      25%  { text-shadow: 0 0 4px #f59e0b, 0 0 8px #f59e0b44; }
+      45%  { text-shadow: 0 0 16px #fbbf24, 0 0 30px #f59e0baa, 0 0 52px #f59e0b44; }
+      65%  { text-shadow: 0 0 4px #f59e0b, 0 0 8px #f59e0b44; }
+      80%  { text-shadow: 0 0 30px #fff4b0, 0 0 58px #fbbf24ee, 0 0 95px #f59e0b66, 0 0 8px #fffde0; }
+      100% { text-shadow: 0 0 4px #f59e0b, 0 0 8px #f59e0b66; }
     }
     @keyframes rankSparkSilver {
-      0%   { text-shadow: 0 0 6px #94a3b8, 0 0 12px #94a3b888; }
-      25%  { text-shadow: 0 0 14px #cbd5e1, 0 0 28px #94a3b8cc, 0 0 48px #94a3b866; }
-      50%  { text-shadow: 0 0 4px #94a3b8, 0 0 8px #94a3b855; }
-      75%  { text-shadow: 0 0 18px #e2e8f0, 0 0 36px #94a3b8dd, 0 0 60px #94a3b844; }
-      100% { text-shadow: 0 0 6px #94a3b8, 0 0 12px #94a3b888; }
+      0%   { text-shadow: 0 0 4px #a8b8cc, 0 0 8px #94a3b866; }
+      12%  { text-shadow: 0 0 24px #f0f5ff, 0 0 44px #dde6f0cc, 0 0 75px #94a3b855, 0 0 6px #ffffff; }
+      25%  { text-shadow: 0 0 4px #94a3b8, 0 0 8px #94a3b844; }
+      45%  { text-shadow: 0 0 18px #e2eaf4, 0 0 34px #c0d0e0aa, 0 0 56px #94a3b844; }
+      65%  { text-shadow: 0 0 4px #94a3b8, 0 0 8px #94a3b844; }
+      80%  { text-shadow: 0 0 32px #f8faff, 0 0 62px #e8eef8ee, 0 0 100px #94a3b866, 0 0 10px #ffffff; }
+      100% { text-shadow: 0 0 4px #a8b8cc, 0 0 8px #94a3b866; }
     }
     @keyframes rankSparkBronze {
-      0%   { text-shadow: 0 0 6px #c77d3a, 0 0 12px #c77d3a88; }
-      25%  { text-shadow: 0 0 14px #e8975a, 0 0 28px #c77d3acc, 0 0 48px #c77d3a66; }
-      50%  { text-shadow: 0 0 4px #c77d3a, 0 0 8px #c77d3a55; }
-      75%  { text-shadow: 0 0 18px #f0b07a, 0 0 36px #c77d3add, 0 0 60px #c77d3a44; }
-      100% { text-shadow: 0 0 6px #c77d3a, 0 0 12px #c77d3a88; }
+      0%   { text-shadow: 0 0 4px #c77d3a, 0 0 8px #c77d3a66; }
+      12%  { text-shadow: 0 0 20px #f5c580, 0 0 38px #d4954ecc, 0 0 65px #c77d3a55, 0 0 4px #ffe8b8; }
+      25%  { text-shadow: 0 0 4px #c77d3a, 0 0 8px #c77d3a44; }
+      45%  { text-shadow: 0 0 14px #dea060, 0 0 28px #c77d3aaa, 0 0 48px #c77d3a44; }
+      65%  { text-shadow: 0 0 4px #c77d3a, 0 0 8px #c77d3a44; }
+      80%  { text-shadow: 0 0 26px #ffd090, 0 0 50px #e8975aee, 0 0 82px #c77d3a66, 0 0 7px #fff0d0; }
+      100% { text-shadow: 0 0 4px #c77d3a, 0 0 8px #c77d3a66; }
     }
     @keyframes scoreGrow { from { width: 0; } }
     @keyframes sparkDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
