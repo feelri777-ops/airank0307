@@ -735,7 +735,7 @@ export default function Dashboard() {
           position: "sticky", top: 0, zIndex: 50,
           background: "var(--bg-primary)",
           borderBottom: "1px solid var(--border-primary)",
-          padding: "0 4px",
+          padding: "0 4px", overflow: "visible",
         }}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <div style={{
@@ -765,7 +765,7 @@ export default function Dashboard() {
               })}
             </div>
             <div style={{ flexShrink: 0, padding: "0 10px" }}>
-              <ThemeToggle dropUp />
+              <ThemeToggle />
             </div>
           </div>
         </div>
