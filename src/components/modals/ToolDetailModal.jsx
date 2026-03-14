@@ -6,7 +6,7 @@ import { TOOLS_DATA } from "../../data/tools";
 
 // 미니 스파크라인 SVG (ScoreInsightPanel 밖에 정의 → remount 방지로 애니메이션 1회만 실행)
 const Spark = ({ pts, color }) => {
-  const sw = 180, sh = 12;
+  const sw = 180, sh = 20;
   const mn = Math.min(...pts) - 0.5;
   const mx = Math.max(...pts) + 0.5;
   const r = mx - mn || 1;
@@ -88,7 +88,7 @@ const ScoreInsightPanel = ({ tool }) => {
         </span>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
         {rows.map(({ icon, label, key, pts: fixedPts, val: fixedVal, color, desc }, idx) => {
           const val = fixedVal ?? Math.round(metrics?.[key] ?? 0);
           const pts = fixedPts ?? (metrics ? genPts(val, key) : null);
