@@ -72,6 +72,13 @@ async function main() {
   for (const tool of sortedTools) {
     const query = tool.yt || tool.name;
     const queryKo = tool.ytKo || tool.nameKo || tool.name;
+    const existing_id = String(tool.id);
+
+    // 이미 영상 데이터가 있으면 쿼터 절약을 위해 스킵
+    if (videos[existing_id] && videos[existing_id].length > 0) {
+      console.log(`  [${tool.id}] ${tool.name} → 기존 데이터 유지 (${videos[existing_id].length}개)`);
+      continue;
+    }
 
     console.log(`  [${tool.id}] ${tool.name} 수집 시도...`);
     try {
@@ -94,15 +101,15 @@ async function main() {
       }
 
       if (results.length > 0) {
-        videos[String(tool.id)] = results;
+        videos[existing_id] = results;
         console.log(`      ✅ ${results.length}개 수집 성공`);
       } else {
-        videos[String(tool.id)] = [];
-        console.log(`      ⚠️ 최종 결과 없음`);
+        // 결과 없으면 기존 데이터 유지 (덮어쓰지 않음)
+        console.log(`      ⚠️ 최종 결과 없음 — 기존 데이터 유지`);
       }
     } catch (err) {
       console.error(`      ❌ 실패: ${err.message}`);
-      if (!videos[String(tool.id)]) videos[String(tool.id)] = [];
+      // 실패해도 기존 데이터 보존
     }
     await sleep(500);
   }
