@@ -191,7 +191,10 @@ export default function Community() {
             fontFamily: "'Outfit', sans-serif", fontSize: "1.4rem", fontWeight: 800,
             color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "8px",
           }}>
-            <span>{boardInfo.icon}</span> {boardInfo.name}
+            {boardInfo.logo
+              ? <img src={boardInfo.logo} alt={boardInfo.name} width={24} height={24} style={{ borderRadius: 4 }} />
+              : <span>{boardInfo.icon}</span>
+            } {boardInfo.name}
           </h1>
         </div>
         <WriteButton
