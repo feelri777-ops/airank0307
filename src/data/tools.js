@@ -1398,33 +1398,6 @@ export const TOOLS_DATA = [
 
   // ── 코딩 추가 (151-158) ──
   {
-    id: 151, cat: "code", icon: "🤖", name: "Devin", nameKo: "데빈 AI", free: false,
-    desc: "Cognition AI의 세계 최초 자율 AI 소프트웨어 엔지니어. 기획부터 코딩·테스트·배포까지 전 과정을 혼자 처리하는 AI 동료.",
-    url: "https://devin.ai",
-    features: ["전체 소프트웨어 개발 주기 자동화", "GitHub 이슈 자동 처리·PR 생성", "자체 브라우저·터미널 사용 가능", "멀티 에이전트 병렬 작업 지원", "SWE-bench 기준 최고 성능"],
-    tags: ["코딩", "유료", "AI에이전트"], score: 25.42, change: -17.51, sns: { naver: 35, youtube: 65, google: 68, github: 55 },
-    life: ["startup", "office", "freelancer"],
-    naverKw: ["Devin","데빈 AI"],
-  },
-  {
-    id: 152, cat: "code", icon: "💝", name: "Lovable", nameKo: "러버블 AI", free: true,
-    desc: "텍스트 설명만으로 풀스택 웹 앱을 즉시 생성하는 AI 빌더. GPT Engineer 기반, Supabase 연동으로 실제 배포 가능한 앱을 빠르게 완성.",
-    url: "https://lovable.dev",
-    features: ["텍스트→풀스택 앱 자동 생성", "Supabase 백엔드 자동 연동", "React + Tailwind 기반 코드 생성", "실시간 미리보기·수정 가능", "GitHub 연동 및 Netlify 배포"],
-    tags: ["코딩", "무료", "노코드"], score: 56.53, change: 7.51, sns: { naver: 25, youtube: 58, google: 60, github: 52 },
-    life: ["startup", "freelancer", "student"],
-    naverKw: ["Lovable","러버블 AI"],
-  },
-  {
-    id: 153, cat: "code", icon: "☁️", name: "Amazon Q Developer", nameKo: "아마존 Q", free: true,
-    desc: "AWS의 AI 코딩 어시스턴트 (구 CodeWhisperer). AWS 서비스 전문 코드 생성, 보안 취약점 스캔, 코드 변환 기능으로 클라우드 개발 가속.",
-    url: "https://aws.amazon.com/q/developer",
-    features: ["AWS 서비스 전문 코드 자동 완성", "보안 취약점 AI 자동 스캔", "레거시 코드 현대화 변환", "터미널 자연어 명령 지원", "IDE 플러그인 무료 제공"],
-    tags: ["코딩", "무료", "AWS"], score: 49.93, change: 0.65, sns: { naver: 38, youtube: 58, google: 65, github: 62 },
-    life: ["office", "startup", "freelancer"],
-    naverKw: ["Amazon Q Developer","아마존 Q"],
-  },
-  {
     id: 154, cat: "code", icon: "🧩", name: "JetBrains AI", nameKo: "젯브레인 AI", free: false,
     desc: "IntelliJ·PyCharm·WebStorm 등 JetBrains 전 IDE에 내장된 AI 어시스턴트. 코드 완성·리팩토링·테스트 생성을 IDE 안에서 바로 사용.",
     url: "https://jetbrains.com",
@@ -1441,15 +1414,6 @@ export const TOOLS_DATA = [
     tags: ["코딩", "무료", "오픈소스"], score: 46.17, change: 5.28, sns: { naver: 15, youtube: 42, google: 48, github: 75 },
     life: ["freelancer", "startup", "student"],
     naverKw: ["Continue.dev","컨티뉴 AI"],
-  },
-  {
-    id: 156, cat: "code", icon: "⌨️", name: "Aider", nameKo: "에이더 AI", free: true,
-    desc: "터미널에서 AI와 함께 코딩하는 CLI 페어 프로그래머. Git 저장소를 직접 수정하며 자연어 명령으로 기능 추가·버그 수정을 자동화.",
-    url: "https://aider.chat",
-    features: ["터미널 CLI 기반 AI 코딩", "Git 커밋 자동 생성 및 관리", "100여 개 LLM 모델 지원", "기존 코드베이스 전체 파악", "GPT-4o·Claude 최고 성능 지원"],
-    tags: ["코딩", "무료", "오픈소스"], score: 51.93, change: 10.46, sns: { naver: 15, youtube: 48, google: 52, github: 78 },
-    life: ["freelancer", "startup", "student"],
-    naverKw: ["Aider","에이더 AI"],
   },
   {
     id: 157, cat: "code", icon: "⚡", name: "Zed", nameKo: "제드 AI 에디터", free: true,
@@ -1518,15 +1482,6 @@ export const TOOLS_DATA = [
   },
 
   // ── 검색·리서치 추가 (164-167) ──
-  {
-    id: 164, cat: "search", icon: "🔬", name: "Consensus", nameKo: "컨센서스 AI", free: true,
-    desc: "AI가 학술 논문에서 근거를 찾아주는 연구 검색 엔진. 키워드 검색 대신 질문을 입력하면 관련 논문들의 핵심 결론을 요약해 제공.",
-    url: "https://consensus.app",
-    features: ["질문 기반 학술 논문 AI 검색", "논문 핵심 결론 자동 요약", "200M+ 논문 데이터베이스", "근거 수준·신뢰도 자동 평가", "Copilot으로 종합 분석 리포트"],
-    tags: ["검색", "무료", "학술"], score: 55.41, change: 8.94, sns: { naver: 22, youtube: 48, google: 55, github: 35 },
-    life: ["student", "office", "freelancer"],
-    naverKw: ["Consensus","컨센서스 AI"],
-  },
   {
     id: 165, cat: "search", icon: "🧪", name: "SciSpace", nameKo: "사이스페이스 AI", free: true,
     desc: "AI로 과학 논문을 쉽게 이해하는 리서치 도구. 논문을 업로드하면 AI가 내용을 설명하고, 관련 연구를 자동으로 연결해주는 학술 AI.",
@@ -1631,15 +1586,6 @@ export const TOOLS_DATA = [
     naverKw: ["Veo 2","구글 베오"],
   },
   {
-    id: 176, cat: "video", icon: "🌊", name: "Hailuo AI", nameKo: "하이루오 AI", free: true,
-    desc: "MiniMax의 고품질 AI 영상 생성 서비스. 빠른 생성 속도와 자연스러운 움직임으로 아시아에서 급성장 중인 영상 AI 플랫폼.",
-    url: "https://hailuoai.video",
-    features: ["텍스트·이미지→자연스러운 AI 영상", "빠른 생성 속도·무료 크레딧 넉넉", "캐릭터 일관성 유지 기능", "I2V 이미지→비디오 변환", "화면 비율 다양하게 선택 가능"],
-    tags: ["영상", "무료", "AI생성"], score: 22.19, change: -17.7, sns: { naver: 45, youtube: 58, google: 55, github: 28 },
-    life: ["creator", "marketer", "startup"],
-    naverKw: ["Hailuo AI","하이루오 AI"],
-  },
-  {
     id: 177, cat: "video", icon: "🌀", name: "Wan AI", nameKo: "완 AI", free: true,
     desc: "Alibaba의 오픈소스 영상 생성 AI. 텍스트→영상·이미지→영상 모두 지원하며 로컬 실행도 가능한 오픈소스 공개로 큰 화제를 모음.",
     url: "https://wanxiang.aliyun.com",
@@ -1658,15 +1604,6 @@ export const TOOLS_DATA = [
     naverKw: ["Opus Clip","오퍼스 클립"],
   },
   {
-    id: 179, cat: "video", icon: "🖥️", name: "Veed.io", nameKo: "비드 AI", free: true,
-    desc: "브라우저 기반 AI 영상 편집 플랫폼. AI 자막·번역·배경 제거·아바타 생성을 지원, 설치 없이 누구나 전문적인 영상을 제작 가능.",
-    url: "https://www.veed.io",
-    features: ["브라우저 기반 설치 없이 편집", "AI 자동 자막·다국어 번역", "AI 배경 제거 및 화면 효과", "AI 아바타로 영상 없이 제작", "팀 협업 실시간 공동 편집"],
-    tags: ["영상", "무료", "편집"], score: 26.94, change: -22.77, sns: { naver: 42, youtube: 65, google: 65, github: 20 },
-    life: ["creator", "marketer", "office", "freelancer"],
-    naverKw: ["Veed.io","비드 AI"],
-  },
-  {
     id: 180, cat: "video", icon: "🎞️", name: "Kapwing", nameKo: "캡윙 AI", free: true,
     desc: "크리에이터와 팀을 위한 AI 영상 편집 플랫폼. AI 자막·번역·배경 제거·자동 클립을 지원하고 팀 협업 기능이 강력한 올인원 도구.",
     url: "https://www.kapwing.com",
@@ -1674,15 +1611,6 @@ export const TOOLS_DATA = [
     tags: ["영상", "무료", "편집"], score: 25.99, change: -18.28, sns: { naver: 35, youtube: 60, google: 60, github: 18 },
     life: ["creator", "marketer", "student"],
     naverKw: ["Kapwing","캡윙 AI"],
-  },
-  {
-    id: 181, cat: "video", icon: "🎯", name: "InVideo AI", nameKo: "인비디오 AI", free: true,
-    desc: "텍스트·스크립트로 완성된 AI 영상을 자동 제작하는 플랫폼. 뉴스·유튜브·광고 영상을 스톡 미디어·AI 보이스오버와 함께 즉시 생성.",
-    url: "https://invideo.io",
-    features: ["텍스트→완성 영상 AI 자동 생성", "1600만+ 스톡 미디어 자동 삽입", "AI 보이스오버 50개 언어", "YouTube·TikTok 맞춤 포맷", "무료로 영상 10분/주 제공"],
-    tags: ["영상", "무료", "AI생성"], score: 58.69, change: 6.55, sns: { naver: 35, youtube: 62, google: 62, github: 22 },
-    life: ["creator", "marketer", "startup"],
-    naverKw: ["InVideo AI","인비디오 AI"],
   },
 
   // ── 오디오 추가 (182-186) ──
@@ -1696,24 +1624,6 @@ export const TOOLS_DATA = [
     naverKw: ["Murf AI","머프 AI"],
   },
   {
-    id: 183, cat: "audio", icon: "🎼", name: "AIVA", nameKo: "아이바 AI", free: true,
-    desc: "영화·게임·광고용 AI 음악 작곡 서비스. 다양한 장르와 분위기를 설정하면 저작권 걱정 없는 오리지널 음악을 즉시 생성.",
-    url: "https://www.aiva.ai",
-    features: ["영화·게임·광고용 배경음악 생성", "다양한 악기·장르·분위기 설정", "멜로디·코드진행 세밀 편집", "저작권 프리 음악 생성", "MIDI·MP3·WAV 다운로드"],
-    tags: ["오디오", "무료", "음악생성"], score: 25.62, change: -15.75, sns: { naver: 25, youtube: 55, google: 55, github: 22 },
-    life: ["creator", "freelancer"],
-    naverKw: ["AIVA","아이바 AI"],
-  },
-  {
-    id: 184, cat: "audio", icon: "🎵", name: "Soundraw", nameKo: "사운드로우", free: false,
-    desc: "크리에이터를 위한 AI 로열티 프리 음악 생성 서비스. 분위기·장르·템포를 선택하면 무한한 오리지널 배경음악을 즉시 생성·커스텀.",
-    url: "https://soundraw.io",
-    features: ["분위기·장르·BPM 선택 즉시 생성", "생성 후 세그먼트별 편집 가능", "로열티 프리 상업 사용 허가", "YouTube·SNS 콘텐츠 최적화", "무제한 음악 생성 구독 플랜"],
-    tags: ["오디오", "유료", "음악생성"], score: 51.81, change: 8.07, sns: { naver: 25, youtube: 52, google: 52, github: 18 },
-    life: ["creator", "marketer", "freelancer"],
-    naverKw: ["Soundraw","사운드로우"],
-  },
-  {
     id: 185, cat: "audio", icon: "🎙️", name: "Whisper", nameKo: "위스퍼", free: true,
     desc: "OpenAI의 오픈소스 음성 인식 AI. 99개 언어를 지원하고 잡음이 많은 환경에서도 높은 정확도로 텍스트를 변환하는 업계 표준 ASR 모델.",
     url: "https://openai.com/ko-KR/index/whisper/",
@@ -1721,15 +1631,6 @@ export const TOOLS_DATA = [
     tags: ["오디오", "무료", "오픈소스"], score: 42.76, change: -32.83, sns: { naver: 45, youtube: 72, google: 75, github: 92 },
     life: ["office", "startup", "freelancer", "student"],
     naverKw: ["Whisper AI","OpenAI Whisper","오픈에이아이 위스퍼"],
-  },
-  {
-    id: 186, cat: "audio", icon: "🔊", name: "Adobe Podcast", nameKo: "어도비 팟캐스트", free: true,
-    desc: "Adobe의 AI 팟캐스트 녹음·편집 스튜디오. Enhance Speech로 노트북 마이크 음질을 스튜디오급으로 업그레이드, 무료로 사용 가능.",
-    url: "https://podcast.adobe.com",
-    features: ["AI Enhance Speech 음질 즉시 향상", "배경 소음·울림 자동 제거", "브라우저 기반 녹음·편집", "마이크 없이도 스튜디오급 음질", "다인 원격 녹음 지원"],
-    tags: ["오디오", "무료", "팟캐스트"], score: 50.72, change: 6.99, sns: { naver: 45, youtube: 68, google: 68, github: 25 },
-    life: ["creator", "marketer", "office"],
-    naverKw: ["Adobe Podcast","어도비 팟캐스트"],
   },
 
   // ── 생산성 추가 (187-193) ──
