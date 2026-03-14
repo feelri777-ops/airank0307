@@ -80,14 +80,13 @@ export default function MainPage() {
         (t.naverKw && t.naverKw.some(kw => norm(kw).includes(q)))
       );
     }
-    if (sortBy === "score_desc") data.sort((a, b) => b.score - a.score);
-    else if (sortBy === "score_asc") data.sort((a, b) => a.score - b.score);
-    else if (sortBy === "bookmark") data.sort((a, b) => (bookmarkCounts[b.id] || 0) - (bookmarkCounts[a.id] || 0));
-    else if (sortBy === "likes") data.sort((a, b) => (reactionCounts[b.id]?.likes || 0) - (reactionCounts[a.id]?.likes || 0));
-    else if (sortBy === "dislikes") data.sort((a, b) => (reactionCounts[b.id]?.dislikes || 0) - (reactionCounts[a.id]?.dislikes || 0));
+    if (sortBy === "score_desc")  data.sort((a, b) => b.score - a.score);
+    else if (sortBy === "google_desc") data.sort((a, b) => (b.metrics?.opr ?? 0) - (a.metrics?.opr ?? 0));
+    else if (sortBy === "naver_desc")  data.sort((a, b) => (b.metrics?.ntv ?? 0) - (a.metrics?.ntv ?? 0));
+    else if (sortBy === "x_desc")      data.sort((a, b) => (b.metrics?.sns ?? 0) - (a.metrics?.sns ?? 0));
     else data.sort((a, b) => a.name.localeCompare(b.name, "ko"));
     return data;
-  }, [tools, category, searchQuery, sortBy, bookmarkCounts, reactionCounts]);
+  }, [tools, category, searchQuery, sortBy]);
 
   useEffect(() => {
     setVisibleCount(10);

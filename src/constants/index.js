@@ -38,12 +38,11 @@ export const LIFE_FILTERS = [
 
 /** 정렬 옵션 */
 export const SORT_OPTIONS = [
-  { id: "score_desc", label: "점수높은순" },
-  { id: "score_asc", label: "점수낮은순" },
-  { id: "name", label: "이름순" },
-  { id: "bookmark", label: "북마크순" },
-  { id: "likes", label: "👍많은순" },
-  { id: "dislikes", label: "👎많은순" },
+  { id: "score_desc", label: "종합점수높은순" },
+  { id: "google_desc", label: "구글점수높은순" },
+  { id: "naver_desc", label: "네이버점수높은순" },
+  { id: "x_desc",     label: "X(트위터)높은순" },
+  { id: "name",       label: "이름순" },
 ];
 
 /** 커뮤니티 카테고리 */
