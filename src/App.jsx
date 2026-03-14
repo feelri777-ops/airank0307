@@ -9,6 +9,7 @@ import { useTools } from "./context/ToolContext";
 import MainLayout from "./layouts/MainLayout";
 import MainPage from "./pages/MainPage";
 import NewsPage from "./pages/News";
+import CommunityDashboard from "./pages/CommunityDashboard";
 import Community from "./pages/Community";
 import CommunityPost from "./pages/CommunityPost";
 import CommunityWrite from "./pages/CommunityWrite";
@@ -57,10 +58,11 @@ export default function App() {
                 <Route path="/" element={<MainLayout />}>
                   <Route index element={<MainPage />} />
                   <Route path="news" element={<NewsPage />} />
-                  <Route path="community" element={<Community />} />
-                  <Route path="community/write" element={<CommunityWrite />} />
-                  <Route path="community/:postId" element={<CommunityPost />} />
-                  <Route path="community/:postId/edit" element={<CommunityWrite />} />
+                  <Route path="community" element={<CommunityDashboard />} />
+                  <Route path="community/:board" element={<Community />} />
+                  <Route path="community/:board/write" element={<CommunityWrite />} />
+                  <Route path="community/:board/:postId" element={<CommunityPost />} />
+                  <Route path="community/:board/:postId/edit" element={<CommunityWrite />} />
                   <Route path="gallery" element={<Gallery />} />
                   <Route path="directory" element={<Directory />} />
                   <Route path="prompt" element={<Prompt />} />
