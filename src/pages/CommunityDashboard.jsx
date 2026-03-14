@@ -207,7 +207,7 @@ export default function CommunityDashboard() {
   };
 
   return (
-    <div style={{ maxWidth: "960px", margin: "0 auto", padding: "2.5rem 1.5rem" }}>
+    <div style={{ maxWidth: "960px", margin: "0 auto", padding: "2rem 0.5rem" }}>
       {/* 헤더 */}
       <div style={{ marginBottom: "2rem" }}>
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px", flexWrap: "wrap" }}>
