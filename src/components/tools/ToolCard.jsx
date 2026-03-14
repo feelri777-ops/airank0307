@@ -134,6 +134,8 @@ const ToolCard = ({ tool, rank, prevRank, onClick }) => {
     </>
   );
 
+  const isTop3 = rank <= 3;
+
   if (!isTop3) {
     return (
       <div onClick={onClick} style={{
