@@ -35,7 +35,7 @@ const getRankColor = (rank) => {
   return "var(--text-muted)";
 };
 
-const ToolCard = ({ tool, rank, prevRank, onClick }) => {
+const ToolCard = ({ tool, rank, onClick }) => {
   const [iconError, setIconError] = useState(false);
   const faviconUrl = getFaviconUrl(tool.url);
 
@@ -45,26 +45,14 @@ const ToolCard = ({ tool, rank, prevRank, onClick }) => {
 
   const RankBadge = () => {
     const color = getRankColor(rank);
-    const hasPrev = prevRank && prevRank !== rank;
     return (
-      <div style={{ display: "flex", alignItems: "center", gap: "4px", flexShrink: 0 }}>
-        {hasPrev && (
-          <>
-            <span style={{
-              fontSize: "1.5rem", fontWeight: 700, lineHeight: 1,
-              color: "var(--text-muted)",
-              fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
-            }}>{prevRank}</span>
-            <span style={{ fontSize: "1rem", color: "var(--text-muted)", lineHeight: 1 }}>›</span>
-          </>
-        )}
-        <span style={{
-          fontSize: "2.8rem", fontWeight: 900, lineHeight: 1,
-          color, fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
-        }}>
-          {rank}
-        </span>
-      </div>
+      <span style={{
+        fontSize: "2.8rem", fontWeight: 900, lineHeight: 1,
+        color, fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
+        flexShrink: 0,
+      }}>
+        {rank}
+      </span>
     );
   };
 

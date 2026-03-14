@@ -164,8 +164,7 @@ export default function MainPage() {
                     key={tool.id}
                     tool={tool}
                     rank={globalRankMap[tool.id] || 999}
-                    prevRank={prevRankMap[tool.id] || 999}
-                    onClick={() => openToolDetail(tool, globalRankMap[tool.id] || 999)}
+                    onClick={() => openToolDetail(tool, globalRankMap[tool.id] || 999, prevRankMap[tool.id] || 999)}
                   />
                 ))}
               </div>

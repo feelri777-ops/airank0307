@@ -480,7 +480,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
 };
 
 // [메인] 모달 컴포넌트
-const ToolDetailModal = ({ tool, rank, onClose }) => {
+const ToolDetailModal = ({ tool, rank, prevRank, onClose }) => {
   const [iconError, setIconError] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -540,12 +540,10 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
         <div style={{ flex: 1 }}>
           <div style={{ display: "flex", alignItems: "center", gap: "7px", flexWrap: "wrap" }}>
             <h2 style={{ fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.25rem", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>{tool.name}</h2>
-            {rank <= 3 ? (
-              <span style={{ fontSize: "0.72rem", fontWeight: 800, color: rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : "#CD7F32", background: rank === 1 ? "rgba(245,158,11,0.12)" : rank === 2 ? "rgba(148,163,184,0.12)" : "rgba(205,127,50,0.12)", border: `1px solid ${rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : "#CD7F32"}`, borderRadius: "5px", padding: "2px 7px" }}>
-                {rank === 1 ? "👑" : rank === 2 ? "💎" : "🎯"} #{rank}
+            {rank ? (
+              <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "5px", padding: "2px 7px", whiteSpace: "nowrap" }}>
+                {prevRank && prevRank !== rank ? `${prevRank} › ${rank}위` : `${rank}위`}
               </span>
-            ) : rank ? (
-              <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "5px", padding: "2px 7px" }}>#{rank}</span>
             ) : null}
           </div>
         </div>
@@ -588,12 +586,10 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               <div style={{ flex: 1 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
                   <h2 style={{ fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.5rem", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>{tool.name}</h2>
-                  {rank <= 3 ? (
-                    <span style={{ fontSize: "0.75rem", fontWeight: 800, color: rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : "#CD7F32", background: rank === 1 ? "rgba(245,158,11,0.12)" : rank === 2 ? "rgba(148,163,184,0.12)" : "rgba(205,127,50,0.12)", border: `1px solid ${rank === 1 ? "#F59E0B" : rank === 2 ? "#94A3B8" : "#CD7F32"}`, borderRadius: "5px", padding: "2px 8px" }}>
-                      {rank === 1 ? "👑" : rank === 2 ? "💎" : "🎯"} #{rank}
+                  {rank ? (
+                    <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "5px", padding: "2px 8px", whiteSpace: "nowrap" }}>
+                      {prevRank && prevRank !== rank ? `${prevRank} › ${rank}위` : `${rank}위`}
                     </span>
-                  ) : rank ? (
-                    <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "5px", padding: "2px 8px" }}>#{rank}</span>
                   ) : null}
                 </div>
               </div>

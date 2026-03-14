@@ -14,6 +14,7 @@ export function ToolProvider({ children }) {
   
   const [selectedTool, setSelectedTool] = useState(null);
   const [selectedRank, setSelectedRank] = useState(null);
+  const [selectedPrevRank, setSelectedPrevRank] = useState(null);
   const [analysisTool, setAnalysisTool] = useState(null);
   const [analysisRank, setAnalysisRank] = useState(null);
 
@@ -97,12 +98,13 @@ export function ToolProvider({ children }) {
     }
   }, [user]);
 
-  const openToolDetail = (tool, rank) => {
+  const openToolDetail = (tool, rank, prevRank) => {
     setSelectedTool(tool);
     setSelectedRank(rank);
+    setSelectedPrevRank(prevRank || null);
   };
 
-  const closeToolDetail = () => setSelectedTool(null);
+  const closeToolDetail = () => { setSelectedTool(null); setSelectedPrevRank(null); };
   const openAnalysis = (tool, rank) => {
     setAnalysisTool(tool);
     setAnalysisRank(rank);
@@ -147,6 +149,7 @@ export function ToolProvider({ children }) {
     closeToolDetail,
     selectedTool,
     selectedRank,
+    selectedPrevRank,
     analysisTool,
     analysisRank,
     openAnalysis,

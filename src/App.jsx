@@ -22,9 +22,9 @@ import ToolDetailModal from "./components/modals/ToolDetailModal";
 import ToolAnalysisModal from "./components/modals/ToolAnalysisModal";
 
 const ModalWrapper = () => {
-  const { 
-    selectedTool, selectedRank, closeToolDetail,
-    analysisTool, analysisRank, closeAnalysis 
+  const {
+    selectedTool, selectedRank, selectedPrevRank, closeToolDetail,
+    analysisTool, analysisRank, closeAnalysis
   } = useTools();
 
   return (
@@ -33,6 +33,7 @@ const ModalWrapper = () => {
         <ToolDetailModal
           tool={selectedTool}
           rank={selectedRank}
+          prevRank={selectedPrevRank}
           onClose={closeToolDetail}
         />
       )}
