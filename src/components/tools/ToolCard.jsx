@@ -43,11 +43,11 @@ const getRankFontSize = (rank) => {
   return "1.2rem";
 };
 
-// 1~3위 발광 효과
-const getRankGlow = (rank) => {
-  if (rank === 1) return "0 0 8px #f59e0b, 0 0 18px #f59e0baa, 0 0 32px #f59e0b55";
-  if (rank === 2) return "0 0 8px #94a3b8, 0 0 18px #94a3b8aa, 0 0 32px #94a3b855";
-  if (rank === 3) return "0 0 8px #c77d3a, 0 0 18px #c77d3aaa, 0 0 32px #c77d3a55";
+// 1~3위 반짝 애니메이션
+const getRankAnim = (rank) => {
+  if (rank === 1) return "rankSparkGold 1.8s ease-in-out infinite";
+  if (rank === 2) return "rankSparkSilver 2.1s ease-in-out infinite";
+  if (rank === 3) return "rankSparkBronze 2.4s ease-in-out infinite";
   return "none";
 };
 
@@ -62,13 +62,13 @@ const ToolCard = ({ tool, rank, onClick }) => {
   const RankBadge = () => {
     const color = getRankColor(rank);
     const fontSize = getRankFontSize(rank);
-    const textShadow = getRankGlow(rank);
+    const animation = getRankAnim(rank);
     return (
       <span style={{
         fontSize, fontWeight: 900, lineHeight: 1,
         color, fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
         flexShrink: 0,
-        textShadow,
+        animation,
       }}>
         {rank}
       </span>

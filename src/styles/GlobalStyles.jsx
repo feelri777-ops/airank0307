@@ -280,6 +280,27 @@ const GlobalStyles = () => (
       0%, 100% { box-shadow: 0 0 6px rgba(148,163,184,0.28); }
       50% { box-shadow: 0 0 18px rgba(148,163,184,0.65), 0 0 36px rgba(148,163,184,0.2); }
     }
+    @keyframes rankSparkGold {
+      0%   { text-shadow: 0 0 6px #f59e0b, 0 0 12px #f59e0b88; }
+      25%  { text-shadow: 0 0 14px #fbbf24, 0 0 28px #f59e0bcc, 0 0 48px #f59e0b66; }
+      50%  { text-shadow: 0 0 4px #f59e0b, 0 0 8px #f59e0b55; }
+      75%  { text-shadow: 0 0 18px #fde68a, 0 0 36px #f59e0bdd, 0 0 60px #f59e0b44; }
+      100% { text-shadow: 0 0 6px #f59e0b, 0 0 12px #f59e0b88; }
+    }
+    @keyframes rankSparkSilver {
+      0%   { text-shadow: 0 0 6px #94a3b8, 0 0 12px #94a3b888; }
+      25%  { text-shadow: 0 0 14px #cbd5e1, 0 0 28px #94a3b8cc, 0 0 48px #94a3b866; }
+      50%  { text-shadow: 0 0 4px #94a3b8, 0 0 8px #94a3b855; }
+      75%  { text-shadow: 0 0 18px #e2e8f0, 0 0 36px #94a3b8dd, 0 0 60px #94a3b844; }
+      100% { text-shadow: 0 0 6px #94a3b8, 0 0 12px #94a3b888; }
+    }
+    @keyframes rankSparkBronze {
+      0%   { text-shadow: 0 0 6px #c77d3a, 0 0 12px #c77d3a88; }
+      25%  { text-shadow: 0 0 14px #e8975a, 0 0 28px #c77d3acc, 0 0 48px #c77d3a66; }
+      50%  { text-shadow: 0 0 4px #c77d3a, 0 0 8px #c77d3a55; }
+      75%  { text-shadow: 0 0 18px #f0b07a, 0 0 36px #c77d3add, 0 0 60px #c77d3a44; }
+      100% { text-shadow: 0 0 6px #c77d3a, 0 0 12px #c77d3a88; }
+    }
     @keyframes scoreGrow { from { width: 0; } }
     @keyframes sparkDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
     @keyframes sparkFade { from { fill-opacity: 0; } to { fill-opacity: 0.12; } }
