@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useTools } from '../../context/ToolContext';
 
 const LOGO_OVERRIDES = {
-  "notebooklm.google.com": "https://ssl.gstatic.com/notebooklm/notebooklm_favicon_192.png",
+  "notebooklm.google.com": "https://www.google.com/s2/favicons?domain=notebooklm.google&sz=64",
 };
 
 const getFaviconUrl = (url) => {

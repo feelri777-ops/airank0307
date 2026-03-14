@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-// 파비콘 API로 실제 로고가 안 나오는 도메인 → 직접 URL 지정
 const LOGO_OVERRIDES = {
-  "notebooklm.google.com": "https://ssl.gstatic.com/notebooklm/notebooklm_favicon_192.png",
+  "notebooklm.google.com": "https://www.google.com/s2/favicons?domain=notebooklm.google&sz=64",
 };
 
 const getFaviconUrl = (url) => {
