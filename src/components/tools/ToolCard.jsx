@@ -31,8 +31,24 @@ const getRankColor = (rank) => {
   if (rank === 2) return "#94a3b8";
   if (rank === 3) return "#c77d3a";
   if (rank <= 10) return "#6366f1";
-  if (rank <= 30) return "#10b981";
+  if (rank <= 50) return "#10b981";
   return "var(--text-muted)";
+};
+
+// 순위별 폰트 크기
+const getRankFontSize = (rank) => {
+  if (rank <= 10) return "2.8rem";
+  if (rank <= 50) return "2.1rem";
+  if (rank <= 99) return "1.6rem";
+  return "1.2rem";
+};
+
+// 1~3위 발광 효과
+const getRankGlow = (rank) => {
+  if (rank === 1) return "0 0 8px #f59e0b, 0 0 18px #f59e0baa, 0 0 32px #f59e0b55";
+  if (rank === 2) return "0 0 8px #94a3b8, 0 0 18px #94a3b8aa, 0 0 32px #94a3b855";
+  if (rank === 3) return "0 0 8px #c77d3a, 0 0 18px #c77d3aaa, 0 0 32px #c77d3a55";
+  return "none";
 };
 
 const ToolCard = ({ tool, rank, onClick }) => {
@@ -45,11 +61,14 @@ const ToolCard = ({ tool, rank, onClick }) => {
 
   const RankBadge = () => {
     const color = getRankColor(rank);
+    const fontSize = getRankFontSize(rank);
+    const textShadow = getRankGlow(rank);
     return (
       <span style={{
-        fontSize: "2.8rem", fontWeight: 900, lineHeight: 1,
+        fontSize, fontWeight: 900, lineHeight: 1,
         color, fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
         flexShrink: 0,
+        textShadow,
       }}>
         {rank}
       </span>
