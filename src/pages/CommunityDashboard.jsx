@@ -86,6 +86,19 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
             <span style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)" }}>
               {board.name}
             </span>
+            <button
+              onClick={(e) => { e.stopPropagation(); onToggleFavorite(e, board.id); }}
+              title={isFavorited ? "즐겨찾기 해제" : "즐겨찾기 추가"}
+              style={{
+                background: "none", border: "none", cursor: "pointer", padding: "0",
+                fontSize: "1.35rem", lineHeight: 1, color: isFavorited ? "#f59e0b" : "var(--text-muted)",
+                transition: "transform 0.15s, color 0.15s", flexShrink: 0,
+              }}
+              onMouseEnter={e => e.currentTarget.style.transform = "scale(1.3)"}
+              onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+            >
+              {isFavorited ? "★" : "☆"}
+            </button>
             {totalCount !== null && (
               <span style={{
                 fontSize: "0.7rem", fontWeight: 700,
@@ -100,22 +113,7 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
             {board.desc}
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
-          <button
-            onClick={(e) => { e.stopPropagation(); onToggleFavorite(e, board.id); }}
-            title={isFavorited ? "즐겨찾기 해제" : "즐겨찾기 추가"}
-            style={{
-              background: "none", border: "none", cursor: "pointer", padding: "2px",
-              fontSize: "1.1rem", lineHeight: 1, color: isFavorited ? "#f59e0b" : "var(--text-muted)",
-              transition: "transform 0.15s, color 0.15s",
-            }}
-            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.25)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-          >
-            {isFavorited ? "★" : "☆"}
-          </button>
-          <span style={{ fontSize: "1.1rem", color: "var(--text-muted)" }}>→</span>
-        </div>
+        <span style={{ fontSize: "1.1rem", color: "var(--text-muted)", flexShrink: 0 }}>→</span>
       </div>
 
       {/* 최신글 미리보기 */}
