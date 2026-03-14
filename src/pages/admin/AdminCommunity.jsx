@@ -1,0 +1,122 @@
+import { useEffect, useState } from "react";
+import { collection, query, orderBy, getDocs, doc, writeBatch } from "firebase/firestore";
+import { db } from "../../firebase";
+import { BOARDS } from "../CommunityDashboard";
+import { formatRelativeTime } from "../../utils";
+
+const BOARD_MAP = Object.fromEntries(BOARDS.map((b) => [b.id, b.name]));
+
+export default function AdminCommunity() {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("all");
+  const [deleting, setDeleting] = useState(null);
+
+  const fetchPosts = async () => {
+    setLoading(true);
+    try {
+      const q = query(collection(db, "communityPosts"), orderBy("createdAt", "desc"));
+      const snap = await getDocs(q);
+      setPosts(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { fetchPosts(); }, []);
+
+  const deletePost = async (postId) => {
+    if (!window.confirm("이 게시물을 삭제하시겠습니까?")) return;
+    setDeleting(postId);
+    try {
+      // 댓글 서브컬렉션 일괄 삭제
+      const commentsSnap = await getDocs(collection(db, "communityPosts", postId, "comments"));
+      const batch = writeBatch(db);
+      commentsSnap.docs.forEach((d) => batch.delete(d.ref));
+      batch.delete(doc(db, "communityPosts", postId));
+      await batch.commit();
+      setPosts((prev) => prev.filter((p) => p.id !== postId));
+    } catch (e) {
+      alert("삭제 실패: " + e.message);
+    } finally {
+      setDeleting(null);
+    }
+  };
+
+  const filtered = filter === "all" ? posts : posts.filter((p) => p.board === filter);
+
+  return (
+    <div>
+      <h1 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.3rem" }}>커뮤니티 관리</h1>
+      <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "1.5rem" }}>전체 게시물 {posts.length}개</p>
+
+      {/* 게시판 필터 */}
+      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "1.5rem" }}>
+        {[{ id: "all", name: "전체" }, ...BOARDS].map(({ id, name }) => (
+          <button key={id} onClick={() => setFilter(id)} style={{
+            padding: "6px 14px", borderRadius: "8px", fontSize: "0.82rem", fontWeight: 600,
+            cursor: "pointer", border: "1px solid var(--border-primary)",
+            background: filter === id ? "var(--accent-indigo)" : "var(--bg-card)",
+            color: filter === id ? "#fff" : "var(--text-secondary)",
+            transition: "all 0.15s",
+          }}>
+            {name} {id !== "all" && `(${posts.filter((p) => p.board === id).length})`}
+          </button>
+        ))}
+      </div>
+
+      {loading ? (
+        <div style={{ color: "var(--text-muted)", padding: "2rem" }}>불러오는 중…</div>
+      ) : filtered.length === 0 ? (
+        <div style={{ color: "var(--text-muted)", padding: "2rem" }}>게시물이 없습니다.</div>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          {filtered.map((post) => (
+            <div key={post.id} style={{
+              display: "flex", alignItems: "center", gap: "12px",
+              padding: "14px 16px", background: "var(--bg-card)",
+              border: "1px solid var(--border-primary)", borderRadius: "12px",
+            }}>
+              <span style={{
+                fontSize: "0.72rem", fontWeight: 700, padding: "3px 8px", borderRadius: "6px",
+                background: "rgba(99,102,241,0.1)", color: "var(--accent-indigo)", flexShrink: 0,
+              }}>
+                {BOARD_MAP[post.board] || post.board}
+              </span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {post.title}
+                </div>
+                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "2px" }}>
+                  {post.authorName || "익명"} · {post.createdAt ? formatRelativeTime(post.createdAt) : "-"} · 댓글 {post.commentCount || 0}
+                </div>
+              </div>
+              <a
+                href={`/community/${post.board}/${post.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: "0.78rem", color: "var(--accent-indigo)", textDecoration: "none", flexShrink: 0, fontWeight: 600 }}
+              >
+                보기
+              </a>
+              <button
+                onClick={() => deletePost(post.id)}
+                disabled={deleting === post.id}
+                style={{
+                  padding: "6px 14px", borderRadius: "8px", fontSize: "0.8rem", fontWeight: 700,
+                  background: "rgba(239,68,68,0.1)", color: "#ef4444",
+                  border: "1px solid #ef4444", cursor: "pointer", flexShrink: 0,
+                  opacity: deleting === post.id ? 0.5 : 1,
+                }}
+              >
+                {deleting === post.id ? "삭제 중…" : "삭제"}
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

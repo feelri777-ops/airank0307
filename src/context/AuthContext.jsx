@@ -33,6 +33,15 @@ export const AuthProvider = ({ children }) => {
         return;
       }
       
+      // 정지 여부 확인
+      const banRef = doc(db, "bannedUsers", u.uid);
+      const banSnap = await getDoc(banRef);
+      if (banSnap.exists()) {
+        setUser(null);
+        await signOut(auth);
+        return;
+      }
+
       const userRef = doc(db, "users", u.uid);
       const userSnap = await getDoc(userRef);
       if (!userSnap.exists()) {

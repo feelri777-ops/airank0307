@@ -18,6 +18,11 @@ import Dashboard from "./pages/Dashboard";
 import Directory from "./pages/Directory";
 import Prompt from "./pages/Prompt";
 import SeedPosts from "./pages/SeedPosts";
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminCommunity from "./pages/admin/AdminCommunity";
+import AdminGallery from "./pages/admin/AdminGallery";
+import AdminUsers from "./pages/admin/AdminUsers";
 import ToolDetailModal from "./components/modals/ToolDetailModal";
 import ToolAnalysisModal from "./components/modals/ToolAnalysisModal";
 
@@ -70,6 +75,12 @@ export default function App() {
                   <Route path="prompt" element={<Prompt />} />
                   <Route path="seed" element={<SeedPosts />} />
                   <Route path="dashboard" element={<Dashboard />} />
+                </Route>
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="community" element={<AdminCommunity />} />
+                  <Route path="gallery" element={<AdminGallery />} />
+                  <Route path="users" element={<AdminUsers />} />
                 </Route>
               </Routes>
               <ModalWrapper />
