@@ -2,8 +2,16 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useTools } from '../../context/ToolContext';
 
+const LOGO_OVERRIDES = {
+  "notebooklm.google.com": "https://ssl.gstatic.com/notebooklm/notebooklm_favicon_192.png",
+};
+
 const getFaviconUrl = (url) => {
-  try { return `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=64`; }
+  try {
+    const hostname = new URL(url).hostname;
+    if (LOGO_OVERRIDES[hostname]) return LOGO_OVERRIDES[hostname];
+    return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
+  }
   catch { return null; }
 };
 

@@ -9,7 +9,7 @@ export const BOARDS = [
   { id: "gemini",     name: "Gemini",     logo: "https://www.google.com/s2/favicons?domain=gemini.google.com&sz=64",  color: "#4285F4", desc: "Google Gemini 활용법과 토론" },
   { id: "claude",     name: "Claude",     logo: "https://www.google.com/s2/favicons?domain=claude.ai&sz=64",          color: "#CC785C", desc: "Anthropic Claude 활용 경험 공유" },
   { id: "grok",       name: "Grok",       logo: "https://www.google.com/s2/favicons?domain=x.ai&sz=64",               color: "#1DA1F2", desc: "xAI Grok 사용 경험과 팁 공유" },
-  { id: "notebooklm", name: "NotebookLM", logo: "https://www.google.com/s2/favicons?domain=notebooklm.google.com&sz=64", color: "#34A853", desc: "Google NotebookLM 활용법과 연구 팁" },
+  { id: "notebooklm", name: "NotebookLM", logo: "https://ssl.gstatic.com/notebooklm/notebooklm_favicon_192.png", color: "#34A853", desc: "Google NotebookLM 활용법과 연구 팁" },
   { id: "opensource", name: "오픈소스",   logo: "https://www.google.com/s2/favicons?domain=huggingface.co&sz=64",     color: "#8B5CF6", desc: "오픈소스 AI 모델 프로젝트 공유" },
 ];
 
