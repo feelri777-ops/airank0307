@@ -171,9 +171,21 @@ const TOOL_BOARD_MAP = {
   "NotebookLM": "notebooklm",
   "Microsoft Copilot": "copilot",
   "Copilot": "copilot",
+  "GitHub Copilot": "copilot",
   "Perplexity": "perplexity",
+  "Perplexity AI": "perplexity",
   "Midjourney": "midjourney",
   "Cursor": "cursor",
+  "Stable Diffusion": "stablediffusion",
+  "Runway": "runway",
+  "Runway ML": "runway",
+  "Runway Gen-3": "runway",
+  "Suno": "suno",
+  "Suno AI": "suno",
+  "Windsurf": "windsurf",
+  "Notion AI": "notion",
+  "Notion": "notion",
+  "Sora": "sora",
 };
 
 const CAT_LABEL = {
