@@ -71,11 +71,11 @@ const ScoreInsightPanel = ({ tool }) => {
   };
 
   const rows = [
-    { icon: null,  label: "종합점수", pts: totalPts, val: Math.round(score), color: trendColor, desc: null },
-    { icon: "https://www.google.com/s2/favicons?domain=google.com&sz=32", label: "구글",   key: "opr", color: "#4285F4", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
-    { icon: "https://www.google.com/s2/favicons?domain=naver.com&sz=32",  label: "네이버", key: "ntv", color: "#03C75A", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
-    { icon: "https://www.google.com/s2/favicons?domain=x.com&sz=32",      label: "엑스",   key: "sns", color: "#F43F5E", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
-    { icon: "https://www.google.com/s2/favicons?domain=github.com&sz=32", label: "깃허브", key: "ghs", color: "#8B5CF6", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
+    { icon: null,  label: "종합점수", pts: totalPts, val: Math.round(score), color: "#F59E0B", desc: null },
+    { icon: "https://www.google.com/s2/favicons?domain=google.com&sz=32", label: "Google", key: "opr", color: "#4285F4", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
+    { icon: "https://www.google.com/s2/favicons?domain=naver.com&sz=32",  label: "Naver",  key: "ntv", color: "#06B6D4", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
+    { icon: "https://www.google.com/s2/favicons?domain=x.com&sz=32",      label: "X",      key: "sns", color: "#F97316", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
+    { icon: "https://www.google.com/s2/favicons?domain=github.com&sz=32", label: "GitHub", key: "ghs", color: "#8B5CF6", desc: "GitHub Stars 수 기반 오픈소스 기술 파급력 (로그 스케일)" },
   ];
 
   return (
@@ -108,7 +108,7 @@ const ScoreInsightPanel = ({ tool }) => {
                 </div>
                 <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", width: "52px", flexShrink: 0, whiteSpace: "nowrap" }}>{label}</span>
                 <div style={{ flex: 1 }}><Spark pts={pts} color={color} /></div>
-                <span style={{ fontSize: "1.1rem", fontWeight: 900, color, width: "32px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
+                <span style={{ fontSize: idx === 0 ? "1.6rem" : "1.1rem", fontWeight: 900, color: idx === 0 ? trendColor : color, width: "36px", textAlign: "right", fontFamily: "'Pretendard', sans-serif", lineHeight: 1 }}>{val}</span>
               </div>
               {isActive && finalDesc && (
                 <div style={{
