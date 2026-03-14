@@ -71,7 +71,7 @@ const ScoreInsightPanel = ({ tool }) => {
   };
 
   const rows = [
-    { icon: null,  label: "종합점수", pts: totalPts, val: Math.round(score), color: "#F59E0B", desc: null },
+    { icon: "⭐", label: "종합점수", pts: totalPts, val: Math.round(score), color: "#F59E0B", desc: null },
     { icon: "https://www.google.com/s2/favicons?domain=google.com&sz=32", label: "Google", key: "opr", color: "#4285F4", desc: "Open PageRank 기반 글로벌 도메인 권위도 (구글 트래픽)" },
     { icon: "https://www.google.com/s2/favicons?domain=naver.com&sz=32",  label: "Naver",  key: "ntv", color: "#06B6D4", desc: "네이버 검색 트렌드 API 기반 국내 검색량 (최고점 대비 정규화)" },
     { icon: "https://www.google.com/s2/favicons?domain=x.com&sz=32",      label: "X",      key: "sns", color: "#F97316", desc: "XPOZ API 기반 실시간 트위터(X) 언급량 분석" },
@@ -96,7 +96,10 @@ const ScoreInsightPanel = ({ tool }) => {
                 onMouseLeave={() => setActiveTooltip(null)}
               >
                 <div style={{ width: 20, flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  {icon && <img src={icon} alt={label} width={18} height={18} style={{ borderRadius: "3px", objectFit: "contain" }} />}
+                  {icon && (icon.startsWith("http")
+                    ? <img src={icon} alt={label} width={18} height={18} style={{ borderRadius: "3px", objectFit: "contain" }} />
+                    : <span style={{ fontSize: "14px", lineHeight: 1 }}>{icon}</span>
+                  )}
                 </div>
                 <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-secondary)", width: "40px", flexShrink: 0, whiteSpace: "nowrap" }}>{label}</span>
                 <div style={{ flex: 1 }}><Spark pts={pts} color={color} /></div>
