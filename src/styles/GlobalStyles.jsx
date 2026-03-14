@@ -120,54 +120,6 @@ const GlobalStyles = () => (
       --rank3-bg: rgba(255, 255, 255, 0.02);
     }
 
-    /* ── 조선 머슴 테마 (chosun) — 먹빛 한지 ── */
-    [data-theme="chosun"] {
-      --bg-primary: #0e0d0b;       /* 먹빛 — 거의 검정에 가까운 따뜻한 어둠 */
-      --bg-secondary: #141310;
-      --bg-tertiary: #1a1815;
-      --bg-card: #171512;
-      --bg-card-hover: #1e1b17;
-      --bg-nav: rgba(14, 13, 11, 0.95);
-
-      --text-primary: #cec4b2;     /* 낡은 한지 — 채도 낮은 아이보리 */
-      --text-secondary: #8c8070;   /* 묵은 먹 */
-      --text-muted: #524d45;
-
-      --border-primary: rgba(180, 160, 130, 0.09);
-      --border-hover: rgba(180, 160, 130, 0.25);
-
-      --accent-indigo: #9c8c76;    /* 거의 무채색에 가까운 탁한 황토 */
-      --accent-cyan: #7a6e5e;
-      --accent-gradient: linear-gradient(135deg, #9c8c76, #6e6254);
-
-      --color-gold: #b89c6a;
-      --color-silver: #7a7a7a;
-      --color-bronze: #8c6e4a;
-
-      --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.5);
-      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.6);
-      --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.7);
-      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.45);
-
-      --tag-bg: rgba(150, 135, 110, 0.08);
-      --tag-color: #8c8070;
-      --tag-border: rgba(150, 135, 110, 0.18);
-
-      --font-main: 'Nanum Myeongjo', serif;
-      --font-title: 'Nanum Myeongjo', serif;
-      --ticker-bg: rgba(150, 135, 110, 0.06);
-      --ticker-border: rgba(150, 135, 110, 0.12);
-      --rank1-bg: rgba(184, 156, 106, 0.08);
-      --rank2-bg: rgba(122, 122, 122, 0.06);
-      --rank3-bg: rgba(140, 110, 74, 0.06);
-    }
-
-    /* 조선 테마에서 제목 굵기 조정 및 가로 흔들림 방지 */
-    [data-theme="chosun"] h1, [data-theme="chosun"] h2, [data-theme="chosun"] h3 {
-      font-weight: 800;
-      letter-spacing: -0.05em;
-    }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       width: 100%; overflow-x: clip; position: relative;
