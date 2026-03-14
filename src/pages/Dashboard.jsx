@@ -10,6 +10,7 @@ import { useAuth } from "../context/AuthContext";
 import { useGalleryLightbox } from "../context/GalleryLightboxContext";
 import { useNews } from "../context/NewsContext";
 import { useTools } from "../context/ToolContext";
+import ThemeToggle from "../components/ui/ThemeToggle";
 
 // ── 섹션 메뉴 정의 ──────────────────────────────────────────
 const MENU = [
@@ -797,7 +798,6 @@ export default function Dashboard() {
         background: "var(--bg-card)", border: "1px solid var(--border-primary)",
         borderRadius: "20px", display: "flex", flexDirection: "column",
         height: "fit-content", position: "sticky", top: "80px",
-        overflow: "hidden",
       }}>
         {/* 유저 정보 */}
         <div style={{ padding: "20px 16px 16px", borderBottom: "1px solid var(--border-primary)" }}>
@@ -834,6 +834,11 @@ export default function Dashboard() {
             </button>
           ))}
         </nav>
+
+        {/* 테마 변경 */}
+        <div style={{ padding: "10px 12px", borderTop: "1px solid var(--border-primary)", display: "flex", justifyContent: "flex-start" }}>
+          <ThemeToggle dropUp />
+        </div>
 
       </aside>
 

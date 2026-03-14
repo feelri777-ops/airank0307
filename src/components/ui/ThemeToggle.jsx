@@ -15,7 +15,7 @@ const TRACK_COLORS = {
   chosun: 'rgba(141, 110, 99, 0.15)',
 };
 
-const ThemeToggle = () => {
+const ThemeToggle = ({ dropUp = false }) => {
   const { theme, selectTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -75,7 +75,7 @@ const ThemeToggle = () => {
       {open && (
         <div style={{
           position: "absolute",
-          top: "calc(100% + 8px)",
+          ...(dropUp ? { bottom: "calc(100% + 8px)" } : { top: "calc(100% + 8px)" }),
           right: 0,
           background: "var(--bg-card)",
           border: "1px solid var(--border-primary)",

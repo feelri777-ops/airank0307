@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import { db } from "../../firebase";
 import Logo from "../ui/Logo";
-import ThemeToggle from "../ui/ThemeToggle";
 import { NAV_ITEMS } from "../../constants";
 import { useAuth } from "../../context/AuthContext";
 import { useTools } from "../../context/ToolContext";
@@ -210,7 +209,6 @@ const Navbar = ({ theme, onToggleTheme }) => {
               )}
             </div>
           )}
-          <ThemeToggle />
         </div>
       </div>
 
