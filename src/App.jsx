@@ -17,6 +17,7 @@ import Gallery from "./pages/Gallery";
 import Dashboard from "./pages/Dashboard";
 import Directory from "./pages/Directory";
 import Prompt from "./pages/Prompt";
+import SeedPosts from "./pages/SeedPosts";
 import ToolDetailModal from "./components/modals/ToolDetailModal";
 import ToolAnalysisModal from "./components/modals/ToolAnalysisModal";
 
@@ -66,6 +67,7 @@ export default function App() {
                   <Route path="gallery" element={<Gallery />} />
                   <Route path="directory" element={<Directory />} />
                   <Route path="prompt" element={<Prompt />} />
+                  <Route path="seed" element={<SeedPosts />} />
                   <Route path="dashboard" element={<Dashboard />} />
                 </Route>
               </Routes>

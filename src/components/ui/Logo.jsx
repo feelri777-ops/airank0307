@@ -1,6 +1,14 @@
-const Logo = () => {
+const Logo = ({ onClick }) => {
+  const handleClick = () => {
+    if (onClick) { onClick(); return; }
+    if (window.location.pathname === "/") {
+      window.location.reload();
+    } else {
+      window.location.href = "/";
+    }
+  };
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+    <div onClick={handleClick} style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
       {/* AI 텍스트 + 2진법 패턴 */}
       <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
         <span style={{

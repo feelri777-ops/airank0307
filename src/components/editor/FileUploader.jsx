@@ -147,6 +147,21 @@ const LimitInfo = styled.div`
 const fmtMB = (bytes) => (bytes / (1024 * 1024)).toFixed(1) + "MB";
 const uid6 = () => Math.random().toString(36).slice(2, 8);
 
+/* ── 드래그 오버레이 ── */
+const DragOverlay = styled.div`
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(124, 58, 237, 0.08);
+  border: 3px dashed var(--accent-indigo);
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+`;
+const DragMsg = styled.div`
+  background: var(--bg-card); border-radius: 16px;
+  padding: 2rem 3rem; text-align: center;
+  box-shadow: var(--shadow-lg);
+  font-size: 1.1rem; font-weight: 700; color: var(--accent-indigo);
+`;
+
 /* ── 컴포넌트 ── */
 export default function FileUploader({ postKey, onInsertImage, onInsertAudio }) {
   const { user } = useAuth();
@@ -157,6 +172,35 @@ export default function FileUploader({ postKey, onInsertImage, onInsertAudio }) 
   const [audios, setAudios] = useState([]); // { id, file, url, progress, done, error }
   const [checking, setChecking] = useState(false);
   const [globalError, setGlobalError] = useState("");
+  const [dragging, setDragging] = useState(false);
+  const dragCounter = useRef(0);
+
+  /* ── 드래그 앤 드롭 핸들러 ── */
+  const handleDragEnter = (e) => {
+    e.preventDefault(); e.stopPropagation();
+    dragCounter.current++;
+    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) setDragging(true);
+  };
+  const handleDragLeave = (e) => {
+    e.preventDefault(); e.stopPropagation();
+    dragCounter.current--;
+    if (dragCounter.current === 0) setDragging(false);
+  };
+  const handleDragOver = (e) => { e.preventDefault(); e.stopPropagation(); };
+  const handleDrop = async (e) => {
+    e.preventDefault(); e.stopPropagation();
+    setDragging(false);
+    dragCounter.current = 0;
+    const files = Array.from(e.dataTransfer.files);
+    if (!files.length) return;
+    const imgFiles = files.filter((f) => ALLOWED_IMAGE.includes(f.type));
+    const audFiles = files.filter((f) => ALLOWED_AUDIO.includes(f.type));
+    if (imgFiles.length) await handleImageFiles(imgFiles);
+    if (audFiles.length) await handleAudioFile(audFiles[0]);
+    if (!imgFiles.length && !audFiles.length) {
+      setGlobalError("지원하지 않는 파일 형식입니다. (이미지: jpg/png/gif/webp, 오디오: mp3/m4a/ogg/wav)");
+    }
+  };
 
   const uploadFile = (file, type, id, setList) => {
     const path = `community/${user.uid}/${postKey || Date.now()}/${type}/${id}_${file.name}`;
@@ -181,16 +225,12 @@ export default function FileUploader({ postKey, onInsertImage, onInsertAudio }) 
     );
   };
 
-  const handleImages = async (e) => {
+  const handleImageFiles = async (files) => {
     setGlobalError("");
-    const files = Array.from(e.target.files || []);
-    e.target.value = "";
     if (!files.length) return;
-
     if (images.length + files.length > IMAGE_MAX_COUNT) {
       setGlobalError(`이미지는 최대 ${IMAGE_MAX_COUNT}장까지 첨부할 수 있습니다.`); return;
     }
-
     for (const file of files) {
       if (!ALLOWED_IMAGE.includes(file.type)) {
         setGlobalError(`지원하지 않는 형식: ${file.name} (jpg/png/gif/webp만 가능)`); return;
@@ -199,12 +239,8 @@ export default function FileUploader({ postKey, onInsertImage, onInsertAudio }) 
         setGlobalError(`${file.name} 파일이 ${IMAGE_MAX_MB}MB를 초과합니다.`); return;
       }
     }
-
-    // 한도 체크
     const limit = await checkUploadLimit(user.uid, "image", files.reduce((a, f) => a + f.size, 0));
     if (!limit.ok) { setGlobalError(limit.reason); return; }
-
-    // NSFW 검사
     setChecking(true);
     for (const file of files) {
       const unsafe = await isNSFW(file);
@@ -215,8 +251,6 @@ export default function FileUploader({ postKey, onInsertImage, onInsertAudio }) 
       }
     }
     setChecking(false);
-
-    // 미리보기 + 업로드 시작
     const newItems = files.map((file) => {
       const id = uid6();
       const preview = URL.createObjectURL(file);
@@ -226,12 +260,9 @@ export default function FileUploader({ postKey, onInsertImage, onInsertAudio }) 
     newItems.forEach(({ id, file }) => uploadFile(file, "image", id, setImages));
   };
 
-  const handleAudio = async (e) => {
+  const handleAudioFile = async (file) => {
     setGlobalError("");
-    const file = e.target.files?.[0];
-    e.target.value = "";
     if (!file) return;
-
     if (audios.length >= AUDIO_MAX_COUNT) {
       setGlobalError(`오디오는 최대 ${AUDIO_MAX_COUNT}개까지 첨부할 수 있습니다.`); return;
     }
@@ -241,20 +272,47 @@ export default function FileUploader({ postKey, onInsertImage, onInsertAudio }) 
     if (file.size > AUDIO_MAX_MB * 1024 * 1024) {
       setGlobalError(`파일이 ${AUDIO_MAX_MB}MB를 초과합니다.`); return;
     }
-
     const limit = await checkUploadLimit(user.uid, "audio", file.size);
     if (!limit.ok) { setGlobalError(limit.reason); return; }
-
     const id = uid6();
     setAudios((prev) => [...prev, { id, file, url: null, progress: 0, done: false, error: null }]);
     uploadFile(file, "audio", id, setAudios);
+  };
+
+  const handleImages = async (e) => {
+    const files = Array.from(e.target.files || []);
+    e.target.value = "";
+    await handleImageFiles(files);
+  };
+
+  const handleAudio = async (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    await handleAudioFile(file);
   };
 
   const removeImage = (id) => setImages((prev) => prev.filter((f) => f.id !== id));
   const removeAudio = (id) => setAudios((prev) => prev.filter((f) => f.id !== id));
 
   return (
-    <div>
+    <div
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+      style={{ position: "relative" }}
+    >
+      {dragging && (
+        <DragOverlay>
+          <DragMsg>
+            <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>📁</div>
+            <div>여기에 파일을 놓아주세요</div>
+            <div style={{ fontSize: "0.8rem", fontWeight: 400, marginTop: "0.4rem", opacity: 0.7 }}>
+              이미지 (jpg/png/gif/webp) · 오디오 (mp3/m4a/ogg/wav)
+            </div>
+          </DragMsg>
+        </DragOverlay>
+      )}
       {globalError && <ErrorMsg>⚠️ {globalError}</ErrorMsg>}
 
       {/* ── 이미지 업로드 ── */}
@@ -350,6 +408,11 @@ export default function FileUploader({ postKey, onInsertImage, onInsertAudio }) 
           </UploadArea>
         )}
       </Section>
+
+      {/* 드래그 안내 */}
+      <div style={{ textAlign: "center", fontSize: "0.73rem", color: "var(--text-muted)", padding: "0.3rem 0 0.1rem" }}>
+        💡 이미지·오디오 파일을 이 영역으로 드래그하면 바로 업로드됩니다
+      </div>
     </div>
   );
 }
