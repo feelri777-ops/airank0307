@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import {
   doc, getDoc, updateDoc, deleteDoc, collection, query, where,
   orderBy, getDocs, addDoc, setDoc, increment, serverTimestamp,
@@ -297,7 +295,7 @@ export default function CommunityPost() {
         </MetaRow>
 
         <MarkdownContent>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </MarkdownContent>
 
         <ActionBar>
