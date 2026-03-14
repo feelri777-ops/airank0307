@@ -1,251 +1,251 @@
 ID	Service Name	Analysis Domain	Rank	Score	OpenSource
-1	ChatGPT	chatgpt.com	1	78.84	Y
-2	Claude	claude.ai	2	60.78	Y
-3	Gemini	gemini.google.com	3	50.72	N
-4	DeepSeek	www.deepseek.com	4	18.72	Y
-5	Grok	x.ai	5	61.45	N
-6	Llama	llama.meta.com	6	46.01	Y
-7	Mistral AI	mistral.ai	7	53.86	Y
-8	Character.AI	character.ai	8	40.73	N
-9	Poe	poe.com	9	40.02	N
-10	Midjourney	www.midjourney.com	10	8.61	N
-11	Stable Diffusion	stability.ai	11	45.66	Y
-12	DALL-E 3	openai.com/dall-e-3	12	27.97	N
-13	Adobe Firefly	firefly.adobe.com	13	37.31	N
-14	Leonardo AI	leonardo.ai	14	38.18	N
-15	Ideogram	ideogram.ai	15	37.78	N
-16	Flux	blackforestlabs.ai	16	35.29	N
-17	Krea AI	www.krea.ai	17	8.55	N
-18	GitHub Copilot	github.com/features/copilot	18	35.43	Y
-19	Cursor	www.cursor.com	19	18.33	Y
-20	Bolt.new	bolt.new	20	36.27	N
-21	Windsurf	codeium.com/windsurf	21	18.23	N
-22	v0	v0.dev	22	34.85	Y
-23	Replit AI	replit.com	23	42	N
-24	Tabnine	www.tabnine.com	24	8.55	N
-25	Sora	sora.com	25	37	N
-26	Runway ML	runwayml.com	26	42.48	N
-27	Kling AI	klingai.com	27	35.4	N
-28	Pika Labs	pika.art	28	38.66	N
-29	HeyGen	www.heygen.com	29	8.57	N
-30	Luma AI	lumalabs.ai	30	37.63	N
-31	Synthesia	www.synthesia.io	31	8.55	N
-32	Suno AI	suno.com	32	39.85	N
-33	ElevenLabs	elevenlabs.io	33	46.4	N
-34	Udio	www.udio.com	34	8.55	N
-35	Descript	www.descript.com	35	8.55	N
-36	Perplexity AI	www.perplexity.ai	36	8.56	N
-37	You.com	you.com	37	40.48	N
-38	Elicit	elicit.com	38	34.84	N
-39	Microsoft Copilot	copilot.microsoft.com	39	44.96	N
-40	Notion AI	www.notion.so/product/ai	40	8.56	N
-41	Gamma	gamma.app	41	39.03	N
-42	Otter.ai	otter.ai	42	42.47	N
-43	Fireflies.ai	fireflies.ai	43	35.23	N
-44	Beautiful.ai	www.beautiful.ai	44	8.55	N
-45	Make	www.make.com	45	20.66	N
-46	Zapier AI	zapier.com/ai	46	49.55	N
-47	n8n	n8n.io	47	41.13	N
-48	Canva AI	www.canva.com/ai-tools	48	8.55	N
-49	Figma AI	www.figma.com/ai	49	8.55	N
-50	Uizard	uizard.io	50	35.4	N
-51	Le Chat	chat.mistral.ai	51	37.31	N
-52	Qwen	qwenlm.github.io	52	44.94	Y
-53	Command R+	cohere.com	53	40.09	N
-54	HyperCLOVA X	clova.ai/hyperclova	54	31.74	N
-55	Kimi	kimi.moonshot.cn	55	35.58	N
-56	Phi-4	azure.microsoft.com/en-us/products/phi-4	56	25.46	Y
-57	Amazon Nova	aws.amazon.com	57	28.79	N
-58	Playground AI	playground.com	58	34.36	N
-59	SeaArt AI	www.seaart.ai	59	8.55	N
-60	NightCafe	nightcafe.studio	60	34.45	N
-61	Tensor.Art	tensor.art	61	32.21	N
-62	Civitai	civitai.com	62	38.1	N
-63	Bing Image Creator	www.bing.com/create	63	8.55	N
-64	Amazon Q Developer	aws.amazon.com/q/developer	64	28.79	N
-65	Lovable	lovable.dev	65	39.03	N
-66	Cody	sourcegraph.com	66	36.92	N
-67	Devin	www.devin.ai	67	8.6	N
-68	Aider	aider.chat	68	33.99	N
-69	CapCut AI	capcut.com	69	38.5	N
-70	InVideo AI	invideo.io	70	41.76	N
-71	Hailuo AI	www.hailuo.ai	71	8.55	N
-72	Pictory	pictory.ai	72	38.26	N
-73	Veed.io AI	veed.io	73	40.33	N
-74	AIVA	www.aiva.ai	74	8.55	N
-75	Soundraw	soundraw.io	75	35.47	N
-76	Mubert	mubert.com	76	35.39	N
-77	Adobe Podcast AI	podcast.adobe.com	77	18.58	N
-78	Lalal.ai	www.lalal.ai	78	8.55	N
-79	Phind	www.phind.com	79	8.55	N
-80	Consensus	consensus.app	80	37.97	N
-81	Kagi	kagi.com	81	41.36	N
-82	Exa	exa.ai	82	34.85	N
-83	Jasper	www.jasper.ai	83	8.57	N
-84	Copy.ai	www.copy.ai	84	8.55	N
-85	Grammarly	www.grammarly.com	85	8.61	N
-86	Writesonic	writesonic.com	86	42.88	N
-87	Tome	tome.app	87	33.13	N
-88	Taskade	www.taskade.com	88	8.55	N
-89	Mem AI	mem.ai	89	33.17	N
-90	Reclaim.ai	reclaim.ai	90	34.04	N
-91	Rytr	rytr.me	91	37.71	N
-92	Wordtune	www.wordtune.com	92	8.55	N
-93	Framer AI	www.framer.com/ai	93	8.55	N
-94	Looka	looka.com	94	38.74	N
-95	Khroma	khroma.co	95	31.58	N
-96	Relume	www.relume.io	96	8.55	N
-97	Remove.bg	www.remove.bg	97	8.55	N
-98	Cleanup.pictures	cleanup.pictures	98	34.04	N
-99	Spline AI	spline.design	99	35.39	N
-100	Visily	www.visily.ai	100	8.55	N
-101	Replika	replika.com	101	33.41	N
-102	Pi AI	pi.ai	102	40.4	N
-103	Meta AI	meta.ai	103	37.09	N
-104	Talkie AI	www.talkie-ai.com	104	8.55	N
-105	Kindroid	kindroid.ai	105	24.57	N
-106	Chai AI	www.chai-research.com	106	8.55	N
-107	Anima AI	myanima.ai	107	29.27	N
-108	Hume AI	hume.ai	108	34.04	N
-109	Lensa AI	prisma-ai.com/lensa	109	38.89	N
-110	Photoroom	www.photoroom.com	110	8.55	N
-111	Remini	remini.ai	111	35.32	N
-112	Facetune	facetuneapp.com	112	36.59	N
-113	Prisma	prisma-ai.com	113	38.9	N
-114	Pixelcut	www.pixelcut.ai	114	8.55	N
-115	Wombo Dream	www.wombo.ai	115	8.55	N
-116	Starryai	starryai.com	116	38.25	N
-117	Meitu	meitu.com	117	29.29	N
-118	PicsArt AI	picsart.com	118	44.23	N
-119	Reface	hey.reface.ai	119	34.76	N
-120	FaceApp	www.faceapp.com	120	8.55	N
-121	Photoleap	lightricks.com	121	37.54	N
-122	Deep Nostalgia	www.myheritage.com/deep-nostalgia	122	8.55	N
-123	Captions	www.captions.ai	123	8.59	N
-124	D-ID	www.d-id.com	124	8.55	N
-125	Filmora AI	filmora.wondershare.com	125	38.34	N
-126	Pixverse	pixverse.ai	126	29.59	N
-127	Haiper	haiper.ai	127	30.94	N
-128	Voicemod	www.voicemod.net	128	8.55	N
-129	Resemble AI	www.resemble.ai	129	8.55	N
-130	Play.ht	play.ht	130	38.34	N
-131	Podcastle	podcastle.ai	131	36.91	N
-132	Boomy	boomy.com	132	32.53	N
-133	Speechify	speechify.com	133	39.77	N
-134	Motion	usemotion.com	134	38.69	N
-135	Krisp	krisp.ai	135	36.43	N
-136	Superhuman	superhuman.com	136	38.44	N
-137	Lindy AI	lindy.ai	137	34.2	N
-138	Duolingo Max	www.duolingo.com/max	138	8.55	N
-139	Elsa Speak	elsaspeak.com	139	36.59	N
-140	Speak	speak.com	140	37.37	N
-141	QuillBot	quillbot.com	141	43	N
-142	Photomath	photomath.com	142	37.46	N
-143	Socratic	socratic.org	143	37.78	N
-144	Liner	getliner.com	144	33.48	N
-145	Google Lens	lens.google	145	38.58	N
-146	Microsoft Designer	designer.microsoft.com	146	41.28	N
-147	Adobe Express	www.adobe.com/express/feature/ai	147	8.55	N
-148	Fotor AI	www.fotor.com	148	8.55	N
-149	Woebot	woebothealth.com	149	36.43	N
-150	Kuki AI	www.kuki.ai	150	8.55	N
-151	Devin	www.devin.ai	151	8.6	N
-152	Lovable	lovable.dev	152	39.03	N
-153	Amazon Q Developer	aws.amazon.com/q/developer	153	28.79	N
-154	JetBrains AI	jetbrains.com	154	50.83	N
-155	Continue.dev	continue.dev	155	33.96	N
-156	Aider	aider.chat	156	33.99	N
-157	Zed	zed.dev	157	46.31	Y
-158	Cline	github.com/cline/cline	158	45.12	Y
-159	WRTN	wrtn.ai	159	36.67	N
-160	Gemma	ai.google.dev/gemma	160	32.04	Y
-161	EXAONE	www.lgresearch.ai/exaone	161	8.55	N
-162	Solar	www.upstage.ai/solar	162	9	N
-163	InternLM	internlm.intern-ai.org.cn	163	23.94	N
-164	Consensus	consensus.app	164	37.97	N
-165	SciSpace	typeset.io	165	37.46	N
-166	Semantic Scholar	www.semanticscholar.org	166	8.55	N
-167	Research Rabbit	researchrabbitapp.com	167	33.64	N
-168	Imagen 3	deepmind.google	168	43.98	N
-169	Recraft AI	www.recraft.ai	169	8.55	N
-170	Flair AI	flair.ai	170	33.65	N
-171	Clipdrop	clipdrop.co	171	39.37	N
-172	Magnific AI	magnific.ai	172	27.84	N
-173	ComfyUI	github.com/comfyanonymous/ComfyUI	173	45.4	Y
+1	ChatGPT	chatgpt.com	1	79.01	Y
+2	Claude	claude.ai	2	60.79	Y
+3	Gemini	gemini.google.com	3	50.74	N
+4	DeepSeek	www.deepseek.com	4	18.8	Y
+5	Grok	x.ai	5	61.46	N
+6	Llama	llama.meta.com	6	46.02	Y
+7	Mistral AI	mistral.ai	7	53.87	Y
+8	Character.AI	character.ai	8	40.74	N
+9	Poe	poe.com	9	40.04	N
+10	Midjourney	www.midjourney.com	10	8.69	N
+11	Stable Diffusion	stability.ai	11	45.68	Y
+12	DALL-E 3	openai.com/dall-e-3	12	27.99	N
+13	Adobe Firefly	firefly.adobe.com	13	37.32	N
+14	Leonardo AI	leonardo.ai	14	38.19	N
+15	Ideogram	ideogram.ai	15	37.79	N
+16	Flux	blackforestlabs.ai	16	35.3	N
+17	Krea AI	www.krea.ai	17	8.63	N
+18	GitHub Copilot	github.com/features/copilot	18	35.45	Y
+19	Cursor	www.cursor.com	19	18.41	Y
+20	Bolt.new	bolt.new	20	36.28	N
+21	Windsurf	codeium.com/windsurf	21	18.24	N
+22	v0	v0.dev	22	34.87	Y
+23	Replit AI	replit.com	23	42.01	N
+24	Tabnine	www.tabnine.com	24	8.63	N
+25	Sora	sora.com	25	37.01	N
+26	Runway ML	runwayml.com	26	42.49	N
+27	Kling AI	klingai.com	27	35.42	Na
+28	Pika Labs	pika.art	28	38.67	N
+29	HeyGen	www.heygen.com	29	8.65	N
+30	Luma AI	lumalabs.ai	30	37.64	N
+31	Synthesia	www.synthesia.io	31	8.63	N
+32	Suno AI	suno.com	32	39.86	N
+33	ElevenLabs	elevenlabs.io	33	46.42	N
+34	Udio	www.udio.com	34	8.63	N
+35	Descript	www.descript.com	35	8.63	N
+36	Perplexity AI	www.perplexity.ai	36	8.64	N
+37	You.com	you.com	37	40.5	N
+38	Elicit	elicit.com	38	34.86	N
+39	Microsoft Copilot	copilot.microsoft.com	39	44.97	N
+40	Notion AI	www.notion.so/product/ai	40	8.64	N
+41	Gamma	gamma.app	41	39.05	N
+42	Otter.ai	otter.ai	42	42.48	N
+43	Fireflies.ai	fireflies.ai	43	35.24	N
+44	Beautiful.ai	www.beautiful.ai	44	8.63	N
+45	Make	www.make.com	45	20.74	N
+46	Zapier AI	zapier.com/ai	46	49.57	N
+47	n8n	n8n.io	47	41.15	N
+48	Canva AI	www.canva.com/ai-tools	48	8.63	N
+49	Figma AI	www.figma.com/ai	49	8.63	N
+50	Uizard	uizard.io	50	35.41	N
+51	Le Chat	chat.mistral.ai	51	37.32	N
+52	Qwen	qwenlm.github.io	52	44.95	Y
+53	Command R+	cohere.com	53	40.1	N
+54	HyperCLOVA X	clova.ai/hyperclova	54	31.75	N
+55	Kimi	kimi.moonshot.cn	55	35.59	N
+56	Phi-4	azure.microsoft.com/en-us/products/phi-4	56	25.48	Y
+57	Amazon Nova	aws.amazon.com	57	28.81	N
+58	Playground AI	playground.com	58	34.37	N
+59	SeaArt AI	www.seaart.ai	59	8.63	N
+60	NightCafe	nightcafe.studio	60	34.46	N
+61	Tensor.Art	tensor.art	61	32.23	N
+62	Civitai	civitai.com	62	38.11	N
+63	Bing Image Creator	www.bing.com/create	63	8.63	N
+64	Amazon Q Developer	aws.amazon.com/q/developer	64	28.81	N
+65	Lovable	lovable.dev	65	39.05	N
+66	Cody	sourcegraph.com	66	36.93	N
+67	Devin	www.devin.ai	67	8.68	N
+68	Aider	aider.chat	68	34	N
+69	CapCut AI	capcut.com	69	38.51	N
+70	InVideo AI	invideo.io	70	41.77	N
+71	Hailuo AI	www.hailuo.ai	71	8.63	N
+72	Pictory	pictory.ai	72	38.27	N
+73	Veed.io AI	veed.io	73	40.34	N
+74	AIVA	www.aiva.ai	74	8.63	N
+75	Soundraw	soundraw.io	75	35.48	N
+76	Mubert	mubert.com	76	35.41	N
+77	Adobe Podcast AI	podcast.adobe.com	77	18.59	N
+78	Lalal.ai	www.lalal.ai	78	8.63	N
+79	Phind	www.phind.com	79	8.63	N
+80	Consensus	consensus.app	80	37.98	N
+81	Kagi	kagi.com	81	41.37	N
+82	Exa	exa.ai	82	34.86	N
+83	Jasper	www.jasper.ai	83	8.65	N
+84	Copy.ai	www.copy.ai	84	8.63	N
+85	Grammarly	www.grammarly.com	85	8.69	N
+86	Writesonic	writesonic.com	86	42.89	N
+87	Tome	tome.app	87	33.14	N
+88	Taskade	www.taskade.com	88	8.63	N
+89	Mem AI	mem.ai	89	33.18	N
+90	Reclaim.ai	reclaim.ai	90	34.05	N
+91	Rytr	rytr.me	91	37.72	N
+92	Wordtune	www.wordtune.com	92	8.63	N
+93	Framer AI	www.framer.com/ai	93	8.63	N
+94	Looka	looka.com	94	38.75	N
+95	Khroma	khroma.co	95	31.59	N
+96	Relume	www.relume.io	96	8.63	N
+97	Remove.bg	www.remove.bg	97	8.63	N
+98	Cleanup.pictures	cleanup.pictures	98	34.05	N
+99	Spline AI	spline.design	99	35.41	N
+100	Visily	www.visily.ai	100	8.63	N
+101	Replika	replika.com	101	33.42	N
+102	Pi AI	pi.ai	102	40.41	N
+103	Meta AI	meta.ai	103	37.1	N
+104	Talkie AI	www.talkie-ai.com	104	8.63	N
+105	Kindroid	kindroid.ai	105	24.58	N
+106	Chai AI	www.chai-research.com	106	8.63	N
+107	Anima AI	myanima.ai	107	29.28	N
+108	Hume AI	hume.ai	108	34.05	N
+109	Lensa AI	prisma-ai.com/lensa	109	38.91	N
+110	Photoroom	www.photoroom.com	110	8.63	N
+111	Remini	remini.ai	111	35.33	N
+112	Facetune	facetuneapp.com	112	36.6	N
+113	Prisma	prisma-ai.com	113	38.92	N
+114	Pixelcut	www.pixelcut.ai	114	8.63	N
+115	Wombo Dream	www.wombo.ai	115	8.63	N
+116	Starryai	starryai.com	116	38.27	N
+117	Meitu	meitu.com	117	29.3	N
+118	PicsArt AI	picsart.com	118	44.24	N
+119	Reface	hey.reface.ai	119	34.77	N
+120	FaceApp	www.faceapp.com	120	8.63	N
+121	Photoleap	lightricks.com	121	37.55	N
+122	Deep Nostalgia	www.myheritage.com/deep-nostalgia	122	8.63	N
+123	Captions	www.captions.ai	123	8.67	N
+124	D-ID	www.d-id.com	124	8.63	N
+125	Filmora AI	filmora.wondershare.com	125	38.35	N
+126	Pixverse	pixverse.ai	126	29.6	N
+127	Haiper	haiper.ai	127	30.95	N
+128	Voicemod	www.voicemod.net	128	8.63	N
+129	Resemble AI	www.resemble.ai	129	8.63	N
+130	Play.ht	play.ht	130	38.35	N
+131	Podcastle	podcastle.ai	131	36.92	N
+132	Boomy	boomy.com	132	32.54	N
+133	Speechify	speechify.com	133	39.78	N
+134	Motion	usemotion.com	134	38.7	N
+135	Krisp	krisp.ai	135	36.45	N
+136	Superhuman	superhuman.com	136	38.45	N
+137	Lindy AI	lindy.ai	137	34.21	N
+138	Duolingo Max	www.duolingo.com/max	138	8.63	N
+139	Elsa Speak	elsaspeak.com	139	36.6	N
+140	Speak	speak.com	140	37.39	N
+141	QuillBot	quillbot.com	141	43.01	N
+142	Photomath	photomath.com	142	37.47	N
+143	Socratic	socratic.org	143	37.79	N
+144	Liner	getliner.com	144	33.49	N
+145	Google Lens	lens.google	145	38.59	N
+146	Microsoft Designer	designer.microsoft.com	146	41.29	N
+147	Adobe Express	www.adobe.com/express/feature/ai	147	8.63	N
+148	Fotor AI	www.fotor.com	148	8.63	N
+149	Woebot	woebothealth.com	149	36.44	N
+150	Kuki AI	www.kuki.ai	150	8.63	N
+151	Devin	www.devin.ai	151	8.68	N
+152	Lovable	lovable.dev	152	39.05	N
+153	Amazon Q Developer	aws.amazon.com/q/developer	153	28.81	N
+154	JetBrains AI	jetbrains.com	154	50.84	N
+155	Continue.dev	continue.dev	155	33.97	N
+156	Aider	aider.chat	156	34	N
+157	Zed	zed.dev	157	46.32	Y
+158	Cline	github.com/cline/cline	158	45.14	Y
+159	WRTN	wrtn.ai	159	36.68	N
+160	Gemma	ai.google.dev/gemma	160	32.05	Y
+161	EXAONE	www.lgresearch.ai/exaone	161	8.63	N
+162	Solar	www.upstage.ai/solar	162	9.08	N
+163	InternLM	internlm.intern-ai.org.cn	163	23.95	N
+164	Consensus	consensus.app	164	37.98	N
+165	SciSpace	typeset.io	165	37.48	N
+166	Semantic Scholar	www.semanticscholar.org	166	8.63	N
+167	Research Rabbit	researchrabbitapp.com	167	33.66	N
+168	Imagen 3	deepmind.google	168	44	N
+169	Recraft AI	www.recraft.ai	169	8.63	N
+170	Flair AI	flair.ai	170	33.66	N
+171	Clipdrop	clipdrop.co	171	39.39	N
+172	Magnific AI	magnific.ai	172	27.85	N
+173	ComfyUI	github.com/comfyanonymous/ComfyUI	173	45.42	Y
 174	InvokeAI	invoke.ai	174	26.25	N
-175	Veo 2	deepmind.google	175	43.98	N
-176	Hailuo AI	www.hailuo.ai	176	8.55	N
+175	Veo 2	deepmind.google	175	44	N
+176	Hailuo AI	www.hailuo.ai	176	8.63	N
 177	Wan AI	wanxiang.aliyun.com	177	21.4	N
-178	Opus Clip	www.opus.pro	178	8.55	N
-179	Veed.io	www.veed.io	179	8.55	N
-180	Kapwing	www.kapwing.com	180	8.55	N
-181	InVideo AI	invideo.io	181	41.76	N
-182	Murf AI	murf.ai	182	38.66	N
-183	AIVA	www.aiva.ai	183	8.55	N
-184	Soundraw	soundraw.io	184	35.47	N
-185	Whisper	openai.com/ko-KR/index/whisper	185	38.02	Y
-186	Adobe Podcast	podcast.adobe.com	186	35.87	N
-187	Coda AI	coda.io/product/ai	187	42.79	N
-188	ClickUp AI	clickup.com/ai	188	45.57	N
-189	Tana	tana.inc	189	33.57	N
-190	Reflect	reflect.app	190	36.24	N
+178	Opus Clip	www.opus.pro	178	8.63	N
+179	Veed.io	www.veed.io	179	8.63	N
+180	Kapwing	www.kapwing.com	180	8.63	N
+181	InVideo AI	invideo.io	181	41.77	N
+182	Murf AI	murf.ai	182	38.67	N
+183	AIVA	www.aiva.ai	183	8.63	N
+184	Soundraw	soundraw.io	184	35.48	N
+185	Whisper	openai.com/ko-KR/index/whisper	185	38.03	Y
+186	Adobe Podcast	podcast.adobe.com	186	35.88	N
+187	Coda AI	coda.io/product/ai	187	42.81	N
+188	ClickUp AI	clickup.com/ai	188	45.59	N
+189	Tana	tana.inc	189	33.58	N
+190	Reflect	reflect.app	190	36.25	N
 191	Clova Note	clovanote.naver.com	191	19.73	N
-192	Napkin AI	napkin.ai	192	35.63	N
-193	Granola	granola.ai	193	31.35	N
-194	Kittl	www.kittl.com	194	8.55	N
-195	Topaz Photo AI	topazlabs.com	195	34.84	N
-196	Upscayl	www.upscayl.org	196	8.55	N
-197	Pixlr AI	pixlr.com	197	43.9	N
-198	AutoGPT	agpt.co	198	45.24	Y
-199	Dify	dify.ai	199	44.28	Y
-200	Flowise	flowiseai.com	200	33.25	N
-201	Ollama	ollama.com	201	47.16	Y
-202	LM Studio	lmstudio.ai	202	34.85	N
-203	Open WebUI	openwebui.com	203	34.04	N
-204	Groq	groq.com	204	38.27	N
-205	Together AI	www.together.ai	205	8.55	N
-206	OpenRouter	openrouter.ai	206	39.83	N
-207	Cohere	cohere.com	207	40.09	N
-208	AnythingLLM	anythingllm.com	208	32.93	N
-209	GPT4All	gpt4all.io	209	33.56	N
-210	Jan.ai	jan.ai	210	37.54	N
-211	Blackbox AI	www.blackbox.ai	211	8.55	N
-212	CrewAI	www.crewai.com	212	8.56	N
-213	AutoGen	microsoft.github.io/autogen	213	21.84	N
-214	LangChain	www.langchain.com	214	18.59	Y
-215	LlamaIndex	www.llamaindex.ai	215	8.55	N
-216	NotebookLM	notebooklm.google.com	216	38.42	N
-217	Artbreeder	www.artbreeder.com	217	8.55	N
-218	Freepik AI	freepik.com	218	49.71	N
-219	NovelAI	novelai.net	219	29.04	N
-220	Sudowrite	sudowrite.com	220	31.34	N
-221	Lex	lex.page	221	28.66	N
-222	Viggle	viggle.ai	222	30.07	N
-223	Hedra	hedra.com	223	32.61	N
-224	Stable Video	www.stablevideo.com	224	8.55	N
-225	Deepgram	deepgram.com	225	37.7	N
-226	AssemblyAI	www.assemblyai.com	226	8.55	N
-227	Speechmatics	www.speechmatics.com	227	8.55	N
-228	Retell AI	www.retellai.com	228	8.55	N
-229	Bland AI	www.bland.ai	229	8.55	N
-230	Voiceflow	www.voiceflow.com	230	8.55	N
-231	Botpress	botpress.com	231	36.35	N
-232	Coze	coze.com	232	28.24	N
-233	Notta	www.notta.ai	233	8.55	N
-234	tl;dv	tldv.io	234	31.1	N
-235	Fathom	fathom.video	235	32.17	N
-236	Avoma	www.avoma.com	236	8.55	N
-237	Glean	www.glean.com	237	8.55	N
-238	Devv.ai	devv.ai	238	25.53	N
-239	Pinecone	www.pinecone.io	239	8.55	N
-240	Chroma	www.trychroma.com	240	8.55	N
-241	Copilot Studio	copilotstudio.microsoft.com	241	30.31	N
-242	Adobe GenStudio	business.adobe.com	242	22.74	N
-243	Height AI	height.app	243	30.07	N
-244	Intercom Fin	www.intercom.com/ai	244	8.55	N
-245	Tidio Lyro	www.tidio.com/lyro	245	8.55	N
-246	Manus AI	manus.im	246	35	N
-247	Lobe Chat	lobehub.com	247	32.69	N
-248	Wordware	wordware.ai	248	32.85	N
-249	Zoom AI	www.zoom.com/en/ai-companion	249	8.55	N
-250	Slack AI	slack.com/features/ai	250	27.43	N
+192	Napkin AI	napkin.ai	192	35.64	N
+193	Granola	granola.ai	193	31.36	N
+194	Kittl	www.kittl.com	194	8.63	N
+195	Topaz Photo AI	topazlabs.com	195	34.85	N
+196	Upscayl	www.upscayl.org	196	8.63	N
+197	Pixlr AI	pixlr.com	197	43.92	N
+198	AutoGPT	agpt.co	198	45.25	Y
+199	Dify	dify.ai	199	44.3	Y
+200	Flowise	flowiseai.com	200	33.26	N
+201	Ollama	ollama.com	201	47.17	Y
+202	LM Studio	lmstudio.ai	202	34.87	N
+203	Open WebUI	openwebui.com	203	34.05	N
+204	Groq	groq.com	204	38.28	N
+205	Together AI	www.together.ai	205	8.63	N
+206	OpenRouter	openrouter.ai	206	39.85	N
+207	Cohere	cohere.com	207	40.1	N
+208	AnythingLLM	anythingllm.com	208	32.94	N
+209	GPT4All	gpt4all.io	209	33.58	N
+210	Jan.ai	jan.ai	210	37.55	N
+211	Blackbox AI	www.blackbox.ai	211	8.63	N
+212	CrewAI	www.crewai.com	212	8.64	N
+213	AutoGen	microsoft.github.io/autogen	213	21.85	N
+214	LangChain	www.langchain.com	214	18.67	Y
+215	LlamaIndex	www.llamaindex.ai	215	8.63	N
+216	NotebookLM	notebooklm.google.com	216	38.44	N
+217	Artbreeder	www.artbreeder.com	217	8.63	N
+218	Freepik AI	freepik.com	218	49.73	N
+219	NovelAI	novelai.net	219	29.05	N
+220	Sudowrite	sudowrite.com	220	31.35	N
+221	Lex	lex.page	221	28.67	N
+222	Viggle	viggle.ai	222	30.08	N
+223	Hedra	hedra.com	223	32.63	N
+224	Stable Video	www.stablevideo.com	224	8.63	N
+225	Deepgram	deepgram.com	225	37.72	N
+226	AssemblyAI	www.assemblyai.com	226	8.63	N
+227	Speechmatics	www.speechmatics.com	227	8.63	N
+228	Retell AI	www.retellai.com	228	8.63	N
+229	Bland AI	www.bland.ai	229	8.63	N
+230	Voiceflow	www.voiceflow.com	230	8.63	N
+231	Botpress	botpress.com	231	36.36	N
+232	Coze	coze.com	232	28.25	N
+233	Notta	www.notta.ai	233	8.63	N
+234	tl;dv	tldv.io	234	31.11	N
+235	Fathom	fathom.video	235	32.18	N
+236	Avoma	www.avoma.com	236	8.63	N
+237	Glean	www.glean.com	237	8.63	N
+238	Devv.ai	devv.ai	238	25.54	N
+239	Pinecone	www.pinecone.io	239	8.63	N
+240	Chroma	www.trychroma.com	240	8.63	N
+241	Copilot Studio	copilotstudio.microsoft.com	241	30.32	N
+242	Adobe GenStudio	business.adobe.com	242	22.75	N
+243	Height AI	height.app	243	30.08	N
+244	Intercom Fin	www.intercom.com/ai	244	8.63	N
+245	Tidio Lyro	www.tidio.com/lyro	245	8.63	N
+246	Manus AI	manus.im	246	35.01	N
+247	Lobe Chat	lobehub.com	247	32.7	N
+248	Wordware	wordware.ai	248	32.86	N
+249	Zoom AI	www.zoom.com/en/ai-companion	249	8.63	N
+250	Slack AI	slack.com/features/ai	250	27.45	N

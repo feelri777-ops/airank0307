@@ -137,11 +137,11 @@ async function getOprScore(domains) {
     if (data.response) {
       console.log(`    [OPR] API 응답 개수: ${data.response.length}`);
       data.response.forEach(item => {
-        // 원래 요청한 도메인(경로 포함)과 매핑하기 위해 재매칭
         const rankValue = parseFloat(item.page_rank_decimal || 0);
-        domains.forEach((orig, idx) => {
+        domains.forEach((orig) => {
           const cleanOrig = orig.replace(/^https?:\/\//, '');
-          if (cleanOrig.startsWith(item.domain)) {
+          const cleanOrigNoWww = cleanOrig.replace(/^www\./, '');
+          if (cleanOrig.startsWith(item.domain) || cleanOrigNoWww.startsWith(item.domain)) {
             result[orig] = rankValue;
           }
         });
