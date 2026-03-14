@@ -1,7 +1,7 @@
 const PLATFORMS = [
-  { label: "네이버", domain: "naver.com" },
-  { label: "YouTube", domain: "youtube.com" },
+  { label: "Naver",  domain: "naver.com" },
   { label: "Google", domain: "google.com" },
+  { label: "X",      domain: "x.com" },
   { label: "GitHub", domain: "github.com" },
 ];
 
@@ -60,7 +60,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => (
       marginLeft: "auto",
       marginRight: "auto",
     }}>
-      네이버, 유튜브, 구글, GitHub의 검색 트렌드를 분석해
+      Naver, Google, X(Twitter), GitHub의 검색 트렌드를 분석해
       <br />AI 툴의 실제 관심도를 하나의 점수로 계산합니다.
     </p>
 
