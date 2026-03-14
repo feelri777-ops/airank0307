@@ -592,8 +592,11 @@ async function updateRanking() {
 
   const allNtvValues = Object.values(rawNtvData);
   const maxNtvRatio = Math.max(...allNtvValues, 0.1);
-  const allSnsValues = Object.values(rawSnsData);
-  const maxSnsRatio = Math.max(...allSnsValues, 0.1);
+
+  // SNS: 로그 정규화 (Grok 같은 극단값이 다른 툴을 0으로 눌러버리는 현상 방지)
+  // log10(x+1) 변환 후 최대값 기준 정규화
+  const logSnsValues = Object.entries(rawSnsData).map(([k, v]) => [k, Math.log10(v + 1)]);
+  const maxLogSns = Math.max(...logSnsValues.map(([, v]) => v), 0.1);
 
   if (!isNaverCached && Object.keys(rawNtvData).length > 0) {
     naverCache[todayStr] = rawNtvData;
@@ -621,7 +624,8 @@ async function updateRanking() {
     const rawNtv = rawNtvData[tool.name] || 0;
     const normalizedNtv = Number(((rawNtv / maxNtvRatio) * 100).toFixed(2));
     const rawSns = rawSnsData[tool.name] || 0;
-    const normalizedSns = Number(((rawSns / maxSnsRatio) * 100).toFixed(2));
+    const logSns = Math.log10(rawSns + 1);
+    const normalizedSns = Number(((logSns / maxLogSns) * 100).toFixed(2));
     
     // OPR 정규화: 패널티 후 처리된 값 중 1등을 100점으로 정규화
     const penalizedOpr = toolOprMap[tool.id];
