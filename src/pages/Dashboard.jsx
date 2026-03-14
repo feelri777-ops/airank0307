@@ -11,6 +11,7 @@ import { useGalleryLightbox } from "../context/GalleryLightboxContext";
 import { useNews } from "../context/NewsContext";
 import { useTools } from "../context/ToolContext";
 import ThemeToggle from "../components/ui/ThemeToggle";
+import { BOARDS } from "./CommunityDashboard";
 
 // ── 섹션 메뉴 정의 ──────────────────────────────────────────
 const MENU = [
@@ -591,7 +592,22 @@ const CommunitySection = ({ user, isMobile }) => {
               onMouseEnter={(e) => e.currentTarget.style.background = "var(--bg-secondary)"}
               onMouseLeave={(e) => e.currentTarget.style.background = "var(--bg-card)"}
             >
-              <div style={{ fontWeight: 700, fontSize: isMobile ? "0.88rem" : "0.92rem", color: "var(--text-primary)", marginBottom: "4px" }}>{p.title || "(제목 없음)"}</div>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px", flexWrap: "wrap" }}>
+                <span style={{ fontWeight: 700, fontSize: isMobile ? "0.88rem" : "0.92rem", color: "var(--text-primary)" }}>{p.title || "(제목 없음)"}</span>
+                {p.board && (() => {
+                  const board = BOARDS.find(b => b.id === p.board);
+                  return board ? (
+                    <span style={{
+                      fontSize: "0.68rem", fontWeight: 700, flexShrink: 0,
+                      padding: "2px 8px", borderRadius: "20px",
+                      background: `${board.color}18`, color: board.color,
+                      border: `1px solid ${board.color}30`,
+                    }}>
+                      {board.name}
+                    </span>
+                  ) : null;
+                })()}
+              </div>
               <div style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>
                 {p.createdAt?.toDate?.().toLocaleDateString("ko-KR")} · 댓글 {p.commentCount || 0} · 조회 {p.views || 0}
               </div>
