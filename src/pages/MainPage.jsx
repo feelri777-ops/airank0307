@@ -58,6 +58,13 @@ export default function MainPage() {
     return map;
   }, [tools]);
 
+  const prevRankMap = useMemo(() => {
+    const sorted = [...tools].sort((a, b) => (b.score - b.change) - (a.score - a.change));
+    const map = {};
+    sorted.forEach((t, i) => { map[t.id] = i + 1; });
+    return map;
+  }, [tools]);
+
   const filteredTools = useMemo(() => {
     let data = [...tools];
     if (category !== "all") data = data.filter((t) => t.cat === category);
@@ -157,6 +164,7 @@ export default function MainPage() {
                     key={tool.id}
                     tool={tool}
                     rank={globalRankMap[tool.id] || 999}
+                    prevRank={prevRankMap[tool.id] || 999}
                     onClick={() => openToolDetail(tool, globalRankMap[tool.id] || 999)}
                   />
                 ))}

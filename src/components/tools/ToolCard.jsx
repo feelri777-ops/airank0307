@@ -25,39 +25,46 @@ const GLOW_ANIM = {
   2: "glowPulseSilver",
   3: "glowPulseSilver",
 };
-// 금/은/동 순위 색상
-const RANK_COLORS = {
-  1: { color: "#f59e0b", shadow: "0 0 10px rgba(245,158,11,0.6)" },
-  2: { color: "#94a3b8", shadow: "0 0 8px rgba(148,163,184,0.5)" },
-  3: { color: "#c77d3a", shadow: "0 0 8px rgba(199,125,58,0.5)" },
+// 순위별 색상
+const getRankColor = (rank) => {
+  if (rank === 1) return "#f59e0b";
+  if (rank === 2) return "#94a3b8";
+  if (rank === 3) return "#c77d3a";
+  if (rank <= 10) return "#6366f1";
+  if (rank <= 30) return "#10b981";
+  return "var(--text-muted)";
 };
 
-const ToolCard = ({ tool, rank, onClick }) => {
+const ToolCard = ({ tool, rank, prevRank, onClick }) => {
   const [iconError, setIconError] = useState(false);
   const faviconUrl = getFaviconUrl(tool.url);
 
-  const isTop3 = rank <= 3;
   const score = tool.score ?? 0;
   const change = tool.change ?? 0;
   const progress = Math.min(score, 100);
 
   const RankBadge = () => {
-    if (isTop3) {
-      const rc = RANK_COLORS[rank];
-      return (
+    const color = getRankColor(rank);
+    const hasPrev = prevRank && prevRank !== rank;
+    return (
+      <div style={{ display: "flex", alignItems: "center", gap: "4px", flexShrink: 0 }}>
+        {hasPrev && (
+          <>
+            <span style={{
+              fontSize: "1.5rem", fontWeight: 700, lineHeight: 1,
+              color: "var(--text-muted)",
+              fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
+            }}>{prevRank}</span>
+            <span style={{ fontSize: "1rem", color: "var(--text-muted)", lineHeight: 1 }}>›</span>
+          </>
+        )}
         <span style={{
-          fontSize: "1.4rem", fontWeight: 900, flexShrink: 0,
-          fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", lineHeight: 1,
-          color: rc.color, textShadow: rc.shadow,
+          fontSize: "2.8rem", fontWeight: 900, lineHeight: 1,
+          color, fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
         }}>
           {rank}
         </span>
-      );
-    }
-    return (
-      <span style={{ fontSize: "1.4rem", fontWeight: 800, color: "var(--text-muted)", flexShrink: 0, fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", lineHeight: 1 }}>
-        {rank}
-      </span>
+      </div>
     );
   };
 
