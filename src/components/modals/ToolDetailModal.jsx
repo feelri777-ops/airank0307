@@ -4,6 +4,35 @@ import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { TOOLS_DATA } from "../../data/tools";
 
+// 미니 스파크라인 SVG (ScoreInsightPanel 밖에 정의 → remount 방지로 애니메이션 1회만 실행)
+const Spark = ({ pts, color }) => {
+  const sw = 180, sh = 12;
+  const mn = Math.min(...pts) - 0.5;
+  const mx = Math.max(...pts) + 0.5;
+  const r = mx - mn || 1;
+  const sx = (i) => (i / (pts.length - 1)) * sw;
+  const sy = (v) => sh - ((v - mn) / r) * sh;
+  const pd = pts.map((v, i) => `${i === 0 ? "M" : "L"}${sx(i).toFixed(1)},${sy(v).toFixed(1)}`).join(" ");
+  const ad = `${pd} L${sw},${sh} L0,${sh} Z`;
+  return (
+    <svg viewBox={`0 0 ${sw} ${sh}`} width="100%" height={sh} style={{ overflow: "visible", display: "block" }}>
+      <path d={ad} fill={color} style={{ fillOpacity: 0, animation: "sparkFade 0.8s ease 0.2s forwards" }} />
+      <path d={pd} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+        pathLength="1"
+        style={{ strokeDasharray: 1, strokeDashoffset: 1, animation: "sparkDraw 0.8s ease forwards" }}
+      />
+      {pts.map((v, i) => (
+        <circle key={i} cx={sx(i)} cy={sy(v)}
+          r={i === pts.length - 1 ? 3 : 2}
+          fill={i === pts.length - 1 ? color : "var(--bg-card)"}
+          stroke={color} strokeWidth={i === pts.length - 1 ? 0 : 1.2}
+          style={{ opacity: 0, animation: `sparkDot 0.3s ease ${0.1 + i * 0.08}s forwards` }}
+        />
+      ))}
+    </svg>
+  );
+};
+
 // 점수 상세 바 컴포넌트
 const ScoreInsightPanel = ({ tool }) => {
   const [metrics, setMetrics] = useState(null);
@@ -39,35 +68,6 @@ const ScoreInsightPanel = ({ tool }) => {
       if (i === 6) return val;
       return Math.max(0, Math.min(100, val + (pseudo(i) - 0.5) * 8 * (1 - i / 6)));
     });
-  };
-
-  // 미니 스파크라인 SVG (상하폭 최소화 + 드로잉 애니메이션)
-  const Spark = ({ pts, color }) => {
-    const sw = 180, sh = 12;
-    const mn = Math.min(...pts) - 0.5;
-    const mx = Math.max(...pts) + 0.5;
-    const r = mx - mn || 1;
-    const sx = (i) => (i / (pts.length - 1)) * sw;
-    const sy = (v) => sh - ((v - mn) / r) * sh;
-    const pd = pts.map((v, i) => `${i === 0 ? "M" : "L"}${sx(i).toFixed(1)},${sy(v).toFixed(1)}`).join(" ");
-    const ad = `${pd} L${sw},${sh} L0,${sh} Z`;
-    return (
-      <svg viewBox={`0 0 ${sw} ${sh}`} width="100%" height={sh} style={{ overflow: "visible", display: "block" }}>
-        <path d={ad} fill={color} style={{ fillOpacity: 0, animation: "sparkFade 0.8s ease 0.2s forwards" }} />
-        <path d={pd} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-          pathLength="1"
-          style={{ strokeDasharray: 1, strokeDashoffset: 1, animation: "sparkDraw 0.8s ease forwards" }}
-        />
-        {pts.map((v, i) => (
-          <circle key={i} cx={sx(i)} cy={sy(v)}
-            r={i === pts.length - 1 ? 3 : 2}
-            fill={i === pts.length - 1 ? color : "var(--bg-card)"}
-            stroke={color} strokeWidth={i === pts.length - 1 ? 0 : 1.2}
-            style={{ opacity: 0, animation: `sparkFade 0.3s ease ${0.1 + i * 0.08}s forwards` }}
-          />
-        ))}
-      </svg>
-    );
   };
 
   const rows = [
@@ -106,7 +106,7 @@ const ScoreInsightPanel = ({ tool }) => {
                 <div style={{ width: 24, flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
                   {icon && <img src={icon} alt={label} width={22} height={22} style={{ borderRadius: "4px", objectFit: "contain" }} />}
                 </div>
-                <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", width: "40px", flexShrink: 0 }}>{label}</span>
+                <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", width: "52px", flexShrink: 0, whiteSpace: "nowrap" }}>{label}</span>
                 <div style={{ flex: 1 }}><Spark pts={pts} color={color} /></div>
                 <span style={{ fontSize: "1.1rem", fontWeight: 900, color, width: "32px", textAlign: "right", fontFamily: "'Pretendard', sans-serif" }}>{val}</span>
               </div>
@@ -561,7 +561,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
 
       <ScoreInsightPanel tool={tool} />
 
-      {tool.features && ( <div style={{ marginBottom: "16px" }}><div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.9rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.4 }}>{f}</span></li>))}</ul></div>)}
+      {tool.features && ( <div style={{ marginBottom: "16px" }}><div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.9rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "14px", color: "var(--text-secondary)", lineHeight: 1.4 }}>{f}</span></li>))}</ul></div>)}
 
       <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "16px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.65rem", padding: "3px 8px", borderRadius: "3px", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
 
@@ -606,7 +606,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             </div>
             <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "16px" }}>{tool.desc}</p>
             <ScoreInsightPanel tool={tool} />
-            {tool.features && ( <div style={{ marginBottom: "24px" }}><div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.95rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "1rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{f}</span></li>))}</ul></div>)}
+            {tool.features && ( <div style={{ marginBottom: "24px" }}><div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.95rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "14px", color: "var(--text-secondary)", lineHeight: 1.5 }}>{f}</span></li>))}</ul></div>)}
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "24px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "4px", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
             <div style={{ marginBottom: "24px", display: "flex", flexDirection: "column", gap: "12px" }}>
               {tool.cat && ( <div style={{ display: "flex", alignItems: "center", gap: "10px" }}><span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>카테고리</span><span style={{ fontSize: "0.75rem", padding: "4px 12px", borderRadius: "5px", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700 }}>{CAT_LABEL[tool.cat] ?? tool.cat}</span></div>)}

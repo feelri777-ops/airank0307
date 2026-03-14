@@ -332,6 +332,7 @@ const GlobalStyles = () => (
     @keyframes scoreGrow { from { width: 0; } }
     @keyframes sparkDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
     @keyframes sparkFade { from { fill-opacity: 0; } to { fill-opacity: 0.12; } }
+    @keyframes sparkDot { from { opacity: 0; } to { opacity: 1; } }
     .rank-card-glow { position: relative; overflow: hidden; }
     .rank-card-glow::after {
       content: ''; position: absolute; inset: 0; border-radius: inherit;
