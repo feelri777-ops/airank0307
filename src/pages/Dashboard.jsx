@@ -737,31 +737,36 @@ export default function Dashboard() {
           borderBottom: "1px solid var(--border-primary)",
           padding: "0 4px",
         }}>
-          <div style={{
-            display: "flex", gap: "0", overflowX: "auto",
-            scrollbarWidth: "none", msOverflowStyle: "none",
-          }}>
-            {MENU.map((m) => {
-              const active = section === m.id;
-              return (
-                <button
-                  key={m.id}
-                  onClick={() => setSection(m.id)}
-                  style={{
-                    display: "flex", alignItems: "center",
-                    padding: "12px 14px", border: "none", background: "transparent",
-                    cursor: "pointer", whiteSpace: "nowrap", flexShrink: 0,
-                    borderBottom: active ? "2px solid var(--accent-indigo, #6366f1)" : "2px solid transparent",
-                    color: active ? "var(--accent-indigo, #6366f1)" : "var(--text-muted)",
-                    fontWeight: active ? 700 : 500,
-                    fontSize: "0.82rem",
-                    transition: "all 0.15s",
-                  }}
-                >
-                  {m.label}
-                </button>
-              );
-            })}
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{
+              display: "flex", gap: "0", overflowX: "auto", flex: 1,
+              scrollbarWidth: "none", msOverflowStyle: "none",
+            }}>
+              {MENU.map((m) => {
+                const active = section === m.id;
+                return (
+                  <button
+                    key={m.id}
+                    onClick={() => setSection(m.id)}
+                    style={{
+                      display: "flex", alignItems: "center",
+                      padding: "12px 14px", border: "none", background: "transparent",
+                      cursor: "pointer", whiteSpace: "nowrap", flexShrink: 0,
+                      borderBottom: active ? "2px solid var(--accent-indigo, #6366f1)" : "2px solid transparent",
+                      color: active ? "var(--accent-indigo, #6366f1)" : "var(--text-muted)",
+                      fontWeight: active ? 700 : 500,
+                      fontSize: "0.82rem",
+                      transition: "all 0.15s",
+                    }}
+                  >
+                    {m.label}
+                  </button>
+                );
+              })}
+            </div>
+            <div style={{ flexShrink: 0, padding: "0 10px" }}>
+              <ThemeToggle dropUp />
+            </div>
           </div>
         </div>
 
