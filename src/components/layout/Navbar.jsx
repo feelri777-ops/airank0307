@@ -68,6 +68,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
     if (location.pathname === "/gallery") return "gallery";
     if (location.pathname === "/directory") return "directory";
     if (location.pathname === "/prompt") return "prompt";
+    if (location.pathname === "/treemap") return "treemap";
     return "ranking";
   };
 
@@ -237,12 +238,13 @@ const Navbar = ({ theme, onToggleTheme }) => {
         {NAV_ITEMS.map((item) => {
           const isActive = activeMenu === item.id;
           const path =
-            item.id === "ranking" ? "/" :
-            item.id === "gallery" ? "/gallery" :
+            item.id === "ranking"   ? "/" :
+            item.id === "treemap"   ? "/treemap" :
+            item.id === "gallery"   ? "/gallery" :
             item.id === "community" ? "/community" :
             item.id === "directory" ? "/directory" :
-            item.id === "news" ? "/news" :
-            item.id === "prompt" ? "/prompt" : "/";
+            item.id === "news"      ? "/news" :
+            item.id === "prompt"    ? "/prompt" : "/";
 
           return (
             <Link

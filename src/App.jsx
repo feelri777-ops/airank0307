@@ -18,6 +18,7 @@ import Dashboard from "./pages/Dashboard";
 import Directory from "./pages/Directory";
 import Prompt from "./pages/Prompt";
 import SeedPosts from "./pages/SeedPosts";
+import TreemapPage from "./pages/TreemapPage";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminCommunity from "./pages/admin/AdminCommunity";
@@ -74,6 +75,7 @@ export default function App() {
                   <Route path="directory" element={<Directory />} />
                   <Route path="prompt" element={<Prompt />} />
                   <Route path="seed" element={<SeedPosts />} />
+                  <Route path="treemap" element={<TreemapPage />} />
                   <Route path="dashboard" element={<Dashboard />} />
                 </Route>
                 <Route path="/admin" element={<AdminLayout />}>

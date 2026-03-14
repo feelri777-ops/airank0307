@@ -1,11 +1,12 @@
 /** 네비게이션 메뉴 항목 */
 export const NAV_ITEMS = [
-  { id: "ranking", label: "랭킹", icon: "🏆" },
-  { id: "gallery", label: "갤러리", icon: "🖼️" },
-  { id: "community", label: "커뮤니티", icon: "💬" },
-  { id: "directory", label: "도구 디렉토리", icon: "📂" },
-  { id: "news", label: "뉴스", icon: "📰" },
-  { id: "prompt", label: "프롬프트", icon: "✨" },
+  { id: "ranking",  label: "랭킹",       icon: "🏆" },
+  { id: "treemap",  label: "지형도",     icon: "🗺️" },
+  { id: "gallery",  label: "갤러리",     icon: "🖼️" },
+  { id: "community",label: "커뮤니티",   icon: "💬" },
+  { id: "directory",label: "도구 디렉토리", icon: "📂" },
+  { id: "news",     label: "뉴스",       icon: "📰" },
+  { id: "prompt",   label: "프롬프트",   icon: "✨" },
 ];
 
 /** 카테고리 필터 목록 */
