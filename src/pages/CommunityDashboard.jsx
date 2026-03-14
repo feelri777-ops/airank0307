@@ -52,12 +52,12 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
         background: "var(--bg-card)",
         border: "1px solid var(--border-primary)",
         borderRadius: "16px",
-        padding: "1.5rem",
+        padding: "0.9rem 1rem",
         cursor: "pointer",
         transition: "all 0.2s",
         display: "flex",
         flexDirection: "column",
-        gap: "12px",
+        gap: "8px",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = board.color;
@@ -113,7 +113,6 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
             {board.desc}
           </div>
         </div>
-        <span style={{ fontSize: "1.1rem", color: "var(--text-muted)", flexShrink: 0 }}>→</span>
       </div>
 
       {/* 최신글 미리보기 */}
@@ -324,9 +323,9 @@ export default function CommunityDashboard() {
               {/* 드래그 핸들 */}
               <div
                 style={{
-                  position: "absolute", top: "14px", right: "44px",
-                  fontSize: "1rem", color: "var(--text-muted)", cursor: "grab",
-                  zIndex: 1, lineHeight: 1, userSelect: "none",
+                  position: "absolute", bottom: "8px", right: "10px",
+                  fontSize: "0.85rem", color: "var(--text-muted)", cursor: "grab",
+                  zIndex: 1, lineHeight: 1, userSelect: "none", opacity: 0.5,
                 }}
                 title="드래그하여 순서 변경"
               >
