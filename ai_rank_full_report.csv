@@ -1,251 +1,251 @@
 ﻿순위,ID,오픈소스,툴이름,도메인,종합점수,구글(50%),네이버(25%),SNS(15%),깃허브(10%)
-1,1,Y,"ChatGPT","chatgpt.com",86.45,93.54,72.71,82.08,91.92
-2,2,Y,"Claude","claude.ai",66.62,86.66,6.88,91.3,78.79
-3,19,Y,"Cursor","www.cursor.com",65.84,74.32,34.19,71.49,94.13
-4,48,N,"Canva AI","www.canva.com/ai-tools",64.53,100,34.19,39.89,0
-5,4,Y,"DeepSeek","www.deepseek.com",63.63,70.44,34.19,65.75,100
-6,45,N,"Make","www.make.com",62.54,78.48,34.19,98.35,0
-7,40,N,"Notion AI","www.notion.so/product/ai",62.06,93.26,34.19,45.87,0
-8,214,Y,"LangChain","www.langchain.com",60.83,68.29,34.19,54.27,100
-9,49,N,"Figma AI","www.figma.com/ai",59.29,92.83,34.19,28.84,0
-10,85,N,"Grammarly","www.grammarly.com",59.29,84.22,34.19,57.56,0
-11,5,N,"Grok","x.ai",58.56,83.79,6.66,100,0
-12,3,N,"Gemini","gemini.google.com",58.51,89.38,7.1,80.3,0
-13,36,N,"Perplexity AI","www.perplexity.ai",58.25,85.65,34.19,45.87,0
-14,7,Y,"Mistral AI","mistral.ai",56.76,81.21,6.45,38.07,88.36
-15,10,N,"Midjourney","www.midjourney.com",55.79,77.19,34.19,57.64,0
-16,201,Y,"Ollama","ollama.com",53.9,66.86,5.31,60.97,100
-17,6,Y,"Llama","llama.meta.com",53.45,65.14,5.17,65.74,97.27
-18,52,Y,"Qwen","qwenlm.github.io",52.56,64.13,5.09,66.96,91.8
-19,83,N,"Jasper","www.jasper.ai",52.43,72.74,34.19,50.1,0
-20,249,N,"Zoom AI","www.zoom.com/en/ai-companion",51.62,80.2,34.19,19.79,0
-21,31,N,"Synthesia","www.synthesia.io",51.56,73.6,34.19,41.4,0
-22,46,N,"Zapier AI","zapier.com/ai",51.45,89.38,7.1,33.21,0
-23,33,N,"ElevenLabs","elevenlabs.io",51.35,83.64,6.64,52.5,0
-24,154,N,"JetBrains AI","jetbrains.com",51.34,91.68,7.28,24.52,0
-25,157,Y,"Zed","zed.dev",51.24,65.71,5.22,48.13,98.65
-26,218,N,"Freepik AI","freepik.com",51,89.67,7.12,29.2,0
-27,166,N,"Semantic Scholar","www.semanticscholar.org",50.71,77.91,34.19,21.39,0
-28,35,N,"Descript","www.descript.com",50.59,71.45,34.19,42.12,0
-29,123,N,"Captions","www.captions.ai",50.53,67.72,34.19,54.16,0
-30,138,N,"Duolingo Max","www.duolingo.com/max",50.36,79.48,34.19,13.82,0
-31,173,Y,"ComfyUI","github.com/comfyanonymous/ComfyUI",50.2,61.62,9.79,46.25,100
-32,158,Y,"Cline","github.com/cline/cline",49.91,61.62,9.79,46.19,97.25
-33,244,N,"Intercom Fin","www.intercom.com/ai",49.68,79.05,34.19,10.7,0
-34,29,N,"HeyGen","www.heygen.com",49.67,67.72,34.19,48.4,0
-35,239,N,"Pinecone","www.pinecone.io",49.6,70.44,34.19,38.86,0
-36,39,N,"Microsoft Copilot","copilot.microsoft.com",49.23,81.06,6.44,47.27,0
-37,11,Y,"Stable Diffusion","stability.ai",49.09,82.35,6.54,41.86,0
-38,47,N,"n8n","n8n.io",48.85,73.6,5.85,70.58,0
-39,141,N,"QuillBot","quillbot.com",48.65,77.47,6.15,55.83,0
-40,199,Y,"Dify","dify.ai",48.35,61.84,4.91,41.36,100
-41,88,N,"Taskade","www.taskade.com",48.21,71.31,34.19,26.74,0
-42,245,N,"Tidio Lyro","www.tidio.com/lyro",48.15,79.2,34.19,0,0
-43,93,N,"Framer AI","www.framer.com/ai",48.1,72.17,34.19,23.11,0
-44,198,Y,"AutoGPT","agpt.co",48.08,63.56,5.05,33.61,100
-45,178,N,"Opus Clip","www.opus.pro",47.67,70.16,34.19,26.98,0
-46,67,N,"Devin","www.devin.ai",47.49,60.98,34.19,56.32,0
-47,151,N,"Devin","www.devin.ai",47.49,60.98,34.19,56.32,0
-48,110,N,"Photoroom","www.photoroom.com",47.14,69.73,34.19,24.83,0
-49,205,N,"Together AI","www.together.ai",47.09,65.57,34.19,38.4,0
-50,134,N,"Motion","usemotion.com",46.78,69.01,5.48,72.67,0
-51,212,N,"CrewAI","www.crewai.com",46.45,62.12,34.19,45.62,0
-52,226,N,"AssemblyAI","www.assemblyai.com",46.4,67.29,34.19,28.07,0
-53,148,N,"Fotor AI","www.fotor.com",46.31,72.31,34.19,10.7,0
-54,84,N,"Copy.ai","www.copy.ai",46.3,73.89,34.19,5.35,0
-55,86,N,"Writesonic","writesonic.com",46.24,77.33,6.14,40.28,0
-56,65,N,"Lovable","lovable.dev",46.09,70.16,5.57,64.1,0
-57,152,N,"Lovable","lovable.dev",46.09,70.16,5.57,64.1,0
-58,140,N,"Speak","speak.com",45.98,64.85,5.15,81.81,0
-59,206,N,"OpenRouter","openrouter.ai",45.96,71.74,5.7,57.8,0
-60,97,N,"Remove.bg","www.remove.bg",45.92,74.75,34.19,0,0
-61,188,N,"ClickUp AI","clickup.com/ai",45.79,82.21,6.53,20.36,0
-62,179,N,"Veed.io","www.veed.io",45.72,72.74,34.19,5.35,0
-63,80,N,"Consensus","consensus.app",45.71,68.01,5.4,69.02,0
-64,164,N,"Consensus","consensus.app",45.71,68.01,5.4,69.02,0
-65,215,N,"LlamaIndex","www.llamaindex.ai",45.68,63.41,34.19,36.2,0
-66,216,N,"NotebookLM","notebooklm.google.com",45.68,69.01,5.48,65.35,0
-67,24,N,"Tabnine","www.tabnine.com",45.67,65.28,34.19,29.87,0
-68,233,N,"Notta","www.notta.ai",45.6,65.14,34.19,29.87,0
-69,92,N,"Wordtune","www.wordtune.com",45.46,67.72,34.19,20.36,0
-70,240,N,"Chroma","www.trychroma.com",45.39,62.84,34.19,36.12,0
-71,34,N,"Udio","www.udio.com",45.22,63.99,34.19,31.19,0
-72,41,N,"Gamma","gamma.app",45.17,70.3,5.58,57.53,0
-73,237,N,"Glean","www.glean.com",45.05,61.98,34.19,36.74,0
-74,185,Y,"Whisper","openai.com/ko-KR/index/whisper",45.02,48.71,7.74,58.37,99.78
-75,17,N,"Krea AI","www.krea.ai",44.94,64.13,34.19,28.84,0
-76,26,N,"Runway ML","runwayml.com",44.91,76.61,6.09,33.9,0
-77,66,N,"Cody","sourcegraph.com",44.91,66,5.24,70.66,0
-78,124,N,"D-ID","www.d-id.com",44.85,66.86,34.19,19.17,0
-79,120,N,"FaceApp","www.faceapp.com",44.84,65.42,34.19,23.85,0
-80,217,N,"Artbreeder","www.artbreeder.com",44.7,68.15,34.19,13.82,0
-81,168,N,"Imagen 3","deepmind.google",44.65,79.34,6.3,22.72,0
-82,230,N,"Voiceflow","www.voiceflow.com",44.65,63.56,34.19,28.84,0
-83,9,N,"Poe","poe.com",44.61,72.17,5.73,47.3,0
-84,175,N,"Veo 2","deepmind.google",44.52,79.34,6.3,21.86,0
-85,194,N,"Kittl","www.kittl.com",44.47,65.42,34.19,21.39,0
-86,180,N,"Kapwing","www.kapwing.com",44.25,65.85,34.19,18.5,0
-87,169,N,"Recraft AI","www.recraft.ai",44.14,69.58,34.19,5.35,0
-88,190,N,"Reflect","reflect.app",44.13,64.85,5.15,69.44,0
-89,96,N,"Relume","www.relume.io",43.76,62.98,34.19,24.83,0
-90,25,N,"Sora","sora.com",43.7,66.57,5.29,60.64,0
-91,136,N,"Superhuman","superhuman.com",43.5,69.3,5.5,49.85,0
-92,128,N,"Voicemod","www.voicemod.net",43.49,64.56,34.19,17.77,0
-93,207,N,"Cohere","cohere.com",43.35,72.31,5.74,38.4,0
-94,23,N,"Replit AI","replit.com",43.28,75.75,6.02,25.98,0
-95,59,N,"SeaArt AI","www.seaart.ai",43.26,61.41,34.19,26.74,0
-96,32,N,"Suno AI","suno.com",43.13,71.88,5.71,38.45,0
-97,113,N,"Prisma","prisma-ai.com",43.12,70.16,5.57,44.33,0
-98,55,N,"Kimi","kimi.moonshot.cn",43.1,63.85,5.07,66.02,0
-99,204,N,"Groq","groq.com",42.91,69.01,5.48,46.89,0
-100,70,N,"InVideo AI","invideo.io",42.78,75.32,5.98,24.19,0
-101,181,N,"InVideo AI","invideo.io",42.78,75.32,5.98,24.19,0
-102,74,N,"AIVA","www.aiva.ai",42.7,61.26,34.19,23.49,0
-103,183,N,"AIVA","www.aiva.ai",42.7,61.26,34.19,23.49,0
-104,146,N,"Microsoft Designer","designer.microsoft.com",42.52,74.46,5.92,25.43,0
-105,171,N,"Clipdrop","clipdrop.co",42.35,71.02,5.64,36.2,0
-106,94,N,"Looka","looka.com",42.31,69.87,5.55,39.94,0
-107,196,N,"Upscayl","www.upscayl.org",42.3,62.7,34.19,16.04,0
-108,118,N,"PicsArt AI","picsart.com",42.27,79.77,6.34,5.35,0
-109,103,N,"Meta AI","meta.ai",42.24,66.86,5.31,49.91,0
-110,81,N,"Kagi","kagi.com",42.2,74.61,5.93,22.72,0
-111,114,N,"Pixelcut","www.pixelcut.ai",42.11,62.98,34.19,13.82,0
-112,79,N,"Phind","www.phind.com",42.03,60.69,34.19,20.89,0
-113,197,N,"Pixlr AI","pixlr.com",41.98,79.2,6.29,5.35,0
-114,227,N,"Speechmatics","www.speechmatics.com",41.9,62.55,34.19,13.82,0
-115,106,N,"Chai AI","www.chai-research.com",41.74,63.85,34.19,8.48,0
-116,16,N,"Flux","blackforestlabs.ai",41.55,63.56,5.05,56.72,0
-117,91,N,"Rytr","rytr.me",41.53,68.01,5.4,41.18,0
-118,18,Y,"GitHub Copilot","github.com/features/copilot",41.48,61.62,9.79,54.84,0
-119,129,N,"Resemble AI","www.resemble.ai",41.47,62.12,34.19,12.42,0
-120,14,N,"Leonardo AI","leonardo.ai",41.45,68.87,5.47,37.67,0
-121,72,N,"Pictory","pictory.ai",41.3,69.01,5.48,36.2,0
-122,236,N,"Avoma","www.avoma.com",41.28,55.95,34.19,31.72,0
-123,143,N,"Socratic","socratic.org",41.19,68.15,5.41,38.4,0
-124,145,N,"Google Lens","lens.google",41.02,69.58,5.53,32.32,0
-125,187,N,"Coda AI","coda.io/product/ai",40.93,77.19,6.13,5.35,0
-126,133,N,"Speechify","speechify.com",40.92,71.74,5.7,24.19,0
-127,28,N,"Pika Labs","pika.art",40.91,69.73,5.54,31.06,0
-128,30,N,"Luma AI","lumalabs.ai",40.84,67.86,5.39,37.06,0
-129,102,N,"Pi AI","pi.ai",40.76,72.88,5.79,19.17,0
-130,228,N,"Retell AI","www.retellai.com",40.75,60.26,34.19,13.82,0
-131,225,N,"Deepgram","deepgram.com",40.73,68.01,5.4,35.83,0
-132,13,N,"Adobe Firefly","firefly.adobe.com",40.69,67.29,5.35,38.02,0
-133,44,N,"Beautiful.ai","www.beautiful.ai",40.69,64.28,34.19,0,0
-134,104,N,"Talkie AI","www.talkie-ai.com",40.69,64.28,34.19,0,0
-135,15,N,"Ideogram","ideogram.ai",40.56,68.15,5.41,34.19,0
-136,51,N,"Le Chat","chat.mistral.ai",40.56,67.29,5.35,37.19,0
-137,211,N,"Blackbox AI","www.blackbox.ai",40.53,56.81,34.19,23.85,0
-138,78,N,"Lalal.ai","www.lalal.ai",40.33,63.56,34.19,0,0
-139,115,N,"Wombo Dream","www.wombo.ai",40.18,63.27,34.19,0,0
-140,69,N,"CapCut AI","capcut.com",40.15,69.44,5.52,26.98,0
-141,62,N,"Civitai","civitai.com",39.99,68.72,5.46,28.46,0
-142,42,N,"Otter.ai","otter.ai",39.83,76.61,6.09,0,0
-143,22,Y,"v0","v0.dev",39.82,62.84,4.99,47.68,0
-144,8,N,"Character.AI","character.ai",39.79,73.46,5.84,10.7,0
-145,165,N,"SciSpace","typeset.io",39.75,67.58,5.37,30.78,0
-146,27,N,"Kling AI","klingai.com",39.73,63.85,5.07,43.61,0
-147,68,N,"Aider","aider.chat",39.73,61.26,4.87,52.56,0
-148,156,N,"Aider","aider.chat",39.73,61.26,4.87,52.56,0
-149,202,N,"LM Studio","lmstudio.ai",39.67,62.84,4.99,46.71,0
-150,229,N,"Bland AI","www.bland.ai",39.57,56.96,34.19,16.95,0
-151,87,N,"Tome","tome.app",39.27,59.68,4.74,54.99,0
-152,135,N,"Krisp","krisp.ai",39.26,65.71,5.22,34,0
-153,182,N,"Murf AI","murf.ai",39.22,69.73,5.54,19.79,0
-154,82,N,"Exa","exa.ai",39.07,62.84,4.99,42.66,0
-155,60,N,"NightCafe","nightcafe.studio",38.97,62.12,4.94,44.5,0
-156,111,N,"Remini","remini.ai",38.91,63.7,5.06,38.66,0
-157,144,N,"Liner","getliner.com",38.91,60.4,4.8,50.04,0
-158,37,N,"You.com","you.com",38.77,73.03,5.8,5.35,0
-159,116,N,"Starryai","starryai.com",38.75,69.01,5.48,19.17,0
-160,38,N,"Elicit","elicit.com",38.67,62.84,4.99,40.02,0
-161,100,N,"Visily","www.visily.ai",38.67,50.65,34.19,31.97,0
-162,50,N,"Uizard","uizard.io",38.66,63.85,5.07,36.47,0
-163,53,N,"Command R+","cohere.com",38.39,72.31,5.74,5.35,0
-164,147,N,"Adobe Express","www.adobe.com/express/feature/ai",38.38,52.51,34.19,23.85,0
-165,246,N,"Manus AI","manus.im",38.33,63.13,5.01,36.74,0
-166,235,N,"Fathom","fathom.video",38.27,57.96,4.6,54.26,0
-167,186,N,"Adobe Podcast","podcast.adobe.com",38.21,64.71,5.14,30.49,0
-168,112,N,"Facetune","facetuneapp.com",37.99,66,5.24,24.52,0
-169,63,N,"Bing Image Creator","www.bing.com/create",37.9,52.01,34.19,22.3,0
-170,73,N,"Veed.io AI","veed.io",37.81,72.74,5.78,0,0
-171,160,Y,"Gemma","ai.google.dev/gemma",37.74,40.96,6.51,47.54,84.99
-172,231,N,"Botpress","botpress.com",37.43,65.57,5.21,22.3,0
-173,109,N,"Lensa AI","prisma-ai.com/lensa",37.27,70.16,5.57,5.35,0
-174,189,N,"Tana","tana.inc",37.27,60.55,4.81,38.61,0
-175,192,N,"Napkin AI","napkin.ai",36.83,64.28,5.11,22.72,0
-176,170,N,"Flair AI","flair.ai",36.82,60.69,4.82,35.13,0
-177,125,N,"Filmora AI","filmora.wondershare.com",36.75,69.15,5.49,5.35,0
-178,223,N,"Hedra","hedra.com",36.58,58.82,4.67,40.02,0
-179,119,N,"Reface","hey.reface.ai",36.49,62.7,4.98,25.98,0
-180,142,N,"Photomath","photomath.com",36.4,67.58,5.37,8.48,0
-181,101,N,"Replika","replika.com",36.31,60.26,4.79,33.21,0
-182,58,N,"Playground AI","playground.com",36.12,61.98,4.92,25.98,0
-183,203,N,"Open WebUI","openwebui.com",36.1,61.41,4.88,27.86,0
-184,76,N,"Mubert","mubert.com",36.07,63.85,5.07,19.17,0
-185,75,N,"Soundraw","soundraw.io",36.04,63.99,5.08,18.5,0
-186,184,N,"Soundraw","soundraw.io",36.04,63.99,5.08,18.5,0
-187,121,N,"Photoleap","lightricks.com",36.01,67.72,5.38,5.35,0
-188,130,N,"Play.ht","play.ht",35.95,69.15,5.49,0,0
-189,193,N,"Granola","granola.ai",35.82,56.53,4.49,42.87,0
-190,149,N,"Woebot","woebothealth.com",35.76,65.71,5.22,10.7,0
-191,108,N,"Hume AI","hume.ai",35.65,61.41,4.88,24.83,0
-192,200,N,"Flowise","flowiseai.com",35.5,59.97,4.76,28.84,0
-193,131,N,"Podcastle","podcastle.ai",35.41,66.57,5.29,5.35,0
-194,20,N,"Bolt.new","bolt.new",35.28,65.42,5.2,8.48,0
-195,132,N,"Boomy","boomy.com",35.24,58.68,4.66,31.59,0
-196,210,N,"Jan.ai","jan.ai",35.2,67.72,5.38,0,0
-197,159,N,"WRTN","wrtn.ai",35.19,66.14,5.25,5.35,0
-198,117,N,"Meitu","meitu.com",35.13,52.8,4.19,51.21,0
-199,139,N,"Elsa Speak","elsaspeak.com",35.11,66,5.24,5.35,0
-200,162,N,"Solar","www.upstage.ai/solar",34.69,30.42,34.19,72.91,0
-201,167,N,"Research Rabbit","researchrabbitapp.com",34.68,60.69,4.82,20.89,0
-202,221,N,"Lex","lex.page",34.52,51.65,4.1,51.11,0
-203,137,N,"Lindy AI","lindy.ai",34.48,61.69,4.9,16.04,0
-204,208,N,"AnythingLLM","anythingllm.com",34.46,59.4,4.72,23.85,0
-205,95,N,"Khroma","khroma.co",34.39,56.96,4.52,31.84,0
-206,195,N,"Topaz Photo AI","topazlabs.com",34.27,62.84,4.99,10.7,0
-207,71,N,"Hailuo AI","www.hailuo.ai",34.05,40.89,34.19,33.71,0
-208,176,N,"Hailuo AI","www.hailuo.ai",34.05,40.89,34.19,33.71,0
-209,99,N,"Spline AI","spline.design",34,63.85,5.07,5.35,0
-210,224,N,"Stable Video","www.stablevideo.com",33.98,45.77,34.19,16.95,0
-211,150,N,"Kuki AI","www.kuki.ai",33.87,50.65,34.19,0,0
-212,241,N,"Copilot Studio","copilotstudio.microsoft.com",33.56,54.66,4.34,34.28,0
-213,89,N,"Mem AI","mem.ai",33.18,59.83,4.75,13.82,0
-214,219,N,"NovelAI","novelai.net",33.15,52.37,4.16,39.49,0
-215,155,N,"Continue.dev","continue.dev",33.12,61.26,4.87,8.48,0
-216,43,N,"Fireflies.ai","fireflies.ai",33.04,63.56,5.05,0,0
-217,220,N,"Sudowrite","sudowrite.com",33.02,56.53,4.49,24.19,0
-218,209,N,"GPT4All","gpt4all.io",32.75,60.55,4.81,8.48,0
-219,234,N,"tl;dv","tldv.io",32.57,56.1,4.46,22.72,0
-220,126,N,"Pixverse","pixverse.ai",32.23,53.37,4.24,29.87,0
-221,248,N,"Wordware","wordware.ai",32.07,59.25,4.71,8.48,0
-222,90,N,"Reclaim.ai","reclaim.ai",31.92,61.41,4.88,0,0
-223,98,N,"Cleanup.pictures","cleanup.pictures",31.92,61.41,4.88,0,0
-224,222,N,"Viggle","viggle.ai",31.47,54.23,4.31,21.86,0
-225,247,N,"Lobe Chat","lobehub.com",31.46,58.97,4.68,5.35,0
-226,127,N,"Haiper","haiper.ai",31.26,55.81,4.43,15.01,0
-227,57,N,"Amazon Nova","aws.amazon.com",31.24,50.14,7.97,27.86,0
-228,232,N,"Coze","coze.com",31.18,50.93,4.05,31.33,0
-229,54,N,"HyperCLOVA X","clova.ai/hyperclova",31.03,57.25,4.55,8.48,0
-230,12,N,"DALL-E 3","openai.com/dall-e-3",30.62,48.71,7.74,28.84,0
-231,61,N,"Tensor.Art","tensor.art",30.21,58.11,4.62,0,0
-232,64,N,"Amazon Q Developer","aws.amazon.com/q/developer",29.94,50.14,7.97,19.17,0
-233,153,N,"Amazon Q Developer","aws.amazon.com/q/developer",29.94,50.14,7.97,19.17,0
-234,250,N,"Slack AI","slack.com/features/ai",29.2,47.78,7.59,22.72,0
-235,56,Y,"Phi-4","azure.microsoft.com/en-us/products/phi-4",29.14,44.33,7.04,34.8,0
-236,107,N,"Anima AI","myanima.ai",29.05,52.8,4.19,10.7,0
-237,243,N,"Height AI","height.app",28.99,54.23,4.31,5.35,0
-238,172,N,"Magnific AI","magnific.ai",28.36,50.22,3.99,15.01,0
-239,122,N,"Deep Nostalgia","www.myheritage.com/deep-nostalgia",27.86,37.02,34.19,5.35,0
-240,213,N,"AutoGen","microsoft.github.io/autogen",26.36,38.02,6.04,38.91,0
-241,105,N,"Kindroid","kindroid.ai",25.82,44.33,3.52,18.5,0
-242,174,N,"InvokeAI","invoke.ai",24.62,47.35,3.76,0,0
-243,21,N,"Windsurf","codeium.com/windsurf",24.42,31.71,5.04,48.7,0
-244,161,N,"EXAONE","www.lgresearch.ai/exaone",24.24,28.84,34.19,8.48,0
-245,238,N,"Devv.ai","devv.ai",23.94,46.05,3.66,0,0
-246,163,N,"InternLM","internlm.intern-ai.org.cn",22.45,43.19,3.43,0,0
-247,177,N,"Wan AI","wanxiang.aliyun.com",21.93,38.59,3.07,12.42,0
-248,242,N,"Adobe GenStudio","business.adobe.com",21.37,39.6,6.29,0,0
-249,191,N,"Clova Note","clovanote.naver.com",18.5,35.58,2.83,0,0
-250,77,N,"Adobe Podcast AI","podcast.adobe.com",18.26,32.35,5.14,5.35,0
+1,1,Y,"ChatGPT","chatgpt.com",86.43,93.54,72.62,82.08,91.92
+2,2,Y,"Claude","claude.ai",66.62,86.66,6.87,91.3,78.81
+3,19,Y,"Cursor","www.cursor.com",58.77,74.32,5.9,71.49,94.13
+4,5,N,"Grok","x.ai",58.56,83.79,6.65,100,0
+5,3,N,"Gemini","gemini.google.com",58.51,89.38,7.09,80.3,0
+6,48,N,"Canva AI","www.canva.com/ai-tools",57.97,100,7.93,39.89,0
+7,7,Y,"Mistral AI","mistral.ai",56.76,81.21,6.44,38.07,88.36
+8,4,Y,"DeepSeek","www.deepseek.com",56.48,70.44,5.59,65.75,100
+9,45,N,"Make","www.make.com",55.55,78.48,6.23,98.35,0
+10,40,N,"Notion AI","www.notion.so/product/ai",55.36,93.26,7.4,45.87,0
+11,201,Y,"Ollama","ollama.com",53.9,66.86,5.3,60.97,100
+12,214,Y,"LangChain","www.langchain.com",53.64,68.29,5.42,54.27,100
+13,6,Y,"Llama","llama.meta.com",53.45,65.14,5.17,65.74,97.27
+14,49,N,"Figma AI","www.figma.com/ai",52.58,92.83,7.36,28.84,0
+15,52,Y,"Qwen","qwenlm.github.io",52.56,64.13,5.09,66.96,91.8
+16,85,N,"Grammarly","www.grammarly.com",52.41,84.22,6.68,57.56,0
+17,46,N,"Zapier AI","zapier.com/ai",51.44,89.38,7.09,33.21,0
+18,36,N,"Perplexity AI","www.perplexity.ai",51.4,85.65,6.79,45.87,0
+19,33,N,"ElevenLabs","elevenlabs.io",51.35,83.64,6.64,52.5,0
+20,154,N,"JetBrains AI","jetbrains.com",51.34,91.68,7.27,24.52,0
+21,157,Y,"Zed","zed.dev",51.24,65.71,5.21,48.13,98.65
+22,218,N,"Freepik AI","freepik.com",50.99,89.67,7.11,29.2,0
+23,173,Y,"ComfyUI","github.com/comfyanonymous/ComfyUI",50.19,61.62,9.78,46.25,100
+24,158,Y,"Cline","github.com/cline/cline",49.91,61.62,9.78,46.19,97.25
+25,39,N,"Microsoft Copilot","copilot.microsoft.com",49.23,81.06,6.43,47.27,0
+26,11,Y,"Stable Diffusion","stability.ai",49.09,82.35,6.53,41.86,0
+27,47,N,"n8n","n8n.io",48.85,73.6,5.84,70.58,0
+28,10,N,"Midjourney","www.midjourney.com",48.77,77.19,6.12,57.64,0
+29,141,N,"QuillBot","quillbot.com",48.65,77.47,6.15,55.83,0
+30,199,Y,"Dify","dify.ai",48.35,61.84,4.91,41.36,100
+31,198,Y,"AutoGPT","agpt.co",48.08,63.56,5.04,33.61,100
+32,134,N,"Motion","usemotion.com",46.77,69.01,5.47,72.67,0
+33,86,N,"Writesonic","writesonic.com",46.24,77.33,6.13,40.28,0
+34,65,N,"Lovable","lovable.dev",46.09,70.16,5.57,64.1,0
+35,152,N,"Lovable","lovable.dev",46.09,70.16,5.57,64.1,0
+36,140,N,"Speak","speak.com",45.98,64.85,5.14,81.81,0
+37,206,N,"OpenRouter","openrouter.ai",45.96,71.74,5.69,57.8,0
+38,188,N,"ClickUp AI","clickup.com/ai",45.79,82.21,6.52,20.36,0
+39,80,N,"Consensus","consensus.app",45.71,68.01,5.39,69.02,0
+40,164,N,"Consensus","consensus.app",45.71,68.01,5.39,69.02,0
+41,216,N,"NotebookLM","notebooklm.google.com",45.67,69.01,5.47,65.35,0
+42,83,N,"Jasper","www.jasper.ai",45.33,72.74,5.77,50.1,0
+43,41,N,"Gamma","gamma.app",45.17,70.3,5.58,57.53,0
+44,185,Y,"Whisper","openai.com/ko-KR/index/whisper",45.02,48.71,7.73,58.37,99.79
+45,26,N,"Runway ML","runwayml.com",44.91,76.61,6.08,33.9,0
+46,66,N,"Cody","sourcegraph.com",44.91,66,5.24,70.66,0
+47,249,N,"Zoom AI","www.zoom.com/en/ai-companion",44.66,80.2,6.36,19.79,0
+48,168,N,"Imagen 3","deepmind.google",44.65,79.34,6.29,22.72,0
+49,9,N,"Poe","poe.com",44.61,72.17,5.73,47.3,0
+50,175,N,"Veo 2","deepmind.google",44.52,79.34,6.29,21.86,0
+51,31,N,"Synthesia","www.synthesia.io",44.47,73.6,5.84,41.4,0
+52,190,N,"Reflect","reflect.app",44.13,64.85,5.14,69.44,0
+53,245,N,"Tidio Lyro","www.tidio.com/lyro",44.13,79.2,6.28,19.7,0
+54,166,N,"Semantic Scholar","www.semanticscholar.org",43.71,77.91,6.18,21.39,0
+55,25,N,"Sora","sora.com",43.7,66.57,5.28,60.64,0
+56,136,N,"Superhuman","superhuman.com",43.5,69.3,5.5,49.85,0
+57,35,N,"Descript","www.descript.com",43.46,71.45,5.67,42.12,0
+58,138,N,"Duolingo Max","www.duolingo.com/max",43.39,79.48,6.31,13.82,0
+59,207,N,"Cohere","cohere.com",43.35,72.31,5.74,38.4,0
+60,123,N,"Captions","www.captions.ai",43.33,67.72,5.37,54.16,0
+61,23,N,"Replit AI","replit.com",43.27,75.75,6.01,25.98,0
+62,32,N,"Suno AI","suno.com",43.13,71.88,5.7,38.45,0
+63,113,N,"Prisma","prisma-ai.com",43.12,70.16,5.57,44.33,0
+64,55,N,"Kimi","kimi.moonshot.cn",43.09,63.85,5.06,66.02,0
+65,42,N,"Otter.ai","otter.ai",42.93,76.61,6.08,20.71,0
+66,204,N,"Groq","groq.com",42.91,69.01,5.47,46.89,0
+67,70,N,"InVideo AI","invideo.io",42.78,75.32,5.98,24.19,0
+68,181,N,"InVideo AI","invideo.io",42.78,75.32,5.98,24.19,0
+69,244,N,"Intercom Fin","www.intercom.com/ai",42.7,79.05,6.27,10.7,0
+70,146,N,"Microsoft Designer","designer.microsoft.com",42.52,74.46,5.91,25.43,0
+71,29,N,"HeyGen","www.heygen.com",42.46,67.72,5.37,48.4,0
+72,239,N,"Pinecone","www.pinecone.io",42.45,70.44,5.59,38.86,0
+73,171,N,"Clipdrop","clipdrop.co",42.35,71.02,5.63,36.2,0
+74,94,N,"Looka","looka.com",42.31,69.87,5.54,39.94,0
+75,118,N,"PicsArt AI","picsart.com",42.27,79.77,6.33,5.35,0
+76,103,N,"Meta AI","meta.ai",42.24,66.86,5.3,49.91,0
+77,81,N,"Kagi","kagi.com",42.19,74.61,5.92,22.72,0
+78,197,N,"Pixlr AI","pixlr.com",41.97,79.2,6.28,5.35,0
+79,97,N,"Remove.bg","www.remove.bg",41.87,74.75,5.93,20.1,0
+80,16,N,"Flux","blackforestlabs.ai",41.55,63.56,5.04,56.72,0
+81,91,N,"Rytr","rytr.me",41.53,68.01,5.39,41.18,0
+82,18,Y,"GitHub Copilot","github.com/features/copilot",41.48,61.62,9.78,54.84,0
+83,14,N,"Leonardo AI","leonardo.ai",41.45,68.87,5.46,37.67,0
+84,72,N,"Pictory","pictory.ai",41.3,69.01,5.47,36.2,0
+85,143,N,"Socratic","socratic.org",41.19,68.15,5.41,38.4,0
+86,88,N,"Taskade","www.taskade.com",41.08,71.31,5.66,26.74,0
+87,145,N,"Google Lens","lens.google",41.02,69.58,5.52,32.32,0
+88,93,N,"Framer AI","www.framer.com/ai",40.98,72.17,5.73,23.11,0
+89,187,N,"Coda AI","coda.io/product/ai",40.93,77.19,6.12,5.35,0
+90,133,N,"Speechify","speechify.com",40.92,71.74,5.69,24.19,0
+91,28,N,"Pika Labs","pika.art",40.91,69.73,5.53,31.06,0
+92,73,N,"Veed.io AI","veed.io",40.9,72.74,5.77,20.55,0
+93,30,N,"Luma AI","lumalabs.ai",40.83,67.86,5.38,37.06,0
+94,102,N,"Pi AI","pi.ai",40.76,72.88,5.78,19.17,0
+95,225,N,"Deepgram","deepgram.com",40.73,68.01,5.39,35.83,0
+96,13,N,"Adobe Firefly","firefly.adobe.com",40.68,67.29,5.34,38.02,0
+97,15,N,"Ideogram","ideogram.ai",40.56,68.15,5.41,34.19,0
+98,51,N,"Le Chat","chat.mistral.ai",40.56,67.29,5.34,37.19,0
+99,178,N,"Opus Clip","www.opus.pro",40.52,70.16,5.57,26.98,0
+100,67,N,"Devin","www.devin.ai",40.15,60.98,4.84,56.32,0
+101,151,N,"Devin","www.devin.ai",40.15,60.98,4.84,56.32,0
+102,69,N,"CapCut AI","capcut.com",40.14,69.44,5.51,26.98,0
+103,62,N,"Civitai","civitai.com",39.99,68.72,5.45,28.46,0
+104,110,N,"Photoroom","www.photoroom.com",39.97,69.73,5.53,24.83,0
+105,205,N,"Together AI","www.together.ai",39.84,65.57,5.2,38.4,0
+106,22,Y,"v0","v0.dev",39.82,62.84,4.99,47.68,0
+107,8,N,"Character.AI","character.ai",39.79,73.46,5.83,10.7,0
+108,165,N,"SciSpace","typeset.io",39.75,67.58,5.36,30.78,0
+109,27,N,"Kling AI","klingai.com",39.73,63.85,5.06,43.61,0
+110,68,N,"Aider","aider.chat",39.73,61.26,4.86,52.56,0
+111,156,N,"Aider","aider.chat",39.73,61.26,4.86,52.56,0
+112,202,N,"LM Studio","lmstudio.ai",39.67,62.84,4.99,46.71,0
+113,87,N,"Tome","tome.app",39.27,59.68,4.73,54.99,0
+114,135,N,"Krisp","krisp.ai",39.26,65.71,5.21,34,0
+115,182,N,"Murf AI","murf.ai",39.22,69.73,5.53,19.79,0
+116,84,N,"Copy.ai","www.copy.ai",39.21,73.89,5.86,5.35,0
+117,148,N,"Fotor AI","www.fotor.com",39.2,72.31,5.74,10.7,0
+118,226,N,"AssemblyAI","www.assemblyai.com",39.19,67.29,5.34,28.07,0
+119,212,N,"CrewAI","www.crewai.com",39.14,62.12,4.93,45.62,0
+120,82,N,"Exa","exa.ai",39.07,62.84,4.99,42.66,0
+121,60,N,"NightCafe","nightcafe.studio",38.97,62.12,4.93,44.5,0
+122,111,N,"Remini","remini.ai",38.91,63.7,5.05,38.66,0
+123,144,N,"Liner","getliner.com",38.9,60.4,4.79,50.04,0
+124,37,N,"You.com","you.com",38.77,73.03,5.79,5.35,0
+125,210,N,"Jan.ai","jan.ai",38.77,67.72,5.37,23.75,0
+126,116,N,"Starryai","starryai.com",38.75,69.01,5.47,19.17,0
+127,130,N,"Play.ht","play.ht",38.69,69.15,5.49,18.31,0
+128,38,N,"Elicit","elicit.com",38.67,62.84,4.99,40.02,0
+129,50,N,"Uizard","uizard.io",38.66,63.85,5.06,36.47,0
+130,179,N,"Veed.io","www.veed.io",38.62,72.74,5.77,5.35,0
+131,24,N,"Tabnine","www.tabnine.com",38.42,65.28,5.18,29.87,0
+132,53,N,"Command R+","cohere.com",38.39,72.31,5.74,5.35,0
+133,215,N,"LlamaIndex","www.llamaindex.ai",38.39,63.41,5.03,36.2,0
+134,233,N,"Notta","www.notta.ai",38.34,65.14,5.17,29.87,0
+135,246,N,"Manus AI","manus.im",38.33,63.13,5.01,36.74,0
+136,235,N,"Fathom","fathom.video",38.27,57.96,4.6,54.26,0
+137,92,N,"Wordtune","www.wordtune.com",38.26,67.72,5.37,20.36,0
+138,186,N,"Adobe Podcast","podcast.adobe.com",38.21,64.71,5.13,30.49,0
+139,240,N,"Chroma","www.trychroma.com",38.09,62.84,4.99,36.12,0
+140,112,N,"Facetune","facetuneapp.com",37.99,66,5.24,24.52,0
+141,34,N,"Udio","www.udio.com",37.94,63.99,5.08,31.19,0
+142,160,Y,"Gemma","ai.google.dev/gemma",37.73,40.96,6.5,47.54,84.99
+143,237,N,"Glean","www.glean.com",37.73,61.98,4.92,36.74,0
+144,17,N,"Krea AI","www.krea.ai",37.66,64.13,5.09,28.84,0
+145,124,N,"D-ID","www.d-id.com",37.63,66.86,5.3,19.17,0
+146,120,N,"FaceApp","www.faceapp.com",37.59,65.42,5.19,23.85,0
+147,217,N,"Artbreeder","www.artbreeder.com",37.5,68.15,5.41,13.82,0
+148,231,N,"Botpress","botpress.com",37.43,65.57,5.2,22.3,0
+149,230,N,"Voiceflow","www.voiceflow.com",37.37,63.56,5.04,28.84,0
+150,109,N,"Lensa AI","prisma-ai.com/lensa",37.27,70.16,5.57,5.35,0
+151,189,N,"Tana","tana.inc",37.27,60.55,4.8,38.61,0
+152,194,N,"Kittl","www.kittl.com",37.22,65.42,5.19,21.39,0
+153,180,N,"Kapwing","www.kapwing.com",37,65.85,5.22,18.5,0
+154,169,N,"Recraft AI","www.recraft.ai",36.97,69.58,5.52,5.35,0
+155,170,N,"Flair AI","flair.ai",36.82,60.69,4.81,35.13,0
+156,192,N,"Napkin AI","napkin.ai",36.82,64.28,5.1,22.72,0
+157,125,N,"Filmora AI","filmora.wondershare.com",36.75,69.15,5.49,5.35,0
+158,223,N,"Hedra","hedra.com",36.58,58.82,4.67,40.02,0
+159,115,N,"Wombo Dream","www.wombo.ai",36.51,63.27,5.02,24.16,0
+160,104,N,"Talkie AI","www.talkie-ai.com",36.49,64.28,5.1,20.5,0
+161,119,N,"Reface","hey.reface.ai",36.49,62.7,4.97,25.98,0
+162,96,N,"Relume","www.relume.io",36.46,62.98,5,24.83,0
+163,44,N,"Beautiful.ai","www.beautiful.ai",36.43,64.28,5.1,20.09,0
+164,142,N,"Photomath","photomath.com",36.4,67.58,5.36,8.48,0
+165,101,N,"Replika","replika.com",36.31,60.26,4.78,33.21,0
+166,128,N,"Voicemod","www.voicemod.net",36.23,64.56,5.12,17.77,0
+167,58,N,"Playground AI","playground.com",36.12,61.98,4.92,25.98,0
+168,203,N,"Open WebUI","openwebui.com",36.1,61.41,4.87,27.86,0
+169,76,N,"Mubert","mubert.com",36.07,63.85,5.06,19.17,0
+170,75,N,"Soundraw","soundraw.io",36.04,63.99,5.08,18.5,0
+171,184,N,"Soundraw","soundraw.io",36.04,63.99,5.08,18.5,0
+172,121,N,"Photoleap","lightricks.com",36.01,67.72,5.37,5.35,0
+173,78,N,"Lalal.ai","www.lalal.ai",35.96,63.56,5.04,19.48,0
+174,59,N,"SeaArt AI","www.seaart.ai",35.93,61.41,4.87,26.74,0
+175,43,N,"Fireflies.ai","fireflies.ai",35.91,63.56,5.04,19.13,0
+176,193,N,"Granola","granola.ai",35.82,56.53,4.48,42.87,0
+177,149,N,"Woebot","woebothealth.com",35.76,65.71,5.21,10.7,0
+178,108,N,"Hume AI","hume.ai",35.65,61.41,4.87,24.83,0
+179,200,N,"Flowise","flowiseai.com",35.5,59.97,4.76,28.84,0
+180,131,N,"Podcastle","podcastle.ai",35.41,66.57,5.28,5.35,0
+181,98,N,"Cleanup.pictures","cleanup.pictures",35.39,61.41,4.87,23.11,0
+182,74,N,"AIVA","www.aiva.ai",35.37,61.26,4.86,23.49,0
+183,183,N,"AIVA","www.aiva.ai",35.37,61.26,4.86,23.49,0
+184,20,N,"Bolt.new","bolt.new",35.28,65.42,5.19,8.48,0
+185,132,N,"Boomy","boomy.com",35.24,58.68,4.66,31.59,0
+186,90,N,"Reclaim.ai","reclaim.ai",35.2,61.41,4.87,21.84,0
+187,159,N,"WRTN","wrtn.ai",35.19,66.14,5.25,5.35,0
+188,117,N,"Meitu","meitu.com",35.13,52.8,4.19,51.21,0
+189,139,N,"Elsa Speak","elsaspeak.com",35.11,66,5.24,5.35,0
+190,196,N,"Upscayl","www.upscayl.org",35,62.7,4.97,16.04,0
+191,114,N,"Pixelcut","www.pixelcut.ai",34.81,62.98,5,13.82,0
+192,79,N,"Phind","www.phind.com",34.68,60.69,4.81,20.89,0
+193,167,N,"Research Rabbit","researchrabbitapp.com",34.68,60.69,4.81,20.89,0
+194,227,N,"Speechmatics","www.speechmatics.com",34.59,62.55,4.96,13.82,0
+195,221,N,"Lex","lex.page",34.52,51.65,4.1,51.11,0
+196,137,N,"Lindy AI","lindy.ai",34.47,61.69,4.89,16.04,0
+197,106,N,"Chai AI","www.chai-research.com",34.46,63.85,5.06,8.48,0
+198,208,N,"AnythingLLM","anythingllm.com",34.45,59.4,4.71,23.85,0
+199,95,N,"Khroma","khroma.co",34.39,56.96,4.52,31.84,0
+200,195,N,"Topaz Photo AI","topazlabs.com",34.27,62.84,4.99,10.7,0
+201,129,N,"Resemble AI","www.resemble.ai",34.16,62.12,4.93,12.42,0
+202,99,N,"Spline AI","spline.design",33.99,63.85,5.06,5.35,0
+203,236,N,"Avoma","www.avoma.com",33.84,55.95,4.44,31.72,0
+204,61,N,"Tensor.Art","tensor.art",33.71,58.11,4.61,23.38,0
+205,241,N,"Copilot Studio","copilotstudio.microsoft.com",33.56,54.66,4.34,34.28,0
+206,228,N,"Retell AI","www.retellai.com",33.4,60.26,4.78,13.82,0
+207,89,N,"Mem AI","mem.ai",33.18,59.83,4.75,13.82,0
+208,219,N,"NovelAI","novelai.net",33.15,52.37,4.15,39.49,0
+209,155,N,"Continue.dev","continue.dev",33.12,61.26,4.86,8.48,0
+210,211,N,"Blackbox AI","www.blackbox.ai",33.11,56.81,4.51,23.85,0
+211,220,N,"Sudowrite","sudowrite.com",33.01,56.53,4.48,24.19,0
+212,209,N,"GPT4All","gpt4all.io",32.75,60.55,4.8,8.48,0
+213,234,N,"tl;dv","tldv.io",32.57,56.1,4.45,22.72,0
+214,126,N,"Pixverse","pixverse.ai",32.22,53.37,4.23,29.87,0
+215,229,N,"Bland AI","www.bland.ai",32.15,56.96,4.52,16.95,0
+216,248,N,"Wordware","wordware.ai",32.07,59.25,4.7,8.48,0
+217,147,N,"Adobe Express","www.adobe.com/express/feature/ai",31.91,52.51,8.33,23.85,0
+218,222,N,"Viggle","viggle.ai",31.47,54.23,4.3,21.86,0
+219,247,N,"Lobe Chat","lobehub.com",31.46,58.97,4.68,5.35,0
+220,63,N,"Bing Image Creator","www.bing.com/create",31.41,52.01,8.25,22.3,0
+221,127,N,"Haiper","haiper.ai",31.26,55.81,4.43,15.01,0
+222,57,N,"Amazon Nova","aws.amazon.com",31.24,50.14,7.96,27.86,0
+223,232,N,"Coze","coze.com",31.17,50.93,4.04,31.33,0
+224,100,N,"Visily","www.visily.ai",31.13,50.65,4.02,31.97,0
+225,54,N,"HyperCLOVA X","clova.ai/hyperclova",31.03,57.25,4.54,8.48,0
+226,12,N,"DALL-E 3","openai.com/dall-e-3",30.61,48.71,7.73,28.84,0
+227,64,N,"Amazon Q Developer","aws.amazon.com/q/developer",29.94,50.14,7.96,19.17,0
+228,153,N,"Amazon Q Developer","aws.amazon.com/q/developer",29.94,50.14,7.96,19.17,0
+229,150,N,"Kuki AI","www.kuki.ai",29.59,50.65,4.02,21.76,0
+230,250,N,"Slack AI","slack.com/features/ai",29.19,47.78,7.58,22.72,0
+231,56,Y,"Phi-4","azure.microsoft.com/en-us/products/phi-4",29.14,44.33,7.03,34.8,0
+232,107,N,"Anima AI","myanima.ai",29.05,52.8,4.19,10.7,0
+233,243,N,"Height AI","height.app",28.99,54.23,4.3,5.35,0
+234,172,N,"Magnific AI","magnific.ai",28.36,50.22,3.98,15.01,0
+235,174,N,"InvokeAI","invoke.ai",27.79,47.35,3.76,21.14,0
+236,162,N,"Solar","www.upstage.ai/solar",27.35,30.42,4.83,72.91,0
+237,213,N,"AutoGen","microsoft.github.io/autogen",26.35,38.02,6.03,38.91,0
+238,224,N,"Stable Video","www.stablevideo.com",26.34,45.77,3.63,16.95,0
+239,71,N,"Hailuo AI","www.hailuo.ai",26.31,40.89,3.24,33.71,0
+240,176,N,"Hailuo AI","www.hailuo.ai",26.31,40.89,3.24,33.71,0
+241,238,N,"Devv.ai","devv.ai",25.93,46.05,3.65,13.26,0
+242,163,N,"InternLM","internlm.intern-ai.org.cn",25.84,43.19,3.43,22.6,0
+243,105,N,"Kindroid","kindroid.ai",25.82,44.33,3.52,18.5,0
+244,242,N,"Adobe GenStudio","business.adobe.com",24.72,39.6,6.28,22.35,0
+245,21,N,"Windsurf","codeium.com/windsurf",24.42,31.71,5.03,48.7,0
+246,177,N,"Wan AI","wanxiang.aliyun.com",21.92,38.59,3.06,12.42,0
+247,191,N,"Clova Note","clovanote.naver.com",21.58,35.58,2.82,20.6,0
+248,122,N,"Deep Nostalgia","www.myheritage.com/deep-nostalgia",20.78,37.02,5.87,5.35,0
+249,77,N,"Adobe Podcast AI","podcast.adobe.com",18.26,32.35,5.13,5.35,0
+250,161,N,"EXAONE","www.lgresearch.ai/exaone",16.84,28.84,4.58,8.48,0
