@@ -15,25 +15,24 @@ const YOUTUBE_API_KEYS = [
 if (YOUTUBE_API_KEYS.length === 0) { console.error('YOUTUBE_API_KEY not set'); process.exit(1); }
 console.log(`YouTube API 키 ${YOUTUBE_API_KEYS.length}개 사용`);
 
-let keyIndex = 0;
-const getApiKey = () => {
-  const key = YOUTUBE_API_KEYS[keyIndex % YOUTUBE_API_KEYS.length];
-  keyIndex++;
-  return key;
-};
+let currentKeyIndex = 0;
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 import { TOOLS_DATA } from '../src/data/tools.js';
 
 async function searchYouTube(query, { lang = true } = {}) {
+  // 사용 가능한 키가 없으면 포기
+  if (currentKeyIndex >= YOUTUBE_API_KEYS.length) return [];
+
+  const key = YOUTUBE_API_KEYS[currentKeyIndex];
   const params = new URLSearchParams({
     part: 'snippet',
     q: lang ? `${query} 사용법` : `${query} tutorial`,
     type: 'video',
     order: 'viewCount',
     maxResults: 5,
-    key: getApiKey(),
+    key,
   });
   if (lang) {
     params.set('relevanceLanguage', 'ko');
@@ -41,8 +40,17 @@ async function searchYouTube(query, { lang = true } = {}) {
   }
   const res = await fetch(`https://www.googleapis.com/youtube/v3/search?${params}`);
   if (!res.ok) {
-    const err = await res.text();
-    console.error(`YouTube API error (${res.status}): ${err}`);
+    const errText = await res.text();
+    let errJson;
+    try { errJson = JSON.parse(errText); } catch {}
+    const reason = errJson?.error?.errors?.[0]?.reason;
+    if (reason === 'quotaExceeded' && currentKeyIndex < YOUTUBE_API_KEYS.length - 1) {
+      // 쿼터 초과 → 다음 키로 영구 전환 후 재시도
+      currentKeyIndex++;
+      console.log(`  ⚠️ 키 ${currentKeyIndex} 쿼터 초과 → 키 ${currentKeyIndex + 1}로 전환`);
+      return searchYouTube(query, { lang });
+    }
+    console.error(`YouTube API error (${res.status}): ${errText}`);
     return [];
   }
   const json = await res.json();
