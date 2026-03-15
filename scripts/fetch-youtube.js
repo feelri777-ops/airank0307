@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __dir = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dir, '..');
 const OUTPUT = resolve(ROOT, 'public/youtube-videos.json');
-const TOP_N = 50;
+const TOP_N = 30;
 
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 if (!YOUTUBE_API_KEY) { console.error('YOUTUBE_API_KEY not set'); process.exit(1); }
