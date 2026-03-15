@@ -30,9 +30,7 @@ const getRankColor = (rank) => {
   if (rank === 1) return "#f59e0b";
   if (rank === 2) return "#94a3b8";
   if (rank === 3) return "#c77d3a";
-  if (rank <= 10) return "#6366f1";
-  if (rank <= 50) return "#10b981";
-  return "var(--text-muted)";
+  return "var(--text-primary)";
 };
 
 // 순위별 폰트 크기
