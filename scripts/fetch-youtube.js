@@ -77,11 +77,15 @@ async function main() {
     const queryKo = tool.ytKo || tool.nameKo || tool.name;
     const existing_id = String(tool.id);
 
-    // 데이터 있고 30일 이내면 스킵 (쿼터 절약)
-    const lastFetch = fetchedAt[existing_id] ? new Date(fetchedAt[existing_id]).getTime() : 0;
-    const daysSinceFetch = (now - lastFetch) / (1000 * 60 * 60 * 24);
-    if (videos[existing_id] && videos[existing_id].length > 0 && daysSinceFetch < REFRESH_DAYS) {
-      console.log(`  [${tool.id}] ${tool.name} → 유지 (${Math.floor(daysSinceFetch)}일 전 수집)`);
+    // 데이터 있으면 스킵 (fetchedAt 없어도 기존 데이터 보존 — 쿼터 절약)
+    const lastFetch = fetchedAt[existing_id] ? new Date(fetchedAt[existing_id]).getTime() : null;
+    const daysSinceFetch = lastFetch ? (now - lastFetch) / (1000 * 60 * 60 * 24) : 999;
+    if (videos[existing_id] && videos[existing_id].length > 0) {
+      if (daysSinceFetch < REFRESH_DAYS) {
+        console.log(`  [${tool.id}] ${tool.name} → 유지 (${Math.floor(daysSinceFetch)}일 전 수집)`);
+      } else {
+        console.log(`  [${tool.id}] ${tool.name} → 유지 (fetchedAt 없음, 기존 데이터 보존)`);
+      }
       continue;
     }
 
