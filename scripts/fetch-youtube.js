@@ -8,8 +8,19 @@ const ROOT = resolve(__dir, '..');
 const OUTPUT = resolve(ROOT, 'public/youtube-videos.json');
 const TOP_N = 30;
 
-const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
-if (!YOUTUBE_API_KEY) { console.error('YOUTUBE_API_KEY not set'); process.exit(1); }
+const YOUTUBE_API_KEYS = [
+  process.env.YOUTUBE_API_KEY,
+  process.env.YOUTUBE_API_KEY_2,
+].filter(Boolean);
+if (YOUTUBE_API_KEYS.length === 0) { console.error('YOUTUBE_API_KEY not set'); process.exit(1); }
+console.log(`YouTube API 키 ${YOUTUBE_API_KEYS.length}개 사용`);
+
+let keyIndex = 0;
+const getApiKey = () => {
+  const key = YOUTUBE_API_KEYS[keyIndex % YOUTUBE_API_KEYS.length];
+  keyIndex++;
+  return key;
+};
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
@@ -22,7 +33,7 @@ async function searchYouTube(query, { lang = true } = {}) {
     type: 'video',
     order: 'viewCount',
     maxResults: 5,
-    key: YOUTUBE_API_KEY,
+    key: getApiKey(),
   });
   if (lang) {
     params.set('relevanceLanguage', 'ko');
