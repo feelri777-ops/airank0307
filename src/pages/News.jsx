@@ -69,7 +69,7 @@ const PageTitle = styled.h1`
 const SearchInput = styled.input`
   width: 100%;
   padding: 0.65rem 8rem 0.65rem 1rem;
-  border-radius: 10px;
+  border-radius: var(--r-sm);
   border: 1px solid var(--border-primary);
   background: var(--bg-secondary);
   color: var(--text-primary);
@@ -138,7 +138,7 @@ const LoadMoreButton = styled.button`
   padding: 0.75rem 2.5rem;
   background: transparent;
   border: 1px solid var(--border-primary);
-  border-radius: 8px;
+  border-radius: var(--r-sm);
   color: var(--text-secondary);
   font-size: 1rem;
   cursor: pointer;

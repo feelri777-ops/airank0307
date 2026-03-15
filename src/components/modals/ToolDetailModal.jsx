@@ -98,7 +98,7 @@ const ScoreInsightPanel = ({ tool }) => {
               >
                 <div style={{ width: 20, flexShrink: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
                   {icon && (icon.startsWith("http")
-                    ? <img src={icon} alt={label} width={18} height={18} style={{ borderRadius: "3px", objectFit: "contain" }} />
+                    ? <img src={icon} alt={label} width={18} height={18} style={{ borderRadius: "var(--r-xs)", objectFit: "contain" }} />
                     : <span style={{ fontSize: "14px", lineHeight: 1 }}>{icon}</span>
                   )}
                 </div>
@@ -110,7 +110,7 @@ const ScoreInsightPanel = ({ tool }) => {
                 <div style={{
                   position: "absolute", left: "72px", bottom: "100%", marginBottom: "6px",
                   fontSize: "0.7rem", color: "var(--text-secondary)", lineHeight: 1.4,
-                  padding: "6px 10px", background: "var(--bg-card)", borderRadius: "6px",
+                  padding: "6px 10px", background: "var(--bg-card)", borderRadius: "var(--r-xs)",
                   border: "1px solid var(--border-primary)", boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
                   zIndex: 20, whiteSpace: "nowrap", pointerEvents: "none", animation: "fadeIn 0.2s ease"
                 }}>
@@ -345,7 +345,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
     <div style={{
       background: "var(--bg-card)",
       border: "1px solid var(--border-primary)",
-      borderRadius: "16px",
+      borderRadius: "var(--r-md)",
       padding: "1.5rem",
       width: cardWidth || "340px",
       flexShrink: 0,
@@ -364,7 +364,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
         {videos === null ? (
           [1, 2, 3].map((i) => (
             <div key={i} style={{
-              height: "80px", borderRadius: "4px",
+              height: "80px", borderRadius: "var(--r-xs)",
               background: "var(--bg-secondary)", border: "1px solid var(--border-primary)",
               animation: "pulse 1.5s ease-in-out infinite",
             }} />
@@ -378,7 +378,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
               rel="noopener noreferrer"
               style={{
                 display: "flex", gap: "10px", textDecoration: "none",
-                padding: "4px", borderRadius: "4px", background: "var(--bg-secondary)",
+                padding: "4px", borderRadius: "var(--r-xs)", background: "var(--bg-secondary)",
                 transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
               }}
               onMouseEnter={(e) => {
@@ -391,7 +391,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
               }}
             >
               <div style={{
-                width: "140px", height: "82px", borderRadius: "5px",
+                width: "140px", height: "82px", borderRadius: "var(--r-xs)",
                 overflow: "hidden", flexShrink: 0, position: "relative", background: "#000"
               }}>
                 <img
@@ -431,7 +431,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
             rel="noopener noreferrer"
             style={{
               display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
-              padding: "16px", borderRadius: "4px", background: "var(--bg-secondary)",
+              padding: "16px", borderRadius: "var(--r-xs)", background: "var(--bg-secondary)",
               border: "1px solid var(--border-primary)", textDecoration: "none",
               color: "var(--text-secondary)", fontSize: "0.85rem", fontWeight: 600,
               transition: "all 0.2s"
@@ -446,7 +446,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
       </div>
       </>}
 
-      <div style={{ padding: "12px 14px", background: "var(--bg-secondary)", borderRadius: "3px", marginBottom: "1.5rem" }}>
+      <div style={{ padding: "12px 14px", background: "var(--bg-secondary)", borderRadius: "var(--r-xs)", marginBottom: "1.5rem" }}>
         <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
           <span style={{ color: "var(--accent-indigo)", fontWeight: 700 }}>💡 이렇게 써보세요</span><br/>
           {getScenario(tool)}
@@ -471,7 +471,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
                   rel="noopener noreferrer"
                   style={{
                     display: "flex", alignItems: "center", gap: "10px",
-                    padding: "10px 12px", borderRadius: "3px",
+                    padding: "10px 12px", borderRadius: "var(--r-xs)",
                     background: "var(--bg-secondary)",
                     border: "1px solid var(--border-primary)",
                     textDecoration: "none",
@@ -483,7 +483,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
                   <img
                     src={`https://www.google.com/s2/favicons?domain=${new URL(rt.url).hostname}&sz=64`}
                     alt={rt.name}
-                    style={{ width: 36, height: 36, borderRadius: "5px", flexShrink: 0 }}
+                    style={{ width: 36, height: 36, borderRadius: "var(--r-xs)", flexShrink: 0 }}
                     onError={e => { e.currentTarget.style.display = "none"; }}
                   />
                   <div style={{ flex: 1, minWidth: 0 }}>
@@ -492,7 +492,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
                       {getPairReason(tool.cat, rt.cat)}
                     </div>
                   </div>
-                  <span style={{ fontSize: "0.62rem", padding: "2px 7px", borderRadius: "5px", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700, flexShrink: 0 }}>
+                  <span style={{ fontSize: "0.62rem", padding: "2px 7px", borderRadius: "var(--r-xs)", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700, flexShrink: 0 }}>
                     {CAT_LABEL[rt.cat]?.replace(/^.\s/, "") ?? rt.cat}
                   </span>
                 </a>
@@ -553,7 +553,7 @@ const ToolDetailModal = ({ tool, rank, prevRank, onClose }) => {
     <div style={{
       background: "var(--bg-card)",
       border: "1px solid var(--border-primary)",
-      borderRadius: "16px",
+      borderRadius: "var(--r-md)",
       padding: "1.2rem",
       width: CARD_WIDTH,
       flexShrink: 0,
@@ -564,12 +564,12 @@ const ToolDetailModal = ({ tool, rank, prevRank, onClose }) => {
       <button onClick={toggleBookmark} title={user ? (bookmarked ? "북마크 해제" : "북마크 저장") : "로그인 후 북마크 가능"} style={{ position: "absolute", top: "10px", right: "46px", background: bookmarked ? "rgba(239,68,68,0.1)" : "var(--bg-tertiary)", border: bookmarked ? "1px solid #ef4444" : "none", borderRadius: "50%", width: "28px", height: "28px", cursor: "pointer", fontSize: "1rem", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s ease", color: bookmarked ? "#ef4444" : "var(--text-muted)", zIndex: 1 }}>{bookmarked ? "♥" : "♡"}</button>
 
       <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-        {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name} width={32} height={32} style={{ borderRadius: "4px", objectFit: "contain", flexShrink: 0 }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: "1.8rem" }}>{tool.icon}</span> )}
+        {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name} width={32} height={32} style={{ borderRadius: "var(--r-xs)", objectFit: "contain", flexShrink: 0 }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: "1.8rem" }}>{tool.icon}</span> )}
         <div style={{ flex: 1 }}>
           <div style={{ display: "flex", alignItems: "center", gap: "7px", flexWrap: "wrap" }}>
             <h2 style={{ fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.25rem", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>{tool.name}</h2>
             {rank ? (
-              <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "5px", padding: "2px 7px", whiteSpace: "nowrap" }}>
+              <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "var(--r-xs)", padding: "2px 7px", whiteSpace: "nowrap" }}>
                 {prevRank && prevRank !== rank ? `${prevRank} › ${rank}위` : `${rank}위`}
               </span>
             ) : null}
@@ -583,16 +583,16 @@ const ToolDetailModal = ({ tool, rank, prevRank, onClose }) => {
 
       {tool.features && ( <div style={{ marginBottom: "16px" }}><div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "8px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.9rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "14px", color: "var(--text-secondary)", lineHeight: 1.4 }}>{f}</span></li>))}</ul></div>)}
 
-      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "16px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.65rem", padding: "3px 8px", borderRadius: "3px", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
+      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap", marginBottom: "16px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.65rem", padding: "3px 8px", borderRadius: "var(--r-xs)", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
 
       <div style={{ marginBottom: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
-        {tool.cat && ( <div style={{ display: "flex", alignItems: "center", gap: "8px" }}><span style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>카테고리</span><span style={{ fontSize: "0.7rem", padding: "3px 10px", borderRadius: "5px", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700 }}>{CAT_LABEL[tool.cat] ?? tool.cat}</span></div>)}
-        {tool.life?.length > 0 && ( <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}><span style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>추천 대상</span><div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>{tool.life.map((l) => ( <span key={l} style={{ fontSize: "0.65rem", padding: "3px 8px", borderRadius: "3px", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600 }}>{LIFE_LABEL[l] ?? l}</span>))}</div></div>)}
+        {tool.cat && ( <div style={{ display: "flex", alignItems: "center", gap: "8px" }}><span style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>카테고리</span><span style={{ fontSize: "0.7rem", padding: "3px 10px", borderRadius: "var(--r-xs)", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700 }}>{CAT_LABEL[tool.cat] ?? tool.cat}</span></div>)}
+        {tool.life?.length > 0 && ( <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}><span style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>추천 대상</span><div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>{tool.life.map((l) => ( <span key={l} style={{ fontSize: "0.65rem", padding: "3px 8px", borderRadius: "var(--r-xs)", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600 }}>{LIFE_LABEL[l] ?? l}</span>))}</div></div>)}
       </div>
 
       <div style={{ display: "flex", gap: "8px" }}>
-        {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: "block", textAlign: "center", padding: "12px", borderRadius: "14px", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "0.9rem", textDecoration: "none", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }}>공식 사이트 방문 →</a>)}
-        {boardId && ( <button onClick={() => { onClose(); navigate(`/community/${boardId}`); }} style={{ flex: 1, padding: "12px", borderRadius: "14px", border: "1px solid var(--accent-indigo)", background: "transparent", color: "var(--accent-indigo)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "0.9rem", cursor: "pointer" }}>💬 툴 게시판 →</button>)}
+        {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: "block", textAlign: "center", padding: "12px", borderRadius: "var(--r-md)", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "0.9rem", textDecoration: "none", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }}>공식 사이트 방문 →</a>)}
+        {boardId && ( <button onClick={() => { onClose(); navigate(`/community/${boardId}`); }} style={{ flex: 1, padding: "12px", borderRadius: "var(--r-md)", border: "1px solid var(--accent-indigo)", background: "transparent", color: "var(--accent-indigo)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "0.9rem", cursor: "pointer" }}>💬 툴 게시판 →</button>)}
       </div>
     </div>
   );
@@ -609,16 +609,16 @@ const ToolDetailModal = ({ tool, rank, prevRank, onClose }) => {
     return (
       <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 1000, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)", overflowY: "auto", display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "40px 16px" }}>
         <div onClick={(e) => e.stopPropagation()} style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "center", gap: "16px", width: "100%", maxWidth: "1000px", margin: "auto" }}>
-          <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "16px", padding: "1.5rem", width: DESKTOP_CARD_WIDTH, flexShrink: 0, boxShadow: "0 24px 64px rgba(0,0,0,0.25)", position: "relative", height: "fit-content" }}>
+          <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "var(--r-md)", padding: "1.5rem", width: DESKTOP_CARD_WIDTH, flexShrink: 0, boxShadow: "0 24px 64px rgba(0,0,0,0.25)", position: "relative", height: "fit-content" }}>
             <button onClick={onClose} style={{ position: "absolute", top: "16px", right: "16px", background: "var(--bg-tertiary)", border: "none", borderRadius: "50%", width: "32px", height: "32px", cursor: "pointer", fontSize: "1rem", color: "var(--text-muted)", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
             <button onClick={toggleBookmark} title={user ? (bookmarked ? "북마크 해제" : "북마크 저장") : "로그인 후 북마크 가능"} style={{ position: "absolute", top: "16px", right: "56px", background: bookmarked ? "rgba(239,68,68,0.1)" : "var(--bg-tertiary)", border: bookmarked ? "1px solid #ef4444" : "none", borderRadius: "50%", width: "32px", height: "32px", cursor: "pointer", fontSize: "1.1rem", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s ease", color: bookmarked ? "#ef4444" : "var(--text-muted)" }}>{bookmarked ? "♥" : "♡"}</button>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px" }}>
-              {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name} width={40} height={40} style={{ borderRadius: "5px", objectFit: "contain", flexShrink: 0 }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: "2.2rem" }}>{tool.icon}</span> )}
+              {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name} width={40} height={40} style={{ borderRadius: "var(--r-xs)", objectFit: "contain", flexShrink: 0 }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: "2.2rem" }}>{tool.icon}</span> )}
               <div style={{ flex: 1 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
                   <h2 style={{ fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.5rem", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>{tool.name}</h2>
                   {rank ? (
-                    <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "5px", padding: "2px 8px", whiteSpace: "nowrap" }}>
+                    <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--text-muted)", background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", borderRadius: "var(--r-xs)", padding: "2px 8px", whiteSpace: "nowrap" }}>
                       {prevRank && prevRank !== rank ? `${prevRank} › ${rank}위` : `${rank}위`}
                     </span>
                   ) : null}
@@ -628,14 +628,14 @@ const ToolDetailModal = ({ tool, rank, prevRank, onClose }) => {
             <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "16px" }}>{tool.desc}</p>
             <ScoreInsightPanel tool={tool} />
             {tool.features && ( <div style={{ marginBottom: "24px" }}><div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px" }}>핵심 기능</div><ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>{tool.features.map((f, i) => ( <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}><span style={{ color: "var(--accent-indigo)", fontWeight: 800, fontSize: "0.95rem", marginTop: "2px", flexShrink: 0 }}>✓</span><span style={{ fontSize: "14px", color: "var(--text-secondary)", lineHeight: 1.5 }}>{f}</span></li>))}</ul></div>)}
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "24px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "4px", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "24px" }}>{tool.tags.filter(tag => tag !== "무료" && tag !== "유료").map((tag) => ( <span key={tag} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "var(--r-xs)", background: "var(--tag-bg)", color: "var(--tag-color)", border: "1px solid var(--tag-border)", fontWeight: 600 }}>{tag}</span>))}</div>
             <div style={{ marginBottom: "24px", display: "flex", flexDirection: "column", gap: "12px" }}>
-              {tool.cat && ( <div style={{ display: "flex", alignItems: "center", gap: "10px" }}><span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>카테고리</span><span style={{ fontSize: "0.75rem", padding: "4px 12px", borderRadius: "5px", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700 }}>{CAT_LABEL[tool.cat] ?? tool.cat}</span></div>)}
-              {tool.life?.length > 0 && ( <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}><span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>추천 대상</span><div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>{tool.life.map((l) => ( <span key={l} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "4px", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600 }}>{LIFE_LABEL[l] ?? l}</span>))}</div></div>)}
+              {tool.cat && ( <div style={{ display: "flex", alignItems: "center", gap: "10px" }}><span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>카테고리</span><span style={{ fontSize: "0.75rem", padding: "4px 12px", borderRadius: "var(--r-xs)", background: "var(--accent-gradient)", color: "#fff", fontWeight: 700 }}>{CAT_LABEL[tool.cat] ?? tool.cat}</span></div>)}
+              {tool.life?.length > 0 && ( <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}><span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>추천 대상</span><div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>{tool.life.map((l) => ( <span key={l} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "var(--r-xs)", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600 }}>{LIFE_LABEL[l] ?? l}</span>))}</div></div>)}
             </div>
             <div style={{ display: "flex", gap: "8px" }}>
-              {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: "block", textAlign: "center", padding: "14px", borderRadius: "4px", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1rem", textDecoration: "none", transition: "all 0.2s ease", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 20px rgba(79, 70, 229, 0.3)"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 16px rgba(79, 70, 229, 0.2)"; }}>공식 사이트 방문 →</a>)}
-              {boardId && ( <button onClick={() => { onClose(); navigate(`/community/${boardId}`); }} style={{ flex: 1, padding: "14px", borderRadius: "4px", border: "1px solid var(--accent-indigo)", background: "transparent", color: "var(--accent-indigo)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1rem", cursor: "pointer", transition: "all 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.background = "rgba(99,102,241,0.08)"} onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}>💬 툴 게시판 →</button>)}
+              {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: "block", textAlign: "center", padding: "14px", borderRadius: "var(--r-xs)", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1rem", textDecoration: "none", transition: "all 0.2s ease", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 20px rgba(79, 70, 229, 0.3)"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 16px rgba(79, 70, 229, 0.2)"; }}>공식 사이트 방문 →</a>)}
+              {boardId && ( <button onClick={() => { onClose(); navigate(`/community/${boardId}`); }} style={{ flex: 1, padding: "14px", borderRadius: "var(--r-xs)", border: "1px solid var(--accent-indigo)", background: "transparent", color: "var(--accent-indigo)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1rem", cursor: "pointer", transition: "all 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.background = "rgba(99,102,241,0.08)"} onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}>💬 툴 게시판 →</button>)}
             </div>
           </div>
           <ToolAnalysisCard tool={tool} rank={rank} cardWidth={DESKTOP_CARD_WIDTH} />

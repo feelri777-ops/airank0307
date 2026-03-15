@@ -61,7 +61,7 @@ export default function AdminGallery() {
           {posts.map((post) => (
             <div key={post.id} style={{
               background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-              borderRadius: "12px", overflow: "hidden",
+              borderRadius: "var(--r-md)", overflow: "hidden",
             }}>
               {/* 썸네일 */}
               {post.imageUrl ? (
@@ -82,7 +82,7 @@ export default function AdminGallery() {
                   onClick={() => deletePost(post)}
                   disabled={deleting === post.id}
                   style={{
-                    width: "100%", padding: "7px", borderRadius: "8px", fontSize: "0.8rem", fontWeight: 700,
+                    width: "100%", padding: "7px", borderRadius: "var(--r-sm)", fontSize: "0.8rem", fontWeight: 700,
                     background: "rgba(239,68,68,0.1)", color: "#ef4444",
                     border: "1px solid #ef4444", cursor: "pointer",
                     opacity: deleting === post.id ? 0.5 : 1,

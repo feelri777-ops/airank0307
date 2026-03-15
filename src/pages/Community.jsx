@@ -25,7 +25,7 @@ const PageHeader = styled.div`
 
 const WriteButton = styled.button`
   padding: 0.5rem 1.25rem; background: var(--accent-gradient); color: #fff;
-  border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+  border: none; border-radius: var(--r-sm); font-size: 0.9rem; font-weight: 600;
   cursor: pointer; transition: opacity 0.2s;
   &:hover { opacity: 0.85; }
   &:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -37,7 +37,7 @@ const CategoryTabs = styled.div`
 `;
 
 const CategoryTab = styled.button`
-  padding: 0.4rem 1rem; border: none; border-radius: 20px;
+  padding: 0.4rem 1rem; border: none; border-radius: var(--r-lg);
   font-size: 0.875rem; font-weight: ${({ $active }) => ($active ? "700" : "500")};
   cursor: pointer; white-space: nowrap; transition: all 0.2s;
   background: ${({ $active }) => ($active ? "var(--accent-indigo)" : "transparent")};
@@ -49,7 +49,7 @@ const CategoryTab = styled.button`
 `;
 
 const PostTable = styled.div`
-  border: 1px solid var(--border-primary); border-radius: 12px;
+  border: 1px solid var(--border-primary); border-radius: var(--r-md);
   overflow: hidden; background: var(--bg-card);
 `;
 
@@ -79,7 +79,7 @@ const PostTitleCell = styled.div`display: flex; align-items: center; gap: 0.5rem
 
 const CategoryBadge = styled.span`
   flex-shrink: 0; font-size: 0.7rem; font-weight: 700;
-  padding: 0.2rem 0.5rem; border-radius: 4px;
+  padding: 0.2rem 0.5rem; border-radius: var(--r-xs);
   background: ${({ $cat }) => CATEGORY_COLORS[$cat]?.bg || "#e2e8f0"};
   color: ${({ $cat }) => CATEGORY_COLORS[$cat]?.color || "#475569"};
   [data-theme="dark"] & {
@@ -113,7 +113,7 @@ const MobilePostMeta = styled.div`
 const LoadMoreButton = styled.button`
   display: block; margin: 1.5rem auto 0; padding: 0.65rem 2.5rem;
   background: transparent; border: 1px solid var(--border-primary);
-  border-radius: 8px; color: var(--text-secondary); font-size: 0.9rem;
+  border-radius: var(--r-sm); color: var(--text-secondary); font-size: 0.9rem;
   cursor: pointer; transition: all 0.2s;
   &:hover { border-color: var(--accent-indigo); color: var(--accent-indigo); }
 `;

@@ -169,12 +169,12 @@ const Navbar = ({ theme, onToggleTheme }) => {
                         <button
                           key={p.id}
                           onClick={() => { setShowDropdown(false); openLightbox(p); }}
-                          style={{ background: "none", border: "none", padding: 0, cursor: "pointer", borderRadius: "8px", overflow: "hidden" }}
+                          style={{ background: "none", border: "none", padding: 0, cursor: "pointer", borderRadius: "var(--r-sm)", overflow: "hidden" }}
                         >
                           <img
                             src={p.imageUrl} alt=""
                             width={52} height={52}
-                            style={{ borderRadius: "8px", objectFit: "cover", display: "block", border: "1px solid var(--border-primary)" }}
+                            style={{ borderRadius: "var(--r-sm)", objectFit: "cover", display: "block", border: "1px solid var(--border-primary)" }}
                           />
                         </button>
                       ))}

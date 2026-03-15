@@ -22,7 +22,7 @@ const ScoreDataNotice = ({ error, scoresUpdated }) => {
       display: "flex", alignItems: "center", gap: "8px",
       margin: "0 0 12px",
       padding: "8px 14px",
-      borderRadius: "10px",
+      borderRadius: "var(--r-sm)",
       background: "rgba(234, 179, 8, 0.08)",
       border: "1px solid rgba(234, 179, 8, 0.3)",
       fontSize: "0.78rem",
@@ -175,7 +175,7 @@ export default function MainPage() {
                     onClick={() => setVisibleCount((prev) => prev + 10)}
                     style={{
                       padding: "12px 48px",
-                      borderRadius: "14px",
+                      borderRadius: "var(--r-md)",
                       border: "1px solid var(--border-primary)",
                       background: "var(--bg-card)",
                       color: "var(--text-primary)",

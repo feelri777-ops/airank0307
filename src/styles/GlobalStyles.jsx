@@ -31,6 +31,12 @@ const GlobalStyles = () => (
       --shadow-md: 0 4px 16px rgba(80, 50, 20, 0.11);
       --shadow-lg: 0 12px 40px rgba(80, 50, 20, 0.14);
       --shadow-card: 0 1px 3px rgba(80, 50, 20, 0.07), 0 1px 2px rgba(80, 50, 20, 0.05);
+      --r-xs: 6px;
+      --r-sm: 10px;
+      --r-md: 14px;
+      --r-lg: 20px;
+      --r-pill: 999px;
+      --r-circle: 50%;
       --blob-opacity: 0.05;
       --noise-opacity: 0.015;
       --ticker-bg: rgba(139, 94, 60, 0.05);
@@ -149,7 +155,7 @@ const GlobalStyles = () => (
     .navbar-actions { display: flex; align-items: center; gap: 10px; }
     
     .navbar-login-btn {
-      padding: 7px 16px; border-radius: 4px; border: 1px solid var(--border-primary);
+      padding: 7px 16px; border-radius: var(--r-xs); border: 1px solid var(--border-primary);
       background: var(--bg-secondary); color: var(--text-primary); font-size: 0.82rem;
       font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px;
       white-space: nowrap; transition: all 0.2s ease; box-shadow: var(--shadow-sm);
@@ -173,7 +179,7 @@ const GlobalStyles = () => (
     }
 
     .nav-link {
-      padding: 6px 14px; border-radius: 4px; text-decoration: none;
+      padding: 6px 14px; border-radius: var(--r-xs); text-decoration: none;
       color: var(--text-secondary); font-size: 0.82rem; transition: all 0.2s ease; white-space: nowrap;
       font-family: var(--font-main);
     }
@@ -184,7 +190,7 @@ const GlobalStyles = () => (
       display: none;
       background: var(--bg-card);
       border: 1px solid var(--border-primary);
-      border-radius: 8px;
+      border-radius: var(--r-sm);
       padding: 1.2rem;
       margin-top: 24px;
       margin-bottom: 40px;
@@ -230,7 +236,7 @@ const GlobalStyles = () => (
     .tools-grid > * { min-width: 0; overflow: hidden; }
 
     .sort-btn {
-      padding: 6px 12px; border-radius: 4px; border: none; background: transparent;
+      padding: 6px 12px; border-radius: var(--r-xs); border: none; background: transparent;
       color: var(--text-muted); font-size: 0.75rem; cursor: pointer; white-space: nowrap;
       font-family: var(--font-main);
     }
@@ -261,11 +267,11 @@ const GlobalStyles = () => (
     .navbar-dropdown {
       position: absolute; top: calc(100% + 10px); right: 0;
       background: var(--bg-card); border: 1px solid var(--border-primary);
-      border-radius: 6px; padding: 8px; min-width: 240px; z-index: 200;
+      border-radius: var(--r-xs); padding: 8px; min-width: 240px; z-index: 200;
       box-shadow: 0 8px 32px rgba(0,0,0,0.15);
       max-height: calc(100vh - 80px); overflow-y: auto;
     }
-    .dropdown-item { display: block; width: 100%; padding: 6px 8px; border-radius: 4px; color: var(--text-primary); font-size: 0.82rem; text-decoration: none; text-align: left; background: transparent; border: none; cursor: pointer; }
+    .dropdown-item { display: block; width: 100%; padding: 6px 8px; border-radius: var(--r-xs); color: var(--text-primary); font-size: 0.82rem; text-decoration: none; text-align: left; background: transparent; border: none; cursor: pointer; }
     .dropdown-item:hover { background: var(--bg-tertiary); }
     .dropdown-divider { height: 1px; background: var(--border-primary); margin: 6px 0; }
     .dropdown-label { font-size: 0.65rem; font-weight: 600; color: var(--text-muted); padding: 4px 8px 6px; }

@@ -20,7 +20,7 @@ const SidebarContainer = styled.aside`
   flex-shrink: 0;
   background: var(--bg-card);
   border: 1px solid var(--border-primary);
-  border-radius: 16px;
+  border-radius: var(--r-md);
   padding: 1.2rem 1rem;
 `;
 
@@ -44,7 +44,7 @@ const ToolItemStyled = styled.li`
   align-items: center;
   margin-bottom: 1.25rem;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: var(--r-sm);
   padding: 8px;
   transition: background-color 0.2s ease-in-out;
 
@@ -56,7 +56,7 @@ const ToolItemStyled = styled.li`
 const ToolLogo = styled.img`
   width: 36px;
   height: 36px;
-  border-radius: 6px;
+  border-radius: var(--r-xs);
   margin-right: 0.8rem;
   object-fit: cover;
   border: 1px solid var(--border-primary);

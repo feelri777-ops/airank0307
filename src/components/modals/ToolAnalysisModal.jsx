@@ -24,7 +24,7 @@ const ToolAnalysisModal = ({ tool, rank, onClose }) => {
         onClick={(e) => e.stopPropagation()}
         style={{
           background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-          borderRadius: "24px", padding: "1.5rem", width: "100%", maxWidth: "380px",
+          borderRadius: "var(--r-lg)", padding: "1.5rem", width: "100%", maxWidth: "380px",
           boxShadow: "0 24px 64px rgba(0,0,0,0.5)", position: "relative",
           maxHeight: "85vh", overflowY: "auto"
         }}
@@ -58,12 +58,12 @@ const ToolAnalysisModal = ({ tool, rank, onClose }) => {
                 display: "flex", flexDirection: "column", alignItems: "center", gap: "6px",
                 padding: "12px 8px",
                 background: "var(--bg-secondary)",
-                borderRadius: "12px",
+                borderRadius: "var(--r-md)",
               }}>
                 <img
                   src={`https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
                   alt={label}
-                  style={{ width: 24, height: 24, borderRadius: "6px", flexShrink: 0 }}
+                  style={{ width: 24, height: 24, borderRadius: "var(--r-xs)", flexShrink: 0 }}
                 />
                 <div style={{ fontSize: "0.6rem", color: "var(--text-muted)", fontWeight: 500 }}>{label}</div>
                 <div style={{ fontSize: "1.05rem", fontWeight: 800, color, lineHeight: 1, fontFamily: "'Outfit', sans-serif" }}>{value}</div>
@@ -72,14 +72,14 @@ const ToolAnalysisModal = ({ tool, rank, onClose }) => {
           })}
         </div>
 
-        <div style={{ padding: "12px 14px", background: "var(--bg-secondary)", borderRadius: "12px", marginBottom: "1.5rem", border: "1px solid var(--border-primary)", fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
+        <div style={{ padding: "12px 14px", background: "var(--bg-secondary)", borderRadius: "var(--r-md)", marginBottom: "1.5rem", border: "1px solid var(--border-primary)", fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
           위 데이터는 각 플랫폼 검색량·조회수·언급량을 종합한 <strong>실시간 인기 지표</strong>입니다 (0~100 정규화).
         </div>
 
         <button
           onClick={() => window.open(tool.url, "_blank")}
           style={{
-            width: "100%", padding: "14px", borderRadius: "14px",
+            width: "100%", padding: "14px", borderRadius: "var(--r-md)",
             background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))",
             color: "#fff", border: "none", fontWeight: 700, fontSize: "1rem", cursor: "pointer"
           }}

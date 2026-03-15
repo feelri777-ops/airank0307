@@ -56,7 +56,7 @@ export default function AdminCommunity() {
       <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "1.5rem" }}>
         {[{ id: "all", name: "전체" }, ...BOARDS].map(({ id, name }) => (
           <button key={id} onClick={() => setFilter(id)} style={{
-            padding: "6px 14px", borderRadius: "8px", fontSize: "0.82rem", fontWeight: 600,
+            padding: "6px 14px", borderRadius: "var(--r-sm)", fontSize: "0.82rem", fontWeight: 600,
             cursor: "pointer", border: "1px solid var(--border-primary)",
             background: filter === id ? "var(--accent-indigo)" : "var(--bg-card)",
             color: filter === id ? "#fff" : "var(--text-secondary)",
@@ -77,10 +77,10 @@ export default function AdminCommunity() {
             <div key={post.id} style={{
               display: "flex", alignItems: "center", gap: "12px",
               padding: "14px 16px", background: "var(--bg-card)",
-              border: "1px solid var(--border-primary)", borderRadius: "12px",
+              border: "1px solid var(--border-primary)", borderRadius: "var(--r-md)",
             }}>
               <span style={{
-                fontSize: "0.72rem", fontWeight: 700, padding: "3px 8px", borderRadius: "6px",
+                fontSize: "0.72rem", fontWeight: 700, padding: "3px 8px", borderRadius: "var(--r-xs)",
                 background: "rgba(99,102,241,0.1)", color: "var(--accent-indigo)", flexShrink: 0,
               }}>
                 {BOARD_MAP[post.board] || post.board}
@@ -105,7 +105,7 @@ export default function AdminCommunity() {
                 onClick={() => deletePost(post.id)}
                 disabled={deleting === post.id}
                 style={{
-                  padding: "6px 14px", borderRadius: "8px", fontSize: "0.8rem", fontWeight: 700,
+                  padding: "6px 14px", borderRadius: "var(--r-sm)", fontSize: "0.8rem", fontWeight: 700,
                   background: "rgba(239,68,68,0.1)", color: "#ef4444",
                   border: "1px solid #ef4444", cursor: "pointer", flexShrink: 0,
                   opacity: deleting === post.id ? 0.5 : 1,

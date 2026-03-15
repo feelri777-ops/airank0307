@@ -32,7 +32,7 @@ export default function AdminDashboard() {
         {STATS.map(({ label, col, icon, color }) => (
           <div key={col} style={{
             background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-            borderRadius: "16px", padding: "1.5rem",
+            borderRadius: "var(--r-md)", padding: "1.5rem",
             borderLeft: `4px solid ${color}`,
           }}>
             <div style={{ fontSize: "1.5rem", marginBottom: "8px" }}>{icon}</div>
@@ -44,7 +44,7 @@ export default function AdminDashboard() {
         ))}
       </div>
 
-      <div style={{ marginTop: "2rem", padding: "1.5rem", background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "16px" }}>
+      <div style={{ marginTop: "2rem", padding: "1.5rem", background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "var(--r-md)" }}>
         <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "1rem" }}>빠른 이동</h2>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           {[
@@ -53,7 +53,7 @@ export default function AdminDashboard() {
             { href: "/admin/users", label: "회원 관리 →", color: "#6366f1" },
           ].map(({ href, label, color }) => (
             <a key={href} href={href} style={{
-              padding: "10px 20px", borderRadius: "10px", fontSize: "0.9rem", fontWeight: 700,
+              padding: "10px 20px", borderRadius: "var(--r-sm)", fontSize: "0.9rem", fontWeight: 700,
               color, border: `1px solid ${color}`, background: `${color}15`,
               textDecoration: "none", transition: "all 0.15s",
             }}>

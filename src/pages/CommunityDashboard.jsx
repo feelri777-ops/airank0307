@@ -51,7 +51,7 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
       style={{
         background: "var(--bg-card)",
         border: "1px solid var(--border-primary)",
-        borderRadius: "16px",
+        borderRadius: "var(--r-md)",
         padding: "0.9rem 1rem",
         cursor: "pointer",
         transition: "all 0.2s",
@@ -73,7 +73,7 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
       {/* 헤더 */}
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
         <div style={{
-          width: 48, height: 48, borderRadius: "12px",
+          width: 48, height: 48, borderRadius: "var(--r-md)",
           background: `${board.color}18`,
           border: `1px solid ${board.color}30`,
           display: "flex", alignItems: "center", justifyContent: "center",
@@ -102,7 +102,7 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
             {totalCount !== null && (
               <span style={{
                 fontSize: "0.7rem", fontWeight: 700,
-                padding: "2px 8px", borderRadius: "20px",
+                padding: "2px 8px", borderRadius: "var(--r-lg)",
                 background: `${board.color}18`, color: board.color,
               }}>
                 {totalCount}개
@@ -280,7 +280,7 @@ export default function CommunityDashboard() {
           <button
             onClick={resetOrder}
             style={{
-              padding: "7px 14px", borderRadius: "8px", fontSize: "0.78rem", fontWeight: 600,
+              padding: "7px 14px", borderRadius: "var(--r-sm)", fontSize: "0.78rem", fontWeight: 600,
               border: "1px solid var(--border-primary)", background: "var(--bg-card)",
               color: "var(--text-muted)", cursor: "pointer", flexShrink: 0, marginTop: "4px",
             }}
@@ -317,7 +317,7 @@ export default function CommunityDashboard() {
                 transition: "opacity 0.15s",
                 borderTop: isOver && dropPosition === "before" ? "3px solid var(--accent-indigo)" : "3px solid transparent",
                 borderBottom: isOver && dropPosition === "after" ? "3px solid var(--accent-indigo)" : "3px solid transparent",
-                borderRadius: "2px",
+                borderRadius: "var(--r-xs)",
               }}
             >
               {/* 드래그 핸들 */}

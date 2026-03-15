@@ -22,27 +22,27 @@ const Label = styled.label`
 `;
 const Select = styled.select`
   width: 200px; padding: 0.55rem 0.85rem; border: 1px solid var(--border-primary);
-  border-radius: 8px; background: var(--bg-card); color: var(--text-primary);
+  border-radius: var(--r-sm); background: var(--bg-card); color: var(--text-primary);
   font-size: 0.9rem; cursor: pointer; outline: none;
   &:focus { border-color: var(--accent-indigo); }
 `;
 const TitleInput = styled.input`
   width: 100%; padding: 0.7rem 1rem; border: 1px solid var(--border-primary);
-  border-radius: 8px; background: var(--bg-card); color: var(--text-primary);
+  border-radius: var(--r-sm); background: var(--bg-card); color: var(--text-primary);
   font-size: 1rem; outline: none; box-sizing: border-box;
   &:focus { border-color: var(--accent-indigo); }
   &::placeholder { color: var(--text-muted); }
 `;
 const ButtonRow = styled.div`display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;`;
 const CancelButton = styled.button`
-  padding: 0.6rem 1.5rem; border: 1px solid var(--border-primary); border-radius: 8px;
+  padding: 0.6rem 1.5rem; border: 1px solid var(--border-primary); border-radius: var(--r-sm);
   background: transparent; color: var(--text-secondary); font-size: 0.9rem; cursor: pointer;
   transition: all 0.2s;
   &:hover { border-color: var(--text-secondary); color: var(--text-primary); }
 `;
 const SubmitButton = styled.button`
   padding: 0.6rem 1.75rem; background: var(--accent-gradient); color: #fff;
-  border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+  border: none; border-radius: var(--r-sm); font-size: 0.9rem; font-weight: 600;
   cursor: pointer; transition: opacity 0.2s;
   &:hover { opacity: 0.85; }
   &:disabled { opacity: 0.4; cursor: not-allowed; }

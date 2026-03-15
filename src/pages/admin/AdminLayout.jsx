@@ -36,7 +36,7 @@ export default function AdminLayout() {
             end={end}
             style={({ isActive }) => ({
               display: "flex", alignItems: "center", gap: "10px",
-              padding: "10px 12px", borderRadius: "10px",
+              padding: "10px 12px", borderRadius: "var(--r-sm)",
               fontSize: "0.9rem", fontWeight: isActive ? 700 : 500,
               color: isActive ? "var(--accent-indigo)" : "var(--text-secondary)",
               background: isActive ? "rgba(99,102,241,0.1)" : "transparent",
@@ -53,7 +53,7 @@ export default function AdminLayout() {
           <button
             onClick={() => navigate("/")}
             style={{
-              width: "100%", padding: "10px 12px", borderRadius: "10px",
+              width: "100%", padding: "10px 12px", borderRadius: "var(--r-sm)",
               border: "1px solid var(--border-primary)", background: "var(--bg-tertiary)",
               color: "var(--text-secondary)", fontSize: "0.85rem", fontWeight: 600,
               cursor: "pointer", textAlign: "left",

@@ -187,14 +187,14 @@ const UploadModal = ({ onClose, onUploaded }) => {
   };
 
   const iStyle = {
-    padding: "11px 14px", borderRadius: "12px",
+    padding: "11px 14px", borderRadius: "var(--r-md)",
     border: "1px solid var(--border-primary)", background: "var(--bg-secondary)",
     color: "var(--text-primary)", fontSize: "0.92rem", width: "100%",
     boxSizing: "border-box", fontFamily: "var(--font-main)", outline: "none",
   };
   const labelStyle = { fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "5px", display: "block" };
   const toggleBtn = (active) => ({
-    padding: "7px 16px", borderRadius: "20px", fontSize: "0.82rem", fontWeight: 600,
+    padding: "7px 16px", borderRadius: "var(--r-lg)", fontSize: "0.82rem", fontWeight: 600,
     cursor: "pointer", border: "1px solid",
     borderColor: active ? "var(--accent-indigo,#6366f1)" : "var(--border-primary)",
     background: active ? "rgba(99,102,241,0.15)" : "var(--bg-secondary)",
@@ -211,7 +211,7 @@ const UploadModal = ({ onClose, onUploaded }) => {
     }}>
       <div onClick={(e) => e.stopPropagation()} style={{
         background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-        borderRadius: "24px", padding: "2rem", width: "100%", maxWidth: "520px",
+        borderRadius: "var(--r-lg)", padding: "2rem", width: "100%", maxWidth: "520px",
         boxShadow: "0 24px 64px rgba(0,0,0,0.5)", position: "relative",
         display: "flex", flexDirection: "column", gap: "1.1rem",
         maxHeight: "90vh", overflowY: "auto",
@@ -234,12 +234,12 @@ const UploadModal = ({ onClose, onUploaded }) => {
             <label style={labelStyle}>이미지 *</label>
             <label style={{
               display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-              gap: "8px", border: "2px dashed var(--border-primary)", borderRadius: "16px",
+              gap: "8px", border: "2px dashed var(--border-primary)", borderRadius: "var(--r-md)",
               padding: "1.25rem", cursor: "pointer", minHeight: "130px",
               background: "var(--bg-secondary)", overflow: "hidden",
             }}>
               {preview ? (
-                <img src={preview} alt="preview" style={{ maxHeight: "180px", maxWidth: "100%", borderRadius: "8px", objectFit: "contain" }} />
+                <img src={preview} alt="preview" style={{ maxHeight: "180px", maxWidth: "100%", borderRadius: "var(--r-sm)", objectFit: "contain" }} />
               ) : (
                 <>
                   <span style={{ fontSize: "2rem" }}>📁</span>
@@ -310,7 +310,7 @@ const UploadModal = ({ onClose, onUploaded }) => {
               <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "8px" }}>
                 {tags.map((t) => (
                   <span key={t} style={{
-                    padding: "3px 10px", borderRadius: "16px", fontSize: "0.78rem",
+                    padding: "3px 10px", borderRadius: "var(--r-md)", fontSize: "0.78rem",
                     background: "rgba(99,102,241,0.15)", color: "var(--accent-indigo,#6366f1)",
                     border: "1px solid rgba(99,102,241,0.4)", cursor: "pointer",
                   }} onClick={() => setTags((prev) => prev.filter((x) => x !== t))}>
@@ -359,14 +359,14 @@ const UploadModal = ({ onClose, onUploaded }) => {
 
           {/* 프로그레스 + 에러 */}
           {uploading && (
-            <div style={{ background: "var(--bg-tertiary)", borderRadius: "8px", overflow: "hidden", height: "6px" }}>
+            <div style={{ background: "var(--bg-tertiary)", borderRadius: "var(--r-sm)", overflow: "hidden", height: "6px" }}>
               <div style={{ height: "100%", width: `${progress}%`, background: "linear-gradient(90deg, var(--accent-indigo), var(--accent-cyan))", transition: "width 0.3s" }} />
             </div>
           )}
           {error && <p style={{ color: "#ef4444", fontSize: "0.85rem", margin: 0, textAlign: "center" }}>{error}</p>}
 
           <button type="submit" disabled={uploading} style={{
-            padding: "14px", borderRadius: "14px",
+            padding: "14px", borderRadius: "var(--r-md)",
             background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))",
             color: "#fff", border: "none", fontWeight: 700, fontSize: "1rem",
             cursor: uploading ? "not-allowed" : "pointer", opacity: uploading ? 0.7 : 1,
@@ -467,7 +467,7 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
                 style={{
                   display: "flex", alignItems: "center", gap: "6px", flexShrink: 0,
                   background: liked ? "rgba(239,68,68,0.85)" : "rgba(255,255,255,0.2)",
-                  border: "none", borderRadius: "20px", padding: "6px 14px",
+                  border: "none", borderRadius: "var(--r-lg)", padding: "6px 14px",
                   color: "#fff", fontSize: "0.88rem", fontWeight: 700, cursor: "pointer",
                 }}
               >
@@ -483,14 +483,14 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
 
             {/* 배지: 모델명 + 출처 */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
-              {post.modelName && <span style={{ background: "rgba(99,102,241,0.85)", fontSize: "0.7rem", fontWeight: 700, padding: "2px 8px", borderRadius: "6px" }}>{post.modelName}</span>}
-              {post.source && <span style={{ background: "rgba(255,255,255,0.15)", fontSize: "0.7rem", fontWeight: 600, padding: "2px 8px", borderRadius: "6px" }}>{post.source === "self" ? "직접 제작" : "아카이빙"}</span>}
+              {post.modelName && <span style={{ background: "rgba(99,102,241,0.85)", fontSize: "0.7rem", fontWeight: 700, padding: "2px 8px", borderRadius: "var(--r-xs)" }}>{post.modelName}</span>}
+              {post.source && <span style={{ background: "rgba(255,255,255,0.15)", fontSize: "0.7rem", fontWeight: 600, padding: "2px 8px", borderRadius: "var(--r-xs)" }}>{post.source === "self" ? "직접 제작" : "아카이빙"}</span>}
             </div>
 
             {/* 태그 */}
             {post.tags?.length > 0 && (
               <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
-                {post.tags.map((t) => <span key={t} style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "2px 7px", borderRadius: "10px" }}>#{t}</span>)}
+                {post.tags.map((t) => <span key={t} style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "2px 7px", borderRadius: "var(--r-sm)" }}>#{t}</span>)}
               </div>
             )}
 
@@ -504,7 +504,7 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
                   style={{
                     marginTop: "8px", display: "flex", alignItems: "center", gap: "5px",
                     background: copied ? "rgba(34,197,94,0.3)" : "rgba(255,255,255,0.12)",
-                    border: "none", borderRadius: "16px", padding: "5px 12px",
+                    border: "none", borderRadius: "var(--r-md)", padding: "5px 12px",
                     color: "#fff", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer",
                   }}
                 >{copied ? "✓ 복사됨" : "📋 프롬프트 복사"}</button>
@@ -526,7 +526,7 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
           onClick={onClose}
           style={{
             maxHeight: "85vh", maxWidth: "70%", objectFit: "contain",
-            borderRadius: "16px", flexShrink: 0, cursor: "pointer",
+            borderRadius: "var(--r-md)", flexShrink: 0, cursor: "pointer",
           }}
         />
 
@@ -568,17 +568,17 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
           {/* 배지 행: 모델명 + 출처 + 공개범위 */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
             {post.modelName && (
-              <span style={{ background: "rgba(99,102,241,0.85)", fontSize: "0.76rem", fontWeight: 700, padding: "3px 10px", borderRadius: "8px" }}>
+              <span style={{ background: "rgba(99,102,241,0.85)", fontSize: "0.76rem", fontWeight: 700, padding: "3px 10px", borderRadius: "var(--r-sm)" }}>
                 {post.modelName}
               </span>
             )}
             {post.source && (
-              <span style={{ background: "rgba(255,255,255,0.15)", fontSize: "0.76rem", fontWeight: 600, padding: "3px 10px", borderRadius: "8px" }}>
+              <span style={{ background: "rgba(255,255,255,0.15)", fontSize: "0.76rem", fontWeight: 600, padding: "3px 10px", borderRadius: "var(--r-sm)" }}>
                 {post.source === "self" ? "직접 제작" : "아카이빙"}
               </span>
             )}
             {post.visibility && (
-              <span style={{ background: post.visibility === "public" ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)", fontSize: "0.76rem", fontWeight: 600, padding: "3px 10px", borderRadius: "8px" }}>
+              <span style={{ background: post.visibility === "public" ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)", fontSize: "0.76rem", fontWeight: 600, padding: "3px 10px", borderRadius: "var(--r-sm)" }}>
                 {post.visibility === "public" ? "전체 공개" : "비공개"}
               </span>
             )}
@@ -588,7 +588,7 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
           {post.tags?.length > 0 && (
             <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
               {post.tags.map((t) => (
-                <span key={t} style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.1)", padding: "2px 8px", borderRadius: "12px" }}>
+                <span key={t} style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.1)", padding: "2px 8px", borderRadius: "var(--r-md)" }}>
                   #{t}
                 </span>
               ))}
@@ -611,7 +611,7 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
             style={{
               display: "flex", alignItems: "center", gap: "8px", alignSelf: "flex-start",
               background: liked ? "rgba(239,68,68,0.85)" : "rgba(255,255,255,0.15)",
-              border: "none", borderRadius: "24px", padding: "8px 18px",
+              border: "none", borderRadius: "var(--r-lg)", padding: "8px 18px",
               color: "#fff", fontSize: "0.95rem", fontWeight: 700, cursor: "pointer",
               transition: "background 0.2s",
             }}
@@ -626,7 +626,7 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
               style={{
                 display: "flex", alignItems: "center", gap: "6px", alignSelf: "flex-start",
                 background: copied ? "rgba(34,197,94,0.3)" : "rgba(255,255,255,0.1)",
-                border: "1px solid rgba(255,255,255,0.15)", borderRadius: "20px", padding: "7px 16px",
+                border: "1px solid rgba(255,255,255,0.15)", borderRadius: "var(--r-lg)", padding: "7px 16px",
                 color: "#fff", fontSize: "0.84rem", fontWeight: 600, cursor: "pointer",
                 transition: "background 0.2s",
               }}
@@ -693,14 +693,14 @@ const EditModal = ({ post, onClose, onSaved }) => {
   };
 
   const iStyle = {
-    padding: "10px 14px", borderRadius: "12px",
+    padding: "10px 14px", borderRadius: "var(--r-md)",
     border: "1px solid var(--border-primary)", background: "var(--bg-secondary)",
     color: "var(--text-primary)", fontSize: "0.92rem", width: "100%",
     boxSizing: "border-box", fontFamily: "var(--font-main)", outline: "none",
   };
   const lStyle = { fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "5px", display: "block" };
   const tBtn = (active) => ({
-    padding: "7px 16px", borderRadius: "20px", fontSize: "0.82rem", fontWeight: 600,
+    padding: "7px 16px", borderRadius: "var(--r-lg)", fontSize: "0.82rem", fontWeight: 600,
     cursor: "pointer", border: "1px solid",
     borderColor: active ? "var(--accent-indigo,#6366f1)" : "var(--border-primary)",
     background: active ? "rgba(99,102,241,0.15)" : "var(--bg-secondary)",
@@ -716,7 +716,7 @@ const EditModal = ({ post, onClose, onSaved }) => {
     }}>
       <div onClick={(e) => e.stopPropagation()} style={{
         background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-        borderRadius: "24px", padding: "2rem", width: "100%", maxWidth: "480px",
+        borderRadius: "var(--r-lg)", padding: "2rem", width: "100%", maxWidth: "480px",
         boxShadow: "0 24px 64px rgba(0,0,0,0.5)", display: "flex", flexDirection: "column", gap: "1rem",
         maxHeight: "90vh", overflowY: "auto",
       }}>
@@ -725,7 +725,7 @@ const EditModal = ({ post, onClose, onSaved }) => {
           <button onClick={onClose} style={{ background: "var(--bg-tertiary)", border: "none", borderRadius: "50%", width: "32px", height: "32px", cursor: "pointer", color: "var(--text-muted)", fontSize: "1rem" }}>✕</button>
         </div>
         {/* 이미지 미리보기 */}
-        <img src={post.imageUrl} alt="" style={{ width: "100%", maxHeight: "160px", objectFit: "cover", borderRadius: "12px" }} />
+        <img src={post.imageUrl} alt="" style={{ width: "100%", maxHeight: "160px", objectFit: "cover", borderRadius: "var(--r-md)" }} />
         <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <div><label style={lStyle}>제목 *</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} style={iStyle} /></div>
           <div><label style={lStyle}>작가 노트 (선택)</label><textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} style={{ ...iStyle, resize: "vertical" }} placeholder="작품 설명, 제작 과정 등을 자유롭게 적어주세요." /></div>
@@ -750,7 +750,7 @@ const EditModal = ({ post, onClose, onSaved }) => {
             {tags.length > 0 && (
               <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "8px" }}>
                 {tags.map((t) => (
-                  <span key={t} onClick={() => setTags((p) => p.filter((x) => x !== t))} style={{ padding: "3px 10px", borderRadius: "16px", fontSize: "0.78rem", background: "rgba(99,102,241,0.15)", color: "var(--accent-indigo,#6366f1)", border: "1px solid rgba(99,102,241,0.4)", cursor: "pointer" }}>#{t} ✕</span>
+                  <span key={t} onClick={() => setTags((p) => p.filter((x) => x !== t))} style={{ padding: "3px 10px", borderRadius: "var(--r-md)", fontSize: "0.78rem", background: "rgba(99,102,241,0.15)", color: "var(--accent-indigo,#6366f1)", border: "1px solid rgba(99,102,241,0.4)", cursor: "pointer" }}>#{t} ✕</span>
                 ))}
               </div>
             )}
@@ -760,7 +760,7 @@ const EditModal = ({ post, onClose, onSaved }) => {
             <div><label style={lStyle}>출처</label><div style={{ display: "flex", gap: "6px" }}><button type="button" onClick={() => setSource("self")} style={tBtn(source === "self")}>직접 제작</button><button type="button" onClick={() => setSource("archive")} style={tBtn(source === "archive")}>아카이빙</button></div></div>
           </div>
           {error && <p style={{ color: "#ef4444", fontSize: "0.85rem", margin: 0, textAlign: "center" }}>{error}</p>}
-          <button type="submit" disabled={saving} style={{ padding: "13px", borderRadius: "14px", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", border: "none", fontWeight: 700, fontSize: "1rem", cursor: saving ? "not-allowed" : "pointer", opacity: saving ? 0.7 : 1 }}>
+          <button type="submit" disabled={saving} style={{ padding: "13px", borderRadius: "var(--r-md)", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", border: "none", fontWeight: 700, fontSize: "1rem", cursor: saving ? "not-allowed" : "pointer", opacity: saving ? 0.7 : 1 }}>
             {saving ? "저장 중..." : "저장"}
           </button>
         </form>
@@ -783,7 +783,7 @@ const GalleryCard = ({ post, onLike, onOpen, onEdit, onDelete }) => {
       onClick={onOpen}
       style={{
         breakInside: "avoid", marginBottom: "3px",
-        borderRadius: "16px", overflow: "hidden",
+        borderRadius: "var(--r-md)", overflow: "hidden",
         position: "relative", cursor: "pointer",
         background: "var(--bg-card)",
         border: "1px solid var(--border-primary)",
@@ -811,7 +811,7 @@ const GalleryCard = ({ post, onLike, onOpen, onEdit, onDelete }) => {
         {post.modelName && (
           <span style={{
             display: "inline-block", background: "rgba(99,102,241,0.85)", color: "#fff",
-            fontSize: "0.72rem", fontWeight: 700, padding: "3px 8px", borderRadius: "6px",
+            fontSize: "0.72rem", fontWeight: 700, padding: "3px 8px", borderRadius: "var(--r-xs)",
             marginBottom: "6px", alignSelf: "flex-start",
           }}>
             {post.modelName}
@@ -844,8 +844,8 @@ const GalleryCard = ({ post, onLike, onOpen, onEdit, onDelete }) => {
           <div style={{ display: "flex", gap: "4px" }}>
             {isOwner && (
               <>
-                <button onClick={(e) => { e.stopPropagation(); onEdit(post); }} style={{ background: "rgba(255,255,255,0.2)", border: "none", borderRadius: "16px", padding: "4px 8px", color: "#fff", fontSize: "0.75rem", cursor: "pointer" }}>✏️</button>
-                <button onClick={(e) => { e.stopPropagation(); onDelete(post); }} style={{ background: "rgba(239,68,68,0.7)", border: "none", borderRadius: "16px", padding: "4px 8px", color: "#fff", fontSize: "0.75rem", cursor: "pointer" }}>🗑️</button>
+                <button onClick={(e) => { e.stopPropagation(); onEdit(post); }} style={{ background: "rgba(255,255,255,0.2)", border: "none", borderRadius: "var(--r-md)", padding: "4px 8px", color: "#fff", fontSize: "0.75rem", cursor: "pointer" }}>✏️</button>
+                <button onClick={(e) => { e.stopPropagation(); onDelete(post); }} style={{ background: "rgba(239,68,68,0.7)", border: "none", borderRadius: "var(--r-md)", padding: "4px 8px", color: "#fff", fontSize: "0.75rem", cursor: "pointer" }}>🗑️</button>
               </>
             )}
             <button
@@ -853,7 +853,7 @@ const GalleryCard = ({ post, onLike, onOpen, onEdit, onDelete }) => {
               style={{
                 display: "flex", alignItems: "center", gap: "4px",
                 background: liked ? "rgba(239,68,68,0.85)" : "rgba(255,255,255,0.2)",
-                border: "none", borderRadius: "20px", padding: "4px 10px",
+                border: "none", borderRadius: "var(--r-lg)", padding: "4px 10px",
                 color: "#fff", fontSize: "0.8rem", fontWeight: 700, cursor: "pointer",
                 transition: "background 0.2s",
               }}
@@ -875,7 +875,7 @@ const SORT_OPTIONS = [
 ];
 
 const selectStyle = {
-  padding: "8px 32px 8px 14px", borderRadius: "20px", fontSize: "0.85rem", fontWeight: 600,
+  padding: "8px 32px 8px 14px", borderRadius: "var(--r-lg)", fontSize: "0.85rem", fontWeight: 600,
   border: "1px solid var(--border-primary)", background: "var(--bg-secondary)",
   color: "var(--text-primary)", cursor: "pointer", outline: "none",
   appearance: "none",
@@ -884,7 +884,7 @@ const selectStyle = {
 };
 
 const chipStyle = (active) => ({
-  padding: "5px 12px", borderRadius: "20px", fontSize: "0.82rem", fontWeight: 600,
+  padding: "5px 12px", borderRadius: "var(--r-lg)", fontSize: "0.82rem", fontWeight: 600,
   cursor: "pointer", border: "1px solid",
   borderColor: active ? "var(--accent-indigo, #6366f1)" : "var(--border-primary)",
   background: active ? "rgba(99,102,241,0.15)" : "var(--bg-secondary)",
@@ -1080,7 +1080,7 @@ export default function Gallery() {
         <button
           onClick={() => setShowLoginModal(true)}
           style={{
-            padding: "14px 40px", borderRadius: "16px",
+            padding: "14px 40px", borderRadius: "var(--r-md)",
             background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))",
             color: "#fff", border: "none", fontWeight: 700, fontSize: "1.05rem", cursor: "pointer",
           }}
@@ -1120,7 +1120,7 @@ export default function Gallery() {
             onFocus={() => { if (searchQuery.startsWith("#")) setShowTagDrop(true); }}
             style={{
               width: "100%", boxSizing: "border-box",
-              padding: "8px 12px", borderRadius: "10px",
+              padding: "8px 12px", borderRadius: "var(--r-sm)",
               border: "1px solid var(--border-primary)", background: "var(--bg-secondary)",
               color: "var(--text-primary)", fontSize: "0.83rem", outline: "none",
             }}
@@ -1134,7 +1134,7 @@ export default function Gallery() {
               <ul style={{
                 position: "absolute", top: "calc(100% + 6px)", left: 0, right: 0,
                 background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-                borderRadius: "14px", boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
+                borderRadius: "var(--r-md)", boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
                 listStyle: "none", margin: 0, padding: "6px",
                 maxHeight: "220px", overflowY: "auto", zIndex: 200,
               }}>
@@ -1143,7 +1143,7 @@ export default function Gallery() {
                     key={tag}
                     onMouseDown={(e) => { e.preventDefault(); handleTagClick(tag); }}
                     style={{
-                      padding: "8px 12px", borderRadius: "10px", cursor: "pointer",
+                      padding: "8px 12px", borderRadius: "var(--r-sm)", cursor: "pointer",
                       fontSize: "0.88rem", fontWeight: 600, color: "var(--text-primary)",
                       display: "flex", alignItems: "center", gap: "6px",
                       transition: "background 0.1s",
@@ -1162,7 +1162,7 @@ export default function Gallery() {
         <button
           onClick={() => setShowUpload(true)}
           style={{
-            padding: "8px 14px", borderRadius: "10px", flexShrink: 0,
+            padding: "8px 14px", borderRadius: "var(--r-sm)", flexShrink: 0,
             background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))",
             color: "#fff", border: "none", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer",
           }}

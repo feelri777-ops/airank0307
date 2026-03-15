@@ -80,7 +80,7 @@ export default function AdminUsers() {
         placeholder="이름 또는 이메일 검색…"
         style={{
           width: "100%", maxWidth: "360px", padding: "10px 14px",
-          borderRadius: "10px", border: "1px solid var(--border-primary)",
+          borderRadius: "var(--r-sm)", border: "1px solid var(--border-primary)",
           background: "var(--bg-card)", color: "var(--text-primary)",
           fontSize: "0.9rem", marginBottom: "1.5rem", boxSizing: "border-box",
         }}
@@ -97,7 +97,7 @@ export default function AdminUsers() {
                 display: "flex", alignItems: "center", gap: "12px",
                 padding: "14px 16px", background: "var(--bg-card)",
                 border: `1px solid ${isBanned ? "#ef4444" : "var(--border-primary)"}`,
-                borderRadius: "12px",
+                borderRadius: "var(--r-md)",
                 opacity: isBanned ? 0.75 : 1,
               }}>
                 <img
@@ -112,7 +112,7 @@ export default function AdminUsers() {
                       {user.displayName || "이름 없음"}
                     </span>
                     {isBanned && (
-                      <span style={{ fontSize: "0.7rem", fontWeight: 700, padding: "2px 7px", borderRadius: "5px", background: "rgba(239,68,68,0.1)", color: "#ef4444", border: "1px solid #ef4444" }}>
+                      <span style={{ fontSize: "0.7rem", fontWeight: 700, padding: "2px 7px", borderRadius: "var(--r-xs)", background: "rgba(239,68,68,0.1)", color: "#ef4444", border: "1px solid #ef4444" }}>
                         정지됨
                       </span>
                     )}
@@ -126,7 +126,7 @@ export default function AdminUsers() {
                     onClick={() => unbanUser(user.uid)}
                     disabled={processing === user.uid}
                     style={{
-                      padding: "7px 14px", borderRadius: "8px", fontSize: "0.8rem", fontWeight: 700,
+                      padding: "7px 14px", borderRadius: "var(--r-sm)", fontSize: "0.8rem", fontWeight: 700,
                       background: "rgba(16,185,129,0.1)", color: "#10b981",
                       border: "1px solid #10b981", cursor: "pointer", flexShrink: 0,
                       opacity: processing === user.uid ? 0.5 : 1,
@@ -139,7 +139,7 @@ export default function AdminUsers() {
                     onClick={() => banUser(user)}
                     disabled={processing === user.uid}
                     style={{
-                      padding: "7px 14px", borderRadius: "8px", fontSize: "0.8rem", fontWeight: 700,
+                      padding: "7px 14px", borderRadius: "var(--r-sm)", fontSize: "0.8rem", fontWeight: 700,
                       background: "rgba(239,68,68,0.1)", color: "#ef4444",
                       border: "1px solid #ef4444", cursor: "pointer", flexShrink: 0,
                       opacity: processing === user.uid ? 0.5 : 1,

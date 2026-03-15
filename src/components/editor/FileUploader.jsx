@@ -73,7 +73,7 @@ async function isNSFW(file) {
 /* ── styled ── */
 const Section = styled.div`
   border: 1px solid var(--border-primary);
-  border-radius: 10px; overflow: hidden; margin-bottom: 0.75rem;
+  border-radius: var(--r-sm); overflow: hidden; margin-bottom: 0.75rem;
 `;
 const SectionHeader = styled.div`
   display: flex; align-items: center; justify-content: space-between;
@@ -86,7 +86,7 @@ const UploadArea = styled.label`
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 6px; padding: 18px;
   border: 2px dashed var(--border-primary);
-  border-radius: 8px; margin: 10px;
+  border-radius: var(--r-sm); margin: 10px;
   cursor: pointer; transition: all 0.15s;
   color: var(--text-muted); font-size: 0.82rem; text-align: center;
   &:hover { border-color: var(--accent-indigo); background: var(--bg-secondary); color: var(--text-secondary); }
@@ -98,7 +98,7 @@ const PreviewGrid = styled.div`
   display: flex; flex-wrap: wrap; gap: 8px; padding: 10px;
 `;
 const ImageThumb = styled.div`
-  position: relative; width: 80px; height: 80px; border-radius: 8px; overflow: hidden;
+  position: relative; width: 80px; height: 80px; border-radius: var(--r-sm); overflow: hidden;
   border: 1px solid var(--border-primary);
   img { width: 100%; height: 100%; object-fit: cover; }
 `;
@@ -112,7 +112,7 @@ const RemoveBtn = styled.button`
 const AudioItem = styled.div`
   display: flex; align-items: center; gap: 10px;
   padding: 8px 12px 8px 10px; background: var(--bg-secondary);
-  border: 1px solid var(--border-primary); border-radius: 8px; margin: 0 10px 10px;
+  border: 1px solid var(--border-primary); border-radius: var(--r-sm); margin: 0 10px 10px;
   font-size: 0.82rem; color: var(--text-secondary);
 `;
 const AudioName = styled.span`flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;`;
@@ -123,10 +123,10 @@ const ProgressWrap = styled.div`
   border-top: 1px solid var(--border-primary);
 `;
 const ProgressBar = styled.div`
-  height: 4px; background: var(--bg-tertiary); border-radius: 4px; overflow: hidden;
+  height: 4px; background: var(--bg-tertiary); border-radius: var(--r-xs); overflow: hidden;
 `;
 const ProgressFill = styled.div`
-  height: 100%; border-radius: 4px; transition: width 0.15s;
+  height: 100%; border-radius: var(--r-xs); transition: width 0.15s;
   background: var(--accent-gradient);
   width: ${({ $pct }) => $pct}%;
 `;
@@ -137,7 +137,7 @@ const ProgressText = styled.div`
 const ErrorMsg = styled.div`
   margin: 6px 10px; padding: 7px 12px;
   background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
-  border-radius: 7px; font-size: 0.78rem; color: #ef4444;
+  border-radius: var(--r-xs); font-size: 0.78rem; color: #ef4444;
 `;
 const LimitInfo = styled.div`
   font-size: 0.72rem; color: var(--text-muted); font-weight: 400;
@@ -156,7 +156,7 @@ const DragOverlay = styled.div`
   pointer-events: none;
 `;
 const DragMsg = styled.div`
-  background: var(--bg-card); border-radius: 16px;
+  background: var(--bg-card); border-radius: var(--r-md);
   padding: 2rem 3rem; text-align: center;
   box-shadow: var(--shadow-lg);
   font-size: 1.1rem; font-weight: 700; color: var(--accent-indigo);

@@ -110,7 +110,7 @@ export function GalleryLightboxProvider({ children }) {
                           style={{
                             display: "flex", alignItems: "center", gap: "6px", flexShrink: 0,
                             background: post.likedBy?.includes(user.uid) ? "rgba(239,68,68,0.85)" : "rgba(255,255,255,0.2)",
-                            border: "none", borderRadius: "20px", padding: "6px 14px",
+                            border: "none", borderRadius: "var(--r-lg)", padding: "6px 14px",
                             color: "#fff", fontSize: "0.88rem", fontWeight: 700, cursor: "pointer",
                           }}
                         >{post.likedBy?.includes(user.uid) ? "♥" : "♡"} {post.likeCount || 0}</button>
@@ -121,13 +121,13 @@ export function GalleryLightboxProvider({ children }) {
                     {post.description && <p style={{ margin: 0, color: "rgba(255,255,255,0.78)", fontSize: "0.82rem", lineHeight: 1.55 }}>{post.description}</p>}
 
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
-                      {post.modelName && <span style={{ background: "rgba(99,102,241,0.85)", fontSize: "0.7rem", fontWeight: 700, padding: "2px 8px", borderRadius: "6px" }}>{post.modelName}</span>}
-                      {post.source && <span style={{ background: "rgba(255,255,255,0.15)", fontSize: "0.7rem", fontWeight: 600, padding: "2px 8px", borderRadius: "6px" }}>{post.source === "self" ? "직접 제작" : "아카이빙"}</span>}
+                      {post.modelName && <span style={{ background: "rgba(99,102,241,0.85)", fontSize: "0.7rem", fontWeight: 700, padding: "2px 8px", borderRadius: "var(--r-xs)" }}>{post.modelName}</span>}
+                      {post.source && <span style={{ background: "rgba(255,255,255,0.15)", fontSize: "0.7rem", fontWeight: 600, padding: "2px 8px", borderRadius: "var(--r-xs)" }}>{post.source === "self" ? "직접 제작" : "아카이빙"}</span>}
                     </div>
 
                     {post.tags?.length > 0 && (
                       <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
-                        {post.tags.map((t) => <span key={t} style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "2px 7px", borderRadius: "10px" }}>#{t}</span>)}
+                        {post.tags.map((t) => <span key={t} style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "2px 7px", borderRadius: "var(--r-sm)" }}>#{t}</span>)}
                       </div>
                     )}
 
@@ -140,7 +140,7 @@ export function GalleryLightboxProvider({ children }) {
                           style={{
                             marginTop: "8px", display: "flex", alignItems: "center", gap: "5px",
                             background: copied ? "rgba(34,197,94,0.3)" : "rgba(255,255,255,0.12)",
-                            border: "none", borderRadius: "16px", padding: "5px 12px",
+                            border: "none", borderRadius: "var(--r-md)", padding: "5px 12px",
                             color: "#fff", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer",
                           }}
                         >{copied ? "✓ 복사됨" : "📋 프롬프트 복사"}</button>
@@ -155,7 +155,7 @@ export function GalleryLightboxProvider({ children }) {
                     src={post.imageUrl}
                     alt={post.title || post.modelName || "AI 이미지"}
                     onClick={closeLightbox}
-                    style={{ maxHeight: "85vh", maxWidth: "70%", objectFit: "contain", borderRadius: "16px", flexShrink: 0, cursor: "pointer" }}
+                    style={{ maxHeight: "85vh", maxWidth: "70%", objectFit: "contain", borderRadius: "var(--r-md)", flexShrink: 0, cursor: "pointer" }}
                   />
 
                   <div onClick={(e) => e.stopPropagation()} style={{
@@ -174,14 +174,14 @@ export function GalleryLightboxProvider({ children }) {
                     </div>
 
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                      {post.modelName && <span style={{ background: "rgba(99,102,241,0.85)", fontSize: "0.76rem", fontWeight: 700, padding: "3px 10px", borderRadius: "8px" }}>{post.modelName}</span>}
-                      {post.source && <span style={{ background: "rgba(255,255,255,0.15)", fontSize: "0.76rem", fontWeight: 600, padding: "3px 10px", borderRadius: "8px" }}>{post.source === "self" ? "직접 제작" : "아카이빙"}</span>}
-                      {post.visibility && <span style={{ background: post.visibility === "public" ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)", fontSize: "0.76rem", fontWeight: 600, padding: "3px 10px", borderRadius: "8px" }}>{post.visibility === "public" ? "전체 공개" : "비공개"}</span>}
+                      {post.modelName && <span style={{ background: "rgba(99,102,241,0.85)", fontSize: "0.76rem", fontWeight: 700, padding: "3px 10px", borderRadius: "var(--r-sm)" }}>{post.modelName}</span>}
+                      {post.source && <span style={{ background: "rgba(255,255,255,0.15)", fontSize: "0.76rem", fontWeight: 600, padding: "3px 10px", borderRadius: "var(--r-sm)" }}>{post.source === "self" ? "직접 제작" : "아카이빙"}</span>}
+                      {post.visibility && <span style={{ background: post.visibility === "public" ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)", fontSize: "0.76rem", fontWeight: 600, padding: "3px 10px", borderRadius: "var(--r-sm)" }}>{post.visibility === "public" ? "전체 공개" : "비공개"}</span>}
                     </div>
 
                     {post.tags?.length > 0 && (
                       <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
-                        {post.tags.map((t) => <span key={t} style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.1)", padding: "2px 8px", borderRadius: "12px" }}>#{t}</span>)}
+                        {post.tags.map((t) => <span key={t} style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.1)", padding: "2px 8px", borderRadius: "var(--r-md)" }}>#{t}</span>)}
                       </div>
                     )}
 
@@ -198,7 +198,7 @@ export function GalleryLightboxProvider({ children }) {
                         style={{
                           display: "flex", alignItems: "center", gap: "8px", alignSelf: "flex-start",
                           background: post.likedBy?.includes(user.uid) ? "rgba(239,68,68,0.85)" : "rgba(255,255,255,0.15)",
-                          border: "none", borderRadius: "24px", padding: "8px 18px",
+                          border: "none", borderRadius: "var(--r-lg)", padding: "8px 18px",
                           color: "#fff", fontSize: "0.95rem", fontWeight: 700, cursor: "pointer",
                           transition: "background 0.2s",
                         }}
@@ -211,7 +211,7 @@ export function GalleryLightboxProvider({ children }) {
                         style={{
                           display: "flex", alignItems: "center", gap: "6px", alignSelf: "flex-start",
                           background: copied ? "rgba(34,197,94,0.3)" : "rgba(255,255,255,0.1)",
-                          border: "1px solid rgba(255,255,255,0.15)", borderRadius: "20px", padding: "7px 16px",
+                          border: "1px solid rgba(255,255,255,0.15)", borderRadius: "var(--r-lg)", padding: "7px 16px",
                           color: "#fff", fontSize: "0.84rem", fontWeight: 600, cursor: "pointer",
                           transition: "background 0.2s",
                         }}

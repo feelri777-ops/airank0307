@@ -78,7 +78,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => (
           alignItems: "center",
           gap: "4px",
           padding: "3px 8px",
-          borderRadius: "20px",
+          borderRadius: "var(--r-lg)",
           background: "var(--bg-card)",
           border: "1px solid var(--border-primary)",
           fontSize: "0.68rem",
@@ -90,7 +90,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => (
           <img
             src={`https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
             alt={label}
-            style={{ width: 12, height: 12, borderRadius: "3px" }}
+            style={{ width: 12, height: 12, borderRadius: "var(--r-xs)" }}
           />
           {label}
         </div>
@@ -141,7 +141,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => (
           style={{
             width: "100%",
             padding: "12px 16px 12px 42px",
-            borderRadius: "12px",
+            borderRadius: "var(--r-md)",
             border: "1px solid var(--border-primary)",
             background: "var(--bg-card)",
             color: "var(--text-primary)",
@@ -157,7 +157,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => (
         onClick={onOpenWizard}
         style={{
           padding: "12px 20px",
-          borderRadius: "12px",
+          borderRadius: "var(--r-md)",
           border: "none",
           background: "var(--accent-gradient)",
           color: "#fff",

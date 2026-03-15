@@ -40,7 +40,7 @@ const WizardModal = ({ isOpen, onClose, tools }) => {
         onClick={(e) => e.stopPropagation()}
         style={{
           background: "var(--bg-card)",
-          borderRadius: "20px",
+          borderRadius: "var(--r-lg)",
           border: "1px solid var(--border-primary)",
           padding: "1.5rem",
           maxWidth: "520px",
@@ -61,7 +61,7 @@ const WizardModal = ({ isOpen, onClose, tools }) => {
             </p>
           </div>
           <button onClick={() => { reset(); onClose(); }} style={{
-            width: "32px", height: "32px", borderRadius: "8px",
+            width: "32px", height: "32px", borderRadius: "var(--r-sm)",
             border: "1px solid var(--border-primary)", background: "transparent",
             color: "var(--text-secondary)", cursor: "pointer", fontSize: "1rem",
           }}>✕</button>
@@ -73,7 +73,7 @@ const WizardModal = ({ isOpen, onClose, tools }) => {
             <div key={s} style={{
               flex: 1,
               height: "4px",
-              borderRadius: "2px",
+              borderRadius: "var(--r-xs)",
               background: step >= s ? "var(--accent-indigo)" : "var(--border-primary)",
               transition: "background 0.3s",
             }} />
@@ -93,7 +93,7 @@ const WizardModal = ({ isOpen, onClose, tools }) => {
                   alignItems: "center",
                   gap: "12px",
                   padding: "12px 16px",
-                  borderRadius: "12px",
+                  borderRadius: "var(--r-md)",
                   border: `1px solid ${q1 === opt.value ? "var(--accent-indigo)" : "var(--border-primary)"}`,
                   background: q1 === opt.value ? "var(--tag-bg)" : "var(--bg-secondary)",
                   cursor: "pointer",
@@ -126,7 +126,7 @@ const WizardModal = ({ isOpen, onClose, tools }) => {
                   alignItems: "center",
                   gap: "12px",
                   padding: "12px 16px",
-                  borderRadius: "12px",
+                  borderRadius: "var(--r-md)",
                   border: "1px solid var(--border-primary)",
                   background: "var(--bg-secondary)",
                   cursor: "pointer",
@@ -146,7 +146,7 @@ const WizardModal = ({ isOpen, onClose, tools }) => {
             <button onClick={() => setStep(1)} style={{
               marginTop: "8px",
               padding: "8px 16px",
-              borderRadius: "8px",
+              borderRadius: "var(--r-sm)",
               border: "1px solid var(--border-primary)",
               background: "transparent",
               color: "var(--text-secondary)",
@@ -167,7 +167,7 @@ const WizardModal = ({ isOpen, onClose, tools }) => {
                   alignItems: "center",
                   gap: "12px",
                   padding: "14px 16px",
-                  borderRadius: "12px",
+                  borderRadius: "var(--r-md)",
                   border: "1px solid var(--border-primary)",
                   background: "var(--bg-secondary)",
                   animation: "fadeInUp 0.3s ease forwards",
@@ -189,7 +189,7 @@ const WizardModal = ({ isOpen, onClose, tools }) => {
             <button onClick={reset} style={{
               marginTop: "8px",
               padding: "10px 16px",
-              borderRadius: "8px",
+              borderRadius: "var(--r-sm)",
               border: "none",
               background: "var(--accent-gradient)",
               color: "#fff",

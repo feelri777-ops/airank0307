@@ -27,11 +27,11 @@ const BackButton = styled.button`
 `;
 const PostCard = styled.article`
   background: var(--bg-card); border: 1px solid var(--border-primary);
-  border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem;
+  border-radius: var(--r-md); padding: 2rem; margin-bottom: 1.5rem;
 `;
 const PostHeaderRow = styled.div`display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem;`;
 const CategoryBadge = styled.span`
-  font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 4px;
+  font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: var(--r-xs);
   background: ${({ $cat }) => CATEGORY_COLORS[$cat]?.bg || "#e2e8f0"};
   color: ${({ $cat }) => CATEGORY_COLORS[$cat]?.color || "#475569"};
   [data-theme="dark"] & {
@@ -58,7 +58,7 @@ const AuthorName = styled.span`font-size: 0.875rem; font-weight: 600; color: var
 const PostInfo = styled.span`font-size: 0.775rem; color: var(--text-muted);`;
 const OwnerActions = styled.div`margin-left: auto; display: flex; gap: 0.5rem;`;
 const SmallButton = styled.button`
-  padding: 0.35rem 0.85rem; border: 1px solid var(--border-primary); border-radius: 6px;
+  padding: 0.35rem 0.85rem; border: 1px solid var(--border-primary); border-radius: var(--r-xs);
   background: transparent; color: var(--text-muted); font-size: 0.8rem; cursor: pointer; transition: all 0.15s;
   &:hover {
     border-color: ${({ $danger }) => ($danger ? "#ef4444" : "var(--accent-indigo)")};
@@ -69,8 +69,8 @@ const MarkdownContent = styled.div`
   color: var(--text-primary); font-size: 0.95rem; line-height: 1.85; min-height: 60px;
   h1, h2, h3, h4 { color: var(--text-primary); margin: 1.25rem 0 0.5rem; font-family: "Outfit", sans-serif; }
   p { margin: 0.6rem 0; }
-  code { background: var(--bg-tertiary); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; font-family: monospace; }
-  pre { background: var(--bg-tertiary); padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 0.75rem 0; }
+  code { background: var(--bg-tertiary); padding: 0.15rem 0.4rem; border-radius: var(--r-xs); font-size: 0.85em; font-family: monospace; }
+  pre { background: var(--bg-tertiary); padding: 1rem; border-radius: var(--r-sm); overflow-x: auto; margin: 0.75rem 0; }
   pre code { background: none; padding: 0; }
   blockquote { border-left: 3px solid var(--accent-indigo); margin: 0.75rem 0; padding: 0.25rem 0 0.25rem 1rem; color: var(--text-secondary); }
   a { color: var(--accent-indigo); text-decoration: underline; }
@@ -80,7 +80,7 @@ const MarkdownContent = styled.div`
   table { border-collapse: collapse; width: 100%; margin: 0.75rem 0; }
   th, td { border: 1px solid var(--border-primary); padding: 0.4rem 0.75rem; font-size: 0.875rem; text-align: left; }
   th { background: var(--bg-tertiary); font-weight: 600; }
-  img { max-width: 100%; border-radius: 6px; }
+  img { max-width: 100%; border-radius: var(--r-xs); }
   strong { font-weight: 700; } em { font-style: italic; } del { text-decoration: line-through; color: var(--text-muted); }
 `;
 const ActionBar = styled.div`
@@ -90,7 +90,7 @@ const ActionBar = styled.div`
 const LikeButton = styled.button`
   display: flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.5rem;
   border: 1px solid ${({ $liked }) => ($liked ? "#ef4444" : "var(--border-primary)")};
-  border-radius: 24px;
+  border-radius: var(--r-lg);
   background: ${({ $liked }) => ($liked ? "rgba(239,68,68,0.08)" : "transparent")};
   color: ${({ $liked }) => ($liked ? "#ef4444" : "var(--text-muted)")};
   font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
@@ -99,13 +99,13 @@ const LikeButton = styled.button`
 `;
 const CommentsSection = styled.div`
   background: var(--bg-card); border: 1px solid var(--border-primary);
-  border-radius: 12px; padding: 1.5rem;
+  border-radius: var(--r-md); padding: 1.5rem;
 `;
 const CommentSectionTitle = styled.h3`font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 1.25rem;`;
 const CommentForm = styled.form`display: flex; gap: 0.75rem; margin-bottom: 1.5rem; align-items: flex-start;`;
 const CommentTextarea = styled.textarea`
   flex: 1; padding: 0.65rem 0.9rem; border: 1px solid var(--border-primary);
-  border-radius: 8px; background: var(--bg-secondary); color: var(--text-primary);
+  border-radius: var(--r-sm); background: var(--bg-secondary); color: var(--text-primary);
   font-size: 0.9rem; font-family: "Pretendard", sans-serif; resize: none; min-height: 72px;
   outline: none; line-height: 1.6;
   &:focus { border-color: var(--accent-indigo); }
@@ -113,7 +113,7 @@ const CommentTextarea = styled.textarea`
 `;
 const CommentSubmitButton = styled.button`
   padding: 0.6rem 1.1rem; background: var(--accent-gradient); color: #fff; border: none;
-  border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  border-radius: var(--r-sm); font-size: 0.85rem; font-weight: 600; cursor: pointer;
   white-space: nowrap; transition: opacity 0.2s;
   &:hover { opacity: 0.85; } &:disabled { opacity: 0.4; cursor: not-allowed; }
 `;

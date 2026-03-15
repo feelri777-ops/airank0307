@@ -45,7 +45,7 @@ const RightSidebar = () => {
       {/* 뉴스 피드 */}
       <div style={{
         background: "var(--bg-card)",
-        borderRadius: "16px",
+        borderRadius: "var(--r-md)",
         border: "1px solid var(--border-primary)",
         padding: "1.2rem",
         boxShadow: "var(--shadow-card)",
@@ -93,7 +93,7 @@ const RightSidebar = () => {
       {/* 갤러리 최신 이미지 */}
       <div style={{
         background: "var(--bg-card)",
-        borderRadius: "16px",
+        borderRadius: "var(--r-md)",
         border: "1px solid var(--border-primary)",
         padding: "1.2rem",
         boxShadow: "var(--shadow-card)",
@@ -122,12 +122,12 @@ const RightSidebar = () => {
               <button
                 key={post.id}
                 onClick={() => openLightbox(post)}
-                style={{ background: "none", border: "none", padding: 0, cursor: "pointer", borderRadius: "10px", overflow: "hidden", aspectRatio: "1", position: "relative" }}
+                style={{ background: "none", border: "none", padding: 0, cursor: "pointer", borderRadius: "var(--r-sm)", overflow: "hidden", aspectRatio: "1", position: "relative" }}
               >
                 <img
                   src={post.imageUrl}
                   alt={post.prompt || ""}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", borderRadius: "10px", transition: "transform 0.2s ease" }}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", borderRadius: "var(--r-sm)", transition: "transform 0.2s ease" }}
                   onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.05)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
                 />

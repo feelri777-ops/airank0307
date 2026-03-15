@@ -82,7 +82,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
         <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
           {!iconError && faviconUrl ? (
             <img src={faviconUrl} alt={tool.name} width={36} height={36}
-              style={{ borderRadius: "8px", objectFit: "contain", flexShrink: 0 }}
+              style={{ borderRadius: "var(--r-sm)", objectFit: "contain", flexShrink: 0 }}
               onError={() => setIconError(true)} />
           ) : (
             <span style={{ fontSize: "1.6rem", flexShrink: 0 }}>{tool.icon}</span>
@@ -117,7 +117,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
           <div style={{ display: "flex", gap: "3px", flexWrap: "wrap" }}>
             {tool.tags.filter(t => t !== "무료" && t !== "유료").map((tag) => (
               <span key={tag} style={{
-                fontSize: "0.81rem", padding: "3px 9px", borderRadius: "7px",
+                fontSize: "0.81rem", padding: "3px 9px", borderRadius: "var(--r-xs)",
                 background: "var(--tag-bg)", color: "var(--tag-color)",
                 border: "1px solid var(--tag-border)", fontWeight: 500,
                 fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
@@ -135,8 +135,8 @@ const ToolCard = ({ tool, rank, onClick }) => {
       </div>
 
       {/* 프로그레스 바 */}
-      <div style={{ height: "3px", borderRadius: "2px", background: "rgba(128,128,128,0.15)", overflow: "hidden" }}>
-        <div style={{ width: `${progress}%`, height: "100%", borderRadius: "2px", background: "linear-gradient(90deg, #22c55e, #4ade80)", transition: "width 0.6s ease" }} />
+      <div style={{ height: "3px", borderRadius: "var(--r-xs)", background: "rgba(128,128,128,0.15)", overflow: "hidden" }}>
+        <div style={{ width: `${progress}%`, height: "100%", borderRadius: "var(--r-xs)", background: "linear-gradient(90deg, #22c55e, #4ade80)", transition: "width 0.6s ease" }} />
       </div>
     </>
   );
@@ -146,7 +146,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
   if (!isTop3) {
     return (
       <div onClick={onClick} style={{
-        borderRadius: "16px",
+        borderRadius: "var(--r-md)",
         animation: `fadeInUp 0.4s ease forwards`,
         animationDelay: `${Math.min(rank, 20) * 0.04}s`,
         opacity: 0,
@@ -170,7 +170,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
       onClick={onClick} 
       className="rank-card-glow"
       style={{
-        borderRadius: "16px",
+        borderRadius: "var(--r-md)",
         padding: "1rem 1.1rem",
         background: RANK_BG[rank] || "var(--bg-card)",
         border: `1px solid var(--border-primary)`,

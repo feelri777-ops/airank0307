@@ -48,7 +48,7 @@ const ThumbCard = ({ post, onClick, isMobile }) => (
   <div
     onClick={onClick}
     style={{
-      borderRadius: "12px", overflow: "hidden", cursor: "pointer",
+      borderRadius: "var(--r-md)", overflow: "hidden", cursor: "pointer",
       border: "1px solid var(--border-primary)",
       background: "var(--bg-card)",
       transition: "transform 0.15s, box-shadow 0.15s",
@@ -74,7 +74,7 @@ const ThumbCard = ({ post, onClick, isMobile }) => (
 const StatCard = ({ label, value, icon }) => (
   <div style={{
     background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-    borderRadius: "16px", padding: "16px 20px",
+    borderRadius: "var(--r-md)", padding: "16px 20px",
     display: "flex", flexDirection: "column", gap: "6px", flex: "1 1 120px",
   }}>
     <span style={{ fontSize: "1.3rem" }}>{icon}</span>
@@ -198,7 +198,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
       {/* 프로필 카드 */}
       <div style={{
         background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-        borderRadius: "20px", padding: isMobile ? "20px 16px" : "24px",
+        borderRadius: "var(--r-lg)", padding: isMobile ? "20px 16px" : "24px",
         display: "flex", gap: "16px", alignItems: "flex-start",
         flexDirection: isMobile ? "column" : "row", flexWrap: "wrap",
       }}>
@@ -241,7 +241,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
                     onChange={(e) => { setNewName(e.target.value); setNickError(""); }}
                     onKeyDown={(e) => { if (e.key === "Enter") handleSaveName(); if (e.key === "Escape") { setEditingName(false); setNickError(""); } }}
                     placeholder="2~12자, 한글·영문·숫자"
-                    style={{ padding: "6px 12px", borderRadius: "10px", flex: 1, minWidth: "120px", border: "1px solid var(--border-primary)", background: "var(--bg-secondary)", color: "var(--text-primary)", fontSize: "0.9rem", outline: "none" }}
+                    style={{ padding: "6px 12px", borderRadius: "var(--r-sm)", flex: 1, minWidth: "120px", border: "1px solid var(--border-primary)", background: "var(--bg-secondary)", color: "var(--text-primary)", fontSize: "0.9rem", outline: "none" }}
                     autoFocus
                   />
                   <button onClick={handleSaveName} disabled={saving} style={btnStyle("indigo")}>{saving ? "저장 중..." : "저장"}</button>
@@ -288,12 +288,12 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
       {/* 아바타 선택 모달 */}
       {showAvatarPicker && (
         <div onClick={() => setShowAvatarPicker(false)} style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,0.6)", backdropFilter: "blur(10px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
-          <div onClick={(e) => e.stopPropagation()} style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "20px", padding: "20px", width: "100%", maxWidth: "440px", display: "flex", flexDirection: "column", gap: "14px", maxHeight: "90vh", overflowY: "auto" }}>
+          <div onClick={(e) => e.stopPropagation()} style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "var(--r-lg)", padding: "20px", width: "100%", maxWidth: "440px", display: "flex", flexDirection: "column", gap: "14px", maxHeight: "90vh", overflowY: "auto" }}>
             <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 800, color: "var(--text-primary)" }}>프로필 사진 변경</h3>
 
             {/* 개인 사진 업로드 */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", background: "var(--bg-secondary)", borderRadius: "12px", border: "1px solid var(--border-primary)" }}>
-              <label style={{ display: "inline-flex", alignItems: "center", gap: "7px", padding: "7px 14px", borderRadius: "10px", border: "1px solid var(--border-primary)", background: "var(--bg-card)", cursor: "pointer", fontSize: "0.82rem", fontWeight: 600, color: "var(--text-primary)", flexShrink: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", background: "var(--bg-secondary)", borderRadius: "var(--r-md)", border: "1px solid var(--border-primary)" }}>
+              <label style={{ display: "inline-flex", alignItems: "center", gap: "7px", padding: "7px 14px", borderRadius: "var(--r-sm)", border: "1px solid var(--border-primary)", background: "var(--bg-card)", cursor: "pointer", fontSize: "0.82rem", fontWeight: 600, color: "var(--text-primary)", flexShrink: 0 }}>
                 📷 내 사진 업로드
                 <input type="file" accept="image/*" onChange={handleAvatarFileChange} style={{ display: "none" }} />
               </label>
@@ -308,7 +308,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
                     key={i}
                     onClick={() => setAvatarTab(i)}
                     style={{
-                      padding: "5px 10px", borderRadius: "20px", border: "1px solid",
+                      padding: "5px 10px", borderRadius: "var(--r-lg)", border: "1px solid",
                       borderColor: avatarTab === i ? "var(--accent-indigo, #6366f1)" : "var(--border-primary)",
                       background: avatarTab === i ? "rgba(99,102,241,0.12)" : "var(--bg-secondary)",
                       color: avatarTab === i ? "var(--accent-indigo, #6366f1)" : "var(--text-muted)",
@@ -431,7 +431,7 @@ const NewsBookmarkSection = ({ newsBookmarks, toggleNewsBookmark, isMobile }) =>
               key={b.id}
               style={{
                 background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-                borderRadius: "14px", padding: isMobile ? "14px 14px" : "16px 18px",
+                borderRadius: "var(--r-md)", padding: isMobile ? "14px 14px" : "16px 18px",
                 display: "flex", gap: "12px", alignItems: "flex-start",
               }}
             >
@@ -449,7 +449,7 @@ const NewsBookmarkSection = ({ newsBookmarks, toggleNewsBookmark, isMobile }) =>
                 style={{
                   flexShrink: 0, background: "none", border: "none", cursor: "pointer",
                   color: "#ef4444", fontSize: "1rem", padding: "2px 4px",
-                  borderRadius: "6px", lineHeight: 1,
+                  borderRadius: "var(--r-xs)", lineHeight: 1,
                 }}
               >
                 🗑
@@ -501,7 +501,7 @@ const ToolBookmarkSection = ({ user, isMobile }) => {
                 onClick={() => handleOpen(b.toolId)}
                 style={{
                   background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-                  borderRadius: "14px", padding: isMobile ? "14px" : "16px 18px",
+                  borderRadius: "var(--r-md)", padding: isMobile ? "14px" : "16px 18px",
                   display: "flex", gap: "12px", alignItems: "center",
                   cursor: "pointer", transition: "background 0.15s",
                 }}
@@ -513,7 +513,7 @@ const ToolBookmarkSection = ({ user, isMobile }) => {
                   {desc && <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{desc}</div>}
                 </div>
                 {category && (
-                  <span style={{ flexShrink: 0, fontSize: "0.7rem", fontWeight: 600, color: "var(--accent-indigo, #6366f1)", background: "rgba(99,102,241,0.1)", padding: "3px 8px", borderRadius: "20px" }}>
+                  <span style={{ flexShrink: 0, fontSize: "0.7rem", fontWeight: 600, color: "var(--accent-indigo, #6366f1)", background: "rgba(99,102,241,0.1)", padding: "3px 8px", borderRadius: "var(--r-lg)" }}>
                     {category}
                   </span>
                 )}
@@ -560,7 +560,7 @@ const CommunitySection = ({ user, isMobile }) => {
 
   const tabStyle = (active) => ({
     padding: isMobile ? "7px 16px" : "8px 20px",
-    borderRadius: "20px", fontSize: "0.83rem", fontWeight: 700,
+    borderRadius: "var(--r-lg)", fontSize: "0.83rem", fontWeight: 700,
     cursor: "pointer", border: "1px solid",
     borderColor: active ? "var(--accent-indigo, #6366f1)" : "var(--border-primary)",
     background: active ? "rgba(99,102,241,0.12)" : "var(--bg-secondary)",
@@ -586,7 +586,7 @@ const CommunitySection = ({ user, isMobile }) => {
               onClick={() => navigate(`/community/${p.id}`)}
               style={{
                 background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-                borderRadius: "12px", padding: isMobile ? "12px 14px" : "14px 16px", cursor: "pointer",
+                borderRadius: "var(--r-md)", padding: isMobile ? "12px 14px" : "14px 16px", cursor: "pointer",
                 transition: "background 0.15s",
               }}
               onMouseEnter={(e) => e.currentTarget.style.background = "var(--bg-secondary)"}
@@ -599,7 +599,7 @@ const CommunitySection = ({ user, isMobile }) => {
                   return board ? (
                     <span style={{
                       fontSize: "0.68rem", fontWeight: 700, flexShrink: 0,
-                      padding: "2px 8px", borderRadius: "20px",
+                      padding: "2px 8px", borderRadius: "var(--r-lg)",
                       background: `${board.color}18`, color: board.color,
                       border: `1px solid ${board.color}30`,
                     }}>
@@ -626,7 +626,7 @@ const CommunitySection = ({ user, isMobile }) => {
               onClick={() => c.postId && navigate(`/community/${c.postId}`)}
               style={{
                 background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-                borderRadius: "12px", padding: isMobile ? "12px 14px" : "14px 16px",
+                borderRadius: "var(--r-md)", padding: isMobile ? "12px 14px" : "14px 16px",
                 cursor: c.postId ? "pointer" : "default",
                 transition: "background 0.15s",
               }}
@@ -667,7 +667,7 @@ const Empty = ({ msg, link, linkText }) => (
 
 const btnStyle = (variant, size = "md") => {
   const base = {
-    border: "none", borderRadius: "10px", cursor: "pointer", fontWeight: 600,
+    border: "none", borderRadius: "var(--r-sm)", cursor: "pointer", fontWeight: 600,
     padding: size === "sm" ? "4px 10px" : "8px 16px",
     fontSize: size === "sm" ? "0.78rem" : "0.88rem",
     transition: "all 0.15s",
@@ -817,7 +817,7 @@ export default function Dashboard() {
       <aside style={{
         width: "220px", flexShrink: 0,
         background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-        borderRadius: "20px", display: "flex", flexDirection: "column",
+        borderRadius: "var(--r-lg)", display: "flex", flexDirection: "column",
         height: "fit-content", position: "sticky", top: "80px",
       }}>
         {/* 유저 정보 */}
@@ -843,7 +843,7 @@ export default function Dashboard() {
               onClick={() => setSection(m.id)}
               style={{
                 display: "flex", alignItems: "center", gap: "10px",
-                padding: "10px 12px", borderRadius: "10px", border: "none", cursor: "pointer",
+                padding: "10px 12px", borderRadius: "var(--r-sm)", border: "none", cursor: "pointer",
                 background: section === m.id ? "rgba(99,102,241,0.12)" : "transparent",
                 color: section === m.id ? "var(--accent-indigo, #6366f1)" : "var(--text-secondary)",
                 fontWeight: section === m.id ? 700 : 500,
@@ -900,7 +900,7 @@ const DeleteModal = ({ deletePassword, setDeletePassword, deleteError, deleting,
       onClick={(e) => e.stopPropagation()}
       style={{
         background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-        borderRadius: "20px", padding: "28px", width: "100%", maxWidth: "400px",
+        borderRadius: "var(--r-lg)", padding: "28px", width: "100%", maxWidth: "400px",
         display: "flex", flexDirection: "column", gap: "16px",
       }}
     >
@@ -914,7 +914,7 @@ const DeleteModal = ({ deletePassword, setDeletePassword, deleteError, deleting,
         value={deletePassword}
         onChange={(e) => setDeletePassword(e.target.value)}
         style={{
-          padding: "10px 14px", borderRadius: "12px",
+          padding: "10px 14px", borderRadius: "var(--r-md)",
           border: "1px solid var(--border-primary)", background: "var(--bg-secondary)",
           color: "var(--text-primary)", fontSize: "0.92rem", outline: "none",
         }}
@@ -924,13 +924,13 @@ const DeleteModal = ({ deletePassword, setDeletePassword, deleteError, deleting,
         <button
           onClick={onConfirm}
           disabled={deleting}
-          style={{ background: "rgba(239,68,68,0.12)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "10px", cursor: "pointer", fontWeight: 600, padding: "8px 16px", fontSize: "0.88rem", flex: 1 }}
+          style={{ background: "rgba(239,68,68,0.12)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "var(--r-sm)", cursor: "pointer", fontWeight: 600, padding: "8px 16px", fontSize: "0.88rem", flex: 1 }}
         >
           {deleting ? "처리 중..." : "탈퇴 확인"}
         </button>
         <button
           onClick={onClose}
-          style={{ background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", borderRadius: "10px", cursor: "pointer", fontWeight: 600, padding: "8px 16px", fontSize: "0.88rem", flex: 1 }}
+          style={{ background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", borderRadius: "var(--r-sm)", cursor: "pointer", fontWeight: 600, padding: "8px 16px", fontSize: "0.88rem", flex: 1 }}
         >
           취소
         </button>

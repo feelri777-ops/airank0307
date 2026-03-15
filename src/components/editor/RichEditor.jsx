@@ -19,7 +19,7 @@ const Toolbar = styled.div`
   padding: 6px 10px;
   background: var(--bg-tertiary);
   border: 1px solid var(--border-primary);
-  border-radius: 10px 10px 0 0;
+  border-radius: var(--r-sm) 10px 0 0;
   border-bottom: none;
   user-select: none;
 `;
@@ -27,7 +27,7 @@ const Toolbar = styled.div`
 const TB = styled.button`
   display: flex; align-items: center; justify-content: center;
   min-width: 30px; height: 30px; padding: 0 7px;
-  border: none; border-radius: 6px; background: ${({ $active }) => $active ? "var(--bg-card)" : "transparent"};
+  border: none; border-radius: var(--r-xs); background: ${({ $active }) => $active ? "var(--bg-card)" : "transparent"};
   color: ${({ $active }) => $active ? "var(--text-primary)" : "var(--text-secondary)"};
   font-size: 0.8rem; font-weight: 700; cursor: pointer;
   transition: all 0.12s; white-space: nowrap;
@@ -77,18 +77,18 @@ const EditorArea = styled.div`
   }
   pre {
     background: var(--bg-tertiary); padding: 0.9rem 1rem;
-    border-radius: 8px; overflow-x: auto; font-size: 0.875rem;
+    border-radius: var(--r-sm); overflow-x: auto; font-size: 0.875rem;
     border: 1px solid var(--border-primary); margin: 0.5rem 0;
     white-space: pre-wrap; word-break: break-word;
   }
   code {
     background: var(--bg-tertiary); padding: 0.15rem 0.4rem;
-    border-radius: 4px; font-size: 0.875em;
+    border-radius: var(--r-xs); font-size: 0.875em;
     font-family: "Fira Code", "Courier New", monospace;
   }
   a { color: var(--accent-indigo); text-decoration: underline; }
   hr { border: none; border-top: 1px solid var(--border-primary); margin: 0.8rem 0; }
-  img { max-width: 100%; width: auto; height: auto; border-radius: 8px; display: block; }
+  img { max-width: 100%; width: auto; height: auto; border-radius: var(--r-sm); display: block; }
 `;
 
 /* 버블 메뉴 */
@@ -96,7 +96,7 @@ const Bubble = styled.div`
   position: absolute; z-index: 200;
   display: flex; align-items: center; gap: 2px;
   padding: 5px 7px;
-  background: #1a1a1a; border-radius: 8px;
+  background: #1a1a1a; border-radius: var(--r-sm);
   box-shadow: 0 4px 16px rgba(0,0,0,0.3);
   transform: translateX(-50%);
   animation: fadeIn 0.12s ease;
@@ -105,7 +105,7 @@ const Bubble = styled.div`
 const BB = styled.button`
   display: flex; align-items: center; justify-content: center;
   min-width: 26px; height: 26px; padding: 0 5px;
-  border: none; border-radius: 5px; background: transparent;
+  border: none; border-radius: var(--r-xs); background: transparent;
   color: #e0e0e0; font-size: 0.78rem; font-weight: 700; cursor: pointer;
   transition: all 0.1s;
   &:hover { background: rgba(255,255,255,0.12); color: #fff; }
@@ -118,7 +118,7 @@ const EmojiPanel = styled.div`
   top: calc(100% + 4px); right: 0;
   background: var(--bg-card);
   border: 1px solid var(--border-primary);
-  border-radius: 10px;
+  border-radius: var(--r-sm);
   box-shadow: var(--shadow-lg);
   padding: 10px;
   display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px;
@@ -126,7 +126,7 @@ const EmojiPanel = styled.div`
 `;
 const EmojiBtn = styled.button`
   font-size: 1.25rem; border: none; background: transparent;
-  border-radius: 6px; cursor: pointer; padding: 4px;
+  border-radius: var(--r-xs); cursor: pointer; padding: 4px;
   transition: background 0.1s;
   &:hover { background: var(--bg-tertiary); }
 `;
@@ -137,7 +137,7 @@ const LinkDialog = styled.div`
   top: calc(100% + 4px); left: 50%; transform: translateX(-50%);
   background: var(--bg-card);
   border: 1px solid var(--border-primary);
-  border-radius: 10px;
+  border-radius: var(--r-sm);
   box-shadow: var(--shadow-lg);
   padding: 14px 16px;
   display: flex; flex-direction: column; gap: 8px;
@@ -145,14 +145,14 @@ const LinkDialog = styled.div`
 `;
 const LinkInput = styled.input`
   width: 100%; padding: 0.5rem 0.75rem;
-  border: 1px solid var(--border-primary); border-radius: 7px;
+  border: 1px solid var(--border-primary); border-radius: var(--r-xs);
   background: var(--bg-secondary); color: var(--text-primary);
   font-size: 0.875rem; outline: none; box-sizing: border-box;
   &:focus { border-color: var(--accent-indigo); }
 `;
 const LinkRow = styled.div`display: flex; gap: 8px; justify-content: flex-end;`;
 const LinkActionBtn = styled.button`
-  padding: 0.4rem 0.9rem; border-radius: 7px; border: none;
+  padding: 0.4rem 0.9rem; border-radius: var(--r-xs); border: none;
   font-size: 0.8rem; font-weight: 600; cursor: pointer;
   background: ${({ $primary }) => $primary ? "var(--accent-gradient)" : "var(--bg-tertiary)"};
   color: ${({ $primary }) => $primary ? "#fff" : "var(--text-secondary)"};

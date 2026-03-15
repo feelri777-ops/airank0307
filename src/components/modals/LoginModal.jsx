@@ -95,7 +95,7 @@ const LoginModal = ({ onClose }) => {
         onClick={(e) => e.stopPropagation()}
         style={{
           background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-          borderRadius: "32px", padding: "2.5rem 2rem 2rem", width: "100%", maxWidth: "380px",
+          borderRadius: "var(--r-lg)", padding: "2.5rem 2rem 2rem", width: "100%", maxWidth: "380px",
           boxShadow: "0 32px 80px rgba(0,0,0,0.6)", position: "relative",
           display: "flex", flexDirection: "column", gap: "1.5rem",
         }}
@@ -115,7 +115,7 @@ const LoginModal = ({ onClose }) => {
 
         {message && (
           <div style={{
-            padding: "12px", borderRadius: "12px", background: "rgba(34,197,94,0.1)",
+            padding: "12px", borderRadius: "var(--r-md)", background: "rgba(34,197,94,0.1)",
             color: "#22c55e", fontSize: "0.85rem", textAlign: "center", border: "1px solid #22c55e"
           }}>
             {message}
@@ -129,7 +129,7 @@ const LoginModal = ({ onClose }) => {
                 type="text" placeholder="닉네임 (2~12자, 한글·영문·숫자)" value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                style={{ padding: "15px", borderRadius: "14px", border: "1px solid var(--border-primary)", background: "var(--bg-secondary)", color: "var(--text-primary)", fontSize: "1rem" }}
+                style={{ padding: "15px", borderRadius: "var(--r-md)", border: "1px solid var(--border-primary)", background: "var(--bg-secondary)", color: "var(--text-primary)", fontSize: "1rem" }}
               />
             </div>
           )}
@@ -137,13 +137,13 @@ const LoginModal = ({ onClose }) => {
             type="email" placeholder="이메일 주소" value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ padding: "15px", borderRadius: "14px", border: "1px solid var(--border-primary)", background: "var(--bg-secondary)", color: "var(--text-primary)", fontSize: "1rem" }}
+            style={{ padding: "15px", borderRadius: "var(--r-md)", border: "1px solid var(--border-primary)", background: "var(--bg-secondary)", color: "var(--text-primary)", fontSize: "1rem" }}
           />
           <input
             type="password" placeholder="비밀번호" value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ padding: "15px", borderRadius: "14px", border: "1px solid var(--border-primary)", background: "var(--bg-secondary)", color: "var(--text-primary)", fontSize: "1rem" }}
+            style={{ padding: "15px", borderRadius: "var(--r-md)", border: "1px solid var(--border-primary)", background: "var(--bg-secondary)", color: "var(--text-primary)", fontSize: "1rem" }}
           />
 
           {error && (
@@ -165,14 +165,14 @@ const LoginModal = ({ onClose }) => {
             <button
               type="submit"
               style={{
-                padding: "16px", borderRadius: "16px",
+                padding: "16px", borderRadius: "var(--r-md)",
                 background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))",
                 color: "#fff", border: "none", fontWeight: 700, fontSize: "1.1rem", cursor: "pointer"
               }}
             >
               {isRegister ? "가입 완료 (인증 메일 발송)" : "로그인"}
             </button>
-            <button type="button" onClick={onClose} style={{ padding: "15px", borderRadius: "16px", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600, fontSize: "1rem", cursor: "pointer" }}>
+            <button type="button" onClick={onClose} style={{ padding: "15px", borderRadius: "var(--r-md)", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600, fontSize: "1rem", cursor: "pointer" }}>
               취소
             </button>
           </div>
