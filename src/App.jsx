@@ -16,8 +16,6 @@ import CommunityWrite from "./pages/CommunityWrite";
 import Gallery from "./pages/Gallery";
 import Dashboard from "./pages/Dashboard";
 import Directory from "./pages/Directory";
-import Prompt from "./pages/Prompt";
-import SeedPosts from "./pages/SeedPosts";
 import TreemapPage from "./pages/TreemapPage";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -73,8 +71,6 @@ export default function App() {
                   <Route path="community/:board/:postId/edit" element={<CommunityWrite />} />
                   <Route path="gallery" element={<Gallery />} />
                   <Route path="directory" element={<Directory />} />
-                  <Route path="prompt" element={<Prompt />} />
-                  <Route path="seed" element={<SeedPosts />} />
                   <Route path="treemap" element={<TreemapPage />} />
                   <Route path="dashboard" element={<Dashboard />} />
                 </Route>
