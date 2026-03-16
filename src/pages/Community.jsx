@@ -104,7 +104,15 @@ const CommentCount = styled.span`font-size: 0.78rem; color: var(--accent-indigo)
 
 const PostMeta = styled.span`
   font-size: 0.78rem; color: var(--text-muted); text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
   @media (max-width: 600px) { display: none; }
+`;
+const DesktopAvatar = styled.img`
+  width: 22px; height: 22px; border-radius: 50%; object-fit: cover;
+`;
+const DesktopFallback = styled.div`
+  width: 22px; height: 22px; border-radius: 50%; background: var(--accent-gradient);
+  display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: #fff;
 `;
 
 const LikeCount = styled.span`
@@ -253,7 +261,14 @@ export default function Community() {
                 <PostTitle style={{ fontWeight: 600 }}>{post.title}</PostTitle>
                 {post.commentCount > 0 && <CommentCount>[{post.commentCount}]</CommentCount>}
               </PostTitleCell>
-              <PostMeta style={{ textAlign: "center" }}>{post.displayName || "익명"}</PostMeta>
+              <PostMeta>
+                {post.photoURL ? (
+                  <DesktopAvatar src={post.photoURL} alt="" />
+                ) : (
+                  <DesktopFallback>{(post.displayName || "?")[0]}</DesktopFallback>
+                )}
+                {post.displayName || "익명"}
+              </PostMeta>
               <PostMeta style={{ textAlign: "center" }}>{formatRelativeTime(post.createdAt)}</PostMeta>
               <LikeCount>♥ {post.likeCount || 0}</LikeCount>
               <MobilePostMeta style={{ marginTop: "4px" }}>
