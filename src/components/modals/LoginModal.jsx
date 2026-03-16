@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 const NICK_REGEX = /^[가-힣a-zA-Z0-9]{2,12}$/;
 
 const LoginModal = ({ onClose }) => {
-  const { loginWithEmail, registerWithEmail, resendVerificationEmail, loginWithNaver, loginWithKakao } = useAuth();
+  const { loginWithEmail, registerWithEmail, resendVerificationEmail } = useAuth();
   const [isRegister, setIsRegister] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,29 +24,6 @@ const LoginModal = ({ onClose }) => {
       setMessage("인증 메일을 재발송했습니다. 메일함을 확인해주세요.");
     } catch {
       setError("재발송 실패. 이메일/비밀번호를 확인해주세요.");
-    }
-  };
-
-  const handleSocialLogin = async (provider) => {
-    setError("");
-    setMessage("");
-    try {
-      if (provider === 'naver') {
-        await loginWithNaver();
-      } else if (provider === 'kakao') {
-        await loginWithKakao();
-      }
-      onClose();
-    } catch (err) {
-      console.error("소셜 로그인 오류:", err);
-      const code = err.code || err.message;
-      setError(
-        code.includes("popup-closed-by-user")
-          ? "로그인이 취소되었습니다." :
-        code.includes("cancelled")
-          ? "로그인이 취소되었습니다." :
-        "로그인 중 오류가 발생했습니다. 다시 시도해주세요."
-      );
     }
   };
 
@@ -200,46 +177,6 @@ const LoginModal = ({ onClose }) => {
             </button>
           </div>
         </form>
-
-        {!isRegister && (
-          <>
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "10px 0" }}>
-              <div style={{ flex: 1, height: "1px", background: "var(--border-primary)" }}></div>
-              <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>또는</span>
-              <div style={{ flex: 1, height: "1px", background: "var(--border-primary)" }}></div>
-            </div>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              <button
-                type="button"
-                onClick={() => handleSocialLogin('naver')}
-                style={{
-                  padding: "14px", borderRadius: "var(--r-md)",
-                  background: "#03C75A", color: "#fff",
-                  border: "none", fontWeight: 700, fontSize: "1rem", cursor: "pointer",
-                  display: "flex", alignItems: "center", justifyContent: "center", gap: "8px"
-                }}
-              >
-                <span style={{ fontSize: "1.2rem", fontWeight: 900 }}>N</span>
-                네이버로 로그인
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleSocialLogin('kakao')}
-                style={{
-                  padding: "14px", borderRadius: "var(--r-md)",
-                  background: "#FEE500", color: "#000000",
-                  border: "none", fontWeight: 700, fontSize: "1rem", cursor: "pointer",
-                  display: "flex", alignItems: "center", justifyContent: "center", gap: "8px"
-                }}
-              >
-                <span style={{ fontSize: "1.2rem" }}>💬</span>
-                카카오로 로그인
-              </button>
-            </div>
-          </>
-        )}
 
         <p style={{ textAlign: "center", margin: 0, fontSize: "0.95rem", color: "var(--text-muted)" }}>
           {isRegister ? "이미 계정이 있으신가요?" : "처음이신가요?"} {" "}
