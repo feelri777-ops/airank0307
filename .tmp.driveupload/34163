@@ -1,0 +1,111 @@
+0000000000000000000000000000000000000000 1fe98e08e54178e238bf785e24c9eefbd9198a85 feekri <feekri@feelri.local> 1773452141 +0900	clone: from https://github.com/feelri777-ops/airank0307.git
+1fe98e08e54178e238bf785e24c9eefbd9198a85 a2e769fb87acad26ca1c2b7c8ad9d0f687e772e8 feekri <feekri@feelri.local> 1773464955 +0900	commit: fix: 점수상세 상하폭 축소 + 스파크라인 바 크기 확대
+a2e769fb87acad26ca1c2b7c8ad9d0f687e772e8 c9189ff5468dcd08766611b3f3f3326d31cc7617 feekri <feekri@feelri.local> 1773465403 +0900	pull origin main --rebase (start): checkout c9189ff5468dcd08766611b3f3f3326d31cc7617
+c9189ff5468dcd08766611b3f3f3326d31cc7617 ccf52a3f92af9f2814c8d2b8d70d2b1d0137d4d4 feekri <feekri@feelri.local> 1773465403 +0900	pull origin main --rebase (pick): fix: 점수상세 상하폭 축소 + 스파크라인 바 크기 확대
+ccf52a3f92af9f2814c8d2b8d70d2b1d0137d4d4 ccf52a3f92af9f2814c8d2b8d70d2b1d0137d4d4 feekri <feekri@feelri.local> 1773465403 +0900	pull origin main --rebase (finish): returning to refs/heads/main
+ccf52a3f92af9f2814c8d2b8d70d2b1d0137d4d4 9343406696c185c10350fa8a6407d486ee1fc76d feekri <feekri@feelri.local> 1773465813 +0900	commit: fix: 점수상세 라벨 영문화 + 종합점수 폰트 강조 + 색상 중복 제거
+9343406696c185c10350fa8a6407d486ee1fc76d d8bd07062e425223e9abb2539176a1bd79fbb751 feekri <feekri@feelri.local> 1773466060 +0900	commit: fix: 점수상세 타이틀 제거 + 간격 최소화 + 스파크바 가로 확장
+d8bd07062e425223e9abb2539176a1bd79fbb751 18a8fa4df69d621c5ffca56bf4c7d43ae4831862 feekri <feekri@feelri.local> 1773466271 +0900	commit: feat: 종합점수 앞에 ⭐ 아이콘 추가
+18a8fa4df69d621c5ffca56bf4c7d43ae4831862 e449c60f91c33fc735ae639c97aae1ac2983444b feekri <feekri@feelri.local> 1773466702 +0900	commit: feat: 카드2 튜토리얼 상단 이동 + 아이콘 제거 + 썸네일 확대 + 함께쓰면좋은툴 아이콘/폰트 개선
+e449c60f91c33fc735ae639c97aae1ac2983444b 9ce3c8e720c01cee9fbdf846e679218b4242a02c feekri <feekri@feelri.local> 1773467242 +0900	commit: feat: 테마변경 버튼 Navbar → Dashboard 사이드바 하단으로 이동
+9ce3c8e720c01cee9fbdf846e679218b4242a02c c2661129089ec6b4628fdda3c83cf611e13976df feekri <feekri@feelri.local> 1773467464 +0900	commit: fix: 모바일 대시보드 탭바 우측에 테마 버튼 추가
+c2661129089ec6b4628fdda3c83cf611e13976df 4c4b744d4c2d6ea21f41689fc35e93829cbf3a0b feekri <feekri@feelri.local> 1773467707 +0900	commit: fix: 모바일 테마 버튼 드롭다운 방향 수정 (dropUp 제거 + overflow visible)
+4c4b744d4c2d6ea21f41689fc35e93829cbf3a0b 1e1acde5b6c3d25de6223857d23305d33e7f410b feekri <feekri@feelri.local> 1773468714 +0900	commit: feat: 조선 테마 제거
+1e1acde5b6c3d25de6223857d23305d33e7f410b c82dac0adc207dcc7f20ca055c81df5ce3a738c3 feekri <feekri@feelri.local> 1773469486 +0900	commit: feat: 커뮤니티 대시보드 + 4개 게시판(ChatGPT/Gemini/Claude/오픈소스) 구조로 개편
+c82dac0adc207dcc7f20ca055c81df5ce3a738c3 9637227b1149c22b488aef8641850f5d5d3433da feekri <feekri@feelri.local> 1773470496 +0900	commit: feat: AI 로고 적용 + 마크다운 툴바 + 후기 카테고리 삭제 + 라이트 테마 브라운 크림 개편
+9637227b1149c22b488aef8641850f5d5d3433da 11f2e1a81ea6283ef84f9b970ecfa2e72b1dcf2a feekri <feekri@feelri.local> 1773470997 +0900	commit: fix: 라이트 테마 보라색 제거 + 브라운 계열 강조색 & 배경 강화
+11f2e1a81ea6283ef84f9b970ecfa2e72b1dcf2a da3c23bcb15016f538b34485cad64d5fec0dd52f feekri <feekri@feelri.local> 1773471382 +0900	commit: fix: 히어로 플랫폼 로고 YouTube→X 수정 (실제 점수 소스와 일치)
+da3c23bcb15016f538b34485cad64d5fec0dd52f dfd799c80b00bf2361a16d80812215fcd7e0e985 feekri <feekri@feelri.local> 1773472000 +0900	commit: feat: WYSIWYG 리치 에디터 구현 (버블 메뉴 + 이모지 + 링크 + 글자수)
+dfd799c80b00bf2361a16d80812215fcd7e0e985 3899f6a0b1507547d5f28037f3fc351b7b7514d8 feekri <feekri@feelri.local> 1773472859 +0900	commit: feat: 이미지·오디오 업로드 + NSFW AI 필터 + 봇 방지 rate limit
+3899f6a0b1507547d5f28037f3fc351b7b7514d8 bdd34d89700a865f8b46a92617e1cf30e50e2c4c feekri <feekri@feelri.local> 1773480636 +0900	commit: feat: 이미지·오디오 업로드 + NSFW AI 필터 + 봇 방지 rate limit
+bdd34d89700a865f8b46a92617e1cf30e50e2c4c e2a56ecdde10a6b986cb9f106bce8d274172559d feekri <feekri@feelri.local> 1773480644 +0900	pull origin main --rebase (start): checkout e2a56ecdde10a6b986cb9f106bce8d274172559d
+e2a56ecdde10a6b986cb9f106bce8d274172559d 3144fc36f1eee20afb01f59d8425bde98ca039ac feekri <feekri@feelri.local> 1773480644 +0900	pull origin main --rebase (pick): feat: 이미지·오디오 업로드 + NSFW AI 필터 + 봇 방지 rate limit
+3144fc36f1eee20afb01f59d8425bde98ca039ac 3144fc36f1eee20afb01f59d8425bde98ca039ac feekri <feekri@feelri.local> 1773480644 +0900	pull origin main --rebase (finish): returning to refs/heads/main
+3144fc36f1eee20afb01f59d8425bde98ca039ac e6ac0b6af44716975d00dd874678616e50cc62b9 feekri <feekri@feelri.local> 1773481302 +0900	commit: fix: 에디터 이미지 업로드 시 레이아웃 깨짐 수정 (overflow hidden + img max-width)
+e6ac0b6af44716975d00dd874678616e50cc62b9 cd5e74e4e308db0d20d54ae09a6e40064826571e feekri <feekri@feelri.local> 1773481510 +0900	commit: fix: Community 게시판 헤더 boardInfo.icon → logo 대응
+cd5e74e4e308db0d20d54ae09a6e40064826571e c78461367378a84a0cde6e99c6574a494c5c55b9 feekri <feekri@feelri.local> 1773482665 +0900	commit: feat: 커뮤니티 게시판 Grok·NotebookLM 추가
+c78461367378a84a0cde6e99c6574a494c5c55b9 38d630f43175a9a4ecaccf8c0ce4f5eb59d6ca89 feekri <feekri@feelri.local> 1773483041 +0900	commit: fix: NotebookLM 로고 gstatic 직접 URL로 교체 + 로고 오버라이드 시스템 추가
+38d630f43175a9a4ecaccf8c0ce4f5eb59d6ca89 a184b1c0a35ac439e3f1951950b3aa5a41557296 feekri <feekri@feelri.local> 1773483318 +0900	commit: fix: tools.js 중복 툴 11개 제거 (Devin, Lovable, Amazon Q, Aider, Hailuo AI, Veed.io, InVideo AI, AIVA, Soundraw, Consensus, Adobe Podcast)
+a184b1c0a35ac439e3f1951950b3aa5a41557296 3504728d20faa444cc1e079691d63ccb0f1fcd6a feekri <feekri@feelri.local> 1773483609 +0900	commit: fix: NotebookLM 로고 favicon API 도메인 수정 (notebooklm.google)
+3504728d20faa444cc1e079691d63ccb0f1fcd6a ffeaf2eac846d5e7c14d353d52335a31d2ed4578 feekri <feekri@feelri.local> 1773483879 +0900	commit: feat: 랭킹 배지 이모지 제거 + 컬러 숫자 2배 크기 + 전날 랭킹 표시 (5›1 형식)
+ffeaf2eac846d5e7c14d353d52335a31d2ed4578 2350da7a53047b7ae238be8233dd502fa0e7ea72 feekri <feekri@feelri.local> 1773484470 +0900	commit: fix: isTop3 변수 미정의로 인한 흰 화면 버그 수정
+2350da7a53047b7ae238be8233dd502fa0e7ea72 3b3f26f89d1b1d622f728c1befc47af593f234f5 feekri <feekri@feelri.local> 1773484875 +0900	commit: feat: 툴카드 현재 랭킹만 표시 + 상세카드 툴명 옆 전날>오늘 랭킹 뱃지
+3b3f26f89d1b1d622f728c1befc47af593f234f5 ed37ac36a0e288cd99d8585d43cf9dc8dd0394da feekri <feekri@feelri.local> 1773485180 +0900	commit: feat: 커뮤니티 게시판 추가 — Copilot, Perplexity, Midjourney, Cursor, 자유게시판
+ed37ac36a0e288cd99d8585d43cf9dc8dd0394da 7028335aef8bb80dcba3c0d8f2e382c5793563fd feekri <feekri@feelri.local> 1773485399 +0900	commit: feat: 오픈소스 게시판 → AI 언더독으로 이름 변경
+7028335aef8bb80dcba3c0d8f2e382c5793563fd 0b4dc9395061c5c112d003d2957c950ecc9a3b96 feekri <feekri@feelri.local> 1773485713 +0900	commit: feat: 테마 토글 버튼 로그인 버튼 오른쪽에 배치
+0b4dc9395061c5c112d003d2957c950ecc9a3b96 d6bf942951fa0ac5a3ff8c0422e03c15138ed127 feekri <feekri@feelri.local> 1773486401 +0900	commit: feat: 관리자 페이지 구현 — 대시보드/커뮤니티/갤러리/회원 관리 + 정지 차단 로직
+d6bf942951fa0ac5a3ff8c0422e03c15138ed127 50ef2bb85bf2253c64a881f244769a2a5254c036 feekri <feekri@feelri.local> 1773486407 +0900	pull --rebase (start): checkout 50ef2bb85bf2253c64a881f244769a2a5254c036
+50ef2bb85bf2253c64a881f244769a2a5254c036 3e4e39fbff879cee1e4a9748848a30b9caaf6855 feekri <feekri@feelri.local> 1773486407 +0900	pull --rebase (pick): feat: 관리자 페이지 구현 — 대시보드/커뮤니티/갤러리/회원 관리 + 정지 차단 로직
+3e4e39fbff879cee1e4a9748848a30b9caaf6855 3e4e39fbff879cee1e4a9748848a30b9caaf6855 feekri <feekri@feelri.local> 1773486407 +0900	pull --rebase (finish): returning to refs/heads/main
+3e4e39fbff879cee1e4a9748848a30b9caaf6855 34cf1c31d2c3d2147d8e3321cdb3b62caf8e7f9b feekri <feekri@feelri.local> 1773486512 +0900	commit: fix: 관리자 UID 설정
+34cf1c31d2c3d2147d8e3321cdb3b62caf8e7f9b 42ac890d75387e2902bc813969cfe04e60ab5a64 feekri <feekri@feelri.local> 1773487532 +0900	commit: fix: 커뮤니티 모바일 카드 잘림 수정
+42ac890d75387e2902bc813969cfe04e60ab5a64 be6c5c95ef1be81706da9ceba8474d2a5d657ff2 feekri <feekri@feelri.local> 1773488306 +0900	commit: feat: 커뮤니티 게시판 순서 드래그앤드롭 + 테마 아이콘 3단계 수정 + 툴게시판 이동 버튼
+be6c5c95ef1be81706da9ceba8474d2a5d657ff2 33f36e2533d5c581dbdf5ad45e7190d3ace0e551 feekri <feekri@feelri.local> 1773488795 +0900	commit: feat: 커뮤니티 게시판 드래그 미리보기 — 삽입 위치 실시간 표시 + 최상단 이동 수정
+33f36e2533d5c581dbdf5ad45e7190d3ace0e551 5b5b064ebd129346e7575f137a8c165310b63d1a feekri <feekri@feelri.local> 1773489729 +0900	commit: fix: 커뮤니티 모바일 좌우 여백 최소화
+5b5b064ebd129346e7575f137a8c165310b63d1a 6300f8374218c211cdd08a2210a480b44037f6ac feekri <feekri@feelri.local> 1773490247 +0900	commit: feat: 정렬 옵션 개편 — 종합/구글/네이버/X점수높은순 + 이름순
+6300f8374218c211cdd08a2210a480b44037f6ac 22580421dbdceab1f33031ffa69814d8b403b745 feekri <feekri@feelri.local> 1773490807 +0900	commit: feat: 순위 폰트 크기 차등 + 1~3위 발광 효과
+22580421dbdceab1f33031ffa69814d8b403b745 19598c6e7adc4914fb27dfc52011a19d9fa0d473 feekri <feekri@feelri.local> 1773491010 +0900	commit: feat: 1~3위 순위 숫자 반짝이는 애니메이션 효과
+19598c6e7adc4914fb27dfc52011a19d9fa0d473 2894f532eb6b285be9382575ec213ada5a2ed42a feekri <feekri@feelri.local> 1773491202 +0900	commit: feat: 유튜브 수집 상위 50개로 확대 + 기존 데이터 무조건 갱신
+2894f532eb6b285be9382575ec213ada5a2ed42a 993b013c0d19df92cc3661db0811d732762e6b0d feekri <feekri@feelri.local> 1773492669 +0900	commit: feat: 유튜브 검색 폴백 추가 — 한국어 실패 시 언어 제한 없이 영어 tutorial 재시도
+993b013c0d19df92cc3661db0811d732762e6b0d 86972d259b5da7aec611ca4f861539ad4dd26fd7 feekri <feekri@feelri.local> 1773492677 +0900	pull --rebase (start): checkout 86972d259b5da7aec611ca4f861539ad4dd26fd7
+86972d259b5da7aec611ca4f861539ad4dd26fd7 64dcfc68687baf14961d2ac005af22c37aa64e20 feekri <feekri@feelri.local> 1773492677 +0900	pull --rebase (pick): feat: 유튜브 검색 폴백 추가 — 한국어 실패 시 언어 제한 없이 영어 tutorial 재시도
+64dcfc68687baf14961d2ac005af22c37aa64e20 64dcfc68687baf14961d2ac005af22c37aa64e20 feekri <feekri@feelri.local> 1773492677 +0900	pull --rebase (finish): returning to refs/heads/main
+64dcfc68687baf14961d2ac005af22c37aa64e20 a69d71b821803d29f6f09d9068bc1ce3de6f842c feekri <feekri@feelri.local> 1773498086 +0900	commit: feat: 커뮤니티 게시판 6개 추가 (Stable Diffusion, Runway, Suno, Windsurf, Notion AI, Sora) + 더미 게시물 30개
+a69d71b821803d29f6f09d9068bc1ce3de6f842c 67681481e1d743ad45cacb2172bcbbbbdb8e9076 feekri <feekri@feelri.local> 1773498338 +0900	pull --rebase (start): checkout 67681481e1d743ad45cacb2172bcbbbbdb8e9076
+67681481e1d743ad45cacb2172bcbbbbdb8e9076 d49781600ea9fed8c3521b5c35c5bcba02888d75 feekri <feekri@feelri.local> 1773498338 +0900	pull --rebase (pick): feat: 커뮤니티 게시판 6개 추가 (Stable Diffusion, Runway, Suno, Windsurf, Notion AI, Sora) + 더미 게시물 30개
+d49781600ea9fed8c3521b5c35c5bcba02888d75 d49781600ea9fed8c3521b5c35c5bcba02888d75 feekri <feekri@feelri.local> 1773498338 +0900	pull --rebase (finish): returning to refs/heads/main
+d49781600ea9fed8c3521b5c35c5bcba02888d75 6f90cfaa9b62dec2a51e4f5ea08d89c85a2d26b1 feekri <feekri@feelri.local> 1773499560 +0900	commit: feat: 1~3위 은색 반짝 효과 강화 + 커뮤니티 게시판 즐겨찾기 기능
+6f90cfaa9b62dec2a51e4f5ea08d89c85a2d26b1 83951eab3423c9d60356599dd52465060e87610f feekri <feekri@feelri.local> 1773500274 +0900	commit: fix: 즐겨찾기 버튼 툴네임 옆으로 이동 + 크기 확대
+83951eab3423c9d60356599dd52465060e87610f 7d5099924817bd133a1eb607b4d60be6644ab59d feekri <feekri@feelri.local> 1773500467 +0900	commit: fix: 게시판 카드 → 버튼 제거 + 드래그 핸들 하단 이동 + 상하폭 축소
+7d5099924817bd133a1eb607b4d60be6644ab59d ac5195d9a72b606b06fdf4343016682374dd08a4 feekri <feekri@feelri.local> 1773500468 +0900	pull --rebase (start): checkout ac5195d9a72b606b06fdf4343016682374dd08a4
+ac5195d9a72b606b06fdf4343016682374dd08a4 b3482d1b5f20ff3db786e844b94585bfc568a4b2 feekri <feekri@feelri.local> 1773500468 +0900	pull --rebase (pick): fix: 게시판 카드 → 버튼 제거 + 드래그 핸들 하단 이동 + 상하폭 축소
+b3482d1b5f20ff3db786e844b94585bfc568a4b2 b3482d1b5f20ff3db786e844b94585bfc568a4b2 feekri <feekri@feelri.local> 1773500468 +0900	pull --rebase (finish): returning to refs/heads/main
+b3482d1b5f20ff3db786e844b94585bfc568a4b2 0a7d867eecfb6fab3578b574423a59677cac574f feekri <feekri@feelri.local> 1773501517 +0900	commit: feat: 대시보드 커뮤니티 활동에 게시판 뱃지 표시
+0a7d867eecfb6fab3578b574423a59677cac574f 0afcec34d4af637ddbe28949e1956d657f692a45 feekri <feekri@feelri.local> 1773504163 +0900	commit: fix: 유튜브 스크립트 버그 수정 + 상위 1~13번 툴 영상 데이터 수동 복구
+0afcec34d4af637ddbe28949e1956d657f692a45 9834e24b82c9b489b93e4d16616ea1d33d2d2b0e feekri <feekri@feelri.local> 1773504164 +0900	pull --rebase (start): checkout 9834e24b82c9b489b93e4d16616ea1d33d2d2b0e
+9834e24b82c9b489b93e4d16616ea1d33d2d2b0e c957dfe7dd7149792a58182aef775bcf950ba105 feekri <feekri@feelri.local> 1773504175 +0900	rebase (continue): fix: 유튜브 스크립트 버그 수정 + 상위 1~13번 툴 영상 데이터 수동 복구
+c957dfe7dd7149792a58182aef775bcf950ba105 c957dfe7dd7149792a58182aef775bcf950ba105 feekri <feekri@feelri.local> 1773504175 +0900	rebase (finish): returning to refs/heads/main
+c957dfe7dd7149792a58182aef775bcf950ba105 584e7dcade471441abd59885dda9a5a53c3802da feekri <feekri@feelri.local> 1773506360 +0900	commit: fix: 유튜브 데이터 복구 - 상위 1~13번 툴 영상 수동 입력
+584e7dcade471441abd59885dda9a5a53c3802da 4dffc24dc4d0c12df40b9f6f33b6ef5e79b4ee55 feekri <feekri@feelri.local> 1773507343 +0900	commit: feat: 툴 게시판 연결 확장 - Stable Diffusion, Runway, Suno, Windsurf, Notion AI, Sora 등 추가
+4dffc24dc4d0c12df40b9f6f33b6ef5e79b4ee55 3af047b5a65b6cd3c0ffb9f6dd2bafa891cc549d feekri <feekri@feelri.local> 1773507475 +0900	commit: fix: 유튜브 가짜 데이터 제거 + 30일 주기 자동 갱신 로직으로 개선
+3af047b5a65b6cd3c0ffb9f6dd2bafa891cc549d 9b6b62760d9cbdffd8fce79d3c0d20892efbe3c5 feekri <feekri@feelri.local> 1773507980 +0900	commit: feat: AI 툴 지형도(트리맵) 페이지 추가 - 상위 100개 툴 점수 비중 시각화
+9b6b62760d9cbdffd8fce79d3c0d20892efbe3c5 9b6b62760d9cbdffd8fce79d3c0d20892efbe3c5 git stash <git@stash> 1773507992 +0900	reset: moving to HEAD
+9b6b62760d9cbdffd8fce79d3c0d20892efbe3c5 5f0f9602b8316c6279e972e48d97e1ba959d50e4 feekri <feekri@feelri.local> 1773507993 +0900	pull --rebase (start): checkout 5f0f9602b8316c6279e972e48d97e1ba959d50e4
+5f0f9602b8316c6279e972e48d97e1ba959d50e4 d0ce1a7aa0a834ddd786ebe1f6214709af0d9f59 feekri <feekri@feelri.local> 1773507993 +0900	pull --rebase (pick): feat: AI 툴 지형도(트리맵) 페이지 추가 - 상위 100개 툴 점수 비중 시각화
+d0ce1a7aa0a834ddd786ebe1f6214709af0d9f59 d0ce1a7aa0a834ddd786ebe1f6214709af0d9f59 feekri <feekri@feelri.local> 1773507993 +0900	pull --rebase (finish): returning to refs/heads/main
+d0ce1a7aa0a834ddd786ebe1f6214709af0d9f59 983c37a4aa0f29c7289eb5621774de8e255b6e30 feekri <feekri@feelri.local> 1773508356 +0900	commit: chore: 지형도 nav 숨김 처리 (준비 중 - 공개 시 주석 해제)
+983c37a4aa0f29c7289eb5621774de8e255b6e30 983c37a4aa0f29c7289eb5621774de8e255b6e30 git stash <git@stash> 1773510348 +0900	reset: moving to HEAD
+983c37a4aa0f29c7289eb5621774de8e255b6e30 8bd675042d4e9802f0a6520dd8b78821b60c5cc7 feekri <feekri@feelri.local> 1773510349 +0900	pull: Fast-forward
+8bd675042d4e9802f0a6520dd8b78821b60c5cc7 27334e74b78a38751aa1a11ad9e554c7998ec097 feekri <feekri@feelri.local> 1773510474 +0900	commit: fix: OPR 도메인 매칭 버그 수정 - www. 접두사 있는 도메인도 정상 매핑
+27334e74b78a38751aa1a11ad9e554c7998ec097 753e71ec8817dd712b06e61b4b4d885764c70f86 feekri <feekri@feelri.local> 1773510700 +0900	commit: fix: SNS 점수 로그 정규화 적용 - Grok 극단값으로 인한 점수 왜곡 방지
+753e71ec8817dd712b06e61b4b4d885764c70f86 5e251e9b29a183ab2e687eae5bd9e300e0757bda feekri <feekri@feelri.local> 1773512217 +0900	pull --rebase: Fast-forward
+5e251e9b29a183ab2e687eae5bd9e300e0757bda 0618463dd43e1036ddc912ca55fe9fd8cc025a93 feekri <feekri@feelri.local> 1773535004 +0900	commit: fix: 유튜브 fetchedAt 없는 기존 데이터도 스킵 - 쿼터 낭비 방지
+0618463dd43e1036ddc912ca55fe9fd8cc025a93 819e343ecebfebbe169bad050ab360c3b376b1e3 feekri <feekri@feelri.local> 1773535009 +0900	pull --rebase (start): checkout 819e343ecebfebbe169bad050ab360c3b376b1e3
+819e343ecebfebbe169bad050ab360c3b376b1e3 2bccce07f40ebfeef648763c29a1bbcfd10dbbe4 feekri <feekri@feelri.local> 1773535009 +0900	pull --rebase (pick): fix: 유튜브 fetchedAt 없는 기존 데이터도 스킵 - 쿼터 낭비 방지
+2bccce07f40ebfeef648763c29a1bbcfd10dbbe4 2bccce07f40ebfeef648763c29a1bbcfd10dbbe4 feekri <feekri@feelri.local> 1773535009 +0900	pull --rebase (finish): returning to refs/heads/main
+2bccce07f40ebfeef648763c29a1bbcfd10dbbe4 5c8c51ad8ce56dc0d3bb80f926e52ebecceb2417 feekri <feekri@feelri.local> 1773535151 +0900	pull --rebase: Fast-forward
+5c8c51ad8ce56dc0d3bb80f926e52ebecceb2417 fe28734dc8e5bbaf5af0028337b0cc5e423c1279 feekri <feekri@feelri.local> 1773535382 +0900	commit: fix: YouTube TOP_N 50→30 조정 (쿼터 절약)
+fe28734dc8e5bbaf5af0028337b0cc5e423c1279 d026022048feb49f69356879fc55f7a5f50a06b7 feekri <feekri@feelri.local> 1773535801 +0900	commit: feat: YouTube API 키 2개 로테이션으로 쿼터 2배 확장
+d026022048feb49f69356879fc55f7a5f50a06b7 8662267b50b3e69fd948461306278e2e4b250678 feekri <feekri@feelri.local> 1773536131 +0900	pull --rebase origin main (start): checkout 8662267b50b3e69fd948461306278e2e4b250678
+8662267b50b3e69fd948461306278e2e4b250678 b800498847f7c6519db8db260450d2871f3a53f2 feekri <feekri@feelri.local> 1773536131 +0900	pull --rebase origin main (pick): feat: YouTube API 키 2개 로테이션으로 쿼터 2배 확장
+b800498847f7c6519db8db260450d2871f3a53f2 b800498847f7c6519db8db260450d2871f3a53f2 feekri <feekri@feelri.local> 1773536131 +0900	pull --rebase origin main (finish): returning to refs/heads/main
+b800498847f7c6519db8db260450d2871f3a53f2 580622a3905ded31f7d671da4fb557998e7a4516 feekri <feekri@feelri.local> 1773537320 +0900	pull --rebase origin main (start): checkout 580622a3905ded31f7d671da4fb557998e7a4516
+580622a3905ded31f7d671da4fb557998e7a4516 77408f423abe7e6e4065afb1ac372a1f14c1f2ea feekri <feekri@feelri.local> 1773537320 +0900	pull --rebase origin main (pick): feat: YouTube API 키 2개 로테이션으로 쿼터 2배 확장
+77408f423abe7e6e4065afb1ac372a1f14c1f2ea 77408f423abe7e6e4065afb1ac372a1f14c1f2ea feekri <feekri@feelri.local> 1773537320 +0900	pull --rebase origin main (finish): returning to refs/heads/main
+77408f423abe7e6e4065afb1ac372a1f14c1f2ea 9019dcede70c2c2870189fe20b90f6796602a1b5 feekri <feekri@feelri.local> 1773543306 +0900	commit: fix: YouTube 키 쿼터 초과 시 다음 키로 자동 전환
+9019dcede70c2c2870189fe20b90f6796602a1b5 6852eed8f3f92236420093dd60f52cf47faab95b feekri <feekri@feelri.local> 1773543444 +0900	pull --rebase origin main: Fast-forward
+6852eed8f3f92236420093dd60f52cf47faab95b 394b6fc5d254942b7538864ae9db1865bbffda42 feekri <feekri@feelri.local> 1773569442 +0900	commit: chore: 불필요한 파일 정리 및 코드 다이어트
+394b6fc5d254942b7538864ae9db1865bbffda42 fa009d86079db67ee75ceebac26fe17d22990bea feekri <feekri@feelri.local> 1773569446 +0900	pull --rebase origin main (start): checkout fa009d86079db67ee75ceebac26fe17d22990bea
+fa009d86079db67ee75ceebac26fe17d22990bea 1bb1e3f185b8eb65fd3d1dbfc36a9319b01138a4 feekri <feekri@feelri.local> 1773569446 +0900	pull --rebase origin main (pick): chore: 불필요한 파일 정리 및 코드 다이어트
+1bb1e3f185b8eb65fd3d1dbfc36a9319b01138a4 1bb1e3f185b8eb65fd3d1dbfc36a9319b01138a4 feekri <feekri@feelri.local> 1773569446 +0900	pull --rebase origin main (finish): returning to refs/heads/main
+1bb1e3f185b8eb65fd3d1dbfc36a9319b01138a4 5b34db2ec5795de8e45a80af328e377f6a6a166c feekri <feekri@feelri.local> 1773569964 +0900	commit: design: border-radius 통일된 CSS 변수 시스템 적용
+5b34db2ec5795de8e45a80af328e377f6a6a166c e71cca0892428f6a9e39a7e3996bba201308c657 feekri <feekri@feelri.local> 1773570602 +0900	commit: design: 툴카드 4위 이하 순위 색상 → 테마 기본색(--text-primary)으로 통일
+e71cca0892428f6a9e39a7e3996bba201308c657 16002bef3d24e782c6c064c02d1ff73f14c4b25d feekri <feekri@feelri.local> 1773659044 +0900	pull origin main: Fast-forward
+16002bef3d24e782c6c064c02d1ff73f14c4b25d 3ea1bffce4f4f812cf0d6ef0d0a2842b78c13b0a feekri <feekri@feelri.local> 1773660003 +0900	commit: UI: 로그인 모달 문구 개선 및 마이 대시보드 수정 안내 추가
+3ea1bffce4f4f812cf0d6ef0d0a2842b78c13b0a 3ea1bffce4f4f812cf0d6ef0d0a2842b78c13b0a git stash <git@stash> 1773660023 +0900	reset: moving to HEAD
+3ea1bffce4f4f812cf0d6ef0d0a2842b78c13b0a 58b0c1518436cd211478310f937713d06e2139eb feekri <feekri@feelri.local> 1773660025 +0900	pull --rebase origin main (start): checkout 58b0c1518436cd211478310f937713d06e2139eb
+58b0c1518436cd211478310f937713d06e2139eb 3120806c45cc34e874abbc0745da0cc8ccb4d2e7 feekri <feekri@feelri.local> 1773660025 +0900	pull --rebase origin main (pick): UI: 로그인 모달 문구 개선 및 마이 대시보드 수정 안내 추가
+3120806c45cc34e874abbc0745da0cc8ccb4d2e7 3120806c45cc34e874abbc0745da0cc8ccb4d2e7 feekri <feekri@feelri.local> 1773660025 +0900	pull --rebase origin main (finish): returning to refs/heads/main
+3120806c45cc34e874abbc0745da0cc8ccb4d2e7 02a27074a180682946f74e678c17c58e9bf1f033 feekri <feekri@feelri.local> 1773675708 +0900	commit: UI: Optimize mobile community experience & refine user profile dashboard
+02a27074a180682946f74e678c17c58e9bf1f033 331aa90840c2b0bd3445688b71c876f62f0347ac feekri <feekri@feelri.local> 1773676341 +0900	pull origin main --rebase: Fast-forward
+331aa90840c2b0bd3445688b71c876f62f0347ac 0adb368a5264bc5fa35be3ed73bead12bfa96b66 feekri <feekri@feelri.local> 1773677190 +0900	commit: Admin: Enhance user management with provider info and nickname history tracking
