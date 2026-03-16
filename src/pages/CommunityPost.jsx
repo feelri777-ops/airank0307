@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
-  doc, getDoc, updateDoc, deleteDoc, collection, query, where,
+  doc, getDoc, updateDoc, deleteDoc, collection, query,
   orderBy, getDocs, addDoc, setDoc, increment, serverTimestamp, writeBatch
 } from "firebase/firestore";
 import { db } from "../firebase";
@@ -10,8 +10,10 @@ import { useAuth } from "../context/AuthContext";
 import { COMMUNITY_CATEGORIES } from "../constants";
 import { formatRelativeTime } from "../utils";
 import { BOARDS } from "./CommunityDashboard";
+import { isAdmin } from "../hooks/useAdminGuard";
 
 const CATEGORY_COLORS = {
+  notice:   { bg: "#fee2e2", color: "#b91c1c", darkBg: "#450a0a", darkColor: "#fca5a5" },
   review:   { bg: "#dbeafe", color: "#1d4ed8", darkBg: "#1e3a5f", darkColor: "#60a5fa" },
   question: { bg: "#fef3c7", color: "#b45309", darkBg: "#4a3200", darkColor: "#fbbf24" },
   tips:     { bg: "#d1fae5", color: "#065f46", darkBg: "#063a28", darkColor: "#34d399" },
@@ -94,20 +96,16 @@ const ActionBar = styled.div`
 `;
 const VoteButton = styled.button`
   display: flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.25rem;
-  border: 1px solid ${({ $active }) => 
-    $active ? "var(--text-primary)" : "var(--border-primary)"};
+  border: 1px solid ${({ $active }) => $active ? "var(--text-primary)" : "var(--border-primary)"};
   border-radius: var(--r-lg);
-  background: ${({ $active }) => 
-    $active ? "var(--bg-tertiary)" : "var(--bg-card)"};
-  color: ${({ $active }) => 
-    $active ? "var(--text-primary)" : "var(--text-muted)"};
+  background: ${({ $active }) => $active ? "var(--bg-tertiary)" : "var(--bg-card)"};
+  color: ${({ $active }) => $active ? "var(--text-primary)" : "var(--text-muted)"};
   font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
-  &:hover { 
-    background: var(--bg-tertiary);
-    border-color: var(--text-muted);
-  }
+  &:hover { background: var(--bg-tertiary); border-color: var(--text-muted); }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 `;
+
+/* ── 댓글 섹션 ── */
 const CommentsSection = styled.div`
   background: var(--bg-card); border: 1px solid var(--border-primary);
   border-radius: var(--r-md); padding: 1.5rem;
@@ -134,6 +132,10 @@ const CommentItem = styled.li`
   display: flex; gap: 0.75rem; align-items: flex-start;
   &:last-child { border-bottom: none; }
 `;
+const ReplyItem = styled.li`
+  padding: 0.75rem 0 0.75rem 0.75rem; display: flex; gap: 0.65rem; align-items: flex-start;
+  border-left: 2px solid var(--border-primary); margin-left: 2.25rem; margin-top: 0.5rem;
+`;
 const CommentAvatar = styled.img`width: 28px; height: 28px; border-radius: 50%; object-fit: cover; flex-shrink: 0;`;
 const CommentAvatarFallback = styled.div`
   width: 28px; height: 28px; border-radius: 50%; background: var(--accent-gradient);
@@ -141,17 +143,37 @@ const CommentAvatarFallback = styled.div`
   font-size: 0.75rem; color: #fff; font-weight: 700; flex-shrink: 0;
 `;
 const CommentBody = styled.div`flex: 1; min-width: 0;`;
-const CommentMeta = styled.div`display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;`;
+const CommentMeta = styled.div`display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.3rem; flex-wrap: wrap;`;
 const CommentAuthor = styled.span`font-size: 0.825rem; font-weight: 600; color: var(--text-primary);`;
-const CommentTime = styled.span`font-size: 0.75rem; color: var(--text-muted);`;
-const DeleteCommentBtn = styled.button`
-  margin-left: auto; background: transparent; border: none; color: var(--text-muted);
-  font-size: 0.75rem; cursor: pointer; padding: 0; transition: color 0.15s;
-  &:hover { color: #ef4444; }
+const CommentTime = styled.span`font-size: 0.72rem; color: var(--text-muted);`;
+const CommentActionBtn = styled.button`
+  background: transparent; border: none; color: var(--text-muted);
+  font-size: 0.72rem; cursor: pointer; padding: 0 2px; transition: color 0.15s;
+  &:hover { color: ${({ $danger }) => $danger ? "#ef4444" : "var(--accent-indigo)"}; }
 `;
 const CommentContent = styled.p`
   font-size: 0.875rem; color: var(--text-primary); line-height: 1.65;
   margin: 0; white-space: pre-wrap; word-break: break-word;
+`;
+const DeletedCommentContent = styled.p`
+  font-size: 0.825rem; color: var(--text-muted); font-style: italic;
+  margin: 0; line-height: 1.5;
+`;
+const EditTextarea = styled.textarea`
+  width: 100%; padding: 0.55rem 0.75rem; border: 1px solid var(--accent-indigo);
+  border-radius: var(--r-sm); background: var(--bg-secondary); color: var(--text-primary);
+  font-size: 0.875rem; font-family: "Pretendard", sans-serif; resize: none; min-height: 64px;
+  outline: none; line-height: 1.6; box-sizing: border-box; margin-top: 0.4rem;
+`;
+const ReplyButton = styled.button`
+  background: transparent; border: none; color: var(--text-muted);
+  font-size: 0.75rem; cursor: pointer; padding: 0.3rem 0; margin-top: 0.4rem;
+  transition: color 0.15s; display: flex; align-items: center; gap: 0.25rem;
+  &:hover { color: var(--accent-indigo); }
+`;
+const ReplyFormWrap = styled.div`
+  margin: 0.6rem 0 0.4rem 2.25rem; border-left: 2px solid var(--accent-indigo);
+  padding-left: 0.75rem;
 `;
 const LoginPrompt = styled.p`font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.25rem;`;
 const NotFound = styled.div`text-align: center; padding: 6rem 1rem; color: var(--text-muted); font-size: 1rem;`;
@@ -165,10 +187,19 @@ export default function CommunityPost() {
 
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
-  const [vote, setVote] = useState(null); // 'up', 'down', or null
+  const [vote, setVote] = useState(null);
   const [commentText, setCommentText] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
   const [notFound, setNotFound] = useState(false);
+
+  // 댓글 수정
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editText, setEditText] = useState("");
+
+  // 대댓글
+  const [replyingToId, setReplyingToId] = useState(null);
+  const [replyText, setReplyText] = useState("");
+  const [submittingReply, setSubmittingReply] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -199,58 +230,56 @@ export default function CommunityPost() {
       .then((snap) => setVote(snap.exists() ? snap.data().type : null));
   }, [user, postId]);
 
+  /* ── 투표 ── */
   const handleVote = async (type) => {
     if (!user) { alert("로그인 후 참여할 수 있습니다."); return; }
     const voteRef = doc(db, "communityVotes", `${user.uid}_${postId}`);
     const postRef = doc(db, "communityPosts", postId);
-    
-    if (vote === type) {
-      // 투표 취소
-      await deleteDoc(voteRef);
-      const inc = type === 'up' ? { upvoteCount: increment(-1) } : { downvoteCount: increment(-1) };
-      await updateDoc(postRef, inc);
-      setPost(p => ({ 
-        ...p, 
-        upvoteCount: Math.max(0, (p.upvoteCount || 0) + (type === 'up' ? -1 : 0)),
-        downvoteCount: Math.max(0, (p.downvoteCount || 0) + (type === 'down' ? -1 : 0))
-      }));
-      setVote(null);
-    } else {
-      // 투표 변경 또는 신규 투표
-      const batch = writeBatch(db);
-      batch.set(voteRef, { uid: user.uid, postId, type, createdAt: serverTimestamp() });
-      
-      let upInc = 0;
-      let downInc = 0;
-      
-      if (vote === 'up') upInc = -1;
-      if (vote === 'down') downInc = -1;
-      
-      if (type === 'up') upInc += 1;
-      if (type === 'down') downInc += 1;
-      
-      const updateData = {};
-      if (upInc !== 0) updateData.upvoteCount = increment(upInc);
-      if (downInc !== 0) updateData.downvoteCount = increment(downInc);
-      
-      batch.update(postRef, updateData);
-      await batch.commit();
-      
-      setPost(p => ({
-        ...p,
-        upvoteCount: Math.max(0, (p.upvoteCount || 0) + upInc),
-        downvoteCount: Math.max(0, (p.downvoteCount || 0) + downInc)
-      }));
-      setVote(type);
+    try {
+      if (vote === type) {
+        await deleteDoc(voteRef);
+        const inc = type === "up" ? { upvoteCount: increment(-1) } : { downvoteCount: increment(-1) };
+        await updateDoc(postRef, inc);
+        setPost((p) => ({
+          ...p,
+          upvoteCount: Math.max(0, (p.upvoteCount || 0) + (type === "up" ? -1 : 0)),
+          downvoteCount: Math.max(0, (p.downvoteCount || 0) + (type === "down" ? -1 : 0)),
+        }));
+        setVote(null);
+      } else {
+        const batch = writeBatch(db);
+        batch.set(voteRef, { uid: user.uid, postId, type, createdAt: serverTimestamp() });
+        let upInc = 0, downInc = 0;
+        if (vote === "up") upInc = -1;
+        if (vote === "down") downInc = -1;
+        if (type === "up") upInc += 1;
+        if (type === "down") downInc += 1;
+        const updateData = {};
+        if (upInc !== 0) updateData.upvoteCount = increment(upInc);
+        if (downInc !== 0) updateData.downvoteCount = increment(downInc);
+        batch.update(postRef, updateData);
+        await batch.commit();
+        setPost((p) => ({
+          ...p,
+          upvoteCount: Math.max(0, (p.upvoteCount || 0) + upInc),
+          downvoteCount: Math.max(0, (p.downvoteCount || 0) + downInc),
+        }));
+        setVote(type);
+      }
+    } catch (e) {
+      console.error("투표 오류:", e);
+      alert("투표 처리 중 오류가 발생했습니다.");
     }
   };
 
+  /* ── 게시글 삭제 ── */
   const handleDelete = async () => {
     if (!window.confirm("게시글을 삭제하시겠습니까?")) return;
     await deleteDoc(doc(db, "communityPosts", postId));
     navigate(`/community/${board}`);
   };
 
+  /* ── 댓글 등록 ── */
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!commentText.trim() || !user) return;
@@ -261,6 +290,7 @@ export default function CommunityPost() {
         displayName: userData?.displayName || user.displayName || "익명",
         photoURL: userData?.photoURL || user.photoURL || "",
         content: commentText.trim(),
+        parentId: null,
         createdAt: serverTimestamp(),
       };
       const ref = await addDoc(collection(db, "communityPosts", postId, "comments"), newComment);
@@ -275,15 +305,85 @@ export default function CommunityPost() {
     }
   };
 
-  const handleDeleteComment = async (commentId) => {
+  /* ── 댓글 수정 ── */
+  const handleEditComment = async (commentId) => {
+    if (!editText.trim()) return;
+    try {
+      await updateDoc(doc(db, "communityPosts", postId, "comments", commentId), {
+        content: editText.trim(),
+        updatedAt: serverTimestamp(),
+      });
+      setComments((prev) =>
+        prev.map((c) =>
+          c.id === commentId
+            ? { ...c, content: editText.trim(), updatedAt: { toDate: () => new Date() } }
+            : c
+        )
+      );
+      setEditingCommentId(null);
+    } catch (err) {
+      console.error("댓글 수정 오류:", err);
+      alert("수정 중 오류가 발생했습니다.");
+    }
+  };
+
+  /* ── 댓글 삭제 ── */
+  const handleDeleteComment = async (commentId, commentUid) => {
     if (!window.confirm("댓글을 삭제하시겠습니까?")) return;
-    await deleteDoc(doc(db, "communityPosts", postId, "comments", commentId));
-    await updateDoc(doc(db, "communityPosts", postId), { commentCount: increment(-1) });
-    setComments((prev) => prev.filter((c) => c.id !== commentId));
-    setPost((p) => ({ ...p, commentCount: Math.max(0, (p.commentCount || 1) - 1) }));
+    const hasReplies = comments.some((c) => c.parentId === commentId);
+    const deletedBy = isAdmin(user) && user.uid !== commentUid ? "admin" : "author";
+    try {
+      if (hasReplies) {
+        await updateDoc(doc(db, "communityPosts", postId, "comments", commentId), {
+          deleted: true, deletedBy, deletedAt: serverTimestamp(),
+        });
+        setComments((prev) =>
+          prev.map((c) => c.id === commentId ? { ...c, deleted: true, deletedBy } : c)
+        );
+      } else {
+        await deleteDoc(doc(db, "communityPosts", postId, "comments", commentId));
+        setComments((prev) => prev.filter((c) => c.id !== commentId));
+      }
+      await updateDoc(doc(db, "communityPosts", postId), { commentCount: increment(-1) });
+      setPost((p) => ({ ...p, commentCount: Math.max(0, (p.commentCount || 1) - 1) }));
+    } catch (err) {
+      console.error("댓글 삭제 오류:", err);
+      alert("삭제 중 오류가 발생했습니다.");
+    }
+  };
+
+  /* ── 대댓글 등록 ── */
+  const handleSubmitReply = async (parentId) => {
+    if (!replyText.trim() || !user) return;
+    setSubmittingReply(true);
+    try {
+      const newReply = {
+        uid: user.uid,
+        displayName: userData?.displayName || user.displayName || "익명",
+        photoURL: userData?.photoURL || user.photoURL || "",
+        content: replyText.trim(),
+        parentId,
+        createdAt: serverTimestamp(),
+      };
+      const ref = await addDoc(collection(db, "communityPosts", postId, "comments"), newReply);
+      await updateDoc(doc(db, "communityPosts", postId), { commentCount: increment(1) });
+      setComments((prev) => [...prev, { id: ref.id, ...newReply, createdAt: { toDate: () => new Date() } }]);
+      setPost((p) => ({ ...p, commentCount: (p.commentCount || 0) + 1 }));
+      setReplyingToId(null);
+      setReplyText("");
+    } catch (err) {
+      console.error("대댓글 오류:", err);
+      alert("답글 등록 중 오류가 발생했습니다.");
+    } finally {
+      setSubmittingReply(false);
+    }
   };
 
   const getCategoryLabel = (cat) => COMMUNITY_CATEGORIES.find((c) => c.id === cat)?.label || cat;
+  const topLevelComments = comments.filter((c) => !c.parentId);
+  const getReplies = (id) => comments.filter((c) => c.parentId === id);
+  const canDeleteComment = (c) => user && (user.uid === c.uid || isAdmin(user));
+  const canEditComment = (c) => user && user.uid === c.uid && !c.deleted;
 
   const backPath = `/community/${board}`;
 
@@ -303,11 +403,92 @@ export default function CommunityPost() {
 
   const isOwner = user && user.uid === post.uid;
 
+  /* ── 댓글/대댓글 단일 렌더 함수 ── */
+  const renderComment = (c, isReply = false) => {
+    const isEditing = editingCommentId === c.id;
+    const Wrapper = isReply ? ReplyItem : CommentItem;
+    return (
+      <Wrapper key={c.id}>
+        {c.photoURL
+          ? <CommentAvatar src={c.photoURL} alt={c.displayName} referrerPolicy="no-referrer" />
+          : <CommentAvatarFallback>{(c.displayName || "?")[0].toUpperCase()}</CommentAvatarFallback>
+        }
+        <CommentBody>
+          <CommentMeta>
+            <CommentAuthor>{c.displayName || "익명"}</CommentAuthor>
+            <CommentTime>{formatRelativeTime(c.createdAt)}</CommentTime>
+            {c.updatedAt && !c.deleted && (
+              <CommentTime>(수정됨 · {formatRelativeTime(c.updatedAt)})</CommentTime>
+            )}
+            {canEditComment(c) && (
+              <CommentActionBtn
+                onClick={() => {
+                  setEditingCommentId(c.id);
+                  setEditText(c.content);
+                  setReplyingToId(null);
+                }}
+              >
+                수정
+              </CommentActionBtn>
+            )}
+            {canDeleteComment(c) && !c.deleted && (
+              <CommentActionBtn $danger onClick={() => handleDeleteComment(c.id, c.uid)}>
+                삭제
+              </CommentActionBtn>
+            )}
+          </CommentMeta>
+
+          {c.deleted ? (
+            <DeletedCommentContent>
+              {c.deletedBy === "admin"
+                ? "관리자에 의해 삭제되었습니다."
+                : "작성자에 의해 삭제되었습니다."}
+            </DeletedCommentContent>
+          ) : isEditing ? (
+            <div>
+              <EditTextarea
+                value={editText}
+                onChange={(e) => setEditText(e.target.value)}
+                autoFocus
+              />
+              <div style={{ display: "flex", gap: "6px", marginTop: "6px" }}>
+                <CommentSubmitButton
+                  type="button"
+                  onClick={() => handleEditComment(c.id)}
+                  disabled={!editText.trim()}
+                  style={{ padding: "0.4rem 0.9rem", fontSize: "0.8rem" }}
+                >
+                  저장
+                </CommentSubmitButton>
+                <SmallButton onClick={() => setEditingCommentId(null)}>취소</SmallButton>
+              </div>
+            </div>
+          ) : (
+            <CommentContent>{c.content}</CommentContent>
+          )}
+
+          {/* 답글 버튼 (최상위 댓글만) */}
+          {!isReply && !c.deleted && user && (
+            <ReplyButton
+              onClick={() => {
+                setReplyingToId(replyingToId === c.id ? null : c.id);
+                setReplyText("");
+                setEditingCommentId(null);
+              }}
+            >
+              ↩ 답글 {getReplies(c.id).length > 0 ? `${getReplies(c.id).length}개` : ""}
+            </ReplyButton>
+          )}
+        </CommentBody>
+      </Wrapper>
+    );
+  };
+
   return (
     <PageWrapper>
       <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "1rem" }}>
         <BackButton onClick={() => navigate(backPath)} style={{ margin: 0 }}>
-          ← {boardInfo ? `${boardInfo.icon} ${boardInfo.name}` : "게시판"}
+          ← {boardInfo ? `${boardInfo.name}` : "게시판"}
         </BackButton>
       </div>
 
@@ -342,10 +523,10 @@ export default function CommunityPost() {
         </MarkdownContent>
 
         <ActionBar>
-          <VoteButton $type="up" $active={vote === "up"} onClick={() => handleVote("up")}>
+          <VoteButton $active={vote === "up"} onClick={() => handleVote("up")}>
             👍 {post.upvoteCount || 0}
           </VoteButton>
-          <VoteButton $type="down" $active={vote === "down"} onClick={() => handleVote("down")}>
+          <VoteButton $active={vote === "down"} onClick={() => handleVote("down")}>
             👎 {post.downvoteCount || 0}
           </VoteButton>
         </ActionBar>
@@ -353,10 +534,12 @@ export default function CommunityPost() {
 
       <CommentsSection>
         <CommentSectionTitle>댓글 {post.commentCount || 0}개</CommentSectionTitle>
+
         {user ? (
           <CommentForm onSubmit={handleCommentSubmit}>
             <CommentTextarea
-              placeholder="댓글을 입력하세요..." value={commentText}
+              placeholder="댓글을 입력하세요..."
+              value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
             />
             <CommentSubmitButton type="submit" disabled={submittingComment || !commentText.trim()}>
@@ -368,28 +551,44 @@ export default function CommunityPost() {
         )}
 
         <CommentList>
-          {comments.length === 0 ? (
+          {topLevelComments.length === 0 ? (
             <li style={{ color: "var(--text-muted)", fontSize: "0.875rem", padding: "1rem 0" }}>
               첫 댓글을 남겨보세요!
             </li>
           ) : (
-            comments.map((c) => (
-              <CommentItem key={c.id}>
-                {c.photoURL
-                  ? <CommentAvatar src={c.photoURL} alt={c.displayName} referrerPolicy="no-referrer" />
-                  : <CommentAvatarFallback>{(c.displayName || "?")[0].toUpperCase()}</CommentAvatarFallback>
-                }
-                <CommentBody>
-                  <CommentMeta>
-                    <CommentAuthor>{c.displayName || "익명"}</CommentAuthor>
-                    <CommentTime>{formatRelativeTime(c.createdAt)}</CommentTime>
-                    {user && user.uid === c.uid && (
-                      <DeleteCommentBtn onClick={() => handleDeleteComment(c.id)}>삭제</DeleteCommentBtn>
-                    )}
-                  </CommentMeta>
-                  <CommentContent>{c.content}</CommentContent>
-                </CommentBody>
-              </CommentItem>
+            topLevelComments.map((c) => (
+              <li key={c.id} style={{ listStyle: "none" }}>
+                {renderComment(c, false)}
+
+                {/* 대댓글 목록 */}
+                {getReplies(c.id).map((reply) => renderComment(reply, true))}
+
+                {/* 대댓글 작성 폼 */}
+                {replyingToId === c.id && user && (
+                  <ReplyFormWrap>
+                    <CommentTextarea
+                      placeholder={`@${c.displayName || "익명"}에게 답글...`}
+                      value={replyText}
+                      onChange={(e) => setReplyText(e.target.value)}
+                      style={{ minHeight: "56px", fontSize: "0.85rem" }}
+                      autoFocus
+                    />
+                    <div style={{ display: "flex", gap: "6px", marginTop: "6px" }}>
+                      <CommentSubmitButton
+                        type="button"
+                        onClick={() => handleSubmitReply(c.id)}
+                        disabled={submittingReply || !replyText.trim()}
+                        style={{ padding: "0.4rem 0.9rem", fontSize: "0.8rem" }}
+                      >
+                        {submittingReply ? "등록 중..." : "답글 등록"}
+                      </CommentSubmitButton>
+                      <SmallButton onClick={() => { setReplyingToId(null); setReplyText(""); }}>
+                        취소
+                      </SmallButton>
+                    </div>
+                  </ReplyFormWrap>
+                )}
+              </li>
             ))
           )}
         </CommentList>

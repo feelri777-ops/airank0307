@@ -116,8 +116,9 @@ export default function CommunityWrite() {
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
           views: 0,
-          likeCount: 0,
           commentCount: 0,
+          upvoteCount: 0,
+          downvoteCount: 0,
         });
         navigate(finalBoard === "all" ? `/community/${board}` : `/community/${finalBoard}/${docRef.id}`);
       }
