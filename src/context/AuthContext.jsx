@@ -5,10 +5,11 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
-  sendEmailVerification
+  sendEmailVerification,
+  signInWithPopup
 } from "firebase/auth";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../firebase";
+import { auth, db, googleProvider } from "../firebase";
 
 const AuthContext = createContext(null);
 
@@ -130,6 +131,34 @@ export const AuthProvider = ({ children }) => {
     await signOut(auth);
   };
 
+  const loginWithGoogle = async () => {
+    try {
+      const res = await signInWithPopup(auth, googleProvider);
+      // 구글에서 추가 정보(생일 등)를 가져오려면 액세스 토큰이 필요할 수 있습니다.
+      // 여기서는 기본 인증 정보만 사용하여 로그인 처리합니다.
+      return res.user;
+    } catch (error) {
+      console.error("🔴 Google Login error:", error);
+      throw error;
+    }
+  };
+
+  const updateUserSetup = async (uid, data) => {
+    try {
+      const userRef = doc(db, "users", uid);
+      await updateDoc(userRef, {
+        ...data,
+        setupCompleted: true,
+        updatedAt: new Date()
+      });
+      // 데이터 갱신을 위해 handleUser 재동작 유도
+      if (auth.currentUser) await handleUser(auth.currentUser);
+    } catch (error) {
+      console.error("🔴 Update User Setup error:", error);
+      throw error;
+    }
+  };
+
   const logout = () => {
     setUser(null);
     setUserData(null);
@@ -137,7 +166,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, userData, loading, loginWithEmail, registerWithEmail, resendVerificationEmail, logout }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      userData, 
+      loading, 
+      loginWithEmail, 
+      registerWithEmail, 
+      resendVerificationEmail, 
+      loginWithGoogle,
+      updateUserSetup,
+      logout 
+    }}>
       {!loading && children}
     </AuthContext.Provider>
   );
