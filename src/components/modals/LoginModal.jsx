@@ -27,9 +27,6 @@ const LoginModal = ({ onClose }) => {
 
   // Setup states
   const [setupNickname, setSetupNickname] = useState("");
-  const [birthYear, setBirthYear] = useState("");
-  const [birthMonth, setBirthMonth] = useState("");
-  const [birthDay, setBirthDay] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState("");
   const [avatarStyle, setAvatarStyle] = useState("bottts");
 
@@ -41,12 +38,10 @@ const LoginModal = ({ onClose }) => {
     try {
       const u = await loginWithGoogle();
       
-      // 사용자 문서 확인
       const userRef = doc(db, "users", u.uid);
       const userSnap = await getDoc(userRef);
       
       if (!userSnap.exists() || !userSnap.data().setupCompleted) {
-        // 설정 모드로 전환
         setSetupNickname(u.displayName || "");
         setSelectedAvatar(u.photoURL || dicebearUrl("bottts", u.uid));
         setMode("setup");
@@ -67,14 +62,9 @@ const LoginModal = ({ onClose }) => {
       setError("닉네임은 2~12자, 한글·영문·숫자만 가능합니다.");
       return;
     }
-    if (!birthYear || !birthMonth || !birthDay) {
-      setError("생년월일을 모두 입력해주세요.");
-      return;
-    }
 
     setLoading(true);
     try {
-      // 닉네임 중복 확인
       const dupSnap = await getDocs(query(collection(db, "users"), where("displayName", "==", setupNickname)));
       if (dupSnap.docs.some(d => d.id !== auth.currentUser.uid)) {
         setError("이미 사용 중인 닉네임입니다.");
@@ -82,27 +72,12 @@ const LoginModal = ({ onClose }) => {
         return;
       }
 
-      const birthday = `${birthYear}-${birthMonth.padStart(2, '0')}-${birthDay.padStart(2, '0')}`;
-      
-      // 성인 확인 (만 19세 기준)
-      const birthDate = new Date(birthday);
-      const today = new Date();
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-      const isAdult = age >= 19;
-
       await updateUserSetup(auth.currentUser.uid, {
         displayName: setupNickname,
         photoURL: selectedAvatar,
-        birthday: birthday,
-        birthyear: birthYear,
-        isAdult: isAdult
+        updatedAt: new Date()
       });
 
-      // Firebase Auth 프로필도 업데이트
       await updateProfile(auth.currentUser, {
         displayName: setupNickname,
         photoURL: selectedAvatar
@@ -119,12 +94,12 @@ const LoginModal = ({ onClose }) => {
 
   const renderLogin = () => (
     <>
-      <div style={{ textAlign: "center", marginBottom: "1rem" }}>
-        <h2 style={{ fontWeight: 800, fontSize: "1.8rem", color: "var(--text-primary)", margin: "0 0 0.5rem 0" }}>
-          반갑습니다!
+      <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+        <h2 style={{ fontWeight: 800, fontSize: "2rem", color: "var(--text-primary)", margin: "0 0 0.5rem 0", letterSpacing: "-0.05rem" }}>
+          로그인
         </h2>
         <p style={{ fontSize: "1rem", color: "var(--text-muted)", margin: 0 }}>
-          AIRANK 서비스를 구글 계정으로 시작하세요.
+          AIRANK 서비스를 안전하게 시작하세요.
         </p>
       </div>
 
@@ -134,14 +109,16 @@ const LoginModal = ({ onClose }) => {
           disabled={loading} 
           style={{
             ...googleBtnStyle,
-            height: "60px",
+            height: "64px",
             fontSize: "1.1rem",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-            transition: "transform 0.2s, box-shadow 0.2s",
+            background: "var(--bg-tertiary)",
+            border: "1px solid var(--border-primary)",
+            boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
             cursor: loading ? "not-allowed" : "pointer"
           }}
-          onMouseEnter={(e) => { if(!loading) e.currentTarget.style.transform = "translateY(-2px)"; }}
-          onMouseLeave={(e) => { if(!loading) e.currentTarget.style.transform = "translateY(0)"; }}
+          onMouseEnter={(e) => { if(!loading) { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.borderColor = "var(--accent-indigo)"; } }}
+          onMouseLeave={(e) => { if(!loading) { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.borderColor = "var(--border-primary)"; } }}
         >
           <svg width="24" height="24" viewBox="0 0 18 18" style={{ marginRight: "12px" }}>
             <path d="M17.64 9.2c0-.63-.06-1.25-.16-1.84H9v3.47h4.84c-.21 1.12-.84 2.07-1.79 2.7l2.85 2.22c1.67-1.53 2.63-3.79 2.64-6.55z" fill="#4285F4"/>
@@ -149,62 +126,109 @@ const LoginModal = ({ onClose }) => {
             <path d="M3.86 10.67c-.19-.56-.3-1.16-.3-1.77s.11-1.21.3-1.77V4.8H.9c-.64 1.27-.99 2.71-.99 4.2s.36 2.93.99 4.2l2.96-2.33z" fill="#FBBC05"/>
             <path d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.58-2.58C13.47.89 11.43 0 9 0 5.4 0 2.39 2.01.9 5.01l2.96 2.33c.73-2.17 2.75-3.79 5.14-3.79z" fill="#EA4335"/>
           </svg>
-          {loading ? "연결 중..." : "구글로 1초 만에 시작하기"}
+          {loading ? "연결 중..." : "구글 계정으로 로그인"}
         </button>
       </div>
 
       {error && <p style={{ color: "#ef4444", fontSize: "0.9rem", textAlign: "center", marginTop: "10px" }}>{error}</p>}
 
-      <p style={{ textAlign: "center", fontSize: "0.85rem", color: "var(--text-muted)", marginTop: "1rem" }}>
-        계속 진행함으로써 서비스의 이용약관 및 개인정보처리방침에 동의하게 됩니다.
+      <p style={{ textAlign: "center", fontSize: "0.85rem", color: "var(--text-muted)", marginTop: "1.5rem", lineHeight: "1.4" }}>
+        로그인 시 이용약관 및 개인정보처리방침에<br/>동의하는 것으로 간주됩니다.
       </p>
     </>
   );
 
   const renderSetup = () => (
     <>
-      <div style={{ textAlign: "center" }}>
-        <h2 style={{ fontWeight: 800, fontSize: "1.5rem", color: "var(--text-primary)", margin: "0 0 0.5rem 0" }}>프로필 설정</h2>
-        <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", margin: 0 }}>추가 정보를 입력하여 가입을 완료하세요.</p>
+      <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+        <h2 style={{ fontWeight: 800, fontSize: "1.8rem", color: "var(--text-primary)", margin: "0 0 0.5rem 0", letterSpacing: "-0.05rem" }}>프로필 완성하기</h2>
+        <p style={{ fontSize: "1rem", color: "var(--text-muted)", margin: 0 }}>나를 표현할 닉네임과 아바타를 골라주세요.</p>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "20px", alignItems: "center" }}>
-        {/* Avatar Selection */}
-        <div style={{ position: "relative" }}>
-          <img src={selectedAvatar} alt="avatar" style={{ width: "90px", height: "90px", borderRadius: "50%", border: "4px solid var(--accent-indigo)" }} />
-          <div style={{ position: "absolute", bottom: 0, right: 0, background: "var(--bg-card)", borderRadius: "50%", padding: "4px", border: "1px solid var(--border-primary)" }}>✨</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "24px", alignItems: "center" }}>
+        {/* Avatar Display */}
+        <div style={{ position: "relative", marginBottom: "8px" }}>
+          <div style={{
+            position: "absolute", inset: "-4px", borderRadius: "50%",
+            background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))",
+            opacity: 0.6, zIndex: 0, filter: "blur(8px)"
+          }}></div>
+          <img src={selectedAvatar} alt="avatar" style={{ 
+            width: "110px", height: "110px", borderRadius: "50%", 
+            border: "4px solid var(--bg-card)", position: "relative", zIndex: 1,
+            backgroundColor: "var(--bg-tertiary)", objectFit: "cover"
+          }} />
+          <button 
+            onClick={() => setSelectedAvatar(dicebearUrl(avatarStyle, Math.random()))}
+            style={{ 
+              position: "absolute", bottom: "4px", right: "4px", 
+              background: "var(--accent-indigo)", color: "white", 
+              borderRadius: "50%", width: "32px", height: "32px", 
+              border: "3px solid var(--bg-card)", display: "flex", 
+              alignItems: "center", justifyContent: "center", 
+              cursor: "pointer", zIndex: 2, fontSize: "1rem" 
+            }}
+          >
+            🎲
+          </button>
         </div>
 
-        <div style={{ display: "flex", gap: "8px", overflowX: "auto", width: "100%", padding: "4px" }}>
+        {/* Avatar Style Grid */}
+        <div style={{ 
+          display: "grid", gridTemplateColumns: "repeat(2, 1fr)", 
+          gap: "8px", width: "100%", padding: "4px" 
+        }}>
           {AVATAR_STYLES.map(s => (
-            <button key={s.style} onClick={() => { setAvatarStyle(s.style); setSelectedAvatar(dicebearUrl(s.style, Math.random())); }}
-              style={{ padding: "6px 12px", borderRadius: "var(--r-md)", border: "1px solid var(--border-primary)", background: avatarStyle === s.style ? "var(--bg-tertiary)" : "none", fontSize: "0.75rem", whiteSpace: "nowrap", cursor: "pointer" }}>
+            <button key={s.style} 
+              onClick={() => { setAvatarStyle(s.style); setSelectedAvatar(dicebearUrl(s.style, Math.random())); }}
+              style={{ 
+                padding: "10px", borderRadius: "var(--r-md)", 
+                border: "1px solid",
+                borderColor: avatarStyle === s.style ? "var(--accent-indigo)" : "var(--border-primary)",
+                background: avatarStyle === s.style ? "rgba(99, 102, 241, 0.1)" : "var(--bg-secondary)",
+                color: avatarStyle === s.style ? "var(--accent-indigo)" : "var(--text-secondary)",
+                fontSize: "0.85rem", fontWeight: 600, cursor: "pointer", transition: "all 0.2s"
+              }}>
               {s.label}
             </button>
           ))}
-          <button onClick={() => setSelectedAvatar(dicebearUrl(avatarStyle, Math.random()))} style={{ padding: "6px 12px", border: "1px solid var(--border-primary)", background: "none", borderRadius: "var(--r-md)", fontSize: "0.75rem", cursor: "pointer" }}>🎲 랜덤</button>
         </div>
       </div>
 
-      <form onSubmit={handleSetupSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+      <form onSubmit={handleSetupSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "10px" }}>
         <div>
-          <label style={labelStyle}>닉네임</label>
-          <input type="text" placeholder="2~12자, 한글·영문·숫자" value={setupNickname} onChange={(e) => setSetupNickname(e.target.value)} required style={inputStyle} />
+          <label style={{ ...labelStyle, fontSize: "0.85rem", marginBottom: "8px", color: "var(--text-primary)" }}>닉네임</label>
+          <input 
+            type="text" placeholder="2~12자, 한글·영문·숫자" 
+            value={setupNickname} onChange={(e) => setSetupNickname(e.target.value)} 
+            required 
+            style={{ 
+              ...inputStyle, 
+              fontSize: "1.1rem", 
+              padding: "16px",
+              textAlign: "center",
+              background: "var(--bg-tertiary)",
+              border: "2px solid var(--border-primary)",
+              borderRadius: "16px"
+            }} 
+          />
         </div>
 
-        <div>
-          <label style={labelStyle}>생년월일 (성인 인증용)</label>
-          <div style={{ display: "flex", gap: "8px" }}>
-            <input type="number" placeholder="년(4자리)" value={birthYear} onChange={(e) => setBirthYear(e.target.value)} required style={{ ...inputStyle, flex: 2 }} min="1900" max="2026" />
-            <input type="number" placeholder="월" value={birthMonth} onChange={(e) => setBirthMonth(e.target.value)} required style={{ ...inputStyle, flex: 1 }} min="1" max="12" />
-            <input type="number" placeholder="일" value={birthDay} onChange={(e) => setBirthDay(e.target.value)} required style={{ ...inputStyle, flex: 1 }} min="1" max="31" />
-          </div>
-        </div>
+        {error && <p style={{ color: "#ef4444", fontSize: "0.85rem", textAlign: "center", margin: 0 }}>{error}</p>}
 
-        {error && <p style={{ color: "#ef4444", fontSize: "0.82rem", textAlign: "center", margin: 0 }}>{error}</p>}
-
-        <button type="submit" disabled={loading} style={primaryBtnStyle}>
-          {loading ? "저장 중..." : "설정 완료 및 시작하기"}
+        <button 
+          type="submit" 
+          disabled={loading} 
+          style={{
+            ...primaryBtnStyle,
+            height: "60px",
+            fontSize: "1.1rem",
+            background: "linear-gradient(135deg, #6366f1, #a855f7)",
+            boxShadow: "0 8px 16px rgba(99, 102, 241, 0.3)",
+            marginTop: "8px"
+          }}
+        >
+          {loading ? "준비 중..." : "설정 완료 및 시작하기"}
         </button>
       </form>
     </>
