@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: '0 19 * * *'  # 매일 새벽 4시 KST (UTC 19:00)
   workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: '강제 재갱신 (모든 영상 다시 수집)'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   update-youtube:
@@ -24,7 +30,7 @@ jobs:
         run: npm install
 
       - name: 유튜브 영상 수집
-        run: node scripts/fetch-youtube.js
+        run: node scripts/fetch-youtube.js ${{ github.event.inputs.force_refresh == 'true' && '--force' || '' }}
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           YOUTUBE_API_KEY_2: ${{ secrets.YOUTUBE_API_KEY_2 }}

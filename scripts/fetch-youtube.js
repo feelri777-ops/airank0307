@@ -114,6 +114,12 @@ async function searchYouTube(query, { lang = true } = {}) {
 }
 
 async function main() {
+  // 강제 재갱신 옵션 (환경 변수 또는 명령행 인자)
+  const forceRefresh = process.env.FORCE_REFRESH === 'true' || process.argv.includes('--force');
+  if (forceRefresh) {
+    console.log('🔄 강제 재갱신 모드 활성화');
+  }
+
   // scores.json 기준 실시간 점수로 정렬
   let scores = {};
   const scoresPath = resolve(ROOT, 'public/scores.json');
@@ -147,7 +153,7 @@ async function main() {
     // 데이터 있으면 스킵 (fetchedAt 없어도 기존 데이터 보존 — 쿼터 절약)
     const lastFetch = fetchedAt[existing_id] ? new Date(fetchedAt[existing_id]).getTime() : null;
     const daysSinceFetch = lastFetch ? (now - lastFetch) / (1000 * 60 * 60 * 24) : 999;
-    if (videos[existing_id] && videos[existing_id].length > 0) {
+    if (videos[existing_id] && videos[existing_id].length > 0 && !forceRefresh) {
       if (daysSinceFetch < REFRESH_DAYS) {
         console.log(`  [${tool.id}] ${tool.name} → 유지 (${Math.floor(daysSinceFetch)}일 전 수집)`);
       } else {
