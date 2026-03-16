@@ -323,7 +323,7 @@ export default function CommunityDashboard() {
               {/* 드래그 핸들 */}
               <div
                 style={{
-                  position: "absolute", bottom: "8px", right: "10px",
+                  position: "absolute", top: "8px", right: "10px",
                   fontSize: "0.85rem", color: "var(--text-muted)", cursor: "grab",
                   zIndex: 1, lineHeight: 1, userSelect: "none", opacity: 0.5,
                 }}
