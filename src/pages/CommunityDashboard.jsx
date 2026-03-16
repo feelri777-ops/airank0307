@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { collection, query, where, getDocs, orderBy, limit } from "firebase/firestore";
 import { db } from "../firebase";
@@ -24,6 +25,24 @@ export const BOARDS = [
   { id: "free",       name: "자유게시판", logo: "https://www.google.com/s2/favicons?domain=airank.kr&sz=64",               color: "#F59E0B", desc: "AI 전반에 관한 자유로운 이야기" },
 ];
 
+const PageWrapper = styled.div`
+  max-width: 960px; margin: 0 auto; padding: 2rem 0.5rem;
+  @media (max-width: 600px) { padding: 1rem 0.3rem; }
+`;
+
+const Card = styled.div`
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--r-md);
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  @media (max-width: 600px) { padding: 0.8rem 0.6rem; }
+`;
+
 function BoardCard({ board, isFavorited, onToggleFavorite }) {
   const navigate = useNavigate();
   const [recentPosts, setRecentPosts] = useState([]);
@@ -46,19 +65,8 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
   }, [board.id]);
 
   return (
-    <div
+    <Card
       onClick={() => navigate(`/community/${board.id}`)}
-      style={{
-        background: "var(--bg-card)",
-        border: "1px solid var(--border-primary)",
-        borderRadius: "var(--r-md)",
-        padding: "0.9rem 1rem",
-        cursor: "pointer",
-        transition: "all 0.2s",
-        display: "flex",
-        flexDirection: "column",
-        gap: "8px",
-      }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = board.color;
         e.currentTarget.style.transform = "translateY(-2px)";
@@ -143,7 +151,7 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
           ))
         )}
       </div>
-    </div>
+    </Card>
   );
 }
 
@@ -262,35 +270,31 @@ export default function CommunityDashboard() {
   };
 
   return (
-    <div style={{ maxWidth: "960px", margin: "0 auto", padding: "2rem 0.5rem" }}>
+    <PageWrapper>
       {/* 헤더 */}
-      <div style={{ marginBottom: "2rem" }}>
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px", flexWrap: "wrap" }}>
-          <div>
-            <h1 style={{
-              fontFamily: "'Outfit', sans-serif", fontSize: "1.8rem", fontWeight: 800,
-              color: "var(--text-primary)", marginBottom: "0.4rem",
-            }}>
-              💬 커뮤니티
-            </h1>
-            <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
-              AI 도구별 게시판에서 경험을 공유하고 질문해보세요
-            </p>
-          </div>
+      <div style={{ marginBottom: "1.5rem", textAlign: "center" }}>
+        <h1 style={{
+          fontFamily: "'Outfit', sans-serif", fontSize: "1.8rem", fontWeight: 800,
+          color: "var(--text-primary)", marginBottom: "1rem",
+        }}>
+          💬 커뮤니티
+        </h1>
+        
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "6px" }}>
           <button
             onClick={resetOrder}
             style={{
-              padding: "7px 14px", borderRadius: "var(--r-sm)", fontSize: "0.78rem", fontWeight: 600,
+              padding: "6px 12px", borderRadius: "var(--r-sm)", fontSize: "0.75rem", fontWeight: 700,
               border: "1px solid var(--border-primary)", background: "var(--bg-card)",
-              color: "var(--text-muted)", cursor: "pointer", flexShrink: 0, marginTop: "4px",
+              color: "var(--text-muted)", cursor: "pointer",
             }}
           >
             순서 초기화
           </button>
+          <p style={{ fontSize: "0.72rem", color: "var(--accent-indigo)", fontWeight: 600, opacity: 0.8 }}>
+            ⠿ 게시판을 드래그해서 나만의 순서를 정해보세요
+          </p>
         </div>
-        <p style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: "8px" }}>
-          ⠿ 핸들을 드래그해서 게시판 순서를 변경할 수 있어요
-        </p>
       </div>
 
       {/* 게시판 카드 그리드 */}
@@ -340,6 +344,6 @@ export default function CommunityDashboard() {
           );
         })}
       </div>
-    </div>
+    </PageWrapper>
   );
 }

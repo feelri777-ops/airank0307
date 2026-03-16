@@ -18,7 +18,10 @@ const CATEGORY_COLORS = {
   free:     { bg: "#f3e8ff", color: "#7e22ce", darkBg: "#3b0764", darkColor: "#c084fc" },
 };
 
-const PageWrapper = styled.div`max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem;`;
+const PageWrapper = styled.div`
+  max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem;
+  @media (max-width: 600px) { padding: 1rem 0.3rem; }
+`;
 const BackButton = styled.button`
   display: inline-flex; align-items: center; gap: 0.3rem; background: transparent;
   border: none; color: var(--text-muted); font-size: 0.875rem; cursor: pointer;
@@ -27,7 +30,8 @@ const BackButton = styled.button`
 `;
 const PostCard = styled.article`
   background: var(--bg-card); border: 1px solid var(--border-primary);
-  border-radius: var(--r-md); padding: 2rem; margin-bottom: 1.5rem;
+  border-radius: var(--r-md); padding: 1.25rem 2rem; margin-bottom: 1.5rem;
+  @media (max-width: 600px) { padding: 0.75rem 0.5rem; }
 `;
 const PostHeaderRow = styled.div`display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem;`;
 const CategoryBadge = styled.span`
@@ -41,11 +45,12 @@ const CategoryBadge = styled.span`
 `;
 const PostTitle = styled.h1`
   font-family: "Outfit", sans-serif; font-size: 1.5rem; font-weight: 700;
-  color: var(--text-primary); margin: 0 0 1rem; line-height: 1.4;
+  color: var(--text-primary); margin: 0.2rem 0 0.5rem; line-height: 1.4;
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
 `;
 const MetaRow = styled.div`
-  display: flex; align-items: center; gap: 1rem;
-  padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-primary); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 0.75rem;
+  padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-primary); margin-bottom: 1rem;
 `;
 const AuthorAvatar = styled.img`width: 32px; height: 32px; border-radius: 50%; object-fit: cover;`;
 const AuthorAvatarFallback = styled.div`
@@ -53,7 +58,7 @@ const AuthorAvatarFallback = styled.div`
   display: flex; align-items: center; justify-content: center;
   font-size: 0.85rem; color: #fff; font-weight: 700;
 `;
-const MetaText = styled.div`display: flex; flex-direction: column; gap: 0.15rem;`;
+const MetaText = styled.div`display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;`;
 const AuthorName = styled.span`font-size: 0.875rem; font-weight: 600; color: var(--text-primary);`;
 const PostInfo = styled.span`font-size: 0.775rem; color: var(--text-muted);`;
 const OwnerActions = styled.div`margin-left: auto; display: flex; gap: 0.5rem;`;
@@ -266,16 +271,17 @@ export default function CommunityPost() {
 
   return (
     <PageWrapper>
-      <BackButton onClick={() => navigate(backPath)}>
-        ← {boardInfo ? `${boardInfo.icon} ${boardInfo.name}` : "게시판"}
-      </BackButton>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "1rem" }}>
+        <BackButton onClick={() => navigate(backPath)} style={{ margin: 0 }}>
+          ← {boardInfo ? `${boardInfo.icon} ${boardInfo.name}` : "게시판"}
+        </BackButton>
+      </div>
 
       <PostCard>
-        <PostHeaderRow>
+        <PostTitle>
           {post.category && <CategoryBadge $cat={post.category}>{getCategoryLabel(post.category)}</CategoryBadge>}
-        </PostHeaderRow>
-
-        <PostTitle>{post.title}</PostTitle>
+          {post.title}
+        </PostTitle>
 
         <MetaRow>
           {post.photoURL
@@ -284,7 +290,10 @@ export default function CommunityPost() {
           }
           <MetaText>
             <AuthorName>{post.displayName || "익명"}</AuthorName>
-            <PostInfo>{formatRelativeTime(post.createdAt)} · 조회 {post.views || 0}</PostInfo>
+            <span style={{ color: "var(--text-muted)", opacity: 0.5 }}>·</span>
+            <PostInfo>{formatRelativeTime(post.createdAt)}</PostInfo>
+            <span style={{ color: "var(--text-muted)", opacity: 0.5 }}>·</span>
+            <PostInfo>조회 {post.views || 0}</PostInfo>
           </MetaText>
           {isOwner && (
             <OwnerActions>

@@ -11,7 +11,7 @@ import LoginModal from "../modals/LoginModal";
 import { useGalleryLightbox } from "../../context/GalleryLightboxContext";
 
 const Navbar = ({ theme, onToggleTheme }) => {
-  const { user, logout } = useAuth();
+  const { user, userData, logout } = useAuth();
   const { tools, openToolDetail } = useTools();
   const { newsBookmarks } = useNews();
   const navigate = useNavigate();
@@ -47,6 +47,17 @@ const Navbar = ({ theme, onToggleTheme }) => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  // [추가] 프로필 설정이 안 된 사용자가 로그인되면 자동으로 설정을 띄움
+  useEffect(() => {
+    if (user && !showLoginModal) {
+      // userData가 로드된 후 setupCompleted가 false인 경우 (또는 로드 전인데 닉네임이 없는 경우)
+      // userData가 null인 경우는 아직 로딩 중일 수 있으므로 주의
+      if (userData && !userData.setupCompleted && location.pathname === "/") {
+        setShowLoginModal(true);
+      }
+    }
+  }, [user, userData, showLoginModal, location.pathname]);
+
   const handleBookmarkClick = (toolId) => {
     if (!tools) return;
     const sorted = [...tools].sort((a, b) => b.score - a.score);
@@ -69,6 +80,11 @@ const Navbar = ({ theme, onToggleTheme }) => {
 
   const activeMenu = getActiveMenu();
 
+  // 소셜 로그인 특성상 Firebase Auth의 displayName이 늦게 채워지거나 누락될 수 있으므로
+  // Firestore의 userData를 우선적으로 사용합니다.
+  const displayName = userData?.displayName || user?.displayName || "사용자";
+  const photoURL = userData?.photoURL || user?.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random`;
+
   return (
     <header className="navbar-header">
       <div className="navbar-top-row">
@@ -82,14 +98,14 @@ const Navbar = ({ theme, onToggleTheme }) => {
                 style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}
               >
                 <img
-                  src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=random`}
-                  alt={user.displayName}
+                  src={photoURL}
+                  alt={displayName}
                   width={30}
                   height={30}
                   style={{ borderRadius: "50%", flexShrink: 0 }}
                 />
                 <span className="user-name">
-                  {user.displayName?.split(" ")[0] || "사용자"}
+                  {displayName.split(" ")[0]}
                 </span>
               </div>
 

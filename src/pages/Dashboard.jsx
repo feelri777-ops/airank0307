@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import {
-  collection, query, where, getDocs, doc, updateDoc, writeBatch,
+  collection, query, where, getDocs, doc, setDoc, updateDoc, writeBatch,
 } from "firebase/firestore";
 import { ref as sRef, uploadBytes, getDownloadURL as storageDL } from "firebase/storage";
 import { updateProfile, sendPasswordResetEmail, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
@@ -116,7 +116,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
     setSavingAvatar(true);
     try {
       await updateProfile(auth.currentUser, { photoURL: url });
-      await updateDoc(doc(db, "users", user.uid), { photoURL: url });
+      await setDoc(doc(db, "users", user.uid), { photoURL: url }, { merge: true });
       setCurrentPhotoURL(url);
       setShowAvatarPicker(false);
     } catch (e) { console.error(e); }
@@ -135,7 +135,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
       await uploadBytes(storageRef, compressed);
       const url = await storageDL(storageRef);
       await updateProfile(auth.currentUser, { photoURL: url });
-      await updateDoc(doc(db, "users", user.uid), { photoURL: url });
+      await setDoc(doc(db, "users", user.uid), { photoURL: url }, { merge: true });
       setCurrentPhotoURL(url);
       setShowAvatarPicker(false);
     } catch (e) { console.error(e); }
@@ -163,7 +163,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
       }
       // Auth + users 업데이트
       await updateProfile(auth.currentUser, { displayName: trimmed });
-      await updateDoc(doc(db, "users", user.uid), { displayName: trimmed });
+      await setDoc(doc(db, "users", user.uid), { displayName: trimmed }, { merge: true });
       // 게시글/댓글 일괄 업데이트 (writeBatch)
       const [gpSnap, cpSnap, ccSnap] = await Promise.all([
         getDocs(query(collection(db, "galleryPosts"), where("uid", "==", user.uid))),
@@ -224,7 +224,9 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
           {isMobile && (
             <div>
               <div style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}>{user.displayName}</div>
-              <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "2px" }}>{user.email}</div>
+              {user.providerData.some(p => p.providerId === "password") && (
+                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "2px" }}>{user.email}</div>
+              )}
             </div>
           )}
         </div>
@@ -256,16 +258,18 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
               </div>
             )}
           </div>
-          {!isMobile && (
+          {!isMobile && user.providerData.some(p => p.providerId === "password") && (
             <div>
               <div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>이메일</div>
               <span style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>{user.email}</span>
             </div>
           )}
-          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
-            <button onClick={handlePasswordReset} style={btnStyle("ghost", "sm")}>🔑 비밀번호 재설정 메일 발송</button>
-            {resetMsg && <span style={{ fontSize: "0.78rem", color: "var(--accent-indigo, #6366f1)", fontWeight: 600 }}>{resetMsg}</span>}
-          </div>
+          {user.providerData.some(p => p.providerId === "password") && (
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
+              <button onClick={handlePasswordReset} style={btnStyle("ghost", "sm")}>🔑 비밀번호 재설정 메일 발송</button>
+              {resetMsg && <span style={{ fontSize: "0.78rem", color: "var(--accent-indigo, #6366f1)", fontWeight: 600 }}>{resetMsg}</span>}
+            </div>
+          )}
         </div>
       </div>
 
@@ -679,7 +683,7 @@ const btnStyle = (variant, size = "md") => {
 
 // ── 대시보드 메인 ────────────────────────────────────────────
 export default function Dashboard() {
-  const { user, logout } = useAuth();
+  const { user, userData, logout } = useAuth();
   const { newsBookmarks, toggleNewsBookmark } = useNews();
   const { tools, openToolDetail } = useTools();
   const navigate = useNavigate();
@@ -698,9 +702,16 @@ export default function Dashboard() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // 통계 로드
+  // 통계 로드 및 설정 여부 확인
   useEffect(() => {
     if (!user) return;
+
+    // 설정이 안 된 사용자라면 메인으로 보내거나 설정 유도
+    if (userData && !userData.setupCompleted) {
+       // navigate("/", { state: { openSetup: true } }); 
+       // 또는 대시보드 내에서 설정 섹션을 강제로 보여줄 수도 있습니다.
+    }
+
     getDocs(query(collection(db, "galleryPosts"), where("uid", "==", user.uid)))
       .then((snap) => {
         const posts = snap.docs.map((d) => d.data());
@@ -713,7 +724,7 @@ export default function Dashboard() {
     getDocs(query(collection(db, "bookmarks"), where("uid", "==", user.uid)))
       .then((snap) => setStats((prev) => ({ ...prev, bookmarks: snap.size })))
       .catch(() => {});
-  }, [user]);
+  }, [user, userData]);
 
   const handleLogout = () => { logout(); navigate("/"); };
 

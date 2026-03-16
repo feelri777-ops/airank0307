@@ -17,7 +17,10 @@ const CATEGORY_COLORS = {
   free:     { bg: "#f3e8ff", color: "#7e22ce", darkBg: "#3b0764", darkColor: "#c084fc" },
 };
 
-const PageWrapper = styled.div`max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem;`;
+const PageWrapper = styled.div`
+  max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem;
+  @media (max-width: 600px) { padding: 1.5rem 0.5rem; }
+`;
 
 const PageHeader = styled.div`
   display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;
@@ -67,7 +70,11 @@ const PostRow = styled.div`
   cursor: pointer; transition: background 0.15s; align-items: center;
   &:last-child { border-bottom: none; }
   &:hover { background: var(--bg-tertiary); }
-  @media (max-width: 600px) { grid-template-columns: 1fr; gap: 0.3rem; }
+  @media (max-width: 600px) { 
+    grid-template-columns: 1fr; 
+    padding: 0.75rem 1rem;
+    gap: 0.15rem; 
+  }
 `;
 
 const PostNum = styled.span`
@@ -97,17 +104,25 @@ const CommentCount = styled.span`font-size: 0.78rem; color: var(--accent-indigo)
 
 const PostMeta = styled.span`
   font-size: 0.78rem; color: var(--text-muted); text-align: center;
-  @media (max-width: 600px) { display: inline; }
+  @media (max-width: 600px) { display: none; }
 `;
 
 const LikeCount = styled.span`
   font-size: 0.78rem; color: var(--text-muted); text-align: center;
   display: flex; align-items: center; justify-content: center; gap: 0.25rem;
+  @media (max-width: 600px) { display: none; }
 `;
 
 const MobilePostMeta = styled.div`
-  display: none; font-size: 0.75rem; color: var(--text-muted); gap: 0.5rem;
+  display: none; font-size: 0.95rem; color: var(--text-muted); align-items: center; gap: 0.5rem;
   @media (max-width: 600px) { display: flex; }
+`;
+const MobileAuthorAvatar = styled.img`
+  width: 27px; height: 27px; border-radius: 50%; object-fit: cover;
+`;
+const MobileAuthorFallback = styled.div`
+  width: 27px; height: 27px; border-radius: 50%; background: var(--accent-gradient);
+  display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #fff;
 `;
 
 const LoadMoreButton = styled.button`
@@ -235,18 +250,24 @@ export default function Community() {
                 {post.category && post.category !== "all" && (
                   <CategoryBadge $cat={post.category}>{getCategoryLabel(post.category)}</CategoryBadge>
                 )}
-                <PostTitle>{post.title}</PostTitle>
+                <PostTitle style={{ fontWeight: 600 }}>{post.title}</PostTitle>
                 {post.commentCount > 0 && <CommentCount>[{post.commentCount}]</CommentCount>}
               </PostTitleCell>
               <PostMeta style={{ textAlign: "center" }}>{post.displayName || "익명"}</PostMeta>
               <PostMeta style={{ textAlign: "center" }}>{formatRelativeTime(post.createdAt)}</PostMeta>
               <LikeCount>♥ {post.likeCount || 0}</LikeCount>
-              <MobilePostMeta>
+              <MobilePostMeta style={{ marginTop: "4px" }}>
+                {post.photoURL ? (
+                  <MobileAuthorAvatar src={post.photoURL} alt="" />
+                ) : (
+                  <MobileAuthorFallback>{(post.displayName || "?")[0]}</MobileAuthorFallback>
+                )}
                 <span>{post.displayName || "익명"}</span>
-                <span>·</span>
+                <span style={{ opacity: 0.5 }}>·</span>
                 <span>{formatRelativeTime(post.createdAt)}</span>
-                <span>·</span>
-                <span>♥ {post.likeCount || 0}</span>
+                <span style={{ marginLeft: "auto", color: "var(--accent-indigo)", fontWeight: 700 }}>
+                  ♥ {post.likeCount || 0}
+                </span>
               </MobilePostMeta>
             </PostRow>
           ))
