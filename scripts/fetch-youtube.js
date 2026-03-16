@@ -21,6 +21,40 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 import { TOOLS_DATA } from '../src/data/tools.js';
 
+// ISO 8601 duration을 초 단위로 변환
+function parseDuration(duration) {
+  const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+  if (!match) return 0;
+  const hours = parseInt(match[1] || 0);
+  const minutes = parseInt(match[2] || 0);
+  const seconds = parseInt(match[3] || 0);
+  return hours * 3600 + minutes * 60 + seconds;
+}
+
+// 영상 상세 정보 가져오기 (길이 확인용)
+async function getVideoDetails(videoIds) {
+  if (videoIds.length === 0) return [];
+
+  const key = YOUTUBE_API_KEYS[currentKeyIndex];
+  const params = new URLSearchParams({
+    part: 'contentDetails',
+    id: videoIds.join(','),
+    key,
+  });
+
+  const res = await fetch(`https://www.googleapis.com/youtube/v3/videos?${params}`);
+  if (!res.ok) {
+    console.error(`Video details API error (${res.status})`);
+    return [];
+  }
+
+  const json = await res.json();
+  return (json.items || []).map(item => ({
+    videoId: item.id,
+    duration: parseDuration(item.contentDetails.duration),
+  }));
+}
+
 async function searchYouTube(query, { lang = true } = {}) {
   // 사용 가능한 키가 없으면 포기
   if (currentKeyIndex >= YOUTUBE_API_KEYS.length) return [];
@@ -54,15 +88,29 @@ async function searchYouTube(query, { lang = true } = {}) {
     return [];
   }
   const json = await res.json();
-  return (json.items || [])
+  const candidates = (json.items || [])
     .filter(item => item.id?.videoId)
-    .slice(0, 3)
     .map(item => ({
       videoId: item.id.videoId,
       title: item.snippet.title,
       channelTitle: item.snippet.channelTitle,
       thumbnail: item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url || '',
     }));
+
+  if (candidates.length === 0) return [];
+
+  // 영상 길이 확인하여 Shorts(60초 이하) 필터링
+  const videoIds = candidates.map(v => v.videoId);
+  const details = await getVideoDetails(videoIds);
+  const durationMap = Object.fromEntries(details.map(d => [d.videoId, d.duration]));
+
+  return candidates
+    .filter(video => {
+      const duration = durationMap[video.videoId];
+      if (!duration) return true; // 길이 정보 없으면 일단 포함
+      return duration > 60; // 60초 초과만 포함 (Shorts 제외)
+    })
+    .slice(0, 3);
 }
 
 async function main() {
