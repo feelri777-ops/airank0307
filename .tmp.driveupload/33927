@@ -57,7 +57,7 @@ const PostTable = styled.div`
 `;
 
 const PostHeader = styled.div`
-  display: grid; grid-template-columns: 50px 1fr 90px 60px 55px;
+  display: grid; grid-template-columns: 50px 1fr 125px 70px 55px;
   padding: 0.65rem 1.25rem; background: var(--bg-tertiary);
   border-bottom: 1px solid var(--border-primary);
   font-size: 0.8rem; color: var(--text-muted); font-weight: 600;
@@ -65,7 +65,7 @@ const PostHeader = styled.div`
 `;
 
 const PostRow = styled.div`
-  display: grid; grid-template-columns: 50px 1fr 90px 60px 55px;
+  display: grid; grid-template-columns: 50px 1fr 125px 70px 55px;
   padding: 0.9rem 1.25rem; border-bottom: 1px solid var(--border-primary);
   cursor: pointer; transition: background 0.15s; align-items: center;
   &:last-child { border-bottom: none; }
@@ -108,11 +108,11 @@ const PostMeta = styled.span`
   @media (max-width: 600px) { display: none; }
 `;
 const DesktopAvatar = styled.img`
-  width: 22px; height: 22px; border-radius: 50%; object-fit: cover;
+  width: 31px; height: 31px; border-radius: 50%; object-fit: cover;
 `;
 const DesktopFallback = styled.div`
-  width: 22px; height: 22px; border-radius: 50%; background: var(--accent-gradient);
-  display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: #fff;
+  width: 31px; height: 31px; border-radius: 50%; background: var(--accent-gradient);
+  display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #fff;
 `;
 
 const LikeCount = styled.span`
