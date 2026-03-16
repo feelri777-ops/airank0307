@@ -11,6 +11,7 @@ export default function AdminCommunity() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [deleting, setDeleting] = useState(null);
+  const [moving, setMoving] = useState(null);
 
   const fetchPosts = async () => {
     setLoading(true);
@@ -31,7 +32,6 @@ export default function AdminCommunity() {
     if (!window.confirm("이 게시물을 삭제하시겠습니까?")) return;
     setDeleting(postId);
     try {
-      // 댓글 서브컬렉션 일괄 삭제
       const commentsSnap = await getDocs(collection(db, "communityPosts", postId, "comments"));
       const batch = writeBatch(db);
       commentsSnap.docs.forEach((d) => batch.delete(d.ref));
@@ -45,20 +45,25 @@ export default function AdminCommunity() {
     }
   };
 
-  const movePost = async (postId, targetBoardId, title) => {
-    if (!window.confirm(`[${title}] 게시물을 ${BOARD_MAP[targetBoardId]} 게시판으로 이동하시겠습니까?`)) return;
-    setDeleting(postId); // 삭제와 동일한 로딩 처리 공유
+  const movePost = async (postId, targetBoardId, currentBoardId, title) => {
+    if (targetBoardId === currentBoardId) return;
+    const targetName = BOARD_MAP[targetBoardId];
+    if (!window.confirm(`"${title}"\n\n→ [${targetName}] 게시판으로 이동하시겠습니까?`)) return;
+    setMoving(postId);
     try {
       await updateDoc(doc(db, "communityPosts", postId), { board: targetBoardId });
-      setPosts((prev) => prev.map((p) => p.id === postId ? { ...p, board: targetBoardId } : p));
+      setPosts((prev) =>
+        prev.map((p) => p.id === postId ? { ...p, board: targetBoardId } : p)
+      );
     } catch (e) {
       alert("이동 실패: " + e.message);
     } finally {
-      setDeleting(null);
+      setMoving(null);
     }
   };
 
   const filtered = filter === "all" ? posts : posts.filter((p) => p.board === filter);
+  const isBusy = (postId) => deleting === postId || moving === postId;
 
   return (
     <div>
@@ -91,32 +96,28 @@ export default function AdminCommunity() {
               display: "flex", alignItems: "center", gap: "12px",
               padding: "14px 16px", background: "var(--bg-card)",
               border: "1px solid var(--border-primary)", borderRadius: "var(--r-md)",
+              opacity: isBusy(post.id) ? 0.6 : 1, transition: "opacity 0.15s",
             }}>
-              <select
-                value={post.board}
-                onChange={(e) => movePost(post.id, e.target.value, post.title)}
-                disabled={deleting === post.id}
-                style={{
-                  fontSize: "0.72rem", fontWeight: 700, padding: "4px 8px", borderRadius: "6px",
-                  background: "rgba(99,102,241,0.08)", color: "var(--accent-indigo)",
-                  border: "1px solid rgba(99,102,241,0.2)", cursor: "pointer", flexShrink: 0,
-                  outline: "none"
-                }}
-              >
-                {BOARDS.map((b) => (
-                  <option key={b.id} value={b.id}>
-                    {b.name}
-                  </option>
-                ))}
-              </select>
+              {/* 현재 게시판 배지 */}
+              <span style={{
+                fontSize: "0.72rem", fontWeight: 700, padding: "3px 8px", borderRadius: "6px",
+                background: "rgba(99,102,241,0.08)", color: "var(--accent-indigo)",
+                border: "1px solid rgba(99,102,241,0.2)", flexShrink: 0, whiteSpace: "nowrap",
+              }}>
+                {BOARD_MAP[post.board] || post.board}
+              </span>
+
+              {/* 제목 + 메타 */}
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                   {post.title}
                 </div>
                 <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "2px" }}>
-                  {post.authorName || "익명"} · {post.createdAt ? formatRelativeTime(post.createdAt) : "-"} · 댓글 {post.commentCount || 0} · 👍 {post.upvoteCount || 0} 👎 {post.downvoteCount || 0}
+                  {post.authorName || post.displayName || "익명"} · {post.createdAt ? formatRelativeTime(post.createdAt) : "-"} · 댓글 {post.commentCount || 0} · 👍 {post.upvoteCount || 0} 👎 {post.downvoteCount || 0}
                 </div>
               </div>
+
+              {/* 보기 링크 */}
               <a
                 href={`/community/${post.board}/${post.id}`}
                 target="_blank"
@@ -125,28 +126,37 @@ export default function AdminCommunity() {
               >
                 보기
               </a>
+
+              {/* 게시판 이동 select */}
               <select
                 value={post.board}
-                disabled={moving === post.id}
-                onChange={(e) => movePost(post.id, e.target.value)}
+                disabled={isBusy(post.id)}
+                onChange={(e) => movePost(post.id, e.target.value, post.board, post.title)}
                 style={{
-                  fontSize: "0.75rem", padding: "4px 8px", borderRadius: "var(--r-sm)",
+                  fontSize: "0.8rem", padding: "5px 8px", borderRadius: "var(--r-sm)",
                   border: "1px solid var(--border-primary)", background: "var(--bg-secondary)",
-                  color: "var(--text-primary)", cursor: "pointer", outline: "none"
+                  color: "var(--text-primary)", cursor: "pointer", outline: "none", flexShrink: 0,
                 }}
               >
-                {BOARDS.map(b => (
+                {BOARDS.map((b) => (
                   <option key={b.id} value={b.id}>{b.name}</option>
                 ))}
               </select>
+
+              {/* 이동 중 표시 */}
+              {moving === post.id && (
+                <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", flexShrink: 0 }}>이동 중…</span>
+              )}
+
+              {/* 삭제 버튼 */}
               <button
                 onClick={() => deletePost(post.id)}
-                disabled={deleting === post.id}
+                disabled={isBusy(post.id)}
                 style={{
                   padding: "6px 14px", borderRadius: "var(--r-sm)", fontSize: "0.8rem", fontWeight: 700,
                   background: "rgba(239,68,68,0.1)", color: "#ef4444",
                   border: "1px solid #ef4444", cursor: "pointer", flexShrink: 0,
-                  opacity: deleting === post.id ? 0.5 : 1,
+                  opacity: isBusy(post.id) ? 0.5 : 1,
                 }}
               >
                 {deleting === post.id ? "삭제 중…" : "삭제"}
