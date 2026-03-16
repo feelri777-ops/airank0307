@@ -6,8 +6,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   sendEmailVerification,
-  signInWithPopup,
-  OAuthProvider
+  signInWithCustomToken
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
@@ -123,10 +122,57 @@ export const AuthProvider = ({ children }) => {
 
   const loginWithNaver = async () => {
     try {
-      const provider = new OAuthProvider('oidc.naver');
-      const result = await signInWithPopup(auth, provider);
-      await handleUser(result.user);
-      return result.user;
+      // 네이버 로그인 팝업 URL
+      const naverClientId = 'US3Fvgf2Yd8zLpdsDg_M';
+      const redirectUri = encodeURIComponent(window.location.origin + '/naver-callback');
+      const state = Math.random().toString(36).substring(7);
+
+      const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=token&client_id=${naverClientId}&redirect_uri=${redirectUri}&state=${state}`;
+
+      // 팝업 열기
+      const popup = window.open(naverAuthUrl, 'naverLogin', 'width=500,height=600');
+
+      // 팝업에서 토큰 받기를 기다림
+      return new Promise((resolve, reject) => {
+        const checkPopup = setInterval(() => {
+          if (!popup || popup.closed) {
+            clearInterval(checkPopup);
+            reject(new Error('popup-closed'));
+          }
+        }, 500);
+
+        // 메시지 리스너로 토큰 받기
+        window.addEventListener('message', async (event) => {
+          if (event.origin !== window.location.origin) return;
+
+          if (event.data.type === 'NAVER_TOKEN') {
+            clearInterval(checkPopup);
+            popup.close();
+
+            const accessToken = event.data.token;
+
+            // Cloud Function 호출
+            const response = await fetch('https://naverauth-mw67zvvnnq-uc.a.run.app', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ token: accessToken }),
+            });
+
+            if (!response.ok) {
+              throw new Error('Failed to authenticate with Naver');
+            }
+
+            const data = await response.json();
+
+            // Firebase Custom Token으로 로그인
+            const userCredential = await signInWithCustomToken(auth, data.token);
+            await handleUser(userCredential.user);
+            resolve(userCredential.user);
+          }
+        }, { once: true });
+      });
     } catch (error) {
       console.error("🔴 Naver Login error:", error);
       throw error;
@@ -134,15 +180,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const loginWithKakao = async () => {
-    try {
-      const provider = new OAuthProvider('oidc.kakao');
-      const result = await signInWithPopup(auth, provider);
-      await handleUser(result.user);
-      return result.user;
-    } catch (error) {
-      console.error("🔴 Kakao Login error:", error);
-      throw error;
-    }
+    // 카카오는 나중에 구현
+    throw new Error('카카오 로그인은 준비 중입니다');
   };
 
   const logout = () => {
