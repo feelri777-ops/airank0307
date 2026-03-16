@@ -4,6 +4,7 @@ import { doc, deleteDoc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { TOOLS_DATA } from "../../data/tools";
+import { decodeHtmlEntities } from "../../utils";
 
 // 미니 스파크라인 SVG (ScoreInsightPanel 밖에 정의 → remount 방지로 애니메이션 1회만 실행)
 const Spark = ({ pts, color }) => {
@@ -418,9 +419,9 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
                   display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
                   overflow: "hidden", lineHeight: 1.35
                 }}>
-                  {video.title}
+                  {decodeHtmlEntities(video.title)}
                 </div>
-                <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", marginTop: "4px" }}>{video.channelTitle}</div>
+                <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", marginTop: "4px" }}>{decodeHtmlEntities(video.channelTitle)}</div>
               </div>
             </a>
           ))
