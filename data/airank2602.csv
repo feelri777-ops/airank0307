@@ -1,9 +1,9 @@
 ID	Service Name	Analysis Domain	Rank	Score	OpenSource
-1	ChatGPT	chatgpt.com	1	86.43	Y
-2	Claude	claude.ai	2	66.62	Y
+1	ChatGPT	chatgpt.com	1	86.41	Y
+2	Claude	claude.ai	2	66.63	Y
 3	Gemini	gemini.google.com	3	58.51	N
 4	DeepSeek	www.deepseek.com	4	56.48	Y
-5	Grok	x.ai	5	58.56	N
+5	Grok	x.ai	5	58.55	N
 6	Llama	llama.meta.com	6	53.45	Y
 7	Mistral AI	mistral.ai	7	56.76	Y
 8	Character.AI	character.ai	8	39.79	N
@@ -13,7 +13,7 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 12	DALL-E 3	openai.com/dall-e-3	12	30.61	N
 13	Adobe Firefly	firefly.adobe.com	13	40.68	N
 14	Leonardo AI	leonardo.ai	14	41.45	N
-15	Ideogram	ideogram.ai	15	40.56	N
+15	Ideogram	ideogram.ai	15	40.55	N
 16	Flux	blackforestlabs.ai	16	41.55	N
 17	Krea AI	www.krea.ai	17	37.66	N
 18	GitHub Copilot	github.com/features/copilot	18	41.48	Y
@@ -22,7 +22,7 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 21	Windsurf	codeium.com/windsurf	21	24.42	N
 22	v0	v0.dev	22	39.82	Y
 23	Replit AI	replit.com	23	43.27	N
-24	Tabnine	www.tabnine.com	24	38.42	N
+24	Tabnine	www.tabnine.com	24	38.41	N
 25	Sora	sora.com	25	43.7	N
 26	Runway ML	runwayml.com	26	44.91	N
 27	Kling AI	klingai.com	27	39.73	N
@@ -40,13 +40,13 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 39	Microsoft Copilot	copilot.microsoft.com	39	49.23	N
 40	Notion AI	www.notion.so/product/ai	40	55.36	N
 41	Gamma	gamma.app	41	45.17	N
-42	Otter.ai	otter.ai	42	42.93	N
-43	Fireflies.ai	fireflies.ai	43	35.91	N
-44	Beautiful.ai	www.beautiful.ai	44	36.43	N
+42	Otter.ai	otter.ai	42	43.49	N
+43	Fireflies.ai	fireflies.ai	43	36.08	N
+44	Beautiful.ai	www.beautiful.ai	44	35.46	N
 45	Make	www.make.com	45	55.55	N
 46	Zapier AI	zapier.com/ai	46	51.44	N
-47	n8n	n8n.io	47	48.85	N
-48	Canva AI	www.canva.com/ai-tools	48	57.97	N
+47	n8n	n8n.io	47	48.84	N
+48	Canva AI	www.canva.com/ai-tools	48	57.96	N
 49	Figma AI	www.figma.com/ai	49	52.58	N
 50	Uizard	uizard.io	50	38.66	N
 51	Le Chat	chat.mistral.ai	51	40.56	N
@@ -56,14 +56,14 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 55	Kimi	kimi.moonshot.cn	55	43.09	N
 56	Phi-4	azure.microsoft.com/en-us/products/phi-4	56	29.14	Y
 57	Amazon Nova	aws.amazon.com	57	31.24	N
-58	Playground AI	playground.com	58	36.12	N
+58	Playground AI	playground.com	58	36.11	N
 59	SeaArt AI	www.seaart.ai	59	35.93	N
-60	NightCafe	nightcafe.studio	60	38.97	N
-61	Tensor.Art	tensor.art	61	33.71	N
+60	NightCafe	nightcafe.studio	60	38.96	N
+61	Tensor.Art	tensor.art	61	33.75	N
 62	Civitai	civitai.com	62	39.99	N
 63	Bing Image Creator	www.bing.com/create	63	31.41	N
-64	Amazon Q Developer	aws.amazon.com/q/developer	64	29.94	N
-65	Lovable	lovable.dev	65	46.09	N
+64	Amazon Q Developer	aws.amazon.com/q/developer	64	29.93	N
+65	Lovable	lovable.dev	65	46.08	N
 66	Cody	sourcegraph.com	66	44.91	N
 67	Devin	www.devin.ai	67	40.15	N
 68	Aider	aider.chat	68	39.73	N
@@ -71,38 +71,38 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 70	InVideo AI	invideo.io	70	42.78	N
 71	Hailuo AI	www.hailuo.ai	71	26.31	N
 72	Pictory	pictory.ai	72	41.3	N
-73	Veed.io AI	veed.io	73	40.9	N
+73	Veed.io AI	veed.io	73	41.42	N
 74	AIVA	www.aiva.ai	74	35.37	N
 75	Soundraw	soundraw.io	75	36.04	N
 76	Mubert	mubert.com	76	36.07	N
 77	Adobe Podcast AI	podcast.adobe.com	77	18.26	N
-78	Lalal.ai	www.lalal.ai	78	35.96	N
+78	Lalal.ai	www.lalal.ai	78	36.58	N
 79	Phind	www.phind.com	79	34.68	N
 80	Consensus	consensus.app	80	45.71	N
 81	Kagi	kagi.com	81	42.19	N
-82	Exa	exa.ai	82	39.07	N
-83	Jasper	www.jasper.ai	83	45.33	N
+82	Exa	exa.ai	82	39.06	N
+83	Jasper	www.jasper.ai	83	45.32	N
 84	Copy.ai	www.copy.ai	84	39.21	N
 85	Grammarly	www.grammarly.com	85	52.41	N
 86	Writesonic	writesonic.com	86	46.24	N
 87	Tome	tome.app	87	39.27	N
 88	Taskade	www.taskade.com	88	41.08	N
-89	Mem AI	mem.ai	89	33.18	N
-90	Reclaim.ai	reclaim.ai	90	35.2	N
+89	Mem AI	mem.ai	89	33.17	N
+90	Reclaim.ai	reclaim.ai	90	35.45	N
 91	Rytr	rytr.me	91	41.53	N
 92	Wordtune	www.wordtune.com	92	38.26	N
 93	Framer AI	www.framer.com/ai	93	40.98	N
 94	Looka	looka.com	94	42.31	N
-95	Khroma	khroma.co	95	34.39	N
+95	Khroma	khroma.co	95	34.38	N
 96	Relume	www.relume.io	96	36.46	N
-97	Remove.bg	www.remove.bg	97	41.87	N
-98	Cleanup.pictures	cleanup.pictures	98	35.39	N
+97	Remove.bg	www.remove.bg	97	42.4	N
+98	Cleanup.pictures	cleanup.pictures	98	35.18	N
 99	Spline AI	spline.design	99	33.99	N
-100	Visily	www.visily.ai	100	31.13	N
-101	Replika	replika.com	101	36.31	N
+100	Visily	www.visily.ai	100	31.12	N
+101	Replika	replika.com	101	36.3	N
 102	Pi AI	pi.ai	102	40.76	N
 103	Meta AI	meta.ai	103	42.24	N
-104	Talkie AI	www.talkie-ai.com	104	36.49	N
+104	Talkie AI	www.talkie-ai.com	104	35.75	N
 105	Kindroid	kindroid.ai	105	25.82	N
 106	Chai AI	www.chai-research.com	106	34.46	N
 107	Anima AI	myanima.ai	107	29.05	N
@@ -113,12 +113,12 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 112	Facetune	facetuneapp.com	112	37.99	N
 113	Prisma	prisma-ai.com	113	43.12	N
 114	Pixelcut	www.pixelcut.ai	114	34.81	N
-115	Wombo Dream	www.wombo.ai	115	36.51	N
+115	Wombo Dream	www.wombo.ai	115	35.26	N
 116	Starryai	starryai.com	116	38.75	N
 117	Meitu	meitu.com	117	35.13	N
 118	PicsArt AI	picsart.com	118	42.27	N
 119	Reface	hey.reface.ai	119	36.49	N
-120	FaceApp	www.faceapp.com	120	37.59	N
+120	FaceApp	www.faceapp.com	120	37.58	N
 121	Photoleap	lightricks.com	121	36.01	N
 122	Deep Nostalgia	www.myheritage.com/deep-nostalgia	122	20.78	N
 123	Captions	www.captions.ai	123	43.33	N
@@ -127,8 +127,8 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 126	Pixverse	pixverse.ai	126	32.22	N
 127	Haiper	haiper.ai	127	31.26	N
 128	Voicemod	www.voicemod.net	128	36.23	N
-129	Resemble AI	www.resemble.ai	129	34.16	N
-130	Play.ht	play.ht	130	38.69	N
+129	Resemble AI	www.resemble.ai	129	34.15	N
+130	Play.ht	play.ht	130	38.62	N
 131	Podcastle	podcastle.ai	131	35.41	N
 132	Boomy	boomy.com	132	35.24	N
 133	Speechify	speechify.com	133	40.92	N
@@ -139,31 +139,31 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 138	Duolingo Max	www.duolingo.com/max	138	43.39	N
 139	Elsa Speak	elsaspeak.com	139	35.11	N
 140	Speak	speak.com	140	45.98	N
-141	QuillBot	quillbot.com	141	48.65	N
+141	QuillBot	quillbot.com	141	48.64	N
 142	Photomath	photomath.com	142	36.4	N
 143	Socratic	socratic.org	143	41.19	N
 144	Liner	getliner.com	144	38.9	N
 145	Google Lens	lens.google	145	41.02	N
 146	Microsoft Designer	designer.microsoft.com	146	42.52	N
 147	Adobe Express	www.adobe.com/express/feature/ai	147	31.91	N
-148	Fotor AI	www.fotor.com	148	39.2	N
+148	Fotor AI	www.fotor.com	148	39.19	N
 149	Woebot	woebothealth.com	149	35.76	N
-150	Kuki AI	www.kuki.ai	150	29.59	N
+150	Kuki AI	www.kuki.ai	150	29.3	N
 151	Devin	www.devin.ai	151	40.15	N
-152	Lovable	lovable.dev	152	46.09	N
-153	Amazon Q Developer	aws.amazon.com/q/developer	153	29.94	N
-154	JetBrains AI	jetbrains.com	154	51.34	N
-155	Continue.dev	continue.dev	155	33.12	N
+152	Lovable	lovable.dev	152	46.08	N
+153	Amazon Q Developer	aws.amazon.com/q/developer	153	29.93	N
+154	JetBrains AI	jetbrains.com	154	51.33	N
+155	Continue.dev	continue.dev	155	33.11	N
 156	Aider	aider.chat	156	39.73	N
 157	Zed	zed.dev	157	51.24	Y
 158	Cline	github.com/cline/cline	158	49.91	Y
-159	WRTN	wrtn.ai	159	35.19	N
+159	WRTN	wrtn.ai	159	35.18	N
 160	Gemma	ai.google.dev/gemma	160	37.73	Y
-161	EXAONE	www.lgresearch.ai/exaone	161	16.84	N
+161	EXAONE	www.lgresearch.ai/exaone	161	16.83	N
 162	Solar	www.upstage.ai/solar	162	27.35	N
-163	InternLM	internlm.intern-ai.org.cn	163	25.84	N
+163	InternLM	internlm.intern-ai.org.cn	163	25.14	N
 164	Consensus	consensus.app	164	45.71	N
-165	SciSpace	typeset.io	165	39.75	N
+165	SciSpace	typeset.io	165	39.74	N
 166	Semantic Scholar	www.semanticscholar.org	166	43.71	N
 167	Research Rabbit	researchrabbitapp.com	167	34.68	N
 168	Imagen 3	deepmind.google	168	44.65	N
@@ -172,12 +172,12 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 171	Clipdrop	clipdrop.co	171	42.35	N
 172	Magnific AI	magnific.ai	172	28.36	N
 173	ComfyUI	github.com/comfyanonymous/ComfyUI	173	50.19	Y
-174	InvokeAI	invoke.ai	174	27.79	N
+174	InvokeAI	invoke.ai	174	26.17	N
 175	Veo 2	deepmind.google	175	44.52	N
 176	Hailuo AI	www.hailuo.ai	176	26.31	N
 177	Wan AI	wanxiang.aliyun.com	177	21.92	N
 178	Opus Clip	www.opus.pro	178	40.52	N
-179	Veed.io	www.veed.io	179	38.62	N
+179	Veed.io	www.veed.io	179	38.61	N
 180	Kapwing	www.kapwing.com	180	37	N
 181	InVideo AI	invideo.io	181	42.78	N
 182	Murf AI	murf.ai	182	39.22	N
@@ -189,10 +189,10 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 188	ClickUp AI	clickup.com/ai	188	45.79	N
 189	Tana	tana.inc	189	37.27	N
 190	Reflect	reflect.app	190	44.13	N
-191	Clova Note	clovanote.naver.com	191	21.58	N
+191	Clova Note	clovanote.naver.com	191	21.17	N
 192	Napkin AI	napkin.ai	192	36.82	N
 193	Granola	granola.ai	193	35.82	N
-194	Kittl	www.kittl.com	194	37.22	N
+194	Kittl	www.kittl.com	194	37.21	N
 195	Topaz Photo AI	topazlabs.com	195	34.27	N
 196	Upscayl	www.upscayl.org	196	35	N
 197	Pixlr AI	pixlr.com	197	41.97	N
@@ -208,9 +208,9 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 207	Cohere	cohere.com	207	43.35	N
 208	AnythingLLM	anythingllm.com	208	34.45	N
 209	GPT4All	gpt4all.io	209	32.75	N
-210	Jan.ai	jan.ai	210	38.77	N
+210	Jan.ai	jan.ai	210	38.56	N
 211	Blackbox AI	www.blackbox.ai	211	33.11	N
-212	CrewAI	www.crewai.com	212	39.14	N
+212	CrewAI	www.crewai.com	212	39.13	N
 213	AutoGen	microsoft.github.io/autogen	213	26.35	N
 214	LangChain	www.langchain.com	214	53.64	Y
 215	LlamaIndex	www.llamaindex.ai	215	38.39	N
@@ -219,7 +219,7 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 218	Freepik AI	freepik.com	218	50.99	N
 219	NovelAI	novelai.net	219	33.15	N
 220	Sudowrite	sudowrite.com	220	33.01	N
-221	Lex	lex.page	221	34.52	N
+221	Lex	lex.page	221	34.51	N
 222	Viggle	viggle.ai	222	31.47	N
 223	Hedra	hedra.com	223	36.58	N
 224	Stable Video	www.stablevideo.com	224	26.34	N
@@ -236,16 +236,16 @@ ID	Service Name	Analysis Domain	Rank	Score	OpenSource
 235	Fathom	fathom.video	235	38.27	N
 236	Avoma	www.avoma.com	236	33.84	N
 237	Glean	www.glean.com	237	37.73	N
-238	Devv.ai	devv.ai	238	25.93	N
-239	Pinecone	www.pinecone.io	239	42.45	N
-240	Chroma	www.trychroma.com	240	38.09	N
-241	Copilot Studio	copilotstudio.microsoft.com	241	33.56	N
-242	Adobe GenStudio	business.adobe.com	242	24.72	N
+238	Devv.ai	devv.ai	238	27.17	N
+239	Pinecone	www.pinecone.io	239	42.44	N
+240	Chroma	www.trychroma.com	240	38.08	N
+241	Copilot Studio	copilotstudio.microsoft.com	241	33.55	N
+242	Adobe GenStudio	business.adobe.com	242	23.32	N
 243	Height AI	height.app	243	28.99	N
-244	Intercom Fin	www.intercom.com/ai	244	42.7	N
-245	Tidio Lyro	www.tidio.com/lyro	245	44.13	N
+244	Intercom Fin	www.intercom.com/ai	244	42.69	N
+245	Tidio Lyro	www.tidio.com/lyro	245	44.88	N
 246	Manus AI	manus.im	246	38.33	N
-247	Lobe Chat	lobehub.com	247	31.46	N
+247	Lobe Chat	lobehub.com	247	31.45	N
 248	Wordware	wordware.ai	248	32.07	N
 249	Zoom AI	www.zoom.com/en/ai-companion	249	44.66	N
 250	Slack AI	slack.com/features/ai	250	29.19	N
