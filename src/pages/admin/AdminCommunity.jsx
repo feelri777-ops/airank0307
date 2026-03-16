@@ -1,8 +1,19 @@
 import { useEffect, useState } from "react";
 import { collection, query, orderBy, getDocs, doc, writeBatch, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { ref, deleteObject } from "firebase/storage";
+import { db, storage } from "../../firebase";
 import { BOARDS } from "../CommunityDashboard";
 import { formatRelativeTime } from "../../utils";
+
+// HTML content에서 Firebase Storage URL 추출 후 일괄 삭제
+const deleteStorageFiles = async (htmlContent) => {
+  if (!htmlContent) return;
+  const matches = htmlContent.match(/https:\/\/firebasestorage\.googleapis\.com\/[^\s"'>]+/g);
+  if (!matches) return;
+  await Promise.allSettled(
+    matches.map((url) => deleteObject(ref(storage, url)).catch(() => {}))
+  );
+};
 
 const BOARD_MAP = { all: "모든 게시판", ...Object.fromEntries(BOARDS.map((b) => [b.id, b.name])) };
 
@@ -32,11 +43,18 @@ export default function AdminCommunity() {
     if (!window.confirm("이 게시물을 삭제하시겠습니까?")) return;
     setDeleting(postId);
     try {
+      const post = posts.find((p) => p.id === postId);
+
+      // Firestore: 댓글 서브컬렉션 + 게시글 일괄 삭제
       const commentsSnap = await getDocs(collection(db, "communityPosts", postId, "comments"));
       const batch = writeBatch(db);
       commentsSnap.docs.forEach((d) => batch.delete(d.ref));
       batch.delete(doc(db, "communityPosts", postId));
       await batch.commit();
+
+      // Storage: content HTML에 포함된 이미지/파일 삭제
+      await deleteStorageFiles(post?.content);
+
       setPosts((prev) => prev.filter((p) => p.id !== postId));
     } catch (e) {
       alert("삭제 실패: " + e.message);
