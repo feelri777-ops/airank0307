@@ -21,6 +21,19 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 import { TOOLS_DATA } from '../src/data/tools.js';
 
+// HTML 엔티티 디코딩 (&#39; → ', &amp; → &, &quot; → ", 등)
+function decodeHtmlEntities(text) {
+  const entities = {
+    '&#39;': "'",
+    '&quot;': '"',
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&nbsp;': ' ',
+  };
+  return text.replace(/&#?\w+;/g, match => entities[match] || match);
+}
+
 // ISO 8601 duration을 초 단위로 변환
 function parseDuration(duration) {
   const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
@@ -92,8 +105,8 @@ async function searchYouTube(query, { lang = true } = {}) {
     .filter(item => item.id?.videoId)
     .map(item => ({
       videoId: item.id.videoId,
-      title: item.snippet.title,
-      channelTitle: item.snippet.channelTitle,
+      title: decodeHtmlEntities(item.snippet.title),
+      channelTitle: decodeHtmlEntities(item.snippet.channelTitle),
       thumbnail: item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url || '',
     }));
 
