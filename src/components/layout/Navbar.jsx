@@ -17,14 +17,12 @@ const Navbar = ({ theme, onToggleTheme }) => {
   const navigate = useNavigate();
   
   const [showDropdown, setShowDropdown] = useState(false); // 로그인 후 프로필 드롭다운
-  const [showLoginDropdown, setShowLoginDropdown] = useState(false); // 로그인 전 메뉴 드롭다운
-  const [showEmailModal, setShowEmailModal] = useState(false); // 이메일 로그인 모달
+  const [showLoginModal, setShowLoginModal] = useState(false); // 로그인 모달
   
   const [bookmarks, setBookmarks] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
   const { openLightbox } = useGalleryLightbox();
   const dropdownRef = useRef(null);
-  const loginDropdownRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -43,9 +41,6 @@ const Navbar = ({ theme, onToggleTheme }) => {
     const handler = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setShowDropdown(false);
-      }
-      if (loginDropdownRef.current && !loginDropdownRef.current.contains(e.target)) {
-        setShowLoginDropdown(false);
       }
     };
     document.addEventListener("mousedown", handler);
@@ -189,26 +184,12 @@ const Navbar = ({ theme, onToggleTheme }) => {
               )}
             </div>
           ) : (
-            <div ref={loginDropdownRef} style={{ position: "relative" }}>
-              <button 
-                onClick={() => setShowLoginDropdown(!showLoginDropdown)} 
-                className="navbar-login-btn"
-              >
-                <span>로그인</span>
-              </button>
-
-              {showLoginDropdown && (
-                <div className="navbar-dropdown" style={{ right: 0 }}>
-                  <button
-                    onClick={() => { setShowEmailModal(true); setShowLoginDropdown(false); }}
-                    className="dropdown-item"
-                    style={{ display: "flex", alignItems: "center", gap: "10px" }}
-                  >
-                    📧 이메일 로그인
-                  </button>
-                </div>
-              )}
-            </div>
+            <button
+              onClick={() => setShowLoginModal(true)}
+              className="navbar-login-btn"
+            >
+              <span>로그인</span>
+            </button>
           )}
 
           <button
@@ -258,8 +239,8 @@ const Navbar = ({ theme, onToggleTheme }) => {
         })}
       </nav>
 
-      {/* 이메일 로그인 전용 모달 */}
-      {showEmailModal && <LoginModal onClose={() => setShowEmailModal(false)} />}
+      {/* 로그인 모달 */}
+      {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
     </header>
   );
 };
