@@ -212,7 +212,7 @@ export default function Community() {
       try {
         const q = query(
           collection(db, "communityPosts"),
-          where("board", "==", board),
+          where("board", "in", [board, "all"]),
           orderBy("createdAt", "desc")
         );
         const snap = await getDocs(q);

@@ -4,7 +4,7 @@ import { db } from "../../firebase";
 import { BOARDS } from "../CommunityDashboard";
 import { formatRelativeTime } from "../../utils";
 
-const BOARD_MAP = Object.fromEntries(BOARDS.map((b) => [b.id, b.name]));
+const BOARD_MAP = { all: "모든 게시판", ...Object.fromEntries(BOARDS.map((b) => [b.id, b.name])) };
 
 export default function AdminCommunity() {
   const [posts, setPosts] = useState([]);
@@ -118,14 +118,16 @@ export default function AdminCommunity() {
               </div>
 
               {/* 보기 링크 */}
-              <a
-                href={`/community/${post.board}/${post.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ fontSize: "0.78rem", color: "var(--accent-indigo)", textDecoration: "none", flexShrink: 0, fontWeight: 600 }}
-              >
-                보기
-              </a>
+              {post.board !== "all" && (
+                <a
+                  href={`/community/${post.board}/${post.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: "0.78rem", color: "var(--accent-indigo)", textDecoration: "none", flexShrink: 0, fontWeight: 600 }}
+                >
+                  보기
+                </a>
+              )}
 
               {/* 게시판 이동 select */}
               <select
@@ -138,6 +140,7 @@ export default function AdminCommunity() {
                   color: "var(--text-primary)", cursor: "pointer", outline: "none", flexShrink: 0,
                 }}
               >
+                <option value="all">📢 모든 게시판</option>
                 {BOARDS.map((b) => (
                   <option key={b.id} value={b.id}>{b.name}</option>
                 ))}

@@ -58,9 +58,17 @@ export default function CommunityWrite() {
   const boardInfo = BOARDS.find((b) => b.id === board);
 
   const [category, setCategory] = useState("free");
+  const [targetBoard, setTargetBoard] = useState(board); // 공지 게시판 선택용
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  const isNoticeAdmin = isAdmin(user) && category === "notice";
+
+  // 카테고리가 공지 아닐 때 targetBoard 초기화
+  useEffect(() => {
+    if (category !== "notice") setTargetBoard(board);
+  }, [category, board]);
 
   useEffect(() => {
     if (!user) navigate(`/community/${board}`);
@@ -75,6 +83,7 @@ export default function CommunityWrite() {
         const data = snap.data();
         if (data.uid !== user?.uid) { navigate(`/community/${board}`); return; }
         setCategory(data.category || "free");
+        setTargetBoard(data.board || board);
         setTitle(data.title);
         setContent(data.content);
       } else {
@@ -88,18 +97,19 @@ export default function CommunityWrite() {
     const plainText = content.replace(/<[^>]*>/g, "").trim();
     if (!title.trim() || !plainText) return;
     setSubmitting(true);
+    const finalBoard = isNoticeAdmin ? targetBoard : board;
     try {
       if (isEdit) {
         await updateDoc(doc(db, "communityPosts", postId), {
-          category, title: title.trim(), content, updatedAt: serverTimestamp(),
+          board: finalBoard, category, title: title.trim(), content, updatedAt: serverTimestamp(),
         });
-        navigate(`/community/${board}/${postId}`);
+        navigate(finalBoard === "all" ? `/community/${board}` : `/community/${finalBoard}/${postId}`);
       } else {
         const docRef = await addDoc(collection(db, "communityPosts"), {
           uid: user.uid,
           displayName: userData?.displayName || user.displayName || "익명",
           photoURL: userData?.photoURL || user.photoURL || "",
-          board,
+          board: finalBoard,
           category,
           title: title.trim(),
           content,
@@ -109,7 +119,7 @@ export default function CommunityWrite() {
           likeCount: 0,
           commentCount: 0,
         });
-        navigate(`/community/${board}/${docRef.id}`);
+        navigate(finalBoard === "all" ? `/community/${board}` : `/community/${finalBoard}/${docRef.id}`);
       }
     } catch (e) {
       console.error("저장 오류:", e);
@@ -138,6 +148,30 @@ export default function CommunityWrite() {
           ))}
         </Select>
       </FormGroup>
+
+      {/* 공지 게시판 선택 — 관리자만 표시 */}
+      {isNoticeAdmin && (
+        <FormGroup>
+          <Label>게시 게시판</Label>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
+            <Select
+              value={targetBoard}
+              onChange={(e) => setTargetBoard(e.target.value)}
+              style={{ width: "auto" }}
+            >
+              <option value="all">📢 모든 게시판</option>
+              {BOARDS.map((b) => (
+                <option key={b.id} value={b.id}>{b.name}</option>
+              ))}
+            </Select>
+            {targetBoard === "all" && (
+              <span style={{ fontSize: "0.8rem", color: "#ef4444", fontWeight: 600 }}>
+                ⚠️ 모든 게시판에 공지로 표시됩니다
+              </span>
+            )}
+          </div>
+        </FormGroup>
+      )}
 
       <FormGroup>
         <Label>제목</Label>
