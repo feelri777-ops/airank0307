@@ -16,21 +16,13 @@ const AVATAR_STYLES = [
 
 const LoginModal = ({ onClose }) => {
   const { 
-    loginWithEmail, 
-    registerWithEmail, 
-    resendVerificationEmail, 
     loginWithGoogle,
     updateUserSetup,
     userData 
   } = useAuth();
 
-  const [mode, setMode] = useState("login"); // "login", "register", "setup"
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [mode, setMode] = useState("login"); // "login", "setup"
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
-  const [showResend, setShowResend] = useState(false);
   const [loading, setLoading] = useState(false);
 
   // Setup states
@@ -42,17 +34,6 @@ const LoginModal = ({ onClose }) => {
   const [avatarStyle, setAvatarStyle] = useState("bottts");
 
   const dicebearUrl = (style, seed) => `https://api.dicebear.com/7.x/${style}/svg?seed=${seed}`;
-
-  const handleResend = async () => {
-    try {
-      await resendVerificationEmail(email, password);
-      setShowResend(false);
-      setError("");
-      setMessage("인증 메일을 재발송했습니다. 메일함을 확인해주세요.");
-    } catch {
-      setError("재발송 실패. 이메일/비밀번호를 확인해주세요.");
-    }
-  };
 
   const handleGoogleLogin = async () => {
     setLoading(true);
@@ -74,7 +55,7 @@ const LoginModal = ({ onClose }) => {
       }
     } catch (err) {
       console.error(err);
-      setError("구글 로그인 중 오류가 발생했습니다.");
+      setError("구글 로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     } finally {
       setLoading(false);
     }
@@ -95,7 +76,7 @@ const LoginModal = ({ onClose }) => {
     try {
       // 닉네임 중복 확인
       const dupSnap = await getDocs(query(collection(db, "users"), where("displayName", "==", setupNickname)));
-      if (!dupSnap.empty && dupSnap.docs.some(d => d.id !== auth.currentUser.uid)) {
+      if (dupSnap.docs.some(d => d.id !== auth.currentUser.uid)) {
         setError("이미 사용 중인 닉네임입니다.");
         setLoading(false);
         return;
@@ -136,109 +117,46 @@ const LoginModal = ({ onClose }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setMessage("");
-    setShowResend(false);
-    setLoading(true);
-    try {
-      if (mode === "register") {
-        const trimmed = name.trim();
-        if (!trimmed) throw new Error("닉네임을 입력해주세요.");
-        if (!NICK_REGEX.test(trimmed)) {
-          setError("닉네임은 2~12자, 한글·영문·숫자만 가능합니다.");
-          return;
-        }
-        const dupSnap = await getDocs(query(collection(db, "users"), where("displayName", "==", trimmed)));
-        if (!dupSnap.empty) {
-          setError("이미 사용 중인 닉네임입니다.");
-          return;
-        }
-        await registerWithEmail(email, password, trimmed);
-        setMessage("가입 완료! 인증 메일을 확인해주세요.");
-        setMode("login");
-        setEmail("");
-        setPassword("");
-      } else {
-        await loginWithEmail(email, password);
-        onClose();
-      }
-    } catch (err) {
-      if (err.message === "unverified-email") {
-        setError("이메일 인증이 필요합니다.");
-        setShowResend(true);
-      } else {
-        setError(err.message || "오류가 발생했습니다.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const renderLogin = () => (
     <>
-      <div style={{ textAlign: "center" }}>
-        <h2 style={{ fontWeight: 800, fontSize: "1.6rem", color: "var(--text-primary)", margin: "0 0 0.5rem 0" }}>
-          {mode === "register" ? "회원가입" : "로그인"}
+      <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+        <h2 style={{ fontWeight: 800, fontSize: "1.8rem", color: "var(--text-primary)", margin: "0 0 0.5rem 0" }}>
+          반갑습니다!
         </h2>
-        <p style={{ fontSize: "0.9rem", color: "var(--text-muted)", margin: 0 }}>
-          {mode === "register" ? "새로운 계정을 만드세요." : "이메일 또는 구글로 시작하세요."}
+        <p style={{ fontSize: "1rem", color: "var(--text-muted)", margin: 0 }}>
+          AIRANK 서비스를 구글 계정으로 시작하세요.
         </p>
       </div>
 
-      {message && (
-        <div style={{ padding: "12px", borderRadius: "var(--r-md)", background: "rgba(34,197,94,0.1)", color: "#22c55e", fontSize: "0.85rem", textAlign: "center", border: "1px solid #22c55e" }}>
-          {message}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-        {mode === "register" && (
-          <input
-            type="text" placeholder="닉네임 (2~12자)" value={name}
-            onChange={(e) => setName(e.target.value)} required
-            style={inputStyle}
-          />
-        )}
-        <input
-          type="email" placeholder="이메일 주소" value={email}
-          onChange={(e) => setEmail(e.target.value)} required
-          style={inputStyle}
-        />
-        <input
-          type="password" placeholder="비밀번호" value={password}
-          onChange={(e) => setPassword(e.target.value)} required
-          style={inputStyle}
-        />
-
-        {error && <p style={{ color: "#ef4444", fontSize: "0.85rem", textAlign: "center", margin: 0 }}>{error}</p>}
-        
-        <button type="submit" disabled={loading} style={primaryBtnStyle}>
-          {loading ? "처리 중..." : (mode === "register" ? "가입하기" : "로그인")}
+      <div style={{ padding: "10px 0" }}>
+        <button 
+          onClick={handleGoogleLogin} 
+          disabled={loading} 
+          style={{
+            ...googleBtnStyle,
+            height: "60px",
+            fontSize: "1.1rem",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            transition: "transform 0.2s, box-shadow 0.2s",
+            cursor: loading ? "not-allowed" : "pointer"
+          }}
+          onMouseEnter={(e) => { if(!loading) e.currentTarget.style.transform = "translateY(-2px)"; }}
+          onMouseLeave={(e) => { if(!loading) e.currentTarget.style.transform = "translateY(0)"; }}
+        >
+          <svg width="24" height="24" viewBox="0 0 18 18" style={{ marginRight: "12px" }}>
+            <path d="M17.64 9.2c0-.63-.06-1.25-.16-1.84H9v3.47h4.84c-.21 1.12-.84 2.07-1.79 2.7l2.85 2.22c1.67-1.53 2.63-3.79 2.64-6.55z" fill="#4285F4"/>
+            <path d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.85-2.22c-.79.53-1.8.85-3.11.85-2.39 0-4.41-1.61-5.14-3.78H.9v2.33C2.39 15.99 5.4 18 9 18z" fill="#34A853"/>
+            <path d="M3.86 10.67c-.19-.56-.3-1.16-.3-1.77s.11-1.21.3-1.77V4.8H.9c-.64 1.27-.99 2.71-.99 4.2s.36 2.93.99 4.2l2.96-2.33z" fill="#FBBC05"/>
+            <path d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.58-2.58C13.47.89 11.43 0 9 0 5.4 0 2.39 2.01.9 5.01l2.96 2.33c.73-2.17 2.75-3.79 5.14-3.79z" fill="#EA4335"/>
+          </svg>
+          {loading ? "연결 중..." : "구글로 1초 만에 시작하기"}
         </button>
-      </form>
+      </div>
 
-      {mode === "login" && (
-        <>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", margin: "8px 0" }}>
-            <div style={{ flex: 1, height: "1px", background: "var(--border-primary)" }}></div>
-            <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>또는</span>
-            <div style={{ flex: 1, height: "1px", background: "var(--border-primary)" }}></div>
-          </div>
+      {error && <p style={{ color: "#ef4444", fontSize: "0.9rem", textAlign: "center", marginTop: "10px" }}>{error}</p>}
 
-          <button onClick={handleGoogleLogin} disabled={loading} style={googleBtnStyle}>
-            <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.63-.06-1.25-.16-1.84H9v3.47h4.84c-.21 1.12-.84 2.07-1.79 2.7l2.85 2.22c1.67-1.53 2.63-3.79 2.64-6.55z" fill="#4285F4"/><path d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.85-2.22c-.79.53-1.8.85-3.11.85-2.39 0-4.41-1.61-5.14-3.78H.9v2.33C2.39 15.99 5.4 18 9 18z" fill="#34A853"/><path d="M3.86 10.67c-.19-.56-.3-1.16-.3-1.77s.11-1.21.3-1.77V4.8H.9c-.64 1.27-.99 2.71-.99 4.2s.36 2.93.99 4.2l2.96-2.33z" fill="#FBBC05"/><path d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.58-2.58C13.47.89 11.43 0 9 0 5.4 0 2.39 2.01.9 5.01l2.96 2.33c.73-2.17 2.75-3.79 5.14-3.79z" fill="#EA4335"/></svg>
-            구글로 계속하기
-          </button>
-        </>
-      )}
-
-      <p style={{ textAlign: "center", margin: 0, fontSize: "0.9rem", color: "var(--text-muted)" }}>
-        {mode === "register" ? "이미 계정이 있으신가요?" : "처음이신가요?"} {" "}
-        <span onClick={() => setMode(mode === "login" ? "register" : "login")} style={{ color: "var(--accent-indigo)", fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}>
-          {mode === "login" ? "회원가입하기" : "로그인하기"}
-        </span>
+      <p style={{ textAlign: "center", fontSize: "0.85rem", color: "var(--text-muted)", marginTop: "1rem" }}>
+        계속 진행함으로써 서비스의 이용약관 및 개인정보처리방침에 동의하게 됩니다.
       </p>
     </>
   );

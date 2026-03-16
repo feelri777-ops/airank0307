@@ -17,7 +17,11 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
+// export const googleProvider = new GoogleAuthProvider();
+// googleProvider.addScope('https://www.googleapis.com/auth/user.birthday.read');
+
 export const googleProvider = new GoogleAuthProvider();
-// 생년월일 정보를 요청하기 위한 스코프 추가 (선택사항, 구글 설정 필요할 수 있음)
-googleProvider.addScope('https://www.googleapis.com/auth/user.birthday.read');
+// [주의] 만약 구글에서 생일 정보를 가져오려면 Google Cloud Console에서 'Google People API'를 활성화해야 합니다.
+// 활성화되어 있지 않으면 로그인 팝업이 바로 닫힐 수 있으므로 현재는 기본 인증만 사용하도록 주석 처리합니다.
+// googleProvider.addScope('https://www.googleapis.com/auth/user.birthday.read');
 
