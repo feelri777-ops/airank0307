@@ -5,7 +5,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
-  sendEmailVerification
+  sendEmailVerification,
+  signInWithPopup,
+  OAuthProvider
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
@@ -119,13 +121,37 @@ export const AuthProvider = ({ children }) => {
     await signOut(auth);
   };
 
+  const loginWithNaver = async () => {
+    try {
+      const provider = new OAuthProvider('oidc.naver');
+      const result = await signInWithPopup(auth, provider);
+      await handleUser(result.user);
+      return result.user;
+    } catch (error) {
+      console.error("🔴 Naver Login error:", error);
+      throw error;
+    }
+  };
+
+  const loginWithKakao = async () => {
+    try {
+      const provider = new OAuthProvider('oidc.kakao');
+      const result = await signInWithPopup(auth, provider);
+      await handleUser(result.user);
+      return result.user;
+    } catch (error) {
+      console.error("🔴 Kakao Login error:", error);
+      throw error;
+    }
+  };
+
   const logout = () => {
     setUser(null);
     return signOut(auth);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, loginWithEmail, registerWithEmail, resendVerificationEmail, logout }}>
+    <AuthContext.Provider value={{ user, loading, loginWithEmail, registerWithEmail, resendVerificationEmail, loginWithNaver, loginWithKakao, logout }}>
       {!loading && children}
     </AuthContext.Provider>
   );
