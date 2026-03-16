@@ -96,10 +96,10 @@ const LoginModal = ({ onClose }) => {
     <>
       <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
         <h2 style={{ fontWeight: 800, fontSize: "2rem", color: "var(--text-primary)", margin: "0 0 0.5rem 0", letterSpacing: "-0.05rem" }}>
-          로그인
+          3초 만에 시작하기
         </h2>
         <p style={{ fontSize: "1rem", color: "var(--text-muted)", margin: 0 }}>
-          AIRANK 서비스를 안전하게 시작하세요.
+          복잡한 가입 없이 구글 계정으로 즉시 AIRANK를 경험하세요.
         </p>
       </div>
 
@@ -230,6 +230,9 @@ const LoginModal = ({ onClose }) => {
         >
           {loading ? "준비 중..." : "설정 완료 및 시작하기"}
         </button>
+        <p style={{ textAlign: "center", fontSize: "0.85rem", color: "var(--text-muted)", marginTop: "0.5rem", opacity: 0.8 }}>
+          💡 닉네임과 아바타는 나중에 <b>'내 대시보드'</b>에서 언제든 변경할 수 있어요.
+        </p>
       </form>
     </>
   );
