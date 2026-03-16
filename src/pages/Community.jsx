@@ -359,8 +359,10 @@ export default function Community() {
                     {post.commentCount > 0 && <CommentCount>[{post.commentCount}]</CommentCount>}
                   </PostTitleCell>
                   <PostMeta>
-                    {post.photoURL ? <DesktopAvatar src={post.photoURL} alt="" /> : <DesktopFallback>{(post.displayName || "?")[0]}</DesktopFallback>}
-                    {post.displayName || "익명"}
+                    <span onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default" }}>
+                      {post.photoURL ? <DesktopAvatar src={post.photoURL} alt="" /> : <DesktopFallback>{(post.displayName || "?")[0]}</DesktopFallback>}
+                      {post.displayName || "익명"}
+                    </span>
                   </PostMeta>
                   <PostMeta style={{ textAlign: "center" }}>{formatRelativeTime(post.createdAt)}</PostMeta>
                   <VoteCount>
@@ -368,8 +370,10 @@ export default function Community() {
                     <span style={{ color: "var(--text-primary)", fontWeight: 700, marginLeft: "4px" }}>👎 {post.downvoteCount || 0}</span>
                   </VoteCount>
                   <MobilePostMeta style={{ marginTop: "4px" }}>
-                    {post.photoURL ? <MobileAuthorAvatar src={post.photoURL} alt="" /> : <MobileAuthorFallback>{(post.displayName || "?")[0]}</MobileAuthorFallback>}
-                    <span>{post.displayName || "익명"}</span>
+                    <span onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default" }}>
+                      {post.photoURL ? <MobileAuthorAvatar src={post.photoURL} alt="" /> : <MobileAuthorFallback>{(post.displayName || "?")[0]}</MobileAuthorFallback>}
+                      <span>{post.displayName || "익명"}</span>
+                    </span>
                     <span style={{ opacity: 0.5 }}>·</span>
                     <span>{formatRelativeTime(post.createdAt)}</span>
                     <span style={{ marginLeft: "auto", fontWeight: 700, display: "flex", gap: "8px" }}>
@@ -393,8 +397,10 @@ export default function Community() {
                   {post.commentCount > 0 && <CommentCount>[{post.commentCount}]</CommentCount>}
                 </PostTitleCell>
                 <PostMeta>
-                  {post.photoURL ? <DesktopAvatar src={post.photoURL} alt="" /> : <DesktopFallback>{(post.displayName || "?")[0]}</DesktopFallback>}
-                  {post.displayName || "익명"}
+                  <span onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default" }}>
+                    {post.photoURL ? <DesktopAvatar src={post.photoURL} alt="" /> : <DesktopFallback>{(post.displayName || "?")[0]}</DesktopFallback>}
+                    {post.displayName || "익명"}
+                  </span>
                 </PostMeta>
                 <PostMeta style={{ textAlign: "center" }}>{formatRelativeTime(post.createdAt)}</PostMeta>
                 <VoteCount>
@@ -402,8 +408,10 @@ export default function Community() {
                   <span style={{ color: "var(--text-primary)", fontWeight: 700, marginLeft: "4px" }}>👎 {post.downvoteCount || 0}</span>
                 </VoteCount>
                 <MobilePostMeta style={{ marginTop: "4px" }}>
-                  {post.photoURL ? <MobileAuthorAvatar src={post.photoURL} alt="" /> : <MobileAuthorFallback>{(post.displayName || "?")[0]}</MobileAuthorFallback>}
-                  <span>{post.displayName || "익명"}</span>
+                  <span onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default" }}>
+                    {post.photoURL ? <MobileAuthorAvatar src={post.photoURL} alt="" /> : <MobileAuthorFallback>{(post.displayName || "?")[0]}</MobileAuthorFallback>}
+                    <span>{post.displayName || "익명"}</span>
+                  </span>
                   <span style={{ opacity: 0.5 }}>·</span>
                   <span>{formatRelativeTime(post.createdAt)}</span>
                   <span style={{ marginLeft: "auto", color: "var(--text-primary)", fontWeight: 700, display: "flex", gap: "8px" }}>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   collection, query, orderBy, limit, startAfter, where,
   getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc, arrayUnion, arrayRemove, serverTimestamp,
@@ -383,6 +383,7 @@ const UploadModal = ({ onClose, onUploaded }) => {
 const Lightbox = ({ post, onClose, onLike, user }) => {
   const liked = user && post.likedBy?.includes(user.uid);
   const [copied, setCopied] = useState(false);
+  const navigate = useNavigate();
 
   const handleCopy = (e) => {
     e.stopPropagation();
@@ -455,7 +456,7 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
           >
             {/* 작성자 + 좋아요 */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <div onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "8px", cursor: post.uid ? "pointer" : "default" }}>
                 {post.photoURL && <img src={post.photoURL} alt="" width={26} height={26} style={{ borderRadius: "50%", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />}
                 <div>
                   <div style={{ fontWeight: 700, fontSize: "0.82rem" }}>{post.displayName}</div>
@@ -550,7 +551,7 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
           )}
 
           {/* 작성자 + 날짜 */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "10px", cursor: post.uid ? "pointer" : "default" }}>
             {post.photoURL && (
               <img src={post.photoURL} alt="" width={32} height={32}
                 style={{ borderRadius: "50%", border: "2px solid rgba(255,255,255,0.3)", flexShrink: 0 }} />
@@ -772,6 +773,7 @@ const EditModal = ({ post, onClose, onSaved }) => {
 // ── 이미지 카드 ─────────────────────────────────────────────
 const GalleryCard = ({ post, onLike, onOpen, onEdit, onDelete }) => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [hovered, setHovered] = useState(false);
   const liked = user && post.likedBy?.includes(user.uid);
   const isOwner = user && post.uid === user.uid;
@@ -832,7 +834,7 @@ const GalleryCard = ({ post, onLike, onOpen, onEdit, onDelete }) => {
 
         {/* 작성자 + 좋아요 + 수정/삭제 */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <div onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "6px", cursor: post.uid ? "pointer" : "default" }}>
             {post.photoURL && (
               <img src={post.photoURL} alt="" width={22} height={22}
                 style={{ borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.4)" }} />

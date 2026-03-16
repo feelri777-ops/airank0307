@@ -409,13 +409,15 @@ export default function CommunityPost() {
     const Wrapper = isReply ? ReplyItem : CommentItem;
     return (
       <Wrapper key={c.id}>
-        {c.photoURL
-          ? <CommentAvatar src={c.photoURL} alt={c.displayName} referrerPolicy="no-referrer" />
-          : <CommentAvatarFallback>{(c.displayName || "?")[0].toUpperCase()}</CommentAvatarFallback>
-        }
+        <span onClick={() => c.uid && navigate(`/user/${c.uid}`)} style={{ cursor: c.uid ? "pointer" : "default", flexShrink: 0 }}>
+          {c.photoURL
+            ? <CommentAvatar src={c.photoURL} alt={c.displayName} referrerPolicy="no-referrer" />
+            : <CommentAvatarFallback>{(c.displayName || "?")[0].toUpperCase()}</CommentAvatarFallback>
+          }
+        </span>
         <CommentBody>
           <CommentMeta>
-            <CommentAuthor>{c.displayName || "익명"}</CommentAuthor>
+            <CommentAuthor onClick={() => c.uid && navigate(`/user/${c.uid}`)} style={{ cursor: c.uid ? "pointer" : "default" }}>{c.displayName || "익명"}</CommentAuthor>
             <CommentTime>{formatRelativeTime(c.createdAt)}</CommentTime>
             {c.updatedAt && !c.deleted && (
               <CommentTime>(수정됨 · {formatRelativeTime(c.updatedAt)})</CommentTime>
@@ -499,12 +501,14 @@ export default function CommunityPost() {
         </PostTitle>
 
         <MetaRow>
-          {post.photoURL
-            ? <AuthorAvatar src={post.photoURL} alt={post.displayName} referrerPolicy="no-referrer" />
-            : <AuthorAvatarFallback>{(post.displayName || "?")[0].toUpperCase()}</AuthorAvatarFallback>
-          }
-          <MetaText>
+          <span onClick={() => post.uid && navigate(`/user/${post.uid}`)} style={{ display: "flex", alignItems: "center", gap: "0.6rem", cursor: post.uid ? "pointer" : "default" }}>
+            {post.photoURL
+              ? <AuthorAvatar src={post.photoURL} alt={post.displayName} referrerPolicy="no-referrer" />
+              : <AuthorAvatarFallback>{(post.displayName || "?")[0].toUpperCase()}</AuthorAvatarFallback>
+            }
             <AuthorName>{post.displayName || "익명"}</AuthorName>
+          </span>
+          <MetaText>
             <span style={{ color: "var(--text-muted)", opacity: 0.5 }}>·</span>
             <PostInfo>{formatRelativeTime(post.createdAt)}</PostInfo>
             <span style={{ color: "var(--text-muted)", opacity: 0.5 }}>·</span>

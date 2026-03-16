@@ -13,6 +13,7 @@ import CommunityDashboard from "./pages/CommunityDashboard";
 import Community from "./pages/Community";
 import CommunityPost from "./pages/CommunityPost";
 import CommunityWrite from "./pages/CommunityWrite";
+import UserProfile from "./pages/UserProfile";
 import Gallery from "./pages/Gallery";
 import Dashboard from "./pages/Dashboard";
 import Directory from "./pages/Directory";
@@ -69,6 +70,7 @@ export default function App() {
                   <Route path="community/:board/write" element={<CommunityWrite />} />
                   <Route path="community/:board/:postId" element={<CommunityPost />} />
                   <Route path="community/:board/:postId/edit" element={<CommunityWrite />} />
+                  <Route path="user/:uid" element={<UserProfile />} />
                   <Route path="gallery" element={<Gallery />} />
                   <Route path="directory" element={<Directory />} />
                   <Route path="treemap" element={<TreemapPage />} />
