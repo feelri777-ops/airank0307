@@ -48,10 +48,11 @@ export const SORT_OPTIONS = [
 
 /** 커뮤니티 카테고리 */
 export const COMMUNITY_CATEGORIES = [
-  { id: "all", label: "전체" },
+  { id: "all",      label: "전체" },
+  { id: "notice",   label: "공지" },
   { id: "question", label: "질문" },
-  { id: "tips", label: "팁&노하우" },
-  { id: "free", label: "자유" },
+  { id: "tips",     label: "팁&노하우" },
+  { id: "free",     label: "자유" },
 ];
 
 /** 트렌드 티커 뉴스 */

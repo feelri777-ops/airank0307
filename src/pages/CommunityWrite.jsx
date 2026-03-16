@@ -7,6 +7,7 @@ import {
 import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { COMMUNITY_CATEGORIES } from "../constants";
+import { isAdmin } from "../hooks/useAdminGuard";
 import { BOARDS } from "./CommunityDashboard";
 import RichEditor from "../components/editor/RichEditor";
 
@@ -118,7 +119,9 @@ export default function CommunityWrite() {
     }
   };
 
-  const writableCategories = COMMUNITY_CATEGORIES.filter((c) => c.id !== "all");
+  const writableCategories = COMMUNITY_CATEGORIES.filter((c) =>
+    c.id !== "all" && (c.id !== "notice" || isAdmin(user))
+  );
   const plainText = content.replace(/<[^>]*>/g, "").trim();
 
   if (!boardInfo) return null;

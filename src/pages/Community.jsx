@@ -11,6 +11,7 @@ import { BOARDS } from "./CommunityDashboard";
 const POSTS_PER_PAGE = 20;
 
 const CATEGORY_COLORS = {
+  notice:   { bg: "#fee2e2", color: "#b91c1c", darkBg: "#450a0a", darkColor: "#fca5a5" },
   review:   { bg: "#dbeafe", color: "#1d4ed8", darkBg: "#1e3a5f", darkColor: "#60a5fa" },
   question: { bg: "#fef3c7", color: "#b45309", darkBg: "#4a3200", darkColor: "#fbbf24" },
   tips:     { bg: "#d1fae5", color: "#065f46", darkBg: "#063a28", darkColor: "#34d399" },
@@ -70,11 +71,25 @@ const PostRow = styled.div`
   cursor: pointer; transition: background 0.15s; align-items: center;
   &:last-child { border-bottom: none; }
   &:hover { background: var(--bg-tertiary); }
-  @media (max-width: 600px) { 
-    grid-template-columns: 1fr; 
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
     padding: 0.75rem 1rem;
-    gap: 0.15rem; 
+    gap: 0.15rem;
   }
+`;
+
+const NoticeRow = styled(PostRow)`
+  background: rgba(239, 68, 68, 0.04);
+  border-left: 3px solid #ef4444;
+  [data-theme="dark"] & { background: rgba(239, 68, 68, 0.07); }
+  &:hover { background: rgba(239, 68, 68, 0.09); }
+`;
+
+const HotRow = styled(PostRow)`
+  background: rgba(251, 191, 36, 0.05);
+  border-left: 3px solid #f59e0b;
+  [data-theme="dark"] & { background: rgba(251, 191, 36, 0.08); }
+  &:hover { background: rgba(251, 191, 36, 0.1); }
 `;
 
 const PostNum = styled.span`
@@ -220,15 +235,10 @@ export default function Community() {
 
   const getCategoryLabel = (id) => COMMUNITY_CATEGORIES.find((c) => c.id === id)?.label || id;
 
-  // 필터링 로직
-  const filteredPosts = posts.filter((p) => {
-    // 카테고리 필터
-    if (category !== "all" && p.category !== category) return false;
-
-    // 키워드 검색 필터
+  // 키워드 검색 필터
+  const keywordFilter = (p) => {
     if (!activeSearch.keyword) return true;
     const kw = activeSearch.keyword.toLowerCase();
-
     switch (activeSearch.type) {
       case "title": return p.title?.toLowerCase().includes(kw);
       case "content": return p.content?.replace(/<[^>]*>/g, "").toLowerCase().includes(kw);
@@ -238,10 +248,42 @@ export default function Community() {
       case "nickname": return p.displayName?.toLowerCase().includes(kw);
       default: return true;
     }
+  };
+
+  // 어제 날짜 범위 계산
+  const now = new Date();
+  const yesterdayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+  const yesterdayEnd   = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const isYesterday = (ts) => {
+    if (!ts) return false;
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d >= yesterdayStart && d < yesterdayEnd;
+  };
+
+  // 핀 로직: 검색 없고 카테고리 "all"일 때만 적용
+  const usePinned = !activeSearch.keyword && category === "all";
+
+  const noticePosts   = usePinned ? posts.filter((p) => p.category === "notice") : [];
+  const noticeIds     = new Set(noticePosts.map((p) => p.id));
+  const hotPosts      = usePinned
+    ? posts
+        .filter((p) => !noticeIds.has(p.id) && isYesterday(p.createdAt))
+        .sort((a, b) => (b.upvoteCount || 0) - (a.upvoteCount || 0))
+        .slice(0, 3)
+    : [];
+  const hotIds = new Set(hotPosts.map((p) => p.id));
+
+  // 일반 목록 (공지·HOT 제외, 카테고리·키워드 필터 적용)
+  const filteredPosts = posts.filter((p) => {
+    if (usePinned && (noticeIds.has(p.id) || hotIds.has(p.id))) return false;
+    if (!usePinned && category !== "all" && p.category !== category) return false;
+    return keywordFilter(p);
   });
 
-  const visiblePosts = filteredPosts.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredPosts.length;
+  // 최종 표시 목록
+  const pinnedPosts   = [...noticePosts, ...hotPosts]; // 항상 전체 표시
+  const visiblePosts  = filteredPosts.slice(0, visibleCount);
+  const hasMore       = visibleCount < filteredPosts.length;
 
   if (!boardInfo) return null;
 
@@ -299,48 +341,79 @@ export default function Community() {
 
         {loading ? (
           <EmptyMessage>불러오는 중...</EmptyMessage>
-        ) : visiblePosts.length === 0 ? (
+        ) : pinnedPosts.length === 0 && visiblePosts.length === 0 ? (
           <EmptyMessage>아직 게시글이 없어요. 첫 글을 작성해 보세요!</EmptyMessage>
         ) : (
-          visiblePosts.map((post, i) => (
-            <PostRow key={post.id} onClick={() => navigate(`/community/${board}/${post.id}`)}>
-              <PostNum>{posts.length - i}</PostNum>
-              <PostTitleCell>
-                {post.category && post.category !== "all" && (
-                  <CategoryBadge $cat={post.category}>{getCategoryLabel(post.category)}</CategoryBadge>
-                )}
-                <PostTitle style={{ fontWeight: 600 }}>{post.title}</PostTitle>
-                {post.commentCount > 0 && <CommentCount>[{post.commentCount}]</CommentCount>}
-              </PostTitleCell>
-              <PostMeta>
-                {post.photoURL ? (
-                  <DesktopAvatar src={post.photoURL} alt="" />
-                ) : (
-                  <DesktopFallback>{(post.displayName || "?")[0]}</DesktopFallback>
-                )}
-                {post.displayName || "익명"}
-              </PostMeta>
-              <PostMeta style={{ textAlign: "center" }}>{formatRelativeTime(post.createdAt)}</PostMeta>
-              <VoteCount>
-                <span style={{ color: "var(--text-primary)", fontWeight: 700 }}>👍 {post.upvoteCount || 0}</span>
-                <span style={{ color: "var(--text-primary)", fontWeight: 700, marginLeft: "4px" }}>👎 {post.downvoteCount || 0}</span>
-              </VoteCount>
-              <MobilePostMeta style={{ marginTop: "4px" }}>
-                {post.photoURL ? (
-                  <MobileAuthorAvatar src={post.photoURL} alt="" />
-                ) : (
-                  <MobileAuthorFallback>{(post.displayName || "?")[0]}</MobileAuthorFallback>
-                )}
-                <span>{post.displayName || "익명"}</span>
-                <span style={{ opacity: 0.5 }}>·</span>
-                <span>{formatRelativeTime(post.createdAt)}</span>
-                <span style={{ marginLeft: "auto", color: "var(--text-primary)", fontWeight: 700, display: "flex", gap: "8px" }}>
-                  <span>👍 {post.upvoteCount || 0}</span>
-                  <span>👎 {post.downvoteCount || 0}</span>
-                </span>
-              </MobilePostMeta>
-            </PostRow>
-          ))
+          <>
+            {/* 공지 + HOT 고정 게시물 */}
+            {pinnedPosts.map((post) => {
+              const isNotice = post.category === "notice";
+              const Row = isNotice ? NoticeRow : HotRow;
+              const pin  = isNotice ? "📌" : "🔥";
+              return (
+                <Row key={post.id} onClick={() => navigate(`/community/${board}/${post.id}`)}>
+                  <PostNum>{pin}</PostNum>
+                  <PostTitleCell>
+                    <CategoryBadge $cat={post.category}>{getCategoryLabel(post.category)}</CategoryBadge>
+                    <PostTitle style={{ fontWeight: 700 }}>{post.title}</PostTitle>
+                    {post.commentCount > 0 && <CommentCount>[{post.commentCount}]</CommentCount>}
+                  </PostTitleCell>
+                  <PostMeta>
+                    {post.photoURL ? <DesktopAvatar src={post.photoURL} alt="" /> : <DesktopFallback>{(post.displayName || "?")[0]}</DesktopFallback>}
+                    {post.displayName || "익명"}
+                  </PostMeta>
+                  <PostMeta style={{ textAlign: "center" }}>{formatRelativeTime(post.createdAt)}</PostMeta>
+                  <VoteCount>
+                    <span style={{ color: "var(--text-primary)", fontWeight: 700 }}>👍 {post.upvoteCount || 0}</span>
+                    <span style={{ color: "var(--text-primary)", fontWeight: 700, marginLeft: "4px" }}>👎 {post.downvoteCount || 0}</span>
+                  </VoteCount>
+                  <MobilePostMeta style={{ marginTop: "4px" }}>
+                    {post.photoURL ? <MobileAuthorAvatar src={post.photoURL} alt="" /> : <MobileAuthorFallback>{(post.displayName || "?")[0]}</MobileAuthorFallback>}
+                    <span>{post.displayName || "익명"}</span>
+                    <span style={{ opacity: 0.5 }}>·</span>
+                    <span>{formatRelativeTime(post.createdAt)}</span>
+                    <span style={{ marginLeft: "auto", fontWeight: 700, display: "flex", gap: "8px" }}>
+                      <span>👍 {post.upvoteCount || 0}</span>
+                      <span>👎 {post.downvoteCount || 0}</span>
+                    </span>
+                  </MobilePostMeta>
+                </Row>
+              );
+            })}
+
+            {/* 일반 게시물 */}
+            {visiblePosts.map((post, i) => (
+              <PostRow key={post.id} onClick={() => navigate(`/community/${board}/${post.id}`)}>
+                <PostNum>{filteredPosts.length - i}</PostNum>
+                <PostTitleCell>
+                  {post.category && post.category !== "all" && post.category !== "notice" && (
+                    <CategoryBadge $cat={post.category}>{getCategoryLabel(post.category)}</CategoryBadge>
+                  )}
+                  <PostTitle style={{ fontWeight: 600 }}>{post.title}</PostTitle>
+                  {post.commentCount > 0 && <CommentCount>[{post.commentCount}]</CommentCount>}
+                </PostTitleCell>
+                <PostMeta>
+                  {post.photoURL ? <DesktopAvatar src={post.photoURL} alt="" /> : <DesktopFallback>{(post.displayName || "?")[0]}</DesktopFallback>}
+                  {post.displayName || "익명"}
+                </PostMeta>
+                <PostMeta style={{ textAlign: "center" }}>{formatRelativeTime(post.createdAt)}</PostMeta>
+                <VoteCount>
+                  <span style={{ color: "var(--text-primary)", fontWeight: 700 }}>👍 {post.upvoteCount || 0}</span>
+                  <span style={{ color: "var(--text-primary)", fontWeight: 700, marginLeft: "4px" }}>👎 {post.downvoteCount || 0}</span>
+                </VoteCount>
+                <MobilePostMeta style={{ marginTop: "4px" }}>
+                  {post.photoURL ? <MobileAuthorAvatar src={post.photoURL} alt="" /> : <MobileAuthorFallback>{(post.displayName || "?")[0]}</MobileAuthorFallback>}
+                  <span>{post.displayName || "익명"}</span>
+                  <span style={{ opacity: 0.5 }}>·</span>
+                  <span>{formatRelativeTime(post.createdAt)}</span>
+                  <span style={{ marginLeft: "auto", color: "var(--text-primary)", fontWeight: 700, display: "flex", gap: "8px" }}>
+                    <span>👍 {post.upvoteCount || 0}</span>
+                    <span>👎 {post.downvoteCount || 0}</span>
+                  </span>
+                </MobilePostMeta>
+              </PostRow>
+            ))}
+          </>
         )}
       </PostTable>
 
