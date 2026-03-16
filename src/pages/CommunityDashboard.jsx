@@ -179,6 +179,7 @@ export default function CommunityDashboard() {
     try { return new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]")); }
     catch { return new Set(); }
   });
+
   const dragId = useRef(null);
   const [dragOverId, setDragOverId] = useState(null);
   const [dropPosition, setDropPosition] = useState(null);
@@ -192,7 +193,6 @@ export default function CommunityDashboard() {
         next.delete(boardId);
       } else {
         next.add(boardId);
-        // 즐겨찾기 추가 시 해당 게시판을 상단으로 이동
         setBoards(prevBoards => {
           const idx = prevBoards.findIndex(b => b.id === boardId);
           if (idx <= 0) return prevBoards;
@@ -208,19 +208,9 @@ export default function CommunityDashboard() {
     });
   };
 
-  // 즐겨찾기 게시판을 상단에 표시
-  const displayBoards = useMemo(() => {
-    const fav = boards.filter(b => favorites.has(b.id));
-    const rest = boards.filter(b => !favorites.has(b.id));
-    return [...fav, ...rest];
-  }, [boards, favorites]);
-
-  const handleDragStart = (id) => { dragId.current = id; };
-
   const handleDragOver = (e, id) => {
     e.preventDefault();
     if (!dragId.current || dragId.current === id) return;
-    // 마우스 Y 위치로 카드의 위/아래 절반 판단
     const rect = e.currentTarget.getBoundingClientRect();
     const midY = rect.top + rect.height / 2;
     setDragOverId(id);
@@ -228,7 +218,6 @@ export default function CommunityDashboard() {
   };
 
   const handleDragLeave = (e) => {
-    // 자식 요소로 이동 시 깜빡임 방지
     if (!e.currentTarget.contains(e.relatedTarget)) {
       setDragOverId(null);
       setDropPosition(null);
@@ -246,7 +235,6 @@ export default function CommunityDashboard() {
       const fromIdx = next.findIndex((b) => b.id === dragId.current);
       let toIdx = next.findIndex((b) => b.id === targetId);
       const [item] = next.splice(fromIdx, 1);
-      // splice 후 인덱스 재계산
       toIdx = next.findIndex((b) => b.id === targetId);
       const insertAt = dropPosition === "before" ? toIdx : toIdx + 1;
       next.splice(insertAt, 0, item);
@@ -297,20 +285,23 @@ export default function CommunityDashboard() {
         </div>
       </div>
 
-      {/* 게시판 카드 그리드 */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill, minmax(min(440px, 100%), 1fr))",
         gap: "16px",
       }}>
-        {displayBoards.map((board) => {
+        {boards.map((board) => {
           const isOver = dragOverId === board.id;
           const isDragging = dragId.current === board.id;
           return (
             <div
               key={board.id}
               draggable
-              onDragStart={() => handleDragStart(board.id)}
+              onDragStart={(e) => {
+                dragId.current = board.id;
+                e.dataTransfer.effectAllowed = "move";
+                e.dataTransfer.setData("text/plain", board.id);
+              }}
               onDragOver={(e) => handleDragOver(e, board.id)}
               onDragLeave={handleDragLeave}
               onDrop={(e) => handleDrop(e, board.id)}
@@ -318,7 +309,7 @@ export default function CommunityDashboard() {
               style={{
                 position: "relative",
                 opacity: isDragging ? 0.4 : 1,
-                transition: "opacity 0.15s",
+                transition: "opacity 0.15s, border 0.2s",
                 borderTop: isOver && dropPosition === "before" ? "3px solid var(--accent-indigo)" : "3px solid transparent",
                 borderBottom: isOver && dropPosition === "after" ? "3px solid var(--accent-indigo)" : "3px solid transparent",
                 borderRadius: "var(--r-xs)",
@@ -329,7 +320,7 @@ export default function CommunityDashboard() {
                 style={{
                   position: "absolute", top: "8px", right: "10px",
                   fontSize: "0.85rem", color: "var(--text-muted)", cursor: "grab",
-                  zIndex: 1, lineHeight: 1, userSelect: "none", opacity: 0.5,
+                  zIndex: 2, lineHeight: 1, userSelect: "none", opacity: 0.5,
                 }}
                 title="드래그하여 순서 변경"
               >

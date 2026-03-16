@@ -114,7 +114,7 @@ export default function AdminCommunity() {
                   {post.title}
                 </div>
                 <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "2px" }}>
-                  {post.authorName || "익명"} · {post.createdAt ? formatRelativeTime(post.createdAt) : "-"} · 댓글 {post.commentCount || 0}
+                  {post.authorName || "익명"} · {post.createdAt ? formatRelativeTime(post.createdAt) : "-"} · 댓글 {post.commentCount || 0} · 👍 {post.upvoteCount || 0} 👎 {post.downvoteCount || 0}
                 </div>
               </div>
               <a

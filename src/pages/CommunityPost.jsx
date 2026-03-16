@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   doc, getDoc, updateDoc, deleteDoc, collection, query, where,
-  orderBy, getDocs, addDoc, setDoc, increment, serverTimestamp,
+  orderBy, getDocs, addDoc, setDoc, increment, serverTimestamp, writeBatch
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
@@ -89,17 +89,23 @@ const MarkdownContent = styled.div`
   strong { font-weight: 700; } em { font-style: italic; } del { text-decoration: line-through; color: var(--text-muted); }
 `;
 const ActionBar = styled.div`
-  display: flex; justify-content: center;
+  display: flex; justify-content: center; gap: 1rem;
   padding-top: 1.5rem; border-top: 1px solid var(--border-primary); margin-top: 1.5rem;
 `;
-const LikeButton = styled.button`
-  display: flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.5rem;
-  border: 1px solid ${({ $liked }) => ($liked ? "#ef4444" : "var(--border-primary)")};
+const VoteButton = styled.button`
+  display: flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.25rem;
+  border: 1px solid ${({ $active }) => 
+    $active ? "var(--text-primary)" : "var(--border-primary)"};
   border-radius: var(--r-lg);
-  background: ${({ $liked }) => ($liked ? "rgba(239,68,68,0.08)" : "transparent")};
-  color: ${({ $liked }) => ($liked ? "#ef4444" : "var(--text-muted)")};
-  font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
-  &:hover { border-color: #ef4444; color: #ef4444; background: rgba(239,68,68,0.06); }
+  background: ${({ $active }) => 
+    $active ? "var(--bg-tertiary)" : "var(--bg-card)"};
+  color: ${({ $active }) => 
+    $active ? "var(--text-primary)" : "var(--text-muted)"};
+  font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+  &:hover { 
+    background: var(--bg-tertiary);
+    border-color: var(--text-muted);
+  }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 `;
 const CommentsSection = styled.div`
@@ -153,13 +159,13 @@ const NotFound = styled.div`text-align: center; padding: 6rem 1rem; color: var(-
 export default function CommunityPost() {
   const { board, postId } = useParams();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, userData } = useAuth();
 
   const boardInfo = BOARDS.find((b) => b.id === board);
 
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
-  const [liked, setLiked] = useState(false);
+  const [vote, setVote] = useState(null); // 'up', 'down', or null
   const [commentText, setCommentText] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
   const [notFound, setNotFound] = useState(false);
@@ -178,8 +184,7 @@ export default function CommunityPost() {
   useEffect(() => {
     const loadComments = async () => {
       const q = query(
-        collection(db, "communityComments"),
-        where("postId", "==", postId),
+        collection(db, "communityPosts", postId, "comments"),
         orderBy("createdAt", "asc")
       );
       const snap = await getDocs(q);
@@ -189,25 +194,54 @@ export default function CommunityPost() {
   }, [postId]);
 
   useEffect(() => {
-    if (!user) { setLiked(false); return; }
-    getDoc(doc(db, "communityLikes", `${user.uid}_${postId}`))
-      .then((snap) => setLiked(snap.exists()));
+    if (!user) { setVote(null); return; }
+    getDoc(doc(db, "communityVotes", `${user.uid}_${postId}`))
+      .then((snap) => setVote(snap.exists() ? snap.data().type : null));
   }, [user, postId]);
 
-  const handleLike = async () => {
-    if (!user) { alert("로그인 후 추천할 수 있습니다."); return; }
-    const likeRef = doc(db, "communityLikes", `${user.uid}_${postId}`);
+  const handleVote = async (type) => {
+    if (!user) { alert("로그인 후 참여할 수 있습니다."); return; }
+    const voteRef = doc(db, "communityVotes", `${user.uid}_${postId}`);
     const postRef = doc(db, "communityPosts", postId);
-    if (liked) {
-      await deleteDoc(likeRef);
-      await updateDoc(postRef, { likeCount: increment(-1) });
-      setPost((p) => ({ ...p, likeCount: (p.likeCount || 1) - 1 }));
-      setLiked(false);
+    
+    if (vote === type) {
+      // 투표 취소
+      await deleteDoc(voteRef);
+      const inc = type === 'up' ? { upvoteCount: increment(-1) } : { downvoteCount: increment(-1) };
+      await updateDoc(postRef, inc);
+      setPost(p => ({ 
+        ...p, 
+        upvoteCount: Math.max(0, (p.upvoteCount || 0) + (type === 'up' ? -1 : 0)),
+        downvoteCount: Math.max(0, (p.downvoteCount || 0) + (type === 'down' ? -1 : 0))
+      }));
+      setVote(null);
     } else {
-      await setDoc(likeRef, { uid: user.uid, postId });
-      await updateDoc(postRef, { likeCount: increment(1) });
-      setPost((p) => ({ ...p, likeCount: (p.likeCount || 0) + 1 }));
-      setLiked(true);
+      // 투표 변경 또는 신규 투표
+      const batch = writeBatch(db);
+      batch.set(voteRef, { uid: user.uid, postId, type, createdAt: serverTimestamp() });
+      
+      let upInc = 0;
+      let downInc = 0;
+      
+      if (vote === 'up') upInc = -1;
+      if (vote === 'down') downInc = -1;
+      
+      if (type === 'up') upInc += 1;
+      if (type === 'down') downInc += 1;
+      
+      const updateData = {};
+      if (upInc !== 0) updateData.upvoteCount = increment(upInc);
+      if (downInc !== 0) updateData.downvoteCount = increment(downInc);
+      
+      batch.update(postRef, updateData);
+      await batch.commit();
+      
+      setPost(p => ({
+        ...p,
+        upvoteCount: Math.max(0, (p.upvoteCount || 0) + upInc),
+        downvoteCount: Math.max(0, (p.downvoteCount || 0) + downInc)
+      }));
+      setVote(type);
     }
   };
 
@@ -223,13 +257,13 @@ export default function CommunityPost() {
     setSubmittingComment(true);
     try {
       const newComment = {
-        postId, uid: user.uid,
-        displayName: user.displayName || "익명",
-        photoURL: user.photoURL || "",
+        uid: user.uid,
+        displayName: userData?.displayName || user.displayName || "익명",
+        photoURL: userData?.photoURL || user.photoURL || "",
         content: commentText.trim(),
         createdAt: serverTimestamp(),
       };
-      const ref = await addDoc(collection(db, "communityComments"), newComment);
+      const ref = await addDoc(collection(db, "communityPosts", postId, "comments"), newComment);
       await updateDoc(doc(db, "communityPosts", postId), { commentCount: increment(1) });
       setComments((prev) => [...prev, { id: ref.id, ...newComment, createdAt: { toDate: () => new Date() } }]);
       setPost((p) => ({ ...p, commentCount: (p.commentCount || 0) + 1 }));
@@ -243,7 +277,7 @@ export default function CommunityPost() {
 
   const handleDeleteComment = async (commentId) => {
     if (!window.confirm("댓글을 삭제하시겠습니까?")) return;
-    await deleteDoc(doc(db, "communityComments", commentId));
+    await deleteDoc(doc(db, "communityPosts", postId, "comments", commentId));
     await updateDoc(doc(db, "communityPosts", postId), { commentCount: increment(-1) });
     setComments((prev) => prev.filter((c) => c.id !== commentId));
     setPost((p) => ({ ...p, commentCount: Math.max(0, (p.commentCount || 1) - 1) }));
@@ -308,7 +342,12 @@ export default function CommunityPost() {
         </MarkdownContent>
 
         <ActionBar>
-          <LikeButton $liked={liked} onClick={handleLike}>♥ 추천 {post.likeCount || 0}</LikeButton>
+          <VoteButton $type="up" $active={vote === "up"} onClick={() => handleVote("up")}>
+            👍 {post.upvoteCount || 0}
+          </VoteButton>
+          <VoteButton $type="down" $active={vote === "down"} onClick={() => handleVote("down")}>
+            👎 {post.downvoteCount || 0}
+          </VoteButton>
         </ActionBar>
       </PostCard>
 

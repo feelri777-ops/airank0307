@@ -51,7 +51,7 @@ const SubmitButton = styled.button`
 export default function CommunityWrite() {
   const navigate = useNavigate();
   const { board, postId } = useParams();
-  const { user } = useAuth();
+  const { user, userData } = useAuth();
   const isEdit = Boolean(postId);
 
   const boardInfo = BOARDS.find((b) => b.id === board);
@@ -96,8 +96,8 @@ export default function CommunityWrite() {
       } else {
         const docRef = await addDoc(collection(db, "communityPosts"), {
           uid: user.uid,
-          displayName: user.displayName || "익명",
-          photoURL: user.photoURL || "",
+          displayName: userData?.displayName || user.displayName || "익명",
+          photoURL: userData?.photoURL || user.photoURL || "",
           board,
           category,
           title: title.trim(),

@@ -129,10 +129,11 @@ const LoginModal = ({ onClose }) => {
     <>
       <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
         <h2 style={{ fontWeight: 800, fontSize: "2rem", color: "var(--text-primary)", margin: "0 0 0.5rem 0", letterSpacing: "-0.05rem" }}>
-          3초 만에 시작하기
+          간편 로그인으로 시작하기
         </h2>
-        <p style={{ fontSize: "1rem", color: "var(--text-muted)", margin: 0 }}>
-          복잡한 가입 없이 구글 계정으로 즉시 AIRANK를 경험하세요.
+        <p style={{ fontSize: "1rem", color: "var(--text-muted)", margin: 0, lineHeight: "1.5" }}>
+          다양한 최신 AI 트렌드를 빠르게 접해보세요<br/>
+          지금 시작하고 나에게 딱 맞는 AI 도구를 찾아보세요.
         </p>
       </div>
 
@@ -294,7 +295,6 @@ const LoginModal = ({ onClose }) => {
   return createPortal(
     <div onClick={onClose} style={overlayStyle}>
       <div onClick={(e) => e.stopPropagation()} style={modalStyle}>
-        <button onClick={onClose} style={closeBtnStyle}>✕</button>
         {mode === "setup" ? renderSetup() : renderLogin()}
       </div>
     </div>,

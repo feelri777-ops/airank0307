@@ -57,7 +57,7 @@ const PostTable = styled.div`
 `;
 
 const PostHeader = styled.div`
-  display: grid; grid-template-columns: 50px 1fr 125px 70px 55px;
+  display: grid; grid-template-columns: 50px 1fr 125px 70px 90px;
   padding: 0.65rem 1.25rem; background: var(--bg-tertiary);
   border-bottom: 1px solid var(--border-primary);
   font-size: 0.8rem; color: var(--text-muted); font-weight: 600;
@@ -115,9 +115,9 @@ const DesktopFallback = styled.div`
   display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #fff;
 `;
 
-const LikeCount = styled.span`
+const VoteCount = styled.span`
   font-size: 0.78rem; color: var(--text-muted); text-align: center;
-  display: flex; align-items: center; justify-content: center; gap: 0.25rem;
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
   @media (max-width: 600px) { display: none; }
 `;
 
@@ -138,7 +138,29 @@ const LoadMoreButton = styled.button`
   background: transparent; border: 1px solid var(--border-primary);
   border-radius: var(--r-sm); color: var(--text-secondary); font-size: 0.9rem;
   cursor: pointer; transition: all 0.2s;
-  &:hover { border-color: var(--accent-indigo); color: var(--accent-indigo); }
+  &:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+`;
+
+const SearchContainer = styled.form`
+  display: flex; gap: 0.5rem; margin-top: 2rem; justify-content: center; align-items: center;
+  @media (max-width: 600px) { flex-direction: row; flex-wrap: wrap; gap: 0.3rem; }
+`;
+const SearchSelect = styled.select`
+  padding: 0.55rem 0.5rem; border: 1px solid var(--border-primary);
+  border-radius: var(--r-sm); background: var(--bg-card); color: var(--text-primary);
+  font-size: 0.85rem; outline: none; cursor: pointer;
+`;
+const SearchInput = styled.input`
+  flex: 0 1 240px; padding: 0.55rem 0.85rem; border: 1px solid var(--border-primary);
+  border-radius: var(--r-sm); background: var(--bg-card); color: var(--text-primary);
+  font-size: 0.85rem; outline: none;
+  @media (max-width: 600px) { flex: 1; min-width: 140px; }
+`;
+const SearchButton = styled.button`
+  padding: 0.55rem 1rem; background: var(--bg-secondary); color: var(--text-primary);
+  border: 1px solid var(--border-primary); border-radius: var(--r-sm);
+  font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+  &:hover { background: var(--bg-tertiary); border-color: var(--text-muted); }
 `;
 
 const EmptyMessage = styled.div`
@@ -153,6 +175,11 @@ export default function Community() {
   const [category, setCategory] = useState("all");
   const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
   const [loading, setLoading] = useState(true);
+  
+  // 검색 상태
+  const [searchType, setSearchType] = useState("title");
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [activeSearch, setActiveSearch] = useState({ type: "title", keyword: "" });
 
   const boardInfo = BOARDS.find((b) => b.id === board);
 
@@ -165,22 +192,14 @@ export default function Community() {
     if (!boardInfo) return;
     const fetchPosts = async () => {
       setLoading(true);
+      setActiveSearch({ type: "title", keyword: "" }); // 게시판 이동 시 검색 초기화
+      setSearchKeyword("");
       try {
-        let q;
-        if (category === "all") {
-          q = query(
-            collection(db, "communityPosts"),
-            where("board", "==", board),
-            orderBy("createdAt", "desc")
-          );
-        } else {
-          q = query(
-            collection(db, "communityPosts"),
-            where("board", "==", board),
-            where("category", "==", category),
-            orderBy("createdAt", "desc")
-          );
-        }
+        const q = query(
+          collection(db, "communityPosts"),
+          where("board", "==", board),
+          orderBy("createdAt", "desc")
+        );
         const snap = await getDocs(q);
         setPosts(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
       } catch (e) {
@@ -191,11 +210,38 @@ export default function Community() {
     };
     fetchPosts();
     setVisibleCount(POSTS_PER_PAGE);
-  }, [board, category, boardInfo]);
+  }, [board, boardInfo]); // 카테고리는 클라이언트 필터링으로 변경
 
-  const visiblePosts = posts.slice(0, visibleCount);
-  const hasMore = visibleCount < posts.length;
-  const getCategoryLabel = (cat) => COMMUNITY_CATEGORIES.find((c) => c.id === cat)?.label || cat;
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setActiveSearch({ type: searchType, keyword: searchKeyword.trim() });
+    setVisibleCount(POSTS_PER_PAGE);
+  };
+
+  const getCategoryLabel = (id) => COMMUNITY_CATEGORIES.find((c) => c.id === id)?.label || id;
+
+  // 필터링 로직
+  const filteredPosts = posts.filter((p) => {
+    // 카테고리 필터
+    if (category !== "all" && p.category !== category) return false;
+
+    // 키워드 검색 필터
+    if (!activeSearch.keyword) return true;
+    const kw = activeSearch.keyword.toLowerCase();
+
+    switch (activeSearch.type) {
+      case "title": return p.title?.toLowerCase().includes(kw);
+      case "content": return p.content?.replace(/<[^>]*>/g, "").toLowerCase().includes(kw);
+      case "title_content":
+        return p.title?.toLowerCase().includes(kw) ||
+               p.content?.replace(/<[^>]*>/g, "").toLowerCase().includes(kw);
+      case "nickname": return p.displayName?.toLowerCase().includes(kw);
+      default: return true;
+    }
+  });
+
+  const visiblePosts = filteredPosts.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredPosts.length;
 
   if (!boardInfo) return null;
 
@@ -205,9 +251,14 @@ export default function Community() {
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <button
             onClick={() => navigate("/community")}
-            style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", fontSize: "0.875rem" }}
+            style={{ 
+              background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)", 
+              color: "var(--text-muted)", cursor: "pointer", fontSize: "0.75rem",
+              borderRadius: "4px", width: "26px", height: "26px", display: "flex", 
+              alignItems: "center", justifyContent: "center" 
+            }}
           >
-            ← 커뮤니티
+            ←
           </button>
           <span style={{ color: "var(--border-primary)" }}>|</span>
           <h1 style={{
@@ -243,7 +294,7 @@ export default function Community() {
           <span>제목</span>
           <span style={{ textAlign: "center" }}>작성자</span>
           <span style={{ textAlign: "center" }}>날짜</span>
-          <span style={{ textAlign: "center" }}>추천</span>
+          <span style={{ textAlign: "center" }}>평가</span>
         </PostHeader>
 
         {loading ? (
@@ -270,7 +321,10 @@ export default function Community() {
                 {post.displayName || "익명"}
               </PostMeta>
               <PostMeta style={{ textAlign: "center" }}>{formatRelativeTime(post.createdAt)}</PostMeta>
-              <LikeCount>♥ {post.likeCount || 0}</LikeCount>
+              <VoteCount>
+                <span style={{ color: "var(--text-primary)", fontWeight: 700 }}>👍 {post.upvoteCount || 0}</span>
+                <span style={{ color: "var(--text-primary)", fontWeight: 700, marginLeft: "4px" }}>👎 {post.downvoteCount || 0}</span>
+              </VoteCount>
               <MobilePostMeta style={{ marginTop: "4px" }}>
                 {post.photoURL ? (
                   <MobileAuthorAvatar src={post.photoURL} alt="" />
@@ -280,8 +334,9 @@ export default function Community() {
                 <span>{post.displayName || "익명"}</span>
                 <span style={{ opacity: 0.5 }}>·</span>
                 <span>{formatRelativeTime(post.createdAt)}</span>
-                <span style={{ marginLeft: "auto", color: "var(--accent-indigo)", fontWeight: 700 }}>
-                  ♥ {post.likeCount || 0}
+                <span style={{ marginLeft: "auto", color: "var(--text-primary)", fontWeight: 700, display: "flex", gap: "8px" }}>
+                  <span>👍 {post.upvoteCount || 0}</span>
+                  <span>👎 {post.downvoteCount || 0}</span>
                 </span>
               </MobilePostMeta>
             </PostRow>
@@ -294,6 +349,22 @@ export default function Community() {
           더보기
         </LoadMoreButton>
       )}
+
+      {/* 검색 바 */}
+      <SearchContainer onSubmit={handleSearch}>
+        <SearchSelect value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+          <option value="title">제목</option>
+          <option value="content">내용</option>
+          <option value="title_content">제목+내용</option>
+          <option value="nickname">이름</option>
+        </SearchSelect>
+        <SearchInput 
+          placeholder="검색어를 입력하세요" 
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+        />
+        <SearchButton type="submit">검색</SearchButton>
+      </SearchContainer>
     </PageWrapper>
   );
 }
