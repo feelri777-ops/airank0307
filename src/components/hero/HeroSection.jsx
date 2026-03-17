@@ -6,12 +6,25 @@ const PLATFORMS = [
 ];
 
 const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => (
-  <section style={{
+  <section className="hero-section-wrap" style={{
     textAlign: "center",
     padding: "2rem 2rem 1.5rem",
     position: "relative",
     zIndex: 5,
   }}>
+    <style>{`
+      @media (max-width: 1100px) {
+        .hero-content { display: none !important; }
+        .hero-section-wrap {
+          padding: 0 !important;
+          min-height: 180px;
+        }
+      }
+      @media (max-width: 600px) {
+        .hero-section-wrap { min-height: 140px; }
+      }
+    `}</style>
+  <div className="hero-content">
     {/* 배지 */}
     <div style={{
       display: "inline-flex",
@@ -173,6 +186,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => (
         ✨ 나에게 딱 맞는 AI 찾기
       </button>
     </div>
+  </div>
   </section>
 );
 
