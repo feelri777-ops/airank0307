@@ -135,7 +135,7 @@ const GlobalStyles = () => (
       --text-primary: #000000;
       --text-secondary: #444444;
       --text-muted: #888888;
-      --border-primary: #eeeeee;
+      --border-primary: rgba(0, 0, 0, 0.12);
       --border-hover: #000000;
       --accent-indigo: #000000;
       --accent-cyan: #333333;
@@ -148,7 +148,7 @@ const GlobalStyles = () => (
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03);
       --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
       --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
-      --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-card: 0 2px 4px rgba(0, 0, 0, 0.06);
       --blob-opacity: 0.02;
       --noise-opacity: 0.01;
       --ticker-bg: #f9f9f9;
@@ -160,7 +160,7 @@ const GlobalStyles = () => (
       --rank1-bg: #fcfcfc;
       --rank2-bg: #fcfcfc;
       --rank3-bg: #fcfcfc;
-      --rank1-shadow: 0 0 0 2px #000;
+      --rank1-shadow: 0 0 0 1px #000;
       --rank2-shadow: 0 0 0 1px #888;
       --rank3-shadow: 0 0 0 1px #aaa;
     }
