@@ -1,11 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(ls -la \"C:/Users/400041460038/Desktop/code main/airank0307-main \\(1\\)\")",
-      "Bash(git --version)",
-      "Bash(git add scripts/fetch-youtube.js)",
-      "Bash(git commit -m \"Add YouTube Shorts filter to exclude videos under 60 seconds\n\n- Added parseDuration() to convert ISO 8601 duration to seconds\n- Added getVideoDetails() to fetch video duration information\n- Filter out videos 60 seconds or less (YouTube Shorts)\n- Keep videos over 60 seconds (regular videos + short tutorials)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\")",
-      "Bash(git push origin main)"
-    ]
+      "Bash(git add .)",
+      "Bash(git add src/pages/admin/AdminLayout.jsx src/pages/admin/AdminDashboard.jsx src/pages/admin/AdminCommunity.jsx src/pages/admin/AdminGallery.jsx src/pages/admin/AdminUsers.jsx)"
+    ],
+    "deny": [],
+    "ask": []
   }
 }

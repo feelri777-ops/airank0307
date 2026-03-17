@@ -567,8 +567,8 @@ export default function CommunityPost() {
           <VoteButton $active={vote === "down"} onClick={() => handleVote("down")}>
             👎 {post.downvoteCount || 0}
           </VoteButton>
-          <VoteButton onClick={handleReport} style={{ marginLeft: "auto", border: "1px solid rgba(239,68,68,0.2)", color: "#ef4444", fontSize: "0.8rem", padding: "0.5rem 1rem" }}>
-            🚨 신고
+          <VoteButton onClick={handleReport} style={{ marginLeft: "auto", border: "1px solid rgba(239,68,68,0.2)", color: "#ef4444", fontSize: "0.8rem", padding: "0.5rem 1rem", display: "flex", alignItems: "center", gap: "5px" }}>
+            🚨 신고 {post.reportCount > 0 && <span>({post.reportCount})</span>}
           </VoteButton>
         </ActionBar>
       </PostCard>

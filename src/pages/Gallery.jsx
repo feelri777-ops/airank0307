@@ -473,7 +473,10 @@ const Lightbox = ({ post, onClose, onLike, onReport, user }) => {
                   color: "#fff", fontSize: "0.88rem", fontWeight: 700, cursor: "pointer",
                 }}
               >
-                {liked ? "♥" : "♡"} {post.likeCount || 0}
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <span>{liked ? "♥" : "♡"} {post.likeCount || 0}</span>
+                  {post.reportCount > 0 && <span style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem" }}>🚨 {post.reportCount}</span>}
+                </div>
               </button>
             </div>
 
@@ -519,7 +522,7 @@ const Lightbox = ({ post, onClose, onLike, onReport, user }) => {
                       borderRadius: "var(--r-md)", padding: "5px 12px",
                       color: "#fca5a5", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer",
                     }}
-                  >🚨 신고</button>
+                  >🚨 신고 {post.reportCount > 0 && <span>({post.reportCount})</span>}</button>
                 </div>
               </div>
             )}
@@ -629,7 +632,10 @@ const Lightbox = ({ post, onClose, onLike, onReport, user }) => {
               transition: "background 0.2s",
             }}
           >
-            {liked ? "♥" : "♡"} {post.likeCount || 0}
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span>{liked ? "♥" : "♡"} {post.likeCount || 0}</span>
+              {post.reportCount > 0 && <span style={{ color: "#fca5a5", fontSize: "0.85rem" }}>🚨 {post.reportCount}</span>}
+            </div>
           </button>
 
           {/* 프롬프트 복사 */}
@@ -882,7 +888,10 @@ const GalleryCard = ({ post, onLike, onOpen, onEdit, onDelete }) => {
                 transition: "background 0.2s",
               }}
             >
-              {liked ? "♥" : "♡"} {post.likeCount || 0}
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <span>{liked ? "♥" : "♡"} {post.likeCount || 0}</span>
+                {post.reportCount > 0 && <span style={{ color: "#fca5a5" }}>🚨 {post.reportCount}</span>}
+              </div>
             </button>
           </div>
         </div>
