@@ -125,6 +125,46 @@ const GlobalStyles = () => (
       --rank3-bg: rgba(255, 255, 255, 0.02);
     }
 
+    [data-theme="pure"] {
+      --bg-primary: #fcfcfc;
+      --bg-secondary: #f4f4f4;
+      --bg-tertiary: #eeeeee;
+      --bg-card: #ffffff;
+      --bg-card-hover: #fafafa;
+      --bg-nav: rgba(252, 252, 252, 0.95);
+      --text-primary: #000000;
+      --text-secondary: #444444;
+      --text-muted: #888888;
+      --border-primary: #e5e5e5;
+      --border-hover: #000000;
+      --accent-indigo: #000000;
+      --accent-cyan: #333333;
+      --accent-gradient: linear-gradient(135deg, #000000, #444444);
+      --color-green: #000000;
+      --color-red: #000000;
+      --color-gold: #000000;
+      --color-silver: #888888;
+      --color-bronze: #444444;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1);
+      --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1);
+      --blob-opacity: 0.02;
+      --noise-opacity: 0.01;
+      --ticker-bg: #f4f4f4;
+      --ticker-border: #e5e5e5;
+      --tag-bg: #f0f0f0;
+      --tag-color: #000000;
+      --tag-border: #dddddd;
+      --modal-overlay: rgba(0, 0, 0, 0.5);
+      --rank1-bg: #ffffff;
+      --rank2-bg: #ffffff;
+      --rank3-bg: #ffffff;
+      --rank1-shadow: 0 0 0 2px #000;
+      --rank2-shadow: 0 0 0 1px #888;
+      --rank3-shadow: 0 0 0 1px #aaa;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       width: 100%; overflow-x: clip; position: relative;

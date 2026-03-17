@@ -13,7 +13,8 @@ export function ThemeProvider({ children }) {
   const toggleTheme = () => {
     setTheme((prev) => {
       if (prev === 'light') return 'dark';
-      if (prev === 'dark') return 'mono';
+      if (prev === 'dark') return 'pure';
+      if (prev === 'pure') return 'mono';
       return 'light';
     });
   };

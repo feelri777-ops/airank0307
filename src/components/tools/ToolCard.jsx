@@ -76,7 +76,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
   const inner = (
     <>
       {/* 상단: 로고 + 이름 + 순위 배지 */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
           {!iconError && faviconUrl ? (
             <img src={faviconUrl} alt={tool.name} width={36} height={36}
@@ -151,7 +151,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
         cursor: "pointer",
         background: "var(--bg-card)",
         border: "1px solid var(--border-primary)",
-        padding: "1rem 1.1rem",
+        padding: "0.8rem 1.1rem",
         boxShadow: "var(--shadow-card)",
       }}>
         {inner}
@@ -169,7 +169,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
       className="rank-card-glow"
       style={{
         borderRadius: "var(--r-md)",
-        padding: "1rem 1.1rem",
+        padding: "0.8rem 1.1rem",
         background: RANK_BG[rank] || "var(--bg-card)",
         border: `1px solid var(--border-primary)`,
         boxShadow: RANK_SHADOW[rank] || "var(--shadow-md)",

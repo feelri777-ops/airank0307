@@ -4,12 +4,14 @@ import { useTheme } from "../../context/ThemeContext";
 const THEMES = [
   { id: 'light', icon: '☀️', label: '라이트' },
   { id: 'dark',  icon: '🌙', label: '다크' },
+  { id: 'pure',  icon: '⚪', label: '퓨어' },
   { id: 'mono',  icon: '◑',  label: '모노' },
 ];
 
 const TRACK_COLORS = {
   light: 'var(--bg-tertiary)',
   dark:  'var(--bg-tertiary)',
+  pure:  'var(--bg-tertiary)',
   mono:  'rgba(0, 0, 0, 0.08)',
 };
 
