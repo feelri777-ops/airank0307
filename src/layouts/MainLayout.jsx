@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
-import GlobalStyles from "../styles/GlobalStyles";
 import BackgroundEffects from "../components/layout/BackgroundEffects";
 import Navbar from "../components/layout/Navbar";
 import TickerBar from "../components/layout/TickerBar";
@@ -13,7 +12,6 @@ export default function MainLayout() {
 
   return (
     <>
-      <GlobalStyles />
       <BackgroundEffects />
 
       <div style={{

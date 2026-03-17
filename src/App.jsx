@@ -5,6 +5,7 @@ import { NewsProvider } from "./context/NewsContext";
 import { ToolProvider } from "./context/ToolProvider";
 import { GalleryLightboxProvider } from "./context/GalleryLightboxContext";
 import { useTools } from "./context/ToolContext";
+import GlobalStyles from "./styles/GlobalStyles";
 
 import MainLayout from "./layouts/MainLayout";
 import MainPage from "./pages/MainPage";
@@ -58,6 +59,7 @@ export default function App() {
     <AuthProvider>
       <GalleryLightboxProvider>
       <ThemeProvider>
+        <GlobalStyles />
         <NewsProvider>
           <ToolProvider>
             <BrowserRouter>
