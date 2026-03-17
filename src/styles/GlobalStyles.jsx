@@ -126,43 +126,43 @@ const GlobalStyles = () => (
     }
 
     [data-theme="pure"] {
-      --bg-primary: #ffffff;
-      --bg-secondary: #fcfcfc;
-      --bg-tertiary: #f5f5f5;
-      --bg-card: #fcfcfc;
-      --bg-card-hover: #f5f5f5;
-      --bg-nav: rgba(255, 255, 255, 0.95);
+      --bg-primary: #DBD7D2;
+      --bg-secondary: #DBD7D2;
+      --bg-tertiary: #CFCBC6;
+      --bg-card: #DBD7D2;
+      --bg-card-hover: #D2CEC9;
+      --bg-nav: rgba(219, 215, 210, 0.95);
       --text-primary: #000000;
-      --text-secondary: #444444;
-      --text-muted: #888888;
-      --border-primary: rgba(0, 0, 0, 0.12);
+      --text-secondary: #222222;
+      --text-muted: #555555;
+      --border-primary: #000000;
       --border-hover: #000000;
       --accent-indigo: #000000;
-      --accent-cyan: #333333;
-      --accent-gradient: linear-gradient(135deg, #000000, #444444);
+      --accent-cyan: #000000;
+      --accent-gradient: linear-gradient(135deg, #000000, #333333);
       --color-green: #000000;
       --color-red: #000000;
       --color-gold: #000000;
-      --color-silver: #888888;
-      --color-bronze: #444444;
-      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03);
-      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
-      --shadow-card: 0 2px 4px rgba(0, 0, 0, 0.06);
-      --blob-opacity: 0.02;
+      --color-silver: #555555;
+      --color-bronze: #222222;
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.15);
+      --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.2);
+      --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+      --blob-opacity: 0.01;
       --noise-opacity: 0.01;
-      --ticker-bg: #f9f9f9;
-      --ticker-border: #eeeeee;
-      --tag-bg: #f5f5f5;
+      --ticker-bg: #CFCBC6;
+      --ticker-border: #000000;
+      --tag-bg: #CFCBC6;
       --tag-color: #000000;
-      --tag-border: #e5e5e5;
-      --modal-overlay: rgba(0, 0, 0, 0.4);
-      --rank1-bg: #fcfcfc;
-      --rank2-bg: #fcfcfc;
-      --rank3-bg: #fcfcfc;
-      --rank1-shadow: 0 0 0 1px #000;
-      --rank2-shadow: 0 0 0 1px #888;
-      --rank3-shadow: 0 0 0 1px #aaa;
+      --tag-border: #000000;
+      --modal-overlay: rgba(0, 0, 0, 0.6);
+      --rank1-bg: #DBD7D2;
+      --rank2-bg: #DBD7D2;
+      --rank3-bg: #DBD7D2;
+      --rank1-shadow: 0 0 0 2px #000;
+      --rank2-shadow: 0 0 0 1.5px #000;
+      --rank3-shadow: 0 0 0 1.5px #000;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
