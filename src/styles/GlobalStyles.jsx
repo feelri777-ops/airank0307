@@ -127,16 +127,16 @@ const GlobalStyles = () => (
 
     [data-theme="pure"] {
       --bg-primary: #FFFFFF;
-      --bg-secondary: #E2DED9;
-      --bg-tertiary: #D8D4CF;
+      --bg-secondary: #FFFFFF;
+      --bg-tertiary: #FAFAFA;
       --bg-card: #FFFFFF;
       --bg-card-hover: #F7F5F2;
-      --bg-nav: rgba(234, 230, 225, 0.95);
+      --bg-nav: rgba(255, 255, 255, 0.95);
       --text-primary: #2C2825;
       --text-secondary: #7A736B;
       --text-muted: #B0A89F;
-      --border-primary: #C8C2BA;
-      --border-hover: #A09890;
+      --border-primary: #EBEBEB;
+      --border-hover: #C8C2BA;
       --accent-indigo: #2C2825;
       --accent-cyan: #4A4440;
       --accent-gradient: linear-gradient(135deg, #2C2825, #5A504A);
