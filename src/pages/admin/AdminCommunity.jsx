@@ -23,7 +23,9 @@ export default function AdminCommunity() {
   const [filter, setFilter] = useState("all");
   const [deleting, setDeleting] = useState(null);
   const [moving, setMoving] = useState(null);
-  
+  const [selectedIds, setSelectedIds] = useState(new Set());
+  const [bulkDeleting, setBulkDeleting] = useState(false);
+
   // Mouse Drag Scroll for Filter Bar
   const scrollRef = useRef(null);
   const [isDown, setIsDown] = useState(false);
@@ -96,6 +98,56 @@ export default function AdminCommunity() {
     }
   };
 
+  const toggleSelect = (postId) => {
+    setSelectedIds((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(postId)) {
+        newSet.delete(postId);
+      } else {
+        newSet.add(postId);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === filtered.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filtered.map(p => p.id)));
+    }
+  };
+
+  const bulkDelete = async () => {
+    if (selectedIds.size === 0) {
+      alert("삭제할 게시물을 선택해주세요.");
+      return;
+    }
+    if (!window.confirm(`선택한 ${selectedIds.size}개의 게시물을 영구적으로 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) return;
+
+    setBulkDeleting(true);
+    try {
+      const deletePromises = Array.from(selectedIds).map(async (postId) => {
+        const post = posts.find((p) => p.id === postId);
+        const commentsSnap = await getDocs(collection(db, "communityPosts", postId, "comments"));
+        const batch = writeBatch(db);
+        commentsSnap.docs.forEach((d) => batch.delete(d.ref));
+        batch.delete(doc(db, "communityPosts", postId));
+        await batch.commit();
+        await deleteStorageFiles(post?.content);
+      });
+
+      await Promise.all(deletePromises);
+      setPosts((prev) => prev.filter((p) => !selectedIds.has(p.id)));
+      setSelectedIds(new Set());
+      alert(`${selectedIds.size}개의 게시물이 삭제되었습니다.`);
+    } catch (e) {
+      alert("일괄 삭제 실패: " + e.message);
+    } finally {
+      setBulkDeleting(false);
+    }
+  };
+
   const filtered = filter === "all" ? posts : posts.filter((p) => p.board === filter);
   const isBusy = (postId) => deleting === postId || moving === postId;
 
@@ -133,19 +185,44 @@ export default function AdminCommunity() {
         </div>
       </div>
 
-      {/* Filter Bar */}
-      <div style={{ 
+      {/* Filter Bar + Bulk Actions */}
+      <div style={{
         position: "sticky", top: "0", zIndex: 10,
         background: "var(--bg-primary)", padding: "10px 0", marginBottom: "1.5rem",
         borderBottom: "1px solid var(--border-primary)"
       }}>
-        <div 
+        {/* Bulk Actions Bar */}
+        {selectedIds.size > 0 && (
+          <div style={{
+            display: "flex", justifyContent: "space-between", alignItems: "center",
+            padding: "10px 16px", marginBottom: "10px", background: "rgba(99,102,241,0.05)",
+            border: "1px solid rgba(99,102,241,0.2)", borderRadius: "0"
+          }}>
+            <span style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--accent-indigo)" }}>
+              {selectedIds.size}개 선택됨
+            </span>
+            <button
+              onClick={bulkDelete}
+              disabled={bulkDeleting}
+              style={{
+                padding: "8px 16px", borderRadius: "0", fontSize: "0.8rem", fontWeight: 800,
+                background: "#ef4444", color: "#fff",
+                border: "1px solid #dc2626", cursor: "pointer",
+                transition: "all 0.2s", opacity: bulkDeleting ? 0.6 : 1
+              }}
+            >
+              {bulkDeleting ? "삭제 중..." : "선택 항목 삭제"}
+            </button>
+          </div>
+        )}
+
+        <div
           ref={scrollRef}
           onMouseDown={handleMouseDown}
           onMouseLeave={handleMouseLeave}
           onMouseUp={handleMouseUp}
           onMouseMove={handleMouseMove}
-          style={{ 
+          style={{
             display: "flex", gap: "10px", overflowX: "auto", paddingBottom: "12px",
             scrollbarWidth: "none", msOverflowStyle: "none",
             cursor: isDown ? "grabbing" : "grab", userSelect: "none",
@@ -192,22 +269,48 @@ export default function AdminCommunity() {
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          {/* Select All Header */}
+          <div style={{
+            display: "flex", alignItems: "center", gap: "12px",
+            padding: "12px 16px", background: "var(--bg-tertiary)",
+            border: "1px solid var(--border-primary)", borderRadius: "0"
+          }}>
+            <input
+              type="checkbox"
+              checked={selectedIds.size === filtered.length && filtered.length > 0}
+              onChange={toggleSelectAll}
+              style={{ width: "18px", height: "18px", cursor: "pointer" }}
+            />
+            <span style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+              전체 선택 ({filtered.length}개)
+            </span>
+          </div>
+
           {filtered.map((post) => {
             const isBanned = post.reportCount >= 5;
             const postNum = posts.length - posts.findIndex(p => p.id === post.id);
+            const isSelected = selectedIds.has(post.id);
 
             return (
               <div key={post.id} style={{
                 display: "flex", alignItems: "center", gap: "16px",
                 padding: "1rem 1.2rem", background: isBanned ? "rgba(239,68,68,0.05)" : "var(--bg-card)",
-                border: "1px solid",
-                borderColor: isBanned ? "#ef4444" : "var(--border-primary)",
+                border: "2px solid",
+                borderColor: isSelected ? "var(--accent-indigo)" : (isBanned ? "#ef4444" : "var(--border-primary)"),
                 borderRadius: "0",
                 opacity: isBusy(post.id) ? 0.6 : 1, transition: "all 0.2s",
-                boxShadow: isBanned ? "0 4px 12px rgba(239,68,68,0.1)" : "0 2px 4px rgba(0,0,0,0.02)"
+                boxShadow: isSelected ? "0 4px 12px rgba(99,102,241,0.2)" : (isBanned ? "0 4px 12px rgba(239,68,68,0.1)" : "0 2px 4px rgba(0,0,0,0.02)")
               }}
               className="admin-post-item"
               >
+                {/* Checkbox */}
+                <input
+                  type="checkbox"
+                  checked={isSelected}
+                  onChange={() => toggleSelect(post.id)}
+                  style={{ width: "18px", height: "18px", cursor: "pointer", flexShrink: 0 }}
+                />
+
                 {/* Category & Info */}
                 <div style={{ width: "110px", flexShrink: 0 }}>
                   <div style={{

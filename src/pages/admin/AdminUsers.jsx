@@ -9,6 +9,8 @@ export default function AdminUsers() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [processing, setProcessing] = useState(null);
+  const [selectedIds, setSelectedIds] = useState(new Set());
+  const [bulkDeleting, setBulkDeleting] = useState(false);
 
   const fetchData = async () => {
     setLoading(true);
@@ -17,7 +19,7 @@ export default function AdminUsers() {
         getDocs(query(collection(db, "users"), orderBy("createdAt", "desc"))),
         getDocs(collection(db, "bannedUsers")),
       ]);
-      setUsers(userSnap.docs.map((d) => ({ id: d.id, ...d.data() })));
+      setUsers(userSnap.docs.map((d) => ({ uid: d.id, ...d.data() })));
       setBannedIds(new Set(banSnap.docs.map((d) => d.id)));
     } catch (e) {
       console.error(e);
@@ -61,6 +63,59 @@ export default function AdminUsers() {
     }
   };
 
+  const toggleSelect = (uid) => {
+    setSelectedIds((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(uid)) {
+        newSet.delete(uid);
+      } else {
+        newSet.add(uid);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === filtered.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filtered.map(u => u.uid)));
+    }
+  };
+
+  const bulkDelete = async () => {
+    if (selectedIds.size === 0) {
+      alert("삭제할 회원을 선택해주세요.");
+      return;
+    }
+    if (!window.confirm(`선택한 ${selectedIds.size}명의 회원을 영구적으로 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) return;
+
+    setBulkDeleting(true);
+    try {
+      const deletePromises = Array.from(selectedIds).map(async (uid) => {
+        await deleteDoc(doc(db, "users", uid));
+        // 정지된 사용자라면 bannedUsers에서도 삭제
+        if (bannedIds.has(uid)) {
+          await deleteDoc(doc(db, "bannedUsers", uid));
+        }
+      });
+
+      await Promise.all(deletePromises);
+      setUsers((prev) => prev.filter((u) => !selectedIds.has(u.uid)));
+      setBannedIds((prev) => {
+        const newSet = new Set(prev);
+        selectedIds.forEach(uid => newSet.delete(uid));
+        return newSet;
+      });
+      setSelectedIds(new Set());
+      alert(`${selectedIds.size}명의 회원이 삭제되었습니다.`);
+    } catch (e) {
+      alert("일괄 삭제 실패: " + e.message);
+    } finally {
+      setBulkDeleting(false);
+    }
+  };
+
   const filtered = users.filter((u) =>
     !search ||
     u.displayName?.toLowerCase().includes(search.toLowerCase()) ||
@@ -101,19 +156,36 @@ export default function AdminUsers() {
         display: "flex", justifyContent: "space-between", alignItems: "center",
         gap: "16px", marginBottom: "1rem", flexWrap: "wrap"
       }}>
-        <div style={{ position: "relative", flex: "1", maxWidth: "400px" }}>
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="이름, 닉네임 또는 이메일 검색…"
-            style={{
-              width: "100%", padding: "10px 18px 10px 38px",
-              borderRadius: "0", border: "1px solid var(--border-primary)",
-              background: "var(--bg-card)", color: "var(--text-primary)",
-              fontSize: "0.88rem", outline: "none", transition: "all 0.2s"
-            }}
-          />
-          <span style={{ position: "absolute", left: "12px", top: "10px", opacity: 0.5, fontSize: "0.96rem" }}>🔍</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: "1", maxWidth: "600px" }}>
+          <div style={{ position: "relative", flex: "1" }}>
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="이름, 닉네임 또는 이메일 검색…"
+              style={{
+                width: "100%", padding: "10px 18px 10px 38px",
+                borderRadius: "0", border: "1px solid var(--border-primary)",
+                background: "var(--bg-card)", color: "var(--text-primary)",
+                fontSize: "0.88rem", outline: "none", transition: "all 0.2s"
+              }}
+            />
+            <span style={{ position: "absolute", left: "12px", top: "10px", opacity: 0.5, fontSize: "0.96rem" }}>🔍</span>
+          </div>
+
+          {selectedIds.size > 0 && (
+            <button
+              onClick={bulkDelete}
+              disabled={bulkDeleting}
+              style={{
+                padding: "10px 18px", borderRadius: "0", background: "#ef4444",
+                border: "1px solid #dc2626", color: "#fff",
+                fontSize: "0.88rem", fontWeight: 700, cursor: "pointer",
+                whiteSpace: "nowrap", opacity: bulkDeleting ? 0.6 : 1
+              }}
+            >
+              {bulkDeleting ? "삭제 중..." : `선택 삭제 (${selectedIds.size})`}
+            </button>
+          )}
         </div>
 
         <button
@@ -149,6 +221,14 @@ export default function AdminUsers() {
           <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
             <thead>
               <tr style={{ background: "var(--bg-tertiary)", borderBottom: "1px solid var(--border-primary)" }}>
+                <th style={{ ...thStyle, width: "40px" }}>
+                  <input
+                    type="checkbox"
+                    checked={selectedIds.size === filtered.length && filtered.length > 0}
+                    onChange={toggleSelectAll}
+                    style={{ width: "18px", height: "18px", cursor: "pointer", display: "block" }}
+                  />
+                </th>
                 <th style={thStyle}>회원 정보</th>
                 <th style={thStyle}>이메일</th>
                 <th style={thStyle}>가입경로</th>
@@ -166,8 +246,16 @@ export default function AdminUsers() {
                   <tr key={user.uid} style={{ 
                     borderBottom: "1px solid var(--border-primary)",
                     transition: "background 0.15s",
-                    background: isBanned ? "rgba(239,68,68,0.02)" : "transparent"
+                    background: selectedIds.has(user.uid) ? "rgba(99,102,241,0.05)" : (isBanned ? "rgba(239,68,68,0.02)" : "transparent")
                   }}>
+                    <td style={tdStyle}>
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.has(user.uid)}
+                        onChange={() => toggleSelect(user.uid)}
+                        style={{ width: "18px", height: "18px", cursor: "pointer", display: "block" }}
+                      />
+                    </td>
                     <td style={tdStyle}>
                       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                         <img

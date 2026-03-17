@@ -16,6 +16,8 @@ export default function AdminGallery() {
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(null);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedIds, setSelectedIds] = useState(new Set());
+  const [bulkDeleting, setBulkDeleting] = useState(false);
 
   const fetchPosts = async () => {
     setLoading(true);
@@ -52,6 +54,58 @@ export default function AdminGallery() {
     }
   };
 
+  const toggleSelect = (postId) => {
+    setSelectedIds((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(postId)) {
+        newSet.delete(postId);
+      } else {
+        newSet.add(postId);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === posts.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(posts.map(p => p.id)));
+    }
+  };
+
+  const bulkDelete = async () => {
+    if (selectedIds.size === 0) {
+      alert("삭제할 게시물을 선택해주세요.");
+      return;
+    }
+    if (!window.confirm(`선택한 ${selectedIds.size}개의 게시물을 영구적으로 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) return;
+
+    setBulkDeleting(true);
+    try {
+      const deletePromises = Array.from(selectedIds).map(async (postId) => {
+        const post = posts.find((p) => p.id === postId);
+        if (post?.storagePath) {
+          try {
+            await deleteObject(ref(storage, post.storagePath));
+          } catch (err) {
+            console.warn("Storage deletion failed or file not found:", err);
+          }
+        }
+        await deleteDoc(doc(db, "galleryPosts", postId));
+      });
+
+      await Promise.all(deletePromises);
+      setPosts((prev) => prev.filter((p) => !selectedIds.has(p.id)));
+      setSelectedIds(new Set());
+      alert(`${selectedIds.size}개의 게시물이 삭제되었습니다.`);
+    } catch (e) {
+      alert("일괄 삭제 실패: " + e.message);
+    } finally {
+      setBulkDeleting(false);
+    }
+  };
+
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
       <div style={{ marginBottom: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
@@ -59,16 +113,32 @@ export default function AdminGallery() {
           <h1 style={{ fontSize: "2rem", fontWeight: 900, color: "var(--text-primary)", margin: "0 0 0.3rem 0" }}>갤러리 관리</h1>
           <p style={{ fontSize: "0.96rem", color: "var(--text-muted)", margin: 0 }}>전체 갤러리 포스트 {posts.length}개</p>
         </div>
-        <button
-          onClick={fetchPosts}
-          style={{
-            padding: "8px 16px", borderRadius: "0", background: "var(--bg-tertiary)",
-            border: "1px solid var(--border-primary)", color: "var(--text-secondary)",
-            fontSize: "0.88rem", fontWeight: 600, cursor: "pointer"
-          }}
-        >
-          갱신 🔄
-        </button>
+        <div style={{ display: "flex", gap: "10px" }}>
+          {selectedIds.size > 0 && (
+            <button
+              onClick={bulkDelete}
+              disabled={bulkDeleting}
+              style={{
+                padding: "8px 16px", borderRadius: "0", background: "#ef4444",
+                border: "1px solid #dc2626", color: "#fff",
+                fontSize: "0.88rem", fontWeight: 700, cursor: "pointer",
+                opacity: bulkDeleting ? 0.6 : 1
+              }}
+            >
+              {bulkDeleting ? "삭제 중..." : `선택 항목 삭제 (${selectedIds.size})`}
+            </button>
+          )}
+          <button
+            onClick={fetchPosts}
+            style={{
+              padding: "8px 16px", borderRadius: "0", background: "var(--bg-tertiary)",
+              border: "1px solid var(--border-primary)", color: "var(--text-secondary)",
+              fontSize: "0.88rem", fontWeight: 600, cursor: "pointer"
+            }}
+          >
+            갱신 🔄
+          </button>
+        </div>
       </div>
 
       {loading ? (
@@ -79,18 +149,44 @@ export default function AdminGallery() {
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          {/* Select All Header */}
+          <div style={{
+            display: "flex", alignItems: "center", gap: "12px",
+            padding: "12px 16px", background: "var(--bg-tertiary)",
+            border: "1px solid var(--border-primary)", borderRadius: "0"
+          }}>
+            <input
+              type="checkbox"
+              checked={selectedIds.size === posts.length && posts.length > 0}
+              onChange={toggleSelectAll}
+              style={{ width: "18px", height: "18px", cursor: "pointer" }}
+            />
+            <span style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+              전체 선택 ({posts.length}개)
+            </span>
+          </div>
+
           {posts.map((post) => {
             const isBanned = post.reportCount >= 5;
+            const isSelected = selectedIds.has(post.id);
             return (
               <div key={post.id} style={{
                 display: "flex", alignItems: "center", gap: "16px",
                 padding: "1rem 1.2rem", background: isBanned ? "rgba(239,68,68,0.05)" : "var(--bg-card)",
-                border: "1px solid",
-                borderColor: isBanned ? "#ef4444" : "var(--border-primary)",
+                border: "2px solid",
+                borderColor: isSelected ? "var(--accent-indigo)" : (isBanned ? "#ef4444" : "var(--border-primary)"),
                 borderRadius: "0",
                 opacity: deleting === post.id ? 0.6 : 1, transition: "all 0.2s",
-                boxShadow: isBanned ? "0 4px 12px rgba(239,68,68,0.1)" : "0 2px 4px rgba(0,0,0,0.02)"
+                boxShadow: isSelected ? "0 4px 12px rgba(99,102,241,0.2)" : (isBanned ? "0 4px 12px rgba(239,68,68,0.1)" : "0 2px 4px rgba(0,0,0,0.02)")
               }}>
+                {/* Checkbox */}
+                <input
+                  type="checkbox"
+                  checked={isSelected}
+                  onChange={() => toggleSelect(post.id)}
+                  style={{ width: "18px", height: "18px", cursor: "pointer", flexShrink: 0 }}
+                />
+
                 {/* Thumbnail */}
                 <div
                   onClick={() => setSelectedPost(post)}
