@@ -126,7 +126,7 @@ const GlobalStyles = () => (
     }
 
     [data-theme="pure"] {
-      --bg-primary: #EAE6E1;
+      --bg-primary: #FFFFFF;
       --bg-secondary: #E2DED9;
       --bg-tertiary: #D8D4CF;
       --bg-card: #FFFFFF;
