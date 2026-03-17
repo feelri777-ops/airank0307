@@ -1,13 +1,10 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { useTheme } from "../context/ThemeContext";
-
 import BackgroundEffects from "../components/layout/BackgroundEffects";
 import Navbar from "../components/layout/Navbar";
 import TickerBar from "../components/layout/TickerBar";
 import Footer from "../components/layout/Footer";
 
 export default function MainLayout() {
-  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
   return (
@@ -21,10 +18,7 @@ export default function MainLayout() {
         background: "var(--bg-primary)",
         transition: "background 0.35s ease",
       }}>
-        <Navbar
-          theme={theme}
-          onToggleTheme={toggleTheme}
-        />
+        <Navbar />
         {location.pathname === '/' && <TickerBar />}
         <Outlet /> 
         <Footer />

@@ -8,9 +8,10 @@ import { useAuth } from "../../context/AuthContext";
 import { useTools } from "../../context/ToolContext";
 import { useNews } from "../../context/NewsContext";
 import LoginModal from "../modals/LoginModal";
+import ThemeToggle from "../ui/ThemeToggle";
 import { useGalleryLightbox } from "../../context/GalleryLightboxContext";
 
-const Navbar = ({ theme, onToggleTheme }) => {
+const Navbar = () => {
   const { user, userData, logout } = useAuth();
   const { tools, openToolDetail } = useTools();
   const { newsBookmarks } = useNews();
@@ -208,26 +209,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
             </button>
           )}
 
-          <button
-            onClick={onToggleTheme}
-            title={{ light: "다크 모드로", dark: "모노 모드로", mono: "라이트 모드로" }[theme] || "테마 변경"}
-            style={{
-              background: "var(--bg-tertiary)",
-              border: "1px solid var(--border-primary)",
-              borderRadius: "50%",
-              width: "34px",
-              height: "34px",
-              cursor: "pointer",
-              fontSize: "1rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-              color: "var(--text-secondary)",
-            }}
-          >
-            {{ light: "🌙", dark: "🎨", mono: "☀️" }[theme] || "🌙"}
-          </button>
+          <ThemeToggle />
         </div>
       </div>
 
