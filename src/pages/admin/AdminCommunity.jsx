@@ -239,9 +239,10 @@ export default function AdminCommunity() {
                     <span>|</span>
                     <span>{post.createdAt ? formatRelativeTime(post.createdAt) : "-"}</span>
                     <span>|</span>
-                    <div style={{ display: "flex", gap: "8px" }}>
+                    <div style={{ display: "flex", gap: "10px" }}>
                       <span>💬 {post.commentCount || 0}</span>
                       <span>👍 {post.upvoteCount || 0}</span>
+                      <span>👎 {post.downvoteCount || 0}</span>
                       {post.reportCount > 0 && <span style={{ color: "#ef4444", fontWeight: 700 }}>🚨 {post.reportCount}</span>}
                     </div>
                   </div>

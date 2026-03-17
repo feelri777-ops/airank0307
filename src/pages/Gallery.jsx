@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   collection, query, orderBy, limit, startAfter, where,
   getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc, arrayUnion, arrayRemove, serverTimestamp,
+  increment, setDoc
 } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import { db, storage } from "../firebase";
@@ -380,7 +381,7 @@ const UploadModal = ({ onClose, onUploaded }) => {
 };
 
 // ── 라이트박스 ───────────────────────────────────────────────
-const Lightbox = ({ post, onClose, onLike, user }) => {
+const Lightbox = ({ post, onClose, onLike, onReport, user }) => {
   const liked = user && post.likedBy?.includes(user.uid);
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
@@ -500,15 +501,26 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
               <div>
                 <div style={{ fontSize: "0.62rem", color: "rgba(255,255,255,0.4)", marginBottom: "4px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>Prompt</div>
                 <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.78rem", lineHeight: 1.55, margin: 0 }}>{post.prompt}</p>
-                <button
-                  onClick={handleCopy}
-                  style={{
-                    marginTop: "8px", display: "flex", alignItems: "center", gap: "5px",
-                    background: copied ? "rgba(34,197,94,0.3)" : "rgba(255,255,255,0.12)",
-                    border: "none", borderRadius: "var(--r-md)", padding: "5px 12px",
-                    color: "#fff", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer",
-                  }}
-                >{copied ? "✓ 복사됨" : "📋 프롬프트 복사"}</button>
+                <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
+                  <button
+                    onClick={handleCopy}
+                    style={{
+                      display: "flex", alignItems: "center", gap: "5px",
+                      background: copied ? "rgba(34,197,94,0.3)" : "rgba(255,255,255,0.12)",
+                      border: "none", borderRadius: "var(--r-md)", padding: "5px 12px",
+                      color: "#fff", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer",
+                    }}
+                  >{copied ? "✓ 복사됨" : "📋 프롬프트 복사"}</button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onReport(post); }}
+                    style={{
+                      display: "flex", alignItems: "center", gap: "5px",
+                      background: "rgba(239,68,68,0.2)", border: "1px solid rgba(239,68,68,0.3)",
+                      borderRadius: "var(--r-md)", padding: "5px 12px",
+                      color: "#fca5a5", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer",
+                    }}
+                  >🚨 신고</button>
+                </div>
               </div>
             )}
           </div>
@@ -633,6 +645,16 @@ const Lightbox = ({ post, onClose, onLike, user }) => {
               }}
             >{copied ? "✓ 복사됨" : "📋 프롬프트 복사"}</button>
           )}
+
+          {/* 신고 버튼 */}
+          <button
+            onClick={() => onReport(post)}
+            style={{
+              padding: "4px 10px", borderRadius: "var(--r-sm)", fontSize: "0.75rem",
+              background: "transparent", border: "1px solid rgba(239,68,68,0.3)",
+              color: "#fca5a5", cursor: "pointer", alignSelf: "flex-end", opacity: 0.7
+            }}
+          >🚨 신고</button>
         </div>
       </div>
       )}
@@ -1004,6 +1026,38 @@ export default function Gallery() {
     } catch (err) { console.error(err); }
   };
 
+  const handleReport = async (post) => {
+    if (!user) { alert("로그인 후 신고할 수 있습니다."); return; }
+    if (user.uid === post.uid) { alert("본인의 게시물은 신고할 수 없습니다."); return; }
+    if (!window.confirm("이 이미지를 부적절한 콘텐츠로 신고하시겠습니까?")) return;
+
+    const reportRef = doc(db, "galleryReports", `${user.uid}_${post.id}`);
+    const postRef = doc(db, "galleryPosts", post.id);
+
+    try {
+      const snap = await getDoc(reportRef);
+      if (snap.exists()) {
+        alert("이미 신고한 게시물입니다.");
+        return;
+      }
+
+      await setDoc(reportRef, {
+        uid: user.uid, postId: post.id,
+        reportedAt: serverTimestamp()
+      });
+      await updateDoc(postRef, { reportCount: increment(1) });
+      
+      const updater = (p) => p.id === post.id ? { ...p, reportCount: (p.reportCount || 0) + 1 } : p;
+      setPosts((prev) => prev.map(updater));
+      if (selectedPost?.id === post.id) setSelectedPost((prev) => updater(prev));
+      
+      alert("신고가 접수되었습니다.");
+    } catch (err) {
+      console.error(err);
+      alert("신고 중 오류가 발생했습니다.");
+    }
+  };
+
   const handleSortChange = (newSort) => {
     setSortBy(newSort);
     setPosts([]);
@@ -1221,7 +1275,7 @@ export default function Gallery() {
       {showUpload && <UploadModal onClose={() => setShowUpload(false)} onUploaded={handleUploaded} />}
       {editingPost && <EditModal post={editingPost} onClose={() => setEditingPost(null)} onSaved={handlePostSaved} />}
       {selectedPost && (
-        <Lightbox post={selectedPost} user={user} onLike={handleLike} onClose={() => setSelectedPost(null)} />
+        <Lightbox post={selectedPost} user={user} onLike={handleLike} onReport={handleReport} onClose={() => setSelectedPost(null)} />
       )}
     </div>
   );

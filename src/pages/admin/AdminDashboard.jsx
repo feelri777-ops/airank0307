@@ -6,7 +6,9 @@ const STATS = [
   { label: "총 가입자", col: "users", icon: "👥", color: "#6366f1" },
   { label: "커뮤니티 게시물", col: "communityPosts", icon: "💬", color: "#10b981" },
   { label: "갤러리 포스트", col: "galleryPosts", icon: "🖼️", color: "#f59e0b" },
-  { label: "정지 회원", col: "bannedUsers", icon: "🚫", color: "#ef4444" },
+  { label: "정지 회원", col: "bannedUsers", icon: "🚫", color: "#f43f5e" },
+  { label: "게시물 신고", col: "communityReports", icon: "🚨", color: "#ef4444" },
+  { label: "갤러리 신고", col: "galleryReports", icon: "📸", color: "#ef4444" },
 ];
 
 export default function AdminDashboard() {
