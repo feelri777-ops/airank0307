@@ -200,79 +200,7 @@ const LIFE_LABEL = {
   marketer: "마케터", startup: "스타트업", creator: "크리에이터",
 };
 
-// 카테고리 × 직군 기반 사용 시나리오 자동 생성
-const SCENARIO_MAP = {
-  text: {
-    office:     "보고서·이메일 초안을 5분 안에 완성해보세요",
-    student:    "논문 요약과 레포트 작성에 바로 활용해보세요",
-    freelancer: "제안서·기획서 초안을 빠르게 잡아보세요",
-    marketer:   "광고 카피와 SNS 문구를 대량으로 뽑아보세요",
-    startup:    "투자 피칭 문서와 기획서를 빠르게 만들어보세요",
-    creator:    "영상 스크립트와 블로그 글을 자동 생성해보세요",
-    default:    "텍스트 작업을 AI로 10배 빠르게 처리해보세요",
-  },
-  image: {
-    office:     "프레젠테이션용 이미지를 직접 만들어보세요",
-    student:    "과제용 삽화와 커버 이미지를 무료로 만들어보세요",
-    freelancer: "클라이언트 시안을 몇 초 만에 뽑아보세요",
-    marketer:   "SNS 비주얼 콘텐츠를 매일 빠르게 생성해보세요",
-    startup:    "제품 목업 이미지를 AI로 즉시 만들어보세요",
-    creator:    "썸네일·일러스트를 AI로 무한 생성해보세요",
-    default:    "원하는 이미지를 텍스트만으로 바로 만들어보세요",
-  },
-  code: {
-    office:     "반복 업무 자동화 스크립트를 AI로 만들어보세요",
-    student:    "코딩 과제 디버깅과 개념 학습에 써보세요",
-    freelancer: "개발 속도를 2배 높이는 코드 보조 도구로 써보세요",
-    startup:    "MVP 개발 속도를 획기적으로 높여보세요",
-    default:    "코드 작성·디버깅·리뷰를 AI와 함께해보세요",
-  },
-  video: {
-    creator:  "유튜브·릴스용 쇼츠를 AI로 자동 편집해보세요",
-    marketer: "광고·제품 소개 영상을 빠르게 제작해보세요",
-    office:   "교육 영상이나 발표 자료를 쉽게 만들어보세요",
-    default:  "영상 제작의 시간과 비용을 AI로 줄여보세요",
-  },
-  audio: {
-    creator:  "팟캐스트 음성과 AI 내레이션을 즉시 만들어보세요",
-    marketer: "광고 음성과 배경음악을 AI로 제작해보세요",
-    default:  "원하는 목소리와 음악을 AI로 생성해보세요",
-  },
-  search: {
-    office:  "방대한 정보를 빠르게 요약해서 찾아보세요",
-    student: "리서치 시간을 절반으로 줄여보세요",
-    default: "AI 검색으로 원하는 정보를 더 빠르게 찾아보세요",
-  },
-  productivity: {
-    office:  "반복 업무를 자동화해서 퇴근을 앞당겨보세요",
-    student: "공부 계획과 노트 정리를 AI로 해보세요",
-    startup: "팀 생산성을 높이는 AI 워크플로우를 만들어보세요",
-    default: "일상 업무를 AI로 자동화해 시간을 벌어보세요",
-  },
-  automation: {
-    office:  "이메일·일정·데이터 처리를 자동화해보세요",
-    startup: "반복 운영 업무의 80%를 자동화해보세요",
-    default: "노코드로 업무 자동화 워크플로우를 만들어보세요",
-  },
-  design: {
-    creator:  "전문 디자이너 없이 브랜드 자료를 만들어보세요",
-    marketer: "마케팅 소재를 5분 안에 디자인해보세요",
-    startup:  "제품 UI와 브랜드 디자인을 빠르게 완성해보세요",
-    default:  "누구나 전문가 수준의 디자인을 만들 수 있어요",
-  },
-  education: {
-    student: "어떤 개념이든 쉽게 설명받고 바로 이해해보세요",
-    office:  "새로운 기술과 지식을 AI 튜터와 빠르게 배워보세요",
-    default: "AI 튜터와 함께 어떤 주제든 빠르게 학습해보세요",
-  },
-};
 
-const getScenario = (tool) => {
-  const catMap = SCENARIO_MAP[tool.cat];
-  if (!catMap) return "AI의 힘으로 업무 효율을 높여보세요";
-  const life = tool.life?.[0];
-  return (life && catMap[life]) || catMap.default || "AI의 힘으로 업무 효율을 높여보세요";
-};
 
 // 카테고리 보완 관계
 const COMPLEMENT_CATS = {
@@ -347,7 +275,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
       background: "var(--bg-card)",
       border: "1px solid var(--border-primary)",
       borderRadius: "var(--r-md)",
-      padding: "1.5rem",
+      padding: "0.75rem",
       width: cardWidth || "340px",
       flexShrink: 0,
       display: "flex", flexDirection: "column",
@@ -355,13 +283,8 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
       height: "fit-content"
     }}>
 
-      {/* 튜토리얼 & 리뷰 — 최상단 */}
       {rank <= 30 && <>
-      <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: "0.75rem", color: "var(--text-primary)" }}>
-        튜토리얼 & 리뷰
-      </h3>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: "4px", marginBottom: "1.5rem" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "4px", marginBottom: "1rem" }}>
         {videos === null ? (
           [1, 2, 3].map((i) => (
             <div key={i} style={{
@@ -446,13 +369,6 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
         )}
       </div>
       </>}
-
-      <div style={{ padding: "12px 14px", background: "var(--bg-secondary)", borderRadius: "var(--r-xs)", marginBottom: "1.5rem" }}>
-        <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
-          <span style={{ color: "var(--accent-indigo)", fontWeight: 700 }}>💡 이렇게 써보세요</span><br/>
-          {getScenario(tool)}
-        </p>
-      </div>
 
       {/* 함께 쓰면 좋은 툴 추천 */}
       {(() => {
@@ -548,7 +464,7 @@ const ToolDetailModal = ({ tool, rank, prevRank, onClose }) => {
 
   if (!tool) return null;
 
-  const CARD_WIDTH = "min(92vw, 480px)";
+  const CARD_WIDTH = "calc(100vw - 16px)";
 
   const card1 = (
     <div style={{
@@ -653,7 +569,7 @@ const ToolDetailModal = ({ tool, rank, prevRank, onClose }) => {
     >
       <div
         onClick={(e) => { if (e.target.closest("button, a")) e.stopPropagation(); }}
-        style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", padding: "24px 16px 40px" }}
+        style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", padding: "24px 8px 40px" }}
       >
         {card1}
         {card2}

@@ -73,6 +73,7 @@ export default function App() {
                   <Route path="community/:board/:postId" element={<CommunityPost />} />
                   <Route path="community/:board/:postId/edit" element={<CommunityWrite />} />
                   <Route path="user/:uid" element={<UserProfile />} />
+                  <Route path="prompt" element={<div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", minHeight:"60vh", gap:"12px", color:"var(--text-muted)" }}><span style={{ fontSize:"2rem" }}>✨</span><p style={{ fontSize:"1rem", fontWeight:700, color:"var(--text-primary)" }}>프롬프트 준비중입니다</p><p style={{ fontSize:"0.85rem" }}>곧 업데이트 될 예정이에요.</p></div>} />
                   <Route path="gallery" element={<Gallery />} />
                   <Route path="directory" element={<Directory />} />
                   <Route path="treemap" element={<TreemapPage />} />
