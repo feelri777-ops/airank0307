@@ -4,17 +4,11 @@ import { ref, deleteObject } from "firebase/storage";
 import { db, storage } from "../../firebase";
 import { formatRelativeTime } from "../../utils";
 
-const MODERN_SELECT_STYLE = {
-  padding: "8px 12px", borderRadius: "10px", fontSize: "0.85rem", fontWeight: 600,
-  border: "1px solid var(--border-primary)", background: "var(--bg-tertiary)",
-  color: "var(--text-primary)", cursor: "pointer", outline: "none", appearance: "none"
-};
-
 const ACTION_ICON_BTN_STYLE = {
-  width: "36px", height: "36px", borderRadius: "10px",
+  width: "40px", height: "40px", borderRadius: "0",
   background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)",
   display: "flex", alignItems: "center", justifyContent: "center",
-  textDecoration: "none", fontSize: "1rem", cursor: "pointer", transition: "all 0.2s"
+  textDecoration: "none", fontSize: "1.2rem", cursor: "pointer", transition: "all 0.2s"
 };
 
 export default function AdminGallery() {
@@ -61,15 +55,15 @@ export default function AdminGallery() {
     <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
       <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-          <h1 style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--text-primary)", margin: "0 0 0.5rem 0" }}>갤러리 관리</h1>
-          <p style={{ fontSize: "0.9rem", color: "var(--text-muted)", margin: 0 }}>전체 갤러리 포스트 {posts.length}개</p>
+          <h1 style={{ fontSize: "2.5rem", fontWeight: 900, color: "var(--text-primary)", margin: "0 0 0.5rem 0" }}>갤러리 관리</h1>
+          <p style={{ fontSize: "1.2rem", color: "var(--text-muted)", margin: 0 }}>전체 갤러리 포스트 {posts.length}개</p>
         </div>
-        <button 
+        <button
           onClick={fetchPosts}
-          style={{ 
-            padding: "8px 16px", borderRadius: "8px", background: "var(--bg-tertiary)", 
+          style={{
+            padding: "12px 24px", borderRadius: "0", background: "var(--bg-tertiary)",
             border: "1px solid var(--border-primary)", color: "var(--text-secondary)",
-            fontSize: "0.85rem", fontWeight: 600, cursor: "pointer"
+            fontSize: "1.1rem", fontWeight: 600, cursor: "pointer"
           }}
         >
           갱신 🔄
@@ -77,9 +71,9 @@ export default function AdminGallery() {
       </div>
 
       {loading ? (
-        <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-muted)" }}>데이터를 불러오는 중입니다...</div>
+        <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-muted)", fontSize: "1.1rem" }}>데이터를 불러오는 중입니다...</div>
       ) : posts.length === 0 ? (
-        <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-muted)", background: "var(--bg-card)", borderRadius: "20px", border: "1px dashed var(--border-primary)" }}>
+        <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-muted)", fontSize: "1.1rem", background: "var(--bg-card)", borderRadius: "0", border: "1px dashed var(--border-primary)" }}>
           표시할 게시물이 없습니다.
         </div>
       ) : (
@@ -89,36 +83,36 @@ export default function AdminGallery() {
             return (
               <div key={post.id} style={{
                 display: "flex", alignItems: "center", gap: "20px",
-                padding: "1rem 1.25rem", background: isBanned ? "rgba(239,68,68,0.05)" : "var(--bg-card)",
+                padding: "1.5rem 1.8rem", background: isBanned ? "rgba(239,68,68,0.05)" : "var(--bg-card)",
                 border: "1px solid",
                 borderColor: isBanned ? "#ef4444" : "var(--border-primary)",
-                borderRadius: "var(--r-lg)",
+                borderRadius: "0",
                 opacity: deleting === post.id ? 0.6 : 1, transition: "all 0.2s",
                 boxShadow: isBanned ? "0 4px 12px rgba(239,68,68,0.1)" : "0 2px 4px rgba(0,0,0,0.02)"
               }}>
                 {/* Thumbnail */}
-                <div style={{ width: "80px", height: "80px", flexShrink: 0, borderRadius: "12px", overflow: "hidden", border: "1px solid var(--border-primary)" }}>
+                <div style={{ width: "80px", height: "80px", flexShrink: 0, borderRadius: "0", overflow: "hidden", border: "1px solid var(--border-primary)" }}>
                   <img src={post.imageUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
 
                 {/* Info */}
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ 
-                    fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)", 
+                  <div style={{
+                    fontSize: "1.3rem", fontWeight: 700, color: "var(--text-primary)",
                     overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-                    marginBottom: "6px", display: "flex", alignItems: "center", gap: "8px"
+                    marginBottom: "8px", display: "flex", alignItems: "center", gap: "8px"
                   }}>
                     {post.title || "(제목 없음)"}
-                    {isBanned && <span style={{ fontSize: "0.65rem", padding: "2px 6px", background: "#ef4444", color: "#fff", borderRadius: "4px" }}>신고 누적</span>}
+                    {isBanned && <span style={{ fontSize: "0.85rem", padding: "4px 10px", background: "#ef4444", color: "#fff", borderRadius: "0" }}>신고 누적</span>}
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "1.05rem", color: "var(--text-muted)" }}>
                     <span style={{ fontWeight: 600, color: "var(--text-secondary)" }}>{post.displayName || "익명"}</span>
                     <span>|</span>
                     <span>{post.createdAt ? formatRelativeTime(post.createdAt) : "-"}</span>
                     <span>|</span>
-                    <div style={{ display: "flex", gap: "10px" }}>
+                    <div style={{ display: "flex", gap: "12px" }}>
                       <span>❤️ {post.likeCount || 0}</span>
-                      {post.reportCount > 0 && <span style={{ color: "#ef4444", fontWeight: 700 }}>🚨 {post.reportCount}</span>}
+                      <span style={{ color: "#ef4444", fontWeight: 700 }}>🚨 {post.reportCount || 0}</span>
                     </div>
                   </div>
                 </div>
@@ -126,7 +120,7 @@ export default function AdminGallery() {
                 {/* Labels/Tags */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "4px", width: "180px", justifyContent: "flex-end" }}>
                   {post.modelName && (
-                    <span style={{ fontSize: "0.65rem", padding: "2px 6px", background: "rgba(99,102,241,0.1)", color: "var(--accent-indigo)", borderRadius: "4px", fontWeight: 600 }}>
+                    <span style={{ fontSize: "0.75rem", padding: "4px 8px", background: "rgba(99,102,241,0.1)", color: "var(--accent-indigo)", borderRadius: "0", fontWeight: 600 }}>
                       {post.modelName}
                     </span>
                   )}
@@ -147,7 +141,7 @@ export default function AdminGallery() {
                     onClick={() => deletePost(post)}
                     disabled={deleting === post.id}
                     style={{
-                      padding: "8px 16px", borderRadius: "10px", fontSize: "0.85rem", fontWeight: 800,
+                      padding: "10px 20px", borderRadius: "0", fontSize: "1rem", fontWeight: 800,
                       background: "rgba(239,68,68,0.08)", color: "#ef4444",
                       border: "1px solid rgba(239,68,68,0.2)", cursor: "pointer",
                       transition: "all 0.2s"
