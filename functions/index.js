@@ -130,3 +130,81 @@ function stripHtml(html) {
   if (!html) return "";
   return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
+
+// Sitemap.xml for SEO
+exports.sitemap = onRequest(async (req, res) => {
+  try {
+    const siteUrl = "https://airank0307.web.app";
+
+    // 정적 페이지들
+    const staticPages = [
+      { url: "/", priority: "1.0", changefreq: "daily" },
+      { url: "/community", priority: "0.9", changefreq: "daily" },
+      { url: "/gallery", priority: "0.9", changefreq: "daily" },
+      { url: "/about", priority: "0.7", changefreq: "monthly" },
+    ];
+
+    // Firestore에서 모든 커뮤니티 게시글 가져오기
+    const communityPostsSnapshot = await db.collection("communityPosts")
+      .orderBy("createdAt", "desc")
+      .limit(500) // 최대 500개
+      .get();
+
+    const communityUrls = [];
+    communityPostsSnapshot.forEach(doc => {
+      const data = doc.data();
+      const board = data.board || "general";
+      const lastmod = data.createdAt?.toDate().toISOString().split('T')[0] || new Date().toISOString().split('T')[0];
+
+      communityUrls.push({
+        url: `/community/${board}/${doc.id}`,
+        lastmod: lastmod,
+        priority: "0.6",
+        changefreq: "weekly"
+      });
+    });
+
+    // Firestore에서 모든 갤러리 포스트 가져오기
+    const galleryPostsSnapshot = await db.collection("galleryPosts")
+      .orderBy("createdAt", "desc")
+      .limit(500) // 최대 500개
+      .get();
+
+    const galleryUrls = [];
+    galleryPostsSnapshot.forEach(doc => {
+      const data = doc.data();
+      const lastmod = data.createdAt?.toDate().toISOString().split('T')[0] || new Date().toISOString().split('T')[0];
+
+      galleryUrls.push({
+        url: `/gallery/${doc.id}`,
+        lastmod: lastmod,
+        priority: "0.6",
+        changefreq: "weekly"
+      });
+    });
+
+    // 모든 URL 합치기
+    const allUrls = [...staticPages, ...communityUrls, ...galleryUrls];
+
+    // Sitemap XML 생성
+    const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${allUrls.map(page => `  <url>
+    <loc>${siteUrl}${page.url}</loc>
+    ${page.lastmod ? `<lastmod>${page.lastmod}</lastmod>` : ''}
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+
+    // Sitemap XML 응답
+    res.set("Content-Type", "application/xml; charset=utf-8");
+    res.set("Cache-Control", "public, max-age=3600"); // 1시간 캐시
+    res.send(sitemapXml);
+
+    logger.info(`Sitemap generated successfully with ${allUrls.length} URLs`);
+  } catch (error) {
+    logger.error("Error generating sitemap:", error);
+    res.status(500).send("Error generating sitemap");
+  }
+});

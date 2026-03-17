@@ -12,6 +12,10 @@
         "function": "rss"
       },
       {
+        "source": "/sitemap.xml",
+        "function": "sitemap"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
