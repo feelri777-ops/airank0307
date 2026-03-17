@@ -23,13 +23,13 @@ export default function AdminLayout() {
         width: "220px", flexShrink: 0,
         background: "var(--bg-card)",
         borderRight: "1px solid var(--border-primary)",
-        padding: "1.5rem 1rem",
+        padding: "1rem 1rem",
         display: "flex", flexDirection: "column", gap: "4px",
       }}>
-        <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
           <div>
-            <div style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-muted)", letterSpacing: "0.08em", marginBottom: "6px" }}>AIRANK</div>
-            <div style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--text-primary)" }}>관리자 패널</div>
+            <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-muted)", letterSpacing: "0.08em", marginBottom: "4px" }}>AIRANK</div>
+            <div style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--text-primary)" }}>관리자 패널</div>
           </div>
           <button
             onClick={toggleTheme}
@@ -52,9 +52,9 @@ export default function AdminLayout() {
             to={to}
             end={end}
             style={({ isActive }) => ({
-              display: "flex", alignItems: "center", gap: "10px",
-              padding: "14px 16px", borderRadius: "0",
-              fontSize: "1.15rem", fontWeight: isActive ? 700 : 500,
+              display: "flex", alignItems: "center", gap: "8px",
+              padding: "10px 12px", borderRadius: "0",
+              fontSize: "0.92rem", fontWeight: isActive ? 700 : 500,
               color: isActive ? "var(--accent-indigo)" : "var(--text-secondary)",
               background: isActive ? "rgba(99,102,241,0.1)" : "transparent",
               textDecoration: "none",
@@ -66,13 +66,13 @@ export default function AdminLayout() {
           </NavLink>
         ))}
 
-        <div style={{ marginTop: "auto", paddingTop: "1rem", borderTop: "1px solid var(--border-primary)" }}>
+        <div style={{ marginTop: "auto", paddingTop: "0.75rem", borderTop: "1px solid var(--border-primary)" }}>
           <button
             onClick={() => navigate("/")}
             style={{
-              width: "100%", padding: "14px 16px", borderRadius: "0",
+              width: "100%", padding: "10px 12px", borderRadius: "0",
               border: "1px solid var(--border-primary)", background: "var(--bg-tertiary)",
-              color: "var(--text-secondary)", fontSize: "1.05rem", fontWeight: 600,
+              color: "var(--text-secondary)", fontSize: "0.84rem", fontWeight: 600,
               cursor: "pointer", textAlign: "left",
             }}
           >
@@ -82,7 +82,7 @@ export default function AdminLayout() {
       </aside>
 
       {/* 메인 콘텐츠 */}
-      <main style={{ flex: 1, padding: "2rem", overflowY: "auto" }}>
+      <main style={{ flex: 1, padding: "1.2rem", overflowY: "auto" }}>
         <Outlet />
       </main>
     </div>

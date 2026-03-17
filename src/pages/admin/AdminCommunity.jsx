@@ -107,17 +107,17 @@ export default function AdminCommunity() {
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
       {/* Header Section */}
-      <div style={{ marginBottom: "2.5rem" }}>
-        <h1 style={{ fontSize: "2.5rem", fontWeight: 900, color: "var(--text-primary)", margin: "0 0 0.5rem 0", letterSpacing: "-0.02em" }}>
+      <div style={{ marginBottom: "1.5rem" }}>
+        <h1 style={{ fontSize: "2rem", fontWeight: 900, color: "var(--text-primary)", margin: "0 0 0.3rem 0", letterSpacing: "-0.02em" }}>
           커뮤니티 관리
         </h1>
-        <p style={{ fontSize: "1.2rem", color: "var(--text-muted)", margin: 0 }}>게시글 모니터링 및 카테고리 관리 도구</p>
+        <p style={{ fontSize: "0.96rem", color: "var(--text-muted)", margin: 0 }}>게시글 모니터링 및 카테고리 관리 도구</p>
       </div>
 
       {/* Stats Cards */}
-      <div style={{ 
-        display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 
-        gap: "1.5rem", marginBottom: "2.5rem" 
+      <div style={{
+        display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        gap: "1rem", marginBottom: "1.5rem"
       }}>
         <div style={statsCardStyle}>
           <div style={statsLabelStyle}>전체 게시글</div>
@@ -161,7 +161,7 @@ export default function AdminCommunity() {
             const count = id === "all" ? posts.length : posts.filter((p) => p.board === id).length;
             return (
               <button key={id} onClick={() => setFilter(id)} style={{
-                padding: "12px 24px", borderRadius: "0", fontSize: "1.1rem", fontWeight: 700,
+                padding: "8px 16px", borderRadius: "0", fontSize: "0.88rem", fontWeight: 700,
                 cursor: "pointer", whiteSpace: "nowrap", flexShrink: 0,
                 border: "1px solid",
                 borderColor: isActive ? "var(--accent-indigo)" : "var(--border-primary)",
@@ -179,16 +179,16 @@ export default function AdminCommunity() {
 
       {/* Content Area */}
       {loading ? (
-        <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-muted)", fontSize: "1.1rem" }}>
-          <div className="spinner" style={{ marginBottom: "1rem" }}>⏳</div>
+        <div style={{ textAlign: "center", padding: "3rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>
+          <div className="spinner" style={{ marginBottom: "0.75rem" }}>⏳</div>
           게시글 데이터를 불러오는 중입니다...
         </div>
       ) : filtered.length === 0 ? (
         <div style={{
-          textAlign: "center", padding: "5rem 2rem", background: "var(--bg-card)",
+          textAlign: "center", padding: "3rem 1.5rem", background: "var(--bg-card)",
           borderRadius: "0", border: "2px dashed var(--border-primary)"
         }}>
-          <p style={{ color: "var(--text-muted)", fontSize: "1.1rem" }}>표시할 게시글이 없습니다.</p>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.88rem" }}>표시할 게시글이 없습니다.</p>
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -198,8 +198,8 @@ export default function AdminCommunity() {
 
             return (
               <div key={post.id} style={{
-                display: "flex", alignItems: "center", gap: "20px",
-                padding: "1.5rem 1.8rem", background: isBanned ? "rgba(239,68,68,0.05)" : "var(--bg-card)",
+                display: "flex", alignItems: "center", gap: "16px",
+                padding: "1rem 1.2rem", background: isBanned ? "rgba(239,68,68,0.05)" : "var(--bg-card)",
                 border: "1px solid",
                 borderColor: isBanned ? "#ef4444" : "var(--border-primary)",
                 borderRadius: "0",
@@ -209,9 +209,9 @@ export default function AdminCommunity() {
               className="admin-post-item"
               >
                 {/* Category & Info */}
-                <div style={{ width: "140px", flexShrink: 0 }}>
+                <div style={{ width: "110px", flexShrink: 0 }}>
                   <div style={{
-                    fontSize: "0.85rem", fontWeight: 800, padding: "6px 10px", borderRadius: "0",
+                    fontSize: "0.68rem", fontWeight: 800, padding: "5px 8px", borderRadius: "0",
                     background: isBanned ? "#ef4444" : "rgba(99,102,241,0.08)",
                     color: isBanned ? "#fff" : "var(--accent-indigo)",
                     border: "1px solid",
@@ -226,20 +226,20 @@ export default function AdminCommunity() {
                 {/* Title & Meta */}
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{
-                    fontSize: "1.3rem", fontWeight: 700, color: "var(--text-primary)",
+                    fontSize: "1.04rem", fontWeight: 700, color: "var(--text-primary)",
                     overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-                    marginBottom: "8px",
-                    display: "flex", alignItems: "center", gap: "8px"
+                    marginBottom: "6px",
+                    display: "flex", alignItems: "center", gap: "6px"
                   }}>
                     {post.title}
-                    {isBanned && <span style={{ fontSize: "0.85rem", padding: "4px 10px", background: "#ef4444", color: "#fff", borderRadius: "0" }}>신고 누적</span>}
+                    {isBanned && <span style={{ fontSize: "0.68rem", padding: "3px 8px", background: "#ef4444", color: "#fff", borderRadius: "0" }}>신고 누적</span>}
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "1.05rem", color: "var(--text-muted)" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "0.84rem", color: "var(--text-muted)" }}>
                     <span style={{ fontWeight: 600, color: "var(--text-secondary)" }}>{post.authorName || post.displayName || "익명"}</span>
                     <span>|</span>
                     <span>{post.createdAt ? formatRelativeTime(post.createdAt) : "-"}</span>
                     <span>|</span>
-                    <div style={{ display: "flex", gap: "12px" }}>
+                    <div style={{ display: "flex", gap: "10px" }}>
                       <span>💬 {post.commentCount || 0}</span>
                       <span>👍 {post.upvoteCount || 0}</span>
                       <span>👎 {post.downvoteCount || 0}</span>
@@ -282,11 +282,11 @@ export default function AdminCommunity() {
                     onClick={() => deletePost(post.id)}
                     disabled={isBusy(post.id)}
                     style={{
-                      padding: "10px 20px", borderRadius: "0", fontSize: "1rem", fontWeight: 800,
+                      padding: "8px 16px", borderRadius: "0", fontSize: "0.8rem", fontWeight: 800,
                       background: "rgba(239,68,68,0.08)", color: "#ef4444",
                       border: "1px solid rgba(239,68,68,0.2)", cursor: "pointer",
                       transition: "all 0.2s",
-                      display: "flex", alignItems: "center", gap: "6px"
+                      display: "flex", alignItems: "center", gap: "5px"
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.background = "#ef4444"; e.currentTarget.style.color = "#fff"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(239,68,68,0.08)"; e.currentTarget.style.color = "#ef4444"; }}
@@ -306,21 +306,21 @@ export default function AdminCommunity() {
 // Styles
 const statsCardStyle = {
   background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-  borderRadius: "0", padding: "1.5rem", boxShadow: "0 4px 6px rgba(0,0,0,0.02)"
+  borderRadius: "0", padding: "1rem", boxShadow: "0 4px 6px rgba(0,0,0,0.02)"
 };
-const statsLabelStyle = { fontSize: "1rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", marginBottom: "8px" };
-const statsValueStyle = { fontSize: "2.5rem", fontWeight: 900, color: "var(--text-primary)" };
+const statsLabelStyle = { fontSize: "0.8rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", marginBottom: "6px" };
+const statsValueStyle = { fontSize: "2rem", fontWeight: 900, color: "var(--text-primary)" };
 
 const actionIconBtnStyle = {
-  width: "40px", height: "40px", borderRadius: "0",
+  width: "32px", height: "32px", borderRadius: "0",
   background: "var(--bg-tertiary)", border: "1px solid var(--border-primary)",
   display: "flex", alignItems: "center", justifyContent: "center",
-  textDecoration: "none", fontSize: "1.2rem", cursor: "pointer", transition: "all 0.2s"
+  textDecoration: "none", fontSize: "0.96rem", cursor: "pointer", transition: "all 0.2s"
 };
 
 const modernSelectStyle = {
-  appearance: "none", padding: "10px 14px", borderRadius: "0",
+  appearance: "none", padding: "8px 11px", borderRadius: "0",
   border: "1px solid var(--border-primary)", background: "var(--bg-tertiary)",
-  color: "var(--text-primary)", fontSize: "1rem", fontWeight: 600,
-  cursor: "pointer", outline: "none", minWidth: "120px"
+  color: "var(--text-primary)", fontSize: "0.8rem", fontWeight: 600,
+  cursor: "pointer", outline: "none", minWidth: "96px"
 };
