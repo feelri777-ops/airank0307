@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import {
   collection, getDocs, doc, addDoc, updateDoc, deleteDoc,
   serverTimestamp, orderBy, query
@@ -283,14 +283,106 @@ function ToolFormModal({ tool, onSave, onClose }) {
   );
 }
 
+// 과거 순위 히스토리 모달
+function HistoryModal({ tool, onClose }) {
+  const [history, setHistory] = useState([]);
+  const [loadingHistory, setLoadingHistory] = useState(true);
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      setLoadingHistory(true);
+      const results = [];
+      const now = new Date();
+
+      // 최근 30일치 history 파일 병렬 fetch
+      const promises = Array.from({ length: 30 }, (_, i) => {
+        const d = new Date(now);
+        d.setDate(d.getDate() - i);
+        const dateStr = d.toISOString().split('T')[0];
+        return fetch(`/history/scores-${dateStr}.json`)
+          .then(r => r.ok ? r.json() : null)
+          .then(data => data ? { date: dateStr, data } : null)
+          .catch(() => null);
+      });
+
+      const settled = await Promise.all(promises);
+      for (const item of settled) {
+        if (!item) continue;
+        const toolScore = item.data.tools?.[String(tool.id)];
+        if (!toolScore) continue;
+        // 해당 날짜의 전체 툴 점수로 순위 계산
+        const allScores = Object.entries(item.data.tools)
+          .map(([id, v]) => ({ id, score: v.score || 0 }))
+          .sort((a, b) => b.score - a.score);
+        const rank = allScores.findIndex(t => t.id === String(tool.id)) + 1;
+        results.push({ date: item.date, rank, score: toolScore.score, change: toolScore.change });
+      }
+      results.sort((a, b) => b.date.localeCompare(a.date));
+      setHistory(results);
+      setLoadingHistory(false);
+    };
+    fetchHistory();
+  }, [tool.id]);
+
+  return (
+    <div style={{
+      position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 1100,
+      display: "flex", alignItems: "center", justifyContent: "center", padding: "16px",
+    }} onClick={e => e.target === e.currentTarget && onClose()}>
+      <div style={{
+        background: "var(--bg-card)", width: "100%", maxWidth: "480px",
+        maxHeight: "80vh", overflowY: "auto",
+        border: "1px solid var(--border-primary)", padding: "1.5rem",
+      }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+          <h2 style={{ fontSize: "1rem", fontWeight: 800, margin: 0 }}>
+            {tool.icon} {tool.name} — 과거 순위
+          </h2>
+          <button onClick={onClose} style={{ background: "none", border: "none", fontSize: "1.3rem", cursor: "pointer", color: "var(--text-muted)" }}>✕</button>
+        </div>
+
+        {loadingHistory ? (
+          <div style={{ textAlign: "center", padding: "2rem", color: "var(--text-muted)" }}>불러오는 중...</div>
+        ) : history.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "2rem", color: "var(--text-muted)" }}>기록 없음</div>
+        ) : (
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.88rem" }}>
+            <thead>
+              <tr style={{ background: "var(--bg-tertiary)" }}>
+                <th style={{ padding: "7px 10px", textAlign: "left", fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", borderBottom: "1px solid var(--border-primary)" }}>날짜</th>
+                <th style={{ padding: "7px 10px", textAlign: "center", fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", borderBottom: "1px solid var(--border-primary)" }}>순위</th>
+                <th style={{ padding: "7px 10px", textAlign: "center", fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", borderBottom: "1px solid var(--border-primary)" }}>점수</th>
+                <th style={{ padding: "7px 10px", textAlign: "center", fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", borderBottom: "1px solid var(--border-primary)" }}>변동</th>
+              </tr>
+            </thead>
+            <tbody>
+              {history.map((h, i) => (
+                <tr key={h.date} style={{ background: i % 2 === 0 ? "transparent" : "var(--bg-tertiary)" }}>
+                  <td style={{ padding: "7px 10px", borderBottom: "1px solid var(--border-primary)" }}>{h.date}</td>
+                  <td style={{ padding: "7px 10px", textAlign: "center", fontWeight: 700, color: "var(--accent-indigo)", borderBottom: "1px solid var(--border-primary)" }}>#{h.rank}</td>
+                  <td style={{ padding: "7px 10px", textAlign: "center", borderBottom: "1px solid var(--border-primary)" }}>{h.score.toFixed(2)}</td>
+                  <td style={{ padding: "7px 10px", textAlign: "center", borderBottom: "1px solid var(--border-primary)", color: h.change > 0 ? "#22c55e" : h.change < 0 ? "#ef4444" : "var(--text-muted)" }}>
+                    {h.change > 0 ? "+" : ""}{h.change?.toFixed(2) ?? "—"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function AdminTools() {
   const [tools, setTools] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [catFilter, setCatFilter] = useState("all");
   const [showHidden, setShowHidden] = useState(false);
-  const [editingTool, setEditingTool] = useState(null);    // null=닫힘, false=신규, obj=수정
+  const [editingTool, setEditingTool] = useState(null);
   const [deleting, setDeleting] = useState(null);
+  const [historyTool, setHistoryTool] = useState(null);
 
   const fetchTools = async () => {
     setLoading(true);
@@ -442,10 +534,18 @@ export default function AdminTools() {
                     {tool.pinnedRank != null ? `📌${tool.pinnedRank}` : tool._rank}
                   </td>
                   <td style={{ ...tdStyle, fontSize: "1.2rem", textAlign: "center" }}>{tool.icon}</td>
-                  <td style={{ ...tdStyle, fontWeight: 600, maxWidth: "140px" }}>
-                    <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-primary)", textDecoration: "none" }}>
-                      {tool.name}
-                    </a>
+                  <td style={{ ...tdStyle, fontWeight: 600, maxWidth: "160px" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                      <button
+                        onClick={() => setHistoryTool(tool)}
+                        style={{ background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "left", fontWeight: 600, fontSize: "0.84rem", color: "var(--accent-indigo)", textDecoration: "underline" }}
+                      >
+                        {tool.name}
+                      </button>
+                      {(tool.manualScore != null || tool.pinnedRank != null) && (
+                        <span style={{ fontSize: "0.68rem", color: "#f59e0b", fontWeight: 700 }}>✎ 수동입력</span>
+                      )}
+                    </div>
                   </td>
                   <td style={{ ...tdStyle, color: "var(--text-secondary)" }}>{tool.nameKo}</td>
                   <td style={tdStyle}>
@@ -500,6 +600,11 @@ export default function AdminTools() {
           onSave={handleSave}
           onClose={() => setEditingTool(null)}
         />
+      )}
+
+      {/* 과거 순위 히스토리 모달 */}
+      {historyTool && (
+        <HistoryModal tool={historyTool} onClose={() => setHistoryTool(null)} />
       )}
     </div>
   );
