@@ -81,7 +81,6 @@ function ToolFormModal({ tool, onSave, onClose }) {
         yt: form.yt.trim() || null,
         ytKo: form.ytKo.trim() || null,
         life: form.life,
-        manualScore: form.manualScore !== "" ? Number(form.manualScore) : null,
         pinnedRank: form.pinnedRank !== "" ? Number(form.pinnedRank) : null,
         hidden: form.hidden,
         metrics: {
@@ -90,6 +89,21 @@ function ToolFormModal({ tool, onSave, onClose }) {
           ghs: form.ghs !== "" ? Number(form.ghs) : null,
           sns: form.sns !== "" ? Number(form.sns) : null,
         },
+        // 세부점수가 모두 입력된 경우 종합점수 자동 계산 (가중치: 구글50% 네이버25% SNS15% GitHub10%)
+        // manualScore가 직접 입력된 경우 우선 적용
+        manualScore: (() => {
+          if (form.manualScore !== "") return Number(form.manualScore);
+          const { opr, ntv, ghs, sns } = {
+            opr: form.opr !== "" ? Number(form.opr) : null,
+            ntv: form.ntv !== "" ? Number(form.ntv) : null,
+            ghs: form.ghs !== "" ? Number(form.ghs) : null,
+            sns: form.sns !== "" ? Number(form.sns) : null,
+          };
+          if (opr != null && ntv != null && ghs != null && sns != null) {
+            return Number((opr * 0.5 + ntv * 0.25 + sns * 0.15 + ghs * 0.1).toFixed(2));
+          }
+          return null;
+        })(),
         updatedAt: serverTimestamp(),
       };
       await onSave(data);
