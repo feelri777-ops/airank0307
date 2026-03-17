@@ -25,6 +25,7 @@ const EMPTY_FORM = {
   desc: "", url: "", features: "", tags: "",
   naverKw: "", yt: "", ytKo: "",
   life: [], manualScore: "", pinnedRank: "", hidden: false,
+  opr: "", ntv: "", ghs: "", sns: "",
 };
 
 function ToolFormModal({ tool, onSave, onClose }) {
@@ -47,6 +48,10 @@ function ToolFormModal({ tool, onSave, onClose }) {
       manualScore: tool.manualScore != null ? String(tool.manualScore) : "",
       pinnedRank: tool.pinnedRank != null ? String(tool.pinnedRank) : "",
       hidden: tool.hidden ?? false,
+      opr: tool.metrics?.opr != null ? String(tool.metrics.opr) : "",
+      ntv: tool.metrics?.ntv != null ? String(tool.metrics.ntv) : "",
+      ghs: tool.metrics?.ghs != null ? String(tool.metrics.ghs) : "",
+      sns: tool.metrics?.sns != null ? String(tool.metrics.sns) : "",
     };
   });
   const [saving, setSaving] = useState(false);
@@ -79,6 +84,12 @@ function ToolFormModal({ tool, onSave, onClose }) {
         manualScore: form.manualScore !== "" ? Number(form.manualScore) : null,
         pinnedRank: form.pinnedRank !== "" ? Number(form.pinnedRank) : null,
         hidden: form.hidden,
+        metrics: {
+          opr: form.opr !== "" ? Number(form.opr) : null,
+          ntv: form.ntv !== "" ? Number(form.ntv) : null,
+          ghs: form.ghs !== "" ? Number(form.ghs) : null,
+          sns: form.sns !== "" ? Number(form.sns) : null,
+        },
         updatedAt: serverTimestamp(),
       };
       await onSave(data);
@@ -191,6 +202,28 @@ function ToolFormModal({ tool, onSave, onClose }) {
                   fontWeight: form.life.includes(v) ? 700 : 400,
                 }}
               >{v}</button>
+            ))}
+          </div>
+        </div>
+
+        {/* 세부 점수 */}
+        <div style={{ marginBottom: "12px" }}>
+          <label style={{ ...labelStyle, marginBottom: "8px" }}>세부 점수 (0~100, 비워두면 자동 갱신값 사용)</label>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "8px" }}>
+            {[
+              { key: "opr", label: "구글(OPR) 50%" },
+              { key: "ntv", label: "네이버(NTV) 25%" },
+              { key: "sns", label: "SNS 15%" },
+              { key: "ghs", label: "GitHub 10%" },
+            ].map(({ key, label }) => (
+              <div key={key}>
+                <label style={{ ...labelStyle, marginBottom: "3px" }}>{label}</label>
+                <input
+                  style={inputStyle} type="number" min="0" max="100" step="0.01"
+                  value={form[key]} onChange={e => set(key, e.target.value)}
+                  placeholder="0~100"
+                />
+              </div>
             ))}
           </div>
         </div>
