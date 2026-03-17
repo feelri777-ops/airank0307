@@ -21,17 +21,27 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 import { TOOLS_DATA } from '../src/data/tools.js';
 
-// HTML 엔티티 디코딩 (&#39; → ', &amp; → &, &quot; → ", 등)
+// HTML 엔티티 디코딩 (&#39;, &quot;, &amp;, &#61;, &#x3D; 등 모든 형태 처리)
 function decodeHtmlEntities(text) {
+  if (!text) return "";
   const entities = {
-    '&#39;': "'",
-    '&quot;': '"',
-    '&amp;': '&',
-    '&lt;': '<',
-    '&gt;': '>',
-    '&nbsp;': ' ',
+    "&amp;": "&",
+    "&lt;": "<",
+    "&gt;": ">",
+    "&quot;": "\"",
+    "&nbsp;": " ",
+    "&#39;": "'",
+    "&apos;": "'"
   };
-  return text.replace(/&#?\w+;/g, match => entities[match] || match);
+  return text.replace(/&(#?[xX]?\w+);/g, (match, p1) => {
+    if (entities[match]) return entities[match];
+    if (p1.startsWith("#")) {
+      const isHex = p1.charAt(1).toLowerCase() === "x";
+      const code = parseInt(p1.slice(isHex ? 2 : 1), isHex ? 16 : 10);
+      return !isNaN(code) ? String.fromCharCode(code) : match;
+    }
+    return match;
+  });
 }
 
 // ISO 8601 duration을 초 단위로 변환

@@ -1,16 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git add .)",
-      "Bash(git add src/pages/admin/AdminLayout.jsx src/pages/admin/AdminDashboard.jsx src/pages/admin/AdminCommunity.jsx src/pages/admin/AdminGallery.jsx src/pages/admin/AdminUsers.jsx)",
-      "Bash(firebase deploy --only functions)",
-      "Bash(npm run deploy:functions)",
-      "Bash(powershell -Command \"firebase deploy --only functions\")",
-      "Bash(npx firebase deploy --only functions)",
-      "Bash(curl -s https://airank0307.web.app/sitemap.xml)",
-      "Bash(powershell -Command \"Invoke-WebRequest -Uri ''https://airank0307.web.app/sitemap.xml'' -UseBasicParsing | Select-Object -ExpandProperty Content | Select-Object -First 1000\")"
-    ],
-    "deny": [],
-    "ask": []
+      "Bash(ls -la \"C:/Users/400041460038/Desktop/code main/airank0307-main \\(1\\)\")",
+      "Bash(git --version)",
+      "Bash(git add scripts/fetch-youtube.js)",
+      "Bash(git push origin main)",
+      "Bash(cat /Users/feekri/AIRANK/airank0307/src/constants/*.js)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)"
+    ]
   }
 }
