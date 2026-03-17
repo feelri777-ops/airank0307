@@ -1,5 +1,7 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAdminGuard } from "../../hooks/useAdminGuard";
+import { useTheme } from "../../context/ThemeContext";
+import { useState } from "react";
 
 const NAV = [
   { to: "/admin", label: "대시보드", icon: "📊", end: true },
@@ -10,6 +12,7 @@ const NAV = [
 
 export default function AdminLayout() {
   const { isAuthorized } = useAdminGuard();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   if (!isAuthorized) return null;
@@ -24,9 +27,24 @@ export default function AdminLayout() {
         padding: "1.5rem 1rem",
         display: "flex", flexDirection: "column", gap: "4px",
       }}>
-        <div style={{ marginBottom: "1.5rem" }}>
-          <div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", letterSpacing: "0.08em", marginBottom: "4px" }}>AIRANK</div>
-          <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)" }}>관리자 패널</div>
+        <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div>
+            <div style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", letterSpacing: "0.08em", marginBottom: "4px" }}>AIRANK</div>
+            <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)" }}>관리자 패널</div>
+          </div>
+          <button 
+            onClick={toggleTheme}
+            style={{ 
+              border: "none", background: "var(--bg-tertiary)", 
+              width: "32px", height: "32px", borderRadius: "8px", 
+              cursor: "pointer", fontSize: "1.1rem",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              boxShadow: "var(--shadow-sm)"
+            }}
+            title="테마 변경"
+          >
+            {theme === 'dark' ? '🌙' : theme === 'mono' ? '⬛' : '☀️'}
+          </button>
         </div>
 
         {NAV.map(({ to, label, icon, end }) => (

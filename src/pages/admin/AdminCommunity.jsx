@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { collection, query, orderBy, getDocs, doc, writeBatch, updateDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
 import { db, storage } from "../../firebase";
@@ -23,6 +23,27 @@ export default function AdminCommunity() {
   const [filter, setFilter] = useState("all");
   const [deleting, setDeleting] = useState(null);
   const [moving, setMoving] = useState(null);
+  
+  // Mouse Drag Scroll for Filter Bar
+  const scrollRef = useRef(null);
+  const [isDown, setIsDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e) => {
+    setIsDown(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+  const handleMouseLeave = () => setIsDown(false);
+  const handleMouseUp = () => setIsDown(false);
+  const handleMouseMove = (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // 스크롤 속도
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
 
   const fetchPosts = async () => {
     setLoading(true);
@@ -118,10 +139,23 @@ export default function AdminCommunity() {
         background: "var(--bg-primary)", padding: "10px 0", marginBottom: "1.5rem",
         borderBottom: "1px solid var(--border-primary)"
       }}>
-        <div style={{ 
-          display: "flex", gap: "10px", overflowX: "auto", paddingBottom: "8px",
-          scrollbarWidth: "none", msOverflowStyle: "none"
-        }}>
+        <div 
+          ref={scrollRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          style={{ 
+            display: "flex", gap: "10px", overflowX: "auto", paddingBottom: "12px",
+            scrollbarWidth: "none", msOverflowStyle: "none",
+            cursor: isDown ? "grabbing" : "grab", userSelect: "none",
+            WebkitOverflowScrolling: "touch"
+          }}
+          className="admin-filter-scroll"
+        >
+          <style>{`
+            .admin-filter-scroll::-webkit-scrollbar { display: none; }
+          `}</style>
           {[{ id: "all", name: "전체보기" }, ...BOARDS].map(({ id, name }) => {
             const isActive = filter === id;
             const count = id === "all" ? posts.length : posts.filter((p) => p.board === id).length;
