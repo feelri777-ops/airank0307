@@ -2,6 +2,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import admin from 'firebase-admin';
 
 const __dir = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dir, '..');
@@ -19,7 +20,29 @@ let currentKeyIndex = 0;
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-import { TOOLS_DATA } from '../src/data/tools.js';
+// Firestore Admin 초기화
+function initAdmin() {
+  if (admin.apps.length > 0) return;
+  if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+    const sa = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+    admin.initializeApp({ credential: admin.credential.cert(sa) });
+  } else {
+    const keyPath = resolve(ROOT, 'serviceAccountKey.json');
+    if (!existsSync(keyPath)) {
+      console.error('❌ FIREBASE_SERVICE_ACCOUNT 또는 serviceAccountKey.json 필요');
+      process.exit(1);
+    }
+    admin.initializeApp({ credential: admin.credential.cert(JSON.parse(readFileSync(keyPath, 'utf8'))) });
+  }
+}
+
+// Firestore에서 툴 목록 로드
+async function loadToolsFromFirestore() {
+  initAdmin();
+  const db = admin.firestore();
+  const snap = await db.collection('tools').where('hidden', '!=', true).get();
+  return snap.docs.map(d => ({ ...d.data(), id: Number(d.id) }));
+}
 
 // HTML 엔티티 디코딩 (&#39;, &quot;, &amp;, &#61;, &#x3D; 등 모든 형태 처리)
 function decodeHtmlEntities(text) {
@@ -150,6 +173,7 @@ async function main() {
     try { scores = JSON.parse(readFileSync(scoresPath, 'utf8')).tools || {}; } catch {}
   }
 
+  const TOOLS_DATA = await loadToolsFromFirestore();
   const sortedTools = [...TOOLS_DATA]
     .map(t => ({ ...t, liveScore: scores[String(t.id)]?.score ?? t.score }))
     .sort((a, b) => b.liveScore - a.liveScore)

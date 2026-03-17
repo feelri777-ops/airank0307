@@ -4,6 +4,7 @@ import { useTheme } from "../../context/ThemeContext";
 
 const NAV = [
   { to: "/admin", label: "대시보드", icon: "📊", end: true },
+  { to: "/admin/tools", label: "툴 관리", icon: "🛠️" },
   { to: "/admin/community", label: "커뮤니티", icon: "💬" },
   { to: "/admin/gallery", label: "갤러리", icon: "🖼️" },
   { to: "/admin/users", label: "회원 관리", icon: "👥" },

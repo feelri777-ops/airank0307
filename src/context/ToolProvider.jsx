@@ -3,15 +3,35 @@ import { collection, query, where, onSnapshot, deleteDoc, doc, getDocs, setDoc }
 import { db } from "../firebase";
 import ToolContext from "./ToolContext";
 import { useAuth } from "./AuthContext";
-import { TOOLS_DATA } from "../data/tools";
+
+const CACHE_KEY = "airank_tools_cache";
+const CACHE_TTL = 60 * 60 * 1000; // 1시간
+
+function loadCache() {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const { data, ts } = JSON.parse(raw);
+    if (Date.now() - ts > CACHE_TTL) return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function saveCache(data) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ data, ts: Date.now() }));
+  } catch {}
+}
 
 export function ToolProvider({ children }) {
   const { user } = useAuth();
-  const [tools, setTools] = useState(TOOLS_DATA);
+  const [tools, setTools] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [scoresUpdated, setScoresUpdated] = useState(null);
-  
+
   const [selectedTool, setSelectedTool] = useState(null);
   const [selectedRank, setSelectedRank] = useState(null);
   const [selectedPrevRank, setSelectedPrevRank] = useState(null);
@@ -22,37 +42,59 @@ export function ToolProvider({ children }) {
   const [toolReactions, setToolReactions] = useState([]);
   const [reactionCounts, setReactionCounts] = useState({});
 
+  // Firestore에서 툴 로드 (localStorage 캐시 활용)
   useEffect(() => {
     let isMounted = true;
-    const timestamp = Date.now();
-
     setIsLoading(true);
-    fetch(`/scores.json?t=${timestamp}`)
-      .then((r) => {
-        if (!r.ok) throw new Error("점수 데이터를 불러오지 못했습니다.");
-        return r.json();
-      })
-      .then((data) => {
-        if (!isMounted || !data?.tools) return;
-        setTools((prev) =>
-          prev.map((tool) => {
-            const live = data.tools[String(tool.id)];
+
+    const loadTools = async () => {
+      try {
+        // 1. 캐시 확인
+        const cached = loadCache();
+
+        // 2. scores.json 병렬 로드
+        const timestamp = Date.now();
+        const [firestoreTools, scoresRes] = await Promise.all([
+          cached
+            ? Promise.resolve(cached)
+            : getDocs(collection(db, "tools")).then(snap =>
+                snap.docs.map(d => ({ ...d.data(), id: Number(d.id) }))
+              ),
+          fetch(`/scores.json?t=${timestamp}`).then(r => r.ok ? r.json() : null).catch(() => null),
+        ]);
+
+        if (!isMounted) return;
+
+        // 캐시 저장 (신규 로드한 경우만)
+        if (!cached) saveCache(firestoreTools);
+
+        const scoresMap = scoresRes?.tools || {};
+
+        // 3. 점수 병합 + hidden 필터 + manualScore 적용
+        const merged = firestoreTools
+          .filter(t => !t.hidden)
+          .map(tool => {
+            const live = scoresMap[String(tool.id)];
+            // manualScore가 있으면 자동 점수 무시
+            if (tool.manualScore != null) {
+              return { ...tool, score: tool.manualScore, change: tool.change ?? 0 };
+            }
             if (!live) return tool;
-            // change는 scores.json에 값이 없으면(0이거나 null) tools.js 원본 값 유지
             const change = live.change != null && live.change !== 0 ? live.change : tool.change;
             return { ...tool, ...live, change };
-          })
-        );
-        setScoresUpdated(data.updated || null);
-        setError(null);
-      })
-      .catch((err) => {
-        if (isMounted) setError(err.message);
-      })
-      .finally(() => {
-        if (isMounted) setIsLoading(false);
-      });
+          });
 
+        setTools(merged);
+        setScoresUpdated(scoresRes?.updated || null);
+        setError(null);
+      } catch (err) {
+        if (isMounted) setError(err.message);
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    };
+
+    loadTools();
     return () => { isMounted = false; };
   }, []);
 
@@ -120,9 +162,8 @@ export function ToolProvider({ children }) {
     if (!user) return;
     const docRef = doc(db, "toolReactions", `${user.uid}_${toolId}`);
     const existing = toolReactions.find(r => r.toolId === toolId);
-    
+
     if (existing?.type === type) {
-      await setDoc(docRef, { ...existing, type: null }); // 혹은 deleteDoc
       await deleteDoc(docRef);
       setReactionCounts(prev => {
         const c = prev[toolId] || { likes: 0, dislikes: 0 };
@@ -139,6 +180,11 @@ export function ToolProvider({ children }) {
       });
     }
   }, [user, toolReactions]);
+
+  // 관리자 전용: 캐시 무효화 후 Firestore 재로드
+  const invalidateToolsCache = useCallback(() => {
+    try { localStorage.removeItem(CACHE_KEY); } catch {}
+  }, []);
 
   const value = useMemo(() => ({
     tools,
@@ -159,7 +205,8 @@ export function ToolProvider({ children }) {
     toggleToolReaction,
     getToolReaction,
     reactionCounts,
-  }), [tools, isLoading, error, scoresUpdated, selectedTool, selectedRank, analysisTool, analysisRank, bookmarkCounts, toolReactions, toggleToolReaction, getToolReaction, reactionCounts]);
+    invalidateToolsCache,
+  }), [tools, isLoading, error, scoresUpdated, selectedTool, selectedRank, analysisTool, analysisRank, bookmarkCounts, toolReactions, toggleToolReaction, getToolReaction, reactionCounts, invalidateToolsCache]);
 
   return (
     <ToolContext.Provider value={value}>
@@ -167,4 +214,3 @@ export function ToolProvider({ children }) {
     </ToolContext.Provider>
   );
 }
-
