@@ -34,11 +34,6 @@ jobs:
           NAVER_CLIENT_SECRET_2: ${{ secrets.NAVER_CLIENT_SECRET_2 }}
           XPOZ_API_KEY: ${{ secrets.XPOZ_API_KEY }}
 
-      - name: Firestore 점수 동기화
-        run: node scripts/sync_tools_js.js
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-
       - name: 변경사항 커밋 & 푸시
         run: |
           git config user.name "github-actions[bot]"
