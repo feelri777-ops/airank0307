@@ -192,97 +192,110 @@ export default function AdminCommunity() {
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-          {filtered.map((post) => (
-            <div key={post.id} style={{
-              display: "flex", alignItems: "center", gap: "20px",
-              padding: "1.25rem 1.5rem", background: "var(--bg-card)",
-              border: "1px solid var(--border-primary)", borderRadius: "var(--r-lg)",
-              opacity: isBusy(post.id) ? 0.6 : 1, transition: "all 0.2s",
-              boxShadow: "0 2px 4px rgba(0,0,0,0.02)"
-            }}
-            className="admin-post-item"
-            >
-              {/* Category & Info */}
-              <div style={{ width: "100px", flexShrink: 0 }}>
-                <div style={{
-                  fontSize: "0.7rem", fontWeight: 800, padding: "4px 8px", borderRadius: "6px",
-                  background: "rgba(99,102,241,0.08)", color: "var(--accent-indigo)",
-                  border: "1px solid rgba(99,102,241,0.15)", textAlign: "center",
-                  textTransform: "uppercase", letterSpacing: "0.02em"
-                }}>
-                  {BOARD_MAP[post.board] || post.board}
-                </div>
-              </div>
+          {filtered.map((post, idx) => {
+            const isBanned = post.reportCount >= 5;
+            const postNum = posts.length - posts.findIndex(p => p.id === post.id);
 
-              {/* Title & Meta */}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ 
-                  fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)", 
-                  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-                  marginBottom: "4px"
-                }}>
-                  {post.title}
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "0.8rem", color: "var(--text-muted)" }}>
-                  <span style={{ fontWeight: 600, color: "var(--text-secondary)" }}>{post.authorName || post.displayName || "익명"}</span>
-                  <span>|</span>
-                  <span>{post.createdAt ? formatRelativeTime(post.createdAt) : "-"}</span>
-                  <span>|</span>
-                  <div style={{ display: "flex", gap: "8px" }}>
-                    <span>💬 {post.commentCount || 0}</span>
-                    <span>👍 {post.upvoteCount || 0}</span>
+            return (
+              <div key={post.id} style={{
+                display: "flex", alignItems: "center", gap: "20px",
+                padding: "1.25rem 1.5rem", background: isBanned ? "rgba(239,68,68,0.05)" : "var(--bg-card)",
+                border: "1px solid",
+                borderColor: isBanned ? "#ef4444" : "var(--border-primary)",
+                borderRadius: "var(--r-lg)",
+                opacity: isBusy(post.id) ? 0.6 : 1, transition: "all 0.2s",
+                boxShadow: isBanned ? "0 4px 12px rgba(239,68,68,0.1)" : "0 2px 4px rgba(0,0,0,0.02)"
+              }}
+              className="admin-post-item"
+              >
+                {/* Category & Info */}
+                <div style={{ width: "140px", flexShrink: 0 }}>
+                  <div style={{
+                    fontSize: "0.7rem", fontWeight: 800, padding: "4px 8px", borderRadius: "6px",
+                    background: isBanned ? "#ef4444" : "rgba(99,102,241,0.08)", 
+                    color: isBanned ? "#fff" : "var(--accent-indigo)",
+                    border: "1px solid",
+                    borderColor: isBanned ? "#ef4444" : "rgba(99,102,241,0.15)",
+                    textAlign: "center",
+                    textTransform: "uppercase", letterSpacing: "0.02em"
+                  }}>
+                    {BOARD_MAP[post.board] || post.board} #{postNum}
                   </div>
                 </div>
-              </div>
 
-              {/* Actions */}
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
-                {/* View */}
-                {post.board && post.board !== "all" && (
-                  <a
-                    href={`/community/${post.board}/${post.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="원본 보기"
-                    style={actionIconBtnStyle}
-                  >
-                    🔍
-                  </a>
-                )}
-
-                {/* Move Select */}
-                <div style={{ position: "relative" }}>
-                  <select
-                    value={post.board}
-                    disabled={isBusy(post.id)}
-                    onChange={(e) => movePost(post.id, e.target.value, post.board, post.title)}
-                    style={modernSelectStyle}
-                  >
-                    {BOARDS.map((b) => (
-                      <option key={b.id} value={b.id}>{b.name}</option>
-                    ))}
-                  </select>
+                {/* Title & Meta */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ 
+                    fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)", 
+                    overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+                    marginBottom: "4px",
+                    display: "flex", alignItems: "center", gap: "8px"
+                  }}>
+                    {post.title}
+                    {isBanned && <span style={{ fontSize: "0.65rem", padding: "2px 6px", background: "#ef4444", color: "#fff", borderRadius: "4px" }}>신고 누적</span>}
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                    <span style={{ fontWeight: 600, color: "var(--text-secondary)" }}>{post.authorName || post.displayName || "익명"}</span>
+                    <span>|</span>
+                    <span>{post.createdAt ? formatRelativeTime(post.createdAt) : "-"}</span>
+                    <span>|</span>
+                    <div style={{ display: "flex", gap: "8px" }}>
+                      <span>💬 {post.commentCount || 0}</span>
+                      <span>👍 {post.upvoteCount || 0}</span>
+                      {post.reportCount > 0 && <span style={{ color: "#ef4444", fontWeight: 700 }}>🚨 {post.reportCount}</span>}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Delete */}
-                <button
-                  onClick={() => deletePost(post.id)}
-                  disabled={isBusy(post.id)}
-                  style={{
-                    padding: "8px 16px", borderRadius: "10px", fontSize: "0.85rem", fontWeight: 800,
-                    background: "rgba(239,68,68,0.08)", color: "#ef4444",
-                    border: "1px solid rgba(239,68,68,0.2)", cursor: "pointer",
-                    transition: "all 0.2s",
-                    display: "flex", alignItems: "center", gap: "6px"
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "#ef4444"; e.currentTarget.style.color = "#fff"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(239,68,68,0.08)"; e.currentTarget.style.color = "#ef4444"; }}
-                >
-                  {deleting === post.id ? "..." : "삭제"}
-                </button>
+                {/* Actions */}
+                <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
+                  {/* View */}
+                  {post.board && post.board !== "all" && (
+                    <a
+                      href={`/community/${post.board}/${post.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="원본 보기"
+                      style={actionIconBtnStyle}
+                    >
+                      🔍
+                    </a>
+                  )}
+
+                  {/* Move Select */}
+                  <div style={{ position: "relative" }}>
+                    <select
+                      value={post.board}
+                      disabled={isBusy(post.id)}
+                      onChange={(e) => movePost(post.id, e.target.value, post.board, post.title)}
+                      style={modernSelectStyle}
+                    >
+                      {BOARDS.map((b) => (
+                        <option key={b.id} value={b.id}>{b.name}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Delete */}
+                  <button
+                    onClick={() => deletePost(post.id)}
+                    disabled={isBusy(post.id)}
+                    style={{
+                      padding: "8px 16px", borderRadius: "10px", fontSize: "0.85rem", fontWeight: 800,
+                      background: "rgba(239,68,68,0.08)", color: "#ef4444",
+                      border: "1px solid rgba(239,68,68,0.2)", cursor: "pointer",
+                      transition: "all 0.2s",
+                      display: "flex", alignItems: "center", gap: "6px"
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#ef4444"; e.currentTarget.style.color = "#fff"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(239,68,68,0.08)"; e.currentTarget.style.color = "#ef4444"; }}
+                  >
+                    {deleting === post.id ? "..." : "삭제"}
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

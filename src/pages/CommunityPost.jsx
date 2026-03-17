@@ -272,6 +272,40 @@ export default function CommunityPost() {
     }
   };
 
+  /* ── 게시글 신고 ── */
+  const handleReport = async () => {
+    if (!user) { alert("로그인 후 신고할 수 있습니다."); return; }
+    if (user.uid === post.uid) { alert("본인의 글은 신고할 수 없습니다."); return; }
+    
+    if (!window.confirm("이 게시물을 신고하시겠습니까? (부적절한 콘텐츠, 스팸 등)")) return;
+
+    const reportRef = doc(db, "communityReports", `${user.uid}_${postId}`);
+    const postRef = doc(db, "communityPosts", postId);
+
+    try {
+      const reportSnap = await getDoc(reportRef);
+      if (reportSnap.exists()) {
+        alert("이미 신고한 게시물입니다.");
+        return;
+      }
+
+      const batch = writeBatch(db);
+      batch.set(reportRef, { 
+        uid: user.uid, postId, board, 
+        reportedAt: serverTimestamp() 
+      });
+      batch.update(postRef, { reportCount: increment(1) });
+      
+      await batch.commit();
+      
+      setPost(p => ({ ...p, reportCount: (p.reportCount || 0) + 1 }));
+      alert("신고가 접수되었습니다. 관리자 검토 후 조치하겠습니다.");
+    } catch (e) {
+      console.error("신고 오류:", e);
+      alert("신고 처리 중 오류가 발생했습니다.");
+    }
+  };
+
   /* ── 게시글 삭제 ── */
   const handleDelete = async () => {
     if (!window.confirm("게시글을 삭제하시겠습니까?")) return;
@@ -532,6 +566,9 @@ export default function CommunityPost() {
           </VoteButton>
           <VoteButton $active={vote === "down"} onClick={() => handleVote("down")}>
             👎 {post.downvoteCount || 0}
+          </VoteButton>
+          <VoteButton onClick={handleReport} style={{ marginLeft: "auto", border: "1px solid rgba(239,68,68,0.2)", color: "#ef4444", fontSize: "0.8rem", padding: "0.5rem 1rem" }}>
+            🚨 신고
           </VoteButton>
         </ActionBar>
       </PostCard>
