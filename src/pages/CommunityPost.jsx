@@ -11,7 +11,12 @@ import { COMMUNITY_CATEGORIES } from "../constants";
 import { formatRelativeTime } from "../utils";
 import { BOARDS } from "./CommunityDashboard";
 import { isAdmin } from "../hooks/useAdminGuard";
-import { PencilSimple, TrashSimple } from "../components/icons/PhosphorIcons";
+import { 
+  PencilSimple, TrashSimple, 
+  ThumbsUp, ThumbsUpFill, 
+  ThumbsDown, ThumbsDownFill, 
+  Siren 
+} from "../components/icons/PhosphorIcons";
 
 const CATEGORY_COLORS = {
   notice:   { bg: "#fee2e2", color: "#b91c1c", darkBg: "#450a0a", darkColor: "#fca5a5" },
@@ -610,21 +615,21 @@ export default function CommunityPost() {
             onClick={() => handleVote("up")}
             disabled={isVoting}
           >
-            👍 {post.upvoteCount || 0}
+            {vote === "up" ? <ThumbsUpFill size={20} /> : <ThumbsUp size={20} />} {post.upvoteCount || 0}
           </VoteButton>
           <VoteButton 
             $active={vote === "down"} 
             onClick={() => handleVote("down")}
             disabled={isVoting}
           >
-            👎 {post.downvoteCount || 0}
+            {vote === "down" ? <ThumbsDownFill size={20} /> : <ThumbsDown size={20} />} {post.downvoteCount || 0}
           </VoteButton>
           <VoteButton 
             onClick={handleReport} 
             disabled={isVoting}
             style={{ marginLeft: "auto", border: "1px solid rgba(239,68,68,0.2)", color: "#ef4444", fontSize: "0.8rem", padding: "0.5rem 1rem", display: "flex", alignItems: "center", gap: "5px" }}
           >
-            🚨 신고 {post.reportCount > 0 && <span>({post.reportCount})</span>}
+            <Siren size={18} /> 신고 {post.reportCount > 0 && <span>({post.reportCount})</span>}
           </VoteButton>
         </ActionBar>
       </PostCard>

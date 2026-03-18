@@ -44,3 +44,45 @@ export const TrashSimple = ({ size = 20, color = "currentColor", ...props }) => 
     <path d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
   </svg>
 );
+
+export const ThumbsUp = ({ size = 20, color = "currentColor", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} {...props}>
+    <rect width="256" height="256" fill="none"/>
+    <path d="M32,104H80a0,0,0,0,1,0,0V208a0,0,0,0,1,0,0H32a8,8,0,0,1-8-8V112a8,8,0,0,1,8-8Z" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M80,104l40-80a32,32,0,0,1,32,32V80h64a16,16,0,0,1,15.87,18l-12,96A16,16,0,0,1,204,208H80" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+  </svg>
+);
+
+export const ThumbsUpFill = ({ size = 20, color = "currentColor", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} fill={color} {...props}>
+    <rect width="256" height="256" fill="none"/>
+    <path d="M239.82,99l-12,96A24,24,0,0,1,204,216H32a16,16,0,0,1-16-16V112a16,16,0,0,1,16-16H75.06l37.78-75.58A8,8,0,0,1,120,16a40,40,0,0,1,40,40V72h56a24,24,0,0,1,23.82,27ZM72,112H32v88H72Z"/>
+  </svg>
+);
+
+export const ThumbsDown = ({ size = 20, color = "currentColor", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} {...props}>
+    <rect width="256" height="256" fill="none"/>
+    <path d="M32,48H80a0,0,0,0,1,0,0V152a0,0,0,0,1,0,0H32a8,8,0,0,1-8-8V56a8,8,0,0,1,8-8Z" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M80,152l40,80a32,32,0,0,0,32-32V176h64a16,16,0,0,0,15.87-18l-12-96A16,16,0,0,0,204,48H80" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+  </svg>
+);
+
+export const ThumbsDownFill = ({ size = 20, color = "currentColor", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} fill={color} {...props}>
+    <rect width="256" height="256" fill="none"/>
+    <path d="M239.82,157l-12,96A24,24,0,0,1,204,216H32a16,16,0,0,1-16-16V56a16,16,0,0,1,16-16H75.06l37.78,75.58A8,8,0,0,1,120,240a40,40,0,0,1,40-40V184h56a24,24,0,0,1,23.82-27ZM72,144H32V56H72Z"/>
+  </svg>
+);
+
+export const Siren = ({ size = 20, color = "currentColor", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} {...props}>
+    <rect width="256" height="256" fill="none"/>
+    <line x1="128" y1="16" x2="128" y2="8" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <line x1="200" y1="40" x2="208" y2="32" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <line x1="56" y1="40" x2="48" y2="32" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M48,168V128a80,80,0,0,1,80.61-80c44.11.33,79.39,36.89,79.39,81v39" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M136,80c22.7,3.81,40,24.22,40,48" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <rect x="32" y="168" width="192" height="40" rx="8" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+  </svg>
+);
