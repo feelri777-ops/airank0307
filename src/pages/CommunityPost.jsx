@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   doc, getDoc, updateDoc, deleteDoc, collection, query,
-  orderBy, getDocs, addDoc, setDoc, increment, serverTimestamp, writeBatch
+  orderBy, getDocs, addDoc, setDoc, increment, serverTimestamp, writeBatch, onSnapshot
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
@@ -214,31 +214,32 @@ export default function CommunityPost() {
   const [submittingReply, setSubmittingReply] = useState(false);
 
   useEffect(() => {
-    const load = async () => {
-      const ref = doc(db, "communityPosts", postId);
-      const snap = await getDoc(ref);
-      if (!snap.exists()) { setNotFound(true); return; }
-      setPost({ id: snap.id, ...snap.data() });
-      try {
-        await updateDoc(ref, { views: increment(1) });
-      } catch (err) {
-        // 비로그인 사용자의 경우 조회수 증가 권한이 없을 수 있음 (무시)
-        console.warn("Failed to increment views:", err.message);
-      }
-    };
-    load();
-  }, [postId]);
+    let postUnsub = null;
+    let commentsUnsub = null;
 
-  useEffect(() => {
-    const loadComments = async () => {
-      const q = query(
+    if (postId) {
+      const postRef = doc(db, "communityPosts", postId);
+      postUnsub = onSnapshot(postRef, (snap) => {
+        if (!snap.exists()) { setNotFound(true); return; }
+        setPost({ id: snap.id, ...snap.data() });
+      });
+
+      const commentsRef = query(
         collection(db, "communityPosts", postId, "comments"),
         orderBy("createdAt", "asc")
       );
-      const snap = await getDocs(q);
-      setComments(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+      commentsUnsub = onSnapshot(commentsRef, (snap) => {
+        setComments(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+      });
+
+      // 조회수 증가 (기존 로직 유지)
+      updateDoc(postRef, { views: increment(1) }).catch(() => {});
+    }
+
+    return () => {
+      if (postUnsub) postUnsub();
+      if (commentsUnsub) commentsUnsub();
     };
-    loadComments();
   }, [postId]);
 
   useEffect(() => {
@@ -263,12 +264,6 @@ export default function CommunityPost() {
         await deleteDoc(voteRef);
         const inc = type === "up" ? { upvoteCount: increment(-1) } : { downvoteCount: increment(-1) };
         await updateDoc(postRef, inc);
-        
-        setPost((p) => ({
-          ...p,
-          upvoteCount: Math.max(0, (p.upvoteCount || 0) + (type === "up" ? -1 : 0)),
-          downvoteCount: Math.max(0, (p.downvoteCount || 0) + (type === "down" ? -1 : 0)),
-        }));
         setVote(null);
       } else {
         // 신규 투표 또는 투표 변경
@@ -297,12 +292,6 @@ export default function CommunityPost() {
         }
         
         await batch.commit();
-        
-        setPost((p) => ({
-          ...p,
-          upvoteCount: Math.max(0, (p.upvoteCount || 0) + upInc),
-          downvoteCount: Math.max(0, (p.downvoteCount || 0) + downInc),
-        }));
         setVote(type);
       }
     } catch (e) {
@@ -342,8 +331,6 @@ export default function CommunityPost() {
       batch.update(postRef, { reportCount: increment(1) });
       
       await batch.commit();
-      
-      setPost(p => ({ ...p, reportCount: (p.reportCount || 0) + 1 }));
       alert("신고가 접수되었습니다. 관리자 검토 후 조치하겠습니다.");
     } catch (e) {
       console.error("신고 오류:", e);
@@ -374,8 +361,6 @@ export default function CommunityPost() {
       };
       const ref = await addDoc(collection(db, "communityPosts", postId, "comments"), newComment);
       await updateDoc(doc(db, "communityPosts", postId), { commentCount: increment(1) });
-      setComments((prev) => [...prev, { id: ref.id, ...newComment, createdAt: { toDate: () => new Date() } }]);
-      setPost((p) => ({ ...p, commentCount: (p.commentCount || 0) + 1 }));
       setCommentText("");
     } catch (err) {
       console.error("댓글 오류:", err);
@@ -392,13 +377,6 @@ export default function CommunityPost() {
         content: editText.trim(),
         updatedAt: serverTimestamp(),
       });
-      setComments((prev) =>
-        prev.map((c) =>
-          c.id === commentId
-            ? { ...c, content: editText.trim(), updatedAt: { toDate: () => new Date() } }
-            : c
-        )
-      );
       setEditingCommentId(null);
     } catch (err) {
       console.error("댓글 수정 오류:", err);
@@ -416,15 +394,10 @@ export default function CommunityPost() {
         await updateDoc(doc(db, "communityPosts", postId, "comments", commentId), {
           deleted: true, deletedBy, deletedAt: serverTimestamp(),
         });
-        setComments((prev) =>
-          prev.map((c) => c.id === commentId ? { ...c, deleted: true, deletedBy } : c)
-        );
       } else {
         await deleteDoc(doc(db, "communityPosts", postId, "comments", commentId));
-        setComments((prev) => prev.filter((c) => c.id !== commentId));
       }
       await updateDoc(doc(db, "communityPosts", postId), { commentCount: increment(-1) });
-      setPost((p) => ({ ...p, commentCount: Math.max(0, (p.commentCount || 1) - 1) }));
     } catch (err) {
       console.error("댓글 삭제 오류:", err);
       alert("삭제 중 오류가 발생했습니다.");
@@ -446,8 +419,6 @@ export default function CommunityPost() {
       };
       const ref = await addDoc(collection(db, "communityPosts", postId, "comments"), newReply);
       await updateDoc(doc(db, "communityPosts", postId), { commentCount: increment(1) });
-      setComments((prev) => [...prev, { id: ref.id, ...newReply, createdAt: { toDate: () => new Date() } }]);
-      setPost((p) => ({ ...p, commentCount: (p.commentCount || 0) + 1 }));
       setReplyingToId(null);
       setReplyText("");
     } catch (err) {
