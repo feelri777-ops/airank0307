@@ -464,7 +464,10 @@ const ToolDetailModal = ({ tool, rank, prevRank, onClose }) => {
 
   if (!tool) return null;
 
-  const CARD_WIDTH = "calc(100vw - 16px)";
+  const vw = window.innerWidth;
+  const CARD_WIDTH = vw >= 600
+    ? `${Math.round(vw * 0.66)}px`
+    : "calc(100vw - 16px)";
 
   const card1 = (
     <div style={{
