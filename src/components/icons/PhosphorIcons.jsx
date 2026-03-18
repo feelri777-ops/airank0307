@@ -48,7 +48,7 @@ export const TrashSimple = ({ size = 20, color = "currentColor", ...props }) => 
 export const ThumbsUp = ({ size = 20, color = "currentColor", ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} {...props}>
     <rect width="256" height="256" fill="none"/>
-    <path d="M32,104H80a0,0,0,0,1,0,0V208a0,0,0,0,1,0,0H32a8,8,0,0,1-8-8V112a8,8,0,0,1,8-8Z" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M32,104H80a0,0,0,0,1,0,0V208a0,0,0,0,1,0,0H32a8,8,0,0,1-8-8V112A8,8,0,0,1,32,104Z" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
     <path d="M80,104l40-80a32,32,0,0,1,32,32V80h64a16,16,0,0,1,15.87,18l-12,96A16,16,0,0,1,204,208H80" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
   </svg>
 );
@@ -56,7 +56,7 @@ export const ThumbsUp = ({ size = 20, color = "currentColor", ...props }) => (
 export const ThumbsUpFill = ({ size = 20, color = "currentColor", ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} fill={color} {...props}>
     <rect width="256" height="256" fill="none"/>
-    <path d="M239.82,99l-12,96A24,24,0,0,1,204,216H32a16,16,0,0,1-16-16V112a16,16,0,0,1,16-16H75.06l37.78-75.58A8,8,0,0,1,120,16a40,40,0,0,1,40,40V72h56a24,24,0,0,1,23.82,27ZM72,112H32v88H72Z"/>
+    <path d="M234,80.12A24,24,0,0,0,216,72H160V56a40,40,0,0,0-40-40,8,8,0,0,0-7.16,4.42L75.06,96H32a16,16,0,0,0-16,16v88a16,16,0,0,0,16,16H204a24,24,0,0,0,23.82-21l12-96A24,24,0,0,0,234,80.12ZM32,112H72v88H32Z"/>
   </svg>
 );
 
@@ -71,7 +71,7 @@ export const ThumbsDown = ({ size = 20, color = "currentColor", ...props }) => (
 export const ThumbsDownFill = ({ size = 20, color = "currentColor", ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} fill={color} {...props}>
     <rect width="256" height="256" fill="none"/>
-    <path d="M239.82,157l-12,96A24,24,0,0,1,204,216H32a16,16,0,0,1-16-16V56a16,16,0,0,1,16-16H75.06l37.78,75.58A8,8,0,0,1,120,240a40,40,0,0,1,40-40V184h56a24,24,0,0,1,23.82-27ZM72,144H32V56H72Z"/>
+    <path d="M239.82,157l-12-96A24,24,0,0,0,204,40H32A16,16,0,0,0,16,56v88a16,16,0,0,0,16,16H75.06l37.78,75.58A8,8,0,0,0,120,240a40,40,0,0,0,40-40V184h56a24,24,0,0,0,23.82-27ZM72,144H32V56H72Z"/>
   </svg>
 );
 
