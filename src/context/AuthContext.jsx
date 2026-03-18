@@ -10,7 +10,7 @@ import {
   signInWithPopup,
   signInWithCustomToken
 } from "firebase/auth";
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
 import { auth, db, googleProvider } from "../firebase";
 
 const AuthContext = createContext(null);
@@ -20,72 +20,10 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const handleUser = async (u) => {
-    try {
-      if (!u) {
-        setUser(null);
-        setUserData(null);
-        return;
-      }
-
-      // 이메일 인증 여부 확인
-      const isEmailUser = u.providerData.some(p => p.providerId === "password");
-      
-      if (isEmailUser && !u.emailVerified) {
-        setUser(null);
-        setUserData(null);
-        await signOut(auth);
-        return;
-      }
-      
-      // 정지 여부 확인
-      const banRef = doc(db, "bannedUsers", u.uid);
-      const banSnap = await getDoc(banRef);
-      if (banSnap.exists()) {
-        setUser(null);
-        setUserData(null);
-        await signOut(auth);
-        return;
-      }
-
-      const userRef = doc(db, "users", u.uid);
-      const userSnap = await getDoc(userRef);
-      
-      let finalData = {};
-      
-      if (!userSnap.exists()) {
-        // 카카오 등에서 정보를 못 가져올 경우를 대비한 기본 이름
-        const tempName = u.displayName || u.email?.split('@')[0] || "사용자";
-        finalData = {
-          uid: u.uid,
-          displayName: tempName,
-          email: u.email || "",
-          photoURL: u.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(tempName)}&background=random`,
-          createdAt: new Date(),
-          provider: u.providerData[0]?.providerId || "unknown", // 가입 경로 저장
-          nicknameHistory: [], // 닉네임 변경 이력
-          setupCompleted: false // 신규 사용자는 무조건 false
-        };
-        await setDoc(userRef, finalData);
-      } else {
-        finalData = userSnap.data();
-      }
-      
-      setUser(u);
-      setUserData(finalData);
-    } catch (error) {
-      console.error("🔴 Error handling user:", error);
-      setUser(null);
-      setUserData(null);
-    }
-  };
-
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
-      handleUser(u).finally(() => setLoading(false));
-    });
+    let userUnsub = null;
+    let userDataUnsub = null;
 
-    // 카카오 SDK 초기화 추가
     const initKakao = () => {
       if (window.Kakao && !window.Kakao.isInitialized()) {
         const jsKey = import.meta.env.VITE_KAKAO_JS_KEY;
@@ -99,13 +37,77 @@ export const AuthProvider = ({ children }) => {
         }
       }
     };
-    
-    // SDK가 로드될 때까지 약간의 대기 후 초기화 시도
-    const timer = setTimeout(initKakao, 500);
-    
+    const kakaoTimer = setTimeout(initKakao, 500);
+
+    userUnsub = onAuthStateChanged(auth, async (u) => {
+      // 1. 기존 유저 정보 리스너가 있다면 제거
+      if (userDataUnsub) {
+        userDataUnsub();
+        userDataUnsub = null;
+      }
+
+      if (!u) {
+        setUser(null);
+        setUserData(null);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        // 이메일 인증 및 정지 확인은 기존대로 진행
+        const isEmailUser = u.providerData.some(p => p.providerId === "password");
+        if (isEmailUser && !u.emailVerified) {
+          await signOut(auth);
+          setLoading(false);
+          return;
+        }
+
+        const banSnap = await getDoc(doc(db, "bannedUsers", u.uid));
+        if (banSnap.exists()) {
+          await signOut(auth);
+          setLoading(false);
+          return;
+        }
+
+        // 유저 문서 초기화 확인
+        const userRef = doc(db, "users", u.uid);
+        const userSnap = await getDoc(userRef);
+        if (!userSnap.exists()) {
+          const tempName = u.displayName || u.email?.split('@')[0] || "사용자";
+          await setDoc(userRef, {
+            uid: u.uid,
+            displayName: tempName,
+            email: u.email || "",
+            photoURL: u.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(tempName)}&background=random`,
+            createdAt: new Date(),
+            provider: u.providerData[0]?.providerId || "unknown",
+            nicknameHistory: [],
+            setupCompleted: false
+          });
+        }
+
+        // 2. 새로운 유저 정보 리스너 등록 (실시간 동기화)
+        userDataUnsub = onSnapshot(userRef, (doc) => {
+          if (doc.exists()) {
+            setUserData(doc.data());
+          }
+          setUser(u);
+          setLoading(false);
+        }, (err) => {
+          console.error("🔴 User data snapshot error:", err);
+          setLoading(false);
+        });
+
+      } catch (error) {
+        console.error("🔴 Auth Handling Error:", error);
+        setLoading(false);
+      }
+    });
+
     return () => {
-      unsub();
-      clearTimeout(timer);
+      if (userUnsub) userUnsub();
+      if (userDataUnsub) userDataUnsub();
+      clearTimeout(kakaoTimer);
     };
   }, []);
 
@@ -145,8 +147,6 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         throw new Error("unverified-email");
       }
-      
-      await handleUser(res.user);
       return res.user;
     } catch (error) {
       console.error("🔴 Email Login error:", error);
@@ -259,8 +259,6 @@ export const AuthProvider = ({ children }) => {
         setupCompleted: true,
         updatedAt: new Date()
       }, { merge: true });
-      // 데이터 갱신을 위해 handleUser 재동작 유도
-      if (auth.currentUser) await handleUser(auth.currentUser);
     } catch (error) {
       console.error("🔴 Update User Setup error:", error);
       throw error;
@@ -274,7 +272,6 @@ export const AuthProvider = ({ children }) => {
         ...data,
         updatedAt: new Date()
       }, { merge: true });
-      if (auth.currentUser) await handleUser(auth.currentUser);
     } catch (error) {
       console.error("🔴 Update User Data error:", error);
       throw error;

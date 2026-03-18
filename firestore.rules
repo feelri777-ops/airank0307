@@ -20,7 +20,7 @@ service cloud.firestore {
       allow create: if isLoggedIn();
       allow update: if isLoggedIn() && (
         request.auth.uid == resource.data.uid || 
-        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['upvoteCount', 'downvoteCount', 'reportCount', 'views']))
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['upvoteCount', 'downvoteCount', 'reportCount', 'views', 'commentCount'])
       );
       allow delete: if isAdmin() || (isLoggedIn() && request.auth.uid == resource.data.uid);
 
@@ -34,12 +34,12 @@ service cloud.firestore {
 
     match /communityVotes/{voteId} {
       allow read: if true;
-      allow write: if isLoggedIn() && voteId.startsWith(request.auth.uid);
+      allow write: if isLoggedIn();
     }
 
     match /communityReports/{reportId} {
       allow read: if isAdmin();
-      allow write: if isLoggedIn() && reportId.startsWith(request.auth.uid);
+      allow write: if isLoggedIn();
     }
 
     match /galleryPosts/{postId} {
