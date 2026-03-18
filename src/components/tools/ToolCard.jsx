@@ -43,9 +43,6 @@ const getRankFontSize = (rank) => {
 
 // 1~3위 반짝 애니메이션
 const getRankAnim = (rank) => {
-  if (rank === 1) return "rankSparkGold 1.8s ease-in-out infinite";
-  if (rank === 2) return "rankSparkSilver 2.1s ease-in-out infinite";
-  if (rank === 3) return "rankSparkBronze 2.4s ease-in-out infinite";
   return "none";
 };
 
@@ -166,7 +163,6 @@ const ToolCard = ({ tool, rank, onClick }) => {
   return (
     <div 
       onClick={onClick} 
-      className="rank-card-glow"
       style={{
         borderRadius: "var(--r-md)",
         padding: "0.8rem 1.1rem",
