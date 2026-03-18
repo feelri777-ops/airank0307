@@ -11,6 +11,7 @@ import { COMMUNITY_CATEGORIES } from "../constants";
 import { formatRelativeTime } from "../utils";
 import { BOARDS } from "./CommunityDashboard";
 import { isAdmin } from "../hooks/useAdminGuard";
+import { PencilSimple, TrashSimple } from "../components/icons/PhosphorIcons";
 
 const CATEGORY_COLORS = {
   notice:   { bg: "#fee2e2", color: "#b91c1c", darkBg: "#450a0a", darkColor: "#fca5a5" },
@@ -63,13 +64,18 @@ const AuthorAvatarFallback = styled.div`
 const MetaText = styled.div`display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;`;
 const AuthorName = styled.span`font-size: 0.875rem; font-weight: 600; color: var(--text-primary);`;
 const PostInfo = styled.span`font-size: 0.775rem; color: var(--text-muted);`;
-const OwnerActions = styled.div`margin-left: auto; display: flex; gap: 0.5rem;`;
+const OwnerActions = styled.div`
+  margin-left: auto; display: flex; gap: 0.4rem; justify-content: flex-end;
+  @media (max-width: 600px) { gap: 0.2rem; }
+`;
 const SmallButton = styled.button`
-  padding: 0.35rem 0.85rem; border: 1px solid var(--border-primary); border-radius: var(--r-xs);
-  background: transparent; color: var(--text-muted); font-size: 0.8rem; cursor: pointer; transition: all 0.15s;
+  padding: 0.35rem 0.6rem; border: 1px solid var(--border-primary); border-radius: var(--r-xs);
+  background: transparent; color: var(--text-muted); font-size: 1rem; cursor: pointer; transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
   &:hover {
     border-color: ${({ $danger }) => ($danger ? "#ef4444" : "var(--accent-indigo)")};
     color: ${({ $danger }) => ($danger ? "#ef4444" : "var(--accent-indigo)")};
+    background: ${({ $danger }) => ($danger ? "rgba(239,68,68,0.05)" : "rgba(99,102,241,0.05)")};
   }
 `;
 const MarkdownContent = styled.div`
@@ -584,8 +590,12 @@ export default function CommunityPost() {
           </MetaText>
           {isOwner && (
             <OwnerActions>
-              <SmallButton onClick={() => navigate(`/community/${board}/${postId}/edit`)}>수정</SmallButton>
-              <SmallButton $danger onClick={handleDelete}>삭제</SmallButton>
+              <SmallButton onClick={() => navigate(`/community/${board}/${postId}/edit`)} title="수정">
+                <PencilSimple size={18} />
+              </SmallButton>
+              <SmallButton $danger onClick={handleDelete} title="삭제">
+                <TrashSimple size={18} />
+              </SmallButton>
             </OwnerActions>
           )}
         </MetaRow>

@@ -165,18 +165,11 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
       // Auth + users 업데이트
       await updateProfile(auth.currentUser, { displayName: trimmed });
       
-      const userRef = doc(db, "users", user.uid);
-      const userSnap = await getDoc(userRef);
-      const currentData = userSnap.exists() ? userSnap.data() : {};
-      let history = currentData.nicknameHistory || [];
-      if (user.displayName && user.displayName !== trimmed && !history.includes(user.displayName)) {
-        history = [...history, user.displayName];
-      }
-
-      await setDoc(userRef, { 
+      await updateUserData(user.uid, { 
         displayName: trimmed,
         nicknameHistory: history 
-      }, { merge: true });
+      });
+
       // 게시글/댓글 일괄 업데이트 (writeBatch)
       const [gpSnap, cpSnap, ccSnap] = await Promise.all([
         getDocs(query(collection(db, "galleryPosts"), where("uid", "==", user.uid))),
@@ -696,7 +689,7 @@ const btnStyle = (variant, size = "md") => {
 
 // ── 대시보드 메인 ────────────────────────────────────────────
 export default function Dashboard() {
-  const { user, userData, logout } = useAuth();
+  const { user, userData, updateUserData, logout } = useAuth();
   const { newsBookmarks, toggleNewsBookmark } = useNews();
   const { tools, openToolDetail } = useTools();
   const navigate = useNavigate();

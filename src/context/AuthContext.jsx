@@ -239,7 +239,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-   const updateUserSetup = async (uid, data) => {
+  const updateUserSetup = async (uid, data) => {
     try {
       const userRef = doc(db, "users", uid);
       const userSnap = await getDoc(userRef);
@@ -263,6 +263,20 @@ export const AuthProvider = ({ children }) => {
       if (auth.currentUser) await handleUser(auth.currentUser);
     } catch (error) {
       console.error("🔴 Update User Setup error:", error);
+      throw error;
+    }
+  };
+
+  const updateUserData = async (uid, data) => {
+    try {
+      const userRef = doc(db, "users", uid);
+      await setDoc(userRef, {
+        ...data,
+        updatedAt: new Date()
+      }, { merge: true });
+      if (auth.currentUser) await handleUser(auth.currentUser);
+    } catch (error) {
+      console.error("🔴 Update User Data error:", error);
       throw error;
     }
   };
@@ -291,6 +305,7 @@ export const AuthProvider = ({ children }) => {
       loginWithGoogle,
       loginWithKakao,
       updateUserSetup,
+      updateUserData,
       logout 
     }}>
       {!loading && children}
