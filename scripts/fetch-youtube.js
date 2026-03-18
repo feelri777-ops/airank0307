@@ -156,7 +156,7 @@ async function searchYouTube(query, { lang = true } = {}) {
       if (!duration) return true; // 길이 정보 없으면 일단 포함
       return duration > 60; // 60초 초과만 포함 (Shorts 제외)
     })
-    .slice(0, 3);
+    .slice(0, 4);
 }
 
 async function main() {

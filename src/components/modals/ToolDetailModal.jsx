@@ -294,7 +294,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
             }} />
           ))
         ) : videos.length > 0 ? (
-          videos.slice(0, 3).map((video) => (
+          videos.slice(0, 4).map((video) => (
             <a
               key={video.videoId}
               href={`https://www.youtube.com/watch?v=${video.videoId}`}
