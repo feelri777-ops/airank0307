@@ -1,192 +1,202 @@
 const PLATFORMS = [
-  { label: "Naver",  domain: "naver.com" },
+  { label: "Naver", domain: "naver.com" },
   { label: "Google", domain: "google.com" },
-  { label: "X",      domain: "x.com" },
+  { label: "X", domain: "x.com" },
   { label: "GitHub", domain: "github.com" },
 ];
 
 const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => (
   <section className="hero-section-wrap" style={{
     textAlign: "center",
-    padding: "2rem 2rem 1.5rem",
+    padding: "3.5rem 2rem 3rem",
     position: "relative",
     zIndex: 5,
+    backgroundImage: "linear-gradient(to bottom, rgba(10, 10, 15, 0.7), rgba(10, 10, 15, 0.85)), url('/images/hero-vending.png')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
   }}>
     <style>{`
-      @media (max-width: 1100px) {
-        .hero-content { display: none !important; }
+      @media (min-width: 1101px) {
         .hero-section-wrap {
-          padding: 0 !important;
-          min-height: 180px;
+          background-size: 150% auto !important;
+        }
+      }
+      @media (max-width: 1100px) {
+        .hero-section-wrap {
+          padding: 2.5rem 1rem 2rem !important;
         }
       }
       @media (max-width: 600px) {
-        .hero-section-wrap { min-height: 140px; }
+        .hero-section-wrap { 
+          padding: 2rem 1rem 1.5rem !important;
+          background-position: center top;
+        }
+      }
+      @keyframes pulse-dot {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.5); opacity: 0.5; }
+        100% { transform: scale(1); opacity: 1; }
       }
     `}</style>
-  <div className="hero-content">
-    {/* 배지 */}
-    <div style={{
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "8px",
-      fontSize: "0.7rem",
-      letterSpacing: "0.15em",
-      textTransform: "uppercase",
-      color: "var(--accent-indigo)",
-      fontWeight: 600,
-      marginBottom: "1.2rem",
-    }}>
-      <span style={{ height: "1px", width: "24px", background: "var(--accent-indigo)", opacity: 0.4, display: "inline-block" }} />
-      BASED ON REAL SEARCH DATA
-      <span style={{ height: "1px", width: "24px", background: "var(--accent-indigo)", opacity: 0.4, display: "inline-block" }} />
-    </div>
-
-    {/* 메인 타이틀 */}
-    <h1 style={{
-      fontFamily: "'Outfit', sans-serif",
-      fontSize: "clamp(1.35rem, 4vw, 3rem)",
-      fontWeight: 800,
-      lineHeight: 1.2,
-      letterSpacing: "-0.03em",
-      marginBottom: "0.9rem",
-      color: "var(--text-primary)",
-    }}>
-      실제 검색 데이터를 기반으로 한{" "}
-      <span style={{
-        background: "var(--accent-gradient)",
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-        display: "inline-block",
+    <div className="hero-content" style={{ maxWidth: "800px", margin: "0 auto" }}>
+      {/* 배지 */}
+      <div style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "10px",
+        fontSize: "0.75rem",
+        letterSpacing: "0.2em",
+        textTransform: "uppercase",
+        color: "var(--accent-cyan)",
+        fontWeight: 700,
+        marginBottom: "1.5rem",
+        background: "rgba(34, 211, 238, 0.1)",
+        padding: "5px 15px",
+        borderRadius: "20px",
+        border: "1px solid rgba(34, 211, 238, 0.2)"
       }}>
-        AI툴 랭킹
-      </span>
-    </h1>
-
-    {/* 서브 텍스트 */}
-    <p style={{
-      color: "var(--text-secondary)",
-      fontSize: "0.92rem",
-      lineHeight: 1.7,
-      marginBottom: "1.2rem",
-      maxWidth: "460px",
-      marginLeft: "auto",
-      marginRight: "auto",
-    }}>
-      Naver, Google, X(Twitter), GitHub의 검색 트렌드를 분석해
-      <br />AI 툴의 실제 관심도를 하나의 점수로 계산합니다.
-    </p>
-
-    {/* 플랫폼 칩 */}
-    <div style={{
-      display: "flex",
-      justifyContent: "center",
-      gap: "5px",
-      flexWrap: "nowrap",
-      marginBottom: "1rem",
-    }}>
-      {PLATFORMS.map(({ label, domain }) => (
-        <div key={domain} style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "4px",
-          padding: "3px 8px",
-          borderRadius: "var(--r-lg)",
-          background: "var(--bg-card)",
-          border: "1px solid var(--border-primary)",
-          fontSize: "0.68rem",
-          fontWeight: 600,
-          color: "var(--text-secondary)",
-          boxShadow: "var(--shadow-sm)",
-          whiteSpace: "nowrap",
-        }}>
-          <img
-            src={`https://www.google.com/s2/favicons?domain=${domain}&sz=32`}
-            alt={label}
-            style={{ width: 12, height: 12, borderRadius: "var(--r-xs)" }}
-          />
-          {label}
-        </div>
-      ))}
-    </div>
-
-    {/* 갱신 배지 */}
-    <div style={{
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "6px",
-      fontSize: "0.72rem",
-      color: "var(--text-muted)",
-      marginBottom: "1.6rem",
-    }}>
-      <span style={{
-        width: "7px", height: "7px", borderRadius: "50%",
-        background: "#22c55e",
-        boxShadow: "0 0 0 3px rgba(34,197,94,0.2)",
-        display: "inline-block",
-        animation: "pulse-dot 2s ease-in-out infinite",
-      }} />
-      매일 AM 03:00 자동 갱신
-    </div>
-
-    {/* 검색 바 + 마법사 버튼 */}
-    <div style={{
-      display: "flex",
-      gap: "10px",
-      maxWidth: "560px",
-      margin: "0 auto",
-      alignItems: "center",
-    }}>
-      <div style={{ flex: 1, position: "relative" }}>
-        <span style={{
-          position: "absolute",
-          left: "14px",
-          top: "50%",
-          transform: "translateY(-50%)",
-          fontSize: "1rem",
-          opacity: 0.5,
-        }}>🔍</span>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="AI 도구 이름으로 검색..."
-          style={{
-            width: "100%",
-            padding: "12px 16px 12px 42px",
-            borderRadius: "var(--r-md)",
-            border: "1px solid var(--border-primary)",
-            background: "var(--bg-card)",
-            color: "var(--text-primary)",
-            fontFamily: "'Pretendard', sans-serif",
-            fontSize: "0.9rem",
-            outline: "none",
-            transition: "border-color 0.2s",
-            boxShadow: "var(--shadow-sm)",
-          }}
-        />
+        REAL-TIME AI INSIGHT
       </div>
-      <button
-        onClick={onOpenWizard}
-        style={{
-          padding: "12px 20px",
-          borderRadius: "var(--r-md)",
-          border: "none",
-          background: "var(--accent-gradient)",
-          color: "#fff",
-          fontFamily: "'Pretendard', sans-serif",
-          fontSize: "0.85rem",
-          fontWeight: 600,
-          cursor: "pointer",
-          whiteSpace: "nowrap",
-          boxShadow: "0 4px 14px rgba(99, 102, 241, 0.3)",
-          transition: "transform 0.2s, box-shadow 0.2s",
-        }}
-      >
-        ✨ 나에게 딱 맞는 AI 찾기
-      </button>
+
+      {/* 메인 타이틀 */}
+      <h1 style={{
+        fontFamily: "'Outfit', 'Pretendard', sans-serif",
+        fontSize: "clamp(1.8rem, 5vw, 3.5rem)",
+        fontWeight: 900,
+        lineHeight: 1.1,
+        letterSpacing: "-0.04em",
+        marginBottom: "1.2rem",
+        color: "#fff",
+        textShadow: "0 4px 12px rgba(0,0,0,0.5)"
+      }}>
+        당신에게 가장 필요한<br />
+        <span style={{
+          background: "linear-gradient(to right, #4f46e5, #0ea5e9)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          display: "inline-block",
+        }}>
+          실시간 AI 추출기
+        </span>
+      </h1>
+
+      {/* 서브 텍스트 */}
+      <p style={{
+        color: "rgba(255, 255, 255, 0.8)",
+        fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)",
+        lineHeight: 1.6,
+        marginBottom: "2rem",
+        maxWidth: "540px",
+        margin: "0 auto 2.5rem",
+        fontWeight: 500,
+        textShadow: "0 2px 4px rgba(0,0,0,0.3)"
+      }}>
+        전 세계의 검색 데이터를 실시간으로 수집하여<br />
+        지금 이 순간 가장 주목받는 AI를 큐레이션합니다.
+      </p>
+
+      {/* 갱신 배지 */}
+      <div style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "8px",
+        padding: "6px 14px",
+        background: "rgba(0,0,0,0.4)",
+        backdropFilter: "blur(4px)",
+        borderRadius: "12px",
+        fontSize: "0.75rem",
+        color: "#fff",
+        marginBottom: "2rem",
+        border: "1px solid rgba(255,255,255,0.1)"
+      }}>
+        <span style={{
+          width: "8px", height: "8px", borderRadius: "50%",
+          background: "#22c55e",
+          boxShadow: "0 0 10px #22c55e",
+          display: "inline-block",
+          animation: "pulse-dot 2s ease-in-out infinite",
+        }} />
+        매일 AM 03:00 엔진 자동 갱신 중
+      </div>
+
+      {/* 검색 바 + 마법사 버튼 */}
+      <div style={{
+        display: "flex",
+        flexDirection: window.innerWidth < 640 ? "column" : "row",
+        gap: "12px",
+        maxWidth: "600px",
+        margin: "0 auto",
+        alignItems: "center",
+      }}>
+        <div style={{ flex: 1, position: "relative", width: "100%" }}>
+          <span style={{
+            position: "absolute",
+            left: "16px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            fontSize: "1.2rem",
+            opacity: 0.7,
+          }}>🔍</span>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="어떤 기능의 AI를 찾으시나요?"
+            style={{
+              width: "100%",
+              padding: "16px 20px 16px 50px",
+              borderRadius: "16px",
+              border: "1px solid rgba(255,255,255,0.2)",
+              background: "rgba(0,0,0,0.5)",
+              backdropFilter: "blur(10px)",
+              color: "#fff",
+              fontFamily: "'Pretendard', sans-serif",
+              fontSize: "1rem",
+              outline: "none",
+              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = "var(--accent-indigo)";
+              e.target.style.background = "rgba(0,0,0,0.7)";
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = "rgba(255,255,255,0.2)";
+              e.target.style.background = "rgba(0,0,0,0.5)";
+            }}
+          />
+        </div>
+        <button
+          onClick={onOpenWizard}
+          style={{
+            width: window.innerWidth < 640 ? "100%" : "auto",
+            padding: "16px 24px",
+            borderRadius: "16px",
+            border: "none",
+            background: "linear-gradient(135deg, #6366f1, #06b6d4)",
+            color: "#fff",
+            fontFamily: "'Pretendard', sans-serif",
+            fontSize: "0.95rem",
+            fontWeight: 800,
+            cursor: "pointer",
+            whiteSpace: "nowrap",
+            boxShadow: "0 10px 25px rgba(99, 102, 241, 0.4)",
+            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-3px) scale(1.02)";
+            e.currentTarget.style.boxShadow = "0 15px 35px rgba(99, 102, 241, 0.5)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translateY(0) scale(1)";
+            e.currentTarget.style.boxShadow = "0 10px 25px rgba(99, 102, 241, 0.4)";
+          }}
+        >
+          ✨ AI 추천 마법사
+        </button>
+      </div>
     </div>
-  </div>
   </section>
 );
 
