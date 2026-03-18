@@ -124,3 +124,43 @@ export const CaretRight = ({ size = 20, color = "currentColor", ...props }) => (
     <polyline points="96 48 176 128 96 208" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
   </svg>
 );
+
+export const PaperPlaneRight = ({ size = 20, color = "currentColor", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} {...props}>
+    <rect width="256" height="256" fill="none"/>
+    <path d="M228.44,121.24,52.47,41.22a8,8,0,0,0-10.93,10l29,76.78-29,76.78a8,8,0,0,0,10.93,10L228.44,134.76a8,8,0,0,0,0-13.52Z" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <line x1="70.52" y1="128" x2="116" y2="128" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+  </svg>
+);
+
+export const Sparkle = ({ size = 20, color = "currentColor", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} {...props}>
+    <rect width="256" height="256" fill="none"/>
+    <path d="M128,24V64" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M128,192v40" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M64,128H24" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M232,128H192" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M173.25,82.75,201.54,54.46" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M54.46,201.54,82.75,173.25" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M82.75,82.75,54.46,54.46" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M201.54,201.54,173.25,173.25" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+  </svg>
+);
+
+export const ChatCircleText = ({ size = 20, color = "currentColor", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} {...props}>
+    <rect width="256" height="256" fill="none"/>
+    <circle cx="128" cy="128" r="96" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <line x1="96" y1="112" x2="160" y2="112" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <line x1="96" y1="144" x2="160" y2="144" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+  </svg>
+);
+
+export const Image = ({ size = 20, color = "currentColor", ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width={size} height={size} {...props}>
+    <rect width="256" height="256" fill="none"/>
+    <rect x="32" y="48" width="192" height="160" rx="8" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <circle cx="85" cy="95" r="12" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+    <path d="M224,152,183.08,111.08a8,8,0,0,0-11.31,0L128,154.67,111.31,138a8,8,0,0,0-11.31,0L32,205.33" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
+  </svg>
+);
