@@ -125,6 +125,15 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
         }
       }
       .hero-search-input::placeholder { ${cfg.placeholderStyle}; }
+      .hero-section-wrap::after {
+        content: "";
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 120px;
+        background: linear-gradient(to bottom, transparent, var(--bg-primary));
+        pointer-events: none;
+        z-index: 1;
+      }
     `}</style>
 
     {/* 라이트/퓨어 테마용 로고 */}
