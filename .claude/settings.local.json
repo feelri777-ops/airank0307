@@ -7,7 +7,13 @@
       "Bash(git push origin main)",
       "Bash(cat /Users/feekri/AIRANK/airank0307/src/constants/*.js)",
       "Bash(git pull:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(cat /Users/feekri/AIRANK/airank0307/.github/workflows/*.yml)",
+      "Bash(ls /Users/feekri/AIRANK/airank0307/serviceAccountKey*.json)",
+      "Bash(ls /Users/feekri/AIRANK/airank0307/*.json)",
+      "Bash(npm list:*)",
+      "Bash(git remote:*)",
+      "Bash(firebase firestore:rules:get)"
     ]
   }
 }

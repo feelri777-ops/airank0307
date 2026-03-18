@@ -161,8 +161,9 @@ const ToolCard = ({ tool, rank, onClick }) => {
   const delay = `${Math.min(rank, 20) * 0.04}s`;
   
   return (
-    <div 
-      onClick={onClick} 
+    <div
+      onClick={onClick}
+      className="tool-card"
       style={{
         borderRadius: "var(--r-md)",
         padding: "0.8rem 1.1rem",
@@ -174,6 +175,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
         animationDelay: delay,
         cursor: "pointer",
         position: "relative",
+        transition: "border-color 0.2s, box-shadow 0.2s",
       }}
     >
       {inner}

@@ -7,53 +7,54 @@ const GlobalStyles = () => (
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:ital,wght@0,500;1,500&display=swap');
 
     :root {
-      /* ── 브라운 크림 라이트 테마 ── */
-      --bg-primary: #F5EFE8;
-      --bg-secondary: #EDE5DB;
-      --bg-tertiary: #E2D8CC;
-      --bg-card: #FBF8F4;
-      --bg-card-hover: #F2EBE2;
-      --bg-nav: rgba(245, 239, 232, 0.93);
-      --text-primary: #1C1008;
-      --text-secondary: #6B5A4E;
-      --text-muted: #A08878;
-      --border-primary: #D4C4B4;
-      --border-hover: rgba(161, 100, 60, 0.4);
-      --accent-indigo: #8B5E3C;
-      --accent-cyan: #6B4226;
-      --accent-gradient: linear-gradient(135deg, #8B5E3C, #C4874A);
+      /* ── FFFAFA 스노우 라이트 테마 ── */
+      --bg-primary: #FFFAFA;
+      --bg-secondary: #FFF5F5;
+      --bg-tertiary: #FFEEEE;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #FFF8F8;
+      --bg-nav: rgba(255, 250, 250, 0.93);
+      --text-primary: #1C1014;
+      --text-secondary: #5A3A42;
+      --text-muted: #9A7880;
+      --border-primary: rgba(210, 170, 180, 0.38);
+      --border-hover: rgba(180, 80, 100, 0.3);
+      --accent-indigo: #c0505c;
+      --accent-cyan: #9d3040;
+      --accent-gradient: linear-gradient(135deg, #e06070, #c050a0);
       --color-green: #10B981;
       --color-red: #EF4444;
       --color-gold: #D4870A;
       --color-silver: #94A3B8;
       --color-bronze: #B86020;
-      --shadow-sm: 0 1px 2px rgba(80, 50, 20, 0.07);
-      --shadow-md: 0 4px 16px rgba(80, 50, 20, 0.11);
-      --shadow-lg: 0 12px 40px rgba(80, 50, 20, 0.14);
-      --shadow-card: 0 1px 3px rgba(80, 50, 20, 0.07), 0 1px 2px rgba(80, 50, 20, 0.05);
+      --shadow-sm: 0 1px 3px rgba(150, 60, 80, 0.06);
+      --shadow-md: 0 4px 16px rgba(150, 60, 80, 0.09);
+      --shadow-lg: 0 12px 40px rgba(150, 60, 80, 0.12);
+      --shadow-card: 0 2px 10px rgba(150, 60, 80, 0.07), 0 1px 3px rgba(150, 60, 80, 0.04);
       --r-xs: 6px;
       --r-sm: 10px;
       --r-md: 14px;
       --r-lg: 20px;
       --r-pill: 999px;
       --r-circle: 50%;
-      --blob-opacity: 0.05;
-      --noise-opacity: 0.015;
-      --ticker-bg: rgba(139, 94, 60, 0.05);
-      --ticker-border: rgba(180, 140, 100, 0.25);
-      --tag-bg: rgba(139, 94, 60, 0.08);
-      --tag-color: #7A4E28;
-      --tag-border: rgba(139, 94, 60, 0.2);
-      --modal-overlay: rgba(28, 16, 8, 0.38);
+      --blob-opacity: 0.04;
+      --noise-opacity: 0.01;
+      --ticker-bg: rgba(192, 80, 92, 0.04);
+      --ticker-border: rgba(192, 80, 92, 0.15);
+      --tag-bg: rgba(192, 80, 92, 0.07);
+      --tag-color: #a0303c;
+      --tag-border: rgba(192, 80, 92, 0.18);
+      --modal-overlay: rgba(30, 10, 14, 0.32);
       --font-main: 'Pretendard', -apple-system, 'Segoe UI', sans-serif;
       --font-title: 'Pretendard', -apple-system, 'Segoe UI', sans-serif;
-      --rank1-bg: #FFF4DC;
-      --rank2-bg: #F0EBE4;
-      --rank3-bg: #FAE8D8;
-      --rank1-shadow: var(--shadow-md);
-      --rank2-shadow: var(--shadow-md);
-      --rank3-shadow: var(--shadow-md);
+      --rank1-bg: var(--bg-card);
+      --rank2-bg: var(--bg-card);
+      --rank3-bg: var(--bg-card);
+      --rank1-shadow: var(--shadow-card);
+      --rank2-shadow: var(--shadow-card);
+      --rank3-shadow: var(--shadow-card);
     }
+
 
     [data-theme="dark"] {
       --bg-primary: #0a0a0a;
@@ -67,6 +68,9 @@ const GlobalStyles = () => (
       --text-muted: #505050;
       --border-primary: rgba(255, 255, 255, 0.07);
       --border-hover: rgba(99, 102, 241, 0.4);
+      --accent-indigo: #6366f1;
+      --accent-cyan: #06b6d4;
+      --accent-gradient: linear-gradient(135deg, #6366f1, #06b6d4);
       --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
       --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.5);
       --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);

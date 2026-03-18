@@ -5,6 +5,7 @@ import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { TOOLS_DATA } from "../../data/tools";
 import { decodeHtmlEntities } from "../../utils";
+import { YoutubeLogoFill } from "../icons/PhosphorIcons";
 
 // 미니 스파크라인 SVG (ScoreInsightPanel 밖에 정의 → remount 방지로 애니메이션 1회만 실행)
 const Spark = ({ pts, color }) => {
@@ -284,6 +285,10 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
     }}>
 
       {rank <= 30 && <>
+      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "0.75rem" }}>
+        <YoutubeLogoFill size={20} color="#FF0000" />
+        <span style={{ fontSize: "15px", fontWeight: 800, color: "var(--text-primary)" }}>인기영상</span>
+      </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "4px", marginBottom: "1rem" }}>
         {videos === null ? (
           [1, 2, 3].map((i) => (
@@ -376,8 +381,8 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
         if (!related.length) return null;
         return (
           <div style={{ marginBottom: "1.5rem" }}>
-            <h3 style={{ fontSize: "1.05rem", fontWeight: 800, marginBottom: "0.75rem", color: "var(--text-primary)" }}>
-              함께 쓰면 좋은 툴
+            <h3 style={{ fontSize: "15px", fontWeight: 800, marginBottom: "0.75rem", color: "var(--text-primary)" }}>
+              함께 쓰면 좋은 AI
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
               {related.map(rt => (
