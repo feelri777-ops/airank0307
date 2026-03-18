@@ -190,6 +190,7 @@ export default function CommunityPost() {
   const [vote, setVote] = useState(null);
   const [commentText, setCommentText] = useState("");
   const [submittingComment, setSubmittingComment] = useState(false);
+  const [isVoting, setIsVoting] = useState(false);
   const [notFound, setNotFound] = useState(false);
 
   // 댓글 수정
@@ -207,7 +208,12 @@ export default function CommunityPost() {
       const snap = await getDoc(ref);
       if (!snap.exists()) { setNotFound(true); return; }
       setPost({ id: snap.id, ...snap.data() });
-      await updateDoc(ref, { views: increment(1) });
+      try {
+        await updateDoc(ref, { views: increment(1) });
+      } catch (err) {
+        // 비로그인 사용자의 경우 조회수 증가 권한이 없을 수 있음 (무시)
+        console.warn("Failed to increment views:", err.message);
+      }
     };
     load();
   }, [postId]);
@@ -227,19 +233,26 @@ export default function CommunityPost() {
   useEffect(() => {
     if (!user) { setVote(null); return; }
     getDoc(doc(db, "communityVotes", `${user.uid}_${postId}`))
-      .then((snap) => setVote(snap.exists() ? snap.data().type : null));
+      .then((snap) => setVote(snap.exists() ? snap.data().type : null))
+      .catch((err) => console.error("투표 정보 로드 오류:", err));
   }, [user, postId]);
 
   /* ── 투표 ── */
   const handleVote = async (type) => {
     if (!user) { alert("로그인 후 참여할 수 있습니다."); return; }
+    if (isVoting) return;
+    
+    setIsVoting(true);
     const voteRef = doc(db, "communityVotes", `${user.uid}_${postId}`);
     const postRef = doc(db, "communityPosts", postId);
+    
     try {
       if (vote === type) {
+        // 투표 취소
         await deleteDoc(voteRef);
         const inc = type === "up" ? { upvoteCount: increment(-1) } : { downvoteCount: increment(-1) };
         await updateDoc(postRef, inc);
+        
         setPost((p) => ({
           ...p,
           upvoteCount: Math.max(0, (p.upvoteCount || 0) + (type === "up" ? -1 : 0)),
@@ -247,18 +260,33 @@ export default function CommunityPost() {
         }));
         setVote(null);
       } else {
+        // 신규 투표 또는 투표 변경
         const batch = writeBatch(db);
-        batch.set(voteRef, { uid: user.uid, postId, type, createdAt: serverTimestamp() });
-        let upInc = 0, downInc = 0;
+        batch.set(voteRef, { 
+          uid: user.uid, 
+          postId, 
+          type, 
+          createdAt: serverTimestamp() 
+        });
+        
+        let upInc = 0;
+        let downInc = 0;
+        
         if (vote === "up") upInc = -1;
         if (vote === "down") downInc = -1;
         if (type === "up") upInc += 1;
         if (type === "down") downInc += 1;
+        
         const updateData = {};
         if (upInc !== 0) updateData.upvoteCount = increment(upInc);
         if (downInc !== 0) updateData.downvoteCount = increment(downInc);
-        batch.update(postRef, updateData);
+        
+        if (Object.keys(updateData).length > 0) {
+          batch.update(postRef, updateData);
+        }
+        
         await batch.commit();
+        
         setPost((p) => ({
           ...p,
           upvoteCount: Math.max(0, (p.upvoteCount || 0) + upInc),
@@ -268,7 +296,13 @@ export default function CommunityPost() {
       }
     } catch (e) {
       console.error("투표 오류:", e);
-      alert("투표 처리 중 오류가 발생했습니다.");
+      if (e.code === 'permission-denied') {
+        alert("권한이 없습니다. (Firestore 보안 규칙 확인 필수)");
+      } else {
+        alert(`투표 처리 중 오류가 발생했습니다: ${e.message}`);
+      }
+    } finally {
+      setIsVoting(false);
     }
   };
 
@@ -561,13 +595,25 @@ export default function CommunityPost() {
         </MarkdownContent>
 
         <ActionBar>
-          <VoteButton $active={vote === "up"} onClick={() => handleVote("up")}>
+          <VoteButton 
+            $active={vote === "up"} 
+            onClick={() => handleVote("up")}
+            disabled={isVoting}
+          >
             👍 {post.upvoteCount || 0}
           </VoteButton>
-          <VoteButton $active={vote === "down"} onClick={() => handleVote("down")}>
+          <VoteButton 
+            $active={vote === "down"} 
+            onClick={() => handleVote("down")}
+            disabled={isVoting}
+          >
             👎 {post.downvoteCount || 0}
           </VoteButton>
-          <VoteButton onClick={handleReport} style={{ marginLeft: "auto", border: "1px solid rgba(239,68,68,0.2)", color: "#ef4444", fontSize: "0.8rem", padding: "0.5rem 1rem", display: "flex", alignItems: "center", gap: "5px" }}>
+          <VoteButton 
+            onClick={handleReport} 
+            disabled={isVoting}
+            style={{ marginLeft: "auto", border: "1px solid rgba(239,68,68,0.2)", color: "#ef4444", fontSize: "0.8rem", padding: "0.5rem 1rem", display: "flex", alignItems: "center", gap: "5px" }}
+          >
             🚨 신고 {post.reportCount > 0 && <span>({post.reportCount})</span>}
           </VoteButton>
         </ActionBar>

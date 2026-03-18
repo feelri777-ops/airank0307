@@ -1015,24 +1015,44 @@ export default function Gallery() {
     return () => { if (el) observer.unobserve(el); };
   }, [hasMore, loading, lastDoc, fetchPosts]);
 
+  const [isLiking, setIsLiking] = useState(false);
   const handleLike = async (post) => {
     if (!user) { alert("로그인 후 좋아요를 누를 수 있습니다."); return; }
+    if (isLiking) return;
+    setIsLiking(true);
+
     const liked = post.likedBy?.includes(user.uid);
     const ref2 = doc(db, "galleryPosts", post.id);
     try {
       await updateDoc(ref2, {
         likedBy: liked ? arrayRemove(user.uid) : arrayUnion(user.uid),
-        likeCount: liked ? (post.likeCount || 1) - 1 : (post.likeCount || 0) + 1,
+        likeCount: increment(liked ? -1 : 1),
       });
-      const updater = (p) => p.id === post.id ? {
-        ...p,
-        likedBy: liked ? p.likedBy.filter((id) => id !== user.uid) : [...(p.likedBy || []), user.uid],
-        likeCount: liked ? (p.likeCount || 1) - 1 : (p.likeCount || 0) + 1,
-      } : p;
+      
+      const updater = (p) => {
+        if (p.id !== post.id) return p;
+        const newLikedBy = liked 
+          ? (p.likedBy || []).filter((id) => id !== user.uid) 
+          : [...(p.likedBy || []), user.uid];
+        return {
+          ...p,
+          likedBy: newLikedBy,
+          likeCount: Math.max(0, (p.likeCount || 0) + (liked ? -1 : 1)),
+        };
+      };
+      
       setPosts((prev) => prev.map(updater));
-      // 라이트박스에도 즉시 반영
-      setSelectedPost((prev) => prev?.id === post.id ? updater(prev) : prev);
-    } catch (err) { console.error(err); }
+      if (selectedPost?.id === post.id) setSelectedPost((prev) => updater(prev));
+    } catch (err) { 
+      console.error("좋아요 오류:", err);
+      if (err.code === 'permission-denied') {
+        alert("좋아요 권한이 없거나Firestore 보안 규칙에 의해 차단되었습니다.");
+      } else {
+        alert(`좋아요 처리 중 오류가 발생했습니다: ${err.message}`);
+      }
+    } finally {
+      setIsLiking(false);
+    }
   };
 
   const handleReport = async (post) => {
