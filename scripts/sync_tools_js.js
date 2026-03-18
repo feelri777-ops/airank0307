@@ -62,12 +62,12 @@ async function syncScoresToFirestore() {
     for (const id of chunk) {
       const { score, change, metrics } = scoresData[id];
       const docRef = db.collection('tools').doc(id);
-      batch.update(docRef, {
+      batch.set(docRef, {
         score: score ?? 0,
         change: change ?? 0,
         metrics: metrics ?? null,
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-      });
+      }, { merge: true });
       count++;
     }
 

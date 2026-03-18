@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import {
-  collection, query, where, getDocs, doc, setDoc, updateDoc, writeBatch,
+  collection, query, where, getDocs, doc, setDoc, updateDoc, writeBatch, collectionGroup
 } from "firebase/firestore";
 import { ref as sRef, uploadBytes, getDownloadURL as storageDL } from "firebase/storage";
 import { updateProfile, sendPasswordResetEmail, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
@@ -13,6 +13,7 @@ import { useTools } from "../context/ToolContext";
 import ThemeToggle from "../components/ui/ThemeToggle";
 import Icon from "../components/ui/Icon";
 import { BOARDS } from "./CommunityDashboard";
+import { ArrowLeft, ArrowRight } from "../components/icons/PhosphorIcons";
 
 // ── 섹션 메뉴 정의 ──────────────────────────────────────────
 const MENU = [
@@ -100,8 +101,9 @@ const randomSeed = () => Math.random().toString(36).substring(2, 10);
 
 // ── 홈 섹션 ──────────────────────────────────────────────────
 const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
+  const { userData, updateUserData } = useAuth();
   const [editingName, setEditingName] = useState(false);
-  const [newName, setNewName] = useState(user.displayName || "");
+  const [newName, setNewName] = useState(userData?.displayName || user.displayName || "");
   const [saving, setSaving] = useState(false);
   const [nickError, setNickError] = useState("");
   const [resetMsg, setResetMsg] = useState("");
@@ -111,6 +113,13 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
   const [currentPhotoURL, setCurrentPhotoURL] = useState(
     user.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.displayName || "default"}`
   );
+
+  // userData 로드 시 닉네임 초기값 동기화
+  useEffect(() => {
+    if (userData?.displayName && !editingName) {
+      setNewName(userData.displayName);
+    }
+  }, [userData?.displayName, editingName]);
 
   // ── 아바타: 로봇 선택 ──
   const handleSelectAvatar = async (url) => {
@@ -146,7 +155,13 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
   // ── 닉네임 저장 (중복확인 + 일괄 업데이트) ──
   const handleSaveName = async () => {
     const trimmed = newName.trim();
-    if (!trimmed || trimmed === user.displayName) { setEditingName(false); return; }
+    // userData.displayName과 비교하여 이미 저장된 이름과 같으면 바로 종료
+    // (Retrying 시 Auth는 업데이트되었으나 Firestore는 아닐 수 있으므로 userData 기준이 안전)
+    if (!trimmed || trimmed === userData?.displayName) {
+      setEditingName(false);
+      setNewName(userData?.displayName || user?.displayName || "");
+      return;
+    }
     // 닉네임 형식 검사 (2~12자, 한글/영문/숫자)
     if (!/^[가-힣a-zA-Z0-9]{2,12}$/.test(trimmed)) {
       setNickError("2~12자, 한글·영문·숫자만 사용 가능합니다.");
@@ -162,28 +177,51 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
         setSaving(false);
         return;
       }
-      // Auth + users 업데이트
+      // 1. 핵심 프로필 업데이트 (인증 정보 + Firestore 유저 문서)
       await updateProfile(auth.currentUser, { displayName: trimmed });
       
+      const currentHistory = Array.isArray(userData?.nicknameHistory) ? userData.nicknameHistory : [];
+      const oldName = userData?.displayName || user.displayName;
+      const newHistory = (oldName && oldName !== trimmed && !currentHistory.includes(oldName))
+        ? [...currentHistory, oldName]
+        : currentHistory;
+
       await updateUserData(user.uid, { 
         displayName: trimmed,
-        nicknameHistory: history 
+        nicknameHistory: newHistory 
       });
 
-      // 게시글/댓글 일괄 업데이트 (writeBatch)
-      const [gpSnap, cpSnap, ccSnap] = await Promise.all([
-        getDocs(query(collection(db, "galleryPosts"), where("uid", "==", user.uid))),
-        getDocs(query(collection(db, "communityPosts"), where("uid", "==", user.uid))),
-        getDocs(query(collection(db, "communityComments"), where("uid", "==", user.uid))),
-      ]);
-      // 500개 초과 방지: 배치 분할
-      const allDocs = [...gpSnap.docs, ...cpSnap.docs, ...ccSnap.docs];
-      const CHUNK = 450;
-      for (let i = 0; i < allDocs.length; i += CHUNK) {
-        const batch = writeBatch(db);
-        allDocs.slice(i, i + CHUNK).forEach(d => batch.update(d.ref, { displayName: trimmed }));
-        await batch.commit();
+      // 2. 관련 게시글/댓글 일괄 업데이트 (백그라운드 처리 느낌으로 진행)
+      try {
+        const [gpSnap, cpSnap] = await Promise.all([
+          getDocs(query(collection(db, "galleryPosts"), where("uid", "==", user.uid))),
+          getDocs(query(collection(db, "communityPosts"), where("uid", "==", user.uid))),
+        ]);
+
+        let ccDocs = [];
+        try {
+          // collectionGroup은 인덱스가 없으면 에러가 발생할 수 있으므로 개별 처리
+          const ccSnap = await getDocs(query(collectionGroup(db, "comments"), where("uid", "==", user.uid)));
+          ccDocs = ccSnap.docs;
+        } catch (ce) {
+          console.warn("댓글 인덱스 미설정 등으로 인해 댓글 닉네임 업데이트는 건너뜁니다.", ce);
+        }
+
+        const allDocs = [...gpSnap.docs, ...cpSnap.docs, ...ccDocs];
+        if (allDocs.length > 0) {
+          const CHUNK = 450;
+          for (let i = 0; i < allDocs.length; i += CHUNK) {
+            const batch = writeBatch(db);
+            allDocs.slice(i, i + CHUNK).forEach(d => batch.update(d.ref, { displayName: trimmed }));
+            await batch.commit();
+          }
+        }
+      } catch (be) {
+        console.error("일괄 업데이트 중 일부 오류 발생:", be);
+        // 게시글 업데이트 실패 시에도 이미 프로필은 변경되었으므로 사용자에게 알림만 남김
       }
+
+      setNickError("");
       setEditingName(false);
     } catch (e) {
       console.error(e);
@@ -527,7 +565,7 @@ const ToolBookmarkSection = ({ user, isMobile }) => {
                     {category}
                   </span>
                 )}
-                <span style={{ flexShrink: 0, color: "var(--text-muted)", fontSize: "0.8rem" }}>→</span>
+                <span style={{ flexShrink: 0, color: "var(--text-muted)", fontSize: "0.8rem", display: "flex", alignItems: "center" }}><ArrowRight size={14} /></span>
               </div>
             );
           })}
@@ -557,7 +595,7 @@ const CommunitySection = ({ user, isMobile }) => {
 
   const loadComments = useCallback(() => {
     if (myComments !== null) return;
-    getDocs(query(collection(db, "communityComments"), where("uid", "==", user.uid)))
+    getDocs(query(collectionGroup(db, "comments"), where("uid", "==", user.uid)))
       .then((snap) => {
         const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
         list.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
@@ -671,7 +709,7 @@ const LoadingSpinner = () => (
 const Empty = ({ msg, link, linkText }) => (
   <div style={{ textAlign: "center", padding: "3rem 1rem", color: "var(--text-muted)" }}>
     <div style={{ fontSize: "0.9rem", marginBottom: "12px" }}>{msg}</div>
-    {link && <Link to={link} style={{ color: "var(--accent-indigo, #6366f1)", fontWeight: 700, fontSize: "0.85rem" }}>{linkText} →</Link>}
+    {link && <Link to={link} style={{ color: "var(--accent-indigo, #6366f1)", fontWeight: 700, fontSize: "0.85rem", display: "inline-flex", alignItems: "center", gap: "4px" }}>{linkText} <ArrowRight size={14} /></Link>}
   </div>
 );
 
@@ -754,7 +792,7 @@ export default function Dashboard() {
       <div style={{ maxWidth: "480px", margin: "6rem auto", textAlign: "center", padding: "2rem" }}>
         <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>🔒</div>
         <h1 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "1rem" }}>로그인이 필요합니다</h1>
-        <Link to="/" style={{ color: "var(--accent-indigo, #6366f1)", fontWeight: 700 }}>← 홈으로</Link>
+        <Link to="/" style={{ color: "var(--accent-indigo, #6366f1)", fontWeight: 700, display: "inline-flex", alignItems: "center", gap: "4px" }}><ArrowLeft size={16} /> 홈으로</Link>
       </div>
     );
   }

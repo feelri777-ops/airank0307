@@ -2,6 +2,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAdminGuard } from "../../hooks/useAdminGuard";
 import { useTheme } from "../../context/ThemeContext";
 import Icon from "../../components/ui/Icon";
+import { ArrowLeft } from "../../components/icons/PhosphorIcons";
 
 const NAV = [
   { to: "/admin", label: "대시보드", icon: "chart-bar", end: true },
@@ -78,7 +79,9 @@ export default function AdminLayout() {
               cursor: "pointer", textAlign: "left",
             }}
           >
-            ← 사이트로 돌아가기
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <ArrowLeft size={16} /> 사이트로 돌아가기
+            </div>
           </button>
         </div>
       </aside>

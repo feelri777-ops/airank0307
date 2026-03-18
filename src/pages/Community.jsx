@@ -7,6 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import { COMMUNITY_CATEGORIES } from "../constants";
 import { formatRelativeTime } from "../utils";
 import { BOARDS } from "./CommunityDashboard";
+import { ArrowLeft, PencilSimple } from "../components/icons/PhosphorIcons";
 
 const POSTS_PER_PAGE = 20;
 
@@ -300,7 +301,7 @@ export default function Community() {
               alignItems: "center", justifyContent: "center" 
             }}
           >
-            ←
+            <ArrowLeft size={16} />
           </button>
           <span style={{ color: "var(--border-primary)" }}>|</span>
           <h1 style={{
@@ -317,8 +318,9 @@ export default function Community() {
           onClick={() => navigate(`/community/${board}/write`)}
           disabled={!user}
           title={!user ? "로그인 후 글쓰기 가능합니다" : ""}
+          style={{ display: "flex", alignItems: "center", gap: "6px" }}
         >
-          ✏️ 글쓰기
+          <PencilSimple size={16} /> 글쓰기
         </WriteButton>
       </PageHeader>
 

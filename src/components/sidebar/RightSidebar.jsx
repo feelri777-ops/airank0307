@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useGalleryLightbox } from "../../context/GalleryLightboxContext";
+import { ArrowRight } from "../icons/PhosphorIcons";
 
 const FALLBACK_NEWS = [
   { title: "OpenAI, GPT-5 출시 임박 소문", link: "https://search.naver.com/search.naver?where=news&query=GPT-5", relativeTime: "2시간 전", hot: true },
@@ -108,8 +109,8 @@ const RightSidebar = () => {
           }}>
             🖼️ 갤러리 최신
           </h3>
-          <a href="/gallery" style={{ fontSize: "0.72rem", color: "var(--accent-indigo)", fontWeight: 600, textDecoration: "none" }}>
-            더보기 →
+          <a href="/gallery" style={{ fontSize: "0.72rem", color: "var(--accent-indigo)", fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: "2px" }}>
+            더보기 <ArrowRight size={10} />
           </a>
         </div>
         {galleryPosts.length === 0 ? (

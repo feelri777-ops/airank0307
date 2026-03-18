@@ -47,26 +47,26 @@ const THEME_CONFIG = {
     placeholderStyle: `color: rgba(255,255,255,0.5)`,
   },
   light: {
-    bg: "linear-gradient(160deg, #FFFAFA 0%, #FFF5F5 40%, #FFFAFA 75%, #FFF8F8 100%)",
+    bg: "linear-gradient(160deg, #FFF0F3 0%, #FFDFE5 40%, #FFF0F3 75%, #FFDFE5 100%)",
     bgColor: "transparent",
     bgSize: "cover",
     bgPos: "center",
-    titleColor: "#1A1A2E",
-    titleShadow: "none",
-    gradientText: "linear-gradient(to right, #6366f1, #8b5cf6)",
-    subColor: "rgba(50,50,80,0.6)",
+    titleColor: "#e68dad",
+    titleShadow: "0 1px 2px rgba(230,141,173,0.2)",
+    gradientText: "linear-gradient(to right, #ffb7c5, #f8a5c2)",
+    subColor: "rgba(200,120,150,0.75)",
     subShadow: "none",
-    inputBg: "rgba(255,255,255,0.85)",
-    inputBorder: "rgba(99,102,241,0.18)",
-    inputBorderFocus: "rgba(99,102,241,0.45)",
+    inputBg: "rgba(255,255,255,0.8)",
+    inputBorder: "rgba(255,182,193,0.3)",
+    inputBorderFocus: "rgba(255,182,193,0.6)",
     inputBgFocus: "#ffffff",
-    inputColor: "#1A1A2E",
-    iconColor: "#6366f1",
-    btnBg: "linear-gradient(135deg, #c0505c, #c050a0)",
-    btnBgHover: "linear-gradient(135deg, #a83040, #a03090)",
+    inputColor: "#8a4d62",
+    iconColor: "#f8a5c2",
+    btnBg: "linear-gradient(135deg, #ffb7c5, #f8a5c2)",
+    btnBgHover: "linear-gradient(135deg, #f8a5c2, #ffb7c5)",
     btnBorder: "transparent",
     btnColor: "#fff",
-    placeholderStyle: `color: rgba(82,82,110,0.45)`,
+    placeholderStyle: `color: rgba(200,120,150,0.5)`,
   },
   pure: {
     bg: "linear-gradient(135deg, #f8faff 0%, #f0f4ff 30%, #faf0ff 70%, #f8f8ff 100%)",
@@ -134,61 +134,30 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
       {/* 메인 타이틀 */}
       <h1 style={{
         fontFamily: "'Outfit', 'Pretendard', sans-serif",
-        fontSize: "clamp(1.6rem, 4vw, 3rem)",
+        fontSize: "clamp(2rem, 6vw, 3.4rem)",
         fontWeight: 900,
         lineHeight: 1.15,
         letterSpacing: "-0.04em",
         marginBottom: "0.7rem",
-        ...(!isDark ? {
-          // 볼록 유리: 상단 중앙이 밝고 가장자리로 굴절색
-          backgroundImage: [
-            "radial-gradient(ellipse 80% 60% at 48% 25%,",
-            "  rgba(255,255,255,1) 0%,",
-            "  rgba(235,245,255,0.95) 18%,",
-            "  rgba(190,215,255,0.82) 38%,",
-            "  rgba(155,185,245,0.72) 58%,",
-            "  rgba(120,160,230,0.65) 80%,",
-            "  rgba(100,140,220,0.6) 100%",
-            ")",
-          ].join(""),
-          WebkitBackgroundClip: "text",
-          backgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          filter: [
-            "drop-shadow(0 -1px 0px rgba(255,255,255,1))",      // 상단 하이라이트
-            "drop-shadow(0  1px 0px rgba(255,255,255,0.7))",    // 하단 내부 반사
-            "drop-shadow(0  6px 14px rgba(90,130,255,0.35))",   // 코스틱(굴절 그림자)
-            "drop-shadow(0  2px  3px rgba(60,100,200,0.2))",    // 렌즈 깊이감
-          ].join(" "),
-        } : {
-          color: cfg.titleColor,
-          textShadow: cfg.titleShadow,
-        }),
+        color: cfg.titleColor,
+        textShadow: cfg.titleShadow,
       }}>
-        당신에게 가장 필요한<br />
+        {isDark ? (
+          <>대한민국 <span style={{
+            backgroundImage: cfg.gradientText,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            filter: "drop-shadow(0 0 10px rgba(129, 140, 248, 0.3))"
+          }}>AI놀이터</span></>
+        ) : "당신에게 가장 필요한"}<br />
         <span style={{
           display: "inline-block",
           ...(!isDark ? {
-            // 볼록 유리 — 컬러 굴절 버전
-            backgroundImage: [
-              "radial-gradient(ellipse 85% 55% at 45% 20%,",
-              "  rgba(255,255,255,0.98) 0%,",
-              "  rgba(210,220,255,0.92) 15%,",
-              "  rgba(160,185,255,0.82) 35%,",
-              "  rgba(120,155,245,0.75) 55%,",
-              "  rgba(90,130,230,0.7)  75%,",
-              "  rgba(140,100,220,0.65) 100%",
-              ")",
-            ].join(""),
+            backgroundImage: "linear-gradient(to right, #ffb7c5, #f8a5c2)",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             WebkitTextFillColor: "transparent",
-            filter: [
-              "drop-shadow(0 -1px 0px rgba(255,255,255,1))",
-              "drop-shadow(0  1px 1px rgba(200,210,255,0.6))",
-              "drop-shadow(0  7px 18px rgba(80,110,255,0.4))",
-              "drop-shadow(0  2px  4px rgba(100,80,220,0.25))",
-            ].join(" "),
+            textShadow: "0 2px 10px rgba(255,183,197,0.3)",
           } : {
             backgroundImage: cfg.gradientText,
             WebkitBackgroundClip: "text",
@@ -196,7 +165,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
             WebkitTextFillColor: "transparent",
           }),
         }}>
-          실시간 AI 추출기
+          {isDark ? "AIRANK.KR" : "실시간 AI 추출기"}
         </span>
       </h1>
 

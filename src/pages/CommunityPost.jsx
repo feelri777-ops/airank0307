@@ -15,7 +15,7 @@ import {
   PencilSimple, TrashSimple, 
   ThumbsUp, ThumbsUpFill, 
   ThumbsDown, ThumbsDownFill, 
-  Siren 
+  Siren, ArrowLeft, ArrowUUpLeft
 } from "../components/icons/PhosphorIcons";
 
 const CATEGORY_COLORS = {
@@ -439,14 +439,14 @@ export default function CommunityPost() {
 
   if (notFound) return (
     <PageWrapper>
-      <BackButton onClick={() => navigate(backPath)}>← {boardInfo?.name || "게시판"}</BackButton>
+      <BackButton onClick={() => navigate(backPath)}><ArrowLeft size={16} /> {boardInfo?.name || "게시판"}</BackButton>
       <NotFound>존재하지 않는 게시글입니다.</NotFound>
     </PageWrapper>
   );
 
   if (!post) return (
     <PageWrapper>
-      <BackButton onClick={() => navigate(backPath)}>← {boardInfo?.name || "게시판"}</BackButton>
+      <BackButton onClick={() => navigate(backPath)}><ArrowLeft size={16} /> {boardInfo?.name || "게시판"}</BackButton>
       <NotFound style={{ padding: "4rem" }}>불러오는 중...</NotFound>
     </PageWrapper>
   );
@@ -528,7 +528,7 @@ export default function CommunityPost() {
                 setEditingCommentId(null);
               }}
             >
-              ↩ 답글 {getReplies(c.id).length > 0 ? `${getReplies(c.id).length}개` : ""}
+              <ArrowUUpLeft size={14} /> 답글 {getReplies(c.id).length > 0 ? `${getReplies(c.id).length}개` : ""}
             </ReplyButton>
           )}
         </CommentBody>
@@ -540,7 +540,7 @@ export default function CommunityPost() {
     <PageWrapper>
       <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "1rem" }}>
         <BackButton onClick={() => navigate(backPath)} style={{ margin: 0 }}>
-          ← {boardInfo ? `${boardInfo.name}` : "게시판"}
+          <ArrowLeft size={16} /> {boardInfo ? `${boardInfo.name}` : "게시판"}
         </BackButton>
       </div>
 

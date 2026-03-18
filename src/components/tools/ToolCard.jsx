@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTheme } from "../../context/ThemeContext";
 
 const LOGO_OVERRIDES = {
   "notebooklm.google.com": "https://www.google.com/s2/favicons?domain=notebooklm.google&sz=64",
@@ -26,7 +27,8 @@ const GLOW_ANIM = {
   3: "glowPulseSilver",
 };
 // 순위별 색상
-const getRankColor = (rank) => {
+const getRankColor = (rank, isMono) => {
+  if (isMono) return "var(--text-primary)";
   if (rank === 1) return "#f59e0b";
   if (rank === 2) return "#94a3b8";
   if (rank === 3) return "#c77d3a";
@@ -47,6 +49,8 @@ const getRankAnim = (rank) => {
 };
 
 const ToolCard = ({ tool, rank, onClick }) => {
+  const { theme } = useTheme();
+  const isMono = theme === "mono";
   const [iconError, setIconError] = useState(false);
   const faviconUrl = getFaviconUrl(tool.url);
 
@@ -55,7 +59,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
   const progress = Math.min(score, 100);
 
   const RankBadge = () => {
-    const color = getRankColor(rank);
+    const color = getRankColor(rank, isMono);
     const fontSize = getRankFontSize(rank);
     const animation = getRankAnim(rank);
     return (
@@ -77,7 +81,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
         <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
           {!iconError && faviconUrl ? (
             <img src={faviconUrl} alt={tool.name} width={36} height={36}
-              style={{ borderRadius: "var(--r-sm)", objectFit: "contain", flexShrink: 0 }}
+              style={{ borderRadius: "var(--r-sm)", objectFit: "contain", flexShrink: 0, filter: isMono ? "grayscale(100%) brightness(0.9)" : "none" }}
               onError={() => setIconError(true)} />
           ) : (
             <span style={{ fontSize: "1.6rem", flexShrink: 0 }}>{tool.icon}</span>
@@ -106,7 +110,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
       {/* 점수 + 태그 + 변화율 */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "7px", flexWrap: "wrap" }}>
-          <span style={{ fontSize: "1.5rem", fontWeight: 900, lineHeight: 1, color: "#0ea5e9", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
+          <span style={{ fontSize: "1.5rem", fontWeight: 900, lineHeight: 1, color: isMono ? "var(--text-primary)" : "#0ea5e9", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
             {score}
           </span>
           <div style={{ display: "flex", gap: "3px", flexWrap: "wrap" }}>
@@ -123,7 +127,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
           </div>
         </div>
         {change !== 0 && (
-          <span style={{ fontSize: "0.68rem", fontWeight: 700, flexShrink: 0, color: change > 0 ? "#4ade80" : "#f87171", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
+          <span style={{ fontSize: "0.68rem", fontWeight: 700, flexShrink: 0, color: isMono ? "var(--text-muted)" : (change > 0 ? "#4ade80" : "#f87171"), fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
             {change > 0 ? `▲ ${change}%` : `▼ ${Math.abs(change)}%`}
           </span>
         )}
@@ -131,7 +135,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
 
       {/* 프로그레스 바 */}
       <div style={{ height: "3px", borderRadius: "var(--r-xs)", background: "rgba(128,128,128,0.15)", overflow: "hidden" }}>
-        <div style={{ width: `${progress}%`, height: "100%", borderRadius: "var(--r-xs)", background: "linear-gradient(90deg, #22c55e, #4ade80)", transition: "width 0.6s ease" }} />
+        <div style={{ width: `${progress}%`, height: "100%", borderRadius: "var(--r-xs)", background: isMono ? "var(--text-primary)" : "linear-gradient(90deg, #22c55e, #4ade80)", transition: "width 0.6s ease" }} />
       </div>
     </>
   );

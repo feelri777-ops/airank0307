@@ -5,7 +5,7 @@ import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { TOOLS_DATA } from "../../data/tools";
 import { decodeHtmlEntities } from "../../utils";
-import { YoutubeLogoFill, BookmarkSimple, BookmarkSimpleFill } from "../icons/PhosphorIcons";
+import { YoutubeLogoFill, BookmarkSimple, BookmarkSimpleFill, ArrowRight } from "../icons/PhosphorIcons";
 
 // 미니 스파크라인 SVG (ScoreInsightPanel 밖에 정의 → remount 방지로 애니메이션 1회만 실행)
 const Spark = ({ pts, color }) => {
@@ -369,7 +369,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-primary)"; e.currentTarget.style.color = "var(--text-secondary)"; }}
           >
             <img src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32" alt="YouTube" style={{ width: 20, height: 20 }} />
-            YouTube에서 검색하기 →
+            YouTube에서 검색하기 <ArrowRight size={14} />
           </a>
         )}
       </div>
@@ -518,8 +518,8 @@ const ToolDetailModal = ({ tool, rank, prevRank, onClose }) => {
       </div>
 
       <div style={{ display: "flex", gap: "8px" }}>
-        {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: "block", textAlign: "center", padding: "12px", borderRadius: "var(--r-md)", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "0.9rem", textDecoration: "none", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }}>공식 사이트 방문 →</a>)}
-        {boardId && ( <button onClick={() => { onClose(); navigate(`/community/${boardId}`); }} style={{ flex: 1, padding: "12px", borderRadius: "var(--r-md)", border: "1px solid var(--accent-indigo)", background: "transparent", color: "var(--accent-indigo)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "0.9rem", cursor: "pointer" }}>💬 툴 게시판 →</button>)}
+        {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", padding: "12px", borderRadius: "var(--r-md)", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "0.9rem", textDecoration: "none", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }}>공식 사이트 방문 <ArrowRight size={16} /></a>)}
+        {boardId && ( <button onClick={() => { onClose(); navigate(`/community/${boardId}`); }} style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", padding: "12px", borderRadius: "var(--r-md)", border: "1px solid var(--accent-indigo)", background: "transparent", color: "var(--accent-indigo)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "0.9rem", cursor: "pointer" }}>💬 툴 게시판 <ArrowRight size={16} /></button>)}
       </div>
     </div>
   );
@@ -563,8 +563,8 @@ const ToolDetailModal = ({ tool, rank, prevRank, onClose }) => {
               {tool.life?.length > 0 && ( <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}><span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--text-muted)", flexShrink: 0 }}>추천 대상</span><div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>{tool.life.map((l) => ( <span key={l} style={{ fontSize: "0.7rem", padding: "4px 10px", borderRadius: "var(--r-xs)", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)", fontWeight: 600 }}>{LIFE_LABEL[l] ?? l}</span>))}</div></div>)}
             </div>
             <div style={{ display: "flex", gap: "8px" }}>
-              {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: "block", textAlign: "center", padding: "14px", borderRadius: "var(--r-xs)", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1rem", textDecoration: "none", transition: "all 0.2s ease", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 20px rgba(79, 70, 229, 0.3)"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 16px rgba(79, 70, 229, 0.2)"; }}>공식 사이트 방문 →</a>)}
-              {boardId && ( <button onClick={() => { onClose(); navigate(`/community/${boardId}`); }} style={{ flex: 1, padding: "14px", borderRadius: "var(--r-xs)", border: "1px solid var(--accent-indigo)", background: "transparent", color: "var(--accent-indigo)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1rem", cursor: "pointer", transition: "all 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.background = "rgba(99,102,241,0.08)"} onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}>💬 툴 게시판 →</button>)}
+              {tool.url && ( <a href={tool.url} target="_blank" rel="noopener noreferrer" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "14px", borderRadius: "var(--r-xs)", background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))", color: "#fff", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1rem", textDecoration: "none", transition: "all 0.2s ease", boxShadow: "0 8px 16px rgba(79, 70, 229, 0.2)" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 20px rgba(79, 70, 229, 0.3)"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 16px rgba(79, 70, 229, 0.2)"; }}>공식 사이트 방문 <ArrowRight size={18} /></a>)}
+              {boardId && ( <button onClick={() => { onClose(); navigate(`/community/${boardId}`); }} style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "14px", borderRadius: "var(--r-xs)", border: "1px solid var(--accent-indigo)", background: "transparent", color: "var(--accent-indigo)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1rem", cursor: "pointer", transition: "all 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.background = "rgba(99,102,241,0.08)"} onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}>💬 툴 게시판 <ArrowRight size={18} /></button>)}
             </div>
           </div>
           <ToolAnalysisCard tool={tool} rank={rank} cardWidth={DESKTOP_CARD_WIDTH} />

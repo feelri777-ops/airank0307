@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { WIZARD_Q1, WIZARD_Q2 } from "../../data/tools";
+import { ArrowLeft } from "../icons/PhosphorIcons";
 
 const WizardModal = ({ isOpen, onClose, tools }) => {
   const [step, setStep] = useState(1);
@@ -153,7 +154,14 @@ const WizardModal = ({ isOpen, onClose, tools }) => {
               cursor: "pointer",
               fontSize: "0.82rem",
               fontFamily: "'Pretendard', sans-serif",
-            }}>← 이전</button>
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "4px",
+              width: "fit-content",
+            }}>
+              <ArrowLeft size={14} /> 이전
+            </button>
           </div>
         )}
 

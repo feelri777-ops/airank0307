@@ -8,6 +8,7 @@ import {
 import { db } from "../firebase";
 import { formatRelativeTime } from "../utils";
 import { BOARDS } from "./CommunityDashboard";
+import { ArrowLeft, ArrowRight, ArrowUUpLeft } from "../components/icons/PhosphorIcons";
 
 const BOARD_MAP = Object.fromEntries(BOARDS.map((b) => [b.id, b.name]));
 
@@ -163,14 +164,14 @@ export default function UserProfile() {
 
   if (notFound) return (
     <Wrapper>
-      <BackBtn onClick={() => navigate(-1)}>← 뒤로</BackBtn>
+      <BackBtn onClick={() => navigate(-1)}><ArrowLeft size={16} /> 뒤로</BackBtn>
       <NotFoundMsg>존재하지 않는 사용자입니다.</NotFoundMsg>
     </Wrapper>
   );
 
   if (!profileUser) return (
     <Wrapper>
-      <BackBtn onClick={() => navigate(-1)}>← 뒤로</BackBtn>
+      <BackBtn onClick={() => navigate(-1)}><ArrowLeft size={16} /> 뒤로</BackBtn>
       <Loading>불러오는 중...</Loading>
     </Wrapper>
   );
@@ -181,7 +182,7 @@ export default function UserProfile() {
 
   return (
     <Wrapper>
-      <BackBtn onClick={() => navigate(-1)}>← 뒤로</BackBtn>
+      <BackBtn onClick={() => navigate(-1)}><ArrowLeft size={16} /> 뒤로</BackBtn>
 
       <ProfileHeader>
         {profileUser.photoURL
@@ -246,11 +247,11 @@ export default function UserProfile() {
               <CommentCard key={c.id}>
                 <PostMeta>
                   {c.board && <BoardBadge>{BOARD_MAP[c.board] || c.board}</BoardBadge>}
-                  {c.parentId && <span style={{ color: "var(--accent-indigo)", fontSize: "0.7rem" }}>↩ 답글</span>}
+                  {c.parentId && <span style={{ color: "var(--accent-indigo)", fontSize: "0.7rem", display: "flex", alignItems: "center", gap: "2px" }}><ArrowUUpLeft size={12} /> 답글</span>}
                   <span>{formatRelativeTime(c.createdAt)}</span>
                   {c.postTitle && c.board && (
-                    <CommentLink onClick={() => navigate(`/community/${c.board}/${c.postId}`)}>
-                      "{c.postTitle}" 게시글 →
+                    <CommentLink onClick={() => navigate(`/community/${c.board}/${c.postId}`)} style={{ display: "flex", alignItems: "center", gap: "2px" }}>
+                      "{c.postTitle}" 게시글 <ArrowRight size={14} title="이동" />
                     </CommentLink>
                   )}
                 </PostMeta>

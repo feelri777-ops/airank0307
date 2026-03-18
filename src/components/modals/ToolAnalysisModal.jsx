@@ -1,4 +1,5 @@
 import { createPortal } from "react-dom";
+import { ArrowRight } from "../icons/PhosphorIcons";
 
 const SNS_PLATFORMS = [
   { key: "naver",   label: "Naver",   domain: "naver.com",   color: "#03C75A" },
@@ -81,10 +82,11 @@ const ToolAnalysisModal = ({ tool, rank, onClose }) => {
           style={{
             width: "100%", padding: "14px", borderRadius: "var(--r-md)",
             background: "linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan))",
-            color: "#fff", border: "none", fontWeight: 700, fontSize: "1rem", cursor: "pointer"
+            color: "#fff", border: "none", fontWeight: 700, fontSize: "1rem", cursor: "pointer",
+            display: "flex", alignItems: "center", justifyContent: "center", gap: "8px"
           }}
         >
-          공식 사이트 바로가기 →
+          공식 사이트 바로가기 <ArrowRight size={18} />
         </button>
       </div>
     </div>,
