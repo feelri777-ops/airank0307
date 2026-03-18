@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { collection, getCountFromServer } from "firebase/firestore";
 import { db } from "../../firebase";
+import Icon from "../../components/ui/Icon";
 
 const STATS = [
-  { label: "총 가입자", col: "users", icon: "👥", color: "#6366f1" },
-  { label: "커뮤니티 게시물", col: "communityPosts", icon: "💬", color: "#10b981" },
-  { label: "갤러리 포스트", col: "galleryPosts", icon: "🖼️", color: "#f59e0b" },
-  { label: "정지 회원", col: "bannedUsers", icon: "🚫", color: "#f43f5e" },
-  { label: "게시물 신고", col: "communityReports", icon: "🚨", color: "#ef4444" },
-  { label: "갤러리 신고", col: "galleryReports", icon: "📸", color: "#ef4444" },
+  { label: "총 가입자",       col: "users",            icon: "users",       color: "#6366f1" },
+  { label: "커뮤니티 게시물", col: "communityPosts",   icon: "chat-circle", color: "#10b981" },
+  { label: "갤러리 포스트",   col: "galleryPosts",     icon: "images",      color: "#f59e0b" },
+  { label: "정지 회원",       col: "bannedUsers",      icon: "eye-slash",   color: "#f43f5e" },
+  { label: "게시물 신고",     col: "communityReports", icon: "bell",        color: "#ef4444" },
+  { label: "갤러리 신고",     col: "galleryReports",   icon: "bell",        color: "#ef4444" },
 ];
 
 export default function AdminDashboard() {
@@ -43,13 +44,15 @@ export default function AdminDashboard() {
             position: "relative", overflow: "hidden"
           }}>
             <div style={{
-              position: "absolute", right: "-10px", bottom: "-10px", fontSize: "4rem", opacity: 0.05, filter: "grayscale(1)"
+              position: "absolute", right: "-6px", bottom: "-6px", opacity: 0.05,
             }}>
-              {icon}
+              <Icon name={icon} size={72} color={color} />
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "1rem" }}>
-              <span style={{ fontSize: "1.28rem", background: `${color}15`, padding: "6px", borderRadius: "0" }}>{icon}</span>
+              <span style={{ background: `${color}15`, padding: "6px", borderRadius: "0", display: "flex" }}>
+                <Icon name={icon} size={20} color={color} />
+              </span>
               <span style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase" }}>{label}</span>
             </div>
 

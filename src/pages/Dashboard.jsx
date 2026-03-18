@@ -11,16 +11,17 @@ import { useGalleryLightbox } from "../context/GalleryLightboxContext";
 import { useNews } from "../context/NewsContext";
 import { useTools } from "../context/ToolContext";
 import ThemeToggle from "../components/ui/ThemeToggle";
+import Icon from "../components/ui/Icon";
 import { BOARDS } from "./CommunityDashboard";
 
 // ── 섹션 메뉴 정의 ──────────────────────────────────────────
 const MENU = [
-  { id: "home",         icon: "◈",  label: "대시보드 홈" },
-  { id: "community",    icon: "💬", label: "커뮤니티 활동" },
-  { id: "library",      icon: "🖼", label: "내 라이브러리" },
-  { id: "liked",        icon: "♥",  label: "갤러리 좋아요" },
-  { id: "news",         icon: "📰", label: "뉴스 북마크" },
-  { id: "toolBookmarks",icon: "🔖", label: "툴 북마크" },
+  { id: "home",         icon: "house",       label: "대시보드 홈" },
+  { id: "community",    icon: "chat-circle", label: "커뮤니티 활동" },
+  { id: "library",      icon: "images",      label: "내 라이브러리" },
+  { id: "liked",        icon: "heart",       label: "갤러리 좋아요" },
+  { id: "news",         icon: "newspaper",   label: "뉴스 북마크" },
+  { id: "toolBookmarks",icon: "bookmark",    label: "툴 북마크" },
 ];
 
 // ── 이미지 압축 헬퍼 ────────────────────────────────────────
@@ -77,7 +78,7 @@ const StatCard = ({ label, value, icon }) => (
     borderRadius: "var(--r-md)", padding: "16px 20px",
     display: "flex", flexDirection: "column", gap: "6px", flex: "1 1 120px",
   }}>
-    <span style={{ fontSize: "1.3rem" }}>{icon}</span>
+    <Icon name={icon} size={22} />
     <span style={{ fontSize: "1.6rem", fontWeight: 800, color: "var(--text-primary)", lineHeight: 1 }}>{value ?? "—"}</span>
     <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 600 }}>{label}</span>
   </div>
@@ -289,9 +290,9 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
       <div>
         <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)", marginBottom: "10px", textTransform: "uppercase", letterSpacing: "0.05em" }}>활동 요약</div>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-          <StatCard label="내 작품 수" value={stats.myPosts} icon="🖼" />
-          <StatCard label="받은 좋아요" value={stats.receivedLikes} icon="♥" />
-          <StatCard label="내 북마크" value={stats.bookmarks} icon="🔖" />
+          <StatCard label="내 작품 수" value={stats.myPosts} icon="images" />
+          <StatCard label="받은 좋아요" value={stats.receivedLikes} icon="heart" />
+          <StatCard label="내 북마크" value={stats.bookmarks} icon="bookmark" />
         </div>
       </div>
 
@@ -873,7 +874,7 @@ export default function Dashboard() {
                 fontSize: "0.88rem", transition: "all 0.15s", textAlign: "left",
               }}
             >
-              <span style={{ fontSize: "1rem", width: "18px", textAlign: "center" }}>{m.icon}</span>
+              <Icon name={m.icon} size={16} />
               {m.label}
             </button>
           ))}

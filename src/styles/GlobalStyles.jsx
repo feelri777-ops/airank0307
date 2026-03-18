@@ -191,6 +191,7 @@ const GlobalStyles = () => (
     .navbar-top-row {
       display: flex; align-items: center; justify-content: space-between;
       height: 64px; padding: 0 1.5rem; width: 100%;
+      max-width: 1400px; margin: 0 auto;
     }
     .navbar-actions { display: flex; align-items: center; gap: 10px; }
     

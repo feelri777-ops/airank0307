@@ -9,6 +9,7 @@ import { useTools } from "../../context/ToolContext";
 import { useNews } from "../../context/NewsContext";
 import LoginModal from "../modals/LoginModal";
 import ThemeToggle from "../ui/ThemeToggle";
+import Icon from "../ui/Icon";
 import { useGalleryLightbox } from "../../context/GalleryLightboxContext";
 
 const Navbar = () => {
@@ -231,7 +232,7 @@ const Navbar = () => {
               key={item.id}
               className={`nav-link ${isActive ? "active" : ""}`}
             >
-              {item.icon} {item.label}
+              <Icon name={item.icon} size={16} /> {item.label}
             </Link>
           );
         })}

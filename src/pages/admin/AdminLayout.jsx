@@ -1,13 +1,14 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAdminGuard } from "../../hooks/useAdminGuard";
 import { useTheme } from "../../context/ThemeContext";
+import Icon from "../../components/ui/Icon";
 
 const NAV = [
-  { to: "/admin", label: "대시보드", icon: "📊", end: true },
-  { to: "/admin/tools", label: "툴 관리", icon: "🛠️" },
-  { to: "/admin/community", label: "커뮤니티", icon: "💬" },
-  { to: "/admin/gallery", label: "갤러리", icon: "🖼️" },
-  { to: "/admin/users", label: "회원 관리", icon: "👥" },
+  { to: "/admin", label: "대시보드", icon: "chart-bar", end: true },
+  { to: "/admin/tools", label: "툴 관리", icon: "wrench" },
+  { to: "/admin/community", label: "커뮤니티", icon: "chat-circle" },
+  { to: "/admin/gallery", label: "갤러리", icon: "images" },
+  { to: "/admin/users", label: "회원 관리", icon: "users" },
 ];
 
 export default function AdminLayout() {
@@ -62,7 +63,7 @@ export default function AdminLayout() {
               transition: "all 0.15s",
             })}
           >
-            <span>{icon}</span>
+            <Icon name={icon} size={16} />
             <span>{label}</span>
           </NavLink>
         ))}

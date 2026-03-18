@@ -131,7 +131,7 @@ export default function MainPage() {
           />
         </div>
 
-        {/* Row 2: 경고 배너 + 정렬 버튼 (가운데 컬럼) */}
+        {/* Row 3: 경고 배너 + 정렬 버튼 (가운데 컬럼) */}
         <div className="sort-middle-col" style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           <ScoreDataNotice error={error} scoresUpdated={scoresUpdated} />
           <div className="sort-container">
