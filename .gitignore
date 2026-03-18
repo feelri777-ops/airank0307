@@ -9,3 +9,6 @@ serviceAccountKey.json
 # Large Phosphor Icons Assets
 phosphor-icons/
 phosphor-icons.zip
+
+# Temporary Uploads
+.tmp.driveupload/
