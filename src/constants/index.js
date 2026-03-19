@@ -46,23 +46,10 @@ export const SORT_OPTIONS = [
   { id: "name",       label: "이름순" },
 ];
 
-/** 커뮤니티 카테고리 */
 export const COMMUNITY_CATEGORIES = [
   { id: "all",      label: "전체" },
   { id: "notice",   label: "공지" },
   { id: "question", label: "질문" },
   { id: "tips",     label: "팁&노하우" },
   { id: "free",     label: "자유" },
-];
-
-/** 트렌드 티커 뉴스 */
-export const TICKER_ITEMS = [
-  "🔥 ChatGPT 언급량 15% 상승 중!",
-  "🚀 Cursor IDE 성장률 1위 — 개발자 사이에서 폭발적 인기",
-  "🎬 Sora AI 영상 생성 기능 정식 오픈",
-  "🎵 Suno AI v4 업데이트 — 음질 대폭 개선",
-  "📈 Claude 3.5 Sonnet 출시 후 점수 급등",
-  "🔍 Perplexity AI, 기업용 Pro 플랜 출시",
-  "🎨 Midjourney v6.1 포토리얼리즘 강화",
-  "⚡ Notion AI 2.0 — 자동 프로젝트 관리 기능 추가",
 ];

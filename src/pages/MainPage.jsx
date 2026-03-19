@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useTools } from "../context/ToolContext";
 import { useNews } from "../context/NewsContext";
 
@@ -64,6 +64,10 @@ export default function MainPage() {
     sorted.forEach((t, i) => { map[t.id] = i + 1; });
     return map;
   }, [tools]);
+
+  const handleToolClick = useCallback((toolObj) => {
+    openToolDetail(toolObj, globalRankMap[toolObj.id] || 999, prevRankMap[toolObj.id] || 999);
+  }, [openToolDetail, globalRankMap, prevRankMap]);
 
   const filteredTools = useMemo(() => {
     let data = [...tools];
@@ -163,7 +167,7 @@ export default function MainPage() {
                     key={tool.id}
                     tool={tool}
                     rank={globalRankMap[tool.id] || 999}
-                    onClick={() => openToolDetail(tool, globalRankMap[tool.id] || 999, prevRankMap[tool.id] || 999)}
+                    onClick={handleToolClick}
                   />
                 ))}
               </div>

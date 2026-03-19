@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 // 관리자 UID 목록 — Firebase 콘솔 Authentication 탭에서 확인 후 추가
-export const ADMIN_UIDS = [
+const ADMIN_UIDS = [
   "48n4hAjZUbTPR4pBIAJzqivJhp42",
 ];
 

@@ -5,7 +5,7 @@ import { db } from "../firebase";
 const today = () => new Date().toISOString().slice(0, 10);
 
 /** 하루 업로드 한도 */
-export const DAILY_LIMITS = {
+const DAILY_LIMITS = {
   images: 20,        // 이미지 최대 20장/일
   audios: 5,         // 오디오 최대 5개/일
   totalMB: 50,       // 총 50MB/일

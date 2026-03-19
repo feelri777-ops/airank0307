@@ -30,7 +30,6 @@ export const AuthProvider = ({ children }) => {
         if (jsKey && jsKey !== "your_kakao_js_key_here") {
           try {
             window.Kakao.init(jsKey);
-            console.log("🟢 Kakao SDK Initialized");
           } catch (e) {
             console.error("🔴 Kakao Init Error:", e);
           }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useTheme } from "../../context/ThemeContext";
 
 const LOGO_OVERRIDES = {
@@ -166,7 +166,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
   
   return (
     <div
-      onClick={onClick}
+      onClick={() => onClick(tool)}
       className="tool-card"
       style={{
         borderRadius: "var(--r-md)",
@@ -187,4 +187,4 @@ const ToolCard = ({ tool, rank, onClick }) => {
   );
 };
 
-export default ToolCard;
+export default memo(ToolCard);

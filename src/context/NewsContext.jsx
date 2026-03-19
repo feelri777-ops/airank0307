@@ -58,7 +58,6 @@ export function NewsProvider({ children }) {
   }, [user]);
 
   const toggleNewsBookmark = useCallback(async (article) => {
-    console.log('[DEBUG] toggleNewsBookmark called with article:', article);
     if (!user) {
       console.warn('[DEBUG] No user found. Bookmark toggle aborted.');
       return;
@@ -71,11 +70,8 @@ export function NewsProvider({ children }) {
     try {
       const existing = newsBookmarks.find(b => b.link === article.link);
       if (existing) {
-        console.log('[DEBUG] Existing bookmark found. Deleting...', existing.id);
         await deleteDoc(doc(db, "bookmarks", existing.id));
-        console.log('[DEBUG] Successfully deleted bookmark from Firestore');
       } else {
-        console.log('[DEBUG] No existing bookmark. Adding new bookmark for:', article.title);
         const docData = {
           uid: user.uid,
           category: "news",
@@ -87,7 +83,6 @@ export function NewsProvider({ children }) {
           createdAt: new Date().toISOString()
         };
         const docRef = await addDoc(collection(db, "bookmarks"), docData);
-        console.log('[DEBUG] Successfully added bookmark to Firestore. ID:', docRef.id);
       }
     } catch (err) {
       console.error('[ERROR] Failed to toggle news bookmark:', err);

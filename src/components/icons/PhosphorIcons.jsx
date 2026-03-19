@@ -33,8 +33,6 @@ export const Siren = (p) => <IconWrapper {...p}><line x1="128" y1="16" x2="128" 
 export const ArrowLeft = (p) => <IconWrapper {...p}><line x1="216" y1="128" x2="40" y2="128"/><polyline points="112 56 40 128 112 200"/></IconWrapper>;
 export const ArrowRight = (p) => <IconWrapper {...p}><line x1="40" y1="128" x2="216" y2="128"/><polyline points="144 56 216 128 144 200"/></IconWrapper>;
 export const ArrowUUpLeft = (p) => <IconWrapper {...p}><polyline points="80 120 40 80 80 40"/><path d="M40,80h88a72,72,0,0,1,0,144H80"/></IconWrapper>;
-export const CaretLeft = (p) => <IconWrapper {...p}><polyline points="160 208 80 128 160 48"/></IconWrapper>;
-export const CaretRight = (p) => <IconWrapper {...p}><polyline points="96 208 176 128 96 48"/></IconWrapper>;
 export const PaperPlaneRight = (p) => <IconWrapper {...p}><line x1="216" y1="128" x2="128" y2="128"/><polygon points="216 128 40 216 72 128 40 40 216 128"/></IconWrapper>;
 export const Sparkle = (p) => <IconWrapper {...p}><path d="M128,40,152,96l56,24-56,24-24,56-24-56-56-24,56-24Z"/></IconWrapper>;
 export const ChatCircleText = (p) => <IconWrapper {...p}><circle cx="128" cy="128" r="96"/><line x1="96" y1="112" x2="160" y2="112"/><line x1="96" y1="144" x2="160" y2="144"/></IconWrapper>;
