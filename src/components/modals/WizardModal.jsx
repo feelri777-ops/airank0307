@@ -1,32 +1,79 @@
 import { useState, useRef, useEffect } from "react";
 import { ArrowLeft, PaperPlaneRight, Sparkle, ChatCircleText, Image as ImageIcon } from "../icons/PhosphorIcons";
 import { getAIConciergeResponse } from "../../services/aiService";
+import { auth, db } from "../../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const AIConciergeModal = ({ isOpen, onClose, tools }) => {
   const [prompt, setPrompt] = useState("");
+  const [currentQuestion, setCurrentQuestion] = useState(""); // 현재 진행 중인 질문 저장
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [bookmarks, setBookmarks] = useState([]);
+  const [showBookmarks, setShowBookmarks] = useState(false);
   const scrollRef = useRef(null);
+
+  // 초기 로드 시 북마크 불러오기
+  useEffect(() => {
+    const saved = localStorage.getItem("airank_ai_bookmarks");
+    if (saved) setBookmarks(JSON.parse(saved));
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
     }
-  }, [result, isLoading]);
+  }, [result, isLoading, currentQuestion]);
 
   if (!isOpen) return null;
 
-  const handleSearch = async () => {
-    if (!prompt.trim()) return;
+  // 북마크 저장 함수
+  const toggleBookmark = async (q, r) => {
+    if (!auth.currentUser) {
+      alert("로그인이 필요한 기능입니다.");
+      return;
+    }
+
+    try {
+      // undefined 필드 제거를 위해 JSON 직렬화 후 다시 파싱 (안전한 저장)
+      const sanitizedResult = JSON.parse(JSON.stringify(r));
+
+      await addDoc(collection(db, "aiBookmarks"), {
+        uid: auth.currentUser.uid,
+        prompt: q,
+        result: sanitizedResult,
+        createdAt: serverTimestamp()
+      });
+      alert("질문과 답변이 개인 대시보드에 저장되었습니다!");
+    } catch (e) {
+      console.error(e);
+      alert("저장 중 오류가 발생했습니다.");
+    }
+  };
+
+  const removeBookmark = (id) => {
+    const updated = bookmarks.filter(b => b.id !== id);
+    setBookmarks(updated);
+    localStorage.setItem("airank_ai_bookmarks", JSON.stringify(updated));
+  };
+
+  const handleSearch = async (targetPrompt = prompt) => {
+    const query = targetPrompt || prompt;
+    if (!query.trim()) return;
+    
+    // UI 즉시 반영: 질문을 채팅창에 올리고 입력창 비우기
+    setCurrentQuestion(query);
+    setPrompt("");
+    
     setIsLoading(true);
     setResult(null);
     setErrorMsg(null);
+    setShowBookmarks(false);
 
     try {
-      const data = await getAIConciergeResponse(prompt, tools);
+      const data = await getAIConciergeResponse(query, tools);
       
-      // 추천 도구 ID를 실제 툴 객체와 매칭
       const matchedRecommendations = data.recommendations.map(rec => {
         const fullTool = tools.find(t => String(t.id) === String(rec.id));
         return fullTool ? { ...fullTool, reason: rec.reason } : null;
@@ -35,11 +82,12 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
       setResult({
         message: data.message,
         recommendations: matchedRecommendations,
+        combinationTip: data.combinationTip,
         communityIntro: data.communityIntro
       });
     } catch (error) {
       console.error("AI Concierge Failure:", error);
-      setErrorMsg(error.message || "AI 분석 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
+      setErrorMsg(error.message || "AI 분석 중 오류가 발생했습니다.");
     } finally {
       setIsLoading(false);
     }
@@ -57,8 +105,8 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(0,0,0,0.75)",
-        backdropFilter: "blur(8px)",
+        background: "rgba(0,0,0,0.8)",
+        backdropFilter: "blur(12px)",
         zIndex: 1000,
         display: "flex",
         alignItems: "center",
@@ -70,15 +118,15 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
         onClick={(e) => e.stopPropagation()}
         style={{
           background: "var(--bg-card)",
-          borderRadius: "24px",
+          borderRadius: "32px",
           border: "1px solid var(--border-primary)",
           width: "100%",
-          maxWidth: "600px",
-          height: "80vh",
+          maxWidth: "700px",
+          height: "85vh",
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
-          boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
+          boxShadow: "0 25px 50px -12px rgba(0,0,0,0.6)",
           position: "relative",
         }}
       >
@@ -88,9 +136,8 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
             30% { opacity: 1; transform: translateY(-4px); }
           }
           .thinking-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--text-muted);
+            width: 6px; height: 6px;
+            background: var(--accent-indigo);
             border-radius: 50%;
             display: inline-block;
             animation: dotPulse 1.4s infinite ease-in-out;
@@ -99,220 +146,264 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
           .thinking-dot:nth-child(3) { animation-delay: 0.4s; }
           
           @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
           }
+          .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+          .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+          .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--border-primary); border-radius: 10px; }
         `}</style>
 
         {/* 헤더 */}
         <div style={{
-          padding: "1.2rem 1.5rem",
+          padding: "1.2rem 1.8rem",
           borderBottom: "1px solid var(--border-primary)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           background: "var(--bg-secondary)",
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <div style={{
-              width: "36px", height: "36px", borderRadius: "10px",
+              width: "40px", height: "40px", borderRadius: "12px",
               background: "var(--accent-gradient)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: "0 0 15px rgba(99, 102, 241, 0.4)"
+              boxShadow: "0 0 20px rgba(99, 102, 241, 0.3)"
             }}>
-              <Sparkle size={22} color="#white" weight="fill" />
+              <Sparkle size={24} color="white" weight="fill" />
             </div>
             <div>
-              <h2 style={{ fontSize: "1.1rem", fontWeight: 700, margin: 0 }}>AIRANK 컨시어지</h2>
-              <p style={{ fontSize: "0.72rem", color: "var(--text-muted)", margin: 0 }}>당신의 목적에 맞는 최적의 AI를 설계해 드립니다.</p>
+              <h2 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0, letterSpacing: "-0.02em" }}>AIRANK 컨시어지 2.5</h2>
+              <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", margin: 0 }}>실시간 트렌드 기반의 도구 설계사</p>
             </div>
           </div>
-          <button onClick={onClose} style={{
-            background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", fontSize: "1.2rem"
-          }}>✕</button>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button 
+              onClick={() => setShowBookmarks(!showBookmarks)}
+              style={{
+                background: showBookmarks ? "var(--bg-tertiary)" : "none",
+                border: "1px solid var(--border-primary)",
+                borderRadius: "10px",
+                padding: "6px 12px",
+                fontSize: "0.75rem",
+                cursor: "pointer",
+                color: "var(--text-primary)",
+                display: "flex", alignItems: "center", gap: "6px"
+              }}
+            >
+              📌 북마크 {bookmarks.length}
+            </button>
+            <button onClick={onClose} style={{
+              background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", fontSize: "1.4rem"
+            }}>✕</button>
+          </div>
         </div>
 
         {/* 채팅 영역 */}
-        <div ref={scrollRef} style={{ flex: 1, overflowY: "auto", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "20px" }}>
+        <div ref={scrollRef} className="custom-scrollbar" style={{ flex: 1, overflowY: "auto", padding: "1.8rem", display: "flex", flexDirection: "column", gap: "24px" }}>
           
-          {/* AI 기본 메시지 */}
-          <div style={{ display: "flex", gap: "12px", maxWidth: "85%" }}>
-            <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "var(--bg-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              🤖
+          {showBookmarks ? (
+            <div style={{ animation: "fadeInUp 0.3s ease" }}>
+              <h3 style={{ fontSize: "1.1rem", marginBottom: "15px", display: "flex", alignItems: "center", gap: "8px" }}>
+                저장된 질문들 <span style={{ fontSize: "0.8rem", color: "var(--text-muted)", fontWeight: 400 }}>({bookmarks.length})</span>
+              </h3>
+              {bookmarks.length === 0 ? (
+                <p style={{ textAlign: "center", color: "var(--text-muted)", padding: "40px 0" }}>아직 저장된 질문이 없습니다.</p>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {bookmarks.map(b => (
+                    <div key={b.id} style={{
+                      padding: "16px", background: "var(--bg-secondary)", borderRadius: "16px", border: "1px solid var(--border-primary)",
+                      display: "flex", justifyContent: "space-between", alignItems: "center"
+                    }}>
+                      <div style={{ cursor: "pointer", flex: 1 }} onClick={() => { setPrompt(b.prompt); setResult(b.result); setShowBookmarks(false); }}>
+                        <p style={{ margin: "0 0 4px", fontSize: "0.9rem", fontWeight: 600 }}>"{b.prompt}"</p>
+                        <p style={{ margin: 0, fontSize: "0.7rem", color: "var(--text-muted)" }}>{b.date} 저장됨</p>
+                      </div>
+                      <button onClick={() => removeBookmark(b.id)} style={{ background: "none", border: "none", color: "#ef4444", cursor: "pointer", fontSize: "0.8rem" }}>삭제</button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            <div style={{ background: "var(--bg-secondary)", padding: "12px 16px", borderRadius: "0 16px 16px 16px", fontSize: "0.9rem", lineHeight: 1.5 }}>
-              안녕하세요! 무엇을 도와드릴까요? <br />
-              현재 고민 중인 상황이나 필요한 기능을 적어주시면 딱 맞는 AI 도구를 추천해 드릴게요.
-            </div>
-          </div>
-
-          {/* 결과물 출력 */}
-          {result && (
+          ) : (
             <>
-              <div style={{ alignSelf: "flex-end", maxWidth: "85%", background: "var(--accent-gradient)", color: "white", padding: "12px 16px", borderRadius: "16px 16px 0 16px", fontSize: "0.9rem", boxShadow: "0 4px 15px rgba(0,0,0,0.1)" }}>
-                {prompt}
+              {/* AI 기본 메시지 */}
+              <div style={{ display: "flex", gap: "14px", maxWidth: "90%" }}>
+                <div style={{ width: "36px", height: "36px", borderRadius: "12px", background: "var(--bg-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  🤖
+                </div>
+                <div style={{ background: "var(--bg-secondary)", padding: "16px 20px", borderRadius: "0 24px 24px 24px", fontSize: "0.95rem", lineHeight: 1.6, border: "1px solid var(--border-primary)" }}>
+                  반가워요! 실시간 트렌드를 반영한 최고의 AI 조합을 추천해 드릴게요. <br />
+                  질문을 입력해 보시거나, 저장된 질문을 확인해 보세요.
+                </div>
               </div>
 
-              <div style={{ display: "flex", gap: "12px", maxWidth: "95%" }}>
-                <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "var(--bg-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  🪄
+              {/* 진행 중인 질문 또는 결과물 상단의 질문 */}
+              {(currentQuestion || result) && (
+                <div style={{ alignSelf: "flex-end", maxWidth: "85%", background: "var(--accent-gradient)", color: "white", padding: "14px 20px", borderRadius: "24px 24px 0 24px", fontSize: "0.95rem", boxShadow: "0 10px 20px rgba(99, 102, 241, 0.2)", position: "relative", animation: "fadeInUp 0.3s ease" }}>
+                  {currentQuestion || (result && result.prompt)}
+                  {result && (
+                    <button 
+                      onClick={() => toggleBookmark(currentQuestion, result)}
+                      style={{ position: "absolute", bottom: "-25px", right: "0", background: "none", border: "none", color: "var(--accent-indigo)", cursor: "pointer", fontSize: "0.75rem", fontWeight: 700 }}
+                    >
+                      📌 질문 저장하기
+                    </button>
+                  )}
                 </div>
-                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "12px" }}>
-                  <div style={{ background: "var(--bg-secondary)", padding: "12px 16px", borderRadius: "0 16px 16px 16px", fontSize: "0.9rem", lineHeight: 1.5 }}>
-                    {result.message}
-                  </div>
+              )}
 
-                  {/* 추천 도구 리스트 */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                    {result.recommendations.map((tool, i) => (
-                      <div key={tool.id} style={{
-                        background: "var(--bg-card)",
-                        border: "1px solid var(--border-primary)",
-                        padding: "14px",
-                        borderRadius: "16px",
-                        display: "flex",
-                        gap: "12px",
-                        animation: "fadeInUp 0.4s ease forwards",
-                        animationDelay: `${i * 0.15}s`,
-                        opacity: 0,
-                      }}>
-                        <div style={{ fontSize: "1.8rem", background: "var(--bg-tertiary)", width: "48px", height: "48px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "12px" }}>
-                          {tool.icon}
-                        </div>
-                        <div style={{ flex: 1 }}>
-                          <h4 style={{ margin: "0 0 4px", fontSize: "1rem", fontWeight: 700 }}>{tool.name}</h4>
-                          <p style={{ margin: "0 0 8px", fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.4 }}>{tool.desc}</p>
-                          <div style={{
-                            padding: "8px 10px", background: "var(--bg-secondary)", borderRadius: "8px", fontSize: "0.72rem", borderLeft: "3px solid var(--accent-indigo)", color: "var(--text-primary)"
-                          }}>
-                            <strong>💡 추천 이유:</strong> {result.recommendations[i].reason}
-                          </div>
-                        </div>
+              {/* 결과물 출력 */}
+              {result && (
+                <>
+                  <div style={{ display: "flex", gap: "14px", maxWidth: "100%", marginTop: "10px" }}>
+                    <div style={{ width: "36px", height: "36px", borderRadius: "12px", background: "var(--bg-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      🪄
+                    </div>
+                    <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "16px" }}>
+                      <div style={{ background: "var(--bg-secondary)", padding: "16px 20px", borderRadius: "0 24px 24px 24px", fontSize: "0.95rem", lineHeight: 1.6, border: "1px solid var(--border-primary)" }}>
+                        {result.message}
                       </div>
-                    ))}
-                  </div>
 
-                  {/* 커뮤니티 홍보 */}
-                  <div style={{
-                    marginTop: "10px",
-                    background: "rgba(99, 102, 241, 0.05)",
-                    border: "1px dashed var(--accent-indigo)",
-                    padding: "15px",
-                    borderRadius: "16px",
-                    textAlign: "center"
-                  }}>
-                    <p style={{ fontSize: "0.85rem", margin: "0 0 10px", fontWeight: 500 }}>{result.communityIntro}</p>
-                    <div style={{ display: "flex", gap: "8px", justifyContent: "center" }}>
-                      <a href="/community" style={{ textDecoration: "none", fontSize: "0.75rem", background: "white", color: "black", padding: "6px 12px", borderRadius: "8px", display: "flex", alignItems: "center", gap: "4px", fontWeight: 600 }}>
-                        <ChatCircleText size={14} /> 자유게시판
-                      </a>
-                      <a href="/gallery" style={{ textDecoration: "none", fontSize: "0.75rem", background: "white", color: "black", padding: "6px 12px", borderRadius: "8px", display: "flex", alignItems: "center", gap: "4px", fontWeight: 600 }}>
-                        <ImageIcon size={14} /> 갤러리
-                      </a>
+                      {/* [A+B 조합 팁] - 테두리 겹침 수정 */}
+                      {result.combinationTip && (
+                        <div style={{
+                          background: "linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%)",
+                          padding: "20px", 
+                          border: "1px solid rgba(99, 102, 241, 0.2)", // 흐리게 수정
+                          borderRadius: "24px", 
+                          borderLeft: "6px solid var(--accent-indigo)", // 강조 라인 유지
+                          animation: "fadeInUp 0.5s ease",
+                          boxShadow: "0 4px 15px rgba(0,0,0,0.02)"
+                        }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                            <Sparkle size={20} color="var(--accent-indigo)" weight="fill" />
+                            <span style={{ fontWeight: 800, fontSize: "0.95rem", color: "var(--accent-indigo)" }}>베스트 시너지 조합 (A+B)</span>
+                          </div>
+                          <p style={{ margin: 0, fontSize: "0.93rem", lineHeight: 1.6, color: "var(--text-primary)" }}>
+                             {result.combinationTip}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* 추천 도구 리스트 - 순위 표시 추가 */}
+                      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+                        {result.recommendations.map((tool, i) => {
+                          const faviconUrl = tool.url 
+                            ? `https://www.google.com/s2/favicons?domain=${new URL(tool.url).hostname}&sz=128`
+                            : null;
+                          
+                          // 도구 리스트에서의 순위 찾기
+                          const rankNum = tools.findIndex(t => t.id === tool.id) + 1;
+
+                          return (
+                            <div key={tool.id} style={{
+                              background: "var(--bg-card)",
+                              border: "1px solid var(--border-primary)",
+                              padding: "20px",
+                              borderRadius: "26px",
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: "14px",
+                              animation: "fadeInUp 0.4s ease forwards",
+                              animationDelay: `${i * 0.1}s`,
+                              opacity: 0,
+                              boxShadow: "0 10px 20px rgba(0,0,0,0.04)"
+                            }}>
+                              <div style={{ display: "flex", gap: "18px", alignItems: "flex-start" }}>
+                                <div style={{ 
+                                  width: "60px", height: "60px", borderRadius: "18px", 
+                                  background: "white", display: "flex", alignItems: "center", justifyContent: "center", 
+                                  flexShrink: 0, border: "1px solid var(--border-primary)", overflow: "hidden",
+                                  padding: "6px"
+                                }}>
+                                  {faviconUrl ? (
+                                    <img src={faviconUrl} alt={tool.name} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                                  ) : (
+                                    <div style={{ fontSize: "1.8rem" }}>{tool.icon || "🤖"}</div>
+                                  )}
+                                </div>
+                                <div style={{ flex: 1 }}>
+                                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                      <h4 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 800 }}>{tool.name}</h4>
+                                      {rankNum > 0 && (
+                                        <span style={{ 
+                                          fontSize: "0.65rem", fontWeight: 700, background: "rgba(99,102,241,0.1)", 
+                                          color: "var(--accent-indigo)", padding: "2px 8px", borderRadius: "100px",
+                                          border: "1px solid rgba(99,102,241,0.2)"
+                                        }}>
+                                          AIRANK {rankNum}위
+                                        </span>
+                                      )}
+                                    </div>
+                                    <span style={{ fontSize: "0.7rem", background: "var(--bg-tertiary)", padding: "4px 10px", borderRadius: "10px", fontStyle: "italic", fontWeight: 600 }}>
+                                      # {tool.cat}
+                                    </span>
+                                  </div>
+                                  <p style={{ margin: 0, fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{tool.desc}</p>
+                                </div>
+                              </div>
+                              <div style={{ margin: "5px 0", padding: "14px 18px", background: "var(--bg-secondary)", borderRadius: "16px", fontSize: "0.85rem", borderLeft: "5px solid var(--accent-indigo)", color: "var(--text-primary)", lineHeight: 1.6 }}>
+                                <strong>🎯 AI 추천 사유:</strong> {tool.reason}
+                              </div>
+                              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                                <a href={`/community?category=${encodeURIComponent(tool.cat || "자유")}`} style={{ textDecoration: "none", fontSize: "0.75rem", background: "var(--accent-gradient)", color: "white", padding: "10px 20px", borderRadius: "14px", fontWeight: 700, display: "flex", alignItems: "center", gap: "8px", transition: "transform 0.2s" }} onMouseOver={e => e.currentTarget.style.transform="translateY(-2px)"} onMouseOut={e => e.currentTarget.style.transform="translateY(0)"}>
+                                  <ChatCircleText size={18} weight="fill" /> '{tool.cat}' 정보 커뮤니티로 이동
+                                </a>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      <div style={{ textAlign: "center", padding: "10px", color: "var(--text-muted)", fontSize: "0.85rem", borderTop: "1px solid var(--border-primary)", marginTop: "10px" }}>
+                        {result.communityIntro}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </>
+              )}
             </>
           )}
 
           {isLoading && (
-            <div style={{ display: "flex", gap: "12px", maxWidth: "85%", animation: "fadeInUp 0.3s ease" }}>
-              <div style={{ 
-                width: "32px", height: "32px", borderRadius: "12px", 
-                background: "var(--bg-tertiary)", 
-                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 
-              }}>
+            <div style={{ display: "flex", gap: "14px", animation: "fadeInUp 0.3s ease" }}>
+              <div style={{ width: "36px", height: "36px", borderRadius: "12px", background: "var(--bg-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 🤖
               </div>
-              <div style={{ 
-                background: "var(--bg-secondary)", 
-                padding: "15px 20px", 
-                borderRadius: "4px 20px 20px 20px", 
-                display: "flex",
-                flexDirection: "column",
-                gap: "8px",
-                boxShadow: "0 2px 10px rgba(0,0,0,0.05)"
-              }}>
-                <div style={{ display: "flex", gap: "4px", alignItems: "center", height: "12px" }}>
+              <div style={{ background: "var(--bg-secondary)", padding: "18px 24px", borderRadius: "4px 24px 24px 24px", border: "1px solid var(--border-primary)", boxShadow: "0 4px 15px rgba(0,0,0,0.05)" }}>
+                <div style={{ display: "flex", gap: "4px", marginBottom: "8px" }}>
                   <span className="thinking-dot"></span>
                   <span className="thinking-dot"></span>
                   <span className="thinking-dot"></span>
                 </div>
-                <span style={{ fontSize: "0.82rem", color: "var(--text-muted)", fontWeight: 500 }}>
-                  상황에 맞는 최적의 AI를 수집하고 분석 중입니다...
-                </span>
-              </div>
-            </div>
-          )}
-
-          {errorMsg && (
-            <div style={{ display: "flex", gap: "12px", maxWidth: "85%" }}>
-              <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "#fee2e2", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                ⚠️
-              </div>
-              <div style={{ background: "#fef2f2", color: "#b91c1c", padding: "12px 16px", borderRadius: "0 16px 16px 16px", fontSize: "0.9rem", border: "1px solid #fecaca" }}>
-                {errorMsg}
+                <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>
+                  사용자님의 상황에 딱 맞는 최강의 도구 조합을 구글링하여 분석 중입니다...
+                </p>
               </div>
             </div>
           )}
         </div>
 
         {/* 입력 영역 */}
-        <div style={{
-          padding: "1.2rem",
-          background: "var(--bg-secondary)",
-          borderTop: "1px solid var(--border-primary)",
-        }}>
-          <div style={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            background: "var(--bg-card)",
-            borderRadius: "18px",
-            border: "1.5px solid var(--border-primary)",
-            padding: "4px 6px 4px 16px",
-            transition: "all 0.2s ease",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-          }}>
+        <div style={{ padding: "1.5rem", background: "var(--bg-secondary)", borderTop: "1px solid var(--border-primary)" }}>
+          <div style={{ display: "flex", alignItems: "center", background: "var(--bg-card)", borderRadius: "22px", border: "2px solid var(--border-primary)", padding: "6px 8px 6px 20px", boxShadow: "0 10px 25px rgba(0,0,0,0.05)" }}>
             <textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSearch(); } }}
-              placeholder="예: 유튜브 대본을 자동으로 써주는 AI가 필요해"
-              style={{
-                flex: 1,
-                background: "none",
-                border: "none",
-                outline: "none",
-                padding: "10px 0",
-                fontSize: "0.95rem",
-                color: "var(--text-primary)",
-                fontFamily: "inherit",
-                resize: "none",
-                height: "44px",
-                maxHeight: "120px",
-              }}
+              placeholder={showBookmarks ? "북마크 리스트를 끄고 질문해 보세요" : "시너지 낼 수 있는 도구 조합을 물어보세요!"}
+              disabled={showBookmarks}
+              style={{ flex: 1, background: "none", border: "none", outline: "none", padding: "12px 0", fontSize: "1rem", color: "var(--text-primary)", fontFamily: "inherit", resize: "none", height: "48px" }}
             />
             <button
-              onClick={handleSearch}
-              disabled={isLoading || !prompt.trim()}
-              style={{
-                width: "40px",
-                height: "40px",
-                borderRadius: "14px",
-                background: prompt.trim() ? "var(--accent-gradient)" : "var(--bg-tertiary)",
-                color: "white",
-                border: "none",
-                cursor: prompt.trim() ? "pointer" : "default",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                transition: "all 0.2s",
-                marginLeft: "8px",
-              }}
+              onClick={() => handleSearch()}
+              disabled={isLoading || !prompt.trim() || showBookmarks}
+              style={{ width: "45px", height: "45px", borderRadius: "16px", background: (prompt.trim() && !showBookmarks) ? "var(--accent-gradient)" : "var(--bg-tertiary)", color: "white", border: "none", cursor: (prompt.trim() && !showBookmarks) ? "pointer" : "default", display: "flex", alignItems: "center", justifyContent: "center" }}
             >
-              <PaperPlaneRight size={20} weight="fill" />
+              <PaperPlaneRight size={22} weight="fill" />
             </button>
           </div>
           <p style={{ textAlign: "center", fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "10px" }}>

@@ -23,6 +23,7 @@ const MENU = [
   { id: "liked",        icon: "heart",       label: "갤러리 좋아요" },
   { id: "news",         icon: "newspaper",   label: "뉴스 북마크" },
   { id: "toolBookmarks",icon: "bookmark",    label: "툴 북마크" },
+  { id: "aiConcierge",  icon: "magic-wand",  label: "AI 컨시어지 질문" },
 ];
 
 // ── 이미지 압축 헬퍼 ────────────────────────────────────────
@@ -324,6 +325,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
           <StatCard label="내 작품 수" value={stats.myPosts} icon="images" />
           <StatCard label="받은 좋아요" value={stats.receivedLikes} icon="heart" />
           <StatCard label="내 북마크" value={stats.bookmarks} icon="bookmark" />
+          <StatCard label="AI 질문 저장" value={stats.aiBookmarks} icon="magic-wand" />
         </div>
       </div>
 
@@ -575,6 +577,78 @@ const ToolBookmarkSection = ({ user, isMobile }) => {
   );
 };
 
+// ── AI 컨시어지 북마크 섹션 ────────────────────────────
+const AIConciergeSection = ({ user, isMobile }) => {
+  const [bookmarks, setBookmarks] = useState(null);
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    if (bookmarks !== null) return;
+    const q = query(collection(db, "aiBookmarks"), where("uid", "==", user.uid));
+    getDocs(q).then((snap) => {
+      const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      list.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+      setBookmarks(list);
+    }).catch(() => setBookmarks([]));
+  }, [user.uid]); // eslint-disable-line
+
+  if (bookmarks === null) return <LoadingSpinner />;
+
+  return (
+    <div>
+      <SectionHeader title="AI 컨시어지 질문 내역" desc={`저장된 질문 ${bookmarks.length}개`} />
+      {bookmarks.length === 0 ? (
+        <Empty msg="아직 저장된 AI 질문이 없어요." link="/" linkText="AI 컨시어지에게 물어보기" />
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          {bookmarks.map((b) => (
+            <div key={b.id} style={{
+              background: "var(--bg-card)", border: "1px solid var(--border-primary)",
+              borderRadius: "var(--r-md)", padding: "20px",
+              cursor: "pointer", transition: "all 0.2s"
+            }} onClick={() => setSelected(selected === b.id ? null : b.id)}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: "0.7rem", color: "var(--accent-indigo, #6366f1)", fontWeight: 700, marginBottom: "4px" }}>
+                    {b.createdAt?.toDate ? b.createdAt.toDate().toLocaleDateString() : "방금 전"}
+                  </div>
+                  <div style={{ fontWeight: 700, fontSize: "1rem", color: "var(--text-primary)", lineHeight: 1.4 }}>Q. {b.prompt}</div>
+                </div>
+                <Icon name={selected === b.id ? "caret-up" : "caret-down"} size={16} />
+              </div>
+              
+              {selected === b.id && (
+                <div style={{ marginTop: "16px", paddingTop: "16px", borderTop: "1px dashed var(--border-primary)", animation: "fadeInUp 0.3s ease" }}>
+                   <div style={{ 
+                     background: "var(--bg-secondary)", padding: "16px", borderRadius: "16px", 
+                     fontSize: "0.9rem", color: "var(--text-primary)", lineHeight: 1.6, marginBottom: "12px"
+                   }}>
+                     {b.result?.message}
+                   </div>
+                   
+                   {b.result?.combinationTip && (
+                     <div style={{ background: "rgba(99,102,241,0.05)", padding: "14px", borderRadius: "14px", borderLeft: "4px solid var(--accent-indigo)", marginBottom: "12px", fontSize: "0.85rem" }}>
+                       <strong>💡 시너지 조합:</strong> {b.result.combinationTip}
+                     </div>
+                   )}
+                   
+                   <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                     {b.result?.recommendations?.map((tool, idx) => (
+                       <div key={idx} style={{ background: "var(--bg-tertiary)", padding: "4px 10px", borderRadius: "100px", fontSize: "0.75rem", fontWeight: 600 }}>
+                         #{tool.name}
+                       </div>
+                     ))}
+                   </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 // ── 커뮤니티 활동 섹션 ──────────────────────────────────────
 const CommunitySection = ({ user, isMobile }) => {
   const [tab, setTab] = useState("posts");
@@ -769,6 +843,9 @@ export default function Dashboard() {
     getDocs(query(collection(db, "bookmarks"), where("uid", "==", user.uid)))
       .then((snap) => setStats((prev) => ({ ...prev, bookmarks: snap.size })))
       .catch(() => {});
+    getDocs(query(collection(db, "aiBookmarks"), where("uid", "==", user.uid)))
+      .then((snap) => setStats((prev) => ({ ...prev, aiBookmarks: snap.size })))
+      .catch(() => {});
   }, [user, userData]);
 
   const handleLogout = () => { logout(); navigate("/"); };
@@ -849,6 +926,7 @@ export default function Dashboard() {
           {section === "liked" && <LikedSection user={user} isMobile={true} />}
           {section === "news" && <NewsBookmarkSection newsBookmarks={newsBookmarks} toggleNewsBookmark={toggleNewsBookmark} isMobile={true} />}
           {section === "toolBookmarks" && <ToolBookmarkSection user={user} isMobile={true} />}
+          {section === "aiConcierge" && <AIConciergeSection user={user} isMobile={true} />}
           {section === "community" && <CommunitySection user={user} isMobile={true} />}
         </div>
 
@@ -926,6 +1004,7 @@ export default function Dashboard() {
         {section === "liked" && <LikedSection user={user} isMobile={false} />}
         {section === "news" && <NewsBookmarkSection newsBookmarks={newsBookmarks} toggleNewsBookmark={toggleNewsBookmark} isMobile={false} />}
         {section === "toolBookmarks" && <ToolBookmarkSection user={user} isMobile={false} />}
+        {section === "aiConcierge" && <AIConciergeSection user={user} isMobile={false} />}
         {section === "community" && <CommunitySection user={user} isMobile={false} />}
       </main>
 

@@ -70,21 +70,21 @@ export default function MainPage() {
     if (category !== "all") data = data.filter((t) => t.cat === category);
     if (searchQuery.trim()) {
       const q = searchQuery.normalize("NFC").toLowerCase();
-      const norm = (s) => s.normalize("NFC").toLowerCase();
+      const norm = (s) => (s || "").normalize("NFC").toLowerCase();
       data = data.filter((t) =>
         norm(t.name).includes(q) ||
         (t.nameKo && norm(t.nameKo).includes(q)) ||
         norm(t.desc).includes(q) ||
         (t.ytKo && norm(t.ytKo).includes(q)) ||
         (t.gtKo && norm(t.gtKo).includes(q)) ||
-        (t.naverKw && t.naverKw.some(kw => norm(kw).includes(q)))
+        (t.naverKw && Array.isArray(t.naverKw) && t.naverKw.some(kw => norm(kw).includes(q)))
       );
     }
-    if (sortBy === "score_desc")  data.sort((a, b) => b.score - a.score);
+    if (sortBy === "score_desc")  data.sort((a, b) => (b.score || 0) - (a.score || 0));
     else if (sortBy === "google_desc") data.sort((a, b) => (b.metrics?.opr ?? 0) - (a.metrics?.opr ?? 0));
     else if (sortBy === "naver_desc")  data.sort((a, b) => (b.metrics?.ntv ?? 0) - (a.metrics?.ntv ?? 0));
     else if (sortBy === "x_desc")      data.sort((a, b) => (b.metrics?.sns ?? 0) - (a.metrics?.sns ?? 0));
-    else data.sort((a, b) => a.name.localeCompare(b.name, "ko"));
+    else data.sort((a, b) => (a.name || "").localeCompare(b.name || "", "ko"));
     return data;
   }, [tools, category, searchQuery, sortBy]);
 

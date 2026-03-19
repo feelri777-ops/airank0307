@@ -114,7 +114,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
             {score}
           </span>
           <div style={{ display: "flex", gap: "3px", flexWrap: "wrap" }}>
-            {tool.tags.filter(t => t !== "무료" && t !== "유료").map((tag) => (
+            {(tool.tags || []).filter(t => t !== "무료" && t !== "유료").map((tag) => (
               <span key={tag} style={{
                 fontSize: "0.81rem", padding: "3px 9px", borderRadius: "var(--r-xs)",
                 background: "var(--tag-bg)", color: "var(--tag-color)",
