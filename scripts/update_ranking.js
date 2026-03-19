@@ -295,28 +295,15 @@ async function getXpozScoresBatch(keywords, oprScores, todayStr) {
   };
 
   for (const keyword of keywords) {
-    // 오늘 캐시가 0보다 크면 즉시 사용
+    // 오늘 캐시가 0보다 크면 즉시 사용 (오늘 이미 수집 성공한 경우)
     if (currentCache[keyword] > 0) {
       console.log(`    [XPOZ Cache] ${keyword} 오늘 데이터 발견: ${currentCache[keyword]}`);
       results[keyword] = currentCache[keyword];
       continue;
     }
     
-    // 오늘 캐시가 0이거나 아예 없으면 과거 데이터에서 non-zero 탐색
-    const recentNonZero = getMostRecentNonZero(keyword);
-    if (recentNonZero !== null) {
-      console.log(`    [XPOZ Correction] ${keyword} 0점(또는 누락) -> 과거 데이터(${recentNonZero})로 보정`);
-      results[keyword] = recentNonZero;
-      currentCache[keyword] = recentNonZero; // 메모리 캐시 업데이트 (저장은 나중에)
-      continue;
-    }
-
-    // 과거 데이터도 없는데 오늘 캐시가 0이면 그대로 사용 (이미 전수조사 실패했던 건)
-    if (currentCache[keyword] === 0) {
-      console.log(`    [XPOZ Cache] ${keyword} 오늘 데이터가 0이며 과거 기록 없음. 기존 0 유지.`);
-      results[keyword] = 0;
-      continue;
-    }
+    // 이전에 있던 '오늘 캐시가 없으면 바로 과거 데이터 보정' 로직을 제거하고,
+    // 먼저 API를 호출하도록 순서를 조정합니다. 
     
     if (isXpozBlocked) {
       const recent = getMostRecentNonZero(keyword) || getAnyRecentValue(keyword);
@@ -371,12 +358,22 @@ async function getXpozScoresBatch(keywords, oprScores, todayStr) {
 
       // SSE 형식 파싱 개선
       const lines = startText.split('\n');
+      let directMentions = null;
       for (const line of lines) {
         if (line.startsWith('data: ')) {
           try {
             const jsonText = line.substring(6).trim();
             const data = JSON.parse(jsonText);
             const content = data.result?.content?.[0]?.text || "";
+            
+            // 신규: 직접 결과가 포함된 경우 (동기 방식)
+            const countMatch = content.match(/count: (\d+)/i);
+            if (countMatch) {
+              directMentions = parseInt(countMatch[1], 10);
+              break;
+            }
+            
+            // 기존: 비동기 방식 (operationId)
             const opIdMatch = content.match(/operationId: (\S+)/);
             if (opIdMatch) {
               opId = opIdMatch[1];
@@ -384,6 +381,21 @@ async function getXpozScoresBatch(keywords, oprScores, todayStr) {
             }
           } catch (e) {}
         }
+      }
+
+      // 동기식으로 결과를 이미 받았다면 바로 처리
+      if (directMentions !== null) {
+        console.log(`    [XPOZ Direct] ${keyword}: ${directMentions} 언급 확인 (동기 응답)`);
+        results[keyword] = directMentions;
+        currentCache[keyword] = directMentions;
+        
+        xpozCache[todayStr] = currentCache;
+        try {
+          fs.writeFileSync(XPOZ_CACHE_PATH, JSON.stringify(xpozCache, null, 2));
+        } catch (e) {}
+        
+        await new Promise(r => setTimeout(r, 2000)); // 다음 요청 전 짧은 대기
+        continue;
       }
 
       if (!opId) {
@@ -451,18 +463,24 @@ async function getXpozScoresBatch(keywords, oprScores, todayStr) {
           results[keyword] = Number(((opr * 0.7) + (Math.random() * 20)).toFixed(2));
         }
       } else {
-        // 정상 수집 완료 (0 멘션이라도 결과가 매칭되었다면 정상)
+        // 정상 수집 시도 결과 (동기/비동기 포함)
+        if (mentions === 0) {
+          const recent = getMostRecentNonZero(keyword);
+          if (recent !== null) {
+            console.log(`    [XPOZ Zero-Correction] ${keyword}: 결과가 0으로 나옴 -> 과거 데이터(${recent}) 보정`);
+            mentions = recent;
+          }
+        }
+        
         results[keyword] = mentions;
         currentCache[keyword] = mentions;
         
-        // 성공할 때만 즉시 캐시 파일 업데이트
+        // 캐시 파일 업데이트
         xpozCache[todayStr] = currentCache;
         try {
           fs.writeFileSync(XPOZ_CACHE_PATH, JSON.stringify(xpozCache, null, 2));
-          console.log(`    [XPOZ] ${keyword}: ${mentions} 언급 확인 및 캐시 저장완료`);
-        } catch (e) {
-          console.error("XPOZ 캐시 저장 실패:", e.message);
-        }
+           console.log(`    [XPOZ Success] ${keyword}: ${mentions} 언급 확인`);
+        } catch (e) {}
       }
       
       await new Promise(r => setTimeout(r, 8000));
