@@ -1,12 +1,16 @@
 import { useState, useRef, useEffect } from "react";
 import { ArrowLeft, PaperPlaneRight, Sparkle, ChatCircleText, Image as ImageIcon } from "../icons/PhosphorIcons";
-import { getAIConciergeResponse } from "../../services/aiService";
+import { getAIConciergeResponse, getAIConciergeDecision } from "../../services/aiService";
 import { auth, db } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const AIConciergeModal = ({ isOpen, onClose, tools }) => {
   const [prompt, setPrompt] = useState("");
-  const [currentQuestion, setCurrentQuestion] = useState(""); // 현재 진행 중인 질문 저장
+  const [initialPrompt, setInitialPrompt] = useState("");
+  const [chatHistory, setChatHistory] = useState([
+    { role: "ai", content: "안녕하세요! 지금 어떤 상황인가요? 어떤 작업을 위해 AI 도구가 필요하신가요? 제가 최적의 조합을 설계해 드릴게요." }
+  ]);
+  const [step, setStep] = useState(0); // 질문 횟수 카운트
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -31,7 +35,7 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
     if (scrollRef.current) {
       scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
     }
-  }, [result, isLoading, currentQuestion]);
+  }, [chatHistory, isLoading, result]);
 
   if (!isOpen) return null;
 
@@ -43,9 +47,7 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
     }
 
     try {
-      // undefined 필드 제거를 위해 JSON 직렬화 후 다시 파싱 (안전한 저장)
       const sanitizedResult = JSON.parse(JSON.stringify(r));
-
       await addDoc(collection(db, "aiBookmarks"), {
         uid: auth.currentUser.uid,
         prompt: q,
@@ -69,29 +71,43 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
     const query = targetPrompt || prompt;
     if (!query.trim()) return;
     
-    // UI 즉시 반영: 질문을 채팅창에 올리고 입력창 비우기
-    setCurrentQuestion(query);
+    // 1단계 첫 질문 시 initialPrompt 저장
+    if (step === 0) setInitialPrompt(query);
+
+    // 사용자 메시지 히스토리에 추가
+    const updatedHistory = [...chatHistory, { role: "user", content: query }];
+    setChatHistory(updatedHistory);
     setPrompt("");
-    
     setIsLoading(true);
-    setResult(null);
     setErrorMsg(null);
     setShowBookmarks(false);
 
     try {
-      const data = await getAIConciergeResponse(query, tools);
+      // AI의 판단 (더 질문할지, 추천할지)
+      const decision = await getAIConciergeDecision(initialPrompt || query, updatedHistory, step);
       
-      const matchedRecommendations = data.recommendations.map(rec => {
-        const fullTool = tools.find(t => String(t.id) === String(rec.id));
-        return fullTool ? { ...fullTool, reason: rec.reason } : null;
-      }).filter(Boolean);
+      if (decision.status === "ASK" && step < 3) {
+        // 추가 질문 (최대 3회까지)
+        setChatHistory(prev => [...prev, { role: "ai", content: decision.content }]);
+        setStep(prev => prev + 1);
+      } else {
+        // 충분하다고 판단하거나 3회 초과 시 최종 답변
+        const data = await getAIConciergeResponse(initialPrompt || query, updatedHistory, tools);
+        
+        const matchedRecommendations = data.recommendations.map(rec => {
+          const fullTool = tools.find(t => String(t.id) === String(rec.id));
+          return fullTool ? { ...fullTool, reason: rec.reason } : null;
+        }).filter(Boolean);
 
-      setResult({
-        message: data.message,
-        recommendations: matchedRecommendations,
-        combinationTip: data.combinationTip,
-        communityIntro: data.communityIntro
-      });
+        setResult({
+          prompt: initialPrompt || query,
+          message: data.message,
+          recommendations: matchedRecommendations,
+          combinationTip: data.combinationTip,
+          communityIntro: data.communityIntro
+        });
+        setChatHistory(prev => [...prev, { role: "ai", content: "모든 내용을 분석하여 사용자님을 위한 최적의 리포트를 작성했습니다!" }]);
+      }
     } catch (error) {
       console.error("AI Concierge Failure:", error);
       setErrorMsg(error.message || "AI 분석 중 오류가 발생했습니다.");
@@ -101,6 +117,11 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
   };
 
   const reset = () => {
+    setChatHistory([
+      { role: "ai", content: "안녕하세요! 지금 어떤 상황인가요? 어떤 작업을 위해 AI 도구가 필요하신가요? 제가 최적의 조합을 설계해 드릴게요." }
+    ]);
+    setStep(0);
+    setInitialPrompt("");
     setPrompt("");
     setResult(null);
     setIsLoading(false);
@@ -248,70 +269,83 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
             </div>
           ) : (
             <>
-              {/* AI 기본 메시지 */}
-              <div style={{ display: "flex", gap: isMobile ? "10px" : "14px", maxWidth: isMobile ? "100%" : "90%" }}>
-                <div style={{ width: isMobile ? "30px" : "36px", height: isMobile ? "30px" : "36px", borderRadius: "10px", background: "var(--bg-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: isMobile ? "0.9rem" : "1.1rem" }}>
-                  🤖
-                </div>
-                <div style={{ 
-                  background: "var(--bg-secondary)", 
-                  padding: isMobile ? "12px 14px" : "16px 20px", 
-                  borderRadius: isMobile ? "0 18px 18px 18px" : "0 24px 24px 24px", 
-                  fontSize: isMobile ? "0.85rem" : "0.95rem", 
-                  lineHeight: 1.6, 
-                  border: "1px solid var(--border-primary)" 
+              {/* 대화 내역 렌더링 */}
+              {chatHistory.map((chat, idx) => (
+                <div key={idx} style={{ 
+                  display: "flex", 
+                  flexDirection: "column",
+                  gap: "10px",
+                  alignItems: chat.role === "user" ? "flex-end" : "flex-start",
+                  animation: "fadeInUp 0.3s ease"
                 }}>
-                  반가워요! 실시간 트렌드를 반영한 최고의 AI 조합을 추천해 드릴게요. <br />
-                  질문을 입력해 보시거나, 저장된 질문을 확인해 보세요.
+                  <div style={{ display: "flex", gap: "10px", maxWidth: isMobile ? "95%" : "85%", flexDirection: chat.role === "user" ? "row-reverse" : "row" }}>
+                    <div style={{ 
+                      width: "30px", height: "30px", borderRadius: "8px", 
+                      background: chat.role === "user" ? "var(--bg-tertiary)" : "var(--accent-indigo)", 
+                      display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "0.8rem", color: "white" 
+                    }}>
+                      {chat.role === "user" ? "👤" : "✨"}
+                    </div>
+                    <div style={{ 
+                      background: chat.role === "user" ? "var(--accent-gradient)" : "var(--bg-secondary)", 
+                      color: chat.role === "user" ? "white" : "var(--text-primary)", 
+                      padding: isMobile ? "10px 14px" : "12px 18px", 
+                      borderRadius: chat.role === "user" ? "18px 18px 0 18px" : "0 18px 18px 18px", 
+                      fontSize: isMobile ? "0.85rem" : "0.92rem", 
+                      lineHeight: 1.5,
+                      border: chat.role === "user" ? "none" : "1px solid var(--border-primary)",
+                      boxShadow: chat.role === "user" ? "0 4px 12px rgba(99, 102, 241, 0.2)" : "none"
+                    }}>
+                      {chat.content}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
 
-              {/* 진행 중인 질문 또는 결과물 상단의 질문 */}
-              {(currentQuestion || result) && (
-                <div style={{ 
-                  alignSelf: "flex-end", 
-                  maxWidth: isMobile ? "92%" : "85%", 
-                  background: "var(--accent-gradient)", 
-                  color: "white", 
-                  padding: isMobile ? "12px 15px" : "14px 20px", 
-                  borderRadius: isMobile ? "18px 18px 0 18px" : "24px 24px 0 24px", 
-                  fontSize: isMobile ? "0.88rem" : "0.95rem", 
-                  boxShadow: "0 10px 20px rgba(99, 102, 241, 0.2)", 
-                  position: "relative", 
-                  animation: "fadeInUp 0.3s ease" 
-                }}>
-                  {currentQuestion || (result && result.prompt)}
-                  {result && (
-                    <button 
-                      onClick={() => toggleBookmark(currentQuestion, result)}
-                      style={{ position: "absolute", bottom: "-25px", right: "0", background: "none", border: "none", color: "var(--accent-indigo)", cursor: "pointer", fontSize: "0.72rem", fontWeight: 700 }}
-                    >
-                      📌 질문 대시보드 저장
-                    </button>
-                  )}
+              {/* 진행 상황 안내 */}
+              {!result && !isLoading && step > 1 && step <= 3 && (
+                <div style={{ textAlign: "center", padding: "10px", animation: "fadeInUp 0.3s ease" }}>
+                  <span style={{ fontSize: "0.75rem", background: "rgba(99,102,241,0.1)", color: "var(--accent-indigo)", padding: "4px 12px", borderRadius: "100px", fontWeight: 700 }}>
+                    단계 {step}/3: 상세 정보 수집 중...
+                  </span>
+                </div>
+              )}
+              {!result && !isLoading && step === 4 && (
+                <div style={{ textAlign: "center", padding: "10px", animation: "fadeInUp 0.3s ease" }}>
+                  <span style={{ fontSize: "0.75rem", background: "var(--accent-gradient)", color: "white", padding: "4px 12px", borderRadius: "100px", fontWeight: 700 }}>
+                    마지막 단계: 모든 정보를 분석하여 리포트를 생성합니다.
+                  </span>
                 </div>
               )}
 
-              {/* 결과물 출력 */}
+              {/* 결과물 출력 (마지막 요약 리포트) */}
               {result && (
-                <>
-                  <div style={{ display: "flex", gap: isMobile ? "10px" : "14px", maxWidth: "100%", marginTop: "10px" }}>
-                    <div style={{ width: isMobile ? "30px" : "36px", height: isMobile ? "30px" : "36px", borderRadius: "10px", background: "var(--bg-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: isMobile ? "0.9rem" : "1.1rem" }}>
+                <div style={{ marginTop: "10px", borderTop: "2px solid var(--accent-indigo)", paddingTop: "20px" }}>
+                  <div style={{ display: "flex", gap: isMobile ? "10px" : "14px", maxWidth: "100%" }}>
+                    <div style={{ width: isMobile ? "30px" : "36px", height: isMobile ? "30px" : "36px", borderRadius: "10px", background: "var(--accent-gradient)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: isMobile ? "0.9rem" : "1.1rem" }}>
                       🪄
                     </div>
                     <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: isMobile ? "12px" : "16px" }}>
-                      <div style={{ 
-                        background: "var(--bg-secondary)", 
-                        padding: isMobile ? "12px 14px" : "16px 20px", 
-                        borderRadius: isMobile ? "0 18px 18px 18px" : "0 24px 24px 24px", 
-                        fontSize: isMobile ? "0.85rem" : "0.95rem", 
-                        lineHeight: 1.6, 
-                        border: "1px solid var(--border-primary)" 
-                      }}>
-                        {result.message}
+                      <div style={{ position: "relative" }}>
+                        <div style={{ 
+                          background: "var(--bg-secondary)", 
+                          padding: isMobile ? "12px 14px" : "16px 20px", 
+                          borderRadius: isMobile ? "0 18px 18px 18px" : "0 24px 24px 24px", 
+                          fontSize: isMobile ? "0.85rem" : "0.95rem", 
+                          lineHeight: 1.6, 
+                          border: "1px solid var(--border-primary)" 
+                        }}>
+                          {result.message}
+                        </div>
+                        <button 
+                          onClick={() => toggleBookmark(result.prompt, result)}
+                          style={{ position: "absolute", bottom: "-25px", right: "0", background: "none", border: "none", color: "var(--accent-indigo)", cursor: "pointer", fontSize: "0.72rem", fontWeight: 700 }}
+                        >
+                          📌 이 결과 리포트 대시보드 저장
+                        </button>
                       </div>
 
-                      {/* [A+B 조합 팁] - 테두리 겹침 수정 */}
+                      {/* [A+B 조합 팁] */}
                       {result.combinationTip && (
                         <div style={{
                           background: "linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%)",
@@ -324,7 +358,7 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
                         }}>
                           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
                             <Sparkle size={isMobile ? 16 : 20} color="var(--accent-indigo)" weight="fill" />
-                            <span style={{ fontWeight: 800, fontSize: isMobile ? "0.88rem" : "0.95rem", color: "var(--accent-indigo)" }}>베스트 시너지 조합 (A+B)</span>
+                            <span style={{ fontWeight: 800, fontSize: isMobile ? "0.88rem" : "0.95rem", color: "var(--accent-indigo)" }}>파이널 베스트 시너지 조합 (A+B)</span>
                           </div>
                           <p style={{ margin: 0, fontSize: isMobile ? "0.85rem" : "0.93rem", lineHeight: 1.6, color: "var(--text-primary)" }}>
                              {result.combinationTip}
@@ -332,15 +366,24 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
                         </div>
                       )}
 
-                      {/* 추천 도구 리스트 - 순위 표시 추가 */}
+                      {/* 추천 도구 리스트 */}
                       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                         {result.recommendations.map((tool, i) => {
-                          const faviconUrl = tool.url 
-                            ? `https://www.google.com/s2/favicons?domain=${new URL(tool.url).hostname}&sz=128`
-                            : null;
+                          let hostname = "";
+                          try {
+                            if (tool.url) {
+                              // 프로토콜이 없는 경우 대비
+                              const urlStr = tool.url.startsWith("http") ? tool.url : `https://${tool.url}`;
+                              hostname = new URL(urlStr).hostname;
+                            }
+                          } catch (e) {
+                            console.warn("Invalid URL for favicon:", tool.url);
+                          }
                           
-                          // 도구 리스트에서의 순위 찾기
-                          const rankNum = tools.findIndex(t => t.id === tool.id) + 1;
+                          const faviconUrl = hostname 
+                            ? `https://www.google.com/s2/favicons?domain=${hostname}&sz=128`
+                            : null;
+                          const rankNum = tools ? tools.findIndex(t => t.id === tool.id) + 1 : 0;
 
                           return (
                             <div key={tool.id} style={{
@@ -348,22 +391,16 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
                               border: "1px solid var(--border-primary)",
                               padding: isMobile ? "15px" : "20px",
                               borderRadius: isMobile ? "20px" : "26px",
-                              display: "flex",
-                              flexDirection: "column",
-                              gap: isMobile ? "10px" : "14px",
+                              display: "flex", flexDirection: "column", gap: isMobile ? "10px" : "14px",
                               animation: "fadeInUp 0.4s ease forwards",
-                              animationDelay: `${i * 0.1}s`,
-                              opacity: 0,
+                              animationDelay: `${i * 0.1}s`, opacity: 0,
                               boxShadow: "0 10px 20px rgba(0,0,0,0.04)"
                             }}>
                               <div style={{ display: "flex", gap: isMobile ? "12px" : "18px", alignItems: "flex-start" }}>
                                 <div style={{ 
-                                  width: isMobile ? "45px" : "60px", 
-                                  height: isMobile ? "45px" : "60px", 
-                                  borderRadius: isMobile ? "12px" : "18px", 
+                                  width: isMobile ? "45px" : "60px", height: isMobile ? "45px" : "60px", borderRadius: isMobile ? "12px" : "18px", 
                                   background: "white", display: "flex", alignItems: "center", justifyContent: "center", 
-                                  flexShrink: 0, border: "1px solid var(--border-primary)", overflow: "hidden",
-                                  padding: isMobile ? "4px" : "6px"
+                                  flexShrink: 0, border: "1px solid var(--border-primary)", overflow: "hidden", padding: isMobile ? "4px" : "6px"
                                 }}>
                                   {faviconUrl ? (
                                     <img src={faviconUrl} alt={tool.name} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
@@ -377,27 +414,24 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
                                       <h4 style={{ margin: 0, fontSize: isMobile ? "1rem" : "1.15rem", fontWeight: 800 }}>{tool.name}</h4>
                                       {rankNum > 0 && (
                                         <span style={{ 
-                                          fontSize: isMobile ? "0.6rem" : "0.65rem", fontWeight: 700, background: "rgba(99,102,241,0.1)", 
-                                          color: "var(--accent-indigo)", padding: "1px 6px", borderRadius: "100px",
-                                          border: "1px solid rgba(99,102,241,0.2)"
+                                          fontSize: "0.6rem", fontWeight: 700, background: "rgba(99,102,241,0.1)", 
+                                          color: "var(--accent-indigo)", padding: "1px 6px", borderRadius: "100px", border: "1px solid rgba(99,102,241,0.2)"
                                         }}>
                                           #{rankNum}
                                         </span>
                                       )}
                                     </div>
-                                    <span style={{ fontSize: isMobile ? "0.6rem" : "0.7rem", background: "var(--bg-tertiary)", padding: "2px 8px", borderRadius: "8px", fontStyle: "italic", fontWeight: 600 }}>
-                                      {tool.cat}
-                                    </span>
+                                    <span style={{ fontSize: "0.6rem", background: "var(--bg-tertiary)", padding: "2px 8px", borderRadius: "8px", fontWeight: 600 }}>{tool.cat}</span>
                                   </div>
                                   {!isMobile && <p style={{ margin: 0, fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{tool.desc}</p>}
                                 </div>
                               </div>
-                              <div style={{ margin: "2px 0", padding: isMobile ? "10px 14px" : "14px 18px", background: "var(--bg-secondary)", borderRadius: isMobile ? "12px" : "16px", fontSize: isMobile ? "0.8rem" : "0.85rem", borderLeft: isMobile ? "3px solid var(--accent-indigo)" : "5px solid var(--accent-indigo)", color: "var(--text-primary)", lineHeight: 1.6 }}>
-                                <strong>🎯 추천 사유:</strong> {tool.reason}
+                              <div style={{ padding: "12px 16px", background: "var(--bg-secondary)", borderRadius: "14px", fontSize: "0.85rem", borderLeft: "4px solid var(--accent-indigo)", color: "var(--text-primary)", lineHeight: 1.6 }}>
+                                <strong>🎯 맞춤 처방:</strong> {tool.reason}
                               </div>
                               <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                                <a href={`/community?category=${encodeURIComponent(tool.cat || "자유")}`} style={{ textDecoration: "none", fontSize: isMobile ? "0.7rem" : "0.75rem", background: "var(--accent-gradient)", color: "white", padding: isMobile ? "6px 12px" : "10px 20px", borderRadius: "10px", fontWeight: 700, display: "flex", alignItems: "center", gap: isMobile ? "4px" : "8px" }}>
-                                  <ChatCircleText size={isMobile ? 16 : 18} weight="fill" /> 커뮤니티로 이동
+                                <a href={`/community?category=${encodeURIComponent(tool.cat || "자유")}`} style={{ textDecoration: "none", fontSize: "0.72rem", background: "var(--accent-gradient)", color: "white", padding: "8px 16px", borderRadius: "10px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px" }}>
+                                  <ChatCircleText size={16} weight="fill" /> 커뮤니티 토론 참여
                                 </a>
                               </div>
                             </div>
@@ -407,25 +441,61 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
 
                       <div style={{ textAlign: "center", padding: "10px", color: "var(--text-muted)", fontSize: "0.85rem", borderTop: "1px solid var(--border-primary)", marginTop: "10px" }}>
                         {result.communityIntro}
+                        <div style={{ marginTop: "15px" }}>
+                           <button 
+                             onClick={reset} 
+                             style={{ 
+                               background: "var(--accent-gradient)", 
+                               color: "white", 
+                               padding: "8px 18px", 
+                               borderRadius: "100px", 
+                               border: "none", 
+                               fontSize: "0.8rem", 
+                               fontWeight: 700, 
+                               cursor: "pointer",
+                               boxShadow: "0 4px 12px rgba(99, 102, 241, 0.2)"
+                             }}
+                           >
+                             🔄 새 질문 시작하기
+                           </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </>
+                </div>
               )}
             </>
           )}
 
+          {errorMsg && (
+            <div style={{ 
+              background: "rgba(239, 68, 68, 0.05)", 
+              border: "1px solid rgba(239, 68, 68, 0.2)", 
+              padding: "16px", 
+              borderRadius: "14px",
+              color: "#ef4444",
+              fontSize: "0.85rem",
+              textAlign: "center",
+              margin: "10px 0",
+              animation: "fadeInUp 0.3s ease"
+            }}>
+              ⚠️ {errorMsg}
+              <div style={{ marginTop: "10px" }}>
+                <button onClick={reset} style={{ background: "var(--accent-gradient)", color: "white", padding: "6px 12px", border: "none", borderRadius: "8px", fontSize: "0.75rem", fontWeight: 700, cursor: "pointer" }}>새로 시작하기</button>
+              </div>
+            </div>
+          )}
+
           {isLoading && (
             <div style={{ display: "flex", gap: isMobile ? "10px" : "14px", animation: "fadeInUp 0.3s ease" }}>
-              <div style={{ width: isMobile ? "30px" : "36px", height: isMobile ? "30px" : "36px", borderRadius: "10px", background: "var(--bg-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: isMobile ? "0.9rem" : "1.1rem" }}>
-                🤖
+              <div style={{ width: isMobile ? "30px" : "36px", height: isMobile ? "30px" : "36px", borderRadius: "10px", background: "var(--bg-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "1.1rem" }}>
+                👾
               </div>
               <div style={{ 
                 background: "var(--bg-secondary)", 
-                padding: isMobile ? "12px 18px" : "18px 24px", 
-                borderRadius: isMobile ? "0 18px 18px 18px" : "0 24px 24px 24px", 
+                padding: "16px 20px", 
+                borderRadius: "0 24px 24px 24px", 
                 border: "1px solid var(--border-primary)", 
-                boxShadow: "0 4px 15px rgba(0,0,0,0.05)",
                 flex: 1
               }}>
                 <div style={{ display: "flex", gap: "4px", marginBottom: "8px" }}>
@@ -433,8 +503,8 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
                   <span className="thinking-dot"></span>
                   <span className="thinking-dot"></span>
                 </div>
-                <p style={{ margin: 0, fontSize: isMobile ? "0.78rem" : "0.85rem", color: "var(--text-muted)", fontWeight: 500, lineHeight: 1.4 }}>
-                  {isMobile ? "사용자님의 맞춤 도구를 구글링 중..." : "사용자님의 상황에 딱 맞는 최강의 도구 조합을 구글링하여 분석 중입니다..."}
+                <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>
+                  사용자님의 답변을 분석하여 최적의 추천 경로를 판단하고 있습니다...
                 </p>
               </div>
             </div>
