@@ -12,7 +12,7 @@ import { useNews } from "../context/NewsContext";
 import { useTools } from "../context/ToolContext";
 import ThemeToggle from "../components/ui/ThemeToggle";
 import Icon from "../components/ui/Icon";
-import { BOARDS } from "./CommunityDashboard";
+import { useCommunity } from "../context/CommunityContext";
 import { ArrowLeft, ArrowRight } from "../components/icons/PhosphorIcons";
 
 // ── 섹션 메뉴 정의 ──────────────────────────────────────────
@@ -581,6 +581,7 @@ const CommunitySection = ({ user, isMobile }) => {
   const [myPosts, setMyPosts] = useState(null);
   const [myComments, setMyComments] = useState(null);
   const navigate = useNavigate();
+  const { boards } = useCommunity();
 
   const loadPosts = useCallback(() => {
     if (myPosts !== null) return;
@@ -631,7 +632,7 @@ const CommunitySection = ({ user, isMobile }) => {
           {myPosts.map((p) => (
             <div
               key={p.id}
-              onClick={() => navigate(`/community/${p.id}`)}
+              onClick={() => navigate(`/community/${p.board}/${p.id}`)}
               style={{
                 background: "var(--bg-card)", border: "1px solid var(--border-primary)",
                 borderRadius: "var(--r-md)", padding: isMobile ? "12px 14px" : "14px 16px", cursor: "pointer",
@@ -643,7 +644,7 @@ const CommunitySection = ({ user, isMobile }) => {
               <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px", flexWrap: "wrap" }}>
                 <span style={{ fontWeight: 700, fontSize: isMobile ? "0.88rem" : "0.92rem", color: "var(--text-primary)" }}>{p.title || "(제목 없음)"}</span>
                 {p.board && (() => {
-                  const board = BOARDS.find(b => b.id === p.board);
+                  const board = boards.find(b => b.id === p.board);
                   return board ? (
                     <span style={{
                       fontSize: "0.68rem", fontWeight: 700, flexShrink: 0,

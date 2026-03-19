@@ -7,10 +7,10 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { formatRelativeTime } from "../utils";
-import { BOARDS } from "./CommunityDashboard";
+import { useCommunity } from "../context/CommunityContext";
 import { ArrowLeft, ArrowRight, ArrowUUpLeft } from "../components/icons/PhosphorIcons";
 
-const BOARD_MAP = Object.fromEntries(BOARDS.map((b) => [b.id, b.name]));
+// BOARD_MAP은 이제 컴포넌트 내부에서 컨텍스트 데이터를 기반으로 생성합니다.
 
 /* ── 스타일 ── */
 const Wrapper = styled.div`max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem; @media(max-width:600px){padding:1rem 0.5rem;}`;
@@ -80,6 +80,8 @@ const NotFoundMsg = styled.div`text-align: center; padding: 6rem 1rem; color: va
 export default function UserProfile() {
   const { uid } = useParams();
   const navigate = useNavigate();
+  const { boards } = useCommunity();
+  const boardMap = boards.reduce((acc, b) => { acc[b.id] = b.name; return acc; }, {});
 
   const [profileUser, setProfileUser] = useState(null);
   const [notFound, setNotFound] = useState(false);
@@ -219,7 +221,7 @@ export default function UserProfile() {
             {posts.map((post) => (
               <PostCard key={post.id} onClick={() => navigate(`/community/${post.board}/${post.id}`)}>
                 <PostMeta>
-                  <BoardBadge>{BOARD_MAP[post.board] || post.board}</BoardBadge>
+                  <BoardBadge>{boardMap[post.board] || post.board}</BoardBadge>
                   {post.category && post.category !== "all" && (
                     <span>{post.category}</span>
                   )}
@@ -246,7 +248,7 @@ export default function UserProfile() {
             {comments.map((c) => (
               <CommentCard key={c.id}>
                 <PostMeta>
-                  {c.board && <BoardBadge>{BOARD_MAP[c.board] || c.board}</BoardBadge>}
+                  {c.board && <BoardBadge>{boardMap[c.board] || c.board}</BoardBadge>}
                   {c.parentId && <span style={{ color: "var(--accent-indigo)", fontSize: "0.7rem", display: "flex", alignItems: "center", gap: "2px" }}><ArrowUUpLeft size={12} /> 답글</span>}
                   <span>{formatRelativeTime(c.createdAt)}</span>
                   {c.postTitle && c.board && (

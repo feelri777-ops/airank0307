@@ -3,27 +3,11 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { collection, query, where, getDocs, orderBy, limit } from "firebase/firestore";
 import { db } from "../firebase";
+import { useCommunity } from "../context/CommunityContext";
 import { formatRelativeTime } from "../utils";
 
-export const BOARDS = [
-  { id: "chatgpt",    name: "ChatGPT",    logo: "https://www.google.com/s2/favicons?domain=chatgpt.com&sz=64",        color: "#10a37f", desc: "ChatGPT 사용팁, 질문, 경험을 공유해요" },
-  { id: "gemini",     name: "Gemini",     logo: "https://www.google.com/s2/favicons?domain=gemini.google.com&sz=64",  color: "#4285F4", desc: "Google Gemini 활용법과 토론" },
-  { id: "claude",     name: "Claude",     logo: "https://www.google.com/s2/favicons?domain=claude.ai&sz=64",          color: "#CC785C", desc: "Anthropic Claude 활용 경험 공유" },
-  { id: "grok",       name: "Grok",       logo: "https://www.google.com/s2/favicons?domain=x.ai&sz=64",               color: "#1DA1F2", desc: "xAI Grok 사용 경험과 팁 공유" },
-  { id: "notebooklm", name: "NotebookLM", logo: "https://www.google.com/s2/favicons?domain=notebooklm.google&sz=64", color: "#34A853", desc: "Google NotebookLM 활용법과 연구 팁" },
-  { id: "opensource", name: "AI 언더독",  logo: "https://www.google.com/s2/favicons?domain=huggingface.co&sz=64",     color: "#8B5CF6", desc: "아직 덜 알려졌지만 주목할 만한 AI 툴 발굴·공유" },
-  { id: "copilot",    name: "Copilot",    logo: "https://www.google.com/s2/favicons?domain=copilot.microsoft.com&sz=64", color: "#0078D4", desc: "Microsoft Copilot 활용 경험과 팁 공유" },
-  { id: "perplexity", name: "Perplexity", logo: "https://www.google.com/s2/favicons?domain=perplexity.ai&sz=64",         color: "#20B8CD", desc: "Perplexity AI 검색 활용법과 경험 공유" },
-  { id: "midjourney", name: "Midjourney", logo: "https://www.google.com/s2/favicons?domain=midjourney.com&sz=64",         color: "#000000", desc: "Midjourney 이미지 생성 팁과 프롬프트 공유" },
-  { id: "cursor",     name: "Cursor",     logo: "https://www.google.com/s2/favicons?domain=cursor.com&sz=64",             color: "#6366F1", desc: "Cursor AI 코딩 경험과 활용법 공유" },
-  { id: "stablediffusion", name: "Stable Diffusion", logo: "https://www.google.com/s2/favicons?domain=stability.ai&sz=64",    color: "#FF6B2B", desc: "Stable Diffusion 이미지 생성 팁과 모델 공유" },
-  { id: "runway",     name: "Runway",     logo: "https://www.google.com/s2/favicons?domain=runwayml.com&sz=64",           color: "#5B5BD6", desc: "Runway 영상 생성 활용법과 크리에이티브 공유" },
-  { id: "suno",       name: "Suno",       logo: "https://www.google.com/s2/favicons?domain=suno.com&sz=64",               color: "#FF4D4D", desc: "Suno AI 음악 생성 경험과 팁 공유" },
-  { id: "windsurf",   name: "Windsurf",   logo: "https://www.google.com/s2/favicons?domain=codeium.com&sz=64",            color: "#09B6A2", desc: "Windsurf AI 코딩 경험과 활용법 공유" },
-  { id: "notion",     name: "Notion AI",  logo: "https://www.google.com/s2/favicons?domain=notion.so&sz=64",              color: "#000000", desc: "Notion AI 활용법과 워크플로우 공유" },
-  { id: "sora",       name: "Sora",       logo: "https://www.google.com/s2/favicons?domain=sora.com&sz=64",               color: "#412991", desc: "OpenAI Sora 영상 생성 경험 공유" },
-  { id: "free",       name: "자유게시판", logo: "https://www.google.com/s2/favicons?domain=airank.kr&sz=64",               color: "#F59E0B", desc: "AI 전반에 관한 자유로운 이야기" },
-];
+// 기존 고정값 대신 빈 배열로 초기화 (하위 호환성 유지)
+export let BOARDS = [];
 
 const PageWrapper = styled.div`
   max-width: 960px; margin: 0 auto; padding: 2rem 0.5rem;
@@ -158,28 +142,38 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
 const STORAGE_KEY = "communityBoardOrder";
 const FAVORITES_KEY = "communityBoardFavorites";
 
-function getOrderedBoards() {
+function getOrderedBoards(initialBoards) {
+  if (!initialBoards?.length) return [];
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return initialBoards;
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) return BOARDS;
-    const ids = JSON.parse(saved);
-    const map = Object.fromEntries(BOARDS.map((b) => [b.id, b]));
-    const ordered = ids.map((id) => map[id]).filter(Boolean);
-    // 새로 추가된 게시판은 뒤에 붙임
-    BOARDS.forEach((b) => { if (!ids.includes(b.id)) ordered.push(b); });
-    return ordered;
-  } catch {
-    return BOARDS;
-  }
+    const order = JSON.parse(saved);
+    const map = new Map(initialBoards.map(b => [b.id, b]));
+    const result = order.map(id => map.get(id)).filter(Boolean);
+    const remaining = initialBoards.filter(b => !order.includes(b.id));
+    return [...result, ...remaining];
+  } catch(e) { return initialBoards; }
 }
 
 export default function CommunityDashboard() {
-  const [boards, setBoards] = useState(getOrderedBoards);
+  const navigate = useNavigate();
+  const { boards: firestoreBoards, loading: firestoreLoading } = useCommunity();
+  const [boards, setBoards] = useState([]);
   const [favorites, setFavorites] = useState(() => {
-    try { return new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]")); }
-    catch { return new Set(); }
+    try {
+      const saved = localStorage.getItem(FAVORITES_KEY);
+      return saved ? JSON.parse(saved) : [];
+    } catch(e) { return []; }
   });
 
+  useEffect(() => {
+    if (!firestoreLoading) {
+      setBoards(getOrderedBoards(firestoreBoards));
+      BOARDS = firestoreBoards; // 전역 변수 업데이트 (다른 컴포넌트용 브릿지)
+    }
+  }, [firestoreBoards, firestoreLoading]);
+
+  const favoritesSet = new Set(favorites);
   const dragId = useRef(null);
   const [dragOverId, setDragOverId] = useState(null);
   const [dropPosition, setDropPosition] = useState(null);
@@ -187,12 +181,12 @@ export default function CommunityDashboard() {
   const toggleFavorite = (e, boardId) => {
     e.stopPropagation();
     setFavorites(prev => {
-      const isFav = prev.has(boardId);
-      const next = new Set(prev);
+      const isFav = prev.includes(boardId);
+      let next;
       if (isFav) {
-        next.delete(boardId);
+        next = prev.filter(id => id !== boardId);
       } else {
-        next.add(boardId);
+        next = [boardId, ...prev]; // 즐겨찾기 추가 시 맨 앞으로
         setBoards(prevBoards => {
           const idx = prevBoards.findIndex(b => b.id === boardId);
           if (idx <= 0) return prevBoards;
@@ -203,7 +197,7 @@ export default function CommunityDashboard() {
           return updated;
         });
       }
-      localStorage.setItem(FAVORITES_KEY, JSON.stringify([...next]));
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(next));
       return next;
     });
   };
@@ -254,8 +248,19 @@ export default function CommunityDashboard() {
 
   const resetOrder = () => {
     localStorage.removeItem(STORAGE_KEY);
-    setBoards(BOARDS);
+    setBoards(firestoreBoards); // Reset to the original order from Firestore
   };
+
+  if (firestoreLoading) {
+    return (
+      <PageWrapper>
+        <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-muted)" }}>
+          <div className="spinner" style={{ marginBottom: "1rem" }}>⏳</div>
+          커뮤니티를 불러오는 중입니다...
+        </div>
+      </PageWrapper>
+    );
+  }
 
   return (
     <PageWrapper>
@@ -328,7 +333,7 @@ export default function CommunityDashboard() {
               </div>
               <BoardCard
                 board={board}
-                isFavorited={favorites.has(board.id)}
+                isFavorited={favoritesSet.has(board.id)}
                 onToggleFavorite={toggleFavorite}
               />
             </div>

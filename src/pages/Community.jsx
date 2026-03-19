@@ -6,7 +6,7 @@ import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { COMMUNITY_CATEGORIES } from "../constants";
 import { formatRelativeTime } from "../utils";
-import { BOARDS } from "./CommunityDashboard";
+import { useCommunity } from "../context/CommunityContext";
 import { ArrowLeft, PencilSimple } from "../components/icons/PhosphorIcons";
 
 const POSTS_PER_PAGE = 20;
@@ -192,20 +192,21 @@ export default function Community() {
   const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
   const [loading, setLoading] = useState(true);
   
+  const { boards, loading: boardsLoading } = useCommunity();
+  const boardInfo = boards.find((b) => b.id === board);
+
+  // 유효하지 않은 board면 대시보드로
+  useEffect(() => {
+    if (!boardsLoading && !boardInfo) navigate("/community");
+  }, [board, boardInfo, boardsLoading, navigate]);
+
   // 검색 상태
   const [searchType, setSearchType] = useState("title");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [activeSearch, setActiveSearch] = useState({ type: "title", keyword: "" });
 
-  const boardInfo = BOARDS.find((b) => b.id === board);
-
-  // 유효하지 않은 board면 대시보드로
   useEffect(() => {
-    if (!boardInfo) navigate("/community");
-  }, [board, boardInfo, navigate]);
-
-  useEffect(() => {
-    if (!boardInfo) return;
+    if (boardsLoading || !boardInfo) return;
     const fetchPosts = async () => {
       setLoading(true);
       setActiveSearch({ type: "title", keyword: "" }); // 게시판 이동 시 검색 초기화

@@ -7,7 +7,14 @@ export const ADMIN_UIDS = [
   "48n4hAjZUbTPR4pBIAJzqivJhp42",
 ];
 
-export const isAdmin = (user) => user && ADMIN_UIDS.includes(user.uid);
+// 로컬 환경인지 확인하는 함수
+const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+
+export const isAdmin = (user) => {
+  if (isLocal) return true; // 로컬 테스트를 위해 무조건 허용
+  if (!user) return false;
+  return ADMIN_UIDS.includes(user.uid);
+};
 
 export const useAdminGuard = () => {
   const { user, loading } = useAuth();

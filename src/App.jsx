@@ -4,6 +4,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 import { NewsProvider } from "./context/NewsContext";
 import { ToolProvider } from "./context/ToolProvider";
 import { GalleryLightboxProvider } from "./context/GalleryLightboxContext";
+import { CommunityProvider } from "./context/CommunityContext";
 import { useTools } from "./context/ToolContext";
 import GlobalStyles from "./styles/GlobalStyles";
 
@@ -59,6 +60,7 @@ export default function App() {
   return (
     <AuthProvider>
       <GalleryLightboxProvider>
+      <CommunityProvider>
       <ThemeProvider>
         <GlobalStyles />
         <NewsProvider>
@@ -93,6 +95,7 @@ export default function App() {
           </ToolProvider>
         </NewsProvider>
       </ThemeProvider>
+      </CommunityProvider>
       </GalleryLightboxProvider>
     </AuthProvider>
   );

@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
-  collection, addDoc, doc, getDoc, updateDoc, serverTimestamp,
+  collection, addDoc, doc, getDoc, updateDoc, serverTimestamp, query, orderBy, getDocs
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { COMMUNITY_CATEGORIES } from "../constants";
 import { isAdmin } from "../hooks/useAdminGuard";
-import { BOARDS } from "./CommunityDashboard";
+import { useCommunity } from "../context/CommunityContext";
+// BOARDS는 Firestore에서 동적으로 불러옵니다.
 import RichEditor from "../components/editor/RichEditor";
 
 const PageWrapper = styled.div`max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem;`;
@@ -55,14 +56,14 @@ export default function CommunityWrite() {
   const { user, userData } = useAuth();
   const isEdit = Boolean(postId);
 
-  const boardInfo = BOARDS.find((b) => b.id === board);
-
   const [category, setCategory] = useState("free");
   const [targetBoard, setTargetBoard] = useState(board); // 공지 게시판 선택용
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const { boards, loading: boardsLoading } = useCommunity();
 
+  const boardInfo = boards.find((b) => b.id === (isEdit ? targetBoard : board));
   const isNoticeAdmin = isAdmin(user) && category === "notice";
 
   // 카테고리가 공지 아닐 때 targetBoard 초기화
@@ -72,8 +73,7 @@ export default function CommunityWrite() {
 
   useEffect(() => {
     if (!user) navigate(`/community/${board}`);
-    if (!boardInfo) navigate("/community");
-  }, [user, board, boardInfo, navigate]);
+  }, [user, board, navigate]);
 
   useEffect(() => {
     if (!isEdit) return;
@@ -139,7 +139,7 @@ export default function CommunityWrite() {
 
   return (
     <PageWrapper>
-      <PageTitle>{isEdit ? "✏️ 게시글 수정" : `✏️ ${boardInfo.name} 글쓰기`}</PageTitle>
+      <PageTitle>{isEdit ? "✏️ 게시글 수정" : `✏️ ${boardInfo?.name || ""} 글쓰기`}</PageTitle>
 
       <FormGroup>
         <Label>카테고리</Label>
@@ -161,7 +161,7 @@ export default function CommunityWrite() {
               style={{ width: "auto" }}
             >
               <option value="all">📢 모든 게시판</option>
-              {BOARDS.map((b) => (
+              {boards.map((b) => (
                 <option key={b.id} value={b.id}>{b.name}</option>
               ))}
             </Select>

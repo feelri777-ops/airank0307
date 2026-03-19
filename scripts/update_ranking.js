@@ -1,10 +1,44 @@
 import fs from 'fs';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import admin from 'firebase-admin';
 
-// 0. 환경변수 수동 로드 (dotenv 설치 불가 대비)
+// --- 0. Firebase 초기화 및 환경변수 로드 ---
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+function initializeFirebase() {
+  if (admin.apps.length > 0) return admin.app();
+
+  // 1순위: 환경변수 (GitHub Secrets용 JSON 문자열)
+  if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+    try {
+      const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+      return admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount)
+      });
+    } catch (e) {
+      console.error("FIREBASE_SERVICE_ACCOUNT 환경변수 파싱 실패:", e.message);
+    }
+  }
+
+  // 2순위: 로컬 파일 (serviceAccountKey.json)
+  const serviceAccountPath = path.resolve(process.cwd(), 'serviceAccountKey.json');
+  if (fs.existsSync(serviceAccountPath)) {
+    const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
+    return admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount)
+    });
+  }
+
+  console.warn("⚠️ Firebase 인증 정보를 찾을 수 없습니다. (Firestore 모드 비활성, CSV 모드로 대체 시도)");
+  return null;
+}
+
+const app = initializeFirebase();
+const db = app ? admin.firestore() : null;
+
+// .env 수동 로드
 const envPath = path.join(__dirname, '..', '.env');
 if (fs.existsSync(envPath)) {
   const envContent = fs.readFileSync(envPath, 'utf8');
@@ -503,51 +537,61 @@ async function getXpozScoresBatch(keywords, oprScores, todayStr) {
   return results;
 }
 
-// 4. 메인 실행 로직
+// 4. 메인 실행 로직 (CSV 대신 Firebase에서 툴 목록을 가져옵니다)
 async function updateRanking() {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
   const csvPath = path.join(__dirname, '..', 'data', 'airank2602.csv');
+  const toolsList = [];
   
-  if (!fs.existsSync(csvPath)) {
-    console.error(`CSV 파일을 찾을 수 없습니다: ${csvPath}`);
-    return;
+  if (db) {
+    console.log('📡 Firebase Firestore에서 도구 목록을 불러오는 중...');
+    try {
+      const snapshot = await db.collection('tools').get();
+      snapshot.docs.forEach(doc => {
+        const data = doc.data();
+        if (data.id) {
+          toolsList.push({
+            id: String(data.id),
+            name: data.name || "Unknown",
+            domain: (data.url || "").replace(/^https?:\/\//, '').split('/')[0],
+            rank: parseInt(data.pinnedRank || 999), 
+            originalScore: parseInt(data.manualScore || 0),
+            isOpenSource: data.isOpenSource || 'N',
+            hidden: !!data.hidden // 유저 요청: 숨김 포함
+          });
+        }
+      });
+      console.log(`✅ Firebase에서 ${toolsList.length}개의 툴을 로드했습니다.`);
+    } catch (err) {
+      console.error("❌ Firebase 로드 실패, CSV 모드로 전환합니다:", err.message);
+    }
   }
 
-  const rawCsv = fs.readFileSync(csvPath, 'utf8');
-  const lines = rawCsv.split('\n').filter(line => line.trim() !== '');
-  const toolsList = [];
-  const seenIds = new Set();
-
-  for (let i = 1; i < lines.length; i++) {
-    const cols = lines[i].split('\t');
-    if (cols.length < 5) continue;
-    const id = cols[0].trim();
-    if (seenIds.has(id)) continue;
-    seenIds.add(id);
-
-    toolsList.push({
-      id: id,
-      name: cols[1].trim(),
-      domain: cols[2].trim(),
-      rank: parseInt(cols[3].trim(), 10),
-      originalScore: parseInt(cols[4].trim(), 10),
-      isOpenSource: 'N'
-    });
+  if (!toolsList.length) {
+    console.error("❌ Firebase에서 도구를 불러오지 못했습니다. 작업을 중단합니다.");
+    return;
   }
 
   console.log(`총 ${toolsList.length}개의 항목을 읽었습니다.`);
   
   const validDomains = toolsList.map(t => t.domain).filter(d => d);
+  console.log(`📡 수집 대상 도메인: ${validDomains.length}개 발견`);
+  
   let oprData = {};
   const chunkSize = 50;
-  console.log("OPR(도메인) 점수 수집 중...");
-  for (let i = 0; i < validDomains.length; i += chunkSize) {
-    const chunk = validDomains.slice(i, i + chunkSize);
-    const chunkResult = await getOprScore(chunk);
-    oprData = { ...oprData, ...chunkResult };
-    console.log(`  - OPR 수집 진행률: ${Math.min(i + chunkSize, validDomains.length)} / ${validDomains.length}`);
-    await new Promise(resolve => setTimeout(resolve, 1000));
+  
+  if (validDomains.length > 0) {
+    console.log("OPR(도메인) 점수 수집 중...");
+    for (let i = 0; i < validDomains.length; i += chunkSize) {
+      const chunk = validDomains.slice(i, i + chunkSize);
+      const chunkResult = await getOprScore(chunk);
+      oprData = { ...oprData, ...chunkResult };
+      console.log(`  - OPR 수집 진행률: ${Math.min(i + chunkSize, validDomains.length)} / ${validDomains.length}`);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  } else {
+    console.warn("⚠️ 유효한 도메인이 없어 OPR 수집을 건너뜁니다.");
   }
 
   const now = new Date();
@@ -681,7 +725,7 @@ async function updateRanking() {
     }
   }
 
-  const result = { updated: new Date().toISOString(), source: "airank2602.csv + update_ranking.js", tools: toolsOutput };
+  const result = { updated: new Date().toISOString(), source: "Firebase Firestore + update_ranking.js", tools: toolsOutput };
   fs.writeFileSync(path.join(historyDir, `scores-${todayStr}.json`), JSON.stringify(result, null, 2), 'utf8');
   fs.writeFileSync(mainScoresPath, JSON.stringify(result, null, 2), 'utf8');
 
@@ -697,7 +741,7 @@ async function updateRanking() {
 
   try {
     fs.writeFileSync(csvReportPath, csvReport, 'utf8');
-    console.log(`✅ [Excel 생성] ${csvReportPath} 완료!`);
+    console.log(`✅ [Excel 리포트 생성] ${csvReportPath} 완료!`);
   } catch (err) {
     if (err.code === 'EBUSY') {
       const fallback = path.join(__dirname, '..', `ai_rank_full_report_${Date.now()}.csv`);
@@ -705,14 +749,9 @@ async function updateRanking() {
       console.log(`⚠️ 원본 사용 중. 파일 저장: ${fallback}`);
     }
   }
-
-  const updatedOriginalCsv = ['ID\tService Name\tAnalysis Domain\tRank\tScore\tOpenSource']
-    .concat(sortedList.sort((a,b) => a.id - b.id).map((t, idx) => {
-      const currentRank = sortedList.findIndex(x => x.id === t.id) + 1;
-      return `${t.id}\t${t.name}\t${t.domain}\t${currentRank}\t${t.score}\t${t.isOpenSource}`;
-    }));
-  fs.writeFileSync(csvPath, updatedOriginalCsv.join('\n'), 'utf8');
-  console.log(`✅ [원본 데이터 연동] data/airank2602.csv 오픈소스 속성 갱신 완료!`);
 }
 
-updateRanking();
+updateRanking().catch(err => {
+  console.error("❌ 치명적 오류 발생:", err);
+  process.exit(1);
+});

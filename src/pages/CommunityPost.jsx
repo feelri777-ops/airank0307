@@ -9,7 +9,7 @@ import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { COMMUNITY_CATEGORIES } from "../constants";
 import { formatRelativeTime } from "../utils";
-import { BOARDS } from "./CommunityDashboard";
+import { useCommunity } from "../context/CommunityContext";
 import { isAdmin } from "../hooks/useAdminGuard";
 import { 
   PencilSimple, TrashSimple, 
@@ -194,7 +194,8 @@ export default function CommunityPost() {
   const navigate = useNavigate();
   const { user, userData } = useAuth();
 
-  const boardInfo = BOARDS.find((b) => b.id === board);
+  const { boards } = useCommunity();
+  const boardInfo = boards.find((b) => b.id === board);
 
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);

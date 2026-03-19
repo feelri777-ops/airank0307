@@ -3,6 +3,34 @@ import { collection, query, orderBy, getDocs, doc, setDoc, deleteDoc } from "fir
 import { db } from "../../firebase";
 import { formatRelativeTime } from "../../utils";
 
+import { 
+  Users, 
+  UserPlus, 
+  UserMinus, 
+  MagnifyingGlass, 
+  ArrowClockwise, 
+  TrashSimple,
+  Circle
+} from "../../components/icons/PhosphorIcons";
+
+// 통계 섹션 컴포넌트 (디자인 통일)
+function StatsCard({ label, count, color, Icon }) {
+  return (
+    <div style={{
+      padding: "1.5rem", background: "var(--bg-card)",
+      border: "1px solid var(--border-primary)", borderRadius: "24px",
+      flex: 1, minWidth: "220px", boxShadow: "var(--shadow-sm)",
+      position: "relative", overflow: "hidden"
+    }}>
+      <div style={{ position: "absolute", right: "-10px", bottom: "-10px", opacity: 0.05 }}>
+        <Icon size={80} weight="fill" color={color} />
+      </div>
+      <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "0.4rem", fontWeight: 800, textTransform: "uppercase" }}>{label}</div>
+      <div style={{ fontSize: "2rem", fontWeight: 950, color, letterSpacing: "-0.04em" }}>{count.toLocaleString()}</div>
+    </div>
+  );
+}
+
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
   const [bannedIds, setBannedIds] = useState(new Set());
@@ -21,11 +49,8 @@ export default function AdminUsers() {
       ]);
       setUsers(userSnap.docs.map((d) => ({ uid: d.id, ...d.data() })));
       setBannedIds(new Set(banSnap.docs.map((d) => d.id)));
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
+    } catch (e) { console.error(e); }
+    finally { setLoading(false); }
   };
 
   useEffect(() => { fetchData(); }, []);
@@ -36,18 +61,12 @@ export default function AdminUsers() {
     setProcessing(user.uid);
     try {
       await setDoc(doc(db, "bannedUsers", user.uid), {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        reason: reason || "사유 없음",
-        bannedAt: new Date(),
+        uid: user.uid, email: user.email, displayName: user.displayName,
+        reason: reason || "사유 없음", bannedAt: new Date(),
       });
       setBannedIds((prev) => new Set([...prev, user.uid]));
-    } catch (e) {
-      alert("정지 실패: " + e.message);
-    } finally {
-      setProcessing(null);
-    }
+    } catch (e) { alert("정지 실패: " + e.message); }
+    finally { setProcessing(null); }
   };
 
   const unbanUser = async (uid) => {
@@ -56,64 +75,22 @@ export default function AdminUsers() {
     try {
       await deleteDoc(doc(db, "bannedUsers", uid));
       setBannedIds((prev) => { const s = new Set(prev); s.delete(uid); return s; });
-    } catch (e) {
-      alert("해제 실패: " + e.message);
-    } finally {
-      setProcessing(null);
-    }
+    } catch (e) { alert("해제 실패: " + e.message); }
+    finally { setProcessing(null); }
   };
 
   const toggleSelect = (uid) => {
     setSelectedIds((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(uid)) {
-        newSet.delete(uid);
-      } else {
-        newSet.add(uid);
-      }
+      if (newSet.has(uid)) newSet.delete(uid);
+      else newSet.add(uid);
       return newSet;
     });
   };
 
-  const toggleSelectAll = () => {
-    if (selectedIds.size === filtered.length) {
-      setSelectedIds(new Set());
-    } else {
-      setSelectedIds(new Set(filtered.map(u => u.uid)));
-    }
-  };
-
-  const bulkDelete = async () => {
-    if (selectedIds.size === 0) {
-      alert("삭제할 회원을 선택해주세요.");
-      return;
-    }
-    if (!window.confirm(`선택한 ${selectedIds.size}명의 회원을 영구적으로 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) return;
-
-    setBulkDeleting(true);
-    try {
-      const deletePromises = Array.from(selectedIds).map(async (uid) => {
-        await deleteDoc(doc(db, "users", uid));
-        // 정지된 사용자라면 bannedUsers에서도 삭제
-        if (bannedIds.has(uid)) {
-          await deleteDoc(doc(db, "bannedUsers", uid));
-        }
-      });
-
-      await Promise.all(deletePromises);
-      setUsers((prev) => prev.filter((u) => !selectedIds.has(u.uid)));
-      setBannedIds((prev) => {
-        const newSet = new Set(prev);
-        selectedIds.forEach(uid => newSet.delete(uid));
-        return newSet;
-      });
-      setSelectedIds(new Set());
-      alert(`${selectedIds.size}명의 회원이 삭제되었습니다.`);
-    } catch (e) {
-      alert("일괄 삭제 실패: " + e.message);
-    } finally {
-      setBulkDeleting(false);
-    }
+  const toggleSelectAll = (filtered) => {
+    if (selectedIds.size === filtered.length && filtered.length > 0) setSelectedIds(new Set());
+    else setSelectedIds(new Set(filtered.map(u => u.uid)));
   };
 
   const filtered = users.filter((u) =>
@@ -123,233 +100,105 @@ export default function AdminUsers() {
   );
 
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-      {/* Header */}
-      <div style={{ marginBottom: "1.5rem" }}>
-        <h1 style={{ fontSize: "2rem", fontWeight: 900, color: "var(--text-primary)", margin: "0 0 0.3rem 0", letterSpacing: "-0.02em" }}>
-          회원 관리
-        </h1>
-        <p style={{ fontSize: "0.96rem", color: "var(--text-muted)", margin: 0 }}>사용자 계정 상태 및 가입 정보 관리</p>
+    <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "1.5rem" }}>
+      <header style={{ marginBottom: "2.5rem" }}>
+        <h1 style={{ fontSize: "2.2rem", fontWeight: 950, color: "var(--text-primary)", letterSpacing: "-0.04em", marginBottom: "0.2rem" }}>회원 관리 센터</h1>
+        <p style={{ color: "var(--text-secondary)", fontWeight: 500 }}>서비스 가입자의 상태를 정밀 모니터링하고 제어합니다.</p>
+      </header>
+
+      <div style={{ display: "flex", gap: "1.2rem", marginBottom: "2.5rem", flexWrap: "wrap" }}>
+        <StatsCard label="전체 멤버십" count={users.length} color="var(--accent-indigo)" Icon={Users} />
+        <StatsCard label="정지된 회원" count={bannedIds.size} color="#ef4444" Icon={UserMinus} />
+        <StatsCard label="활성 회원" count={users.length - bannedIds.size} color="#10b981" Icon={UserPlus} />
       </div>
 
-      {/* Stats Cards */}
-      <div style={{
-        display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-        gap: "1rem", marginBottom: "1.5rem"
+      <div style={{ 
+        display: "flex", gap: "12px", marginBottom: "1.5rem", background: "var(--bg-card)", 
+        padding: "1rem", borderRadius: "20px", border: "1px solid var(--border-primary)", alignItems: "center" 
       }}>
-        <div style={statsCardStyle}>
-          <div style={statsLabelStyle}>전체 회원</div>
-          <div style={statsValueStyle}>{users.length.toLocaleString()} 명</div>
+        <div style={{ position: "relative", flex: 1 }}>
+          <MagnifyingGlass size={18} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
+          <input 
+            value={search} onChange={e => setSearch(e.target.value)} 
+            placeholder="이름, 닉네임 또는 이메일 검색..." 
+            style={{ width: "100%", padding: "12px 16px 12px 42px", borderRadius: "14px", border: "none", background: "var(--bg-secondary)", color: "var(--text-primary)", fontWeight: 700 }} 
+          />
         </div>
-        <div style={statsCardStyle}>
-          <div style={statsLabelStyle}>정지 회원</div>
-          <div style={{ ...statsValueStyle, color: "#ef4444" }}>{bannedIds.size} 명</div>
-        </div>
-        <div style={statsCardStyle}>
-          <div style={statsLabelStyle}>활성 회원</div>
-          <div style={{ ...statsValueStyle, color: "#10b981" }}>{users.length - bannedIds.size} 명</div>
-        </div>
-      </div>
-
-      {/* Tool Bar */}
-      <div style={{
-        display: "flex", justifyContent: "space-between", alignItems: "center",
-        gap: "16px", marginBottom: "1rem", flexWrap: "wrap"
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: "1", maxWidth: "600px" }}>
-          <div style={{ position: "relative", flex: "1" }}>
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="이름, 닉네임 또는 이메일 검색…"
-              style={{
-                width: "100%", padding: "10px 18px 10px 38px",
-                borderRadius: "0", border: "1px solid var(--border-primary)",
-                background: "var(--bg-card)", color: "var(--text-primary)",
-                fontSize: "0.88rem", outline: "none", transition: "all 0.2s"
-              }}
-            />
-            <span style={{ position: "absolute", left: "12px", top: "10px", opacity: 0.5, fontSize: "0.96rem" }}>🔍</span>
-          </div>
-
-          {selectedIds.size > 0 && (
-            <button
-              onClick={bulkDelete}
-              disabled={bulkDeleting}
-              style={{
-                padding: "10px 18px", borderRadius: "0", background: "#ef4444",
-                border: "1px solid #dc2626", color: "#fff",
-                fontSize: "0.88rem", fontWeight: 700, cursor: "pointer",
-                whiteSpace: "nowrap", opacity: bulkDeleting ? 0.6 : 1
-              }}
-            >
-              {bulkDeleting ? "삭제 중..." : `선택 삭제 (${selectedIds.size})`}
-            </button>
-          )}
-        </div>
-
-        <button
-          onClick={fetchData}
-          style={{
-            padding: "10px 18px", borderRadius: "0", background: "var(--bg-tertiary)",
-            color: "var(--text-secondary)", border: "1px solid var(--border-primary)",
-            fontSize: "0.88rem", fontWeight: 700, cursor: "pointer"
-          }}
-        >
-          🔄 새로고침
+        <button onClick={fetchData} style={{ background: "var(--bg-secondary)", border: "none", borderRadius: "12px", width: "45px", height: "45px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "var(--text-primary)" }}>
+          <ArrowClockwise size={20} weight="bold" />
         </button>
       </div>
 
-      {/* Table Area */}
-      {loading ? (
-        <div style={{ textAlign: "center", padding: "3rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>
-          사용자 정보를 불러오는 중입니다...
-        </div>
-      ) : filtered.length === 0 ? (
-        <div style={{
-          textAlign: "center", padding: "3rem", background: "var(--bg-card)",
-          borderRadius: "0", border: "1px solid var(--border-primary)", fontSize: "0.88rem"
-        }}>
-          검색 결과가 없습니다.
-        </div>
-      ) : (
-        <div style={{
-          background: "var(--bg-card)", borderRadius: "0",
-          border: "1px solid var(--border-primary)", overflow: "hidden",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.02)"
-        }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
-            <thead>
-              <tr style={{ background: "var(--bg-tertiary)", borderBottom: "1px solid var(--border-primary)" }}>
-                <th style={{ ...thStyle, width: "40px" }}>
-                  <input
-                    type="checkbox"
-                    checked={selectedIds.size === filtered.length && filtered.length > 0}
-                    onChange={toggleSelectAll}
-                    style={{ width: "18px", height: "18px", cursor: "pointer", display: "block" }}
-                  />
-                </th>
-                <th style={thStyle}>회원 정보</th>
-                <th style={thStyle}>이메일</th>
-                <th style={thStyle}>가입경로</th>
-                <th style={thStyle}>가입일</th>
-                <th style={thStyle}>상태</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>관리</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((user) => {
-                const isBanned = bannedIds.has(user.uid);
-                const provider = user.provider || user.providerId || "google.com";
+      {loading ? <div style={{ textAlign: "center", padding: "4rem", fontWeight: 800 }}>서버에서 데이터를 호출 중...</div> : (
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          {/* Table Header Wrapper */}
+          <div style={{ 
+            display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 120px", 
+            padding: "0.8rem 1.5rem", color: "var(--text-muted)", fontSize: "0.75rem", fontWeight: 900, textTransform: "uppercase" 
+          }}>
+            <div>회원 정보 (이름 / ID)</div>
+            <div>이메일 연락처</div>
+            <div>소셜 인증 채널</div>
+            <div>가입 일시</div>
+            <div style={{ textAlign: "right" }}>운영 제어</div>
+          </div>
 
-                return (
-                  <tr key={user.uid} style={{ 
-                    borderBottom: "1px solid var(--border-primary)",
-                    transition: "background 0.15s",
-                    background: selectedIds.has(user.uid) ? "rgba(99,102,241,0.05)" : (isBanned ? "rgba(239,68,68,0.02)" : "transparent")
-                  }}>
-                    <td style={tdStyle}>
-                      <input
-                        type="checkbox"
-                        checked={selectedIds.has(user.uid)}
-                        onChange={() => toggleSelect(user.uid)}
-                        style={{ width: "18px", height: "18px", cursor: "pointer", display: "block" }}
+          {filtered.length === 0 ? <div style={{ textAlign: "center", padding: "4rem", background: "var(--bg-card)", borderRadius: "24px", color: "var(--text-muted)", fontWeight: 800 }}>검색 결과가 없습니다.</div> : (
+            filtered.map((user) => {
+              const isBanned = bannedIds.has(user.uid);
+              const provider = user.provider || user.providerId || "google.com";
+              return (
+                <div key={user.uid} style={{ 
+                  display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 120px", alignItems: "center", 
+                  padding: "1.2rem 1.5rem", background: isBanned ? "rgba(239,68,68,0.02)" : "var(--bg-card)",
+                  borderRadius: "20px", border: isBanned ? "1px solid #ef444430" : "1px solid var(--border-primary)",
+                  boxShadow: "var(--shadow-sm)", transition: "all 0.2s"
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                    <div style={{ position: "relative" }}>
+                      <img
+                        src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=random`}
+                        alt=""
+                        style={{ width: "40px", height: "40px", borderRadius: "12px", objectFit: "cover", border: "1px solid var(--border-primary)" }}
                       />
-                    </td>
-                    <td style={tdStyle}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                        <img
-                          src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=random`}
-                          alt=""
-                          style={{ width: "32px", height: "32px", borderRadius: "50%", objectFit: "cover", border: "1px solid var(--border-primary)" }}
-                        />
-                        <span style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.92rem" }}>
-                          {user.displayName || "이름 없음"}
-                        </span>
-                      </div>
-                    </td>
-                    <td style={tdStyle}>
-                      <span style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>{user.email}</span>
-                    </td>
-                    <td style={tdStyle}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                        <span style={{
-                          padding: "4px 8px", borderRadius: "0", fontSize: "0.68rem", fontWeight: 800,
-                          background: provider.includes("google") ? "rgba(66,133,244,0.1)" :
-                                      provider.includes("kakao") ? "rgba(254,229,0,0.2)" : "rgba(100,100,100,0.1)",
-                          color: provider.includes("google") ? "#4285f4" :
-                                 provider.includes("kakao") ? "#9c7c00" : "var(--text-muted)",
-                          display: "inline-flex", alignItems: "center", gap: "3px"
-                        }}>
-                          {provider.includes("google") ? "🔵 Google" :
-                           provider.includes("kakao") ? "🟡 Kakao" : "✉️ Email"}
-                        </span>
-                      </div>
-                    </td>
-                    <td style={tdStyle}>
-                      <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
-                        {user.createdAt ? formatRelativeTime(user.createdAt) : "미상"}
-                      </span>
-                    </td>
-                    <td style={tdStyle}>
-                      {isBanned ? (
-                        <span style={{
-                          fontSize: "0.68rem", fontWeight: 800, color: "#ef4444",
-                          background: "rgba(239,68,68,0.1)", padding: "4px 8px", borderRadius: "0"
-                        }}>정지됨</span>
-                      ) : (
-                        <span style={{
-                          fontSize: "0.68rem", fontWeight: 800, color: "#10b981",
-                          background: "rgba(16,185,129,0.1)", padding: "4px 8px", borderRadius: "0"
-                        }}>정상</span>
-                      )}
-                    </td>
-                    <td style={{ ...tdStyle, textAlign: "right" }}>
-                      {isBanned ? (
-                        <button onClick={() => unbanUser(user.uid)} disabled={processing === user.uid} style={unbanBtnStyle}>
-                          해제
-                        </button>
-                      ) : (
-                        <button onClick={() => banUser(user)} disabled={processing === user.uid} style={banBtnStyle}>
-                          정지
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                      <div style={{ position: "absolute", bottom: "-2px", right: "-2px", width: "12px", height: "12px", borderRadius: "50%", background: isBanned ? "#ef4444" : "#22c55e", border: "2px solid #fff" }} />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 900, color: "var(--text-primary)", fontSize: "0.95rem" }}>{user.displayName || "익명 계정"}</div>
+                      <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 700 }}>{user.uid.substring(0, 10)}...</div>
+                    </div>
+                  </div>
+                  
+                  <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", fontWeight: 700 }}>{user.email}</div>
+                  
+                  <div>
+                    <span style={{ 
+                      padding: "4px 10px", borderRadius: "8px", fontSize: "0.75rem", fontWeight: 900,
+                      background: provider.includes("google") ? "rgba(66,133,244,0.1)" : "rgba(100,100,100,0.1)",
+                      color: provider.includes("google") ? "#4285f4" : "var(--text-muted)",
+                      border: `1px solid ${provider.includes("google") ? "#4285f420" : "transparent"}`
+                    }}>
+                      {provider.includes("google") ? "GOOGLE CLOUD" : "LOCAL AUTH"}
+                    </span>
+                  </div>
+                  
+                  <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", fontWeight: 500 }}>
+                    {user.createdAt ? formatRelativeTime(user.createdAt) : "기록 없음"}
+                  </div>
+                  
+                  <div style={{ textAlign: "right" }}>
+                    {isBanned ? (
+                      <button onClick={() => unbanUser(user.uid)} style={{ padding: "8px 16px", borderRadius: "10px", background: "var(--color-green)", color: "#fff", border: "none", fontWeight: 900, fontSize: "0.75rem", cursor: "pointer" }}>정지 해제</button>
+                    ) : (
+                      <button onClick={() => banUser(user)} style={{ padding: "8px 16px", borderRadius: "10px", background: "#ef444415", color: "#ef4444", border: "none", fontWeight: 900, fontSize: "0.75rem", cursor: "pointer" }}>정지 처분</button>
+                    )}
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
       )}
     </div>
   );
 }
-
-// Styles
-const thStyle = {
-  padding: "12px 16px", fontSize: "0.8rem", fontWeight: 700,
-  color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.05em"
-};
-
-const tdStyle = {
-  padding: "10px 16px", verticalAlign: "middle", fontSize: "0.84rem"
-};
-
-const statsCardStyle = {
-  background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-  borderRadius: "0", padding: "1rem", boxShadow: "0 4px 6px rgba(0,0,0,0.01)"
-};
-const statsLabelStyle = { fontSize: "0.8rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", marginBottom: "6px" };
-const statsValueStyle = { fontSize: "2rem", fontWeight: 900, color: "var(--text-primary)" };
-
-const banBtnStyle = {
-  padding: "8px 14px", borderRadius: "0", fontSize: "0.8rem", fontWeight: 700,
-  background: "rgba(239,68,68,0.08)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.15)",
-  cursor: "pointer", transition: "all 0.2s"
-};
-const unbanBtnStyle = {
-  padding: "8px 14px", borderRadius: "0", fontSize: "0.8rem", fontWeight: 700,
-  background: "rgba(16,185,129,0.08)", color: "#10b981", border: "1px solid rgba(16,185,129,0.15)",
-  cursor: "pointer", transition: "all 0.2s"
-};
