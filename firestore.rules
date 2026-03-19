@@ -87,5 +87,16 @@ service cloud.firestore {
       allow create: if isLoggedIn() && request.auth.uid == request.resource.data.uid;
       allow update, delete: if isLoggedIn() && request.auth.uid == resource.data.uid;
     }
+
+    match /newsBookmarks/{docId} {
+      allow read: if isLoggedIn() && request.auth.uid == resource.data.uid;
+      allow create: if isLoggedIn() && request.auth.uid == request.resource.data.uid;
+      allow update, delete: if isLoggedIn() && request.auth.uid == resource.data.uid;
+    }
+
+    match /newsStats/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
   }
 }

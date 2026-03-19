@@ -108,16 +108,64 @@ function ToolItem_({ tool, rank, onClick }) {
   );
 }
 
-function ToolListSidebar() {
+function ToolListSidebar({ selectedArticle }) {
   const { tools, openToolDetail } = useTools();
 
-  const sortedTools = [...tools].sort((a, b) => b.score - a.score).slice(0, 10);
+  const getFilteredTools = () => {
+    if (!selectedArticle) {
+      return [...tools].sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 10);
+    }
+
+    const text = (selectedArticle.title + " " + selectedArticle.description).toLowerCase();
+    
+    const filtered = tools.filter(tool => {
+      const name = (tool.name || "").toLowerCase();
+      const desc = (tool.desc || "").toLowerCase();
+      const cat = (tool.category || "").toLowerCase();
+      
+      if (!name) return false;
+
+      // 기사 텍스트에 도구 이름이나 카테고리가 직접 포함되어 있는지 확인
+      const isDirectMatch = text.includes(name) || (cat && text.includes(cat)) || 
+                          name.split(' ').some(word => word.length > 2 && text.includes(word));
+                          
+      // 카테고리별 연관 키워드 매칭
+      const categoryMap = {
+        '이미지': ['이미지', '사진', '디자인', '그림', '픽셀', '드로잉'],
+        '챗봇': ['챗봇', '채팅', '대화', '질문', '답변', 'GPT', '제미나이', '클라우드'],
+        '번역': ['번역', '통역', '다국어', '언어', '스피킹'],
+        '코딩': ['코딩', '개발', '프로그래밍', '코드', '스크립트', '파이썬'],
+        '비디오': ['비디오', '영상', '편집', '유튜브', '쇼츠', '크리에이터'],
+        '음성': ['음성', '오디오', '음악', '작곡', '나레이션', '보이스']
+      };
+
+      const hasCategoryMatch = Object.keys(categoryMap).some(key => 
+        cat.includes(key.toLowerCase()) && categoryMap[key].some(kw => text.includes(kw))
+      );
+
+      return isDirectMatch || hasCategoryMatch;
+    });
+
+    // 관련 도구가 부족하면 인기 도구로 채움
+    if (filtered.length < 10) {
+      const popular = [...tools].sort((a, b) => (b.score || 0) - (a.score || 0));
+      const needed = 10 - filtered.length;
+      const additional = popular.filter(p => !filtered.find(f => f.id === p.id)).slice(0, needed);
+      return [...filtered, ...additional];
+    }
+
+    return filtered.slice(0, 10);
+  };
+
+  const displayTools = getFilteredTools();
 
   return (
     <SidebarContainer>
-        <SidebarTitle>오늘 TOP10 AI</SidebarTitle>
+        <SidebarTitle>
+          {selectedArticle ? '🔗 관련 AI 도구' : '🔥 오늘 TOP10 AI'}
+        </SidebarTitle>
         <ToolList>
-            {sortedTools.map((tool, i) => (
+            {displayTools.map((tool, i) => (
                 <ToolItem_
                   key={tool.id}
                   tool={tool}

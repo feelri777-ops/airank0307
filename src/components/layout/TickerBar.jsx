@@ -20,7 +20,7 @@ const TickerContainer = styled.div`
 
 const TickerWrapper = styled.div`
   display: flex;
-  animation: ${ticker} 60s linear infinite;
+  animation: ${ticker} 40s linear infinite;
 `;
 
 const TickerItem = styled.a`

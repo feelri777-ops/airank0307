@@ -108,7 +108,9 @@ export function ToolProvider({ children }) {
 
         const bCounts = {};
         bookmarkSnap.docs.forEach((d) => {
-          const { toolId } = d.data();
+          const data = d.data();
+          if (data.category === 'news') return;
+          const { toolId } = data;
           if (toolId) bCounts[toolId] = (bCounts[toolId] || 0) + 1;
         });
         setBookmarkCounts(bCounts);

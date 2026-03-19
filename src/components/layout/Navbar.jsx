@@ -31,7 +31,12 @@ const Navbar = () => {
   useEffect(() => {
     if (!showDropdown || !user) return;
     const q = query(collection(db, "bookmarks"), where("uid", "==", user.uid));
-    getDocs(q).then((snap) => setBookmarks(snap.docs.map((d) => d.data())));
+    getDocs(q).then((snap) => {
+      const toolBookmarks = snap.docs
+        .map((d) => d.data())
+        .filter(b => b.category !== 'news');
+      setBookmarks(toolBookmarks);
+    }).catch(() => {});
     const q2 = query(
       collection(db, "galleryPosts"),
       where("likedBy", "array-contains", user.uid),

@@ -16,6 +16,7 @@ import BookmarkSvg      from '../../assets/icons/bookmark.svg?react';
 import BookmarksSvg     from '../../assets/icons/bookmarks.svg?react';
 import HeartSvg         from '../../assets/icons/heart.svg?react';
 import StarSvg          from '../../assets/icons/star.svg?react';
+import StarFillSvg      from '../../assets/icons/star-fill.svg?react';
 import FireSvg          from '../../assets/icons/fire.svg?react';
 import PencilSvg        from '../../assets/icons/pencil.svg?react';
 import PencilSimpleSvg  from '../../assets/icons/pencil-simple.svg?react';
@@ -71,6 +72,7 @@ const ICONS = {
   bookmarks:        BookmarksSvg,
   heart:            HeartSvg,
   star:             StarSvg,
+  'star-fill':      StarFillSvg,
   fire:             FireSvg,
   pencil:           PencilSvg,
   'pencil-simple':  PencilSimpleSvg,

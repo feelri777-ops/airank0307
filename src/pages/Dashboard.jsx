@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import {
   collection, query, where, getDocs, doc, setDoc, updateDoc, writeBatch, collectionGroup
@@ -467,45 +467,72 @@ const LikedSection = ({ user, isMobile }) => {
   );
 };
 
+// ── 뉴스 대시보드 섹션 ────────────────────────────────────────
 // ── 뉴스 북마크 섹션 ────────────────────────────────────────
-const NewsBookmarkSection = ({ newsBookmarks, toggleNewsBookmark, isMobile }) => {
+const NewsDashboardSection = ({ newsBookmarks, toggleNewsBookmark, isMobile, selectedArticle, setSelectedArticle, incrementNewsView, newsStats }) => {
+  const handleItemClick = (item) => {
+    setSelectedArticle(item);
+    incrementNewsView(item.link);
+    window.open(item.link, '_blank');
+  };
+
   return (
     <div>
-      <SectionHeader title="뉴스 북마크" desc={`${newsBookmarks.length}개`} />
+      <SectionHeader title="뉴스 북마크" desc={`${newsBookmarks.length}개의 뉴스`} />
+      
       {newsBookmarks.length === 0 ? (
         <Empty msg="북마크한 뉴스가 없어요." link="/news" linkText="뉴스 보러가기" />
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-          {newsBookmarks.map((b) => (
-            <div
-              key={b.id}
-              style={{
-                background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-                borderRadius: "var(--r-md)", padding: isMobile ? "14px 14px" : "16px 18px",
-                display: "flex", gap: "12px", alignItems: "flex-start",
-              }}
-            >
-              <a
-                href={b.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ flex: 1, minWidth: 0, fontWeight: 600, fontSize: isMobile ? "0.86rem" : "0.9rem", color: "var(--text-primary)", textDecoration: "none", lineHeight: 1.45, display: "block" }}
-              >
-                {b.title}
-              </a>
-              <button
-                onClick={() => toggleNewsBookmark(b)}
-                title="북마크 삭제"
+          {newsBookmarks.map((b, i) => {
+            const views = newsStats[b.link] || 0;
+            const isActive = selectedArticle?.link === b.link;
+            return (
+              <div
+                key={b.link || i}
+                onClick={() => handleItemClick(b)}
                 style={{
-                  flexShrink: 0, background: "none", border: "none", cursor: "pointer",
-                  color: "#ef4444", fontSize: "1rem", padding: "2px 4px",
-                  borderRadius: "var(--r-xs)", lineHeight: 1,
+                  background: isActive ? "var(--bg-secondary-accent)" : "var(--bg-card)",
+                  border: "1px solid var(--border-primary)",
+                  borderLeft: isActive ? "3px solid var(--accent-indigo)" : "1px solid var(--border-primary)",
+                  borderRadius: "var(--r-md)", padding: isMobile ? "14px 14px" : "16px 18px",
+                  display: "flex", gap: "12px", alignItems: "flex-start",
+                  cursor: "pointer", transition: "all 0.2s"
                 }}
               >
-                🗑
-              </button>
-            </div>
-          ))}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontWeight: 600, fontSize: isMobile ? "0.86rem" : "0.9rem", color: "var(--text-primary)", lineHeight: 1.45, marginBottom: "4px" }}>
+                    {b.title}
+                  </div>
+                  <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", display: "flex", gap: "10px", alignItems: "center" }}>
+                    <span>{b.relativeTime || "조금 전"}</span>
+                    <span style={{ display: "flex", alignItems: "center", gap: "3px" }}>
+                      <Icon name="eye" size={12} /> {views > 999 ? (views/1000).toFixed(1)+'k' : views}
+                    </span>
+                    {b.hot && <span style={{ color: "#ef4444", fontWeight: 700 }}>HOT</span>}
+                  </div>
+                </div>
+                <button
+                  onClick={(e) => { 
+                    e.preventDefault();
+                    e.stopPropagation(); 
+                    toggleNewsBookmark(b); 
+                  }}
+                  style={{
+                    flexShrink: 0, background: "none", border: "none", cursor: "pointer",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    padding: "4px"
+                  }}
+                >
+                  <Icon 
+                    name={newsBookmarks.some(nb => nb.link === b.link) ? "star-fill" : "star"} 
+                    size={22} 
+                    color={newsBookmarks.some(nb => nb.link === b.link) ? "#ffc107" : "var(--text-muted)"} 
+                  />
+                </button>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
@@ -519,9 +546,19 @@ const ToolBookmarkSection = ({ user, isMobile }) => {
 
   useEffect(() => {
     if (bookmarks !== null) return;
-    getDocs(query(collection(db, "bookmarks"), where("uid", "==", user.uid)))
-      .then((snap) => setBookmarks(snap.docs.map((d) => d.data())))
-      .catch(() => setBookmarks([]));
+    const fetchBookmarks = async () => {
+      try {
+        const bookmarkSnap = await getDocs(query(collection(db, "bookmarks"), where("uid", "==", user.uid)));
+        const userBookmarks = bookmarkSnap.docs
+          .map((d) => ({ id: d.id, ...d.data() }))
+          .filter(b => b.category !== 'news');
+        setBookmarks(userBookmarks);
+      } catch (error) {
+        console.error("Error fetching tool bookmarks:", error);
+        setBookmarks([]);
+      }
+    };
+    fetchBookmarks();
   }, [user.uid]); // eslint-disable-line
 
   const handleOpen = (toolId) => {
@@ -803,8 +840,10 @@ const btnStyle = (variant, size = "md") => {
 // ── 대시보드 메인 ────────────────────────────────────────────
 export default function Dashboard() {
   const { user, userData, updateUserData, logout } = useAuth();
-  const { newsBookmarks, toggleNewsBookmark } = useNews();
-  const { tools, openToolDetail } = useTools();
+  const { tools } = useTools();
+  const { news, newsBookmarks, toggleNewsBookmark, incrementNewsView, newsStats } = useNews();
+  const { openLightbox } = useGalleryLightbox();
+  const [selectedArticle, setSelectedArticle] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const [section, setSection] = useState(() => location.state?.section || "home");
@@ -913,9 +952,6 @@ export default function Dashboard() {
                 );
               })}
             </div>
-            <div style={{ flexShrink: 0, padding: "0 10px" }}>
-              <ThemeToggle />
-            </div>
           </div>
         </div>
 
@@ -924,7 +960,17 @@ export default function Dashboard() {
           {section === "home" && <HomeSection user={user} stats={stats} isMobile={true} onLogout={handleLogout} onDeleteConfirm={() => setDeleteConfirm(true)} />}
           {section === "library" && <LibrarySection user={user} isMobile={true} />}
           {section === "liked" && <LikedSection user={user} isMobile={true} />}
-          {section === "news" && <NewsBookmarkSection newsBookmarks={newsBookmarks} toggleNewsBookmark={toggleNewsBookmark} isMobile={true} />}
+          {section === "news" && (
+          <NewsDashboardSection 
+            newsBookmarks={newsBookmarks} 
+            toggleNewsBookmark={toggleNewsBookmark} 
+            isMobile={isMobile}
+            selectedArticle={selectedArticle}
+            setSelectedArticle={setSelectedArticle}
+            incrementNewsView={incrementNewsView}
+            newsStats={newsStats}
+          />
+        )}
           {section === "toolBookmarks" && <ToolBookmarkSection user={user} isMobile={true} />}
           {section === "aiConcierge" && <AIConciergeSection user={user} isMobile={true} />}
           {section === "community" && <CommunitySection user={user} isMobile={true} />}
@@ -990,10 +1036,7 @@ export default function Dashboard() {
           ))}
         </nav>
 
-        {/* 테마 변경 */}
-        <div style={{ padding: "10px 12px", borderTop: "1px solid var(--border-primary)", display: "flex", justifyContent: "flex-start" }}>
-          <ThemeToggle dropUp />
-        </div>
+        {/* 테마 변경 제거됨 */}
 
       </aside>
 
@@ -1002,7 +1045,17 @@ export default function Dashboard() {
         {section === "home" && <HomeSection user={user} stats={stats} isMobile={false} onLogout={handleLogout} onDeleteConfirm={() => setDeleteConfirm(true)} />}
         {section === "library" && <LibrarySection user={user} isMobile={false} />}
         {section === "liked" && <LikedSection user={user} isMobile={false} />}
-        {section === "news" && <NewsBookmarkSection newsBookmarks={newsBookmarks} toggleNewsBookmark={toggleNewsBookmark} isMobile={false} />}
+        {section === "news" && (
+          <NewsDashboardSection 
+            newsBookmarks={newsBookmarks} 
+            toggleNewsBookmark={toggleNewsBookmark} 
+            isMobile={false}
+            selectedArticle={selectedArticle}
+            setSelectedArticle={setSelectedArticle}
+            incrementNewsView={incrementNewsView}
+            newsStats={newsStats}
+          />
+        )}
         {section === "toolBookmarks" && <ToolBookmarkSection user={user} isMobile={false} />}
         {section === "aiConcierge" && <AIConciergeSection user={user} isMobile={false} />}
         {section === "community" && <CommunitySection user={user} isMobile={false} />}
@@ -1017,6 +1070,11 @@ export default function Dashboard() {
         onConfirm={handleDeleteAccount}
         onClose={() => { setDeleteConfirm(false); setDeletePassword(""); setDeleteError(""); }}
       />}
+
+      {/* 테마 변경 버튼 - 우측 하단 고정 */}
+      <div style={{ position: "fixed", bottom: "1.5rem", right: "1.5rem", zIndex: 1000 }}>
+        <ThemeToggle dropUp />
+      </div>
     </div>
   );
 }

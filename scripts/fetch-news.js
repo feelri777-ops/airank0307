@@ -34,13 +34,13 @@ const QUERIES = [
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /** 네이버 뉴스 검색 API 호출 */
-async function fetchNaverNews(query) {
+async function fetchNaverNews(query, sort = 'date') {
   if (!NAVER_ID || !NAVER_SECRET) {
     console.warn('⚠️  NAVER API 키 없음 - 더미 데이터 사용');
     return [];
   }
 
-  const url = `https://openapi.naver.com/v1/search/news.json?query=${encodeURIComponent(query)}&display=10&sort=date`; // display=10으로 늘려 더 많은 결과 확인
+  const url = `https://openapi.naver.com/v1/search/news.json?query=${encodeURIComponent(query)}&display=15&sort=${sort}`;
   try {
     const res = await fetch(url, {
       headers: {
@@ -88,52 +88,56 @@ async function main() {
   const seen = new Set();
   const allItems = [];
 
+  const hotItems = [];
+  const recentItems = [];
+
   for (const query of QUERIES) {
-    const items = await fetchNaverNews(query);
-    for (const item of items) {
+    // 1. 유사도(인기)순 수집 (HOT용)
+    const simItems = await fetchNaverNews(query, 'sim');
+    for (const item of simItems) {
       const link = item.originallink || item.link;
-      if (!link) continue;
-
-      if (seen.has(link)) continue;
+      if (!link || seen.has(link)) continue;
       seen.add(link);
-
-      allItems.push({
+      hotItems.push({
         title: cleanHtml(item.title),
-        link, // originallink만 사용
+        link,
         description: cleanHtml(item.description),
         pubDate: item.pubDate,
         relativeTime: relativeTime(item.pubDate),
+        hot: true
       });
     }
-    await sleep(200); // API 레이트 리밋 방지
+    
+    // 2. 최신순 수집 (Latest용)
+    const dateItems = await fetchNaverNews(query, 'date');
+    for (const item of dateItems) {
+      const link = item.originallink || item.link;
+      if (!link || seen.has(link)) continue;
+      seen.add(link);
+      recentItems.push({
+        title: cleanHtml(item.title),
+        link,
+        description: cleanHtml(item.description),
+        pubDate: item.pubDate,
+        relativeTime: relativeTime(item.pubDate),
+        hot: false
+      });
+    }
+    await sleep(300); // API 레이트 리밋 방지
   }
 
-  // 날짜 최신순 정렬 후 상위 15개
-  allItems.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-  const newTop15 = allItems.slice(0, 15);
-
-  // 기존 news.json 불러오기
-  let existingItems = [];
-  if (existsSync(OUTPUT)) {
-    try {
-      const prev = JSON.parse(readFileSync(OUTPUT, 'utf-8'));
-      existingItems = prev.items || [];
-    } catch {}
-  }
-
-  // 새 항목 링크 Set
-  const newLinks = new Set(newTop15.map(i => i.link));
-
-  // 기존 항목 중 새 항목과 중복되지 않는 것만 유지, relativeTime 갱신
-  const oldItems = existingItems
-    .filter(i => !newLinks.has(i.link))
-    .map(i => ({ ...i, relativeTime: relativeTime(i.pubDate) }));
-
-  // 새 항목(위) + 기존 항목(아래)
-  const merged = [...newTop15, ...oldItems];
-
-  // 상위 3개는 HOT 표시
-  const newsItems = merged.map((item, i) => ({ ...item, hot: i < 3 }));
+  // 상위 인기도 뉴스 5개 + 나머지 최신순 뉴스 60개 조합
+  const finalHot = hotItems.slice(0, 5);
+  const finalRecent = recentItems.slice(0, 60);
+  
+  const merged = [...finalHot, ...finalRecent];
+  
+  // 전체를 다시 날짜순으로 정렬하되, HOT 태그는 유지 (이미 위에서 붙임)
+  // 단, 출력 시엔 HOT이 상단에 와야 함
+  const newsItems = [
+    ...merged.filter(i => i.hot).sort((a,b) => new Date(b.pubDate) - new Date(a.pubDate)),
+    ...merged.filter(i => !i.hot).sort((a,b) => new Date(b.pubDate) - new Date(a.pubDate))
+  ];
 
   const output = {
     lastUpdated: new Date().toISOString(),
