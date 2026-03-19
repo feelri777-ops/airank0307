@@ -78,15 +78,18 @@ const HeroLogos = () => {
     const allSlots = [...LEFT_SLOTS, ...RIGHT_SLOTS];
     return Array.from({ length: 40 }, (_, i) => {
       const slot = allSlots[i];
-      const dy = 28 + (i % 7) * 6;                               // 28~64px 수직
-      const dx = (i % 2 === 0 ? 1 : -1) * (18 + (i % 6) * 8);  // ±18~58px 수평
-      const dr = slot.rot + (i % 2 === 0 ? 8 : -8);
+      // 풍선의 이동 범위(dx, dy)를 기존 대비 약 2~2.5배 상향하여 움직임 극대화
+      const dy = 50 + (i % 7) * 15;                             // 수직 이동: 50px ~ 140px
+      const dx = (i % 2 === 0 ? 1 : -1) * (40 + (i % 6) * 12);  // 수평 이동: ±40px ~ ±100px
+      const dr = (i % 2 === 0 ? 18 : -18);                      // 회전 각도 폭 상향 
+
+      // 각지지 않고 부드러운 비행 궤도 (타원/반원 형태의 부드러운 곡선)
       return `@keyframes hlbf${i} {
-        0%   { transform: translate3d(0,0,0) rotate(${slot.rot}deg); }
-        25%  { transform: translate3d(${dx * 0.7}px,${-dy * 0.5}px,0) rotate(${dr}deg); }
-        50%  { transform: translate3d(${dx}px,${-dy}px,0) rotate(${slot.rot}deg); }
-        75%  { transform: translate3d(${-dx * 0.4}px,${-dy * 0.7}px,0) rotate(${slot.rot - 5}deg); }
-        100% { transform: translate3d(0,0,0) rotate(${slot.rot}deg); }
+        0%   { transform: translate3d(0, 0, 0) rotate(${slot.rot}deg); }
+        25%  { transform: translate3d(${dx * 0.8}px, ${-dy * 0.4}px, 0) rotate(${slot.rot + dr * 0.5}deg); }
+        50%  { transform: translate3d(${dx * 0.1}px, ${-dy}px, 0) rotate(${slot.rot + dr}deg); }
+        75%  { transform: translate3d(${-dx * 0.6}px, ${-dy * 0.5}px, 0) rotate(${slot.rot - dr * 0.4}deg); }
+        100% { transform: translate3d(0, 0, 0) rotate(${slot.rot}deg); }
       }`;
     }).join("\n");
   }, []);
@@ -121,7 +124,8 @@ const HeroLogos = () => {
           opacity: 0.95,
           pointerEvents: "none",
           zIndex: 0,
-          animation: `hlbf${animIdx} ${slot.dur}s ease-in-out ${slot.delay}s infinite`,
+          // 움직임이 2배 커졌으므로 지속 시간(dur)도 1.4배 늘려, 날아다니는 속도를 차분하고 부드럽게 유지함
+          animation: `hlbf${animIdx} ${slot.dur * 1.4}s ease-in-out ${slot.delay}s infinite`,
           willChange: "transform",
         }}
       >
