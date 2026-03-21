@@ -3,6 +3,9 @@ name: 🛠️ Firestore 강제 복구 (데이터 깨짐 전용)
 on:
   workflow_dispatch:  # 수동 실행 전용
 
+permissions:
+  contents: write    # scores.json 등 파일 생성 후 커밋/푸시를 위한 필수 권한 설정
+
 jobs:
   force-restore:
     runs-on: ubuntu-latest
@@ -16,10 +19,10 @@ jobs:
           node-version: '20'
 
       - name: 의존성 설치
-        run: npm install firebase-admin
+        run: npm install firebase-admin dotenv
 
       - name: Firestore 메타데이터 강제 복구
-        run: node scripts/emergency_restore.js
+        run: node scripts/restore_from_js.js
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
