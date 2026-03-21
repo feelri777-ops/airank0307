@@ -1,0 +1,51 @@
+name: 🛠️ Firestore 강제 복구 (데이터 깨짐 전용)
+
+on:
+  workflow_dispatch:  # 수동 실행 전용
+
+jobs:
+  force-restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 의존성 설치
+        run: npm install firebase-admin
+
+      - name: Firestore 메타데이터 강제 복구
+        run: node scripts/emergency_restore.js
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: 랭킹 점수 즉시 갱신
+        run: node scripts/update_ranking.js
+        env:
+          OPR_API_KEY: ${{ secrets.OPR_API_KEY }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          NAVER_CLIENT_ID_2: ${{ secrets.NAVER_CLIENT_ID_2 }}
+          NAVER_CLIENT_SECRET_2: ${{ secrets.NAVER_CLIENT_SECRET_2 }}
+          XPOZ_API_KEY: ${{ secrets.XPOZ_API_KEY }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: Firestore 점수 최종 동기화
+        run: node scripts/sync_tools_js.js
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: 변경사항 영구 저장 (커밋 & 푸시)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: 🛠️ Firestore 강제 복구 및 데이터 최신화 완료"
+            git push origin main
+          fi
