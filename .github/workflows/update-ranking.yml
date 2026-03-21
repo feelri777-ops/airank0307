@@ -33,6 +33,7 @@ jobs:
           NAVER_CLIENT_ID_2: ${{ secrets.NAVER_CLIENT_ID_2 }}
           NAVER_CLIENT_SECRET_2: ${{ secrets.NAVER_CLIENT_SECRET_2 }}
           XPOZ_API_KEY: ${{ secrets.XPOZ_API_KEY }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
       - name: Firestore 점수 동기화
         run: node scripts/sync_tools_js.js
