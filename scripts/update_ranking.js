@@ -390,29 +390,32 @@ async function getXpozScoresBatch(keywords, oprScores, todayStr) {
         await new Promise(r => setTimeout(r, 5000));
       }
 
-      // SSE 형식 파싱 개선
-      const lines = startText.split('\n');
+      // SSE 및 일반 JSON 통합 파싱 개선
       let directMentions = null;
-      for (const line of lines) {
-        if (line.startsWith('data: ')) {
+      
+      // 1. 전체 텍스트에서 operationId 또는 count 패턴 검색 (가격 및 구조 변화 대응)
+      const rawCountMatch = startText.match(/count:\s*(\d+)/i) || startText.match(/"count":\s*(\d+)/i);
+      const rawOpIdMatch = startText.match(/operationId:\s*"?([\w-]+)"?/i) || startText.match(/"operationId":\s*"([\w-]+)"/i);
+
+      if (rawCountMatch) {
+        directMentions = parseInt(rawCountMatch[1], 10);
+      } else if (rawOpIdMatch) {
+        opId = rawOpIdMatch[1];
+      }
+
+      // 2. 만약 정규식으로 못 찾았다면 기존의 줄 단위 파싱 시도 (백업)
+      if (!opId && directMentions === null) {
+        const lines = startText.split('\n');
+        for (const line of lines) {
+          const cleanLine = line.replace(/^data:\s*/, '').trim();
+          if (!cleanLine) continue;
           try {
-            const jsonText = line.substring(6).trim();
-            const data = JSON.parse(jsonText);
-            const content = data.result?.content?.[0]?.text || "";
-            
-            // 신규: 직접 결과가 포함된 경우 (동기 방식)
-            const countMatch = content.match(/count: (\d+)/i);
-            if (countMatch) {
-              directMentions = parseInt(countMatch[1], 10);
-              break;
-            }
-            
-            // 기존: 비동기 방식 (operationId)
-            const opIdMatch = content.match(/operationId: (\S+)/);
-            if (opIdMatch) {
-              opId = opIdMatch[1];
-              break;
-            }
+            const data = JSON.parse(cleanLine);
+            const content = data.result?.content?.[0]?.text || JSON.stringify(data);
+            const cMatch = content.match(/count:\s*(\d+)/i);
+            if (cMatch) { directMentions = parseInt(cMatch[1], 10); break; }
+            const oMatch = content.match(/operationId:\s*(\S+)/i);
+            if (oMatch) { opId = oMatch[1].replace(/["',}]/g, ''); break; }
           } catch (e) {}
         }
       }
