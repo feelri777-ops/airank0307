@@ -23,6 +23,29 @@ function initAdmin() {
   }
 }
 
+// 진짜 AI 대장격 필수 툴들에게 주는 "AI 순혈 프리미엄(가점)"
+const BONUS_SCORES = {
+  // S급 범용 AI 대장 (+25점)
+  "ChatGPT": 25, "Gemini": 25, "Claude": 25, "DeepSeek": 25,
+  // A급 각 분야별 대장급 AI (+15점)
+  "Midjourney": 15, "Perplexity AI": 15, "Cursor": 15, "Grok": 15, "Llama": 15,
+  "GitHub Copilot": 15, "Sora": 15, "WRTN": 15,
+  // B급 높은 인지도의 AI 툴 (+10점)
+  "Suno": 10, "Runway Gen-3": 10, "DALL-E 3": 10, "ElevenLabs": 10, "Microsoft Copilot": 10,
+  "NotebookLM": 10, "HeyGen": 10, "Leonardo AI": 10, "Poe": 10, "Character.AI": 10,
+  "v0": 10, "Devin": 10, "Stable Diffusion": 10, "Pika Labs": 10, "Mistral AI": 10,
+  "Luma AI": 10, "Kling AI": 10, "Udio": 10, "Krea AI": 10, "Bolt.new": 10, "Meta AI": 10, "Flux": 10
+};
+
+// AI 주력이 아니면서 도메인 깡패로 상위권을 교란하는 툴 "일반 툴 페널티(감점)"
+const PENALTY_SCORES = {
+  // 트래픽 깡패 일반 SaaS (-20점)
+  "Canva AI": -20, "Notion AI": -20, "Figma AI": -20, "JetBrains AI": -20,
+  "Freepik AI": -20, "Zapier AI": -20, "Make": -20, "ClickUp AI": -20,
+  "Zoom AI": -20, "CapCut AI": -20, "Trello": -20, "Miro": -20, "Wix": -20, "Shopify": -20,
+  "Grammarly": -10 // 그래머리는 AI 비중이 크지만 텍스트 교정 위주이므로 소폭 감점
+};
+
 async function rebalance() {
   initAdmin();
   const db = admin.firestore();
@@ -37,17 +60,40 @@ async function rebalance() {
 
   console.log(`총 ${tools.length}개 툴 확인됨.`);
 
-  // 순수 자동점수(t.score) 기준으로만 정렬 후 100위 컷오프
-  tools.sort((a, b) => (b.score || 0) - (a.score || 0));
+  // 각 툴의 자동 점수에 가점/감점을 더해 최종 조정 점수 계산
+  tools.forEach(t => {
+    let rawScore = t.score || 0;
+    let bonus = 0;
+    
+    if (BONUS_SCORES[t.name]) bonus = BONUS_SCORES[t.name];
+    else if (t.nameKo && BONUS_SCORES[t.nameKo]) bonus = BONUS_SCORES[t.nameKo];
+    
+    // 페널티는 이름의 일부만 포함되어도 감점 적용 (예: Canva, Zoom 등)
+    Object.keys(PENALTY_SCORES).forEach(penaltyName => {
+      if (t.name.includes(penaltyName)) {
+        bonus = PENALTY_SCORES[penaltyName];
+      }
+    });
+    
+    // 최종 점수 (최대 99.9점, 최소 0점으로 제한)
+    let adjustedScore = rawScore + bonus;
+    if (adjustedScore > 99.9) adjustedScore = 99.9;
+    if (adjustedScore < 0) adjustedScore = 0;
+    
+    t._calCalcScore = parseFloat(adjustedScore.toFixed(2));
+  });
 
-  console.log("\n====== 순수 자동 점수 기준 TOP 20 ======");
-  tools.slice(0, 20).forEach((t, i) => console.log(`${i+1}. ${t.name} (${t.score || 0})`));
+  // 보정된 최종 점수 기준으로 정렬
+  tools.sort((a, b) => b._calCalcScore - a._calCalcScore);
+
+  console.log("\n====== 보정치(가점/감점) 적용된 TOP 20 ======");
+  tools.slice(0, 20).forEach((t, i) => console.log(`${i+1}. ${t.name} (보정된 점수: ${t._calCalcScore})`));
   
   const batchSize = 400;
   let batch = db.batch();
   let count = 0;
 
-  console.log("\n📦 Firestore 업데이트 적용 시작 (순수 100위 컷오프 숨김처리)...");
+  console.log("\n📦 Firestore 업데이트 적용 시작 (점수 덮어쓰기 및 100위 컷오프 숨김처리)...");
   for (let i = 0; i < tools.length; i++) {
     const t = tools[i];
     const docRef = db.collection("tools").doc(String(t.id));
@@ -56,8 +102,9 @@ async function rebalance() {
     const shouldHide = i >= 100;
     
     const updateData = {
+      score: t._calCalcScore, // 보정된 점수를 실제 score 필드에 영구 적용
       hidden: shouldHide,
-      manualScore: admin.firestore.FieldValue.delete(), // 기존 수동 점수 완전히 삭제 (원래 구조 유지)
+      manualScore: admin.firestore.FieldValue.delete(), // 과거의 수동 완전 고정 점수 로직 파기
       updatedAt: admin.firestore.FieldValue.serverTimestamp()
     };
     
@@ -74,7 +121,7 @@ async function rebalance() {
     await batch.commit();
   }
 
-  console.log(`✅ [성공] 원래 점수 구조 그대로 1위~100위 노출, 나머지 숨김 처리 완료!`);
+  console.log(`✅ [성공] 가점/감점 보정 점수로 1~100위 방어 성공, 점수 덮어쓰기 및 숨김 처리 완료!`);
 }
 
 rebalance().catch(e => {
