@@ -64,8 +64,7 @@ const HeroLogos = () => {
   const { theme } = useTheme();
   const { tools } = useTools();
   const isLight = theme === "light";
-
-  const topCount = isLight ? 20 : 40; // 벚꽃 테마(라이트)에서는 성능을 위해 20개만 표시
+  const topCount = isLight ? 20 : 40; 
 
   const topN = useMemo(() => {
     if (!tools?.length) return [];
@@ -81,15 +80,14 @@ const HeroLogos = () => {
     const allSlots = [...LEFT_SLOTS, ...RIGHT_SLOTS];
     return Array.from({ length: 40 }, (_, i) => {
       const slot = allSlots[i];
-      const dy = 50 + (i % 7) * 15;
-      const dx = (i % 2 === 0 ? 1 : -1) * (40 + (i % 6) * 12);
-      const dr = (i % 2 === 0 ? 18 : -18);
+      // 화면 밖으로 크게 나가지 않도록 이동 범위를 보수적으로 설정 (dx ±20~50, dy 30~80)
+      const dy = 30 + (i % 5) * 12;                             
+      const dx = (i % 2 === 0 ? 1 : -1) * (20 + (i % 4) * 10);  
+      const dr = (i % 2 === 0 ? 12 : -12);                      
 
       return `@keyframes hlbf${i} {
         0%   { transform: translate3d(0, 0, 0) rotate(${slot.rot}deg); }
-        25%  { transform: translate3d(${dx * 0.8}px, ${-dy * 0.4}px, 0) rotate(${slot.rot + dr * 0.5}deg); }
-        50%  { transform: translate3d(${dx * 0.1}px, ${-dy}px, 0) rotate(${slot.rot + dr}deg); }
-        75%  { transform: translate3d(${-dx * 0.6}px, ${-dy * 0.5}px, 0) rotate(${slot.rot - dr * 0.4}deg); }
+        50%  { transform: translate3d(${dx}px, ${-dy}px, 0) rotate(${slot.rot + dr}deg); }
         100% { transform: translate3d(0, 0, 0) rotate(${slot.rot}deg); }
       }`;
     }).join("\n");
@@ -99,6 +97,9 @@ const HeroLogos = () => {
     const faviconUrl = getFaviconUrl(tool.url);
     if (!faviconUrl) return null;
     const animIdx = side === "left" ? idx : idx + 20;
+
+    // 대표님 요청: 1.5배 크기 상향
+    const upsized = slot.size * 1.5;
     
     return (
       <div
@@ -108,26 +109,26 @@ const HeroLogos = () => {
           position: "absolute",
           [side]: `${slot.offset}px`,
           top: slot.top,
-          width: `${slot.size}px`,
-          height: `${slot.size}px`,
+          width: `${upsized}px`,
+          height: `${upsized}px`,
           flexShrink: 0,
           borderRadius: "50%",
-          // 벚꽃 테마(isLight)일 때는 매우 비싼 backdropFilter를 제거하고 불투명도로 대체
-          background: isLight ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.45)",
-          backdropFilter: isLight ? "none" : "blur(4px)",
-          WebkitBackdropFilter: isLight ? "none" : "blur(4px)",
-          border: isLight ? "1px solid rgba(255,182,193,0.3)" : "1.5px solid rgba(255,255,255,0.6)",
-          boxShadow: isLight ? "0 4px 10px rgba(255,182,193,0.2)" : "0 6px 16px rgba(0,0,0,0.1)",
+          // 대표님 요청: 유리 효과 유지
+          background: "rgba(255,255,255,0.45)",
+          backdropFilter: "blur(6px)",
+          WebkitBackdropFilter: "blur(6px)",
+          border: isLight ? "1px solid rgba(255,182,193,0.4)" : "1.5px solid rgba(255,255,255,0.6)",
+          boxShadow: isLight ? "0 8px 24px rgba(255,182,193,0.25)" : "0 8px 20px rgba(0,0,0,0.12)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: "14px",
+          padding: "18px", 
           boxSizing: "border-box",
           overflow: "hidden",
           opacity: 0.95,
           pointerEvents: "none",
           zIndex: 0,
-          animation: `hlbf${animIdx} ${slot.dur * 1.4}s ease-in-out ${slot.delay}s infinite`,
+          animation: `hlbf${animIdx} ${slot.dur * 1.5}s ease-in-out ${slot.delay}s infinite`,
           willChange: "transform",
         }}
       >
@@ -139,7 +140,7 @@ const HeroLogos = () => {
             height: "100%",
             objectFit: "contain",
             display: "block",
-            filter: isLight ? "none" : "drop-shadow(0 2px 4px rgba(0,0,0,0.15))",
+            filter: "drop-shadow(0 2px 5px rgba(0,0,0,0.15))",
           }}
         />
       </div>
