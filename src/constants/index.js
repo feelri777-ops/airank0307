@@ -12,18 +12,15 @@ export const NAV_ITEMS = [
 /** 카테고리 필터 목록 */
 export const CATEGORIES = [
   { id: "all", label: "전체" },
+  { id: "multimodal", label: "멀티모달" },
   { id: "text", label: "텍스트" },
-  { id: "chatbot", label: "챗봇" },
   { id: "image", label: "이미지" },
-  { id: "photo", label: "사진편집" },
-  { id: "code", label: "코딩" },
-  { id: "video", label: "영상" },
-  { id: "audio", label: "오디오" },
-  { id: "search", label: "검색" },
-  { id: "productivity", label: "생산성" },
-  { id: "automation", label: "자동화" },
-  { id: "design", label: "디자인" },
-  { id: "education", label: "교육" },
+  { id: "video", label: "비디오" },
+  { id: "audio", label: "오디오/음악" },
+  { id: "code", label: "코드" },
+  { id: "search", label: "연구/검색" },
+  { id: "agent", label: "에이전트" },
+  { id: "other", label: "기타" },
 ];
 
 /** 직업군 필터 목록 */
