@@ -80,14 +80,16 @@ const HeroLogos = () => {
     const allSlots = [...LEFT_SLOTS, ...RIGHT_SLOTS];
     return Array.from({ length: 40 }, (_, i) => {
       const slot = allSlots[i];
-      // 화면 밖으로 크게 나가지 않도록 이동 범위를 보수적으로 설정 (dx ±20~50, dy 30~80)
-      const dy = 30 + (i % 5) * 12;                             
-      const dx = (i % 2 === 0 ? 1 : -1) * (20 + (i % 4) * 10);  
-      const dr = (i % 2 === 0 ? 12 : -12);                      
+      // 대표님 요청: 벽에 부딪히는 '바운스' 효과 구현 (0% -> 45% -> 55% -> 100%)
+      // dy를 키우고 y축 이동이 한계점에 도달했을 때 튕기는 느낌을 줌
+      const dy = 40 + (i % 6) * 15;     
+      const dx = (i % 2 === 0 ? 1 : -1) * (15 + (i % 5) * 8); 
+      const dr = (i % 2 === 0 ? 15 : -15);
 
       return `@keyframes hlbf${i} {
-        0%   { transform: translate3d(0, 0, 0) rotate(${slot.rot}deg); }
-        50%  { transform: translate3d(${dx}px, ${-dy}px, 0) rotate(${slot.rot + dr}deg); }
+        0%   { transform: translate3d(0, 0, 0) rotate(${slot.rot}deg); transition-timing-function: cubic-bezier(.11,.77,.41,.96); }
+        45%  { transform: translate3d(${dx*0.5}px, ${-dy}px, 0) rotate(${slot.rot + dr}deg); transition-timing-function: cubic-bezier(.61,.01,.88,.49); }
+        55%  { transform: translate3d(${dx*0.5}px, ${-dy}px, 0) rotate(${slot.rot + dr}deg); transition-timing-function: cubic-bezier(.11,.77,.41,.96); }
         100% { transform: translate3d(0, 0, 0) rotate(${slot.rot}deg); }
       }`;
     }).join("\n");
@@ -98,8 +100,10 @@ const HeroLogos = () => {
     if (!faviconUrl) return null;
     const animIdx = side === "left" ? idx : idx + 20;
 
-    // 대표님 요청: 1.5배 크기 상향
     const upsized = slot.size * 1.5;
+    
+    // 대표님 요청: 중앙으로 좀 더 모으기 (기본 오프셋에 +100px 추가하여 안쪽으로 배치)
+    const centeredOffset = slot.offset + 100;
     
     return (
       <div
@@ -107,13 +111,12 @@ const HeroLogos = () => {
         className="hlb"
         style={{
           position: "absolute",
-          [side]: `${slot.offset}px`,
+          [side]: `${centeredOffset}px`,
           top: slot.top,
           width: `${upsized}px`,
           height: `${upsized}px`,
           flexShrink: 0,
           borderRadius: "50%",
-          // 대표님 요청: 유리 효과 유지
           background: "rgba(255,255,255,0.45)",
           backdropFilter: "blur(6px)",
           WebkitBackdropFilter: "blur(6px)",
@@ -128,7 +131,7 @@ const HeroLogos = () => {
           opacity: 0.95,
           pointerEvents: "none",
           zIndex: 0,
-          animation: `hlbf${animIdx} ${slot.dur * 1.5}s ease-in-out ${slot.delay}s infinite`,
+          animation: `hlbf${animIdx} ${slot.dur * 1.6}s ease-in-out ${slot.delay}s infinite`,
           willChange: "transform",
         }}
       >
@@ -162,7 +165,7 @@ const HeroLogos = () => {
           background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 100%);
           pointer-events: none;
         }
-        @media (max-width: 700px) { .hlb { display: none !important; } }
+        @media (max-width: 1000px) { .hlb { display: none !important; } }
       `}</style>
 
       {leftTools.map((tool, i)  => renderBadge(tool, LEFT_SLOTS[i],  i, "left"))}
