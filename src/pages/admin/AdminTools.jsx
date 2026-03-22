@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   collection, getDocs, doc, addDoc, updateDoc, deleteDoc,
-  serverTimestamp, orderBy, query, onSnapshot
+  serverTimestamp, orderBy, query, onSnapshot, writeBatch
 } from "firebase/firestore";
 import { db } from "../../firebase";
 
@@ -343,12 +343,13 @@ export default function AdminTools() {
   const [showHidden, setShowHidden] = useState(false);
   const [editingTool, setEditingTool] = useState(null);
   const [historyTool, setHistoryTool] = useState(null);
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [isBulkLoading, setIsBulkLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     const q = query(collection(db, "tools"), orderBy("score", "desc"));
     
-    // 실시간 리스너로 변경하여 수정 즉시 리스트에 반영되도록 함
     const unsubscribe = onSnapshot(q, (snap) => {
       setTools(snap.docs.map(d => ({ ...d.data(), _docId: d.id, id: Number(d.id) })));
       setLoading(false);
@@ -367,13 +368,61 @@ export default function AdminTools() {
       const nextId = Math.max(0, ...tools.map(t => Number(t.id) || 0)) + 1;
       await addDoc(collection(db, "tools"), { ...data, id: nextId, score: 0, change: 0, createdAt: serverTimestamp() });
     }
-    // onSnapshot이 자동으로 업데이트하므로 fetchTools 제거
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
     await deleteDoc(doc(db, "tools", id));
-    // onSnapshot이 자동으로 업데이트하므로 fetchTools 제거
+  };
+
+  // 일괄 처리 (숨기기/표시)
+  const handleBulkStatus = async (hidden) => {
+    if (selectedIds.length === 0) return;
+    setIsBulkLoading(true);
+    try {
+      const batch = writeBatch(db);
+      selectedIds.forEach(id => {
+        batch.update(doc(db, "tools", id), { hidden });
+      });
+      await batch.commit();
+      setSelectedIds([]);
+    } catch (e) {
+      alert("일괄 처리 실패: " + e.message);
+    } finally {
+      setIsBulkLoading(false);
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedIds.length === 0) return;
+    if (!window.confirm(`선택된 ${selectedIds.length}개의 엔진을 영구 삭제하시겠습니까?`)) return;
+    setIsBulkLoading(true);
+    try {
+      const batch = writeBatch(db);
+      selectedIds.forEach(id => {
+        batch.delete(doc(db, "tools", id));
+      });
+      await batch.commit();
+      setSelectedIds([]);
+    } catch (e) {
+      alert("일괄 삭제 실패: " + e.message);
+    } finally {
+      setIsBulkLoading(false);
+    }
+  };
+
+  const toggleSelect = (id) => {
+    setSelectedIds(prev => 
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  };
+
+  const toggleAll = () => {
+    if (selectedIds.length === ranked.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(ranked.map(t => t._docId));
+    }
   };
 
   const filtered = tools.filter(t => {
@@ -400,7 +449,30 @@ export default function AdminTools() {
         </button>
       </header>
 
+      {/* 일괄 작업 바 */}
+      {selectedIds.length > 0 && (
+        <div style={{ 
+          position: "sticky", top: "20px", zIndex: 100,
+          background: "var(--accent-indigo)", color: "#fff", 
+          padding: "1rem 2rem", borderRadius: "20px", marginBottom: "1.5rem",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          boxShadow: "0 20px 40px var(--accent-indigo)40",
+          animation: "fadeInDown 0.3s ease"
+        }}>
+          <div style={{ fontWeight: 800, fontSize: "1.1rem" }}>
+            {selectedIds.length}개 선택됨
+          </div>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button disabled={isBulkLoading} onClick={() => handleBulkStatus(false)} style={{ padding: "8px 16px", borderRadius: "10px", border: "1px solid #ffffff40", background: "#ffffff20", color: "#fff", cursor: "pointer", fontWeight: 800 }}>선택 표시</button>
+            <button disabled={isBulkLoading} onClick={() => handleBulkStatus(true)} style={{ padding: "8px 16px", borderRadius: "10px", border: "1px solid #ffffff40", background: "#ffffff20", color: "#fff", cursor: "pointer", fontWeight: 800 }}>선택 숨김</button>
+            <button disabled={isBulkLoading} onClick={handleBulkDelete} style={{ padding: "8px 16px", borderRadius: "10px", border: "none", background: "#fff", color: "#ef4444", cursor: "pointer", fontWeight: 900 }}>선택 삭제</button>
+            <button onClick={() => setSelectedIds([])} style={{ background: "none", border: "none", color: "#fff", cursor: "pointer", opacity: 0.8, fontSize: "0.9rem" }}>취소</button>
+          </div>
+        </div>
+      )}
+
       <div style={{ display: "flex", gap: "12px", marginBottom: "1.5rem", background: "var(--bg-card)", padding: "1rem", borderRadius: "20px", border: "1px solid var(--border-primary)", alignItems: "center", flexWrap: "wrap" }}>
+        <input type="checkbox" checked={selectedIds.length > 0 && selectedIds.length === ranked.length} onChange={toggleAll} style={{ width: "20px", height: "20px", cursor: "pointer" }} />
         <div style={{ position: "relative", flex: 1, minWidth: "200px" }}>
           <MagnifyingGlass size={18} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="엔진 명칭 검색..." style={{ ...commonInputStyle, paddingLeft: "42px", border: "none", background: "var(--bg-secondary)" }} />
@@ -421,11 +493,13 @@ export default function AdminTools() {
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {ranked.map(tool => (
             <div key={tool._docId} style={{ 
-              display: "grid", gridTemplateColumns: "80px 60px 1fr 320px 100px 120px", 
+              display: "grid", gridTemplateColumns: "40px 80px 60px 1fr 320px 100px 120px", 
               alignItems: "center", padding: "1.2rem 1.5rem", background: tool.hidden ? "var(--bg-secondary)" : "var(--bg-card)",
-              borderRadius: "20px", border: "1px solid var(--border-primary)", opacity: tool.hidden ? 0.6 : 1,
+              borderRadius: "20px", border: selectedIds.includes(tool._docId) ? "2px solid var(--accent-indigo)" : "1px solid var(--border-primary)", 
+              opacity: tool.hidden ? 0.6 : 1,
               transition: "transform 0.2s"
             }}>
+              <input type="checkbox" checked={selectedIds.includes(tool._docId)} onChange={() => toggleSelect(tool._docId)} style={{ width: "18px", height: "18px", cursor: "pointer" }} />
               <div style={{ fontSize: "1.2rem", fontWeight: 950, color: "var(--accent-indigo)" }}>#{tool.pinnedRank || tool._rank}</div>
               <ToolLogo tool={tool} />
               <div style={{ paddingRight: "16px" }}>
