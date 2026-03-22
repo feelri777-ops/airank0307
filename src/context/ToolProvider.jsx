@@ -4,7 +4,7 @@ import { db } from "../firebase";
 import ToolContext from "./ToolContext";
 import { useAuth } from "./AuthContext";
 
-const CACHE_KEY = "airank_tools_cache";
+const CACHE_KEY = "airank_tools_cache_v2";
 const CACHE_TTL = 60 * 60 * 1000; // 1시간
 
 function loadCache() {

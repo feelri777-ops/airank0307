@@ -42,7 +42,7 @@ const ScoreInsightPanel = ({ tool }) => {
   const [activeTooltip, setActiveTooltip] = useState(null);
 
   useEffect(() => {
-    fetch("/scores.json")
+    fetch(`/scores.json?t=${new Date().getTime()}`)
       .then(r => r.json())
       .then(data => {
         const m = data.tools?.[String(tool.id)]?.metrics;
