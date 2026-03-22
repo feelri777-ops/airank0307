@@ -344,14 +344,21 @@ export default function AdminTools() {
   const [editingTool, setEditingTool] = useState(null);
   const [historyTool, setHistoryTool] = useState(null);
 
-  const fetchTools = async () => {
+  useEffect(() => {
     setLoading(true);
-    const snap = await getDocs(query(collection(db, "tools"), orderBy("score", "desc")));
-    setTools(snap.docs.map(d => ({ _docId: d.id, ...d.data() })));
-    setLoading(false);
-  };
+    const q = query(collection(db, "tools"), orderBy("score", "desc"));
+    
+    // 실시간 리스너로 변경하여 수정 즉시 리스트에 반영되도록 함
+    const unsubscribe = onSnapshot(q, (snap) => {
+      setTools(snap.docs.map(d => ({ ...d.data(), _docId: d.id, id: Number(d.id) })));
+      setLoading(false);
+    }, (err) => {
+      console.error("Fetch error:", err);
+      setLoading(false);
+    });
 
-  useEffect(() => { fetchTools(); }, []);
+    return () => unsubscribe();
+  }, []);
 
   const handleSave = async (data) => {
     if (editingTool?._docId) {
