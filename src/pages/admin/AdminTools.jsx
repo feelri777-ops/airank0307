@@ -408,7 +408,7 @@ export default function AdminTools() {
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {ranked.map(tool => (
             <div key={tool._docId} style={{ 
-              display: "grid", gridTemplateColumns: "80px 60px 1fr 200px 100px 120px", 
+              display: "grid", gridTemplateColumns: "80px 60px 1fr 320px 100px 120px", 
               alignItems: "center", padding: "1.2rem 1.5rem", background: tool.hidden ? "var(--bg-secondary)" : "var(--bg-card)",
               borderRadius: "20px", border: "1px solid var(--border-primary)", opacity: tool.hidden ? 0.6 : 1,
               transition: "transform 0.2s"
@@ -423,17 +423,17 @@ export default function AdminTools() {
                 <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: "2px", fontWeight: 500 }}>{tool.nameKo}</div>
               </div>
               
-              {/* 세부 점수 섹션 */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "4px 12px" }}>
+              {/* 세부 점수 섹션: 가로 1행으로 변경 */}
+              <div style={{ display: "flex", gap: "10px", alignItems: "center", fontSize: "0.75rem", fontWeight: 800 }}>
                 {[
-                  { label: "G", val: tool.metrics?.opr, color: "#4285F4" },
-                  { label: "N", val: tool.metrics?.ntv, color: "#03C75A" },
-                  { label: "S", val: tool.metrics?.sns, color: "#818cf8" },
-                  { label: "H", val: tool.metrics?.ghs, color: "#6e5494" },
+                  { label: "구글", val: tool.metrics?.opr, color: "#4285F4" },
+                  { label: "네이버", val: tool.metrics?.ntv, color: "#03C75A" },
+                  { label: "SNS", val: tool.metrics?.sns, color: "#818cf8" },
+                  { label: "깃허브", val: tool.metrics?.ghs, color: "#6e5494" },
                 ].map((m, i) => (
-                  <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <span style={{ fontSize: "0.65rem", fontWeight: 900, color: m.color, width: "12px" }}>{m.label}</span>
-                    <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "var(--text-primary)" }}>{(m.val || 0).toFixed(0)}</span>
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: "3px", whiteSpace: "nowrap" }}>
+                    <span style={{ color: m.color }}>{m.label}:</span>
+                    <span style={{ color: "var(--text-primary)" }}>{(m.val || 0).toFixed(0)}</span>
                   </div>
                 ))}
               </div>
