@@ -40,6 +40,30 @@ const EMPTY_FORM = {
   opr: "", ntv: "", ghs: "", sns: "",
 };
 
+function ToolLogo({ tool }) {
+  const [error, setError] = useState(false);
+  let faviconUrl = null;
+  try {
+    if (tool.url) faviconUrl = `https://www.google.com/s2/favicons?domain=${new URL(tool.url).hostname}&sz=64`;
+  } catch (e) {
+    faviconUrl = null;
+  }
+  return (
+    <div style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      {!error && faviconUrl ? (
+        <img
+          src={faviconUrl}
+          alt={tool.name}
+          style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "8px" }}
+          onError={() => setError(true)}
+        />
+      ) : (
+        <span style={{ fontSize: "1.8rem" }}>{tool.icon}</span>
+      )}
+    </div>
+  );
+}
+
 // 현대적인 입력창 스타일
 const commonInputStyle = {
   width: "100%", padding: "12px 16px", fontSize: "0.9rem",
@@ -386,7 +410,7 @@ export default function AdminTools() {
               transition: "transform 0.2s"
             }}>
               <div style={{ fontSize: "1.2rem", fontWeight: 950, color: "var(--accent-indigo)" }}>#{tool.pinnedRank || tool._rank}</div>
-              <div style={{ fontSize: "1.8rem" }}>{tool.icon}</div>
+              <ToolLogo tool={tool} />
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <button onClick={() => setHistoryTool(tool)} style={{ background: "none", border: "none", padding: 0, cursor: "pointer", fontSize: "1.1rem", fontWeight: 900, color: "var(--text-primary)" }}>{tool.name}</button>
