@@ -81,10 +81,13 @@ export function ToolProvider({ children }) {
             }
             if (!live) return tool;
             const change = live.change != null && live.change !== 0 ? live.change : tool.change;
-            return { ...tool, ...live, change };
+            // Firestore에 저장된 보정 점수(tool.score)를 우선하고, 없으면 scores.json의 원본 점수(live.score) 사용
+            const finalScore = tool.score ?? live.score;
+            return { ...tool, ...live, score: finalScore, change };
           });
 
-        setTools(merged);
+          const sorted = merged.sort((a, b) => (b.score || 0) - (a.score || 0));
+        setTools(sorted);
         setScoresUpdated(scoresRes?.updated || null);
         setError(null);
       } catch (err) {
