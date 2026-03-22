@@ -48,6 +48,19 @@ const TB = styled.button`
   box-shadow: ${({ $active }) => $active ? "0 1px 3px rgba(0,0,0,0.1)" : "none"};
   &:hover { background: var(--bg-card); color: var(--text-primary); }
   @media (max-width: 600px) { min-width: 28px; height: 28px; padding: 0 4px; }
+
+  /* 커스텀 툴팁 */
+  &:hover::after {
+    content: attr(data-title);
+    position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%);
+    background: rgba(30,30,30,0.95); color: #fff;
+    font-size: 11px; padding: 4px 8px; border-radius: 4px;
+    white-space: nowrap; z-index: 1000;
+    pointer-events: none; opacity: 1; visibility: visible;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  &:not([data-title]):hover::after { display: none; }
 `;
 
 const TDiv = styled.div`width: 1px; height: 18px; background: var(--border-primary); margin: 0 4px; flex-shrink: 0;`;
@@ -132,8 +145,18 @@ const BB = styled.button`
   min-width: 28px; height: 28px; padding: 0 6px;
   border: none; border-radius: var(--r-xs); background: transparent;
   color: #e0e0e0; font-size: 0.8rem; font-weight: 700; cursor: pointer;
-  transition: all 0.1s;
+  transition: all 0.1s; position: relative;
   &:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+  /* 커스텀 툴팁 */
+  &:hover::after {
+    content: attr(data-title);
+    position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%);
+    background: rgba(30,30,30,0.95); color: #fff;
+    font-size: 11px; padding: 4px 8px; border-radius: 4px;
+    white-space: nowrap; z-index: 1000;
+  }
+  &:not([data-title]):hover::after { display: none; }
 `;
 const BDiv = styled.div`width: 1px; height: 18px; background: rgba(255,255,255,0.15); margin: 0 3px;`;
 
@@ -295,13 +318,13 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
       {/* ─── 툴바 ─── */}
       <Toolbar onMouseDown={(e) => e.preventDefault()}>
         {/* Undo / Redo */}
-        <TB title="실행 취소" onClick={() => exec("undo")}><span style={{ fontSize: '1.1rem' }}>⟲</span></TB>
-        <TB title="다시 실행" onClick={() => exec("redo")}><span style={{ fontSize: '1.1rem' }}>⟳</span></TB>
+        <TB data-title="실행 취소" onClick={() => exec("undo")}><span style={{ fontSize: '1.1rem' }}>⟲</span></TB>
+        <TB data-title="다시 실행" onClick={() => exec("redo")}><span style={{ fontSize: '1.1rem' }}>⟳</span></TB>
         <TDiv />
 
         {/* Font size */}
         <div style={{ position: "relative" }} className="pro-panel">
-          <TB onClick={() => handlePanel('size')}>T<span style={{ fontSize: '0.6rem', marginLeft: '2px' }}>▼</span></TB>
+          <TB onClick={() => handlePanel('size')} data-title="글자 크기">T<span style={{ fontSize: '0.6rem', marginLeft: '2px' }}>▼</span></TB>
           {activePanel === 'size' && (
             <SizePanel>
               {FONT_SIZES.map(s => (
@@ -312,47 +335,47 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
         </div>
 
         {/* Basic Text */}
-        <TB title="굵게" onClick={() => exec("bold")}><b>B</b></TB>
-        <TB title="기울임" onClick={() => exec("italic")}><i>I</i></TB>
-        <TB title="밑줄" onClick={() => exec("underline")}><u>U</u></TB>
-        <TB title="취소선" onClick={() => exec("strikeThrough")}><s>S</s></TB>
+        <TB data-title="굵게" onClick={() => exec("bold")}><b>B</b></TB>
+        <TB data-title="기울임" onClick={() => exec("italic")}><i>I</i></TB>
+        <TB data-title="밑줄" onClick={() => exec("underline")}><u>U</u></TB>
+        <TB data-title="취소선" onClick={() => exec("strikeThrough")}><s>S</s></TB>
         <TDiv />
 
         {/* Color */}
         <div style={{ position: "relative" }} className="pro-panel">
-          <TB onClick={() => handlePanel('color')} title="글자색"><span style={{ borderBottom: '2px solid #FF0000' }}>A</span></TB>
+          <TB onClick={() => handlePanel('color')} data-title="글자색"><span style={{ borderBottom: '2px solid #FF0000' }}>A</span></TB>
           {activePanel === 'color' && (
             <ColorPanel>
-              {TEXT_COLORS.map(c => <ColorBtn key={c} color={c} onClick={() => exec("foreColor", c)} title={c} />)}
+              {TEXT_COLORS.map(c => <ColorBtn key={c} color={c} onClick={() => exec("foreColor", c)} data-title={c} />)}
             </ColorPanel>
           )}
         </div>
         <div style={{ position: "relative" }} className="pro-panel">
-          <TB onClick={() => handlePanel('hilite')} title="배경색"><span style={{ background: '#FFFF00', padding: '0 3px', color: '#000' }}>A</span></TB>
+          <TB onClick={() => handlePanel('hilite')} data-title="배경색"><span style={{ background: '#FFFF00', padding: '0 3px', color: '#000' }}>A</span></TB>
           {activePanel === 'hilite' && (
             <ColorPanel>
-              {BG_COLORS.map(c => <ColorBtn key={c} color={c} onClick={() => exec("hiliteColor", c)} title={c} />)}
+              {BG_COLORS.map(c => <ColorBtn key={c} color={c} onClick={() => exec("hiliteColor", c)} data-title={c} />)}
             </ColorPanel>
           )}
         </div>
         <TDiv />
 
         {/* Align */}
-        <TB title="왼쪽 정렬" onClick={() => exec("justifyLeft")}>⚖️</TB>
-        <TB title="가운데 정렬" onClick={() => exec("justifyCenter")}>🏛️</TB>
-        <TB title="오른쪽 정렬" onClick={() => exec("justifyRight")}>⚖️</TB>
+        <TB data-title="왼쪽 정렬" onClick={() => exec("justifyLeft")}>⚖️</TB>
+        <TB data-title="가운데 정렬" onClick={() => exec("justifyCenter")}>🏛️</TB>
+        <TB data-title="오른쪽 정렬" onClick={() => exec("justifyRight")}>⚖️</TB>
         <TDiv />
 
         {/* List / Structure */}
-        <TB title="제목 2" onClick={() => exec("formatBlock", "h2")}>H2</TB>
-        <TB title="제목 3" onClick={() => exec("formatBlock", "h3")}>H3</TB>
-        <TB title="순서없는 목록" onClick={() => exec("insertUnorderedList")}>•</TB>
-        <TB title="인용" onClick={() => exec("formatBlock", "blockquote")}>❝</TB>
+        <TB data-title="제목 2" onClick={() => exec("formatBlock", "h2")}>H2</TB>
+        <TB data-title="제목 3" onClick={() => exec("formatBlock", "h3")}>H3</TB>
+        <TB data-title="순서없는 목록" onClick={() => exec("insertUnorderedList")}>•</TB>
+        <TB data-title="인용" onClick={() => exec("formatBlock", "blockquote")}>❝</TB>
         <TDiv />
 
         {/* Smart Embed */}
-        <TB title="링크/미디어 삽입" onClick={() => { saveRange(); handlePanel('yt'); }}>🔗</TB>
-        <TB title="이모지" onClick={() => handlePanel('emoji')}>😊</TB>
+        <TB data-title="링크/미디어 삽입" onClick={() => { saveRange(); handlePanel('yt'); }}>🔗</TB>
+        <TB data-title="이모지" onClick={() => handlePanel('emoji')}>😊</TB>
         {activePanel === 'emoji' && (
           <EmojiPanel className="pro-panel">
             {EMOJI_LIST.map((e) => (
@@ -435,30 +458,30 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
         {imgBubble && (
           <ImageBubble style={{ left: imgBubble.x, top: imgBubble.y }} onMouseDown={(e) => e.preventDefault()}>
             <div style={{ fontSize: '0.65rem', color: '#999', margin: '0 4px' }}>크기</div>
-            <SizeX title="작게(30%)" onClick={() => { imgBubble.target.style.width = '30%'; updateCount(); }}>S</SizeX>
-            <SizeX title="중간(60%)" onClick={() => { imgBubble.target.style.width = '60%'; updateCount(); }}>M</SizeX>
-            <SizeX title="전체(100%)" onClick={() => { imgBubble.target.style.width = '100%'; updateCount(); }}>L</SizeX>
+            <SizeX data-title="작게(30%)" onClick={() => { imgBubble.target.style.width = '30%'; updateCount(); }}>S</SizeX>
+            <SizeX data-title="중간(60%)" onClick={() => { imgBubble.target.style.width = '60%'; updateCount(); }}>M</SizeX>
+            <SizeX data-title="전체(100%)" onClick={() => { imgBubble.target.style.width = '100%'; updateCount(); }}>L</SizeX>
             <BDiv />
-            <BB title="좌측 배치" onClick={() => { 
+            <BB data-title="좌측 배치" onClick={() => { 
                 imgBubble.target.style.float = 'left'; 
                 imgBubble.target.style.margin = '1rem 1rem 1rem 0';
                 imgBubble.target.style.display = 'inline-block';
                 updateCount();
               }}>좌</BB>
-            <BB title="중앙 배치" onClick={() => { 
+            <BB data-title="중앙 배치" onClick={() => { 
                 imgBubble.target.style.float = 'none'; 
                 imgBubble.target.style.margin = '1rem auto';
                 imgBubble.target.style.display = 'block';
                 updateCount();
               }}>중</BB>
-            <BB title="우측 배치" onClick={() => { 
+            <BB data-title="우측 배치" onClick={() => { 
                 imgBubble.target.style.float = 'right'; 
                 imgBubble.target.style.margin = '1rem 0 1rem 1rem';
                 imgBubble.target.style.display = 'inline-block';
                 updateCount();
               }}>우</BB>
             <BDiv />
-            <BB title="이미지 삭제" style={{ color: '#ff4444' }} onClick={() => { imgBubble.target.remove(); setImgBubble(null); updateCount(); }}>❌</BB>
+            <BB data-title="이미지 삭제" style={{ color: '#ff4444' }} onClick={() => { imgBubble.target.remove(); setImgBubble(null); updateCount(); }}>❌</BB>
           </ImageBubble>
         )}
       </div>
