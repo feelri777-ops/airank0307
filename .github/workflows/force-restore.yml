@@ -21,8 +21,13 @@ jobs:
       - name: 의존성 설치
         run: npm install firebase-admin dotenv
 
-      - name: Firestore 메타데이터 강제 복구
+      - name: Firestore 기본 데이터 복구 (JS -> DB)
         run: node scripts/restore_from_js.js
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: 카테고리/태그 정밀 동기화 (JS -> DB)
+        run: node scripts/force_taxonomy_sync.js
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
       - name: 랭킹 점수 즉시 갱신

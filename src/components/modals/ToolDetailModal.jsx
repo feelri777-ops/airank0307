@@ -8,31 +8,32 @@ import { decodeHtmlEntities } from "../../utils";
 import { YoutubeLogoFill, BookmarkSimple, BookmarkSimpleFill, ArrowRight } from "../icons/PhosphorIcons";
 
 // 미니 스파크라인 SVG (ScoreInsightPanel 밖에 정의 → remount 방지로 애니메이션 1회만 실행)
+// 미니 프로그레스 바 (가로 일직선 바 형태)
 const Spark = ({ pts, color }) => {
-  const sw = 180, sh = 20;
-  const mn = Math.min(...pts) - 0.5;
-  const mx = Math.max(...pts) + 0.5;
-  const r = mx - mn || 1;
-  const sx = (i) => (i / (pts.length - 1)) * sw;
-  const sy = (v) => sh - ((v - mn) / r) * sh;
-  const pd = pts.map((v, i) => `${i === 0 ? "M" : "L"}${sx(i).toFixed(1)},${sy(v).toFixed(1)}`).join(" ");
-  const ad = `${pd} L${sw},${sh} L0,${sh} Z`;
+  const val = pts[pts.length - 1]; // 최신 값 (오늘자 점수)
+  const percent = Math.max(2, Math.min(100, val));
+  
   return (
-    <svg viewBox={`0 0 ${sw} ${sh}`} width="100%" height={sh} style={{ overflow: "visible", display: "block" }}>
-      <path d={ad} fill={color} style={{ fillOpacity: 0, animation: "sparkFade 0.8s ease 0.2s forwards" }} />
-      <path d={pd} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-        pathLength="1"
-        style={{ strokeDasharray: 1, strokeDashoffset: 1, animation: "sparkDraw 0.8s ease forwards" }}
-      />
-      {pts.map((v, i) => (
-        <circle key={i} cx={sx(i)} cy={sy(v)}
-          r={i === pts.length - 1 ? 3 : 2}
-          fill={i === pts.length - 1 ? color : "var(--bg-card)"}
-          stroke={color} strokeWidth={i === pts.length - 1 ? 0 : 1.2}
-          style={{ opacity: 0, animation: `sparkDot 0.3s ease ${0.1 + i * 0.08}s forwards` }}
-        />
-      ))}
-    </svg>
+    <div style={{ 
+      width: "100%", height: "8px", background: "var(--bg-secondary)", 
+      borderRadius: "4px", overflow: "hidden", position: "relative",
+      border: "1px solid var(--border-primary)"
+    }}>
+      <div style={{ 
+        width: `${percent}%`, height: "100%", background: color,
+        borderRadius: "4px", transition: "width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        position: "relative",
+        boxShadow: `0 0 10px ${color}40`
+      }}>
+        {/* 끝부분 글로우 효과 */}
+        <div style={{
+          position: "absolute", right: 0, top: 0, bottom: 0, width: "10px",
+          background: `linear-gradient(to right, transparent, #fff)`,
+          opacity: 0.5,
+          animation: "pulse 1.5s infinite"
+        }} />
+      </div>
+    </div>
   );
 };
 
@@ -191,9 +192,9 @@ const TOOL_BOARD_MAP = {
 };
 
 const CAT_LABEL = {
-  text: "💬 텍스트", image: "🎨 이미지", code: "💻 코딩",
-  video: "🎬 영상", audio: "🎵 오디오", search: "🔍 검색",
-  productivity: "⚡ 생산성", design: "✏️ 디자인",
+  multimodal: "🔮 멀티모달", text: "💬 텍스트", image: "🎨 이미지", code: "💻 코딩",
+  video: "🎬 영상", audio: "🎵 오디오/음악", search: "🔍 연구/검색",
+  agent: "🤖 에이전트", other: "📦 기타",
 };
 
 const LIFE_LABEL = {

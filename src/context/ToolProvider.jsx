@@ -4,33 +4,39 @@ import { db } from "../firebase";
 import ToolContext from "./ToolContext";
 import { useAuth } from "./AuthContext";
 
-const CACHE_KEY = "airank_tools_cache_v4";
+const CACHE_KEY = "airank_tools_cache_v5";
+const CACHE_VERSION = "5.0.0";
 const CACHE_TTL = 60 * 60 * 1000; // 1시간
 
 function loadCache() {
   try {
+    const v = localStorage.getItem("airank_cache_version");
+    if (v !== CACHE_VERSION) {
+      localStorage.removeItem(CACHE_KEY);
+      localStorage.setItem("airank_cache_version", CACHE_VERSION);
+      return null;
+    }
     const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
     const { data, ts } = JSON.parse(raw);
     if (Date.now() - ts > CACHE_TTL) return null;
     return data;
-  } catch {
-    return null;
-  }
+  } catch { return null; }
 }
 
 function saveCache(data) {
   try {
     localStorage.setItem(CACHE_KEY, JSON.stringify({ data, ts: Date.now() }));
-  } catch {}
+    localStorage.setItem("airank_cache_version", CACHE_VERSION);
+  } catch (e) { console.error("Cache save failed:", e); }
 }
 
-export function ToolProvider({ children }) {
+export const ToolProvider = ({ children }) => {
   const { user } = useAuth();
   const [tools, setTools] = useState([]);
+  const [scoresUpdated, setScoresUpdated] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [scoresUpdated, setScoresUpdated] = useState(null);
 
   const [selectedTool, setSelectedTool] = useState(null);
   const [selectedRank, setSelectedRank] = useState(null);
@@ -48,18 +54,18 @@ export function ToolProvider({ children }) {
     setIsLoading(true);
 
     const loadTools = async () => {
-      console.log("🚀 Airank v4: Loading tools with rebalanced logic...");
+      console.log("🚀 Airank v5: Aggressive Cache Clear & Rebalanced Logic Loading...");
       try {
         // 1. 캐시 확인
         const cached = loadCache();
 
-        // 2. scores.json 병렬 로드
+        // 2. scores.json 병렬 로드 (캐시 유무 상관없이 최신 점수 확인 위함)
         const timestamp = Date.now();
         const [firestoreTools, scoresRes] = await Promise.all([
           cached
             ? Promise.resolve(cached)
             : getDocs(collection(db, "tools")).then(snap =>
-                snap.docs.map(d => ({ ...d.data(), id: Number(d.id) }))
+                snap.docs.map(d => ({ ...d.data(), id: Number(d.id), _docId: d.id }))
               ),
           fetch(`/scores.json?t=${timestamp}`).then(r => r.ok ? r.json() : null).catch(() => null),
         ]);
