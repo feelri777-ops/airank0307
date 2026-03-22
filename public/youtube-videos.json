@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-22T04:27:50.131Z",
+  "updated": "2026-03-22T04:37:56.010Z",
   "topN": 100,
   "videos": {
     "1": [
@@ -14,12 +14,6 @@
         "title": "\"이 3가지는 필수\" AI 20년 연구한 뇌과학자가 챗GPT 쓰는 법 (카이스트 김대식 교수)",
         "channelTitle": "머니인사이드",
         "thumbnail": "https://i.ytimg.com/vi/vDZ0ryuiYfg/mqdefault.jpg"
-      },
-      {
-        "videoId": "JHYnBCqL-Dc",
-        "title": "챗GPT 무료 특강 (1시간 기본 완성)",
-        "channelTitle": "나도코딩",
-        "thumbnail": "https://i.ytimg.com/vi/JHYnBCqL-Dc/mqdefault.jpg"
       }
     ],
     "2": [
@@ -40,6 +34,12 @@
         "title": "AI 잘 쓰는 사람들이 클로드 스킬 먼저 세팅하는 이유",
         "channelTitle": "유튜브신쌤",
         "thumbnail": "https://i.ytimg.com/vi/8o6qC5qw4r0/mqdefault.jpg"
+      },
+      {
+        "videoId": "46HxP7kO9oY",
+        "title": "AI 시대의 필수 지식 MCP 이 영상 하나로 끝내세요!",
+        "channelTitle": "조코딩 JoCoding",
+        "thumbnail": "https://i.ytimg.com/vi/46HxP7kO9oY/mqdefault.jpg"
       }
     ],
     "3": [
@@ -60,6 +60,12 @@
         "title": "요즘 GPT에서 제미나이로 전부 갈아타는 이유",
         "channelTitle": "GPT 연대경영",
         "thumbnail": "https://i.ytimg.com/vi/zab-38Wvpww/mqdefault.jpg"
+      },
+      {
+        "videoId": "m35uZ8zWNsI",
+        "title": "제미나이로 유튜브 100배 무제한으로 즐기는 방법!!",
+        "channelTitle": "시니어준비생",
+        "thumbnail": "https://i.ytimg.com/vi/m35uZ8zWNsI/mqdefault.jpg"
       }
     ],
     "4": [
@@ -80,6 +86,12 @@
         "title": "Deepseek+Exaone+Docling으로 오픈소스 Reasoning RAG 구축하기",
         "channelTitle": "모두의AI",
         "thumbnail": "https://i.ytimg.com/vi/4j6J-9hxfhk/mqdefault.jpg"
+      },
+      {
+        "videoId": "56rxzMxaufU",
+        "title": "DeepSeek Just Dropped Free AI That Destroys Every OCR Model",
+        "channelTitle": "AI Revolution",
+        "thumbnail": "https://i.ytimg.com/vi/56rxzMxaufU/mqdefault.jpg"
       }
     ],
     "5": [
@@ -100,6 +112,12 @@
         "title": "GPT VS 제미나이 VS 그록3(자청)",
         "channelTitle": "라이프해커,자청",
         "thumbnail": "https://i.ytimg.com/vi/p4EQYvM3ZT8/mqdefault.jpg"
+      },
+      {
+        "videoId": "CMPlwj4h9ls",
+        "title": "제미나이/GPT/클로드/Grok 이것만 알면 된다.[프롬프트 공유]",
+        "channelTitle": "생존AI",
+        "thumbnail": "https://i.ytimg.com/vi/CMPlwj4h9ls/mqdefault.jpg"
       }
     ],
     "6": [
@@ -120,6 +138,12 @@
         "title": "메타 라마3 설치 사용방법 - OLLAMA | Llama 3 - Meta AI | 윈도우, 맥북, 리눅스 설치 가능",
         "channelTitle": "감자나라ai",
         "thumbnail": "https://i.ytimg.com/vi/kZXE5KyFcHo/mqdefault.jpg"
+      },
+      {
+        "videoId": "wUPr5Op3feY",
+        "title": "ChatGPT만큼 똑똑한 라마3 인공지능 AI 내 컴퓨터에 설치해보자",
+        "channelTitle": "코드깎는노인",
+        "thumbnail": "https://i.ytimg.com/vi/wUPr5Op3feY/mqdefault.jpg"
       }
     ],
     "7": [
@@ -140,6 +164,12 @@
         "title": "VS Code 무료 AI 코드 어시스턴트 Continue 사용법 (Ollama, GPT-4o, Gemini)",
         "channelTitle": "디지코",
         "thumbnail": "https://i.ytimg.com/vi/fcoNDngCmVU/mqdefault.jpg"
+      },
+      {
+        "videoId": "UwaDnupTErQ",
+        "title": "공짜 AI 찾아주는 서비스 소개합니다. #frouter #qwen3 #kimi #mistral #glm #nvidia #openrouter",
+        "channelTitle": "ZeroCho TV",
+        "thumbnail": "https://i.ytimg.com/vi/UwaDnupTErQ/mqdefault.jpg"
       }
     ],
     "8": [
@@ -158,12 +188,6 @@
     ],
     "9": [
       {
-        "videoId": "9IupTgVqt5c",
-        "title": "Ip camera connection between poe switch, NVR & internet router wiring with detailed diagram | Part 3",
-        "channelTitle": "TECHLOGICS",
-        "thumbnail": "https://i.ytimg.com/vi/9IupTgVqt5c/mqdefault.jpg"
-      },
-      {
         "videoId": "3bZo0d1CuY4",
         "title": "ip cctv 연결하는 방법 POE허브 32채널  NVR 32채널 구성하는 방법 ip 카메라 다후아 nvr 랜선연결",
         "channelTitle": "멋지심",
@@ -180,9 +204,21 @@
         "title": "랜선 하나로!  간단설치! NVR녹화기와 POE카메라에 대해서 알아봅시다.",
         "channelTitle": "마야TV",
         "thumbnail": "https://i.ytimg.com/vi/Bn73zcsOWUk/mqdefault.jpg"
+      },
+      {
+        "videoId": "tKMsVT0MHt0",
+        "title": "[POE2] 이제 직접 안 만나도 된다?! 0.3.0 비동기 거래소 사용법 가이드 | 패스 오브 엑자일 2",
+        "channelTitle": "다린 Darin",
+        "thumbnail": "https://i.ytimg.com/vi/tKMsVT0MHt0/mqdefault.jpg"
       }
     ],
     "10": [
+      {
+        "videoId": "TInpBReOqbo",
+        "title": "세상을 바꿀 AI 아트 생성기술 | 미드 저니 직접 사용해보기. 말하면 그려주는 인공지능 | MidJourney | 프롬프트 엔지니어링",
+        "channelTitle": "엄마, 내가 알려줄게",
+        "thumbnail": "https://i.ytimg.com/vi/TInpBReOqbo/mqdefault.jpg"
+      },
       {
         "videoId": "vIh8nu1tcDI",
         "title": "미드저니 마스터하기: 초보자를 위한 완벽 가이드 #1",
@@ -220,6 +256,12 @@
         "title": "전세계가 경악중인 최신 AI 사용법 왕초보 실전 가이드 (ft. Stable Diffusion)",
         "channelTitle": "조코딩 JoCoding",
         "thumbnail": "https://i.ytimg.com/vi/vVdNmnEb--E/mqdefault.jpg"
+      },
+      {
+        "videoId": "LDvnLm2illk",
+        "title": "Novel AI & Stable Diffusion 원리설명",
+        "channelTitle": "코딩애플",
+        "thumbnail": "https://i.ytimg.com/vi/LDvnLm2illk/mqdefault.jpg"
       }
     ],
     "12": [
@@ -267,6 +309,12 @@
         "title": "Leonardo AI - Tutorial for Beginners in 12 MINS!  [ FULL GUIDE 2024 ]",
         "channelTitle": "Skills Factory",
         "thumbnail": "https://i.ytimg.com/vi/DzJPO1-KZSE/mqdefault.jpg"
+      },
+      {
+        "videoId": "t0LMoLluY28",
+        "title": "Free AI Animation Video Generator To Animate Anyone - Viggle AI Motion Capture",
+        "channelTitle": "Chem Beast",
+        "thumbnail": "https://i.ytimg.com/vi/t0LMoLluY28/mqdefault.jpg"
       }
     ],
     "15": [
@@ -349,16 +397,22 @@
         "thumbnail": "https://i.ytimg.com/vi/Z6BYhJl9hV8/mqdefault.jpg"
       },
       {
-        "videoId": "EPyyyB23NUU",
-        "title": "Introducing the GitHub Copilot coding agent",
-        "channelTitle": "GitHub",
-        "thumbnail": "https://i.ytimg.com/vi/EPyyyB23NUU/mqdefault.jpg"
-      },
-      {
         "videoId": "n0NlxUyA7FI",
         "title": "Getting started with GitHub Copilot | Tutorial",
         "channelTitle": "GitHub",
         "thumbnail": "https://i.ytimg.com/vi/n0NlxUyA7FI/mqdefault.jpg"
+      },
+      {
+        "videoId": "nTmAveylPjk",
+        "title": "코파일럿 X 쓰면 코파면서 코딩가능 엌ㅋㅋㅋㅋ",
+        "channelTitle": "코딩애플",
+        "thumbnail": "https://i.ytimg.com/vi/nTmAveylPjk/mqdefault.jpg"
+      },
+      {
+        "videoId": "KSxUr0BU9ig",
+        "title": "Agent mode in GitHub Copilot",
+        "channelTitle": "Visual Studio Code",
+        "thumbnail": "https://i.ytimg.com/vi/KSxUr0BU9ig/mqdefault.jpg"
       }
     ],
     "19": [
@@ -379,6 +433,12 @@
         "title": "Cursor AI Tutorial for Beginners",
         "channelTitle": "Volo Builds",
         "thumbnail": "https://i.ytimg.com/vi/3289vhOUdKA/mqdefault.jpg"
+      },
+      {
+        "videoId": "46HxP7kO9oY",
+        "title": "AI 시대의 필수 지식 MCP 이 영상 하나로 끝내세요!",
+        "channelTitle": "조코딩 JoCoding",
+        "thumbnail": "https://i.ytimg.com/vi/46HxP7kO9oY/mqdefault.jpg"
       }
     ],
     "20": [
@@ -501,12 +561,6 @@
     ],
     "27": [
       {
-        "videoId": "roAORBdDTDI",
-        "title": "제미나이 미친 기능 나노바나나 ai무료로 써보세요!",
-        "channelTitle": "스마트 라라힐",
-        "thumbnail": "https://i.ytimg.com/vi/roAORBdDTDI/mqdefault.jpg"
-      },
-      {
         "videoId": "-MluR9dqt5w",
         "title": "Kling 3.0 vs Seedance 2 vs Veo 3.1 vs Sora 2: The Ultimate AI Video Comparison",
         "channelTitle": "Dom the AI Tutor | Tech Tutor Zones",
@@ -517,6 +571,18 @@
         "title": "제발 돈 낭비는 그만.. AI에 500만 원 쓴 사람이 알려주는 AI 선택 가이드",
         "channelTitle": "알린 ALINN",
         "thumbnail": "https://i.ytimg.com/vi/Cv1IpNcDsEg/mqdefault.jpg"
+      },
+      {
+        "videoId": "2DOKwpzkarU",
+        "title": "그록4 사용법 총정리! 60대도 쉽게 하는 AI 영상 만들기",
+        "channelTitle": "알리도콜센터",
+        "thumbnail": "https://i.ytimg.com/vi/2DOKwpzkarU/mqdefault.jpg"
+      },
+      {
+        "videoId": "usw4mzCUF3c",
+        "title": "'나노바나나'로 AI 애니메이션 10분 만에 만들기 (무료버전) | 구글ai 제미나이",
+        "channelTitle": "AI:ON 에이아이온💡돈버는법💡",
+        "thumbnail": "https://i.ytimg.com/vi/usw4mzCUF3c/mqdefault.jpg"
       }
     ],
     "28": [
@@ -589,6 +655,12 @@
         "title": "Luma's New Modify Video is IMPRESSIVE!",
         "channelTitle": "Theoretically Media",
         "thumbnail": "https://i.ytimg.com/vi/DuI1Nx98Stk/mqdefault.jpg"
+      },
+      {
+        "videoId": "RQPYMbLiyKk",
+        "title": "텍스트와 이미지로 AI 영상 만들기 (루마 ai)",
+        "channelTitle": "디지털거북이",
+        "thumbnail": "https://i.ytimg.com/vi/RQPYMbLiyKk/mqdefault.jpg"
       }
     ],
     "31": [
@@ -651,10 +723,10 @@
         "thumbnail": "https://i.ytimg.com/vi/KrZ9JcmOpiM/mqdefault.jpg"
       },
       {
-        "videoId": "x0x7hdFke-s",
-        "title": "한국어 TTS 대결 | 타입캐스트 vs 일레븐랩스 vs 수퍼톤 vs Hailuo AI",
-        "channelTitle": "엔드플랜 Endplan AI",
-        "thumbnail": "https://i.ytimg.com/vi/x0x7hdFke-s/mqdefault.jpg"
+        "videoId": "WX7PEWqZajU",
+        "title": "[내돈내구독] AI로 내 아바타 영상 만들기 튜토리얼 (헤이젠 + 일레븐 랩스)",
+        "channelTitle": "KyuQ캡틴규큐",
+        "thumbnail": "https://i.ytimg.com/vi/WX7PEWqZajU/mqdefault.jpg"
       }
     ],
     "34": [
@@ -705,16 +777,22 @@
         "thumbnail": "https://i.ytimg.com/vi/YoWdogtZRw8/mqdefault.jpg"
       },
       {
-        "videoId": "Mpk4LNZ_P4c",
-        "title": "‘나는 왜 AI를 써도 좋은 보고서가 안 나올까?’ (김덕중 Firb AI연구소장)",
-        "channelTitle": "티타임즈TV",
-        "thumbnail": "https://i.ytimg.com/vi/Mpk4LNZ_P4c/mqdefault.jpg"
+        "videoId": "3d4MtbeVFow",
+        "title": "구글, 네이버를 인공지능으로 10배 업그레이드 시키기 | 퍼플렉시티 Perplexity AI 의 모든 것",
+        "channelTitle": "커리어해커 알렉스",
+        "thumbnail": "https://i.ytimg.com/vi/3d4MtbeVFow/mqdefault.jpg"
       },
       {
-        "videoId": "Cv1IpNcDsEg",
-        "title": "제발 돈 낭비는 그만.. AI에 500만 원 쓴 사람이 알려주는 AI 선택 가이드",
-        "channelTitle": "알린 ALINN",
-        "thumbnail": "https://i.ytimg.com/vi/Cv1IpNcDsEg/mqdefault.jpg"
+        "videoId": "lqAHw6TwLsk",
+        "title": "10 Perplexity Comet Agents to Automate Your Work (AI Browser)",
+        "channelTitle": "Grace Leung",
+        "thumbnail": "https://i.ytimg.com/vi/lqAHw6TwLsk/mqdefault.jpg"
+      },
+      {
+        "videoId": "DqhINxCPKCQ",
+        "title": "퍼플렉시티에서 가장 대박인 이 기능 : 해외는 충격으로 뒤집어 졌는데 국내는 의외로 모르네요 - 퍼플렉시티 랩스, Perplexity Labs ON!",
+        "channelTitle": "오은환의 하이라이트",
+        "thumbnail": "https://i.ytimg.com/vi/DqhINxCPKCQ/mqdefault.jpg"
       }
     ],
     "37": [],
@@ -736,6 +814,12 @@
         "title": "요즘 직장인들 난리난 엑셀 역대급 함수 업데이트 ㄷㄷ #copilot #함수",
         "channelTitle": "오빠두엑셀 l 엑셀 강의 대표채널",
         "thumbnail": "https://i.ytimg.com/vi/iz9GxpKUJBI/mqdefault.jpg"
+      },
+      {
+        "videoId": "dX9MJM5EokE",
+        "title": "How to Use Microsoft Copilot Studio (Step-by-Step Tutorial)",
+        "channelTitle": "Kevin Stratvert",
+        "thumbnail": "https://i.ytimg.com/vi/dX9MJM5EokE/mqdefault.jpg"
       }
     ],
     "40": [
@@ -821,22 +905,28 @@
     ],
     "47": [
       {
-        "videoId": "ci-1OnPMl3E",
-        "title": "100% Automated Sora 2 Home Camera Shorts in n8n (Full Guide)",
-        "channelTitle": "Koen | AI Content Systems",
-        "thumbnail": "https://i.ytimg.com/vi/ci-1OnPMl3E/mqdefault.jpg"
+        "videoId": "ONgECvZNI3o",
+        "title": "You NEED to Use n8n RIGHT NOW!! (Free, Local, Private)",
+        "channelTitle": "NetworkChuck",
+        "thumbnail": "https://i.ytimg.com/vi/ONgECvZNI3o/mqdefault.jpg"
       },
       {
-        "videoId": "XJ_RTQ43AjY",
-        "title": "AI로 틱톡 자동화했더니 7일 만에 100만뷰 😎",
-        "channelTitle": "노마드 코더 Nomad Coders",
-        "thumbnail": "https://i.ytimg.com/vi/XJ_RTQ43AjY/mqdefault.jpg"
+        "videoId": "Ey18PDiaAYI",
+        "title": "Build & Sell n8n AI Agents (8+ Hour Course, No Code)",
+        "channelTitle": "Nate Herk | AI Automation",
+        "thumbnail": "https://i.ytimg.com/vi/Ey18PDiaAYI/mqdefault.jpg"
       },
       {
-        "videoId": "ZUwWpNEu8-k",
-        "title": "AI로 YouTube 요약하는게 이렇게 쉽습니다. AI 활용하고 싶은데 코딩때문에 어려우셨다면 클릭! 개발자, 비전공자 모두 유용합니다.",
-        "channelTitle": "노코드캣 - AI, 자동화 그리고 개발",
-        "thumbnail": "https://i.ytimg.com/vi/ZUwWpNEu8-k/mqdefault.jpg"
+        "videoId": "bS9R6aCVEzw",
+        "title": "n8n will change your life as a developer...",
+        "channelTitle": "Fireship",
+        "thumbnail": "https://i.ytimg.com/vi/bS9R6aCVEzw/mqdefault.jpg"
+      },
+      {
+        "videoId": "2GZ2SNXWK-c",
+        "title": "N8N FULL COURSE 6 HOURS (Build & Sell AI Automations + Agents)",
+        "channelTitle": "Nick Saraev",
+        "thumbnail": "https://i.ytimg.com/vi/2GZ2SNXWK-c/mqdefault.jpg"
       }
     ],
     "48": [
@@ -1821,28 +1911,10 @@
     "150": [],
     "151": [
       {
-        "videoId": "X533xEtOEDo",
-        "title": "Devin AI Tutorial - 2026 | How to Use Devin AI? (Step-by-step Guide)",
-        "channelTitle": "Dan - Smart Tutorials",
-        "thumbnail": "https://i.ytimg.com/vi/X533xEtOEDo/mqdefault.jpg"
-      },
-      {
-        "videoId": "nXmdRtDkXzc",
-        "title": "How To Use Devin Ai | Does It Replace Software Engineers?",
-        "channelTitle": "Qlikflow",
-        "thumbnail": "https://i.ytimg.com/vi/nXmdRtDkXzc/mqdefault.jpg"
-      },
-      {
-        "videoId": "SbdEaS3wPHk",
-        "title": "2주간 Devin 사용 후기: AI 개발 어시스턴트, 정말 개발자를 대체할까?",
-        "channelTitle": "Nova AI",
-        "thumbnail": "https://i.ytimg.com/vi/SbdEaS3wPHk/mqdefault.jpg"
-      },
-      {
-        "videoId": "8RUn6ATMfi4",
-        "title": "Devin Ai Revolutionizes Software Engineering in 2024!",
-        "channelTitle": "Aceside Tech",
-        "thumbnail": "https://i.ytimg.com/vi/8RUn6ATMfi4/mqdefault.jpg"
+        "videoId": "AgyJv2Qelwk",
+        "title": "AI just officially took our jobs… I hate you Devin",
+        "channelTitle": "Fireship",
+        "thumbnail": "https://i.ytimg.com/vi/AgyJv2Qelwk/mqdefault.jpg"
       }
     ],
     "152": [
@@ -2105,6 +2177,12 @@
         "title": "WAN 2.2 Long Video Generation in ComfyUI | Full Workflow",
         "channelTitle": "Ai Verse",
         "thumbnail": "https://i.ytimg.com/vi/JRb6SmneXSc/mqdefault.jpg"
+      },
+      {
+        "videoId": "YaVSLxcXLN4",
+        "title": "ComfyUI 완벽 가이드 Part.1 설치부터 시작",
+        "channelTitle": "조피디 연구소 JoPD LAB",
+        "thumbnail": "https://i.ytimg.com/vi/YaVSLxcXLN4/mqdefault.jpg"
       }
     ],
     "175": [
@@ -2270,6 +2348,18 @@
         "title": "Coda Tutorial For Beginners - How To Use Coda",
         "channelTitle": "Speak About Digital",
         "thumbnail": "https://i.ytimg.com/vi/KzSt2bR7LVc/mqdefault.jpg"
+      },
+      {
+        "videoId": "R-AgW3t531g",
+        "title": "Google Opal 미니 앱 만들기 라이브특강 / 고정 댓글 확인해주세요 #ai교육 #opal",
+        "channelTitle": "AI Coda",
+        "thumbnail": "https://i.ytimg.com/vi/R-AgW3t531g/mqdefault.jpg"
+      },
+      {
+        "videoId": "1dLAe_4A3mQ",
+        "title": "Suno AI V5 Simple에서 Studio까지 모든것 라이브특강 / 고정 댓글 확인해주세요 #suno5",
+        "channelTitle": "AI Coda",
+        "thumbnail": "https://i.ytimg.com/vi/1dLAe_4A3mQ/mqdefault.jpg"
       }
     ],
     "188": [
@@ -2422,22 +2512,28 @@
     "200": [],
     "201": [
       {
-        "videoId": "UtSSMs6ObqY",
-        "title": "Learn Ollama in 15 Minutes - Run LLM Models Locally for FREE",
-        "channelTitle": "Tech With Tim",
-        "thumbnail": "https://i.ytimg.com/vi/UtSSMs6ObqY/mqdefault.jpg"
-      },
-      {
         "videoId": "medh_c3X97Y",
         "title": "귀여운 라마로 OpenAI에 경제보복하기",
         "channelTitle": "코딩애플",
         "thumbnail": "https://i.ytimg.com/vi/medh_c3X97Y/mqdefault.jpg"
       },
       {
-        "videoId": "3x2q6-5XbQ8",
-        "title": "Claude Code + Ollama = Free Forever",
-        "channelTitle": "Leon van Zyl",
-        "thumbnail": "https://i.ytimg.com/vi/3x2q6-5XbQ8/mqdefault.jpg"
+        "videoId": "YTviFbpP368",
+        "title": "[LIVE] 화제의 OpenClaw 설치 및 활용하기",
+        "channelTitle": "조코딩 JoCoding",
+        "thumbnail": "https://i.ytimg.com/vi/YTviFbpP368/mqdefault.jpg"
+      },
+      {
+        "videoId": "kZXE5KyFcHo",
+        "title": "메타 라마3 설치 사용방법 - OLLAMA | Llama 3 - Meta AI | 윈도우, 맥북, 리눅스 설치 가능",
+        "channelTitle": "감자나라ai",
+        "thumbnail": "https://i.ytimg.com/vi/kZXE5KyFcHo/mqdefault.jpg"
+      },
+      {
+        "videoId": "M8hubAx92Uk",
+        "title": "드디어 윈도우에서도 완전 '공짜'로 '무한'으로 구글AI 돌림.",
+        "channelTitle": "야몬! 노코드AI의 달인들",
+        "thumbnail": "https://i.ytimg.com/vi/M8hubAx92Uk/mqdefault.jpg"
       }
     ],
     "202": [],
@@ -2586,6 +2682,12 @@
         "thumbnail": "https://i.ytimg.com/vi/EOmgC3-hznM/mqdefault.jpg"
       },
       {
+        "videoId": "zgWerTIynVA",
+        "title": "NotebookLM 完整教學！93%的人還不知道的8個隱藏用法，完勝ChatGPT| 分析報告 | 會議記錄 | 自動生成Podcast、教學影片",
+        "channelTitle": "大有牧森 Austin Chou",
+        "thumbnail": "https://i.ytimg.com/vi/zgWerTIynVA/mqdefault.jpg"
+      },
+      {
         "videoId": "qbt-MFVvQQY",
         "title": "NotebookLM In 30 Minutes",
         "channelTitle": "Tina Huang",
@@ -2596,12 +2698,6 @@
         "title": "직장인이라면 지금 당장 써야 할 무료 AI | 노트북LM 실전 활용법 12가지 (최신 가이드)",
         "channelTitle": "오빠두엑셀 l 엑셀 강의 대표채널",
         "thumbnail": "https://i.ytimg.com/vi/eeJz8HAyTk0/mqdefault.jpg"
-      },
-      {
-        "videoId": "BAcV-5QnFbE",
-        "title": "구글, 이거 무료로 써도 돼? \"이제 이 앱 없으면 바보 됩니다 ㄷㄷ\" / CPA CFA 합격한 비결!!!",
-        "channelTitle": "월텍남 - 월스트리트 테크남",
-        "thumbnail": "https://i.ytimg.com/vi/BAcV-5QnFbE/mqdefault.jpg"
       }
     ],
     "218": [
@@ -2708,37 +2804,41 @@
     "250": []
   },
   "fetchedAt": {
-    "1": "2026-03-16T03:46:27.166Z",
-    "2": "2026-03-16T03:46:28.391Z",
-    "3": "2026-03-16T03:46:31.889Z",
-    "4": "2026-03-16T03:46:35.450Z",
-    "5": "2026-03-16T03:46:30.723Z",
-    "6": "2026-03-16T03:46:41.786Z",
-    "7": "2026-03-16T03:46:34.272Z",
+    "1": "2026-03-22T04:35:40.090Z",
+    "2": "2026-03-22T04:35:41.338Z",
+    "3": "2026-03-22T04:35:42.573Z",
+    "4": "2026-03-22T04:35:43.730Z",
+    "5": "2026-03-22T04:35:48.501Z",
+    "6": "2026-03-22T04:35:49.639Z",
+    "7": "2026-03-22T04:35:44.905Z",
     "8": "2026-03-22T04:27:16.352Z",
-    "9": "2026-03-22T04:22:49.461Z",
-    "10": "2026-03-16T03:47:00.380Z",
-    "11": "2026-03-16T03:46:58.086Z",
+    "9": "2026-03-22T04:36:12.770Z",
+    "10": "2026-03-22T04:35:52.039Z",
+    "11": "2026-03-22T04:35:50.815Z",
     "12": "2026-03-21T19:46:37.647Z",
+    "14": "2026-03-22T04:35:55.668Z",
     "16": "2026-03-22T04:27:02.257Z",
-    "17": "2026-03-22T04:22:45.913Z",
-    "19": "2026-03-16T03:46:29.530Z",
-    "23": "2026-03-19T21:01:27.101Z",
-    "25": "2026-03-22T04:22:44.659Z",
+    "17": "2026-03-22T04:36:01.267Z",
+    "18": "2026-03-22T04:35:59.001Z",
+    "19": "2026-03-22T04:35:47.363Z",
+    "23": "2026-03-22T04:36:13.916Z",
+    "25": "2026-03-22T04:36:00.192Z",
     "26": "2026-03-22T04:27:09.219Z",
-    "28": "2026-03-22T04:22:47.118Z",
+    "27": "2026-03-22T04:36:03.571Z",
+    "28": "2026-03-22T04:36:04.589Z",
     "29": "2026-03-22T04:26:54.689Z",
+    "30": "2026-03-22T04:35:56.701Z",
     "31": "2026-03-15T02:56:45.095Z",
     "32": "2026-03-22T04:26:58.235Z",
-    "33": "2026-03-16T03:46:48.848Z",
+    "33": "2026-03-22T04:35:54.423Z",
     "35": "2026-03-15T02:56:52.811Z",
-    "36": "2026-03-16T03:46:47.581Z",
-    "39": "2026-03-16T03:46:56.856Z",
+    "36": "2026-03-22T04:35:46.083Z",
+    "39": "2026-03-22T04:35:53.247Z",
     "40": "2026-03-16T03:46:38.440Z",
     "41": "2026-03-22T04:27:49.630Z",
     "45": "2026-03-16T03:46:37.275Z",
     "46": "2026-03-16T03:46:46.466Z",
-    "47": "2026-03-16T03:46:59.162Z",
+    "47": "2026-03-22T04:37:04.989Z",
     "48": "2026-03-16T03:46:33.129Z",
     "49": "2026-03-16T03:46:42.977Z",
     "51": "2026-03-22T04:27:18.715Z",
@@ -2757,12 +2857,12 @@
     "93": "2026-03-22T04:26:57.050Z",
     "99": "2026-03-22T04:27:23.830Z",
     "102": "2026-03-19T21:01:29.458Z",
-    "103": "2026-03-22T04:22:43.514Z",
+    "103": "2026-03-22T04:35:57.853Z",
     "104": "2026-03-22T04:27:19.834Z",
     "106": "2026-03-22T04:27:22.701Z",
     "108": "2026-03-22T04:27:33.828Z",
     "109": "2026-03-22T04:27:01.081Z",
-    "118": "2026-03-19T21:01:21.425Z",
+    "118": "2026-03-22T04:36:05.766Z",
     "122": "2026-03-22T04:27:08.049Z",
     "123": "2026-03-15T02:56:53.860Z",
     "124": "2026-03-22T04:27:29.382Z",
@@ -2776,36 +2876,36 @@
     "141": "2026-03-16T03:47:01.457Z",
     "146": "2026-03-22T04:27:15.255Z",
     "148": "2026-03-22T04:26:55.866Z",
-    "151": "2026-03-22T04:27:10.423Z",
+    "151": "2026-03-22T04:36:49.833Z",
     "152": "2026-03-22T04:27:42.827Z",
     "154": "2026-03-16T03:46:49.987Z",
     "157": "2026-03-16T03:46:52.394Z",
     "158": "2026-03-16T03:46:55.768Z",
-    "160": "2026-03-21T19:46:36.491Z",
+    "160": "2026-03-22T04:36:02.428Z",
     "164": "2026-03-22T04:27:48.502Z",
     "166": "2026-03-15T02:56:51.711Z",
-    "168": "2026-03-19T21:01:24.818Z",
+    "168": "2026-03-22T04:36:09.231Z",
     "169": "2026-03-22T04:27:04.595Z",
     "170": "2026-03-22T04:27:36.065Z",
-    "173": "2026-03-16T03:46:54.679Z",
-    "175": "2026-03-19T21:01:23.676Z",
+    "173": "2026-03-22T04:36:46.857Z",
+    "175": "2026-03-22T04:36:08.072Z",
     "178": "2026-03-22T04:27:24.991Z",
-    "181": "2026-03-22T04:26:53.534Z",
+    "181": "2026-03-22T04:36:15.120Z",
     "182": "2026-03-22T04:27:03.438Z",
     "185": "2026-03-21T19:46:35.300Z",
-    "187": "2026-03-19T21:01:25.962Z",
+    "187": "2026-03-22T04:36:11.659Z",
     "188": "2026-03-19T21:01:20.337Z",
     "192": "2026-03-22T04:27:20.965Z",
     "195": "2026-03-22T04:27:27.393Z",
-    "197": "2026-03-19T21:01:22.574Z",
+    "197": "2026-03-22T04:36:06.897Z",
     "198": "2026-03-21T19:46:38.829Z",
     "199": "2026-03-16T03:47:02.621Z",
-    "201": "2026-03-16T03:46:39.598Z",
+    "201": "2026-03-22T04:36:19.743Z",
     "205": "2026-03-22T04:27:17.484Z",
     "206": "2026-03-22T04:27:45.119Z",
     "213": "2026-03-22T04:27:47.351Z",
     "214": "2026-03-16T03:46:40.708Z",
-    "216": "2026-03-22T04:22:48.242Z",
+    "216": "2026-03-22T04:36:10.459Z",
     "218": "2026-03-16T03:46:53.536Z",
     "228": "2026-03-22T04:27:38.358Z",
     "244": "2026-03-22T04:26:59.949Z",
