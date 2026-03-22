@@ -386,15 +386,18 @@ export default function AdminTools() {
         </button>
       </header>
 
-      <div style={{ display: "flex", gap: "12px", marginBottom: "1.5rem", background: "var(--bg-card)", padding: "1rem", borderRadius: "20px", border: "1px solid var(--border-primary)", alignItems: "center" }}>
-        <div style={{ position: "relative", flex: 1 }}>
+      <div style={{ display: "flex", gap: "12px", marginBottom: "1.5rem", background: "var(--bg-card)", padding: "1rem", borderRadius: "20px", border: "1px solid var(--border-primary)", alignItems: "center", flexWrap: "wrap" }}>
+        <div style={{ position: "relative", flex: 1, minWidth: "200px" }}>
           <MagnifyingGlass size={18} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="엔진 명칭 검색..." style={{ ...commonInputStyle, paddingLeft: "42px", border: "none", background: "var(--bg-secondary)" }} />
         </div>
-        <select value={catFilter} onChange={e => setCatFilter(e.target.value)} style={{ ...commonInputStyle, width: "180px", border: "none", background: "var(--bg-secondary)", fontWeight: 800 }}>
+        <select value={catFilter} onChange={e => setCatFilter(e.target.value)} style={{ ...commonInputStyle, width: "150px", border: "none", background: "var(--bg-secondary)", fontWeight: 800 }}>
           <option value="all">모든 카테고리</option>
           {CAT_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
+        <button onClick={() => setShowHidden(!showHidden)} style={{ padding: "0 16px", height: "45px", borderRadius: "12px", border: "1px solid var(--border-primary)", background: showHidden ? "var(--bg-tertiary)" : "var(--bg-secondary)", color: showHidden ? "var(--text-primary)" : "var(--text-secondary)", fontWeight: 800, cursor: "pointer", transition: "all 0.2s" }}>
+          {showHidden ? <><Eye size={16} style={{verticalAlign:"middle", marginRight:"4px"}}/>숨김 툴 표시중</> : <><EyeSlash size={16} style={{verticalAlign:"middle", marginRight:"4px"}}/>숨김 툴 가리기</>}
+        </button>
         <button onClick={fetchTools} style={{ background: "var(--bg-secondary)", border: "none", borderRadius: "12px", width: "45px", height: "45px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "var(--text-primary)" }}>
           <ArrowClockwise size={20} weight="bold" />
         </button>
