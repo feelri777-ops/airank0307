@@ -134,6 +134,18 @@ const BB = styled.button`
 `;
 const BDiv = styled.div`width: 1px; height: 18px; background: rgba(255,255,255,0.15); margin: 0 3px;`;
 
+/* 이미지 버블 메뉴 */
+const ImageBubble = styled(Bubble)`
+  padding: 4px 6px; background: rgba(0,0,0,0.9);
+  display: flex; gap: 4px; align-items: center; justify-content: center;
+  translate: -50% -120%;
+`;
+const SizeX = styled(BB)`
+  min-width: 24px; height: 24px; font-size: 0.7rem; border: 1px solid rgba(255,255,255,0.1);
+  background: ${({ $active }) => $active ? "var(--accent-indigo)" : "transparent"};
+  &:hover { background: var(--accent-indigo); }
+`;
+
 /* 드롭다운 패널 */
 const Panel = styled.div`
   position: absolute; z-index: 300;
@@ -189,8 +201,9 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
   const editorRef = useRef(null);
   const [activePanel, setActivePanel] = useState(null); // 'size', 'color', 'hilite', 'emoji', 'yt'
   const [linkData, setLinkData] = useState({ type: 'link', val: '' }); // type: link, yt, tool
-  const [charCount, setCharCount] = useState(0);
+   const [charCount, setCharCount] = useState(0);
   const [bubble, setBubble] = useState(null);
+  const [imgBubble, setImgBubble] = useState(null); // { x, y, target }
   const savedRange = useRef(null);
 
   useEffect(() => {
@@ -375,9 +388,23 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
           contentEditable
           suppressContentEditableWarning
           data-placeholder={placeholder}
-          onInput={updateCount}
+           onInput={updateCount}
           onKeyUp={handleSelectionChange}
           onMouseUp={handleSelectionChange}
+          onClick={(e) => {
+            if (e.target.tagName === "IMG") {
+              const rect = e.target.getBoundingClientRect();
+              const edRect = editorRef.current.getBoundingClientRect();
+              setImgBubble({
+                x: rect.left - edRect.left + rect.width / 2,
+                y: rect.top - edRect.top,
+                target: e.target
+              });
+              setBubble(null);
+            } else {
+              setImgBubble(null);
+            }
+          }}
           onPaste={(e) => {
             e.preventDefault();
             const text = e.clipboardData.getData("text/plain");
@@ -399,6 +426,37 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
             <BB onClick={() => { saveRange(); setBubble(null); setActivePanel('yt'); }}>🔗</BB>
             <BB onClick={() => { exec("insertHTML", `<code>${window.getSelection().toString() || 'code'}</code>`); setBubble(null); }}>{"</>"}</BB>
           </Bubble>
+        )}
+
+        {/* ─── 이미지 버블 메뉴 ─── */}
+        {imgBubble && (
+          <ImageBubble style={{ left: imgBubble.x, top: imgBubble.y }} onMouseDown={(e) => e.preventDefault()}>
+            <div style={{ fontSize: '0.65rem', color: '#999', margin: '0 4px' }}>크기</div>
+            <SizeX onClick={() => { imgBubble.target.style.width = '30%'; updateCount(); }}>S</SizeX>
+            <SizeX onClick={() => { imgBubble.target.style.width = '60%'; updateCount(); }}>M</SizeX>
+            <SizeX onClick={() => { imgBubble.target.style.width = '100%'; updateCount(); }}>L</SizeX>
+            <BDiv />
+            <BB onClick={() => { 
+                imgBubble.target.style.float = 'left'; 
+                imgBubble.target.style.margin = '1rem 1rem 1rem 0';
+                imgBubble.target.style.display = 'inline-block';
+                updateCount();
+              }}>좌</BB>
+            <BB onClick={() => { 
+                imgBubble.target.style.float = 'none'; 
+                imgBubble.target.style.margin = '1rem auto';
+                imgBubble.target.style.display = 'block';
+                updateCount();
+              }}>중</BB>
+            <BB onClick={() => { 
+                imgBubble.target.style.float = 'right'; 
+                imgBubble.target.style.margin = '1rem 0 1rem 1rem';
+                imgBubble.target.style.display = 'inline-block';
+                updateCount();
+              }}>우</BB>
+            <BDiv />
+            <BB style={{ color: '#ff4444' }} onClick={() => { imgBubble.target.remove(); setImgBubble(null); updateCount(); }}>❌</BB>
+          </ImageBubble>
         )}
       </div>
 
