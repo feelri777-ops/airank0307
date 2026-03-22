@@ -9,7 +9,7 @@ import { decodeHtmlEntities } from "../../utils";
 import { YoutubeLogoFill, BookmarkSimple, BookmarkSimpleFill, ArrowRight } from "../icons/PhosphorIcons";
 
 // 미니 스파크라인 SVG (ScoreInsightPanel 밖에 정의 → remount 방지로 애니메이션 1회만 실행)
-// 미니 프로그레스 바 (네온 글로우 & 성장 애니메이션 스타일)
+// 미니 프로그레스 바 (네온 글로우 & 초정밀 부드러운 성장 애니메이션)
 const Spark = ({ pts, color }) => {
   const { theme } = useTheme();
   const [width, setWidth] = useState(0);
@@ -19,10 +19,10 @@ const Spark = ({ pts, color }) => {
   const finalColor = theme === "light" ? "#f472b6" : color;
 
   useEffect(() => {
-    // 마운트 후 아주 약간의 지연시간 뒤에 게이지가 차오르게 함
+    // 마운트 후 아주 약간의 대기 시간을 두어 모달 팝업과 애니메이션이 엉키지 않게 함
     const timer = setTimeout(() => {
       setWidth(targetPercent);
-    }, 100);
+    }, 150);
     return () => clearTimeout(timer);
   }, [targetPercent]);
   
@@ -35,10 +35,12 @@ const Spark = ({ pts, color }) => {
         width: `${width}%`, height: "100%", 
         background: finalColor,
         borderRadius: "10px", 
-        transition: "width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        // 바운스 효과를 없애고 극도로 부드러운 가속도 곡선(Quintic Out) 적용
+        transition: "width 1.5s cubic-bezier(0.22, 1, 0.36, 1)",
         position: "relative",
         boxShadow: `0 0 14px ${finalColor}80, 0 0 4px ${finalColor}`,
       }}>
+        {/* 리딩 엣지(끝부분) 하이라이트 */}
         <div style={{
           position: "absolute", right: "-1px", top: "-2.5px", bottom: "-2.5px", width: "4px",
           background: "#fff",
