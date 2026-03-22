@@ -23,6 +23,8 @@ jobs:
 
       - name: Firestore 메타데이터 강제 복구
         run: node scripts/restore_from_js.js
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
       - name: 랭킹 점수 즉시 갱신
         run: node scripts/update_ranking.js
         env:
