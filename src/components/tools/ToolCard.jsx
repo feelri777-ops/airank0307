@@ -144,7 +144,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
 
   if (!isTop3) {
     return (
-      <div onClick={onClick} style={{
+      <div onClick={() => onClick(tool)} style={{
         borderRadius: "var(--r-md)",
         animation: `fadeInUp 0.4s ease forwards`,
         animationDelay: `${Math.min(rank, 20) * 0.04}s`,
