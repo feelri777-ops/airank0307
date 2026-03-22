@@ -1,3 +1,16 @@
+import { useState, useRef, useEffect, useCallback } from "react";
+import styled from "styled-components";
+import FileUploader from "./FileUploader";
+
+/* ─── 이모지 목록 ─── */
+const EMOJI_LIST = [
+  "😀","😂","🥹","😍","🤔","😎","🥳","😭","🙏","😅",
+  "👍","👎","👏","🔥","💯","❤️","✅","⭐","🎉","💡",
+  "📌","📎","✏️","📝","💬","🔗","🖼️","📊","🚀","🤖",
+  "🤣","😊","🥰","🤩","😇","🤗","😏","😒","😔","😤",
+  "🌟","💫","✨","⚡","🎯","🏆","🎨","🎵","📸","🔍",
+];
+
 /* ─── 컬러 목록 ─── */
 const TEXT_COLORS = ["#000000", "#555555", "#FF0000", "#FF8C00", "#FFD700", "#32CD32", "#1E90FF", "#8A2BE2", "#FF69B4", "#FFFFFF"];
 const BG_COLORS = ["transparent", "#FFFF00", "#FFA500", "#FFC0CB", "#E0FFFF", "#98FB98", "#F0E68C", "#D3D3D3", "#FFFFFF", "#000000"];
