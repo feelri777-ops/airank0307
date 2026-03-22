@@ -53,59 +53,65 @@ export const ToolProvider = ({ children }) => {
     let isMounted = true;
     setIsLoading(true);
 
-    const loadTools = async () => {
-      console.log("🚀 Airank v5: Aggressive Cache Clear & Rebalanced Logic Loading...");
+    // 구글/네이버 점수 배경 데이터 (scores.json) 로드
+    let scoresMap = {};
+    let scoresUpdatedTime = null;
+
+    const fetchScores = async () => {
       try {
-        // 1. 캐시 확인
-        const cached = loadCache();
-
-        // 2. scores.json 병렬 로드 (캐시 유무 상관없이 최신 점수 확인 위함)
         const timestamp = Date.now();
-        const [firestoreTools, scoresRes] = await Promise.all([
-          cached
-            ? Promise.resolve(cached)
-            : getDocs(collection(db, "tools")).then(snap =>
-                snap.docs.map(d => ({ ...d.data(), id: Number(d.id), _docId: d.id }))
-              ),
-          fetch(`/scores.json?t=${timestamp}`).then(r => r.ok ? r.json() : null).catch(() => null),
-        ]);
-
-        if (!isMounted) return;
-
-        // 캐시 저장 (신규 로드한 경우만)
-        if (!cached) saveCache(firestoreTools);
-
-        const scoresMap = scoresRes?.tools || {};
-
-        // 3. 점수 병합 + hidden 필터 + manualScore 적용
-        const merged = firestoreTools
-          .filter(t => !t.hidden)
-          .map(tool => {
-            const live = scoresMap[String(tool.id)];
-            // manualScore가 있으면 자동 점수 무시
-            if (tool.manualScore != null) {
-              return { ...tool, score: tool.manualScore, change: tool.change ?? 0 };
-            }
-            if (!live) return tool;
-            const change = live.change != null && live.change !== 0 ? live.change : tool.change;
-            // Firestore에 저장된 보정 점수(tool.score)를 우선하고, 없으면 scores.json의 원본 점수(live.score) 사용
-            const finalScore = tool.score ?? live.score;
-            return { ...tool, ...live, score: finalScore, change };
-          });
-
-          const sorted = merged.sort((a, b) => (b.score || 0) - (a.score || 0));
-        setTools(sorted);
-        setScoresUpdated(scoresRes?.updated || null);
-        setError(null);
-      } catch (err) {
-        if (isMounted) setError(err.message);
-      } finally {
-        if (isMounted) setIsLoading(false);
-      }
+        const res = await fetch(`/scores.json?t=${timestamp}`).then(r => r.ok ? r.json() : null);
+        if (res) {
+          scoresMap = res.tools || {};
+          scoresUpdatedTime = res.updated || null;
+        }
+      } catch (e) { console.error("Scores fetch error:", e); }
     };
 
-    loadTools();
-    return () => { isMounted = false; };
+    // 실시간 Firestore 툴 리스너 가동
+    const unsubscribe = onSnapshot(collection(db, "tools"), async (snapshot) => {
+      if (!isMounted) return;
+      
+      // 만약 scoresMap이 아직 안 받아졌다면 한 번 더 시도
+      if (Object.keys(scoresMap).length === 0) await fetchScores();
+
+      const firestoreTools = snapshot.docs.map(d => ({
+        ...d.data(),
+        id: Number(d.id),
+        _docId: d.id
+      }));
+
+      const merged = firestoreTools
+        .filter(t => !t.hidden)
+        .map(tool => {
+          const live = scoresMap[String(tool.id)];
+          if (tool.manualScore != null) {
+            return { ...tool, score: tool.manualScore, change: tool.change ?? 0 };
+          }
+          if (!live) return tool;
+          const change = live.change != null && live.change !== 0 ? live.change : tool.change;
+          // Firestore 보정 점수가 필수로 우선됨
+          const finalScore = tool.score ?? live.score;
+          return { ...tool, ...live, score: finalScore, change };
+        });
+
+      const sorted = merged.sort((a, b) => (b.score || 0) - (a.score || 0));
+      setTools(sorted);
+      setScoresUpdated(scoresUpdatedTime);
+      setIsLoading(false);
+      setError(null);
+    }, (err) => {
+      console.error("Firestore Listen error:", err);
+      if (isMounted) {
+        setError(err.message);
+        setIsLoading(false);
+      }
+    });
+
+    return () => { 
+      isMounted = false; 
+      unsubscribe(); 
+    };
   }, []);
 
   useEffect(() => {
