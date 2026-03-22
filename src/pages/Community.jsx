@@ -187,6 +187,7 @@ export default function Community() {
   const navigate = useNavigate();
   const { board } = useParams();
   const { user } = useAuth();
+  const { search } = window.location; // query string
   const [posts, setPosts] = useState([]);
   const [category, setCategory] = useState("all");
   const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
@@ -205,12 +206,26 @@ export default function Community() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [activeSearch, setActiveSearch] = useState({ type: "title", keyword: "" });
 
+  // URL 쿼리 파라미터 (태그 클릭 등) 처리
+  useEffect(() => {
+    const params = new URLSearchParams(search);
+    const q = params.get('q');
+    if (q) {
+      setSearchType("tag");
+      setSearchKeyword(q);
+      setActiveSearch({ type: "tag", keyword: q });
+    }
+  }, [search]);
+
   useEffect(() => {
     if (boardsLoading || !boardInfo) return;
     const fetchPosts = async () => {
       setLoading(true);
-      setActiveSearch({ type: "title", keyword: "" }); // 게시판 이동 시 검색 초기화
-      setSearchKeyword("");
+      // URL q가 없을 때만 검색 초기화
+      if (!new URLSearchParams(window.location.search).get('q')) {
+        setActiveSearch({ type: "title", keyword: "" });
+        setSearchKeyword("");
+      }
       try {
         const q = query(
           collection(db, "communityPosts"),
@@ -227,7 +242,7 @@ export default function Community() {
     };
     fetchPosts();
     setVisibleCount(POSTS_PER_PAGE);
-  }, [board, boardInfo]); // 카테고리는 클라이언트 필터링으로 변경
+  }, [board, boardInfo]); 
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -248,6 +263,7 @@ export default function Community() {
         return p.title?.toLowerCase().includes(kw) ||
                p.content?.replace(/<[^>]*>/g, "").toLowerCase().includes(kw);
       case "nickname": return p.displayName?.toLowerCase().includes(kw);
+      case "tag": return p.tags?.some(t => t.toLowerCase().includes(kw.replace('#', '')));
       default: return true;
     }
   };
@@ -441,6 +457,7 @@ export default function Community() {
           <option value="content">내용</option>
           <option value="title_content">제목+내용</option>
           <option value="nickname">이름</option>
+          <option value="tag">태그</option>
         </SearchSelect>
         <SearchInput 
           placeholder="검색어를 입력하세요" 

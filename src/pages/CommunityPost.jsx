@@ -189,6 +189,25 @@ const ReplyFormWrap = styled.div`
 const LoginPrompt = styled.p`font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.25rem;`;
 const NotFound = styled.div`text-align: center; padding: 6rem 1rem; color: var(--text-muted); font-size: 1rem;`;
 
+const SummaryBox = styled.div`
+  background: var(--bg-secondary);
+  border: 1px dashed var(--accent-indigo);
+  border-radius: var(--r-sm);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  .summary-title { font-size: 0.75rem; font-weight: 800; color: var(--accent-indigo); margin-bottom: 0.4rem; letter-spacing: 0.05em; }
+  .summary-content { font-size: 0.9rem; color: var(--text-primary); line-height: 1.6; }
+`;
+const TagList = styled.div`
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem;
+  padding-top: 1.5rem; border-top: 1px solid var(--border-primary);
+`;
+const TagItem = styled.span`
+  font-size: 0.8rem; color: var(--accent-indigo); background: rgba(99, 102, 241, 0.08);
+  padding: 0.2rem 0.6rem; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  &:hover { background: var(--accent-indigo); color: #fff; }
+`;
+
 export default function CommunityPost() {
   const { board, postId } = useParams();
   const navigate = useNavigate();
@@ -578,7 +597,24 @@ export default function CommunityPost() {
         </MetaRow>
 
         <MarkdownContent>
+          {post.summary && (
+            <SummaryBox>
+              <div className="summary-title">✨ AI 3줄 요약</div>
+              <div className="summary-content">{post.summary}</div>
+            </SummaryBox>
+          )}
+          
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
+
+          {post.tags && post.tags.length > 0 && (
+            <TagList>
+              {post.tags.map((tag, idx) => (
+                <TagItem key={idx} onClick={() => navigate(`/community/${board}?q=${tag.replace('#', '')}`)}>
+                  {tag.startsWith('#') ? tag : `#${tag}`}
+                </TagItem>
+              ))}
+            </TagList>
+          )}
         </MarkdownContent>
 
         <ActionBar>
