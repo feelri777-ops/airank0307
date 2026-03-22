@@ -18,12 +18,13 @@ import {
 } from "../../components/icons/PhosphorIcons";
 
 const CAT_OPTIONS = [
+  { value: "multimodal", label: "멀티모달" },
   { value: "text", label: "텍스트" },
   { value: "image", label: "이미지" },
   { value: "video", label: "비디오" },
-  { value: "audio", label: "오디오" },
+  { value: "audio", label: "오디오/음악" },
   { value: "code", label: "코드" },
-  { value: "search", label: "검색" },
+  { value: "search", label: "연구/검색" },
   { value: "agent", label: "에이전트" },
   { value: "other", label: "기타" },
 ];
@@ -407,30 +408,41 @@ export default function AdminTools() {
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {ranked.map(tool => (
             <div key={tool._docId} style={{ 
-              display: "grid", gridTemplateColumns: "80px 60px 1fr 120px 100px 140px", 
+              display: "grid", gridTemplateColumns: "80px 60px 1fr 200px 100px 120px", 
               alignItems: "center", padding: "1.2rem 1.5rem", background: tool.hidden ? "var(--bg-secondary)" : "var(--bg-card)",
               borderRadius: "20px", border: "1px solid var(--border-primary)", opacity: tool.hidden ? 0.6 : 1,
               transition: "transform 0.2s"
             }}>
               <div style={{ fontSize: "1.2rem", fontWeight: 950, color: "var(--accent-indigo)" }}>#{tool.pinnedRank || tool._rank}</div>
               <ToolLogo tool={tool} />
-              <div>
+              <div style={{ paddingRight: "16px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <button onClick={() => setHistoryTool(tool)} style={{ background: "none", border: "none", padding: 0, cursor: "pointer", fontSize: "1.1rem", fontWeight: 900, color: "var(--text-primary)" }}>{tool.name}</button>
                   <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-muted)", background: "var(--bg-secondary)", padding: "2px 8px", borderRadius: "6px" }}>{(tool.cat || "etc").toUpperCase()}</span>
                 </div>
-                <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: "2px" }}>{tool.nameKo}</div>
+                <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: "2px", fontWeight: 500 }}>{tool.nameKo}</div>
               </div>
+              
+              {/* 세부 점수 섹션 */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "4px 12px" }}>
+                {[
+                  { label: "G", val: tool.metrics?.opr, color: "#4285F4" },
+                  { label: "N", val: tool.metrics?.ntv, color: "#03C75A" },
+                  { label: "S", val: tool.metrics?.sns, color: "#818cf8" },
+                  { label: "H", val: tool.metrics?.ghs, color: "#6e5494" },
+                ].map((m, i) => (
+                  <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ fontSize: "0.65rem", fontWeight: 900, color: m.color, width: "12px" }}>{m.label}</span>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "var(--text-primary)" }}>{(m.val || 0).toFixed(0)}</span>
+                  </div>
+                ))}
+              </div>
+
               <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-muted)" }}>SCORE</div>
-                <div style={{ fontSize: "1.2rem", fontWeight: 900 }}>{(tool.score || 0).toFixed(1)}</div>
+                <div style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-muted)" }}>TOTAL</div>
+                <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--text-primary)" }}>{(tool.score || 0).toFixed(1)}</div>
               </div>
-              <div style={{ textAlign: "center" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "4px" }}>
-                  {tool.hidden ? <EyeSlash size={16} color="#ef4444" /> : <Eye size={16} color="#22c55e" />}
-                  <span style={{ fontSize: "0.8rem", fontWeight: 800, color: tool.hidden ? "#ef4444" : "#22c55e" }}>{tool.hidden ? "HIDDEN" : "ACTIVE"}</span>
-                </div>
-              </div>
+
               <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end" }}>
                 <button onClick={() => setEditingTool(tool)} style={{ width: "40px", height: "40px", borderRadius: "10px", border: "1px solid var(--border-primary)", background: "var(--bg-card)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "var(--text-primary)" }}>
                   <PencilSimple size={18} weight="bold" />
