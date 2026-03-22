@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { doc, deleteDoc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 import { TOOLS_DATA } from "../../data/tools";
 import { decodeHtmlEntities } from "../../utils";
 import { YoutubeLogoFill, BookmarkSimple, BookmarkSimpleFill, ArrowRight } from "../icons/PhosphorIcons";
@@ -10,8 +11,12 @@ import { YoutubeLogoFill, BookmarkSimple, BookmarkSimpleFill, ArrowRight } from 
 // 미니 스파크라인 SVG (ScoreInsightPanel 밖에 정의 → remount 방지로 애니메이션 1회만 실행)
 // 미니 프로그레스 바 (네온 글로우 & 성장 애니메이션 스타일)
 const Spark = ({ pts, color }) => {
+  const { theme } = useTheme();
   const [width, setWidth] = useState(0);
   const targetPercent = Math.max(2, Math.min(100, pts[pts.length - 1] || 0));
+
+  // 벚꽃 테마(light)일 경우 핑크색 계열로 강제 적용
+  const finalColor = theme === "light" ? "#f472b6" : color;
 
   useEffect(() => {
     // 마운트 후 아주 약간의 지연시간 뒤에 게이지가 차오르게 함
@@ -23,23 +28,22 @@ const Spark = ({ pts, color }) => {
   
   return (
     <div style={{ 
-      width: "100%", height: "8px", background: "rgba(0,0,0,0.15)", 
+      width: "100%", height: "8px", background: theme === "light" ? "rgba(180,80,100,0.08)" : "rgba(0,0,0,0.15)", 
       borderRadius: "10px", overflow: "visible", position: "relative",
     }}>
       <div style={{ 
         width: `${width}%`, height: "100%", 
-        background: color, // 그라데이션 제거, 선명한 단색
+        background: finalColor,
         borderRadius: "10px", 
         transition: "width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)",
         position: "relative",
-        boxShadow: `0 0 14px ${color}80, 0 0 4px ${color}`, // 강력해진 글로우
+        boxShadow: `0 0 14px ${finalColor}80, 0 0 4px ${finalColor}`,
       }}>
-        {/* 리딩 엣지(끝부분) 하이라이트 */}
         <div style={{
           position: "absolute", right: "-1px", top: "-2.5px", bottom: "-2.5px", width: "4px",
           background: "#fff",
           borderRadius: "10px",
-          boxShadow: `0 0 8px #fff, 0 0 15px ${color}`,
+          boxShadow: `0 0 8px #fff, 0 0 15px ${finalColor}`,
           opacity: 0.9,
           animation: "pulse 2s infinite"
         }} />
