@@ -1,8 +1,8 @@
-name: 랭킹 자동 갱신 (매일 새벽 3시)
+name: 랭킹 자동 갱신 (매주 월요일 새벽 3시)
 
 on:
   schedule:
-    - cron: '0 18 * * *'  # 매일 새벽 3시 KST (UTC 18:00)
+    - cron: '0 18 * * 0'  # 매주 월요일 새벽 3시 KST (UTC 일요일 18:00)
   workflow_dispatch:
 
 jobs:
