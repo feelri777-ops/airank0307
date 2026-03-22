@@ -63,27 +63,28 @@ const RIGHT_SLOTS = [
 const HeroLogos = () => {
   const { theme } = useTheme();
   const { tools } = useTools();
+  const isLight = theme === "light";
 
-  const top40 = useMemo(() => {
+  const topCount = isLight ? 20 : 40; // 벚꽃 테마(라이트)에서는 성능을 위해 20개만 표시
+
+  const topN = useMemo(() => {
     if (!tools?.length) return [];
     return [...tools]
       .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-      .slice(0, 40);
-  }, [tools]);
+      .slice(0, topCount);
+  }, [tools, topCount]);
 
-  const leftTools  = top40.slice(0, 20);
-  const rightTools = top40.slice(20, 40);
+  const leftTools  = topN.slice(0, Math.ceil(topCount / 2));
+  const rightTools = topN.slice(Math.ceil(topCount / 2), topCount);
 
   const keyframes = useMemo(() => {
     const allSlots = [...LEFT_SLOTS, ...RIGHT_SLOTS];
     return Array.from({ length: 40 }, (_, i) => {
       const slot = allSlots[i];
-      // 풍선의 이동 범위(dx, dy)를 기존 대비 약 2~2.5배 상향하여 움직임 극대화
-      const dy = 50 + (i % 7) * 15;                             // 수직 이동: 50px ~ 140px
-      const dx = (i % 2 === 0 ? 1 : -1) * (40 + (i % 6) * 12);  // 수평 이동: ±40px ~ ±100px
-      const dr = (i % 2 === 0 ? 18 : -18);                      // 회전 각도 폭 상향 
+      const dy = 50 + (i % 7) * 15;
+      const dx = (i % 2 === 0 ? 1 : -1) * (40 + (i % 6) * 12);
+      const dr = (i % 2 === 0 ? 18 : -18);
 
-      // 각지지 않고 부드러운 비행 궤도 (타원/반원 형태의 부드러운 곡선)
       return `@keyframes hlbf${i} {
         0%   { transform: translate3d(0, 0, 0) rotate(${slot.rot}deg); }
         25%  { transform: translate3d(${dx * 0.8}px, ${-dy * 0.4}px, 0) rotate(${slot.rot + dr * 0.5}deg); }
@@ -98,6 +99,7 @@ const HeroLogos = () => {
     const faviconUrl = getFaviconUrl(tool.url);
     if (!faviconUrl) return null;
     const animIdx = side === "left" ? idx : idx + 20;
+    
     return (
       <div
         key={`${side}-${tool.id || tool.name}`}
@@ -110,11 +112,12 @@ const HeroLogos = () => {
           height: `${slot.size}px`,
           flexShrink: 0,
           borderRadius: "50%",
-          background: "rgba(255,255,255,0.45)",
-          backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
-          border: "1.5px solid rgba(255,255,255,0.6)",
-          boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
+          // 벚꽃 테마(isLight)일 때는 매우 비싼 backdropFilter를 제거하고 불투명도로 대체
+          background: isLight ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.45)",
+          backdropFilter: isLight ? "none" : "blur(4px)",
+          WebkitBackdropFilter: isLight ? "none" : "blur(4px)",
+          border: isLight ? "1px solid rgba(255,182,193,0.3)" : "1.5px solid rgba(255,255,255,0.6)",
+          boxShadow: isLight ? "0 4px 10px rgba(255,182,193,0.2)" : "0 6px 16px rgba(0,0,0,0.1)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -124,7 +127,6 @@ const HeroLogos = () => {
           opacity: 0.95,
           pointerEvents: "none",
           zIndex: 0,
-          // 움직임이 2배 커졌으므로 지속 시간(dur)도 1.4배 늘려, 날아다니는 속도를 차분하고 부드럽게 유지함
           animation: `hlbf${animIdx} ${slot.dur * 1.4}s ease-in-out ${slot.delay}s infinite`,
           willChange: "transform",
         }}
@@ -137,14 +139,14 @@ const HeroLogos = () => {
             height: "100%",
             objectFit: "contain",
             display: "block",
-            filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.15))",
+            filter: isLight ? "none" : "drop-shadow(0 2px 4px rgba(0,0,0,0.15))",
           }}
         />
       </div>
     );
   };
 
-  if (!top40.length) return null;
+  if (!topN.length) return null;
 
   return (
     <>
