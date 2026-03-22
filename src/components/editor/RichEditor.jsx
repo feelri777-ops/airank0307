@@ -1,6 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import FileUploader from "./FileUploader";
+import { 
+  Undo, Redo, TextT, TextB, TextItalic, TextUnderline, TextStrikethrough,
+  TextAlignLeft, TextAlignCenter, TextAlignRight, ListBullets, 
+  Smiley, PlusCircle, Palette, Link 
+} from "../icons/PhosphorIcons";
 
 /* ─── 이모지 목록 ─── */
 const EMOJI_LIST = [
@@ -201,6 +206,17 @@ const SizeBtn = styled.button`
   &:hover { background: var(--bg-tertiary); }
 `;
 
+/* 이모지 패널 */
+const EmojiPanel = styled(Panel)`
+  width: 240px; height: 200px; display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 4px; overflow-y: auto; padding: 12px;
+`;
+const EmojiBtn = styled.button`
+  font-size: 1.5rem; background: transparent; border: none; cursor: pointer; border-radius: 6px;
+  padding: 4px; display: flex; align-items: center; justify-content: center;
+  &:hover { background: var(--bg-tertiary); }
+`;
+
 /* 링크 다이얼로그 */
 const Dialog = styled.div`
   position: absolute; z-index: 400;
@@ -318,13 +334,13 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
       {/* ─── 툴바 ─── */}
       <Toolbar onMouseDown={(e) => e.preventDefault()}>
         {/* Undo / Redo */}
-        <TB data-title="실행 취소" onClick={() => exec("undo")}><span style={{ fontSize: '1.1rem' }}>⟲</span></TB>
-        <TB data-title="다시 실행" onClick={() => exec("redo")}><span style={{ fontSize: '1.1rem' }}>⟳</span></TB>
+        <TB data-title="실행 취소" onClick={() => exec("undo")}><Undo size={18} /></TB>
+        <TB data-title="다시 실행" onClick={() => exec("redo")}><Redo size={18} /></TB>
         <TDiv />
 
         {/* Font size */}
         <div style={{ position: "relative" }} className="pro-panel">
-          <TB onClick={() => handlePanel('size')} data-title="글자 크기">T<span style={{ fontSize: '0.6rem', marginLeft: '2px' }}>▼</span></TB>
+          <TB onClick={() => handlePanel('size')} data-title="글자 크기"><TextT size={18} /></TB>
           {activePanel === 'size' && (
             <SizePanel>
               {FONT_SIZES.map(s => (
@@ -335,15 +351,15 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
         </div>
 
         {/* Basic Text */}
-        <TB data-title="굵게" onClick={() => exec("bold")}><b>B</b></TB>
-        <TB data-title="기울임" onClick={() => exec("italic")}><i>I</i></TB>
-        <TB data-title="밑줄" onClick={() => exec("underline")}><u>U</u></TB>
-        <TB data-title="취소선" onClick={() => exec("strikeThrough")}><s>S</s></TB>
+        <TB data-title="굵게" onClick={() => exec("bold")}><TextB size={18} /></TB>
+        <TB data-title="기울임" onClick={() => exec("italic")}><TextItalic size={18} /></TB>
+        <TB data-title="밑줄" onClick={() => exec("underline")}><TextUnderline size={18} /></TB>
+        <TB data-title="취소선" onClick={() => exec("strikeThrough")}><TextStrikethrough size={18} /></TB>
         <TDiv />
 
-        {/* Color */}
+        {/* Color / Highlight */}
         <div style={{ position: "relative" }} className="pro-panel">
-          <TB onClick={() => handlePanel('color')} data-title="글자색"><span style={{ borderBottom: '2px solid #FF0000' }}>A</span></TB>
+          <TB onClick={() => handlePanel('color')} data-title="글자색"><Palette size={18} color="#FF0000" /></TB>
           {activePanel === 'color' && (
             <ColorPanel>
               {TEXT_COLORS.map(c => <ColorBtn key={c} color={c} onClick={() => exec("foreColor", c)} data-title={c} />)}
@@ -351,7 +367,7 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
           )}
         </div>
         <div style={{ position: "relative" }} className="pro-panel">
-          <TB onClick={() => handlePanel('hilite')} data-title="배경색"><span style={{ background: '#FFFF00', padding: '0 3px', color: '#000' }}>A</span></TB>
+          <TB onClick={() => handlePanel('hilite')} data-title="강조색/배경"><Palette size={18} color="#FFFF00" /></TB>
           {activePanel === 'hilite' && (
             <ColorPanel>
               {BG_COLORS.map(c => <ColorBtn key={c} color={c} onClick={() => exec("hiliteColor", c)} data-title={c} />)}
@@ -361,21 +377,21 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
         <TDiv />
 
         {/* Align */}
-        <TB data-title="왼쪽 정렬" onClick={() => exec("justifyLeft")}>⚖️</TB>
-        <TB data-title="가운데 정렬" onClick={() => exec("justifyCenter")}>🏛️</TB>
-        <TB data-title="오른쪽 정렬" onClick={() => exec("justifyRight")}>⚖️</TB>
+        <TB data-title="왼쪽 정렬" onClick={() => exec("justifyLeft")}><TextAlignLeft size={18} /></TB>
+        <TB data-title="가운데 정렬" onClick={() => exec("justifyCenter")}><TextAlignCenter size={18} /></TB>
+        <TB data-title="오른쪽 정렬" onClick={() => exec("justifyRight")}><TextAlignRight size={18} /></TB>
         <TDiv />
 
-        {/* List / Structure */}
-        <TB data-title="제목 2" onClick={() => exec("formatBlock", "h2")}>H2</TB>
-        <TB data-title="제목 3" onClick={() => exec("formatBlock", "h3")}>H3</TB>
-        <TB data-title="순서없는 목록" onClick={() => exec("insertUnorderedList")}>•</TB>
-        <TB data-title="인용" onClick={() => exec("formatBlock", "blockquote")}>❝</TB>
+        {/* Structure */}
+        <TB data-title="중제목(H2)" onClick={() => exec("formatBlock", "h2")} style={{ fontSize: '11px' }}><b>H2</b></TB>
+        <TB data-title="소제목(H3)" onClick={() => exec("formatBlock", "h3")} style={{ fontSize: '11px' }}><b>H3</b></TB>
+        <TB data-title="불렛 목록" onClick={() => exec("insertUnorderedList")}><ListBullets size={18} /></TB>
+        <TB data-title="인용구" onClick={() => exec("formatBlock", "blockquote")} style={{ fontSize: '1.2rem' }}>❝</TB>
         <TDiv />
 
-        {/* Smart Embed */}
-        <TB data-title="링크/미디어 삽입" onClick={() => { saveRange(); handlePanel('yt'); }}>🔗</TB>
-        <TB data-title="이모지" onClick={() => handlePanel('emoji')}>😊</TB>
+        {/* Media */}
+        <TB data-title="링크/유튜브 임베드" onClick={() => { saveRange(); handlePanel('yt'); }}><Link size={18} /></TB>
+        <TB data-title="이모지 선택" onClick={() => handlePanel('emoji')}><Smiley size={18} /></TB>
         {activePanel === 'emoji' && (
           <EmojiPanel className="pro-panel">
             {EMOJI_LIST.map((e) => (

@@ -61,4 +61,21 @@ export const UserMinus = (p) => <IconWrapper {...p}><circle cx="104" cy="72" r="
 export const ChatCircle = (p) => <IconWrapper {...p}><path d="M45.4,177A95.9,95.9,0,1,1,79,210.6L40,216Z"/></IconWrapper>;
 export const Images = (p) => <IconWrapper {...p}><path d="M192,112l-40,40-16-16-32,32"/><rect x="32" y="72" width="160" height="128" rx="8"/><path d="M64,40H200a16,16,0,0,1,16,16V160"/><circle cx="80" cy="112" r="12" style={{fill: p.color || 'currentColor'}} /></IconWrapper>;
 export const Circle = (p) => <IconWrapper {...p}><circle cx="128" cy="128" r="96"/></IconWrapper>;
-export const ShieldWarning = (p) => <IconWrapper {...p}><path d="M208,40,128,16,48,40V128c0,57.1,38,103.2,80,112,42-8.8,80-54.9,80-112V40Z"/><line x1="128" y1="80" x2="128" y2="136"/><circle cx="128" cy="172" r="12" style={{fill: p.color || 'currentColor'}} /></IconWrapper>;
+export const ShieldWarning = (p) => <IconWrapper {...p}><path d="M208,40,128,16,48,40V128c0,57.1,38,103.2,80,112,42-8.8,80-54.9,80-112V40Z"/><line x1="128" y1="80" x2="128" y2="136"/><circle cx="128" cy="172" r="12" style={{fill: p.color || "currentColor"}} /></IconWrapper>;
+
+// --- Editor Icons ---
+export const Undo = (p) => <IconWrapper {...p}><polyline points="80 120 40 80 80 40"/><path d="M40,80h88a72,72,0,0,1,0,144H80"/></IconWrapper>;
+export const Redo = (p) => <IconWrapper {...p}><polyline points="176 120 216 80 176 40"/><path d="M216,80H128a72,72,0,0,0,0,144h48"/></IconWrapper>;
+export const TextT = (p) => <IconWrapper {...p}><line x1="128" y1="56" x2="128" y2="200"/><line x1="40" y1="56" x2="216" y2="56"/></IconWrapper>;
+export const TextB = (p) => <IconWrapper {...p} weight="bold"><path d="M64,56H144a40,40,0,0,1,0,80H64ZM64,136h88a44,44,0,0,1,0,88H64Z"/></IconWrapper>;
+export const TextItalic = (p) => <IconWrapper {...p}><line x1="96" y1="200" x2="160" y2="200"/><line x1="160" y1="56" x2="96" y2="200"/><line x1="128" y1="56" x2="192" y2="56"/></IconWrapper>;
+export const TextUnderline = (p) => <IconWrapper {...p}><path d="M64,56v64a64,64,0,0,0,128,0V56"/><line x1="40" y1="200" x2="216" y2="200"/></IconWrapper>;
+export const TextStrikethrough = (p) => <IconWrapper {...p}><line x1="40" y1="128" x2="216" y2="128"/><path d="M187.9,85.1A64,64,0,0,0,80,96m0,64a64,64,0,0,0,107.9,10.9"/></IconWrapper>;
+export const TextAlignLeft = (p) => <IconWrapper {...p}><line x1="40" y1="64" x2="216" y2="64"/><line x1="40" y1="104" x2="152" y2="104"/><line x1="40" y1="144" x2="216" y2="144"/><line x1="40" y1="184" x2="152" y2="184"/></IconWrapper>;
+export const TextAlignCenter = (p) => <IconWrapper {...p}><line x1="40" y1="64" x2="216" y2="64"/><line x1="64" y1="104" x2="192" y2="104"/><line x1="40" y1="144" x2="216" y2="144"/><line x1="64" y1="184" x2="192" y2="184"/></IconWrapper>;
+export const TextAlignRight = (p) => <IconWrapper {...p}><line x1="40" y1="64" x2="216" y2="64"/><line x1="104" y1="104" x2="216" y2="104"/><line x1="40" y1="144" x2="216" y2="144"/><line x1="104" y1="184" x2="216" y2="184"/></IconWrapper>;
+export const ListBullets = (p) => <IconWrapper {...p}><line x1="88" y1="64" x2="216" y2="64"/><line x1="88" y1="128" x2="216" y2="128"/><line x1="88" y1="192" x2="216" y2="192"/><circle cx="44" cy="64" r="12"/><circle cx="44" cy="128" r="12"/><circle cx="44" cy="192" r="12"/></IconWrapper>;
+export const Smiley = (p) => <IconWrapper {...p}><circle cx="128" cy="128" r="96"/><circle cx="92" cy="108" r="12"/><circle cx="164" cy="108" r="12"/><path d="M169.6,152a48,48,0,0,1-83.2,0"/></IconWrapper>;
+export const PlusCircle = (p) => <IconWrapper {...p}><circle cx="128" cy="128" r="96"/><line x1="128" y1="88" x2="128" y2="168"/><line x1="88" y1="128" x2="168" y2="128"/></IconWrapper>;
+export const Palette = (p) => <IconWrapper {...p}><path d="M128,24A104,104,0,1,0,232,128c0-30.4-12.8-44.8-24-44.8H184V44c0-11.2-13.6-20-24-20Z"/><circle cx="140" cy="76" r="12"/><circle cx="180" cy="112" r="12"/><circle cx="128" cy="128" r="12"/></IconWrapper>;
+export const Link = (p) => <IconWrapper {...p}><path d="M122.3,133.7l33.2-33.2a32,32,0,0,1,45.2,45.2l-33.2,33.2a32,32,0,0,1-45.2,0"/><path d="M133.7,122.3l-33.2,33.2a32,32,0,0,1-45.2-45.2l33.2-33.2a32,32,0,0,1,45.2,0"/></IconWrapper>;
