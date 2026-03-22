@@ -367,7 +367,13 @@ export default function AdminTools() {
       const nextId = Math.max(0, ...tools.map(t => Number(t.id) || 0)) + 1;
       await addDoc(collection(db, "tools"), { ...data, id: nextId, score: 0, change: 0, createdAt: serverTimestamp() });
     }
-    fetchTools();
+    // onSnapshot이 자동으로 업데이트하므로 fetchTools 제거
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+    await deleteDoc(doc(db, "tools", id));
+    // onSnapshot이 자동으로 업데이트하므로 fetchTools 제거
   };
 
   const filtered = tools.filter(t => {
@@ -406,7 +412,7 @@ export default function AdminTools() {
         <button onClick={() => setShowHidden(!showHidden)} style={{ padding: "0 16px", height: "45px", borderRadius: "12px", border: "1px solid var(--border-primary)", background: showHidden ? "var(--bg-tertiary)" : "var(--bg-secondary)", color: showHidden ? "var(--text-primary)" : "var(--text-secondary)", fontWeight: 800, cursor: "pointer", transition: "all 0.2s" }}>
           {showHidden ? <><Eye size={16} style={{verticalAlign:"middle", marginRight:"4px"}}/>숨김 툴 표시중</> : <><EyeSlash size={16} style={{verticalAlign:"middle", marginRight:"4px"}}/>숨김 툴 가리기</>}
         </button>
-        <button onClick={fetchTools} style={{ background: "var(--bg-secondary)", border: "none", borderRadius: "12px", width: "45px", height: "45px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "var(--text-primary)" }}>
+        <button onClick={() => window.location.reload()} style={{ background: "var(--bg-secondary)", border: "none", borderRadius: "12px", width: "45px", height: "45px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "var(--text-primary)" }}>
           <ArrowClockwise size={20} weight="bold" />
         </button>
       </div>
@@ -457,7 +463,6 @@ export default function AdminTools() {
                 <button onClick={async () => {
                   if(window.confirm("삭제하시겠습니까?")) {
                     await deleteDoc(doc(db, "tools", tool._docId));
-                    fetchTools();
                   }
                 }} style={{ width: "40px", height: "40px", borderRadius: "10px", border: "none", background: "#ef444415", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#ef4444" }}>
                   <TrashSimple size={18} weight="bold" />
