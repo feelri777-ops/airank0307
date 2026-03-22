@@ -193,6 +193,7 @@ async function main() {
   const now = Date.now();
 
   for (const tool of sortedTools) {
+    const existing_id = String(tool.id);
     const query = tool.yt || tool.name;
     const queryKo = tool.ytKo || tool.nameKo || tool.name;
     console.log(`  [${tool.id}] ${tool.name} 유튜브 영상 수집 시작...`);
