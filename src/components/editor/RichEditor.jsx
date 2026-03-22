@@ -432,30 +432,30 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
         {imgBubble && (
           <ImageBubble style={{ left: imgBubble.x, top: imgBubble.y }} onMouseDown={(e) => e.preventDefault()}>
             <div style={{ fontSize: '0.65rem', color: '#999', margin: '0 4px' }}>크기</div>
-            <SizeX onClick={() => { imgBubble.target.style.width = '30%'; updateCount(); }}>S</SizeX>
-            <SizeX onClick={() => { imgBubble.target.style.width = '60%'; updateCount(); }}>M</SizeX>
-            <SizeX onClick={() => { imgBubble.target.style.width = '100%'; updateCount(); }}>L</SizeX>
+            <SizeX title="작게(30%)" onClick={() => { imgBubble.target.style.width = '30%'; updateCount(); }}>S</SizeX>
+            <SizeX title="중간(60%)" onClick={() => { imgBubble.target.style.width = '60%'; updateCount(); }}>M</SizeX>
+            <SizeX title="전체(100%)" onClick={() => { imgBubble.target.style.width = '100%'; updateCount(); }}>L</SizeX>
             <BDiv />
-            <BB onClick={() => { 
+            <BB title="좌측 배치" onClick={() => { 
                 imgBubble.target.style.float = 'left'; 
                 imgBubble.target.style.margin = '1rem 1rem 1rem 0';
                 imgBubble.target.style.display = 'inline-block';
                 updateCount();
               }}>좌</BB>
-            <BB onClick={() => { 
+            <BB title="중앙 배치" onClick={() => { 
                 imgBubble.target.style.float = 'none'; 
                 imgBubble.target.style.margin = '1rem auto';
                 imgBubble.target.style.display = 'block';
                 updateCount();
               }}>중</BB>
-            <BB onClick={() => { 
+            <BB title="우측 배치" onClick={() => { 
                 imgBubble.target.style.float = 'right'; 
                 imgBubble.target.style.margin = '1rem 0 1rem 1rem';
                 imgBubble.target.style.display = 'inline-block';
                 updateCount();
               }}>우</BB>
             <BDiv />
-            <BB style={{ color: '#ff4444' }} onClick={() => { imgBubble.target.remove(); setImgBubble(null); updateCount(); }}>❌</BB>
+            <BB title="이미지 삭제" style={{ color: '#ff4444' }} onClick={() => { imgBubble.target.remove(); setImgBubble(null); updateCount(); }}>❌</BB>
           </ImageBubble>
         )}
       </div>
@@ -472,7 +472,7 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
           postKey={postKey}
           onInsertImage={(url, name) => {
             editorRef.current?.focus();
-            document.execCommand("insertHTML", false, `<img src="${url}" alt="${name}" /><p><br></p>`);
+            document.execCommand("insertHTML", false, `<img src="${url}" alt="${name}" title="클릭하여 크기/배치 조절" /><p><br></p>`);
             updateCount();
           }}
         />
