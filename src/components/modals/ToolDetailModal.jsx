@@ -8,26 +8,35 @@ import { decodeHtmlEntities } from "../../utils";
 import { YoutubeLogoFill, BookmarkSimple, BookmarkSimpleFill, ArrowRight } from "../icons/PhosphorIcons";
 
 // 미니 스파크라인 SVG (ScoreInsightPanel 밖에 정의 → remount 방지로 애니메이션 1회만 실행)
-// 미니 프로그레스 바 (네온 글로우 & 노 베젤 스타일)
+// 미니 프로그레스 바 (네온 글로우 & 성장 애니메이션 스타일)
 const Spark = ({ pts, color }) => {
-  const val = pts[pts.length - 1]; // 최신 값 (오늘자 점수)
-  const percent = Math.max(2, Math.min(100, val));
+  const [width, setWidth] = useState(0);
+  const targetPercent = Math.max(2, Math.min(100, pts[pts.length - 1] || 0));
+
+  useEffect(() => {
+    // 마운트 후 아주 약간의 지연시간 뒤에 게이지가 차오르게 함
+    const timer = setTimeout(() => {
+      setWidth(targetPercent);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [targetPercent]);
   
   return (
     <div style={{ 
-      width: "100%", height: "8px", background: "rgba(0,0,0,0.1)", 
+      width: "100%", height: "8px", background: "rgba(0,0,0,0.15)", 
       borderRadius: "10px", overflow: "visible", position: "relative",
     }}>
       <div style={{ 
-        width: `${percent}%`, height: "100%", 
-        background: `linear-gradient(to right, ${color}33, ${color})`,
-        borderRadius: "10px", transition: "width 1s cubic-bezier(0.34, 1.56, 0.64, 1)",
+        width: `${width}%`, height: "100%", 
+        background: color, // 그라데이션 제거, 선명한 단색
+        borderRadius: "10px", 
+        transition: "width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)",
         position: "relative",
-        boxShadow: `0 0 12px ${color}60`, // 네온 글로우 효과
+        boxShadow: `0 0 14px ${color}80, 0 0 4px ${color}`, // 강력해진 글로우
       }}>
         {/* 리딩 엣지(끝부분) 하이라이트 */}
         <div style={{
-          position: "absolute", right: "-1px", top: "-2px", bottom: "-2px", width: "4px",
+          position: "absolute", right: "-1px", top: "-2.5px", bottom: "-2.5px", width: "4px",
           background: "#fff",
           borderRadius: "10px",
           boxShadow: `0 0 8px #fff, 0 0 15px ${color}`,
