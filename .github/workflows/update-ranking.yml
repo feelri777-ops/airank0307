@@ -40,6 +40,11 @@ jobs:
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
+      - name: 100위 컷오프 및 수동 랭킹 적용
+        run: node scripts/rebalance_ranking.js
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
       - name: 변경사항 커밋 & 푸시
         run: |
           git config user.name "github-actions[bot]"

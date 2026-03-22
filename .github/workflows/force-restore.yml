@@ -23,9 +23,6 @@ jobs:
 
       - name: Firestore 메타데이터 강제 복구
         run: node scripts/restore_from_js.js
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-
       - name: 랭킹 점수 즉시 갱신
         run: node scripts/update_ranking.js
         env:
@@ -40,6 +37,11 @@ jobs:
 
       - name: Firestore 점수 최종 동기화
         run: node scripts/sync_tools_js.js
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: 100위 컷오프 및 수동 랭킹 적용
+        run: node scripts/rebalance_ranking.js
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
