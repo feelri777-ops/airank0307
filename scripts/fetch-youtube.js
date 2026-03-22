@@ -111,7 +111,7 @@ async function searchYouTube(query, { lang = true } = {}) {
     q: lang ? `${query} 사용법` : `${query} tutorial`,
     type: 'video',
     order: 'viewCount',
-    maxResults: 5,
+    maxResults: 8,
     key,
   });
   if (lang) {
