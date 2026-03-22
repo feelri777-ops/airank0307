@@ -121,7 +121,27 @@ async function rebalance() {
     await batch.commit();
   }
 
-  console.log(`✅ [성공] 가점/감점 보정 점수로 1~100위 방어 성공, 점수 덮어쓰기 및 숨김 처리 완료!`);
+  // public/scores.json 파일도 동기화 (프론트엔드 캐시 일관성 보장)
+  const scoresPath = path.join(ROOT, 'public', 'scores.json');
+  if (fs.existsSync(scoresPath)) {
+    console.log("\n📄 public/scores.json 파일 동기화를 시작합니다...");
+    const scoresData = JSON.parse(fs.readFileSync(scoresPath, 'utf8'));
+    
+    // scores.json 내의 각 도구 점수와 랭킹 보정값 일치시킴
+    tools.forEach(t => {
+      if (scoresData.tools && scoresData.tools[String(t.id)]) {
+        scoresData.tools[String(t.id)].score = t._calCalcScore;
+      }
+    });
+
+    scoresData.updated = new Date().toISOString();
+    scoresData.source = "Rebalanced via rebalance_ranking.js";
+    
+    fs.writeFileSync(scoresPath, JSON.stringify(scoresData, null, 2), 'utf8');
+    console.log("✅ [공유] public/scores.json 동기화 완료!");
+  }
+
+  console.log(`\n✅ [성공] 가점/감점 보정 점수로 1~100위 방어 성공, 점수 덮어쓰기 및 숨김 처리 완료!`);
 }
 
 rebalance().catch(e => {

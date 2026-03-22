@@ -4,7 +4,7 @@ import { db } from "../firebase";
 import ToolContext from "./ToolContext";
 import { useAuth } from "./AuthContext";
 
-const CACHE_KEY = "airank_tools_cache_v3";
+const CACHE_KEY = "airank_tools_cache_v4";
 const CACHE_TTL = 60 * 60 * 1000; // 1시간
 
 function loadCache() {
@@ -48,6 +48,7 @@ export function ToolProvider({ children }) {
     setIsLoading(true);
 
     const loadTools = async () => {
+      console.log("🚀 Airank v4: Loading tools with rebalanced logic...");
       try {
         // 1. 캐시 확인
         const cached = loadCache();
