@@ -293,7 +293,7 @@ async function getNaverTrendsBatch(tools, oprScores = {}) {
 }
 
 const XPOZ_CACHE_PATH = path.join(dirname(fileURLToPath(import.meta.url)), '..', 'data', 'xpoz_cache.json');
-let isXpozBlocked = false;
+let isXpozBlocked = true; // 유저 요청으로 XPOZ API 수집을 전체 스킵하여 속도 개선
 
 async function getXpozScoresBatch(keywords, oprScores, todayStr) {
   const results = {};
