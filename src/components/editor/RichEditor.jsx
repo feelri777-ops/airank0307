@@ -35,6 +35,7 @@ const Toolbar = styled.div`
   border-radius: var(--r-sm) 10px 0 0;
   border-bottom: none;
   user-select: none;
+  @media (max-width: 600px) { padding: 4px 6px; gap: 1px; }
 `;
 
 const TB = styled.button`
@@ -46,6 +47,7 @@ const TB = styled.button`
   transition: all 0.12s; white-space: nowrap;
   box-shadow: ${({ $active }) => $active ? "0 1px 3px rgba(0,0,0,0.1)" : "none"};
   &:hover { background: var(--bg-card); color: var(--text-primary); }
+  @media (max-width: 600px) { min-width: 28px; height: 28px; padding: 0 4px; }
 `;
 
 const TDiv = styled.div`width: 1px; height: 18px; background: var(--border-primary); margin: 0 4px; flex-shrink: 0;`;
@@ -62,6 +64,7 @@ const EditorArea = styled.div`
   cursor: text; word-break: break-word; overflow-wrap: break-word;
   transition: border-color 0.15s;
   &:focus { border-color: var(--accent-indigo); }
+  @media (max-width: 600px) { padding: 1rem 0.75rem; font-size: 15px; min-height: 300px; }
 
   /* placeholder */
   &:empty::before {

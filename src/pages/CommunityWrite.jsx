@@ -12,7 +12,10 @@ import { useCommunity } from "../context/CommunityContext";
 // BOARDS는 Firestore에서 동적으로 불러옵니다.
 import RichEditor from "../components/editor/RichEditor";
 
-const PageWrapper = styled.div`max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem;`;
+const PageWrapper = styled.div`
+  max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem;
+  @media (max-width: 600px) { padding: 0.75rem 0.5rem; }
+`;
 const PageTitle = styled.h1`
   font-family: "Outfit", sans-serif; font-size: 1.5rem; font-weight: 700;
   color: var(--text-primary); margin-bottom: 1.75rem;
