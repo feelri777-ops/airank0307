@@ -69,6 +69,37 @@ export default function CommunityWrite() {
   const boardInfo = boards.find((b) => b.id === (isEdit ? targetBoard : board));
   const isNoticeAdmin = isAdmin(user) && category === "notice";
 
+  // 추가 보정: 카테고리가 공지 아닐 때 targetBoard 초기화
+  useEffect(() => {
+    if (category !== "notice") setTargetBoard(board);
+  }, [category, board]);
+
+  // 비로그인 사용자 튕겨내기
+  useEffect(() => {
+    if (!user) navigate(`/community/${board}`);
+  }, [user, board, navigate]);
+
+  // 데이터 불러오기 (수정 모드)
+  useEffect(() => {
+    if (!isEdit) return;
+    const load = async () => {
+      const snap = await getDoc(doc(db, "communityPosts", postId));
+      if (snap.exists()) {
+        const data = snap.data();
+        if (data.uid !== user?.uid) { navigate(`/community/${board}`); return; }
+        setCategory(data.category || "free");
+        setTargetBoard(data.board || board);
+        setTitle(data.title || "");
+        setContent(data.content || "");
+        setTags(data.tags?.join(", ") || "");
+        setSummary(data.summary || "");
+      } else {
+        navigate(`/community/${board}`);
+      }
+    };
+    load();
+  }, [isEdit, postId, user, board, navigate]);
+
   // 자동 저장 (Local Storage)
   useEffect(() => {
     if (isEdit) return;
