@@ -195,21 +195,7 @@ async function main() {
   for (const tool of sortedTools) {
     const query = tool.yt || tool.name;
     const queryKo = tool.ytKo || tool.nameKo || tool.name;
-    const existing_id = String(tool.id);
-
-    // 데이터 있으면 스킵 (fetchedAt 없어도 기존 데이터 보존 — 쿼터 절약)
-    const lastFetch = fetchedAt[existing_id] ? new Date(fetchedAt[existing_id]).getTime() : null;
-    const daysSinceFetch = lastFetch ? (now - lastFetch) / (1000 * 60 * 60 * 24) : 999;
-    if (videos[existing_id] && videos[existing_id].length > 0 && !forceRefresh) {
-      if (daysSinceFetch < REFRESH_DAYS) {
-        console.log(`  [${tool.id}] ${tool.name} → 유지 (${Math.floor(daysSinceFetch)}일 전 수집)`);
-      } else {
-        console.log(`  [${tool.id}] ${tool.name} → 유지 (fetchedAt 없음, 기존 데이터 보존)`);
-      }
-      continue;
-    }
-
-    console.log(`  [${tool.id}] ${tool.name} 수집 시도...`);
+    console.log(`  [${tool.id}] ${tool.name} 유튜브 영상 수집 시작...`);
     try {
       // 1차: 한국어 검색
       let results = await searchYouTube(query);
