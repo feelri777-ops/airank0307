@@ -302,7 +302,7 @@ const ToolAnalysisCard = ({ tool, rank, cardWidth }) => {
       height: "fit-content"
     }}>
 
-      {rank <= 30 && <>
+      {rank <= 100 && <>
       <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "0.75rem" }}>
         <YoutubeLogoFill size={20} color="var(--text-primary)" />
         <span style={{ fontSize: "15px", fontWeight: 800, color: "var(--text-primary)" }}>인기영상</span>

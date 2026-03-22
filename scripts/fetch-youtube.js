@@ -7,7 +7,7 @@ import admin from 'firebase-admin';
 const __dir = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dir, '..');
 const OUTPUT = resolve(ROOT, 'public/youtube-videos.json');
-const TOP_N = 30;
+const TOP_N = 100;
 
 const YOUTUBE_API_KEYS = [
   process.env.YOUTUBE_API_KEY,
