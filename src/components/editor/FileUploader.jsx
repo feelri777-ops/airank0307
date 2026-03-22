@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useImperativeHandle, forwardRef } from "react";
 import { ref as storageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
@@ -163,7 +163,7 @@ const DragMsg = styled.div`
 `;
 
 /* ── 컴포넌트 ── */
-export default function FileUploader({ postKey, onInsertImage, onInsertAudio }) {
+const FileUploader = forwardRef(({ postKey, onInsertImage, onInsertAudio }, ref) => {
   const { user } = useAuth();
   const imageInputRef = useRef(null);
   const audioInputRef = useRef(null);
@@ -174,6 +174,11 @@ export default function FileUploader({ postKey, onInsertImage, onInsertAudio }) 
   const [globalError, setGlobalError] = useState("");
   const [dragging, setDragging] = useState(false);
   const dragCounter = useRef(0);
+
+  useImperativeHandle(ref, () => ({
+    handleImageFiles,
+    handleAudioFile
+  }));
 
   /* ── 드래그 앤 드롭 핸들러 ── */
   const handleDragEnter = (e) => {
@@ -415,4 +420,6 @@ export default function FileUploader({ postKey, onInsertImage, onInsertAudio }) 
       </div>
     </div>
   );
-}
+});
+
+export default FileUploader;

@@ -241,6 +241,7 @@ const Footer = styled.div`
 /* ─── 컴포넌트 ─── */
 export default function RichEditor({ value, onChange, placeholder = "내용을 입력하세요...", postKey }) {
   const editorRef = useRef(null);
+  const fileUploaderRef = useRef(null); // 추가
   const [activePanel, setActivePanel] = useState(null); // 'size', 'color', 'hilite', 'emoji', 'yt'
   const [linkData, setLinkData] = useState({ type: 'link', val: '' }); // type: link, yt, tool
    const [charCount, setCharCount] = useState(0);
@@ -433,6 +434,17 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
            onInput={updateCount}
           onKeyUp={handleSelectionChange}
           onMouseUp={handleSelectionChange}
+          onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
+          onDrop={(e) => {
+            e.preventDefault(); e.stopPropagation();
+            const files = Array.from(e.dataTransfer.files);
+            if (!files.length) return;
+            // 이미지 파일만 필터링해서 업로더의 핸들러 호출
+            const imgFiles = files.filter(f => f.type.startsWith('image/'));
+            if (imgFiles.length > 0) {
+              fileUploaderRef.current?.handleImageFiles(imgFiles);
+            }
+          }}
           onClick={(e) => {
             if (e.target.tagName === "IMG") {
               const rect = e.target.getBoundingClientRect();
@@ -511,6 +523,7 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
       {/* ─── 파일 첨부 ─── */}
       <div style={{ marginTop: "1rem" }}>
         <FileUploader
+          ref={fileUploaderRef}
           postKey={postKey}
           onInsertImage={(url, name) => {
             editorRef.current?.focus();
