@@ -196,7 +196,25 @@ async function main() {
     const existing_id = String(tool.id);
     const query = tool.yt || tool.name;
     const queryKo = tool.ytKo || tool.nameKo || tool.name;
-    console.log(`  [${tool.id}] ${tool.name} 유튜브 영상 수집 시작...`);
+
+    // 대표님, 100개 도구를 매번 검색하면 유튜브 API 무료 할당량(1만 유닛)을 초과합니다.
+    // 따라서 '6일 이내'에 이미 업데이트된 도구는 건너뛰어 할당량을 아끼고, 
+    // 매주 월요일 실행 시 아직 갱신되지 않은 도구들을 우선적으로 처리합니다.
+    const lastFetch = fetchedAt[existing_id] ? new Date(fetchedAt[existing_id]).getTime() : null;
+    const daysSinceFetch = lastFetch ? (now - lastFetch) / (1000 * 60 * 60 * 24) : 999;
+    
+    if (videos[existing_id] && videos[existing_id].length > 0 && daysSinceFetch < 6 && !forceRefresh) {
+      console.log(`  [${tool.id}] ${tool.name} → 유지 (${Math.floor(daysSinceFetch)}일 전 갱신됨)`);
+      continue;
+    }
+
+    // 할당량 소진 여부 체크
+    if (currentKeyIndex >= YOUTUBE_API_KEYS.length) {
+      console.error(`\n⚠️ 모든 YouTube API 키의 할당량이 소진되었습니다. 수집을 중단하고 현재까지 데이터를 저장합니다.`);
+      break;
+    }
+
+    console.log(`  [${tool.id}] ${tool.name} 유튜브 영상 갱신 중...`);
     try {
       // 1차: 한국어 검색
       let results = await searchYouTube(query);
@@ -204,14 +222,12 @@ async function main() {
 
       // 2차: 한국어 이름으로 재시도
       if (results.length === 0 && queryKo !== query) {
-        console.log(`      결과 없음 → 한국어 이름 "${queryKo}"로 재시도`);
         results = await searchYouTube(queryKo);
         await sleep(300);
       }
 
       // 3차: 언어 제한 없이 영어 tutorial 검색 (폴백)
       if (results.length === 0) {
-        console.log(`      결과 없음 → 언어 제한 없이 영어 검색 폴백`);
         results = await searchYouTube(query, { lang: false });
         await sleep(300);
       }
@@ -219,20 +235,25 @@ async function main() {
       if (results.length > 0) {
         videos[existing_id] = results;
         fetchedAt[existing_id] = new Date().toISOString();
-        console.log(`      ✅ ${results.length}개 수집 성공`);
+        console.log(`      ✅ ${results.length}개 갱신 성공`);
+        
+        // 매 도구마다 즉시 저장하여 중단 시 데이터 손실 방지
+        writeFileSync(OUTPUT, JSON.stringify({ 
+          updated: new Date().toISOString(), 
+          topN: TOP_N, 
+          videos, 
+          fetchedAt 
+        }, null, 2));
       } else {
-        // 결과 없으면 기존 데이터 유지 (덮어쓰지 않음)
-        console.log(`      ⚠️ 최종 결과 없음 — 기존 데이터 유지`);
+        console.log(`      ⚠️ 결과 없음 — 기존 데이터 유지`);
       }
     } catch (err) {
       console.error(`      ❌ 실패: ${err.message}`);
-      // 실패해도 기존 데이터 보존
     }
     await sleep(500);
   }
 
-  writeFileSync(OUTPUT, JSON.stringify({ updated: new Date().toISOString(), topN: TOP_N, videos, fetchedAt }, null, 2));
-  console.log(`\n완료! youtube-videos.json 저장 (${TOP_N}개 도구)`);
+  console.log(`\n작동 완료! youtube-videos.json 저장됨`);
 }
 
 main().catch(console.error);
