@@ -197,23 +197,6 @@ async function main() {
     const query = tool.yt || tool.name;
     const queryKo = tool.ytKo || tool.nameKo || tool.name;
 
-    // 대표님, 100개 도구를 매번 검색하면 유튜브 API 무료 할당량(1만 유닛)을 초과합니다.
-    // 따라서 '6일 이내'에 이미 업데이트된 도구는 건너뛰어 할당량을 아끼고, 
-    // 매주 월요일 실행 시 아직 갱신되지 않은 도구들을 우선적으로 처리합니다.
-    const lastFetch = fetchedAt[existing_id] ? new Date(fetchedAt[existing_id]).getTime() : null;
-    const daysSinceFetch = lastFetch ? (now - lastFetch) / (1000 * 60 * 60 * 24) : 999;
-    
-    if (videos[existing_id] && videos[existing_id].length > 0 && daysSinceFetch < 6 && !forceRefresh) {
-      console.log(`  [${tool.id}] ${tool.name} → 유지 (${Math.floor(daysSinceFetch)}일 전 갱신됨)`);
-      continue;
-    }
-
-    // 할당량 소진 여부 체크
-    if (currentKeyIndex >= YOUTUBE_API_KEYS.length) {
-      console.error(`\n⚠️ 모든 YouTube API 키의 할당량이 소진되었습니다. 수집을 중단하고 현재까지 데이터를 저장합니다.`);
-      break;
-    }
-
     console.log(`  [${tool.id}] ${tool.name} 유튜브 영상 갱신 중...`);
     try {
       // 1차: 한국어 검색
@@ -236,14 +219,6 @@ async function main() {
         videos[existing_id] = results;
         fetchedAt[existing_id] = new Date().toISOString();
         console.log(`      ✅ ${results.length}개 갱신 성공`);
-        
-        // 매 도구마다 즉시 저장하여 중단 시 데이터 손실 방지
-        writeFileSync(OUTPUT, JSON.stringify({ 
-          updated: new Date().toISOString(), 
-          topN: TOP_N, 
-          videos, 
-          fetchedAt 
-        }, null, 2));
       } else {
         console.log(`      ⚠️ 결과 없음 — 기존 데이터 유지`);
       }
@@ -253,6 +228,7 @@ async function main() {
     await sleep(500);
   }
 
+  writeFileSync(OUTPUT, JSON.stringify({ updated: new Date().toISOString(), topN: TOP_N, videos, fetchedAt }, null, 2));
   console.log(`\n작동 완료! youtube-videos.json 저장됨`);
 }
 
