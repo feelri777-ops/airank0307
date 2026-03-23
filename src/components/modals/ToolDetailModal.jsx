@@ -252,46 +252,46 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             })}
           </div>
 
-          <div style={{ display: "grid", gap: "10px", marginBottom: "24px" }}>
-            {tool.usp && ( <div style={{ background: "rgba(99,102,241,0.03)", borderRadius: "16px", padding: "14px", border: "1px dashed rgba(99,102,241,0.2)" }}><div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.68rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "4px" }}><Lightbulb size={16} weight="fill" /> 💡 CORE USP</div><div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>{tool.usp}</div></div> )}
-            {tool.prosCons && ( <div style={{ background: "var(--bg-secondary)", borderRadius: "16px", padding: "14px", border: "1px solid var(--border-primary)" }}><div style={{ fontSize: "0.68rem", fontWeight: 950, color: "var(--text-muted)", marginBottom: "4px" }}>🔍 ANALYSIS</div><div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>{tool.prosCons}</div></div> )}
+          <div style={{ display: "grid", gap: "6px", marginBottom: "10px" }}>
+            {tool.usp && ( <div style={{ background: "rgba(99,102,241,0.03)", borderRadius: "12px", padding: "8px 10px", border: "1px dashed rgba(99,102,241,0.2)" }}><div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.65rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "3px" }}><Lightbulb size={14} weight="fill" /> 💡 CORE USP</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{tool.usp}</div></div> )}
+            {tool.prosCons && ( <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "8px 10px", border: "1px solid var(--border-primary)" }}><div style={{ fontSize: "0.65rem", fontWeight: 950, color: "var(--text-muted)", marginBottom: "3px" }}>🔍 ANALYSIS</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{tool.prosCons}</div></div> )}
           </div>
 
-          <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-            <a 
-              href={tool.url} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+          <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
+            <a
+              href={tool.url}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              style={{ 
-                flex: isMobile ? 2 : 1.6, 
-                display: "flex", 
-                alignItems: "center", 
-                justifyContent: "center", 
-                gap: "6px", 
-                padding: isMobile ? "14px 10px" : "16px", 
-                borderRadius: "18px", 
+              style={{
+                flex: isMobile ? 2 : 1.6,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "6px",
+                padding: isMobile ? "10px 8px" : "12px",
+                borderRadius: "14px",
                 background: "var(--accent-indigo)", 
                 color: "#fff", 
                 fontWeight: 950, 
                 textDecoration: "none", 
-                fontSize: isMobile ? "0.85rem" : "1.05rem",
+                fontSize: isMobile ? "0.8rem" : "0.95rem",
                 whiteSpace: "nowrap",
-                boxShadow: "0 10px 20px rgba(99,102,241,0.2)" 
+                boxShadow: "0 6px 14px rgba(99,102,241,0.2)"
               }}
-            >공식 사이트 바로가기 <ArrowRight size={isMobile ? 16 : 20} weight="bold" /></a>
-            <button 
-              onClick={(e) => { e.stopPropagation(); onClose(); navigate("/community"); }} 
-              style={{ 
-                flex: 1, 
-                padding: isMobile ? "14px 10px" : "16px", 
-                borderRadius: "18px", 
-                border: "1px solid var(--border-primary)", 
-                background: "none", 
-                color: "var(--text-primary)", 
-                fontWeight: 900, 
-                cursor: "pointer", 
-                fontSize: isMobile ? "0.85rem" : "0.95rem",
+            >공식 사이트 바로가기 <ArrowRight size={isMobile ? 14 : 16} weight="bold" /></a>
+            <button
+              onClick={(e) => { e.stopPropagation(); onClose(); navigate("/community"); }}
+              style={{
+                flex: 1,
+                padding: isMobile ? "10px 8px" : "12px",
+                borderRadius: "14px",
+                border: "1px solid var(--border-primary)",
+                background: "none",
+                color: "var(--text-primary)",
+                fontWeight: 900,
+                cursor: "pointer",
+                fontSize: isMobile ? "0.8rem" : "0.9rem",
                 whiteSpace: "nowrap"
               }}
             >게시판</button>
