@@ -62,6 +62,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   const [bookmarked, setBookmarked] = useState(false);
   const [videos, setVideos] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [activeCard, setActiveCard] = useState(0);
+  const touchStartX = React.useRef(null);
   const { user, loginWithGoogle } = useAuth();
   const { tools: allTools } = useTools();
   const navigate = useNavigate();
@@ -135,26 +137,54 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   ];
 
   return (
-    <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 2000, background: "rgba(0,0,0,0.8)", backdropFilter: "blur(12px)", overflowY: "auto", display: "flex", justifyContent: "center", padding: isMobile ? "20px 0" : "60px 20px" }}>
-      <div onClick={(e) => {
-        // Here we don't stop propagation if we want the whole card to close when clicked
-        // But if we want buttons to work, THEY must stop propagation
-      }} style={{
+    <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 2000, background: "rgba(0,0,0,0.8)", backdropFilter: "blur(12px)", overflowY: "auto", display: "flex", justifyContent: "center", alignItems: isMobile ? "flex-start" : "flex-start", padding: isMobile ? "16px 0 32px" : "60px 20px" }}>
+      <div onClick={(e) => {}} style={{
         display: "flex",
-        flexDirection: "row",
-        gap: isMobile ? "8px" : "18px",
+        flexDirection: "column",
         width: "100%",
-        maxWidth: isMobile ? "98vw" : "920px",
+        maxWidth: isMobile ? "100vw" : "920px",
         height: "fit-content",
-        alignItems: "flex-start",
-        padding: isMobile ? "0 4px" : "0"
+        padding: isMobile ? "0" : "0"
       }}>
+      {/* 모바일: 스와이프 캐러셀 / 데스크탑: 가로 배치 */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          gap: isMobile ? "0" : "18px",
+          width: "100%",
+          alignItems: "flex-start",
+          ...(isMobile ? {
+            overflow: "hidden",
+            position: "relative",
+          } : {})
+        }}
+      >
+      {/* 모바일 슬라이드 트랙 */}
+      <div
+        onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+        onTouchEnd={(e) => {
+          if (touchStartX.current === null) return;
+          const diff = touchStartX.current - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 50) setActiveCard(diff > 0 ? 1 : 0);
+          touchStartX.current = null;
+        }}
+        style={isMobile ? {
+          display: "flex",
+          flexDirection: "row",
+          width: "200%",
+          transform: `translateX(${activeCard === 0 ? "0%" : "-50%"})`,
+          transition: "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+        } : {
+          display: "contents",
+        }}
+      >
         
         <div 
           onClick={(e) => {
             // Card background/content also closes.
           }}
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: isMobile ? "20px" : "30px", width: "100%", flex: 1, minWidth: 0, position: "relative", padding: isMobile ? "12px 10px" : "22px 24px 24px", boxShadow: "0 25px 50px rgba(0,0,0,0.4)" }}
+          style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: isMobile ? "20px" : "30px", ...(isMobile ? { width: "50%", flexShrink: 0, padding: "16px 14px" } : { flex: 1, minWidth: 0, padding: "22px 24px 24px" }), position: "relative", boxShadow: "0 25px 50px rgba(0,0,0,0.4)" }}
         >
           <div style={{ position: "absolute", top: "18px", right: "18px", zIndex: 20 }}>
             <button 
@@ -273,9 +303,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           background: "var(--bg-card)",
           border: "1px solid var(--border-primary)",
           borderRadius: isMobile ? "20px" : "30px",
-          flex: 1,
-          minWidth: 0,
-          padding: isMobile ? "10px 8px" : "16px",
+          ...(isMobile ? { width: "50%", flexShrink: 0, padding: "16px 14px" } : { flex: 1, minWidth: 0, padding: "16px" }),
           boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
           position: "relative"
         }}>
@@ -341,7 +369,31 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             </div>
           )}
         </div>
-      </div>
+      </div>{/* 슬라이드 트랙 끝 */}
+      </div>{/* 오버플로우 래퍼 끝 */}
+
+      {/* 모바일 도트 인디케이터 */}
+      {isMobile && (
+        <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginTop: "14px" }}>
+          {[0, 1].map((i) => (
+            <button
+              key={i}
+              onClick={(e) => { e.stopPropagation(); setActiveCard(i); }}
+              style={{
+                width: activeCard === i ? "24px" : "8px",
+                height: "8px",
+                borderRadius: "4px",
+                background: activeCard === i ? "var(--accent-indigo)" : "rgba(255,255,255,0.3)",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+                transition: "all 0.3s ease",
+              }}
+            />
+          ))}
+        </div>
+      )}
+      </div>{/* 컨테이너 끝 */}
     </div>
   );
 };
