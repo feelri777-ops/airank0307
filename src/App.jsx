@@ -31,6 +31,8 @@ const AdminCommunity = lazy(() => import("./pages/admin/AdminCommunity"));
 const AdminGallery = lazy(() => import("./pages/admin/AdminGallery"));
 const AdminUsers = lazy(() => import("./pages/admin/AdminUsers"));
 const AdminTools = lazy(() => import("./pages/admin/AdminTools"));
+const AdminReports = lazy(() => import("./pages/admin/AdminReports"));
+const AdminToolEdit = lazy(() => import("./pages/admin/AdminToolEdit"));
 
 const PageLoader = () => (
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh', flexDirection: 'column', gap: '15px' }}>
@@ -100,6 +102,8 @@ export default function App() {
                     <Route path="community" element={<AdminCommunity />} />
                     <Route path="gallery" element={<AdminGallery />} />
                     <Route path="users" element={<AdminUsers />} />
+                    <Route path="reports" element={<AdminReports />} />
+                    <Route path="tool-edit/:id" element={<AdminToolEdit />} />
                   </Route>
                 </Routes>
               </Suspense>

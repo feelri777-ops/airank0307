@@ -11,7 +11,8 @@ import {
   ArrowLeft,
   Sun,
   Moon,
-  ShieldCheck
+  ShieldCheck,
+  Bell
 } from "../../components/icons/PhosphorIcons";
 
 const NAV = [
@@ -20,6 +21,7 @@ const NAV = [
   { to: "/admin/community", label: "커뮤니티 관리", Icon: ChatCircle },
   { to: "/admin/gallery", label: "갤러리 검소", Icon: Images },
   { to: "/admin/users", label: "회원 보안", Icon: Users },
+  { to: "/admin/reports", label: "리포트 센터", Icon: Bell },
 ];
 
 export default function AdminLayout() {
