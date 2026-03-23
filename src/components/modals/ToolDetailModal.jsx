@@ -292,15 +292,15 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
                 {videos.slice(0, 3).map((v, i) => (
-                  <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "column", gap: "10px", textDecoration: "none", padding: "12px", borderRadius: "22px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "all 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
-                    <div style={{ width: "100%", aspectRatio: "16/9", borderRadius: "14px", overflow: "hidden", background: "#000" }}>
+                  <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "12px", textDecoration: "none", padding: "10px", borderRadius: "16px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "all 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
+                    <div style={{ width: "110px", height: "62px", flexShrink: 0, borderRadius: "10px", overflow: "hidden", background: "#000" }}>
                       <img src={v.thumbnail} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     </div>
-                    <div style={{ padding: "4px 2px" }}>
-                      <div style={{ fontSize: "0.82rem", fontWeight: 850, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.4, marginBottom: "8px" }}>{decodeHtmlSafe(v.title)}</div>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.68rem", color: "var(--text-muted)", fontWeight: 700 }}>
-                        <span style={{ color: "var(--accent-indigo)", opacity: 0.9 }}>{v.channelTitle}</span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.4, marginBottom: "6px" }}>{decodeHtmlSafe(v.title)}</div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.68rem", color: "var(--text-muted)", fontWeight: 700 }}>
                         {v.viewCount > 0 && <span style={{ background: "rgba(0,0,0,0.05)", padding: "2px 6px", borderRadius: "6px" }}>{formatViewCount(v.viewCount)}회</span>}
+                        <span style={{ color: "var(--accent-indigo)", opacity: 0.9, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{v.channelTitle}</span>
                       </div>
                     </div>
                   </a>
