@@ -25,6 +25,15 @@ const decodeHtmlSafe = (text) => {
   });
 };
 
+const formatViewCount = (count) => {
+  if (!count) return "";
+  const num = Number(count);
+  if (num >= 100000000) return `${(num / 100000000).toFixed(1)}억`;
+  if (num >= 10000) return `${(num / 10000).toFixed(1)}만`;
+  if (num >= 1000) return `${(num / 1000).toFixed(1)}k`;
+  return `${num}`;
+};
+
 const getFaviconUrl = (url) => { if (!url) return null; try { const domain = new URL(url).hostname; return `https://www.google.com/s2/favicons?sz=128&domain=${domain}`; } catch { return null; } };
 
 const SparkLine = ({ val, color, height = "4px", glow = false }) => {
@@ -281,11 +290,19 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             {videos.length === 0 ? (
                <div style={{ padding: "30px 20px", textAlign: "center", background: "var(--bg-secondary)", borderRadius: "20px", fontSize: "0.75rem", color: "var(--text-muted)", border: "1px dashed var(--border-primary)" }}>관련 영상이 준비 중입니다.</div>
             ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
                 {videos.slice(0, 3).map((v, i) => (
-                  <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", gap: "12px", textDecoration: "none", padding: "10px", borderRadius: "16px", background: "var(--bg-secondary)", border: "1px solid transparent", transition: "all 0.2s" }} onMouseEnter={e => e.currentTarget.style.background='var(--border-primary)'} onMouseLeave={e => e.currentTarget.style.background='var(--bg-secondary)'}>
-                    <img src={v.thumbnail} style={{ width: "90px", height: "50px", borderRadius: "8px", objectFit: "cover" }} />
-                    <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.35 }}>{decodeHtmlSafe(v.title)}</div>
+                  <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "column", gap: "10px", textDecoration: "none", padding: "12px", borderRadius: "22px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "all 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
+                    <div style={{ width: "100%", aspectRatio: "16/9", borderRadius: "14px", overflow: "hidden", background: "#000" }}>
+                      <img src={v.thumbnail} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    </div>
+                    <div style={{ padding: "4px 2px" }}>
+                      <div style={{ fontSize: "0.82rem", fontWeight: 850, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.4, marginBottom: "8px" }}>{decodeHtmlSafe(v.title)}</div>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.68rem", color: "var(--text-muted)", fontWeight: 700 }}>
+                        <span style={{ color: "var(--accent-indigo)", opacity: 0.9 }}>{v.channelTitle}</span>
+                        {v.viewCount > 0 && <span style={{ background: "rgba(0,0,0,0.05)", padding: "2px 6px", borderRadius: "6px" }}>{formatViewCount(v.viewCount)}회</span>}
+                      </div>
+                    </div>
                   </a>
                 ))}
               </div>

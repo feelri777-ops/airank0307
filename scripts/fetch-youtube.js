@@ -82,27 +82,18 @@ function parseDuration(duration) {
   return hours * 3600 + minutes * 60 + seconds;
 }
 
-// 영상 상세 정보 가져오기 (길이 확인용)
+// 영상 상세 정보 가져오기 (길이 확인 및 조회수 수집용)
 async function getVideoDetails(videoIds) {
   if (videoIds.length === 0) return [];
-
   const key = YOUTUBE_API_KEYS[currentKeyIndex];
-  const params = new URLSearchParams({
-    part: 'contentDetails',
-    id: videoIds.join(','),
-    key,
-  });
-
+  const params = new URLSearchParams({ part: 'contentDetails,statistics', id: videoIds.join(','), key });
   const res = await fetch(`https://www.googleapis.com/youtube/v3/videos?${params}`);
-  if (!res.ok) {
-    console.error(`Video details API error (${res.status})`);
-    return [];
-  }
-
+  if (!res.ok) return [];
   const json = await res.json();
   return (json.items || []).map(item => ({
     videoId: item.id,
     duration: parseDuration(item.contentDetails.duration),
+    viewCount: parseInt(item.statistics?.viewCount || 0)
   }));
 }
 
@@ -151,16 +142,15 @@ async function searchYouTube(query, { lang = true } = {}) {
   if (candidates.length === 0) return [];
 
   // 영상 길이 확인하여 Shorts(60초 이하) 필터링
-  const videoIds = candidates.map(v => v.videoId);
-  const details = await getVideoDetails(videoIds);
-  const durationMap = Object.fromEntries(details.map(d => [d.videoId, d.duration]));
+  const details = await getVideoDetails(candidates.map(v => v.videoId));
+  const detailMap = Object.fromEntries(details.map(d => [d.videoId, d]));
 
   return candidates
-    .filter(video => {
-      const duration = durationMap[video.videoId];
-      if (!duration) return true; // 길이 정보 없으면 일단 포함
-      return duration > 60; // 60초 초과만 포함 (Shorts 제외)
-    })
+    .filter(v => (detailMap[v.videoId]?.duration || 100) > 60)
+    .map(v => ({
+      ...v,
+      viewCount: detailMap[v.videoId]?.viewCount || 0
+    }))
     .slice(0, 4);
 }
 
