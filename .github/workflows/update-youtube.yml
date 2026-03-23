@@ -1,12 +1,12 @@
-name: 유튜브 자동 갱신 (매주 월요일 새벽 2시)
+name: 유튜브 실전 활용 팁 자동 갱신 (매주 월요일 새벽 4시)
 
 on:
   schedule:
-    - cron: '0 17 * * 0'  # 매주 월요일 새벽 2시 KST (UTC 일요일 17:00)
+    - cron: '0 19 * * 0'  # 매주 월요일 새벽 4시 KST (UTC 일요일 19:00)
   workflow_dispatch:
     inputs:
       force_refresh:
-        description: '강제 재갱신 (모든 영상 다시 수집)'
+        description: '강제 전체 재수집 (기존 캐시 무시)'
         required: false
         type: boolean
         default: false
@@ -14,49 +14,51 @@ on:
 jobs:
   update-youtube:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     permissions:
       contents: write
 
     steps:
-      - name: 코드 체크아웃
+      - name: 📦 코드 체크아웃
         uses: actions/checkout@v4
 
-      - name: Node.js 설정
+      - name: 🟢 Node.js 설정
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
-      - name: 의존성 설치
+      - name: 🛠️ 의존성 설치
         run: npm install
 
-      - name: 유튜브 영상 수집
+      - name: 📹 유튜브 최신 영상 수집 (TOP 100 기준)
         run: node scripts/fetch-youtube.js ${{ github.event.inputs.force_refresh == 'true' && '--force' || '' }}
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           YOUTUBE_API_KEY_2: ${{ secrets.YOUTUBE_API_KEY_2 }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
-      - name: 변경사항 커밋 & 푸시
+      - name: 🚀 변경사항 커밋 & 푸시
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
+          git add public/youtube-videos.json
+          
           # 1. 생성된 데이터들을 잠시 보관 (Stash)
-          git add .
           git stash
           
           # 2. 원격의 최신 변경사항을 가져와서 합침 (Rebase)
           git pull --rebase origin main
           
           # 3. 보관했던 데이터들을 다시 꺼냄
-          git stash pop || echo "No changes to pop"
+          git stash pop || echo "No changes to stash"
           
           # 4. 최종 변경 확인 및 KST 날짜로 커밋/푸시
-          git add .
           if ! git diff --staged --quiet; then
-            COMMIT_MSG="chore: 유튜브 자동 갱신 [$(TZ='Asia/Seoul' date '+%Y-%m-%d %H:%M KST')]"
+            COMMIT_MSG="chore: 유튜브 영상 데이터 자동 갱신 [$(TZ='Asia/Seoul' date '+%Y-%m-%d %H:%M KST')]"
             git commit -m "$COMMIT_MSG"
             git push origin main
           else
-            echo "변경된 데이터가 없어 푸시를 생략합니다."
+            echo "변경된 유튜브 데이터가 없어 푸시를 생략합니다."
           fi

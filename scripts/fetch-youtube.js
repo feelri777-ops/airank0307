@@ -41,7 +41,7 @@ async function loadToolsFromFirestore() {
   initAdmin();
   const db = admin.firestore();
   const snap = await db.collection('tools').where('hidden', '!=', true).get();
-  return snap.docs.map(d => ({ ...d.data(), id: Number(d.id) }));
+  return snap.docs.map(d => ({ ...d.data(), id: d.id })); // ID를 문자열 그대로 사용 (NaN 방지)
 }
 
 // HTML 엔티티 디코딩 (&#39;, &quot;, &amp;, &#61;, &#x3D; 등 모든 형태 처리)

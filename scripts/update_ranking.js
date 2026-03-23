@@ -38,7 +38,7 @@ async function syncScores() {
   snapshot.docs.forEach(doc => {
     const data = doc.data();
     if (data.name) {
-      toolsOutput[data.name] = {
+      toolsOutput[doc.id] = {
         score: data.score || 0,
         change: data.change || "-",
         rank: data.rank || 999,
