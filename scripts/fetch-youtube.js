@@ -36,12 +36,17 @@ function initAdmin() {
   }
 }
 
-// Firestore에서 툴 목록 로드
+// Firestore에서 툴 목록 로드 (필터링 로직 개선)
 async function loadToolsFromFirestore() {
   initAdmin();
   const db = admin.firestore();
-  const snap = await db.collection('tools').where('hidden', '!=', true).get();
-  return snap.docs.map(d => ({ ...d.data(), id: d.id })); // ID를 문자열 그대로 사용 (NaN 방지)
+  console.log('📡 Firestore에서 도구 목록을 불러오는 중...');
+  // hidden != true 쿼리는 필드 자체가 없으면 결과에서 제외되는 문제가 있어 전체 로드 후 필터링
+  const snap = await db.collection('tools').get();
+  const allTools = snap.docs.map(d => ({ ...d.data(), id: d.id })); // ID를 문자열 그대로 사용
+  const filtered = allTools.filter(t => t.hidden !== true);
+  console.log(`✅ 총 ${allTools.length}개 중 ${filtered.length}개의 도구가 수집 대상입니다. (hidden 제외)`);
+  return filtered;
 }
 
 // HTML 엔티티 디코딩 (&#39;, &quot;, &amp;, &#61;, &#x3D; 등 모든 형태 처리)
@@ -175,11 +180,11 @@ async function main() {
 
   const TOOLS_DATA = await loadToolsFromFirestore();
   const sortedTools = [...TOOLS_DATA]
-    .map(t => ({ ...t, liveScore: scores[String(t.id)]?.score ?? t.score }))
-    .sort((a, b) => b.liveScore - a.liveScore)
+    .map(t => ({ ...t, liveScore: scores[String(t.id)]?.score ?? t.score ?? 0 }))
+    .sort((a, b) => (b.liveScore || 0) - (a.liveScore || 0))
     .slice(0, TOP_N);
 
-  console.log(`YouTube 영상 수집 시작 (상위 ${TOP_N}개 도구)...`);
+  console.log(`📹 상위 ${sortedTools.length}개 도구에 대해 유튜브 수집 시작...`);
 
   // 기존 데이터 로드
   let existing = { updated: '', topN: TOP_N, videos: {}, fetchedAt: {} };
@@ -188,16 +193,23 @@ async function main() {
   }
 
   const videos = { ...existing.videos };
-  const fetchedAt = { ...existing.fetchedAt }; // 각 툴별 마지막 갱신 시간
-  const REFRESH_DAYS = 30; // 30일마다 재갱신
-  const now = Date.now();
+  const fetchedAt = { ...existing.fetchedAt };
+  const REFRESH_DAYS = 30;
 
   for (const tool of sortedTools) {
-    const existing_id = String(tool.id);
-    const query = tool.yt || tool.name;
-    const queryKo = tool.ytKo || tool.nameKo || tool.name;
+    const tid = String(tool.id);
+    const lastFetch = fetchedAt[tid] ? new Date(fetchedAt[tid]).getTime() : 0;
+    
+    // 강제 재수집이 아니고 한 달 이내면 건너뜀
+    if (!forceRefresh && (Date.now() - lastFetch < REFRESH_DAYS * 86400000)) {
+      console.log(`  [${tid}] ${tool.name} (최근 30일 내 수집됨, 건너뜀)`);
+      continue;
+    }
 
-    console.log(`  [${tool.id}] ${tool.name} 유튜브 영상 갱신 중...`);
+    const query = tool.yt || tool.name;
+    const queryKo = tool.nameKo || tool.name;
+
+    console.log(`  [${tid}] ${tool.name} 영상 갱신 중... (쿼리: ${query})`);
     try {
       // 1차: 한국어 검색
       let results = await searchYouTube(query);
@@ -216,8 +228,8 @@ async function main() {
       }
 
       if (results.length > 0) {
-        videos[existing_id] = results;
-        fetchedAt[existing_id] = new Date().toISOString();
+        videos[tid] = results;
+        fetchedAt[tid] = new Date().toISOString();
         console.log(`      ✅ ${results.length}개 갱신 성공`);
       } else {
         console.log(`      ⚠️ 결과 없음 — 기존 데이터 유지`);
