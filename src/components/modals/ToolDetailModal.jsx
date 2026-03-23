@@ -275,7 +275,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           borderRadius: "30px", 
           width: isMobile ? "100%" : "350px", 
           flexShrink: 0,
-          padding: "24px",
+          padding: "12px",
           boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
           position: "relative"
         }}>
@@ -290,10 +290,10 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             {videos.length === 0 ? (
                <div style={{ padding: "30px 20px", textAlign: "center", background: "var(--bg-secondary)", borderRadius: "20px", fontSize: "0.75rem", color: "var(--text-muted)", border: "1px dashed var(--border-primary)" }}>관련 영상이 준비 중입니다.</div>
             ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {videos.slice(0, 3).map((v, i) => (
-                  <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "12px", textDecoration: "none", padding: "10px", borderRadius: "16px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "all 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
-                    <div style={{ width: "110px", height: "62px", flexShrink: 0, borderRadius: "10px", overflow: "hidden", background: "#000" }}>
+                  <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "10px", textDecoration: "none", padding: "6px", borderRadius: "12px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "all 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
+                    <div style={{ width: "130px", height: "73px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", background: "#000" }}>
                       <img src={v.thumbnail} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
