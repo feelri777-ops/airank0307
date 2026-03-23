@@ -43,9 +43,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          git add public/youtube-videos.json
-          
-          # 1. 생성된 데이터들을 잠시 보관 (Stash)
+          # 1. 생성된 데이터들을 잠시 보관 (Working Directory 상태 포함)
+          git add .
           git stash
           
           # 2. 원격의 최신 변경사항을 가져와서 합침 (Rebase)
@@ -55,6 +54,7 @@ jobs:
           git stash pop || echo "No changes to stash"
           
           # 4. 최종 변경 확인 및 KST 날짜로 커밋/푸시
+          git add .
           if ! git diff --staged --quiet; then
             COMMIT_MSG="chore: 유튜브 영상 데이터 자동 갱신 [$(TZ='Asia/Seoul' date '+%Y-%m-%d %H:%M KST')]"
             git commit -m "$COMMIT_MSG"
