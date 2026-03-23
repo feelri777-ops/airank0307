@@ -144,7 +144,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
         flexDirection: isMobile ? "column" : "row", 
         gap: "18px", 
         width: "100%", 
-        maxWidth: isMobile ? "430px" : "820px", 
+        maxWidth: isMobile ? "430px" : "920px",
         height: "fit-content",
         alignItems: "flex-start",
         padding: isMobile ? "0 15px" : "0"
@@ -154,7 +154,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           onClick={(e) => {
             // Card background/content also closes.
           }}
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "30px", width: "100%", flex: 1.6, position: "relative", padding: "22px 24px 24px", boxShadow: "0 25px 50px rgba(0,0,0,0.4)" }}
+          style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "30px", width: "100%", flex: 1, position: "relative", padding: "22px 24px 24px", boxShadow: "0 25px 50px rgba(0,0,0,0.4)" }}
         >
           <div style={{ position: "absolute", top: "18px", right: "18px", zIndex: 20 }}>
             <button 
@@ -273,9 +273,9 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           background: "var(--bg-card)", 
           border: "1px solid var(--border-primary)", 
           borderRadius: "30px", 
-          width: isMobile ? "100%" : "350px", 
-          flexShrink: 0,
-          padding: "12px",
+          flex: 1,
+          minWidth: 0,
+          padding: "16px",
           boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
           position: "relative"
         }}>
@@ -292,14 +292,14 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {videos.slice(0, 3).map((v, i) => (
-                  <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "10px", textDecoration: "none", padding: "6px", borderRadius: "12px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "all 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
-                    <div style={{ width: "130px", height: "73px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", background: "#000" }}>
+                  <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "12px", textDecoration: "none", padding: "8px", borderRadius: "14px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "all 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
+                    <div style={{ width: "160px", height: "90px", flexShrink: 0, borderRadius: "10px", overflow: "hidden", background: "#000" }}>
                       <img src={v.thumbnail} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.4, marginBottom: "6px" }}>{decodeHtmlSafe(v.title)}</div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.68rem", color: "var(--text-muted)", fontWeight: 700 }}>
-                        {v.viewCount > 0 && <span style={{ background: "rgba(0,0,0,0.05)", padding: "2px 6px", borderRadius: "6px" }}>{formatViewCount(v.viewCount)}회</span>}
+                      <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.45, marginBottom: "8px" }}>{decodeHtmlSafe(v.title)}</div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.73rem", color: "var(--text-muted)", fontWeight: 700 }}>
+                        {v.viewCount > 0 && <span style={{ background: "rgba(0,0,0,0.05)", padding: "2px 7px", borderRadius: "6px" }}>{formatViewCount(v.viewCount)}회</span>}
                         <span style={{ color: "var(--accent-indigo)", opacity: 0.9, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{v.channelTitle}</span>
                       </div>
                     </div>
