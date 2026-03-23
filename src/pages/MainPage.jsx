@@ -40,41 +40,52 @@ const ScoreDataNotice = ({ error, scoresUpdated }) => {
 };
 
 export default function MainPage() {
-  const { tools, openToolDetail, bookmarkCounts, reactionCounts, error, scoresUpdated } = useTools();
+  const { tools: rawTools, openToolDetail, error, scoresUpdated } = useTools();
   const { news } = useNews();
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("score_desc");
   const [showWizard, setShowWizard] = useState(false);
   
-  // 초기 개수 10개로 설정
   const [visibleCount, setVisibleCount] = useState(10);
 
-  // 전체 순위 맵 (score_desc 기준 고정)
+  // 0. 기초 데이터 정제 (null 제거 및 id 보장)
+  const tools = useMemo(() => 
+    (Array.isArray(rawTools) ? rawTools : []).filter(t => t && (t.id || t._docId))
+  , [rawTools]);
+
+  // 1. 전체 순위 맵 (score_desc 기준 고정)
   const globalRankMap = useMemo(() => {
-    const sorted = [...tools].sort((a, b) => b.score - a.score);
+    const sorted = [...tools].sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
     const map = {};
-    sorted.forEach((t, i) => { map[t.id] = i + 1; });
+    sorted.forEach((t, i) => { map[t.id || t._docId] = i + 1; });
     return map;
   }, [tools]);
 
+  // 2. 과거 순위 추정을 위한 이전 점수 맵
   const prevRankMap = useMemo(() => {
-    const sorted = [...tools].sort((a, b) => (b.score - b.change) - (a.score - a.change));
+    const sorted = [...tools].sort((a, b) => {
+      const aPrev = (Number(a.score) || 0) - (parseInt(String(a.change || "0").replace(/[^0-9-]/g, "")) || 0);
+      const bPrev = (Number(b.score) || 0) - (parseInt(String(b.change || "0").replace(/[^0-9-]/g, "")) || 0);
+      return bPrev - aPrev;
+    });
     const map = {};
-    sorted.forEach((t, i) => { map[t.id] = i + 1; });
+    sorted.forEach((t, i) => { map[t.id || t._docId] = i + 1; });
     return map;
   }, [tools]);
 
   const handleToolClick = useCallback((toolObj) => {
-    openToolDetail(toolObj, globalRankMap[toolObj.id] || 999, prevRankMap[toolObj.id] || 999);
+    const id = toolObj.id || toolObj._docId;
+    openToolDetail(toolObj, globalRankMap[id] || 999, prevRankMap[id] || 999);
   }, [openToolDetail, globalRankMap, prevRankMap]);
 
   const filteredTools = useMemo(() => {
     let data = [...tools];
     if (category !== "all") data = data.filter((t) => t.cat === category);
+    
     if (searchQuery.trim()) {
       const q = searchQuery.normalize("NFC").toLowerCase();
-      const norm = (s) => (s || "").normalize("NFC").toLowerCase();
+      const norm = (s) => String(s || "").normalize("NFC").toLowerCase();
       data = data.filter((t) =>
         norm(t.name).includes(q) ||
         (t.nameKo && norm(t.nameKo).includes(q)) ||
@@ -84,11 +95,14 @@ export default function MainPage() {
         (t.naverKw && Array.isArray(t.naverKw) && t.naverKw.some(kw => norm(kw).includes(q)))
       );
     }
-    if (sortBy === "score_desc")  data.sort((a, b) => (b.score || 0) - (a.score || 0));
-    else if (sortBy === "google_desc") data.sort((a, b) => (b.metrics?.opr ?? 0) - (a.metrics?.opr ?? 0));
-    else if (sortBy === "naver_desc")  data.sort((a, b) => (b.metrics?.ntv ?? 0) - (a.metrics?.ntv ?? 0));
-    else if (sortBy === "x_desc")      data.sort((a, b) => (b.metrics?.sns ?? 0) - (a.metrics?.sns ?? 0));
-    else data.sort((a, b) => (a.name || "").localeCompare(b.name || "", "ko"));
+
+    // 정렬 로직
+    if (sortBy === "score_desc") data.sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
+    else if (sortBy === "google_desc") data.sort((a, b) => (Number(b.metrics?.opr) || 0) - (Number(a.metrics?.opr) || 0));
+    else if (sortBy === "naver_desc")  data.sort((a, b) => (Number(b.metrics?.ntv) || 0) - (Number(a.metrics?.ntv) || 0));
+    else if (sortBy === "x_desc")      data.sort((a, b) => (Number(b.metrics?.sns) || 0) - (Number(a.metrics?.sns) || 0));
+    else data.sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "ko"));
+    
     return data;
   }, [tools, category, searchQuery, sortBy]);
 
@@ -96,10 +110,8 @@ export default function MainPage() {
     setVisibleCount(10);
   }, [category, searchQuery, sortBy]);
 
-  // 모바일 전용 뉴스 섹션 컴포넌트
   const MobileNewsSection = () => {
     if (!news || !news.items) return null;
-    
     return (
       <div className="mobile-news-box">
         <div className="mobile-news-header">
@@ -127,15 +139,10 @@ export default function MainPage() {
       />
 
       <div className="main-grid">
-        {/* FilterBar: 전체 컬럼 span */}
         <div style={{ gridColumn: "1 / -1" }}>
-          <FilterBar
-            category={category}
-            onCategoryChange={setCategory}
-          />
+          <FilterBar category={category} onCategoryChange={setCategory} />
         </div>
 
-        {/* Row 3: 경고 배너 + 정렬 버튼 (가운데 컬럼) */}
         <div className="sort-middle-col" style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           <ScoreDataNotice error={error} scoresUpdated={scoresUpdated} />
           <div className="sort-container">
@@ -152,7 +159,6 @@ export default function MainPage() {
         </div>
 
         <main style={{ minWidth: 0 }}>
-
           {filteredTools.length === 0 ? (
             <div style={{ textAlign: "center", padding: "4rem 2rem", color: "var(--text-muted)" }}>
               <div style={{ fontSize: "2.5rem", marginBottom: "12px" }}>🤖</div>
@@ -160,58 +166,41 @@ export default function MainPage() {
             </div>
           ) : (
             <>
-              {/* 1. 툴 카드 리스트 */}
               <div className="tools-grid">
                 {filteredTools.slice(0, visibleCount).map((tool) => (
                   <ToolCard
-                    key={tool.id}
+                    key={tool.id || tool._docId}
                     tool={tool}
-                    rank={globalRankMap[tool.id] || 999}
+                    rank={globalRankMap[tool.id || tool._docId] || 999}
                     onClick={handleToolClick}
                   />
                 ))}
               </div>
 
-              {/* 2. 더보기 버튼 (툴 리스트 바로 아래) */}
               {filteredTools.length > visibleCount && (
                 <div style={{ textAlign: "center", marginTop: "24px", marginBottom: "32px" }}>
                   <button
                     onClick={() => setVisibleCount((prev) => prev + 10)}
                     style={{
-                      padding: "12px 48px",
-                      borderRadius: "var(--r-md)",
-                      border: "1px solid var(--border-primary)",
-                      background: "var(--bg-card)",
-                      color: "var(--text-primary)",
-                      fontFamily: "'Pretendard', sans-serif",
-                      fontSize: "0.95rem",
-                      fontWeight: 700,
-                      cursor: "pointer",
-                      transition: "all 0.2s ease",
-                      boxShadow: "var(--shadow-sm)",
+                      padding: "12px 48px", borderRadius: "var(--r-md)",
+                      border: "1px solid var(--border-primary)", background: "var(--bg-card)",
+                      color: "var(--text-primary)", fontFamily: "'Pretendard', sans-serif",
+                      fontSize: "0.95rem", fontWeight: 700, cursor: "pointer",
+                      transition: "all 0.2s ease", boxShadow: "var(--shadow-sm)",
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = "var(--bg-tertiary)"}
-                    onMouseLeave={(e) => e.currentTarget.style.background = "var(--bg-card)"}
                   >
                     순위 더보기 ({filteredTools.length - visibleCount}개 남음)
                   </button>
                 </div>
               )}
-
-              {/* 3. 뉴스 섹션 (더보기 버튼 아래) */}
               <MobileNewsSection />
             </>
           )}
         </main>
-
         <RightSidebar />
       </div>
 
-      <WizardModal
-        isOpen={showWizard}
-        onClose={() => setShowWizard(false)}
-        tools={tools}
-      />
+      <WizardModal isOpen={showWizard} onClose={() => setShowWizard(false)} tools={tools} />
     </>
   );
 }

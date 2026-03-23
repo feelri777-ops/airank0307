@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import {
-  collection, query, where, getDocs, doc, setDoc, updateDoc, writeBatch, collectionGroup
+  collection, query, where, getDocs, doc, setDoc, updateDoc, writeBatch, collectionGroup, deleteDoc
 } from "firebase/firestore";
 import { ref as sRef, uploadBytes, getDownloadURL as storageDL } from "firebase/storage";
 import { updateProfile, sendPasswordResetEmail, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
@@ -561,11 +561,16 @@ const ToolBookmarkSection = ({ user, isMobile }) => {
     fetchBookmarks();
   }, [user.uid]); // eslint-disable-line
 
-  const handleOpen = (toolId) => {
-    if (!tools || !tools.length) return;
-    const sorted = [...tools].sort((a, b) => (b.score || 0) - (a.score || 0));
-    const idx = sorted.findIndex((t) => t.id === toolId);
-    if (idx !== -1) openToolDetail(sorted[idx], idx + 1);
+  const handleDelete = async (e, bId) => {
+    e.stopPropagation();
+    if (!window.confirm("북마크를 삭제하시겠습니까?")) return;
+    try {
+      await deleteDoc(doc(db, "bookmarks", bId));
+      setBookmarks(prev => prev.filter(b => b.id !== bId));
+    } catch (error) {
+      console.error("Error deleting bookmark:", error);
+      alert("삭제 중 오류가 발생했습니다.");
+    }
   };
 
   if (bookmarks === null) return <LoadingSpinner />;
@@ -584,13 +589,13 @@ const ToolBookmarkSection = ({ user, isMobile }) => {
             const category = tool?.category || b.category || "";
             return (
               <div
-                key={i}
+                key={b.id || i}
                 onClick={() => handleOpen(b.toolId)}
                 style={{
                   background: "var(--bg-card)", border: "1px solid var(--border-primary)",
                   borderRadius: "var(--r-md)", padding: isMobile ? "14px" : "16px 18px",
                   display: "flex", gap: "12px", alignItems: "center",
-                  cursor: "pointer", transition: "background 0.15s",
+                  cursor: "pointer", transition: "all 0.15s",
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.background = "var(--bg-secondary)"}
                 onMouseLeave={(e) => e.currentTarget.style.background = "var(--bg-card)"}
@@ -604,7 +609,17 @@ const ToolBookmarkSection = ({ user, isMobile }) => {
                     {category}
                   </span>
                 )}
-                <span style={{ flexShrink: 0, color: "var(--text-muted)", fontSize: "0.8rem", display: "flex", alignItems: "center" }}><ArrowRight size={14} /></span>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
+                  <button 
+                    onClick={(e) => handleDelete(e, b.id)}
+                    style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", display: "flex", alignItems: "center", padding: "4px" }}
+                    onMouseEnter={e => e.currentTarget.style.color = "#ef4444"}
+                    onMouseLeave={e => e.currentTarget.style.color = "var(--text-muted)"}
+                  >
+                    <Icon name="trash" size={18} />
+                  </button>
+                  <span style={{ color: "var(--text-muted)", fontSize: "0.8rem", display: "flex", alignItems: "center" }}><ArrowRight size={14} /></span>
+                </div>
               </div>
             );
           })}

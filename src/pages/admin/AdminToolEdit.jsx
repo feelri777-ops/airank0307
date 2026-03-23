@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { db } from "../../firebase";
 import { 
-  doc, getDoc, updateDoc, serverTimestamp 
+  doc, getDoc, updateDoc, addDoc, collection, serverTimestamp 
 } from "firebase/firestore";
 import { 
-  X, Check, Tag, Info, Globe, NotePencil 
+  X, Check, Tag, Info, Globe, NotePencil, Plus
 } from "../../components/icons/PhosphorIcons";
 
 const CAT_OPTIONS = [
@@ -17,6 +17,8 @@ const CAT_OPTIONS = [
   { value: "code", label: "코드" },
   { value: "search", label: "연구/검색" },
   { value: "agent", label: "에이전트" },
+  { value: "productivity", label: "생산성" },
+  { value: "business", label: "비즈니스" },
   { value: "other", label: "기타" },
 ];
 
@@ -27,8 +29,10 @@ const LIFE_OPTIONS = [
 const AdminToolEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const isNew = id === "new";
   
   const [form, setForm] = useState({
     icon: "🤖", name: "", nameKo: "", cat: "text", free: true,
@@ -39,44 +43,60 @@ const AdminToolEdit = () => {
   });
 
   useEffect(() => {
-    const fetchTool = async () => {
+    const fetchOrInit = async () => {
       setLoading(true);
-      try {
-        const docRef = doc(db, "tools", id);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const tool = docSnap.data();
-          setForm({
-            icon: tool.icon ?? "🤖",
-            name: tool.name ?? "",
-            nameKo: tool.nameKo ?? "",
-            cat: tool.cat ?? "text",
-            free: tool.free ?? true,
-            desc: tool.desc ?? "",
-            url: tool.url ?? "",
-            features: Array.isArray(tool.features) ? tool.features.join("\n") : "",
-            tags: Array.isArray(tool.tags) ? tool.tags.join(", ") : "",
-            naverKw: Array.isArray(tool.naverKw) ? tool.naverKw.join(", ") : "",
-            yt: tool.yt ?? "",
-            ytKo: tool.ytKo ?? "",
-            life: Array.isArray(tool.life) ? tool.life : [],
-            manualScore: tool.manualScore != null ? String(tool.manualScore) : "",
-            pinnedRank: tool.pinnedRank != null ? String(tool.pinnedRank) : "",
-            hidden: tool.hidden ?? false,
-            opr: tool.metrics?.opr != null ? String(tool.metrics.opr) : "",
-            ntv: tool.metrics?.ntv != null ? String(tool.metrics.ntv) : "",
-            ghs: tool.metrics?.ghs != null ? String(tool.metrics.ghs) : "",
-            sns: tool.metrics?.sns != null ? String(tool.metrics.sns) : "",
-          });
-        }
-      } catch (err) {
-        console.error("툴 정보 로드 실패:", err);
-      } finally {
+      if (isNew) {
+        // --- 신규 등록 모드: URL 파라미터에서 데이터 추출 ---
+        const params = new URLSearchParams(location.search);
+        setForm(p => ({
+          ...p,
+          name: params.get("name") || "",
+          url: params.get("url") || "",
+          desc: params.get("desc") || "",
+          cat: params.get("cat") || "text",
+          tags: params.get("tags") || "",
+          icon: "🚀", // 신규 툴은 로켓 아이콘으로 시작
+        }));
         setLoading(false);
+      } else {
+        // --- 기존 수정 모드: Firestore에서 데이터 로드 ---
+        try {
+          const docRef = doc(db, "tools", id);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const tool = docSnap.data();
+            setForm({
+              icon: tool.icon ?? "🤖",
+              name: tool.name ?? "",
+              nameKo: tool.nameKo ?? "",
+              cat: tool.cat ?? "text",
+              free: tool.free ?? true,
+              desc: tool.desc ?? "",
+              url: tool.url ?? "",
+              features: Array.isArray(tool.features) ? tool.features.join("\n") : "",
+              tags: Array.isArray(tool.tags) ? tool.tags.join(", ") : "",
+              naverKw: Array.isArray(tool.naverKw) ? tool.naverKw.join(", ") : "",
+              yt: tool.yt ?? "",
+              ytKo: tool.ytKo ?? "",
+              life: Array.isArray(tool.life) ? tool.life : [],
+              manualScore: tool.manualScore != null ? String(tool.manualScore) : "",
+              pinnedRank: tool.pinnedRank != null ? String(tool.pinnedRank) : "",
+              hidden: tool.hidden ?? false,
+              opr: tool.metrics?.opr != null ? String(tool.metrics.opr) : "",
+              ntv: tool.metrics?.ntv != null ? String(tool.metrics.ntv) : "",
+              ghs: tool.metrics?.ghs != null ? String(tool.metrics.ghs) : "",
+              sns: tool.metrics?.sns != null ? String(tool.metrics.sns) : "",
+            });
+          }
+        } catch (err) {
+          console.error("툴 정보 로드 실패:", err);
+        } finally {
+          setLoading(false);
+        }
       }
     };
-    fetchTool();
-  }, [id]);
+    fetchOrInit();
+  }, [id, isNew, location.search]);
 
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
   const toggleLife = (v) => set("life", form.life.includes(v)
@@ -128,8 +148,21 @@ const AdminToolEdit = () => {
         last_manual_edit: new Date().toISOString()
       };
       
-      await updateDoc(doc(db, "tools", id), data);
-      alert("✅ 변경 사항이 성공적으로 적용되었습니다!");
+      if (isNew) {
+        // 신규모드: addDoc
+        await addDoc(collection(db, "tools"), {
+          ...data,
+          createdAt: serverTimestamp(),
+          rebalance_score: 0,
+          view_count: 0,
+          bookmark_count: 0
+        });
+        alert("✅ 신규 도구가 성공적으로 등록되었습니다!");
+      } else {
+        // 수정모드: updateDoc
+        await updateDoc(doc(db, "tools", id), data);
+        alert("✅ 변경 사항이 성공적으로 적용되었습니다!");
+      }
       window.close();
     } catch (err) {
       alert("❌ 저장 실패: " + err.message);
@@ -153,7 +186,7 @@ const AdminToolEdit = () => {
   if (loading) return (
     <div style={{ display:'flex', justifyContent:'center', alignItems:'center', height:'100vh', flexDirection:'column', gap:'15px' }}>
       <div style={{ width:'40px', height:'40px', border:'3px solid var(--border-primary)', borderTop:'3px solid var(--accent-indigo)', borderRadius:'50%', animation:'spin 1s linear infinite' }}></div>
-      <p style={{ color:'var(--text-muted)', fontSize:'0.85rem' }}>엔진 제원을 불러오는 중...</p>
+      <p style={{ color:'var(--text-muted)', fontSize:'0.85rem' }}>데이터를 준비하는 중...</p>
       <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
     </div>
   );
@@ -169,9 +202,11 @@ const AdminToolEdit = () => {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3rem" }}>
           <div>
             <h2 style={{ fontSize: "2rem", fontWeight: 950, margin: 0, color: "var(--text-primary)", letterSpacing: "-0.04em" }}>
-              엔진 제원 수정
+              {isNew ? "✨ 신규 도구 하이패스 등록" : "🛠️ 엔진 제원 수정"}
             </h2>
-            <p style={{ color: "var(--text-muted)", marginTop: "8px", fontWeight: 600 }}>ID: {id}</p>
+            <p style={{ color: "var(--text-muted)", marginTop: "8px", fontWeight: 600 }}>
+               {isNew ? "에이전트로부터 전달받은 최적의 제원입니다." : `ID: ${id}`}
+            </p>
           </div>
           <button type="button" onClick={() => window.close()} style={{ background: "var(--bg-secondary)", border: "none", borderRadius: "16px", width: "48px", height: "48px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "var(--text-primary)" }}>
             <X size={24} weight="bold" />
@@ -277,7 +312,7 @@ const AdminToolEdit = () => {
           </button>
           <button type="submit" disabled={saving}
             style={{ flex: 2, padding: "20px", borderRadius: "20px", border: "none", background: "var(--accent-indigo)", color: "#fff", cursor: "pointer", fontWeight: 950, fontSize: "1.1rem", boxShadow: "0 10px 30px var(--accent-indigo)40" }}>
-            {saving ? "전송 중..." : "변경 사항 적용"}
+            {saving ? "전송 중..." : (isNew ? "새 엔진 공식 등록하기" : "변경 사항 적용")}
           </button>
         </div>
       </form>

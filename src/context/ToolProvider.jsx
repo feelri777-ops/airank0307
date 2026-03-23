@@ -77,14 +77,16 @@ export const ToolProvider = ({ children }) => {
 
       const firestoreTools = snapshot.docs.map(d => ({
         ...d.data(),
-        id: Number(d.id),
+        id: d.id,
         _docId: d.id
       }));
 
       const merged = firestoreTools
         .filter(t => !t.hidden)
         .map(tool => {
-          const live = scoresMap[String(tool.id)];
+          // 이름 혹은 ID로 매칭 (이름 우선)
+          const live = scoresMap[tool.name] || scoresMap[String(tool.id)];
+          
           if (tool.manualScore != null) {
             return { ...tool, score: tool.manualScore, change: tool.change ?? 0 };
           }
