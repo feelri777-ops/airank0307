@@ -87,7 +87,7 @@ const UploadArea = styled.label`
   gap: 6px; padding: 18px;
   border: 2px dashed var(--border-primary);
   border-radius: var(--r-sm); margin: 10px;
-  cursor: pointer; transition: all 0.15s;
+  cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s;
   color: var(--text-muted); font-size: 0.82rem; text-align: center;
   &:hover { border-color: var(--accent-indigo); background: var(--bg-secondary); color: var(--text-secondary); }
 `;

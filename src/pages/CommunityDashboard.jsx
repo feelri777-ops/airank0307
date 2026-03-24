@@ -20,7 +20,7 @@ const Card = styled.div`
   border-radius: var(--r-md);
   padding: 0.9rem 1rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   display: flex;
   flex-direction: column;
   gap: 8px;

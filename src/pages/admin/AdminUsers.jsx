@@ -152,7 +152,7 @@ export default function AdminUsers() {
                   display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 120px", alignItems: "center", 
                   padding: "1.2rem 1.5rem", background: isBanned ? "rgba(239,68,68,0.02)" : "var(--bg-card)",
                   borderRadius: "20px", border: isBanned ? "1px solid #ef444430" : "1px solid var(--border-primary)",
-                  boxShadow: "var(--shadow-sm)", transition: "all 0.2s"
+                  boxShadow: "var(--shadow-sm)", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s"
                 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                     <div style={{ position: "relative" }}>

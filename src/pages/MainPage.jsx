@@ -186,7 +186,7 @@ export default function MainPage() {
                       border: "1px solid var(--border-primary)", background: "var(--bg-card)",
                       color: "var(--text-primary)", fontFamily: "'Pretendard', sans-serif",
                       fontSize: "0.95rem", fontWeight: 700, cursor: "pointer",
-                      transition: "all 0.2s ease", boxShadow: "var(--shadow-sm)",
+                      transition: "background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease", boxShadow: "var(--shadow-sm)",
                     }}
                   >
                     순위 더보기 ({filteredTools.length - visibleCount}개 남음)

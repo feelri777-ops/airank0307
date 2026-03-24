@@ -363,7 +363,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
                       background: avatarTab === i ? "rgba(99,102,241,0.12)" : "var(--bg-secondary)",
                       color: avatarTab === i ? "var(--accent-indigo, #6366f1)" : "var(--text-muted)",
                       fontSize: "0.75rem", fontWeight: avatarTab === i ? 700 : 500,
-                      cursor: "pointer", whiteSpace: "nowrap", transition: "all 0.15s",
+                      cursor: "pointer", whiteSpace: "nowrap", transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s",
                     }}
                   >
                     {s.label}
@@ -378,7 +378,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
                 const url = dicebearUrl(AVATAR_STYLES[avatarTab].style, seed);
                 return (
                   <button key={i} onClick={() => handleSelectAvatar(url)} disabled={savingAvatar}
-                    style={{ background: currentPhotoURL === url ? "rgba(99,102,241,0.18)" : "var(--bg-secondary)", border: currentPhotoURL === url ? "2px solid var(--accent-indigo, #6366f1)" : "2px solid var(--border-primary)", borderRadius: "50%", padding: "3px", cursor: "pointer", transition: "all 0.15s", opacity: savingAvatar ? 0.6 : 1 }}>
+                    style={{ background: currentPhotoURL === url ? "rgba(99,102,241,0.18)" : "var(--bg-secondary)", border: currentPhotoURL === url ? "2px solid var(--accent-indigo, #6366f1)" : "2px solid var(--border-primary)", borderRadius: "50%", padding: "3px", cursor: "pointer", transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s", opacity: savingAvatar ? 0.6 : 1 }}>
                     <img src={url} alt={`avatar-${i}`} width={54} height={54} style={{ borderRadius: "50%", display: "block" }} />
                   </button>
                 );
@@ -387,7 +387,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
               <button
                 onClick={() => handleSelectAvatar(dicebearUrl(AVATAR_STYLES[avatarTab].style, randomSeed()))}
                 disabled={savingAvatar}
-                style={{ width: "60px", height: "60px", borderRadius: "50%", border: "2px dashed var(--border-primary)", background: "var(--bg-secondary)", cursor: "pointer", fontSize: "1.2rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: "1px", opacity: savingAvatar ? 0.6 : 1, transition: "all 0.15s" }}
+                style={{ width: "60px", height: "60px", borderRadius: "50%", border: "2px dashed var(--border-primary)", background: "var(--bg-secondary)", cursor: "pointer", fontSize: "1.2rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: "1px", opacity: savingAvatar ? 0.6 : 1, transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s" }}
                 title="랜덤 생성"
               >
                 <span>🎲</span>
@@ -497,7 +497,7 @@ const NewsDashboardSection = ({ newsBookmarks, toggleNewsBookmark, isMobile, sel
                   borderLeft: isActive ? "3px solid var(--accent-indigo)" : "1px solid var(--border-primary)",
                   borderRadius: "var(--r-md)", padding: isMobile ? "14px 14px" : "16px 18px",
                   display: "flex", gap: "12px", alignItems: "flex-start",
-                  cursor: "pointer", transition: "all 0.2s"
+                  cursor: "pointer", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s"
                 }}
               >
                 <div style={{ flex: 1, minWidth: 0 }}>
@@ -595,7 +595,7 @@ const ToolBookmarkSection = ({ user, isMobile }) => {
                   background: "var(--bg-card)", border: "1px solid var(--border-primary)",
                   borderRadius: "var(--r-md)", padding: isMobile ? "14px" : "16px 18px",
                   display: "flex", gap: "12px", alignItems: "center",
-                  cursor: "pointer", transition: "all 0.15s",
+                  cursor: "pointer", transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s",
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.background = "var(--bg-secondary)"}
                 onMouseLeave={(e) => e.currentTarget.style.background = "var(--bg-card)"}
@@ -657,7 +657,7 @@ const AIConciergeSection = ({ user, isMobile }) => {
             <div key={b.id} style={{
               background: "var(--bg-card)", border: "1px solid var(--border-primary)",
               borderRadius: "var(--r-md)", padding: "20px",
-              cursor: "pointer", transition: "all 0.2s"
+              cursor: "pointer", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s"
             }} onClick={() => setSelected(selected === b.id ? null : b.id)}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
                 <div style={{ flex: 1 }}>
@@ -740,7 +740,7 @@ const CommunitySection = ({ user, isMobile }) => {
     borderColor: active ? "var(--accent-indigo, #6366f1)" : "var(--border-primary)",
     background: active ? "rgba(99,102,241,0.12)" : "var(--bg-secondary)",
     color: active ? "var(--accent-indigo, #6366f1)" : "var(--text-secondary)",
-    transition: "all 0.15s",
+    transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s",
   });
 
   return (
@@ -845,7 +845,7 @@ const btnStyle = (variant, size = "md") => {
     border: "none", borderRadius: "var(--r-sm)", cursor: "pointer", fontWeight: 600,
     padding: size === "sm" ? "4px 10px" : "8px 16px",
     fontSize: size === "sm" ? "0.78rem" : "0.88rem",
-    transition: "all 0.15s",
+    transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s",
   };
   if (variant === "indigo") return { ...base, background: "var(--accent-indigo, #6366f1)", color: "#fff" };
   if (variant === "danger") return { ...base, background: "rgba(239,68,68,0.12)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.3)" };
@@ -959,7 +959,7 @@ export default function Dashboard() {
                       color: active ? "var(--accent-indigo, #6366f1)" : "var(--text-muted)",
                       fontWeight: active ? 700 : 500,
                       fontSize: "0.82rem",
-                      transition: "all 0.15s",
+                      transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s",
                     }}
                   >
                     {m.label}
@@ -1042,7 +1042,7 @@ export default function Dashboard() {
                 background: section === m.id ? "rgba(99,102,241,0.12)" : "transparent",
                 color: section === m.id ? "var(--accent-indigo, #6366f1)" : "var(--text-secondary)",
                 fontWeight: section === m.id ? 700 : 500,
-                fontSize: "0.88rem", transition: "all 0.15s", textAlign: "left",
+                fontSize: "0.88rem", transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s", textAlign: "left",
               }}
             >
               <Icon name={m.icon} size={16} />

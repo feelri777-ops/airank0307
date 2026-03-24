@@ -42,7 +42,7 @@ const ButtonRow = styled.div`display: flex; justify-content: flex-end; gap: 0.75
 const CancelButton = styled.button`
   padding: 0.6rem 1.5rem; border: 1px solid var(--border-primary); border-radius: var(--r-sm);
   background: transparent; color: var(--text-secondary); font-size: 0.9rem; cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   &:hover { border-color: var(--text-secondary); color: var(--text-primary); }
 `;
 const SubmitButton = styled.button`

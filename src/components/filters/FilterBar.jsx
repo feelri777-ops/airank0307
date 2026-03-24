@@ -11,7 +11,7 @@ const pillStyle = (active) => ({
   fontFamily: "'Pretendard', sans-serif",
   fontWeight: active ? 600 : 400,
   cursor: "pointer",
-  transition: "all 0.2s ease",
+  transition: "background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
   whiteSpace: "nowrap",
   flexShrink: 0,
   userSelect: "none",

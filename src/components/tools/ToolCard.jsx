@@ -63,7 +63,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
           {!iconError && faviconUrl ? (
-            <img src={faviconUrl} alt={tool.name || "Tool"} width={36} height={36}
+            <img src={faviconUrl} alt={tool.name || "Tool"} width={36} height={36} loading="lazy"
               style={{ borderRadius: "8px", objectFit: "contain", flexShrink: 0, filter: isMono ? "grayscale(100%) brightness(0.9)" : "none" }}
               onError={() => setIconError(true)} />
           ) : (

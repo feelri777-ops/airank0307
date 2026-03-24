@@ -175,7 +175,7 @@ const AdminToolEdit = () => {
     width: "100%", padding: "12px 16px", fontSize: "0.9rem",
     border: "1px solid var(--border-primary)", background: "var(--bg-card)",
     color: "var(--text-primary)", borderRadius: "14px", outline: "none", 
-    boxSizing: "border-box", transition: "all 0.2s"
+    boxSizing: "border-box", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s"
   };
 
   const labelStyle = { 
@@ -278,7 +278,7 @@ const AdminToolEdit = () => {
                   border: "1px solid var(--border-primary)",
                   background: form.life.includes(v) ? "var(--accent-indigo)" : "var(--bg-secondary)",
                   color: form.life.includes(v) ? "#fff" : "var(--text-secondary)",
-                  fontWeight: 900, transition: "all 0.2s"
+                  fontWeight: 900, transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s"
                 }}
               >{v.toUpperCase()}</button>
             ))}

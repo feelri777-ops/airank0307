@@ -72,7 +72,7 @@ const CategoryTab = styled.button`
   font-weight: ${props => props.active ? 700 : 500};
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   
   &:hover {
     border-color: var(--accent-indigo);
@@ -127,7 +127,7 @@ const NewsItem = styled.li`
   position: relative;
   border-bottom: 1px solid var(--border-primary);
   padding: 1.5rem 1rem;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   border-left: 3px solid transparent;
   cursor: pointer;
 
@@ -195,7 +195,7 @@ const LoadMoreButton = styled.button`
   color: var(--text-secondary);
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 
   &:hover {
     border-color: var(--accent-blue);
@@ -216,7 +216,7 @@ const BookmarkButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   z-index: 5;
 
   &:hover {

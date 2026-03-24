@@ -402,12 +402,12 @@ const GlobalStyles = () => (
       padding: 7px 16px; border-radius: var(--r-xs); border: 1px solid var(--border-primary);
       background: var(--bg-secondary); color: var(--text-primary); font-size: 0.82rem;
       font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px;
-      white-space: nowrap; transition: all 0.2s ease; box-shadow: var(--shadow-sm);
+      white-space: nowrap; transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; box-shadow: var(--shadow-sm);
     }
 
     .navbar-nav {
       display: flex; gap: 0.25rem; align-items: center; justify-content: center;
-      transition: all 0.3s ease;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
     @media (min-width: 851px) {
       .navbar-nav { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
@@ -424,7 +424,7 @@ const GlobalStyles = () => (
 
     .nav-link {
       padding: 6px 14px; border-radius: var(--r-xs); text-decoration: none;
-      color: var(--text-secondary); font-size: 0.82rem; transition: all 0.2s ease; white-space: nowrap;
+      color: var(--text-secondary); font-size: 0.82rem; transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; white-space: nowrap;
       font-family: var(--font-main);
     }
     .nav-link.active { background: var(--accent-gradient); color: #fff !important; font-weight: 600; }

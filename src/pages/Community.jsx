@@ -44,7 +44,7 @@ const CategoryTabs = styled.div`
 const CategoryTab = styled.button`
   padding: 0.4rem 1rem; border: none; border-radius: var(--r-lg);
   font-size: 0.875rem; font-weight: ${({ $active }) => ($active ? "700" : "500")};
-  cursor: pointer; white-space: nowrap; transition: all 0.2s;
+  cursor: pointer; white-space: nowrap; transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   background: ${({ $active }) => ($active ? "var(--accent-indigo)" : "transparent")};
   color: ${({ $active }) => ($active ? "#fff" : "var(--text-secondary)")};
   &:hover {
@@ -153,7 +153,7 @@ const LoadMoreButton = styled.button`
   display: block; margin: 1.5rem auto 0; padding: 0.65rem 2.5rem;
   background: transparent; border: 1px solid var(--border-primary);
   border-radius: var(--r-sm); color: var(--text-secondary); font-size: 0.9rem;
-  cursor: pointer; transition: all 0.2s;
+  cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   &:hover { border-color: var(--text-secondary); color: var(--text-primary); }
 `;
 
@@ -175,7 +175,7 @@ const SearchInput = styled.input`
 const SearchButton = styled.button`
   padding: 0.55rem 1rem; background: var(--bg-secondary); color: var(--text-primary);
   border: 1px solid var(--border-primary); border-radius: var(--r-sm);
-  font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+  font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   &:hover { background: var(--bg-tertiary); border-color: var(--text-muted); }
 `;
 

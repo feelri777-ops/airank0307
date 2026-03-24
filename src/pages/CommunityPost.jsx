@@ -75,7 +75,7 @@ const OwnerActions = styled.div`
 `;
 const SmallButton = styled.button`
   padding: 0.35rem 0.6rem; border: 1px solid var(--border-primary); border-radius: var(--r-xs);
-  background: transparent; color: var(--text-muted); font-size: 1rem; cursor: pointer; transition: all 0.15s;
+  background: transparent; color: var(--text-muted); font-size: 1rem; cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s;
   display: flex; align-items: center; justify-content: center;
   &:hover {
     border-color: ${({ $danger }) => ($danger ? "#ef4444" : "var(--accent-indigo)")};
@@ -111,7 +111,7 @@ const VoteButton = styled.button`
   border-radius: var(--r-lg);
   background: ${({ $active }) => $active ? "var(--bg-tertiary)" : "var(--bg-card)"};
   color: ${({ $active }) => $active ? "var(--text-primary)" : "var(--text-muted)"};
-  font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+  font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   &:hover { background: var(--bg-tertiary); border-color: var(--text-muted); }
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 `;
@@ -204,7 +204,7 @@ const TagList = styled.div`
 `;
 const TagItem = styled.span`
   font-size: 0.8rem; color: var(--accent-indigo); background: rgba(99, 102, 241, 0.08);
-  padding: 0.2rem 0.6rem; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  padding: 0.2rem 0.6rem; border-radius: 20px; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   &:hover { background: var(--accent-indigo); color: #fff; }
 `;
 

@@ -154,7 +154,7 @@ export default function TreemapPage() {
                 background: isHovered ? color : `${color}cc`,
                 borderRadius: 8,
                 cursor: "pointer",
-                transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                transition: "background 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
                 boxShadow: isHovered ? `inset 0 0 0 2px rgba(255,255,255,0.4), 0 8px 24px rgba(0,0,0,0.2)` : "none",
                 zIndex: isHovered ? 10 : 1,
                 display: "flex",

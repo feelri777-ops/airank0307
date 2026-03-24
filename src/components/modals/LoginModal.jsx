@@ -147,7 +147,7 @@ const LoginModal = ({ onClose }) => {
             fontSize: "1rem",
             background: "var(--bg-tertiary)",
             border: "1px solid var(--border-primary)",
-            transition: "all 0.3s ease",
+            transition: "background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease",
             cursor: loading ? "not-allowed" : "pointer"
           }}
           onMouseEnter={(e) => { if(!loading) { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.borderColor = "var(--accent-indigo)"; } }}
@@ -172,7 +172,7 @@ const LoginModal = ({ onClose }) => {
             background: "#FEE500",
             color: "#000",
             border: "none",
-            transition: "all 0.3s ease",
+            transition: "background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease",
             cursor: loading ? "not-allowed" : "pointer"
           }}
           onMouseEnter={(e) => { if(!loading) { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 4px 12px rgba(254, 229, 0, 0.3)"; } }}
@@ -242,7 +242,7 @@ const LoginModal = ({ onClose }) => {
                 borderColor: avatarStyle === s.style ? "var(--accent-indigo)" : "var(--border-primary)",
                 background: avatarStyle === s.style ? "rgba(99, 102, 241, 0.1)" : "var(--bg-secondary)",
                 color: avatarStyle === s.style ? "var(--accent-indigo)" : "var(--text-secondary)",
-                fontSize: "0.85rem", fontWeight: 600, cursor: "pointer", transition: "all 0.2s"
+                fontSize: "0.85rem", fontWeight: 600, cursor: "pointer", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s"
               }}>
               {s.label}
             </button>

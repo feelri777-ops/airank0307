@@ -49,7 +49,7 @@ const TB = styled.button`
   border: none; border-radius: var(--r-xs); background: ${({ $active }) => $active ? "var(--bg-card)" : "transparent"};
   color: ${({ $active }) => $active ? "var(--text-primary)" : "var(--text-secondary)"};
   font-size: 0.85rem; font-weight: 700; cursor: pointer;
-  transition: all 0.12s; white-space: nowrap;
+  transition: background 0.12s, color 0.12s, border-color 0.12s, transform 0.12s, box-shadow 0.12s; white-space: nowrap;
   box-shadow: ${({ $active }) => $active ? "0 1px 3px rgba(0,0,0,0.1)" : "none"};
   &:hover { background: var(--bg-card); color: var(--text-primary); }
   @media (max-width: 600px) { min-width: 28px; height: 28px; padding: 0 4px; }
@@ -150,7 +150,7 @@ const BB = styled.button`
   min-width: 28px; height: 28px; padding: 0 6px;
   border: none; border-radius: var(--r-xs); background: transparent;
   color: #e0e0e0; font-size: 0.8rem; font-weight: 700; cursor: pointer;
-  transition: all 0.1s; position: relative;
+  transition: background 0.1s, color 0.1s, border-color 0.1s, transform 0.1s, box-shadow 0.1s; position: relative;
   &:hover { background: rgba(255,255,255,0.12); color: #fff; }
 
   /* 커스텀 툴팁 */

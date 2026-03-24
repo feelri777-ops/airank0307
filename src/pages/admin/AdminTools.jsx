@@ -38,7 +38,7 @@ const commonInputStyle = {
   width: "100%", padding: "12px 14px", fontSize: "0.85rem",
   border: "1px solid var(--border-primary)", background: "var(--bg-card)",
   color: "var(--text-primary)", borderRadius: "10px", outline: "none", 
-  boxSizing: "border-box", transition: "all 0.2s"
+  boxSizing: "border-box", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s"
 };
 
 const labelStyle = { 

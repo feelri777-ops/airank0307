@@ -116,7 +116,7 @@ export default function AdminGallery() {
               return (
                 <div key={post.id} style={{ 
                   background: "var(--bg-card)", borderRadius: "24px", border: isSelected ? "2px solid var(--accent-indigo)" : "1px solid var(--border-primary)",
-                  overflow: "hidden", position: "relative", boxShadow: isSelected ? "var(--shadow-lg)" : "var(--shadow-sm)", transition: "all 0.3s"
+                  overflow: "hidden", position: "relative", boxShadow: isSelected ? "var(--shadow-lg)" : "var(--shadow-sm)", transition: "background 0.3s, color 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s"
                 }}>
                   {/* Select Checkbox at top-left */}
                   <div style={{ position: "absolute", top: "12px", left: "12px", zIndex: 5 }}>

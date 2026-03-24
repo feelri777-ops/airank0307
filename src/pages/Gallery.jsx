@@ -200,7 +200,7 @@ const UploadModal = ({ onClose, onUploaded }) => {
     borderColor: active ? "var(--accent-indigo,#6366f1)" : "var(--border-primary)",
     background: active ? "rgba(99,102,241,0.15)" : "var(--bg-secondary)",
     color: active ? "var(--accent-indigo,#6366f1)" : "var(--text-secondary)",
-    transition: "all 0.15s",
+    transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s",
   });
 
   return (
@@ -734,7 +734,7 @@ const EditModal = ({ post, onClose, onSaved }) => {
     borderColor: active ? "var(--accent-indigo,#6366f1)" : "var(--border-primary)",
     background: active ? "rgba(99,102,241,0.15)" : "var(--bg-secondary)",
     color: active ? "var(--accent-indigo,#6366f1)" : "var(--text-secondary)",
-    transition: "all 0.15s",
+    transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s",
   });
 
   return (
@@ -754,7 +754,7 @@ const EditModal = ({ post, onClose, onSaved }) => {
           <button onClick={onClose} style={{ background: "var(--bg-tertiary)", border: "none", borderRadius: "50%", width: "32px", height: "32px", cursor: "pointer", color: "var(--text-muted)", fontSize: "1rem" }}>✕</button>
         </div>
         {/* 이미지 미리보기 */}
-        <img src={post.imageUrl} alt="" style={{ width: "100%", maxHeight: "160px", objectFit: "cover", borderRadius: "var(--r-md)" }} />
+        <img src={post.imageUrl} alt="" loading="lazy" style={{ width: "100%", maxHeight: "160px", objectFit: "cover", borderRadius: "var(--r-md)" }} />
         <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <div><label style={lStyle}>제목 *</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} style={iStyle} /></div>
           <div><label style={lStyle}>작가 노트 (선택)</label><textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} style={{ ...iStyle, resize: "vertical" }} placeholder="작품 설명, 제작 과정 등을 자유롭게 적어주세요." /></div>
@@ -922,7 +922,7 @@ const chipStyle = (active) => ({
   borderColor: active ? "var(--accent-indigo, #6366f1)" : "var(--border-primary)",
   background: active ? "rgba(99,102,241,0.15)" : "var(--bg-secondary)",
   color: active ? "var(--accent-indigo, #6366f1)" : "var(--text-secondary)",
-  transition: "all 0.15s", whiteSpace: "nowrap",
+  transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s", whiteSpace: "nowrap",
 });
 
 // ── 갤러리 메인 ─────────────────────────────────────────────

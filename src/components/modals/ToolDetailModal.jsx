@@ -321,9 +321,9 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {videos.slice(0, 3).map((v, i) => (
-                  <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "12px", textDecoration: "none", padding: "8px", borderRadius: "14px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "all 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
+                  <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "12px", textDecoration: "none", padding: "8px", borderRadius: "14px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
                     <div style={{ width: isMobile ? "90px" : "160px", height: isMobile ? "51px" : "90px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", background: "#000" }}>
-                      <img src={v.thumbnail} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <img src={v.thumbnail} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontSize: isMobile ? "0.7rem" : "0.88rem", fontWeight: 800, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.4, marginBottom: isMobile ? "4px" : "8px" }}>{decodeHtmlSafe(v.title)}</div>
@@ -355,11 +355,11 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    style={{ display: "flex", alignItems: "center", gap: "14px", padding: "12px", borderRadius: "18px", background: "var(--bg-secondary)", textDecoration: "none", border: "1px solid var(--border-primary)", transition: "all 0.2s" }}
+                    style={{ display: "flex", alignItems: "center", gap: "14px", padding: "12px", borderRadius: "18px", background: "var(--bg-secondary)", textDecoration: "none", border: "1px solid var(--border-primary)", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s" }}
                     onMouseEnter={e => { e.currentTarget.style.transform='translateX(5px)'; e.currentTarget.style.borderColor='var(--accent-indigo)'; }}
                     onMouseLeave={e => { e.currentTarget.style.transform='translateX(0)'; e.currentTarget.style.borderColor='var(--border-primary)'; }}
                   >
-                    <img src={getFaviconUrl(rt.url)} alt={rt.name} style={{ width: 32, height: 32, borderRadius: "8px" }} />
+                    <img src={getFaviconUrl(rt.url)} alt={rt.name} width={32} height={32} loading="lazy" style={{ width: 32, height: 32, borderRadius: "8px" }} />
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{rt.name}</div>
                       <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>{rt.cat}</div>

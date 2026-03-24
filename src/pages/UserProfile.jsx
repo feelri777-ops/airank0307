@@ -41,7 +41,7 @@ const Tab = styled.button`
   font-size: 0.9rem; font-weight: ${({ $active }) => ($active ? 700 : 500)};
   color: ${({ $active }) => ($active ? "var(--accent-indigo)" : "var(--text-muted)")};
   border-bottom: 2px solid ${({ $active }) => ($active ? "var(--accent-indigo)" : "transparent")};
-  cursor: pointer; transition: all 0.15s; white-space: nowrap;
+  cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s; white-space: nowrap;
   &:hover { color: var(--text-primary); }
 `;
 

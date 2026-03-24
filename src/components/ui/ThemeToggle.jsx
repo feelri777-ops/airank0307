@@ -56,7 +56,7 @@ const ThemeToggle = ({ dropUp = false }) => {
           border: "1px solid var(--border-primary)",
           background: TRACK_COLORS[theme] || 'var(--bg-tertiary)',
           cursor: "pointer",
-          transition: "all 0.3s ease",
+          transition: "background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease",
           flexShrink: 0,
         }}
       >

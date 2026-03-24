@@ -61,7 +61,7 @@ function PostItem({ post, boards, onDelete, onMove, isSelected, onSelect }) {
       border: isSelected ? "1.5px solid var(--accent-indigo)" : (isSuspicious ? "1.5px solid #ef444450" : "1px solid var(--border-primary)"),
       borderRadius: "20px", marginBottom: "0.8rem",
       boxShadow: isSelected ? "var(--shadow-md)" : "var(--shadow-sm)",
-      transition: "all 0.2s", position: "relative"
+      transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s", position: "relative"
     }}>
       {/* 체크박스 영역 */}
       <div style={{ display: "flex", alignItems: "center", paddingRight: "4px" }}>
@@ -322,7 +322,7 @@ export default function AdminCommunity() {
               fontSize: "1rem", fontWeight: 900,
               color: activeTab === tab ? "var(--text-primary)" : "var(--text-muted)",
               borderBottom: activeTab === tab ? "4px solid var(--accent-indigo)" : "4px solid transparent",
-              transition: "all 0.2s"
+              transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s"
             }}
           >
             {tab === "posts" ? "컨텐츠 모니터링" : "게시판 마스터 구성"}
@@ -345,7 +345,7 @@ export default function AdminCommunity() {
             color: selectedPostIds.length > 0 ? "#fff" : "var(--text-primary)",
             display: "flex", justifyContent: "space-between", alignItems: "center",
             boxShadow: selectedPostIds.length > 0 ? "0 8px 16px -4px var(--accent-indigo)40" : "none",
-            transition: "all 0.3s ease"
+            transition: "background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease"
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               <input 

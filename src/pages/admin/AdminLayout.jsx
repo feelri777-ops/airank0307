@@ -58,7 +58,7 @@ export default function AdminLayout() {
             style={{
               padding: "10px", borderRadius: "14px", border: "1px solid var(--border-primary)",
               background: "var(--bg-secondary)", cursor: "pointer", color: "var(--text-primary)",
-              display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s"
+              display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s"
             }}
             onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
             onMouseLeave={e => e.currentTarget.style.transform = "scale(1.0)"}
@@ -81,7 +81,7 @@ export default function AdminLayout() {
                 color: isActive ? "#fff" : "var(--text-secondary)",
                 background: isActive ? "var(--accent-indigo)" : "transparent",
                 textDecoration: "none",
-                transition: "all 0.2s",
+                transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s",
                 boxShadow: isActive ? "0 8px 16px -4px var(--accent-indigo)40" : "none"
               })}
             >
@@ -103,7 +103,7 @@ export default function AdminLayout() {
               width: "100%", padding: "16px", borderRadius: "20px",
               border: "1px solid var(--border-primary)", background: "var(--bg-secondary)",
               color: "var(--text-primary)", fontSize: "0.9rem", fontWeight: 900,
-              cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px"
+              cursor: "pointer", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px"
             }}
             onMouseEnter={e => { e.currentTarget.style.background = "var(--text-primary)"; e.currentTarget.style.color = "var(--bg-primary)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "var(--bg-secondary)"; e.currentTarget.style.color = "var(--text-primary)"; }}
