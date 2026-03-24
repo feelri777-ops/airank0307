@@ -28,13 +28,13 @@ const Label = styled.label`
 const Select = styled.select`
   width: 200px; padding: 0.55rem 0.85rem; border: 1px solid var(--border-primary);
   border-radius: var(--r-sm); background: var(--bg-card); color: var(--text-primary);
-  font-size: 0.9rem; cursor: pointer; outline: none;
+  font-size: 0.9rem; cursor: pointer;
   &:focus { border-color: var(--accent-indigo); }
 `;
 const TitleInput = styled.input`
   width: 100%; padding: 0.7rem 1rem; border: 1px solid var(--border-primary);
   border-radius: var(--r-sm); background: var(--bg-card); color: var(--text-primary);
-  font-size: 1rem; outline: none; box-sizing: border-box;
+  font-size: 1rem; box-sizing: border-box;
   &:focus { border-color: var(--accent-indigo); }
   &::placeholder { color: var(--text-muted); }
 `;

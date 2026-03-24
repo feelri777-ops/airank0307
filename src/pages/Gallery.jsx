@@ -210,7 +210,7 @@ const UploadModal = ({ onClose, onUploaded }) => {
       display: "flex", alignItems: "center", justifyContent: "center", padding: "20px",
       overflowY: "auto",
     }}>
-      <div onClick={(e) => e.stopPropagation()} style={{
+      <div onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" style={{
         background: "var(--bg-card)", border: "1px solid var(--border-primary)",
         borderRadius: "var(--r-lg)", padding: "2rem", width: "100%", maxWidth: "520px",
         boxShadow: "0 24px 64px rgba(0,0,0,0.5)", position: "relative",
@@ -457,13 +457,13 @@ const Lightbox = ({ post, onClose, onLike, onReport, user }) => {
           >
             {/* 작성자 + 좋아요 */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "8px", cursor: post.uid ? "pointer" : "default" }}>
-                {post.photoURL && <img src={post.photoURL} alt="" width={26} height={26} style={{ borderRadius: "50%", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />}
+              <button onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "8px", cursor: post.uid ? "pointer" : "default", background: "none", border: "none", padding: 0, color: "inherit", font: "inherit" }}>
+                {post.photoURL && <img src={post.photoURL} alt="" width={26} height={26} loading="lazy" style={{ borderRadius: "50%", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />}
                 <div>
                   <div style={{ fontWeight: 700, fontSize: "0.82rem" }}>{post.displayName}</div>
                   {post.createdAt?.toDate && <div style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.5)" }}>{post.createdAt.toDate().toLocaleDateString("ko-KR")}</div>}
                 </div>
-              </div>
+              </button>
               <button
                 onClick={() => onLike(post)}
                 style={{

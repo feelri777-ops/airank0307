@@ -106,7 +106,6 @@ const SearchInput = styled.input`
   background: var(--bg-secondary);
   color: var(--text-primary);
   font-size: 0.95rem;
-  outline: none;
   box-sizing: border-box;
 
   &::placeholder {

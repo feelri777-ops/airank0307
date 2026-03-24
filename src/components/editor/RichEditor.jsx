@@ -78,7 +78,7 @@ const EditorArea = styled.div`
   border-radius: 0 0 12px 12px;
   background: var(--bg-card); color: var(--text-primary);
   font-size: 16px; line-height: 1.8;
-  font-family: var(--font-main); outline: none;
+  font-family: var(--font-main);
   cursor: text; word-break: break-word; overflow-wrap: break-word;
   transition: border-color 0.15s;
   &:focus { border-color: var(--accent-indigo); }
@@ -232,7 +232,7 @@ const Dialog = styled.div`
 const DInput = styled.input`
   width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-primary);
   border-radius: var(--r-sm); background: var(--bg-secondary); color: var(--text-primary);
-  font-size: 0.9rem; outline: none;
+  font-size: 0.9rem;
 `;
 
 /* 하단 바 */

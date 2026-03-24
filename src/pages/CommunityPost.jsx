@@ -127,7 +127,7 @@ const CommentTextarea = styled.textarea`
   flex: 1; padding: 0.65rem 0.9rem; border: 1px solid var(--border-primary);
   border-radius: var(--r-sm); background: var(--bg-secondary); color: var(--text-primary);
   font-size: 0.9rem; font-family: "Pretendard", sans-serif; resize: none; min-height: 72px;
-  outline: none; line-height: 1.6;
+  line-height: 1.6;
   &:focus { border-color: var(--accent-indigo); }
   &::placeholder { color: var(--text-muted); }
 `;
@@ -174,7 +174,7 @@ const EditTextarea = styled.textarea`
   width: 100%; padding: 0.55rem 0.75rem; border: 1px solid var(--accent-indigo);
   border-radius: var(--r-sm); background: var(--bg-secondary); color: var(--text-primary);
   font-size: 0.875rem; font-family: "Pretendard", sans-serif; resize: none; min-height: 64px;
-  outline: none; line-height: 1.6; box-sizing: border-box; margin-top: 0.4rem;
+  line-height: 1.6; box-sizing: border-box; margin-top: 0.4rem;
 `;
 const ReplyButton = styled.button`
   background: transparent; border: none; color: var(--text-muted);

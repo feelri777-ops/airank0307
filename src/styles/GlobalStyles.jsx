@@ -369,8 +369,15 @@ const GlobalStyles = () => (
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      color-scheme: dark light;
+    }
     html, body {
       width: 100%; overflow-x: clip; position: relative;
+    }
+    button, a, [role="button"] {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
     body {
       font-family: var(--font-main);

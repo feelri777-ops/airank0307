@@ -164,12 +164,12 @@ const SearchContainer = styled.form`
 const SearchSelect = styled.select`
   padding: 0.55rem 0.5rem; border: 1px solid var(--border-primary);
   border-radius: var(--r-sm); background: var(--bg-card); color: var(--text-primary);
-  font-size: 0.85rem; outline: none; cursor: pointer;
+  font-size: 0.85rem; cursor: pointer;
 `;
 const SearchInput = styled.input`
   flex: 0 1 240px; padding: 0.55rem 0.85rem; border: 1px solid var(--border-primary);
   border-radius: var(--r-sm); background: var(--bg-card); color: var(--text-primary);
-  font-size: 0.85rem; outline: none;
+  font-size: 0.85rem;
   @media (max-width: 600px) { flex: 1; min-width: 140px; }
 `;
 const SearchButton = styled.button`
@@ -378,10 +378,10 @@ export default function Community() {
                     {post.commentCount > 0 && <CommentCount>[{post.commentCount}]</CommentCount>}
                   </PostTitleCell>
                   <PostMeta>
-                    <span onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default" }}>
+                    <button onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default", background: "none", border: "none", padding: 0, color: "inherit", font: "inherit" }}>
                       {post.photoURL ? <DesktopAvatar src={post.photoURL} alt="" /> : <DesktopFallback>{(post.displayName || "?")[0]}</DesktopFallback>}
                       {post.displayName || "익명"}
-                    </span>
+                    </button>
                   </PostMeta>
                   <PostMeta style={{ textAlign: "center" }}>{formatRelativeTime(post.createdAt)}</PostMeta>
                   <VoteCount>
@@ -389,10 +389,10 @@ export default function Community() {
                     <span style={{ color: "var(--text-primary)", fontWeight: 700, marginLeft: "4px" }}>👎 {post.downvoteCount || 0}</span>
                   </VoteCount>
                   <MobilePostMeta style={{ marginTop: "4px" }}>
-                    <span onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default" }}>
+                    <button onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default", background: "none", border: "none", padding: 0, color: "inherit", font: "inherit" }}>
                       {post.photoURL ? <MobileAuthorAvatar src={post.photoURL} alt="" /> : <MobileAuthorFallback>{(post.displayName || "?")[0]}</MobileAuthorFallback>}
                       <span>{post.displayName || "익명"}</span>
-                    </span>
+                    </button>
                     <span style={{ opacity: 0.5 }}>·</span>
                     <span>{formatRelativeTime(post.createdAt)}</span>
                     <span style={{ marginLeft: "auto", fontWeight: 700, display: "flex", gap: "8px" }}>
