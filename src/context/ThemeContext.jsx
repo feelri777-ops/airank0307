@@ -16,7 +16,7 @@ export function ThemeProvider({ children }) {
       if (prev === 'dark') return 'pure';
       if (prev === 'pure') return 'mono';
       if (prev === 'mono') return 'community';
-      if (prev === 'community') return 'community-dark';
+      // if (prev === 'community') return 'community-dark'; // 보류: 아보레텀 다크 테마
       return 'light';
     });
   };

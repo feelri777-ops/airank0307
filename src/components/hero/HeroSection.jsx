@@ -24,6 +24,7 @@ const THEME_CONFIG = {
     btnColor: "#ffffff",
     placeholderStyle: `color: rgba(64, 73, 67, 0.5)`,
   },
+  /* 보류: 아보레텀 다크 테마
   "community-dark": {
     bg: "none",
     bgColor: "#0f1513",
@@ -46,6 +47,7 @@ const THEME_CONFIG = {
     btnColor: "#ffffff",
     placeholderStyle: `color: rgba(134, 239, 172, 0.5)`,
   },
+  */
   dark: {
     bg: "linear-gradient(to bottom, rgba(10, 10, 15, 0.65), rgba(10, 10, 15, 0.82)), url('/images/hero-vending.png')",
     bgColor: "transparent",
@@ -139,8 +141,8 @@ const THEME_CONFIG = {
 const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
   const { theme } = useTheme();
   const cfg = THEME_CONFIG[theme] || THEME_CONFIG.dark;
-  const isDark = theme === "dark" || theme === "mono" || theme === "community-dark";
-  const isCommunity = theme === "community" || theme === "community-dark";
+  const isDark = theme === "dark" || theme === "mono"; // || theme === "community-dark"; // 보류
+  const isCommunity = theme === "community"; // || theme === "community-dark"; // 보류
 
   return (
   <section className="hero-section-wrap" style={{

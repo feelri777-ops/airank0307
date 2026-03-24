@@ -7,7 +7,7 @@ const THEMES = [
   // { id: 'pure',  icon: '⚪', label: '퓨어' },
   { id: 'mono',  icon: '◑',  label: '모노' },
   { id: 'community', icon: '💬', label: '커뮤니티' },
-  { id: 'community-dark', icon: '🌲', label: '아보레텀' },
+  // { id: 'community-dark', icon: '🌲', label: '아보레텀' }, // 보류: 다크 테마
 ];
 
 const TRACK_COLORS = {
