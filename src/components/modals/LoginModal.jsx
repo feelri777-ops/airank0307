@@ -252,20 +252,24 @@ const LoginModal = ({ onClose }) => {
 
       <form onSubmit={handleSetupSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "10px" }}>
         <div>
-          <label style={{ ...labelStyle, fontSize: "0.85rem", marginBottom: "8px", color: "var(--text-primary)" }}>닉네임</label>
-          <input 
-            type="text" placeholder="2~12자, 한글·영문·숫자" 
-            value={setupNickname} onChange={(e) => setSetupNickname(e.target.value)} 
-            required 
-            style={{ 
-              ...inputStyle, 
-              fontSize: "1.1rem", 
+          <label htmlFor="setup-nickname" style={{ ...labelStyle, fontSize: "0.85rem", marginBottom: "8px", color: "var(--text-primary)" }}>닉네임</label>
+          <input
+            type="text"
+            id="setup-nickname"
+            name="nickname"
+            autoComplete="off"
+            placeholder="2~12자, 한글·영문·숫자…"
+            value={setupNickname} onChange={(e) => setSetupNickname(e.target.value)}
+            required
+            style={{
+              ...inputStyle,
+              fontSize: "1.1rem",
               padding: "16px",
               textAlign: "center",
               background: "var(--bg-tertiary)",
               border: "2px solid var(--border-primary)",
               borderRadius: "16px"
-            }} 
+            }}
           />
         </div>
 

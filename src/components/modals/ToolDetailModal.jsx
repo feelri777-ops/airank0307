@@ -189,7 +189,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           <div style={{ position: "absolute", top: "18px", right: "18px", zIndex: 20 }}>
             <button
               onClick={(e) => { e.stopPropagation(); toggleBookmark(); }}
-              style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", cursor: "pointer", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", color: bookmarked ? "var(--accent-indigo)" : "var(--text-muted)", transition: "all 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}
+              aria-label={bookmarked ? "북마크 제거" : "북마크 추가"}
+              style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", cursor: "pointer", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", color: bookmarked ? "var(--accent-indigo)" : "var(--text-muted)", transition: "transform 0.2s, background-color 0.2s, box-shadow 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}
               onMouseEnter={e => { e.currentTarget.style.transform='scale(1.1)'; e.currentTarget.style.backgroundColor='var(--bg-card)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform='scale(1)'; e.currentTarget.style.backgroundColor='var(--bg-secondary)'; }}
             >
@@ -307,7 +308,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
           position: "relative"
         }}>
-          {!isMobile && <button onClick={onClose} style={{ position: "absolute", top: "-45px", right: "0", background: "rgba(255,255,255,0.1)", border: "none", color: "#fff", cursor: "pointer", fontSize: "1.2rem", width: "32px", height: "32px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(5px)" }}>✕</button>}
+          {!isMobile && <button onClick={onClose} aria-label="모달 닫기" style={{ position: "absolute", top: "-45px", right: "0", background: "rgba(255,255,255,0.1)", border: "none", color: "#fff", cursor: "pointer", fontSize: "1.2rem", width: "32px", height: "32px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(5px)" }}>✕</button>}
 
           {/* 유튜브 링크 */}
           <div style={{ marginBottom: "28px" }}>
@@ -379,6 +380,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             <button
               key={i}
               onClick={(e) => { e.stopPropagation(); setActiveCard(i); }}
+              aria-label={`${i + 1}번째 카드로 이동`}
+              aria-current={activeCard === i}
               style={{
                 width: activeCard === i ? "24px" : "8px",
                 height: "8px",
@@ -387,7 +390,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 border: "none",
                 cursor: "pointer",
                 padding: 0,
-                transition: "all 0.3s ease",
+                transition: "width 0.3s ease, background 0.3s ease",
               }}
             />
           ))}

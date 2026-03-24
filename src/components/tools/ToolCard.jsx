@@ -123,8 +123,14 @@ const ToolCard = ({ tool, rank, onClick }) => {
   const isTop3 = rank <= 3;
 
   return (
-    <div
+    <button
       onClick={() => onClick(tool)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick(tool);
+        }
+      }}
       className={isTop3 ? "tool-card top-rank" : "tool-card"}
       style={{
         borderRadius: "16px",
@@ -134,14 +140,16 @@ const ToolCard = ({ tool, rank, onClick }) => {
         boxShadow: isTop3 ? `var(--rank${rank}-shadow)` : "var(--shadow-card)",
         cursor: "pointer",
         position: "relative",
-        transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        transition: "transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
         opacity: 0,
         animation: `fadeInUp 0.4s ease forwards`,
         animationDelay: `${Math.min(rank, 20) * 0.04}s`,
+        textAlign: "left",
+        width: "100%",
       }}
     >
       {inner}
-    </div>
+    </button>
   );
 };
 

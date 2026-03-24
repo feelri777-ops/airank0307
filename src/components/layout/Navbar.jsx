@@ -101,13 +101,21 @@ const Navbar = () => {
         <div className="navbar-actions">
           {user ? (
             <div ref={dropdownRef} style={{ position: "relative" }}>
-              <div
+              <button
                 onClick={() => setShowDropdown((prev) => !prev)}
-                style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setShowDropdown((prev) => !prev);
+                  }
+                }}
+                aria-label="프로필 메뉴 열기"
+                aria-expanded={showDropdown}
+                style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", background: "none", border: "none", padding: 0 }}
               >
                 <img
                   src={photoURL}
-                  alt={displayName}
+                  alt=""
                   width={30}
                   height={30}
                   style={{ borderRadius: "50%", flexShrink: 0 }}
@@ -115,7 +123,7 @@ const Navbar = () => {
                 <span className="user-name">
                   {displayName.split(" ")[0]}
                 </span>
-              </div>
+              </button>
 
               {showDropdown && (
                 <div className="navbar-dropdown">
