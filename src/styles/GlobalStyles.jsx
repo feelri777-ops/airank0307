@@ -568,6 +568,23 @@ const GlobalStyles = () => (
       background-size: 200% 100%; animation: shine 3s infinite linear; pointer-events: none;
     }
     @keyframes shine { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+    /* ── 포커스 스타일 ── */
+    :focus { outline: none; }
+    :focus-visible {
+      outline: 2px solid var(--accent-indigo);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    /* ── 모션 감소 선호도 대응 ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   `}</style>
 );
 

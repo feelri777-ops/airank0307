@@ -137,7 +137,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   ];
 
   return (
-    <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 2000, background: "rgba(0,0,0,0.8)", backdropFilter: "blur(12px)", overflowY: "auto", display: "flex", justifyContent: "center", alignItems: isMobile ? "flex-start" : "flex-start", padding: isMobile ? "16px 0 32px" : "60px 20px" }}>
+    <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 2000, background: "rgba(0,0,0,0.8)", backdropFilter: "blur(12px)", overflowY: "auto", overscrollBehavior: "contain", display: "flex", justifyContent: "center", alignItems: isMobile ? "flex-start" : "flex-start", padding: isMobile ? "16px 0 32px" : "60px 20px" }}>
       <div onClick={(e) => {}} style={{
         display: "flex",
         flexDirection: "column",

@@ -33,10 +33,19 @@ const ThemeToggle = ({ dropUp = false }) => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  const handleToggleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpen((prev) => !prev); }
+    if (e.key === "Escape") setOpen(false);
+  };
+
   return (
     <div ref={ref} style={{ position: "relative" }}>
       <button
         onClick={() => setOpen((prev) => !prev)}
+        onKeyDown={handleToggleKeyDown}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={`테마 선택: 현재 ${current.label}`}
         style={{
           display: "flex",
           alignItems: "center",
@@ -93,6 +102,9 @@ const ThemeToggle = ({ dropUp = false }) => {
             <button
               key={t.id}
               onClick={() => { selectTheme(t.id); setOpen(false); }}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectTheme(t.id); setOpen(false); } if (e.key === "Escape") setOpen(false); }}
+              role="option"
+              aria-selected={theme === t.id}
               style={{
                 display: "flex",
                 alignItems: "center",
