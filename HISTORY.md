@@ -99,3 +99,48 @@ Cloudflare Pages 배포는 두 가지 방법으로 가능합니다:
 - `ToolCard.jsx`: 툴 파비콘 이미지
 - `ToolDetailModal.jsx`: 유튜브 썸네일, 시너지 AI 파비콘
 - `Gallery.jsx`: 갤러리 포스트 이미지
+
+### HTML 메타 최적화 (`index.html`)
+- `theme-color` 메타 태그 추가 (다크/라이트 각각)
+- Google Fonts, Cloudflare Insights, Kakao SDK `preconnect` 추가
+- `color-scheme: dark light` → GlobalStyles에 추가
+
+### 기타 GlobalStyles 개선
+- `outline: none` 전역 제거 → `:focus-visible` 방식으로 통일
+- `touch-action: manipulation`, `-webkit-tap-highlight-color: transparent` 버튼/링크 전체 적용
+- `h1~h6 { text-wrap: balance }` 추가
+- `font-variant-numeric: tabular-nums` 유틸리티 클래스 추가
+
+### aria 속성 추가
+- `Dashboard.jsx`: `aria-live="polite"` 적용 (닉네임/아바타/오류 메시지)
+- `ToolDetailModal.jsx`: 점수 숫자에 `fontVariantNumeric: "tabular-nums"` 적용
+
+---
+
+## 10. WEB_GUIDELINE 전체 적용 완료 (2026-03-25)
+
+### div/span onClick → `<button>` 변환
+- `CommunityPost.jsx`: 댓글 작성자, 게시글 작성자 span → button
+- `Gallery.jsx`: 갤러리 카드 작성자 div → button (2곳)
+- `Community.jsx`: 데스크탑/모바일 게시글 작성자 span → button (2곳)
+- 모든 교체 시 `background: none; border: none; padding: 0; font: inherit; cursor: pointer` 인라인 스타일 적용
+
+### 검색 input `aria-label` 추가 (5개 파일)
+- `News.jsx`: "뉴스 검색"
+- `Gallery.jsx`: "갤러리 검색"
+- `Community.jsx`: "커뮤니티 검색"
+- `AdminTools.jsx`: "AI 도구 검색"
+- `AdminUsers.jsx`: "사용자 검색"
+
+### 이미지 `width/height` 명시 (`GalleryLightboxContext.jsx`)
+- 모바일 전체화면 이미지: `width=800 height=800 loading="lazy"` 추가
+- PC 라이트박스 이미지: `width=1200 height=900 loading="lazy"` 추가
+
+### AdminCommunity / AdminGallery
+- `AdminCommunity.jsx`: 게시판 로고 이미지에 `loading="lazy"` + 크기 명시
+- `AdminGallery.jsx`: 갤러리 포스트 이미지 `loading="lazy"` 추가
+
+### CommunityWrite / RichEditor / News
+- `CommunityWrite.jsx`: `outline: none` 제거, 입력 필드 `autoComplete="off"` 추가
+- `RichEditor.jsx`: `outline: none` 제거
+- `News.jsx`: `outline: none` 제거
