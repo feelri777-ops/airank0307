@@ -170,64 +170,102 @@ const GlobalStyles = () => (
     }
 
     [data-theme="community"] {
-      /* 배경 - 민트/청록 계열 */
-      --bg-primary: #E8F5F1;
-      --bg-secondary: #D4EDEA;
-      --bg-tertiary: #C1E8E3;
-      --bg-card: #FFFFFF;
-      --bg-card-hover: #F0FDFB;
-      --bg-nav: rgba(232, 245, 241, 0.95);
+      /* ═══════════════════════════════════════════════════════════
+         🌳 THE DIGITAL ARBORETUM - Community Theme
+         Design System: Organic, Sophisticated, Editorial
+         ═══════════════════════════════════════════════════════════ */
 
-      /* 텍스트 */
-      --text-primary: #0D4D3D;
-      --text-secondary: #2A7A64;
-      --text-muted: #6B9F91;
+      /* ─────────────────────────────────────────────────────────── */
+      /* Surface Hierarchy - "The Layering Principle"                */
+      /* Level 0 (Base) → Level 1 (Sections) → Level 2 (Cards)       */
+      /* ─────────────────────────────────────────────────────────── */
+      --bg-primary: #f9f9f7;           /* Level 0: Base surface (off-white paper) */
+      --bg-secondary: #f4f4f2;         /* Level 1: Section containers */
+      --bg-tertiary: #eeeeec;          /* Level 1.5: Subtle dividers */
+      --bg-card: #ffffff;              /* Level 2: Active cards (pure white) */
+      --bg-card-hover: #fafaf9;        /* Level 2: Hover state */
+      --bg-nav: rgba(249, 249, 247, 0.8);  /* Glassmorphism nav (80% opacity) */
 
-      /* 테두리 */
-      --border-primary: rgba(52, 211, 153, 0.3);
-      --border-hover: rgba(16, 185, 129, 0.5);
+      /* ─────────────────────────────────────────────────────────── */
+      /* Typography - "Calm & Authoritative"                         */
+      /* No pure black - use soft black for editorial feel           */
+      /* ─────────────────────────────────────────────────────────── */
+      --text-primary: #1a1c1b;         /* Soft black (headlines, body) */
+      --text-secondary: #404943;       /* Green-gray (secondary info) */
+      --text-muted: #6b716b;           /* Muted gray (timestamps, labels) */
 
-      /* 액센트 */
-      --accent-indigo: #10B981;
-      --accent-cyan: #14B8A6;
-      --accent-gradient: linear-gradient(135deg, #10B981, #14B8A6);
+      /* ─────────────────────────────────────────────────────────── */
+      /* Primary Palette - "Deep Emerald Anchor"                     */
+      /* ─────────────────────────────────────────────────────────── */
+      --accent-indigo: #0f5238;        /* Primary: Deep emerald (CTAs, branding) */
+      --accent-cyan: #2d6a4f;          /* Primary Container: Soft green (interactive surfaces) */
+      --accent-gradient: linear-gradient(135deg, #0f5238, #2d6a4f);  /* "Lit from within" gradient */
 
-      /* 상태 색상 */
-      --color-green: #10B981;
-      --color-red: #F59E0B;
-      --color-gold: #14B8A6;
-      --color-silver: #6B9F91;
-      --color-bronze: #2A7A64;
+      /* ─────────────────────────────────────────────────────────── */
+      /* Borders - "The No-Line Rule"                                */
+      /* Ghost borders only - 15-20% opacity outline_variant         */
+      /* ─────────────────────────────────────────────────────────── */
+      --border-primary: rgba(15, 82, 56, 0.08);     /* Ghost border (subtle) */
+      --border-hover: rgba(15, 82, 56, 0.20);       /* Ghost border (hover) */
 
-      /* 그림자 */
-      --shadow-sm: 0 1px 3px rgba(16, 185, 129, 0.1);
-      --shadow-md: 0 4px 16px rgba(16, 185, 129, 0.15);
-      --shadow-lg: 0 12px 40px rgba(16, 185, 129, 0.2);
-      --shadow-card: 0 2px 10px rgba(16, 185, 129, 0.12);
+      /* ─────────────────────────────────────────────────────────── */
+      /* Shadows - "Botanical Shadow"                                */
+      /* Green-tinted shadows (6% opacity) instead of gray           */
+      /* ─────────────────────────────────────────────────────────── */
+      --shadow-sm: 0 1px 2px rgba(15, 82, 56, 0.04), 0 1px 3px rgba(15, 82, 56, 0.03);
+      --shadow-md: 0 2px 8px rgba(15, 82, 56, 0.06), 0 4px 12px rgba(15, 82, 56, 0.04);
+      --shadow-lg: 0 8px 24px rgba(15, 82, 56, 0.08), 0 12px 32px rgba(15, 82, 56, 0.06);
+      --shadow-card: 0 1px 3px rgba(15, 82, 56, 0.04), 0 2px 6px rgba(15, 82, 56, 0.02);
 
-      /* 블롭/노이즈 */
-      --blob-opacity: 0.05;
-      --noise-opacity: 0.02;
+      /* ─────────────────────────────────────────────────────────── */
+      /* State Colors                                                 */
+      /* ─────────────────────────────────────────────────────────── */
+      --color-green: #0f5238;          /* Success (primary emerald) */
+      --color-red: #ba1a1a;            /* Error (muted red - not high-saturation) */
+      --color-gold: #2d6a4f;           /* Premium/Gold */
+      --color-silver: #6b716b;         /* Silver */
+      --color-bronze: #404943;         /* Bronze */
 
-      /* 티커 */
-      --ticker-bg: rgba(16, 185, 129, 0.06);
-      --ticker-border: rgba(16, 185, 129, 0.2);
+      /* ─────────────────────────────────────────────────────────── */
+      /* Effects & Ambient                                            */
+      /* ─────────────────────────────────────────────────────────── */
+      --blob-opacity: 0.03;            /* Organic blob overlays */
+      --noise-opacity: 0.015;          /* Paper texture noise */
 
-      /* 태그 */
-      --tag-bg: rgba(16, 185, 129, 0.1);
-      --tag-color: #059669;
-      --tag-border: rgba(16, 185, 129, 0.25);
+      /* ─────────────────────────────────────────────────────────── */
+      /* Component-Specific                                           */
+      /* ─────────────────────────────────────────────────────────── */
+      --ticker-bg: rgba(15, 82, 56, 0.04);       /* Ticker background */
+      --ticker-border: rgba(15, 82, 56, 0.12);   /* Ticker border */
 
-      /* 모달 */
-      --modal-overlay: rgba(13, 77, 61, 0.4);
+      /* Tags & Badges - "Light Mint" for AI-generated content */
+      --tag-bg: #D8F3DC;               /* Light mint (AI tags) */
+      --tag-color: #0f5238;            /* Primary emerald text */
+      --tag-border: rgba(15, 82, 56, 0.15);  /* Ghost border */
 
-      /* 랭킹 카드 */
-      --rank1-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, rgba(16, 185, 129, 0.12) 100%);
-      --rank2-bg: linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(20, 184, 166, 0.04) 50%, rgba(20, 184, 166, 0.12) 100%);
-      --rank3-bg: linear-gradient(135deg, rgba(52, 211, 153, 0.12) 0%, rgba(52, 211, 153, 0.04) 50%, rgba(52, 211, 153, 0.12) 100%);
-      --rank1-shadow: 0 0 20px rgba(16, 185, 129, 0.15), inset 0 0 12px rgba(16, 185, 129, 0.05);
-      --rank2-shadow: 0 0 20px rgba(20, 184, 166, 0.15), inset 0 0 12px rgba(20, 184, 166, 0.05);
-      --rank3-shadow: 0 0 20px rgba(52, 211, 153, 0.15), inset 0 0 12px rgba(52, 211, 153, 0.05);
+      /* Modal Overlay */
+      --modal-overlay: rgba(26, 28, 27, 0.5);  /* Soft black overlay */
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* Ranking Cards - "Tonal Layering"                            */
+      /* Use surface hierarchy instead of gradients                  */
+      /* ─────────────────────────────────────────────────────────── */
+      --rank1-bg: #ffffff;             /* Level 2: Pure white */
+      --rank2-bg: #fafaf9;             /* Level 2: Subtle tint */
+      --rank3-bg: #f9f9f7;             /* Level 1.5: Base tint */
+      --rank1-shadow: 0 1px 3px rgba(15, 82, 56, 0.06), 0 2px 6px rgba(15, 82, 56, 0.04);
+      --rank2-shadow: 0 1px 3px rgba(15, 82, 56, 0.05), 0 2px 6px rgba(15, 82, 56, 0.03);
+      --rank3-shadow: 0 1px 3px rgba(15, 82, 56, 0.04), 0 2px 6px rgba(15, 82, 56, 0.02);
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* Border Radius - "Soft Roundedness"                          */
+      /* Defined globally but documented here for reference          */
+      /* --r-xs: 0.25rem (sm - minimum)                              */
+      /* --r-md: 0.75rem (md - inputs)                               */
+      /* --r-lg: 1rem (lg - inner components)                        */
+      /* --r-xl: 1.5rem (xl - primary cards)                         */
+      /* --r-pill: 999px (full - buttons)                            */
+      /* ─────────────────────────────────────────────────────────── */
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
