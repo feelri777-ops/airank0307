@@ -118,10 +118,11 @@ export default function AdminUsers() {
       }}>
         <div style={{ position: "relative", flex: 1 }}>
           <MagnifyingGlass size={18} style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
-          <input 
-            value={search} onChange={e => setSearch(e.target.value)} 
-            placeholder="이름, 닉네임 또는 이메일 검색..." 
-            style={{ width: "100%", padding: "12px 16px 12px 42px", borderRadius: "14px", border: "none", background: "var(--bg-secondary)", color: "var(--text-primary)", fontWeight: 700 }} 
+          <input
+            value={search} onChange={e => setSearch(e.target.value)}
+            placeholder="이름, 닉네임 또는 이메일 검색..."
+            aria-label="사용자 검색"
+            style={{ width: "100%", padding: "12px 16px 12px 42px", borderRadius: "14px", border: "none", background: "var(--bg-secondary)", color: "var(--text-primary)", fontWeight: 700 }}
           />
         </div>
         <button onClick={fetchData} style={{ background: "var(--bg-secondary)", border: "none", borderRadius: "12px", width: "45px", height: "45px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "var(--text-primary)" }}>

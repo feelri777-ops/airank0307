@@ -479,12 +479,12 @@ export default function CommunityPost() {
     const Wrapper = isReply ? ReplyItem : CommentItem;
     return (
       <Wrapper key={c.id}>
-        <span onClick={() => c.uid && navigate(`/user/${c.uid}`)} style={{ cursor: c.uid ? "pointer" : "default", flexShrink: 0 }}>
+        <button onClick={() => c.uid && navigate(`/user/${c.uid}`)} style={{ cursor: c.uid ? "pointer" : "default", flexShrink: 0, background: "none", border: "none", padding: 0 }}>
           {c.photoURL
             ? <CommentAvatar src={c.photoURL} alt={c.displayName} referrerPolicy="no-referrer" />
             : <CommentAvatarFallback>{(c.displayName || "?")[0].toUpperCase()}</CommentAvatarFallback>
           }
-        </span>
+        </button>
         <CommentBody>
           <CommentMeta>
             <CommentAuthor onClick={() => c.uid && navigate(`/user/${c.uid}`)} style={{ cursor: c.uid ? "pointer" : "default" }}>{c.displayName || "익명"}</CommentAuthor>
@@ -571,13 +571,13 @@ export default function CommunityPost() {
         </PostTitle>
 
         <MetaRow>
-          <span onClick={() => post.uid && navigate(`/user/${post.uid}`)} style={{ display: "flex", alignItems: "center", gap: "0.6rem", cursor: post.uid ? "pointer" : "default" }}>
+          <button onClick={() => post.uid && navigate(`/user/${post.uid}`)} style={{ display: "flex", alignItems: "center", gap: "0.6rem", cursor: post.uid ? "pointer" : "default", background: "none", border: "none", padding: 0, color: "inherit", font: "inherit" }}>
             {post.photoURL
               ? <AuthorAvatar src={post.photoURL} alt={post.displayName} referrerPolicy="no-referrer" />
               : <AuthorAvatarFallback>{(post.displayName || "?")[0].toUpperCase()}</AuthorAvatarFallback>
             }
             <AuthorName>{post.displayName || "익명"}</AuthorName>
-          </span>
+          </button>
           <MetaText>
             <span style={{ color: "var(--text-muted)", opacity: 0.5 }}>·</span>
             <PostInfo>{formatRelativeTime(post.createdAt)}</PostInfo>

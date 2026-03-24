@@ -83,6 +83,9 @@ export function GalleryLightboxProvider({ children }) {
                   <img
                     src={post.imageUrl}
                     alt={post.title || post.modelName || "AI 이미지"}
+                    width={800}
+                    height={800}
+                    loading="lazy"
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", zIndex: 0 }}
                   />
                   <div
@@ -155,6 +158,9 @@ export function GalleryLightboxProvider({ children }) {
                     src={post.imageUrl}
                     alt={post.title || post.modelName || "AI 이미지"}
                     onClick={closeLightbox}
+                    width={1200}
+                    height={900}
+                    loading="lazy"
                     style={{ maxHeight: "85vh", maxWidth: "70%", objectFit: "contain", borderRadius: "var(--r-md)", flexShrink: 0, cursor: "pointer" }}
                   />
 

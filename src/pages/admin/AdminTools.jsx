@@ -237,7 +237,7 @@ export default function AdminTools() {
 
       <div style={{ position: "relative", marginBottom: "2rem" }}>
         {MagnifyingGlass && <MagnifyingGlass size={20} style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />}
-        <input style={{ ...commonInputStyle, paddingLeft: "48px" }} placeholder="검색할 AI 이름을 입력하세요..." value={search} onChange={e => setSearch(e.target.value)} />
+        <input style={{ ...commonInputStyle, paddingLeft: "48px" }} placeholder="검색할 AI 이름을 입력하세요..." aria-label="AI 도구 검색" value={search} onChange={e => setSearch(e.target.value)} />
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "10px" }}>

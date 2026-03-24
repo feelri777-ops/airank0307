@@ -416,10 +416,10 @@ export default function Community() {
                   {post.commentCount > 0 && <CommentCount>[{post.commentCount}]</CommentCount>}
                 </PostTitleCell>
                 <PostMeta>
-                  <span onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default" }}>
+                  <button onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default", background: "none", border: "none", padding: 0, color: "inherit", font: "inherit" }}>
                     {post.photoURL ? <DesktopAvatar src={post.photoURL} alt="" /> : <DesktopFallback>{(post.displayName || "?")[0]}</DesktopFallback>}
                     {post.displayName || "익명"}
-                  </span>
+                  </button>
                 </PostMeta>
                 <PostMeta style={{ textAlign: "center" }}>{formatRelativeTime(post.createdAt)}</PostMeta>
                 <VoteCount>
@@ -427,10 +427,10 @@ export default function Community() {
                   <span style={{ color: "var(--text-primary)", fontWeight: 700, marginLeft: "4px" }}>👎 {post.downvoteCount || 0}</span>
                 </VoteCount>
                 <MobilePostMeta style={{ marginTop: "4px" }}>
-                  <span onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default" }}>
+                  <button onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: post.uid ? "pointer" : "default", background: "none", border: "none", padding: 0, color: "inherit", font: "inherit" }}>
                     {post.photoURL ? <MobileAuthorAvatar src={post.photoURL} alt="" /> : <MobileAuthorFallback>{(post.displayName || "?")[0]}</MobileAuthorFallback>}
                     <span>{post.displayName || "익명"}</span>
-                  </span>
+                  </button>
                   <span style={{ opacity: 0.5 }}>·</span>
                   <span>{formatRelativeTime(post.createdAt)}</span>
                   <span style={{ marginLeft: "auto", color: "var(--text-primary)", fontWeight: 700, display: "flex", gap: "8px" }}>
@@ -459,8 +459,9 @@ export default function Community() {
           <option value="nickname">이름</option>
           <option value="tag">태그</option>
         </SearchSelect>
-        <SearchInput 
-          placeholder="검색어를 입력하세요" 
+        <SearchInput
+          placeholder="검색어를 입력하세요"
+          aria-label="커뮤니티 검색"
           value={searchKeyword}
           onChange={(e) => setSearchKeyword(e.target.value)}
         />

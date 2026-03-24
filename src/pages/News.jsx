@@ -288,6 +288,7 @@ function NewsPage() {
           <SearchInput
             type="text"
             placeholder="뉴스 검색..."
+            aria-label="뉴스 검색"
             value={searchQuery}
             onChange={(e) => { setSearchQuery(e.target.value); setVisibleCount(PAGE_SIZE); }}
           />

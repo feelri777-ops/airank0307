@@ -566,9 +566,9 @@ const Lightbox = ({ post, onClose, onLike, onReport, user }) => {
           )}
 
           {/* 작성자 + 날짜 */}
-          <div onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "10px", cursor: post.uid ? "pointer" : "default" }}>
+          <button onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "10px", cursor: post.uid ? "pointer" : "default", background: "none", border: "none", padding: 0, color: "inherit", font: "inherit" }}>
             {post.photoURL && (
-              <img src={post.photoURL} alt="" width={32} height={32}
+              <img src={post.photoURL} alt="" width={32} height={32} loading="lazy"
                 style={{ borderRadius: "50%", border: "2px solid rgba(255,255,255,0.3)", flexShrink: 0 }} />
             )}
             <div>
@@ -579,7 +579,7 @@ const Lightbox = ({ post, onClose, onLike, onReport, user }) => {
                 </div>
               )}
             </div>
-          </div>
+          </button>
 
           {/* 배지 행: 모델명 + 출처 + 공개범위 */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
@@ -862,7 +862,7 @@ const GalleryCard = ({ post, onLike, onOpen, onEdit, onDelete }) => {
 
         {/* 작성자 + 좋아요 + 수정/삭제 */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "6px", cursor: post.uid ? "pointer" : "default" }}>
+          <button onClick={(e) => { e.stopPropagation(); if (post.uid) navigate(`/user/${post.uid}`); }} style={{ display: "flex", alignItems: "center", gap: "6px", cursor: post.uid ? "pointer" : "default", background: "none", border: "none", padding: 0, color: "inherit", font: "inherit" }}>
             {post.photoURL && (
               <img src={post.photoURL} alt="" width={22} height={22}
                 style={{ borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.4)" }} />
@@ -870,7 +870,7 @@ const GalleryCard = ({ post, onLike, onOpen, onEdit, onDelete }) => {
             <span style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.78rem", fontWeight: 600 }}>
               {post.displayName}
             </span>
-          </div>
+          </button>
           <div style={{ display: "flex", gap: "4px" }}>
             {isOwner && (
               <>
@@ -1191,6 +1191,7 @@ export default function Gallery() {
           <input
             type="text"
             placeholder="검색... #태그, 프롬프트, 작성자, 모델"
+            aria-label="갤러리 검색"
             value={searchQuery}
             onChange={(e) => {
               const val = e.target.value;
