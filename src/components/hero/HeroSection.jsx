@@ -2,6 +2,28 @@ import { useTheme } from "../../context/ThemeContext";
 import HeroLogos from "./HeroLogos";
 
 const THEME_CONFIG = {
+  community: {
+    bg: "none",
+    bgColor: "#f4f4f2",
+    bgSize: "auto",
+    bgPos: "center",
+    titleColor: "#1a1c1b",
+    titleShadow: "none",
+    gradientText: "linear-gradient(to right, #0f5238, #2d6a4f)",
+    subColor: "#404943",
+    subShadow: "none",
+    inputBg: "#ffffff",
+    inputBorder: "rgba(15, 82, 56, 0.08)",
+    inputBorderFocus: "rgba(15, 82, 56, 0.20)",
+    inputBgFocus: "#ffffff",
+    inputColor: "#1a1c1b",
+    iconColor: "#0f5238",
+    btnBg: "linear-gradient(135deg, #0f5238, #2d6a4f)",
+    btnBgHover: "linear-gradient(135deg, #0d4630, #255a42)",
+    btnBorder: "transparent",
+    btnColor: "#ffffff",
+    placeholderStyle: `color: rgba(64, 73, 67, 0.5)`,
+  },
   dark: {
     bg: "linear-gradient(to bottom, rgba(10, 10, 15, 0.65), rgba(10, 10, 15, 0.82)), url('/images/hero-vending.png')",
     bgColor: "transparent",
@@ -96,6 +118,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
   const { theme } = useTheme();
   const cfg = THEME_CONFIG[theme] || THEME_CONFIG.dark;
   const isDark = theme === "dark" || theme === "mono";
+  const isCommunity = theme === "community";
 
   return (
   <section className="hero-section-wrap" style={{
@@ -136,8 +159,8 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
       }
     `}</style>
 
-    {/* 라이트/퓨어 테마용 로고 */}
-    {!isDark && <HeroLogos />}
+    {/* 라이트/퓨어 테마용 로고 (커뮤니티 테마는 제외) */}
+    {!isDark && !isCommunity && <HeroLogos />}
 
     <div style={{ maxWidth: "800px", margin: "0 auto", position: "relative", zIndex: 1 }}>
       {/* 메인 타이틀 */}
@@ -151,7 +174,16 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
         color: cfg.titleColor,
         textShadow: cfg.titleShadow,
       }}>
-        {isDark ? (
+        {isCommunity ? (
+          <>당신에게 가장 필요한<br />
+          <span style={{
+            display: "inline-block",
+            backgroundImage: cfg.gradientText,
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}>실시간 AI 추출기</span></>
+        ) : isDark ? (
           <>대한민국 <span style={{
             backgroundImage: cfg.gradientText,
             WebkitBackgroundClip: "text",
@@ -159,7 +191,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
             filter: "drop-shadow(0 0 10px rgba(129, 140, 248, 0.3))"
           }}>AI놀이터</span></>
         ) : "당신에게 가장 필요한"}<br />
-        <span style={{
+        {!isCommunity && <span style={{
           display: "inline-block",
           ...(!isDark ? {
             backgroundImage: "linear-gradient(to right, #ffb7c5, #f8a5c2)",
@@ -175,7 +207,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
           }),
         }}>
           {isDark ? "AIRANK.KR" : "실시간 AI 추출기"}
-        </span>
+        </span>}
       </h1>
 
       {/* 서브 텍스트 */}

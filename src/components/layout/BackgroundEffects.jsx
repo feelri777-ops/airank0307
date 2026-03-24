@@ -4,11 +4,17 @@ const BLOB_COLORS = {
   light:  { a: '#6366f1', b: '#06b6d4' },
   dark:   { a: '#6366f1', b: '#06b6d4' },
   mono:   { a: '#333333', b: '#888888' },
+  community: null, // No blobs for community theme
 };
 
 const BackgroundEffects = () => {
   const { theme } = useTheme();
   const colors = BLOB_COLORS[theme] ?? BLOB_COLORS.dark;
+
+  // 🌳 Community theme: No blob effects (clean editorial look)
+  if (theme === 'community') {
+    return null;
+  }
 
   return (
     <>
