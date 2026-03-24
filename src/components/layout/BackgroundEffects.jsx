@@ -5,14 +5,15 @@ const BLOB_COLORS = {
   dark:   { a: '#6366f1', b: '#06b6d4' },
   mono:   { a: '#333333', b: '#888888' },
   community: null, // No blobs for community theme
+  'community-dark': null, // No blobs for community-dark theme
 };
 
 const BackgroundEffects = () => {
   const { theme } = useTheme();
   const colors = BLOB_COLORS[theme] ?? BLOB_COLORS.dark;
 
-  // 🌳 Community theme: No blob effects (clean editorial look)
-  if (theme === 'community') {
+  // 🌳 Community themes: No blob effects (clean editorial look)
+  if (theme === 'community' || theme === 'community-dark') {
     return null;
   }
 

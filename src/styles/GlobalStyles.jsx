@@ -268,6 +268,106 @@ const GlobalStyles = () => (
       /* ─────────────────────────────────────────────────────────── */
     }
 
+    [data-theme="community-dark"] {
+      /* ═══════════════════════════════════════════════════════════
+         🌲 THE DIGITAL ARBORETUM DARK - Night Forest Theme
+         Design System: Organic, Sophisticated, Editorial (Dark Mode)
+         ═══════════════════════════════════════════════════════════ */
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* Surface Hierarchy - "Dark Canopy Layers"                    */
+      /* Level 0 (Base) → Level 1 (Sections) → Level 2 (Cards)       */
+      /* ─────────────────────────────────────────────────────────── */
+      --bg-primary: #0a0f0d;           /* Level 0: Very dark green-black */
+      --bg-secondary: #0f1513;         /* Level 1: Dark green-gray */
+      --bg-tertiary: #151b19;          /* Level 1.5: Subtle dividers */
+      --bg-card: #1a1f1d;              /* Level 2: Card background */
+      --bg-card-hover: #1f2522;        /* Level 2: Hover state */
+      --bg-nav: rgba(10, 15, 13, 0.85);  /* Glassmorphism nav (85% opacity) */
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* Typography - "Luminous Forest Text"                         */
+      /* Bright emerald tints for readability on dark                */
+      /* ─────────────────────────────────────────────────────────── */
+      --text-primary: #f0fdf4;         /* Very light mint-white (headlines, body) */
+      --text-secondary: #86efac;       /* Light emerald (secondary info) */
+      --text-muted: #4ade80;           /* Medium emerald (timestamps, labels) */
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* Primary Palette - "Glowing Emerald"                         */
+      /* Brighter emeralds that pop on dark background               */
+      /* ─────────────────────────────────────────────────────────── */
+      --accent-indigo: #10B981;        /* Primary: Bright emerald (CTAs, branding) */
+      --accent-cyan: #059669;          /* Primary Container: Deep emerald (interactive surfaces) */
+      --accent-gradient: linear-gradient(135deg, #10B981, #059669);  /* Glowing gradient */
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* Borders - "The No-Line Rule" (Dark Edition)                 */
+      /* Ghost borders with emerald tint                             */
+      /* ─────────────────────────────────────────────────────────── */
+      --border-primary: rgba(16, 185, 129, 0.12);     /* Ghost border (subtle emerald) */
+      --border-hover: rgba(16, 185, 129, 0.30);       /* Ghost border (hover) */
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* Shadows - "Emerald Glow"                                    */
+      /* Emerald-tinted shadows for depth                            */
+      /* ─────────────────────────────────────────────────────────── */
+      --shadow-sm: 0 1px 2px rgba(16, 185, 129, 0.08), 0 1px 3px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 2px 8px rgba(16, 185, 129, 0.12), 0 4px 12px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 8px 24px rgba(16, 185, 129, 0.15), 0 12px 32px rgba(0, 0, 0, 0.6);
+      --shadow-card: 0 1px 3px rgba(16, 185, 129, 0.08), 0 2px 6px rgba(0, 0, 0, 0.4);
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* State Colors                                                 */
+      /* ─────────────────────────────────────────────────────────── */
+      --color-green: #10B981;          /* Success (bright emerald) */
+      --color-red: #f87171;            /* Error (soft red - not harsh) */
+      --color-gold: #34d399;           /* Premium/Gold (light emerald) */
+      --color-silver: #86efac;         /* Silver */
+      --color-bronze: #6ee7b7;         /* Bronze */
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* Effects & Ambient                                            */
+      /* ─────────────────────────────────────────────────────────── */
+      --blob-opacity: 0.04;            /* Subtle organic glow */
+      --noise-opacity: 0.02;           /* Paper texture noise */
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* Component-Specific                                           */
+      /* ─────────────────────────────────────────────────────────── */
+      --ticker-bg: rgba(16, 185, 129, 0.06);       /* Ticker background */
+      --ticker-border: rgba(16, 185, 129, 0.18);   /* Ticker border */
+
+      /* Tags & Badges - "Dark Mint" for AI-generated content */
+      --tag-bg: rgba(16, 185, 129, 0.15);          /* Dark mint (AI tags) */
+      --tag-color: #6ee7b7;                        /* Light emerald text */
+      --tag-border: rgba(16, 185, 129, 0.25);      /* Ghost border */
+
+      /* Modal Overlay */
+      --modal-overlay: rgba(0, 0, 0, 0.7);         /* Dark overlay */
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* Ranking Cards - "Tonal Layering" (Dark)                     */
+      /* Use surface hierarchy with subtle emerald glow              */
+      /* ─────────────────────────────────────────────────────────── */
+      --rank1-bg: #1a1f1d;             /* Level 2: Card bg */
+      --rank2-bg: #1f2522;             /* Level 2: Subtle tint */
+      --rank3-bg: #151b19;             /* Level 1.5: Base tint */
+      --rank1-shadow: 0 1px 3px rgba(16, 185, 129, 0.10), 0 2px 6px rgba(0, 0, 0, 0.5);
+      --rank2-shadow: 0 1px 3px rgba(16, 185, 129, 0.08), 0 2px 6px rgba(0, 0, 0, 0.4);
+      --rank3-shadow: 0 1px 3px rgba(16, 185, 129, 0.06), 0 2px 6px rgba(0, 0, 0, 0.3);
+
+      /* ─────────────────────────────────────────────────────────── */
+      /* Border Radius - "Soft Roundedness"                          */
+      /* Same as light version for consistency                       */
+      /* --r-xs: 0.25rem (sm - minimum)                              */
+      /* --r-md: 0.75rem (md - inputs)                               */
+      /* --r-lg: 1rem (lg - inner components)                        */
+      /* --r-xl: 1.5rem (xl - primary cards)                         */
+      /* --r-pill: 999px (full - buttons)                            */
+      /* ─────────────────────────────────────────────────────────── */
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       width: 100%; overflow-x: clip; position: relative;

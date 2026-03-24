@@ -7,6 +7,7 @@ const THEMES = [
   // { id: 'pure',  icon: '⚪', label: '퓨어' },
   { id: 'mono',  icon: '◑',  label: '모노' },
   { id: 'community', icon: '💬', label: '커뮤니티' },
+  { id: 'community-dark', icon: '🌲', label: '아보레텀' },
 ];
 
 const TRACK_COLORS = {
@@ -15,6 +16,7 @@ const TRACK_COLORS = {
   // pure:  'var(--bg-tertiary)',
   mono:  'rgba(0, 0, 0, 0.08)',
   community: 'var(--bg-tertiary)',
+  'community-dark': 'var(--bg-tertiary)',
 };
 
 const ThemeToggle = ({ dropUp = false }) => {

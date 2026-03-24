@@ -24,6 +24,28 @@ const THEME_CONFIG = {
     btnColor: "#ffffff",
     placeholderStyle: `color: rgba(64, 73, 67, 0.5)`,
   },
+  "community-dark": {
+    bg: "none",
+    bgColor: "#0f1513",
+    bgSize: "auto",
+    bgPos: "center",
+    titleColor: "#f0fdf4",
+    titleShadow: "0 2px 8px rgba(16, 185, 129, 0.2)",
+    gradientText: "linear-gradient(to right, #10B981, #059669)",
+    subColor: "#86efac",
+    subShadow: "none",
+    inputBg: "#1a1f1d",
+    inputBorder: "rgba(16, 185, 129, 0.12)",
+    inputBorderFocus: "rgba(16, 185, 129, 0.30)",
+    inputBgFocus: "#1f2522",
+    inputColor: "#f0fdf4",
+    iconColor: "#10B981",
+    btnBg: "linear-gradient(135deg, #10B981, #059669)",
+    btnBgHover: "linear-gradient(135deg, #059669, #047857)",
+    btnBorder: "transparent",
+    btnColor: "#ffffff",
+    placeholderStyle: `color: rgba(134, 239, 172, 0.5)`,
+  },
   dark: {
     bg: "linear-gradient(to bottom, rgba(10, 10, 15, 0.65), rgba(10, 10, 15, 0.82)), url('/images/hero-vending.png')",
     bgColor: "transparent",
@@ -117,8 +139,8 @@ const THEME_CONFIG = {
 const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
   const { theme } = useTheme();
   const cfg = THEME_CONFIG[theme] || THEME_CONFIG.dark;
-  const isDark = theme === "dark" || theme === "mono";
-  const isCommunity = theme === "community";
+  const isDark = theme === "dark" || theme === "mono" || theme === "community-dark";
+  const isCommunity = theme === "community" || theme === "community-dark";
 
   return (
   <section className="hero-section-wrap" style={{
