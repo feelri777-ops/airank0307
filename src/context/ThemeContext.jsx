@@ -15,6 +15,7 @@ export function ThemeProvider({ children }) {
       if (prev === 'light') return 'dark';
       if (prev === 'dark') return 'pure';
       if (prev === 'pure') return 'mono';
+      if (prev === 'mono') return 'community';
       return 'light';
     });
   };

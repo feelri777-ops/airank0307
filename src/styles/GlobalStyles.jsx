@@ -169,6 +169,67 @@ const GlobalStyles = () => (
       --rank3-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     }
 
+    [data-theme="community"] {
+      /* 배경 - 민트/청록 계열 */
+      --bg-primary: #E8F5F1;
+      --bg-secondary: #D4EDEA;
+      --bg-tertiary: #C1E8E3;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #F0FDFB;
+      --bg-nav: rgba(232, 245, 241, 0.95);
+
+      /* 텍스트 */
+      --text-primary: #0D4D3D;
+      --text-secondary: #2A7A64;
+      --text-muted: #6B9F91;
+
+      /* 테두리 */
+      --border-primary: rgba(52, 211, 153, 0.3);
+      --border-hover: rgba(16, 185, 129, 0.5);
+
+      /* 액센트 */
+      --accent-indigo: #10B981;
+      --accent-cyan: #14B8A6;
+      --accent-gradient: linear-gradient(135deg, #10B981, #14B8A6);
+
+      /* 상태 색상 */
+      --color-green: #10B981;
+      --color-red: #F59E0B;
+      --color-gold: #14B8A6;
+      --color-silver: #6B9F91;
+      --color-bronze: #2A7A64;
+
+      /* 그림자 */
+      --shadow-sm: 0 1px 3px rgba(16, 185, 129, 0.1);
+      --shadow-md: 0 4px 16px rgba(16, 185, 129, 0.15);
+      --shadow-lg: 0 12px 40px rgba(16, 185, 129, 0.2);
+      --shadow-card: 0 2px 10px rgba(16, 185, 129, 0.12);
+
+      /* 블롭/노이즈 */
+      --blob-opacity: 0.05;
+      --noise-opacity: 0.02;
+
+      /* 티커 */
+      --ticker-bg: rgba(16, 185, 129, 0.06);
+      --ticker-border: rgba(16, 185, 129, 0.2);
+
+      /* 태그 */
+      --tag-bg: rgba(16, 185, 129, 0.1);
+      --tag-color: #059669;
+      --tag-border: rgba(16, 185, 129, 0.25);
+
+      /* 모달 */
+      --modal-overlay: rgba(13, 77, 61, 0.4);
+
+      /* 랭킹 카드 */
+      --rank1-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.04) 50%, rgba(16, 185, 129, 0.12) 100%);
+      --rank2-bg: linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(20, 184, 166, 0.04) 50%, rgba(20, 184, 166, 0.12) 100%);
+      --rank3-bg: linear-gradient(135deg, rgba(52, 211, 153, 0.12) 0%, rgba(52, 211, 153, 0.04) 50%, rgba(52, 211, 153, 0.12) 100%);
+      --rank1-shadow: 0 0 20px rgba(16, 185, 129, 0.15), inset 0 0 12px rgba(16, 185, 129, 0.05);
+      --rank2-shadow: 0 0 20px rgba(20, 184, 166, 0.15), inset 0 0 12px rgba(20, 184, 166, 0.05);
+      --rank3-shadow: 0 0 20px rgba(52, 211, 153, 0.15), inset 0 0 12px rgba(52, 211, 153, 0.05);
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       width: 100%; overflow-x: clip; position: relative;

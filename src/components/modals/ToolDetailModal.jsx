@@ -5,7 +5,7 @@ import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 import { useTools } from "../../context/ToolContext";
-import { 
+import {
   YoutubeLogoFill, BookmarkSimple, BookmarkSimpleFill, ArrowRight, X, Sparkle,
   TrendUp, Cpu, Megaphone, Lightning, Lightbulb, Quotes, Wrench, ChartLineUp
 } from "../icons/PhosphorIcons";
@@ -38,18 +38,18 @@ const getFaviconUrl = (url) => { if (!url) return null; try { const domain = new
 
 const SparkLine = ({ val, color, height = "4px", glow = false }) => {
   const [width, setWidth] = useState(0);
-  useEffect(() => { 
+  useEffect(() => {
     const target = Math.max(2, Math.min(100, Number(val) || 0));
-    const timer = setTimeout(() => { setWidth(target); }, 50); 
-    return () => clearTimeout(timer); 
+    const timer = setTimeout(() => { setWidth(target); }, 50);
+    return () => clearTimeout(timer);
   }, [val]);
   return (
     <div style={{ width: "100%", height, background: "rgba(128,128,128,0.1)", borderRadius: "10px", overflow: "hidden" }}>
-      <div style={{ 
-        width: `${width}%`, 
-        height: "100%", 
-        background: color, 
-        borderRadius: "10px", 
+      <div style={{
+        width: `${width}%`,
+        height: "100%",
+        background: color,
+        borderRadius: "10px",
         transition: "width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
         boxShadow: glow ? `0 0 10px ${color}66` : "none"
       }} />
@@ -88,7 +88,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   }, [tool?.id, tool?.name]);
 
   const toggleBookmark = async () => {
-    if (!user) { 
+    if (!user) {
       if (window.confirm("북마크 기능을 사용하려면 로그인이 필요합니다. 로그인하시겠습니까?")) {
         try {
           await loginWithGoogle();
@@ -96,23 +96,23 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           console.error("🔴 Login Error:", err);
         }
       }
-      return; 
+      return;
     }
-    
+
     try {
       const toolIdStr = String(tool.id);
       const ref = doc(db, "bookmarks", `${user.uid}_${toolIdStr}`);
-      if (bookmarked) { 
-        await deleteDoc(ref); 
-        setBookmarked(false); 
-      } else { 
-        await setDoc(ref, { 
-          uid: user.uid, 
-          toolId: toolIdStr, 
-          toolName: tool.name, 
-          savedAt: Date.now() 
-        }); 
-        setBookmarked(true); 
+      if (bookmarked) {
+        await deleteDoc(ref);
+        setBookmarked(false);
+      } else {
+        await setDoc(ref, {
+          uid: user.uid,
+          toolId: toolIdStr,
+          toolName: tool.name,
+          savedAt: Date.now()
+        });
+        setBookmarked(true);
       }
     } catch (err) {
       console.error("🔴 Bookmark Error:", err);
@@ -120,7 +120,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
     }
   };
 
-  const synerToolList = useMemo(() => 
+  const synerToolList = useMemo(() =>
     (allTools || []).filter(t => t && t.id !== tool?.id && (t.cat === tool?.cat))
     .sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0)).slice(0, 3)
   , [tool, allTools]);
@@ -179,18 +179,18 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           display: "contents",
         }}
       >
-        
-        <div 
+
+        <div
           onClick={(e) => {
             // Card background/content also closes.
           }}
           style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: isMobile ? "20px" : "30px", ...(isMobile ? { width: "50%", flexShrink: 0, padding: "16px 14px" } : { flex: 1, minWidth: 0, padding: "22px 24px 24px" }), position: "relative", boxShadow: "0 25px 50px rgba(0,0,0,0.4)" }}
         >
           <div style={{ position: "absolute", top: "18px", right: "18px", zIndex: 20 }}>
-            <button 
-              onClick={(e) => { e.stopPropagation(); toggleBookmark(); }} 
-              style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", cursor: "pointer", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", color: bookmarked ? "var(--accent-indigo)" : "var(--text-muted)", transition: "all 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }} 
-              onMouseEnter={e => { e.currentTarget.style.transform='scale(1.1)'; e.currentTarget.style.backgroundColor='var(--bg-card)'; }} 
+            <button
+              onClick={(e) => { e.stopPropagation(); toggleBookmark(); }}
+              style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", cursor: "pointer", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", color: bookmarked ? "var(--accent-indigo)" : "var(--text-muted)", transition: "all 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}
+              onMouseEnter={e => { e.currentTarget.style.transform='scale(1.1)'; e.currentTarget.style.backgroundColor='var(--bg-card)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform='scale(1)'; e.currentTarget.style.backgroundColor='var(--bg-secondary)'; }}
             >
               {bookmarked ? <BookmarkSimpleFill size={22} /> : <BookmarkSimple size={22} />}
@@ -212,14 +212,14 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             const dynamicSize = reviewLen > 35 ? "0.78rem" : reviewLen > 25 ? "0.88rem" : "1rem";
             return (
               <div style={{ marginBottom: "12px", paddingLeft: "12px", borderLeft: "3px solid var(--accent-indigo)", overflow: "hidden" }}>
-                <div style={{ 
-                  fontSize: dynamicSize, 
-                  fontWeight: 850, 
-                  color: "var(--text-primary)", 
-                  lineHeight: 1.3, 
-                  whiteSpace: "nowrap", 
-                  textOverflow: "ellipsis", 
-                  overflow: "hidden" 
+                <div style={{
+                  fontSize: dynamicSize,
+                  fontWeight: 850,
+                  color: "var(--text-primary)",
+                  lineHeight: 1.3,
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden"
                 }}>
                   "{tool.oneLineReview}"
                 </div>
@@ -234,11 +234,11 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               const val = tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0;
               const isMain = m.isMain;
               return (
-                <div key={m.k} title={m.d} style={{ 
-                  display: "grid", 
-                  gridTemplateColumns: "100px 1fr 45px", 
-                  alignItems: "center", 
-                  gap: "16px", 
+                <div key={m.k} title={m.d} style={{
+                  display: "grid",
+                  gridTemplateColumns: "100px 1fr 45px",
+                  alignItems: "center",
+                  gap: "16px",
                   cursor: "help",
                   height: isMain ? "32px" : "28px"
                 }}>
@@ -271,10 +271,10 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 gap: "6px",
                 padding: isMobile ? "10px 8px" : "12px",
                 borderRadius: "14px",
-                background: "var(--accent-indigo)", 
-                color: "#fff", 
-                fontWeight: 950, 
-                textDecoration: "none", 
+                background: "var(--accent-indigo)",
+                color: "#fff",
+                fontWeight: 950,
+                textDecoration: "none",
                 fontSize: isMobile ? "0.8rem" : "0.95rem",
                 whiteSpace: "nowrap",
                 boxShadow: "0 6px 14px rgba(99,102,241,0.2)"
@@ -308,7 +308,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           position: "relative"
         }}>
           {!isMobile && <button onClick={onClose} style={{ position: "absolute", top: "-45px", right: "0", background: "rgba(255,255,255,0.1)", border: "none", color: "#fff", cursor: "pointer", fontSize: "1.2rem", width: "32px", height: "32px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(5px)" }}>✕</button>}
-          
+
           {/* 유튜브 링크 */}
           <div style={{ marginBottom: "28px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
@@ -348,14 +348,14 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               </div>
               <div style={{ display: "grid", gap: "10px" }}>
                 {synerToolList.map(rt => (
-                  <a 
-                    key={rt.id} 
-                    href={rt.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    key={rt.id}
+                    href={rt.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    style={{ display: "flex", alignItems: "center", gap: "14px", padding: "12px", borderRadius: "18px", background: "var(--bg-secondary)", textDecoration: "none", border: "1px solid var(--border-primary)", transition: "all 0.2s" }} 
-                    onMouseEnter={e => { e.currentTarget.style.transform='translateX(5px)'; e.currentTarget.style.borderColor='var(--accent-indigo)'; }} 
+                    style={{ display: "flex", alignItems: "center", gap: "14px", padding: "12px", borderRadius: "18px", background: "var(--bg-secondary)", textDecoration: "none", border: "1px solid var(--border-primary)", transition: "all 0.2s" }}
+                    onMouseEnter={e => { e.currentTarget.style.transform='translateX(5px)'; e.currentTarget.style.borderColor='var(--accent-indigo)'; }}
                     onMouseLeave={e => { e.currentTarget.style.transform='translateX(0)'; e.currentTarget.style.borderColor='var(--border-primary)'; }}
                   >
                     <img src={getFaviconUrl(rt.url)} alt={rt.name} style={{ width: 32, height: 32, borderRadius: "8px" }} />
