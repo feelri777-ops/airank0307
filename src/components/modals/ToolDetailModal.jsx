@@ -247,7 +247,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                     {React.cloneElement(m.i, { size: isMain ? 18 : 16 })} {m.l}
                   </div>
                   <SparkLine val={val} color={m.c} height={isMain ? "7px" : "4px"} glow={isMain} />
-                  <span style={{ fontSize: isMain ? "1.05rem" : "0.85rem", fontWeight: 950, color: m.c, textAlign: "right" }}>{Number(val).toFixed(0)}</span>
+                  <span style={{ fontSize: isMain ? "1.05rem" : "0.85rem", fontWeight: 950, color: m.c, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{Number(val).toFixed(0)}</span>
                 </div>
               );
             })}

@@ -125,7 +125,7 @@ export default function AdminGallery() {
 
                   {/* Image Thumb */}
                   <div onClick={() => setSelectedPost(post)} style={{ position: "relative", width: "100%", height: "240px", cursor: "pointer", overflow: "hidden", background: "#000" }}>
-                    <img src={post.imageUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }} 
+                    <img src={post.imageUrl} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }} 
                       onMouseEnter={e => e.currentTarget.style.transform = "scale(1.1)"}
                       onMouseLeave={e => e.currentTarget.style.transform = "scale(1.0)"}
                     />
@@ -163,7 +163,7 @@ export default function AdminGallery() {
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.9)", backdropFilter: "blur(12px)", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }} onClick={() => setSelectedPost(null)}>
           <div style={{ background: "var(--bg-card)", width: "100%", maxWidth: "1000px", borderRadius: "32px", overflow: "hidden", border: "1px solid var(--border-primary)", display: "flex" }} onClick={e => e.stopPropagation()}>
             <div style={{ flex: 1.2, background: "#000", display: "flex", alignItems: "center", justifyContent: "center", maxHeight: "80vh" }}>
-              <img src={selectedPost.imageUrl} alt="" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+              <img src={selectedPost.imageUrl} alt="" loading="lazy" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
             </div>
             <div style={{ flex: 1, padding: "2.5rem", position: "relative", overflowY: "auto", maxHeight: "80vh" }}>
               <button onClick={() => setSelectedPost(null)} style={{ position: "absolute", top: "20px", right: "20px", background: "var(--bg-secondary)", border: "none", borderRadius: "12px", width: "40px", height: "40px", cursor: "pointer", color: "var(--text-primary)" }}><X size={20} weight="bold" /></button>

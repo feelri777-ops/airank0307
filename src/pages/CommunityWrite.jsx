@@ -236,6 +236,7 @@ export default function CommunityWrite() {
         <TitleInput
           type="text" placeholder="제목을 입력하세요"
           value={title} onChange={(e) => setTitle(e.target.value)} maxLength={100}
+          autoComplete="off"
         />
       </FormGroup>
 
@@ -280,11 +281,12 @@ export default function CommunityWrite() {
 
       <FormGroup>
         <Label>해시태그 (쉼표로 구분)</Label>
-        <TitleInput 
-          type="text" 
-          placeholder="#AI #커서 #추천 (최대 5개)" 
-          value={tags} 
+        <TitleInput
+          type="text"
+          placeholder="#AI #커서 #추천 (최대 5개)"
+          value={tags}
           onChange={(e) => setTags(e.target.value)}
+          autoComplete="off"
         />
       </FormGroup>
 

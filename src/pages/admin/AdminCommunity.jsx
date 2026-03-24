@@ -167,7 +167,7 @@ function BoardItem({ board, onEdit, onDelete }) {
         border: `1px solid ${board.color}30`
       }}>
         {board.logo ? (
-          <img src={board.logo} alt="" style={{ width: "70%", height: "70%", objectFit: "contain" }} />
+          <img src={board.logo} alt="" width={40} height={40} loading="lazy" style={{ width: "70%", height: "70%", objectFit: "contain" }} />
         ) : (
           <span style={{ fontSize: "1.2rem" }}>🧩</span>
         )}

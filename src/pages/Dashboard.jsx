@@ -294,7 +294,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
                   <button onClick={handleSaveName} disabled={saving} style={btnStyle("indigo")}>{saving ? "저장 중..." : "저장"}</button>
                   <button onClick={() => { setEditingName(false); setNickError(""); }} style={btnStyle("ghost")}>취소</button>
                 </div>
-                {nickError && <span style={{ fontSize: "0.75rem", color: "#ef4444" }}>{nickError}</span>}
+                <span aria-live="polite" style={{ fontSize: "0.75rem", color: "#ef4444", minHeight: "1em", display: "block" }}>{nickError}</span>
               </div>
             ) : (
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -395,7 +395,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
               </button>
             </div>
 
-            {savingAvatar && <p style={{ margin: 0, textAlign: "center", fontSize: "0.82rem", color: "var(--text-muted)" }}>저장 중...</p>}
+            <p aria-live="polite" style={{ margin: 0, textAlign: "center", fontSize: "0.82rem", color: "var(--text-muted)", minHeight: "1.2em" }}>{savingAvatar ? "저장 중…" : ""}</p>
           </div>
         </div>
       )}
@@ -1127,7 +1127,7 @@ const DeleteModal = ({ deletePassword, setDeletePassword, deleteError, deleting,
           color: "var(--text-primary)", fontSize: "0.92rem", outline: "none",
         }}
       />
-      {deleteError && <p style={{ margin: 0, color: "#ef4444", fontSize: "0.82rem" }}>{deleteError}</p>}
+      <p aria-live="polite" style={{ margin: 0, color: "#ef4444", fontSize: "0.82rem", minHeight: "1.2em" }}>{deleteError}</p>
       <div style={{ display: "flex", gap: "8px" }}>
         <button
           onClick={onConfirm}

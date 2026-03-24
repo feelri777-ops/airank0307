@@ -379,6 +379,12 @@ const GlobalStyles = () => (
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
+    h1, h2, h3, h4, h5, h6 {
+      text-wrap: balance;
+    }
+    .tabular-nums, [data-tabular] {
+      font-variant-numeric: tabular-nums;
+    }
     body {
       font-family: var(--font-main);
       font-size: 16px;

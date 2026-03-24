@@ -98,7 +98,7 @@ export function GalleryLightboxProvider({ children }) {
                   >
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        {post.photoURL && <img src={post.photoURL} alt="" width={26} height={26} style={{ borderRadius: "50%", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />}
+                        {post.photoURL && <img src={post.photoURL} alt="" width={26} height={26} loading="lazy" style={{ borderRadius: "50%", border: "2px solid rgba(255,255,255,0.4)", flexShrink: 0 }} />}
                         <div>
                           <div style={{ fontWeight: 700, fontSize: "0.82rem" }}>{post.displayName}</div>
                           {post.createdAt?.toDate && <div style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.5)" }}>{post.createdAt.toDate().toLocaleDateString("ko-KR")}</div>}
@@ -166,7 +166,7 @@ export function GalleryLightboxProvider({ children }) {
                     {post.description && <p style={{ margin: 0, color: "rgba(255,255,255,0.75)", fontSize: "0.86rem", lineHeight: 1.6 }}>{post.description}</p>}
 
                     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                      {post.photoURL && <img src={post.photoURL} alt="" width={32} height={32} style={{ borderRadius: "50%", border: "2px solid rgba(255,255,255,0.3)", flexShrink: 0 }} />}
+                      {post.photoURL && <img src={post.photoURL} alt="" width={32} height={32} loading="lazy" style={{ borderRadius: "50%", border: "2px solid rgba(255,255,255,0.3)", flexShrink: 0 }} />}
                       <div>
                         <div style={{ fontWeight: 700, fontSize: "0.9rem" }}>{post.displayName}</div>
                         {post.createdAt?.toDate && <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.5)" }}>{post.createdAt.toDate().toLocaleDateString("ko-KR")}</div>}
