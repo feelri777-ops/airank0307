@@ -110,6 +110,7 @@ const Navbar = () => {
                   }
                 }}
                 aria-label="프로필 메뉴 열기"
+                aria-haspopup="true"
                 aria-expanded={showDropdown}
                 style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer", background: "none", border: "none", padding: 0 }}
               >
@@ -126,10 +127,11 @@ const Navbar = () => {
               </button>
 
               {showDropdown && (
-                <div className="navbar-dropdown">
+                <div className="navbar-dropdown" onKeyDown={(e) => { if (e.key === "Escape") setShowDropdown(false); }} role="menu">
                   <button
                     onClick={() => { navigate("/dashboard"); setShowDropdown(false); }}
                     className="dropdown-item"
+                    role="menuitem"
                     style={{ display: "flex", alignItems: "center", gap: "8px", fontWeight: 700, color: "var(--accent-indigo, #6366f1)" }}
                   >
                     ◈ 대시보드 열기
@@ -209,7 +211,7 @@ const Navbar = () => {
                   )}
 
                   <div className="dropdown-divider" />
-                  <button onClick={() => { logout(); setShowDropdown(false); }} className="dropdown-logout">
+                  <button onClick={() => { logout(); setShowDropdown(false); }} className="dropdown-logout" role="menuitem">
                     로그아웃
                   </button>
                 </div>
