@@ -31,15 +31,20 @@ const getFaviconUrl = (url) => {
 };
 
 const CAT_OPTIONS = [
-  { value: "multimodal", label: "멀티모달" },
-  { value: "text", label: "텍스트/LLM" },
-  { value: "image", label: "이미지" },
-  { value: "video", label: "비디오" },
-  { value: "audio", label: "오디오/음악" },
-  { value: "code", label: "코드" },
-  { value: "search", label: "연구/검색" },
-  { value: "agent", label: "에이전트" },
-  { value: "other", label: "기타" },
+  { value: "multimodal",   label: "멀티모달" },
+  { value: "text",         label: "텍스트/LLM" },
+  { value: "chatbot",      label: "챗봇" },
+  { value: "image",        label: "이미지" },
+  { value: "photo",        label: "사진편집" },
+  { value: "design",       label: "디자인" },
+  { value: "video",        label: "비디오" },
+  { value: "audio",        label: "오디오/음악" },
+  { value: "code",         label: "코드" },
+  { value: "productivity", label: "생산성" },
+  { value: "automation",   label: "자동화" },
+  { value: "search",       label: "연구/검색" },
+  { value: "education",    label: "교육" },
+  { value: "agent",        label: "에이전트" },
 ];
 
 const EMPTY_FORM = {

@@ -11,16 +11,21 @@ export const NAV_ITEMS = [
 
 /** 카테고리 필터 목록 */
 export const CATEGORIES = [
-  { id: "all", label: "전체" },
-  { id: "multimodal", label: "멀티모달" },
-  { id: "text", label: "텍스트" },
-  { id: "image", label: "이미지" },
-  { id: "video", label: "비디오" },
-  { id: "audio", label: "오디오/음악" },
-  { id: "code", label: "코드" },
-  { id: "search", label: "연구/검색" },
-  { id: "agent", label: "에이전트" },
-  { id: "other", label: "기타" },
+  { id: "all",          label: "전체" },
+  { id: "multimodal",   label: "멀티모달" },
+  { id: "text",         label: "텍스트/LLM" },
+  { id: "chatbot",      label: "챗봇" },
+  { id: "image",        label: "이미지" },
+  { id: "photo",        label: "사진편집" },
+  { id: "design",       label: "디자인" },
+  { id: "video",        label: "비디오" },
+  { id: "audio",        label: "오디오/음악" },
+  { id: "code",         label: "코드" },
+  { id: "productivity", label: "생산성" },
+  { id: "automation",   label: "자동화" },
+  { id: "search",       label: "연구/검색" },
+  { id: "education",    label: "교육" },
+  { id: "agent",        label: "에이전트" },
 ];
 
 /** 직업군 필터 목록 */
@@ -36,11 +41,11 @@ export const LIFE_FILTERS = [
 
 /** 정렬 옵션 */
 export const SORT_OPTIONS = [
-  { id: "score_desc", label: "종합점수높은순" },
-  { id: "google_desc", label: "구글점수높은순" },
-  { id: "naver_desc", label: "네이버점수높은순" },
-  { id: "x_desc",     label: "X(트위터)높은순" },
-  { id: "name",       label: "이름순" },
+  { id: "score_desc",   label: "종합점수높은순" },
+  { id: "buzz_desc",    label: "화제성높은순" },
+  { id: "growth_desc",  label: "성장세높은순" },
+  { id: "utility_desc", label: "실용성높은순" },
+  { id: "name",         label: "이름순" },
 ];
 
 export const COMMUNITY_CATEGORIES = [

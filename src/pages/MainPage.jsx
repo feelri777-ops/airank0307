@@ -97,10 +97,10 @@ export default function MainPage() {
     }
 
     // 정렬 로직
-    if (sortBy === "score_desc") data.sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
-    else if (sortBy === "google_desc") data.sort((a, b) => (Number(b.metrics?.opr) || 0) - (Number(a.metrics?.opr) || 0));
-    else if (sortBy === "naver_desc")  data.sort((a, b) => (Number(b.metrics?.ntv) || 0) - (Number(a.metrics?.ntv) || 0));
-    else if (sortBy === "x_desc")      data.sort((a, b) => (Number(b.metrics?.sns) || 0) - (Number(a.metrics?.sns) || 0));
+    if (sortBy === "score_desc")   data.sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
+    else if (sortBy === "buzz_desc")    data.sort((a, b) => (Number(b.metrics?.buzz) || 0) - (Number(a.metrics?.buzz) || 0));
+    else if (sortBy === "growth_desc")  data.sort((a, b) => (Number(b.metrics?.growth) || 0) - (Number(a.metrics?.growth) || 0));
+    else if (sortBy === "utility_desc") data.sort((a, b) => (Number(b.metrics?.utility) || 0) - (Number(a.metrics?.utility) || 0));
     else data.sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "ko"));
     
     return data;
