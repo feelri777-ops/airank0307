@@ -230,27 +230,42 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
 
           <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55, marginBottom: "16px", fontWeight: 500 }}>{tool.desc}</p>
 
-          <div style={{ display: "grid", gap: "4px", marginBottom: "16px", background: "rgba(0,0,0,0.03)", padding: "12px 16px", borderRadius: "22px" }}>
-            {metrics.map(m => {
-              const val = tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0;
-              const isMain = m.isMain;
+          <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginBottom: "16px", background: "rgba(0,0,0,0.03)", padding: "12px 16px", borderRadius: "22px" }}>
+            {/* 종합점수 — full width */}
+            {(() => {
+              const main = metrics.find(m => m.isMain);
+              const val = tool?.[main.k] ?? tool?.metrics?.[main.k] ?? 0;
               return (
-                <div key={m.k} title={m.d} style={{
-                  display: "grid",
-                  gridTemplateColumns: "100px 1fr 45px",
-                  alignItems: "center",
-                  gap: "16px",
-                  cursor: "help",
-                  height: isMain ? "32px" : "28px"
+                <div key={main.k} title={main.d} style={{
+                  display: "grid", gridTemplateColumns: "100px 1fr 45px",
+                  alignItems: "center", gap: "16px", cursor: "help", height: "32px",
                 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: isMain ? "0.92rem" : "0.82rem", fontWeight: isMain ? 950 : 800, color: isMain ? "var(--text-primary)" : "var(--text-secondary)" }}>
-                    {React.cloneElement(m.i, { size: isMain ? 18 : 16 })} {m.l}
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.92rem", fontWeight: 950, color: "var(--text-primary)" }}>
+                    {React.cloneElement(main.i, { size: 18 })} {main.l}
                   </div>
-                  <SparkLine val={val} color={m.c} height={isMain ? "7px" : "4px"} glow={isMain} />
-                  <span style={{ fontSize: isMain ? "1.05rem" : "0.85rem", fontWeight: 950, color: m.c, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{Number(val).toFixed(0)}</span>
+                  <SparkLine val={val} color={main.c} height="7px" glow />
+                  <span style={{ fontSize: "1.05rem", fontWeight: 950, color: main.c, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{Number(val).toFixed(0)}</span>
                 </div>
               );
-            })}
+            })()}
+            {/* 나머지 5개 — 2열 그리드 */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 12px" }}>
+              {metrics.filter(m => !m.isMain).map(m => {
+                const val = tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0;
+                return (
+                  <div key={m.k} title={m.d} style={{
+                    display: "grid", gridTemplateColumns: "80px 1fr 35px",
+                    alignItems: "center", gap: "8px", cursor: "help", height: "26px",
+                  }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: "0.78rem", fontWeight: 800, color: "var(--text-secondary)" }}>
+                      {React.cloneElement(m.i, { size: 14 })} {m.l}
+                    </div>
+                    <SparkLine val={val} color={m.c} height="4px" />
+                    <span style={{ fontSize: "0.8rem", fontWeight: 950, color: m.c, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{Number(val).toFixed(0)}</span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           <div style={{ display: "grid", gap: "6px", marginBottom: "10px" }}>
