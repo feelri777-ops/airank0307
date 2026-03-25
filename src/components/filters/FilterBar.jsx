@@ -76,7 +76,8 @@ const FilterBar = ({ category, onCategoryChange }) => {
           ) : (
             <button
               key={cat.id}
-              onClick={() => { if (!drag.current.moved) onCategoryChange(cat.id); }}
+              onPointerDown={(e) => e.stopPropagation()}
+              onClick={() => onCategoryChange(cat.id)}
               style={pillStyle(category === cat.id)}
             >
               {cat.label}
