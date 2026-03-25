@@ -7,7 +7,7 @@ import RightSidebar from "../components/sidebar/RightSidebar";
 import ToolCard from "../components/tools/ToolCard";
 import WizardModal from "../components/modals/WizardModal";
 import HeroSection from "../components/hero/HeroSection";
-import { SORT_OPTIONS } from "../constants";
+import { SORT_OPTIONS, mapCatToGroup } from "../constants";
 
 const ScoreDataNotice = ({ error, scoresUpdated }) => {
   const isStale = scoresUpdated && (Date.now() - new Date(scoresUpdated).getTime()) > 48 * 60 * 60 * 1000;
@@ -81,7 +81,7 @@ export default function MainPage() {
 
   const filteredTools = useMemo(() => {
     let data = [...tools];
-    if (category !== "all") data = data.filter((t) => t.cat === category);
+    if (category !== "all") data = data.filter((t) => t.cat === category || mapCatToGroup(t.cat) === category);
     
     if (searchQuery.trim()) {
       const q = searchQuery.normalize("NFC").toLowerCase();

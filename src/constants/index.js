@@ -52,6 +52,47 @@ export const SORT_OPTIONS = [
   { id: "name",         label: "이름순" },
 ];
 
+/**
+ * Firestore의 상세 cat 값("Video Generation" 등)을
+ * 우리 CATEGORIES id("video" 등)로 매핑하는 함수.
+ * 키워드 우선순위: 구체적 → 일반적 순서로 검사.
+ */
+export function mapCatToGroup(cat) {
+  if (!cat) return null;
+  const c = cat.toLowerCase();
+
+  // 에이전트 (구체적 키워드 우선)
+  if (c.includes("agent") || c.includes("agentic") || c.includes("autonomous")) return "agent";
+  // 비디오
+  if (c.includes("video") || c.includes("animation") || c.includes("vfx")) return "video";
+  // 오디오/음악
+  if (c.includes("audio") || c.includes("music") || c.includes("voice") || c.includes("podcast") || c.includes("tts") || c.includes("sound")) return "audio";
+  // 이미지
+  if (c.includes("image") || c.includes("visual") || c.includes("upscal")) return "image";
+  // 디자인
+  if (c.includes("design") || c.includes("brand") || c.includes("3d") || c.includes("avatar generation") || c.includes("gaming")) return "design";
+  // 코드
+  if (c.includes("coding") || c.includes("code") || c.includes("app builder") || c.includes("infrastructure") || c.includes("ide")) return "code";
+  // 연구/검색
+  if (c.includes("search") || c.includes("research") || c.includes("academic") || c.includes("intelligence") || c.includes("analysis") || c.includes("medical")) return "search";
+  // 멀티모달/LLM
+  if (c.includes("llm") || c.includes("multimodal")) return "multimodal";
+  // 텍스트
+  if (c.includes("writing") || c.includes("translation") || c.includes("copywriting") || c.includes("seo")) return "text";
+  // 챗봇
+  if (c.includes("chatbot") || c.includes("emotional") || c.includes("personal ai") || c.includes("avatar interaction")) return "chatbot";
+  // 자동화/마케팅
+  if (c.includes("automat") || c.includes("workflow") || c.includes("marketing") || c.includes("e-commerce") || c.includes("inventory")) return "automation";
+  // 교육/프레젠테이션
+  if (c.includes("present") || c.includes("storytelling") || c.includes("education")) return "education";
+  // 생산성 (나머지 업무 도구)
+  if (c.includes("productiv") || c.includes("workspace") || c.includes("meeting") || c.includes("transcript")
+    || c.includes("document") || c.includes("spreadsheet") || c.includes("knowledge") || c.includes("collaborat")
+    || c.includes("form") || c.includes("decision") || c.includes("health") || c.includes("legal")) return "productivity";
+
+  return null;
+}
+
 export const COMMUNITY_CATEGORIES = [
   { id: "all",      label: "전체" },
   { id: "notice",   label: "공지" },
