@@ -1,10 +1,7 @@
 import { useState, memo } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "../../context/ThemeContext";
-
-const LOGO_OVERRIDES = {
-  "notebooklm.google.com": "https://www.google.com/s2/favicons?domain=notebooklm.google&sz=64",
-};
+import { LOGO_OVERRIDES, getRankColor, getRankFontSize } from "../../constants/toolCard";
 
 const getFaviconUrl = (url) => {
   if (!url || typeof url !== 'string') return null;
@@ -15,21 +12,6 @@ const getFaviconUrl = (url) => {
     return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
   }
   catch { return null; }
-};
-
-const getRankColor = (rank, isMono) => {
-  if (isMono) return "var(--text-primary)";
-  if (rank === 1) return "#f59e0b"; // Gold
-  if (rank === 2) return "#94a3b8"; // Silver
-  if (rank === 3) return "#c77d3a"; // Bronze
-  return "var(--text-muted)"; // Softer color for general ranks
-};
-
-const getRankFontSize = (rank) => {
-  if (rank <= 10) return "2.0rem";
-  if (rank <= 50) return "1.5rem";
-  if (rank <= 99) return "1.1rem";
-  return "0.85rem";
 };
 
 const ToolCard = ({ tool, rank, onClick }) => {

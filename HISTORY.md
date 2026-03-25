@@ -133,6 +133,115 @@
 
 ---
 
+## 💡 P2 Medium Priority Issues 수정 (2026-03-25)
+
+### 코드 품질 및 유지보수성 개선
+
+**P0/P1에 이어 P2(Medium Priority) 이슈를 수정했습니다.**
+
+#### 8. 중복 코드 리팩토링 - Button 컴포넌트 추출
+**문제점:** btnStyle 함수가 여러 파일에서 중복 사용됨
+
+**해결 방법:**
+- `src/components/ui/Button.jsx` 신규 생성
+  - 5가지 variant: primary, indigo, danger, ghost, secondary
+  - 3가지 size: sm, md, lg
+  - PropTypes, memo, disabled 상태 지원
+
+- Dashboard.jsx 리팩토링
+  - `btnStyle` 함수 제거
+  - 모든 button 태그를 `<Button>` 컴포넌트로 교체
+  - 로그아웃, 회원탈퇴, 닉네임 수정, 비밀번호 재설정 버튼 통일
+
+**영향:**
+- 코드 중복 약 50줄 감소
+- 버튼 스타일 일관성 확보
+- 향후 버튼 스타일 변경 시 한 곳만 수정
+
+#### 9. 하드코딩된 값 상수화
+**문제점:** 매직 넘버/문자열 다수 존재
+
+**해결 방법:**
+
+**A. src/constants/gallery.js 생성**
+```javascript
+export const GALLERY_CONFIG = {
+  PAGE_SIZE: 12,
+  MAX_FILE_SIZE: 10 * 1024 * 1024, // 10MB
+  MAX_TAGS: 10,
+  MIN_UPLOAD_INTERVAL: 30000,
+  MAX_DAILY_UPLOADS: 20,
+  HONEYPOT_DELAY: 4000,
+};
+
+export const AI_MODELS = [
+  { id: "midjourney-v6", name: "Midjourney v6" },
+  // ...13개 모델
+];
+
+export const SORT_OPTIONS = [
+  { value: "latest", label: "최신순" },
+  { value: "popular", label: "인기순" },
+  { value: "oldest", label: "오래된순" },
+];
+```
+
+**B. src/constants/toolCard.js 생성**
+```javascript
+export const RANK_COLORS = {
+  GOLD: "#f59e0b",
+  SILVER: "#94a3b8",
+  BRONZE: "#c77d3a",
+};
+
+export const getRankColor = (rank, isMono) => { /* ... */ };
+export const getRankFontSize = (rank) => { /* ... */ };
+```
+
+**영향:**
+- 설정 변경 용이성 향상
+- 코드 가독성 개선
+- 매직 넘버 제거
+
+#### 10. Key Prop 개선 - Index 제거
+**문제점:** 배열 인덱스를 key로 사용하여 재정렬 시 버그 위험
+
+**해결 방법:**
+
+**Dashboard.jsx 수정:**
+```javascript
+// Before: key={i}
+// After:
+key={`avatar-style-${s.style}`}
+key={`${AVATAR_STYLES[avatarTab].style}-${seed}`}
+key={`rec-${b.id}-${tool.name}`}
+```
+
+**영향:**
+- React 렌더링 최적화
+- 동적 리스트 업데이트 안정성 향상
+- 컴포넌트 상태 유지 개선
+
+#### 11. useMemo/useCallback 최적화 검토
+**검토 결과:** 현재 사용 중인 useMemo/useCallback은 모두 적절함
+- Dashboard.jsx: loadPosts, loadComments - 필요
+- Gallery.jsx: fetchPosts - 필요
+- RichEditor.jsx: updateCount, exec - P1에서 이미 최적화 완료
+
+**조치:** 불필요한 메모이제이션 없음, 추가 수정 불필요
+
+### P2 종합 성과
+- **코드 품질:** Button 컴포넌트로 중복 제거, 상수화로 유지보수성 향상
+- **안정성:** Key prop 개선으로 렌더링 버그 방지
+- **가독성:** 하드코딩 값 제거, 의미 있는 상수명 사용
+
+### 신규 파일
+- src/components/ui/Button.jsx
+- src/constants/gallery.js
+- src/constants/toolCard.js
+
+---
+
 # 프로젝트 진행 내역 (History)
 
 ## 1. 프로젝트 파일 구조 확인

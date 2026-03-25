@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef, memo } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import Button from "../components/ui/Button";
 import {
   collection, query, where, getDocs, doc, setDoc, updateDoc, writeBatch, collectionGroup, deleteDoc
 } from "firebase/firestore";
@@ -422,15 +423,21 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
                     style={{ padding: "6px 12px", borderRadius: "var(--r-sm)", flex: 1, minWidth: "120px", border: "1px solid var(--border-primary)", background: "var(--bg-secondary)", color: "var(--text-primary)", fontSize: "0.9rem", outline: "none" }}
                     autoFocus
                   />
-                  <button onClick={handleSaveName} disabled={saving} style={btnStyle("indigo")}>{saving ? "저장 중..." : "저장"}</button>
-                  <button onClick={() => { setEditingName(false); setNickError(""); }} style={btnStyle("ghost")}>취소</button>
+                  <Button onClick={handleSaveName} disabled={saving} variant="indigo">
+                    {saving ? "저장 중..." : "저장"}
+                  </Button>
+                  <Button onClick={() => { setEditingName(false); setNickError(""); }} variant="ghost">
+                    취소
+                  </Button>
                 </div>
                 <span aria-live="polite" style={{ fontSize: "0.75rem", color: "#ef4444", minHeight: "1em", display: "block" }}>{nickError}</span>
               </div>
             ) : (
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <span style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}>{user.displayName}</span>
-                <button onClick={() => setEditingName(true)} style={btnStyle("ghost", "sm")}>✏️ 수정</button>
+                <Button onClick={() => setEditingName(true)} variant="ghost" size="sm">
+                  ✏️ 수정
+                </Button>
               </div>
             )}
           </div>
@@ -442,7 +449,9 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
           )}
           {user.providerData.some(p => p.providerId === "password") && (
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
-              <button onClick={handlePasswordReset} style={btnStyle("ghost", "sm")}>🔑 비밀번호 재설정 메일 발송</button>
+              <Button onClick={handlePasswordReset} variant="ghost" size="sm">
+                🔑 비밀번호 재설정 메일 발송
+              </Button>
               {resetMsg && <span style={{ fontSize: "0.78rem", color: "var(--accent-indigo, #6366f1)", fontWeight: 600 }}>{resetMsg}</span>}
             </div>
           )}
@@ -462,8 +471,12 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
 
       {/* 로그아웃 / 회원탈퇴 */}
       <div style={{ paddingTop: "8px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
-        <button onClick={onLogout} style={{ ...btnStyle("ghost"), fontSize: "0.84rem" }}>🚪 로그아웃</button>
-        <button onClick={onDeleteConfirm} style={{ ...btnStyle("danger"), fontSize: "0.84rem" }}>⚠ 회원탈퇴</button>
+        <Button onClick={onLogout} variant="ghost" size="md">
+          🚪 로그아웃
+        </Button>
+        <Button onClick={onDeleteConfirm} variant="danger" size="md">
+          ⚠ 회원탈퇴
+        </Button>
       </div>
 
       {/* 아바타 선택 모달 */}
@@ -486,7 +499,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
               <div style={{ display: "flex", gap: "6px", paddingBottom: "2px", minWidth: "max-content" }}>
                 {AVATAR_STYLES.map((s, i) => (
                   <button
-                    key={i}
+                    key={`avatar-style-${s.style}`}
                     onClick={() => setAvatarTab(i)}
                     style={{
                       padding: "5px 10px", borderRadius: "var(--r-lg)", border: "1px solid",
@@ -505,12 +518,12 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
 
             {/* 아바타 그리드: 5개 프리셋 + 랜덤 */}
             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
-              {AVATAR_STYLES[avatarTab].seeds.map((seed, i) => {
+              {AVATAR_STYLES[avatarTab].seeds.map((seed) => {
                 const url = dicebearUrl(AVATAR_STYLES[avatarTab].style, seed);
                 return (
-                  <button key={i} onClick={() => handleSelectAvatar(url)} disabled={savingAvatar}
+                  <button key={`${AVATAR_STYLES[avatarTab].style}-${seed}`} onClick={() => handleSelectAvatar(url)} disabled={savingAvatar}
                     style={{ background: currentPhotoURL === url ? "rgba(99,102,241,0.18)" : "var(--bg-secondary)", border: currentPhotoURL === url ? "2px solid var(--accent-indigo, #6366f1)" : "2px solid var(--border-primary)", borderRadius: "50%", padding: "3px", cursor: "pointer", transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s", opacity: savingAvatar ? 0.6 : 1 }}>
-                    <img src={url} alt={`avatar-${i}`} width={54} height={54} style={{ borderRadius: "50%", display: "block" }} />
+                    <img src={url} alt={seed} width={54} height={54} style={{ borderRadius: "50%", display: "block" }} />
                   </button>
                 );
               })}
@@ -816,8 +829,8 @@ const AIConciergeSection = ({ user, isMobile }) => {
                    )}
                    
                    <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                     {b.result?.recommendations?.map((tool, idx) => (
-                       <div key={idx} style={{ background: "var(--bg-tertiary)", padding: "4px 10px", borderRadius: "100px", fontSize: "0.75rem", fontWeight: 600 }}>
+                     {b.result?.recommendations?.map((tool) => (
+                       <div key={`rec-${b.id}-${tool.name}`} style={{ background: "var(--bg-tertiary)", padding: "4px 10px", borderRadius: "100px", fontSize: "0.75rem", fontWeight: 600 }}>
                          #{tool.name}
                        </div>
                      ))}
@@ -971,17 +984,7 @@ const Empty = ({ msg, link, linkText }) => (
   </div>
 );
 
-const btnStyle = (variant, size = "md") => {
-  const base = {
-    border: "none", borderRadius: "var(--r-sm)", cursor: "pointer", fontWeight: 600,
-    padding: size === "sm" ? "4px 10px" : "8px 16px",
-    fontSize: size === "sm" ? "0.78rem" : "0.88rem",
-    transition: "background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s",
-  };
-  if (variant === "indigo") return { ...base, background: "var(--accent-indigo, #6366f1)", color: "#fff" };
-  if (variant === "danger") return { ...base, background: "rgba(239,68,68,0.12)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.3)" };
-  return { ...base, background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-primary)" };
-};
+// btnStyle 함수 제거 - Button 컴포넌트로 대체
 
 // ── 대시보드 메인 ────────────────────────────────────────────
 export default function Dashboard() {
