@@ -8,8 +8,10 @@ const getFaviconUrl = (url) => {
   try {
     const cleanUrl = url.trim().startsWith("http") ? url.trim() : `https://${url.trim()}`;
     const hostname = new URL(cleanUrl).hostname;
+    // LOGO_OVERRIDES에 있으면 우선 사용
     if (LOGO_OVERRIDES[hostname]) return LOGO_OVERRIDES[hostname];
-    return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
+    // 없으면 Google favicon API 사용 (더 큰 사이즈)
+    return `https://www.google.com/s2/favicons?domain=${hostname}&sz=128`;
   }
   catch { return null; }
 };

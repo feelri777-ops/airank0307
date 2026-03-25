@@ -39,52 +39,68 @@ export const getRankFontSize = (rank) => {
 
 /**
  * 특정 도메인의 로고 URL을 직접 지정
- * Google favicon API가 정확하지 않은 경우 사용
+ * Google favicon API가 정확하지 않거나 CORS 문제가 있는 경우 사용
+ *
+ * 참고: 일부 사이트는 CORS 정책으로 인해 직접 로드가 안 될 수 있음
+ * 이 경우 Google favicon API를 통해 프록시 로드
  */
 export const LOGO_OVERRIDES = {
-  // Google
-  "notebooklm.google.com": "https://www.gstatic.com/lamda/images/favicon_v1_150160cddff7f294ce30.svg",
-  "gemini.google.com": "https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg",
+  // Google - favicon API 사용 (안정적)
+  "notebooklm.google.com": "https://www.google.com/s2/favicons?domain=notebooklm.google.com&sz=128",
+  "gemini.google.com": "https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128",
+  "bard.google.com": "https://www.google.com/s2/favicons?domain=bard.google.com&sz=128",
 
-  // Anthropic
-  "claude.ai": "https://claude.ai/images/claude_app_icon.png",
-  "anthropic.com": "https://claude.ai/images/claude_app_icon.png",
+  // Anthropic - favicon API 사용 (CORS 회피)
+  "claude.ai": "https://www.google.com/s2/favicons?domain=claude.ai&sz=128",
+  "anthropic.com": "https://www.google.com/s2/favicons?domain=anthropic.com&sz=128",
 
-  // OpenAI
-  "openai.com": "https://cdn.oaistatic.com/_next/static/media/apple-touch-icon.59f2e898.png",
-  "chat.openai.com": "https://cdn.oaistatic.com/_next/static/media/apple-touch-icon.59f2e898.png",
-  "chatgpt.com": "https://cdn.oaistatic.com/_next/static/media/apple-touch-icon.59f2e898.png",
+  // OpenAI - favicon API 사용
+  "openai.com": "https://www.google.com/s2/favicons?domain=openai.com&sz=128",
+  "chat.openai.com": "https://www.google.com/s2/favicons?domain=chat.openai.com&sz=128",
+  "chatgpt.com": "https://www.google.com/s2/favicons?domain=chatgpt.com&sz=128",
 
   // Perplexity
-  "perplexity.ai": "https://www.perplexity.ai/favicon.svg",
+  "perplexity.ai": "https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128",
+  "www.perplexity.ai": "https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128",
 
   // Microsoft
-  "copilot.microsoft.com": "https://copilot.microsoft.com/favicon.ico",
-  "bing.com": "https://www.bing.com/sa/simg/favicon-trans-bg-blue-mg.ico",
+  "copilot.microsoft.com": "https://www.google.com/s2/favicons?domain=copilot.microsoft.com&sz=128",
+  "bing.com": "https://www.google.com/s2/favicons?domain=bing.com&sz=128",
 
   // Midjourney
-  "midjourney.com": "https://cdn.midjourney.com/favicon.ico",
-  "www.midjourney.com": "https://cdn.midjourney.com/favicon.ico",
+  "midjourney.com": "https://www.google.com/s2/favicons?domain=midjourney.com&sz=128",
+  "www.midjourney.com": "https://www.google.com/s2/favicons?domain=midjourney.com&sz=128",
 
   // Stability AI
-  "stability.ai": "https://stability.ai/favicon.ico",
+  "stability.ai": "https://www.google.com/s2/favicons?domain=stability.ai&sz=128",
+
+  // Sora (OpenAI)
+  "sora.com": "https://www.google.com/s2/favicons?domain=sora.com&sz=128",
+
+  // Cursor
+  "cursor.sh": "https://www.google.com/s2/favicons?domain=cursor.sh&sz=128",
+  "cursor.com": "https://www.google.com/s2/favicons?domain=cursor.com&sz=128",
+
+  // Luma AI
+  "lumalabs.ai": "https://www.google.com/s2/favicons?domain=lumalabs.ai&sz=128",
+  "luma.ai": "https://www.google.com/s2/favicons?domain=luma.ai&sz=128",
 
   // Meta
-  "meta.ai": "https://static.xx.fbcdn.net/rsrc.php/yb/r/hLRJ1GG_y0J.ico",
+  "meta.ai": "https://www.google.com/s2/favicons?domain=meta.ai&sz=128",
 
   // Hugging Face
-  "huggingface.co": "https://huggingface.co/front/assets/huggingface_logo.svg",
+  "huggingface.co": "https://www.google.com/s2/favicons?domain=huggingface.co&sz=128",
 
   // Replicate
-  "replicate.com": "https://replicate.com/favicon.ico",
+  "replicate.com": "https://www.google.com/s2/favicons?domain=replicate.com&sz=128",
 
   // Runway
-  "runwayml.com": "https://runwayml.com/favicon.ico",
+  "runwayml.com": "https://www.google.com/s2/favicons?domain=runwayml.com&sz=128",
 
   // ElevenLabs
-  "elevenlabs.io": "https://elevenlabs.io/favicon.ico",
+  "elevenlabs.io": "https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=128",
 
   // Notion
-  "notion.so": "https://www.notion.so/images/favicon.ico",
-  "notion.com": "https://www.notion.so/images/favicon.ico",
+  "notion.so": "https://www.google.com/s2/favicons?domain=notion.so&sz=128",
+  "notion.com": "https://www.google.com/s2/favicons?domain=notion.com&sz=128",
 };
