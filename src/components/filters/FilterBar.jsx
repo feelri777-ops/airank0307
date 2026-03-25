@@ -59,15 +59,30 @@ const FilterBar = ({ category, onCategoryChange }) => {
         onMouseUp={onMouseUp}
         onMouseLeave={onMouseUp}
       >
-        {CATEGORIES.map((cat) => (
-          <button
-            key={cat.id}
-            onClick={() => { if (!drag.current.moved) onCategoryChange(cat.id); }}
-            style={pillStyle(category === cat.id)}
-          >
-            {cat.label}
-          </button>
-        ))}
+        {CATEGORIES.map((cat, i) =>
+          cat.divider ? (
+            <span
+              key={`divider-${i}`}
+              aria-hidden="true"
+              style={{
+                width: "1px",
+                height: "16px",
+                background: "var(--border-primary)",
+                flexShrink: 0,
+                alignSelf: "center",
+                margin: "0 2px",
+              }}
+            />
+          ) : (
+            <button
+              key={cat.id}
+              onClick={() => { if (!drag.current.moved) onCategoryChange(cat.id); }}
+              style={pillStyle(category === cat.id)}
+            >
+              {cat.label}
+            </button>
+          )
+        )}
       </div>
     </div>
   );
