@@ -5,6 +5,7 @@ import { collection, query, where, getDocs, orderBy, limit } from "firebase/fire
 import { db } from "../firebase";
 import { useCommunity } from "../context/CommunityContext";
 import { formatRelativeTime } from "../utils";
+import { BookmarkSimple, BookmarkSimpleFill } from "../components/icons/PhosphorIcons";
 
 // 기존 고정값 대신 빈 배열로 초기화 (하위 호환성 유지)
 export let BOARDS = [];
@@ -61,9 +62,29 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
         e.currentTarget.style.transform = "translateY(0)";
         e.currentTarget.style.boxShadow = "none";
       }}
+      style={{ position: "relative" }}
     >
+      {/* 북마크 — 우측 상단 */}
+      <button
+        onClick={(e) => { e.stopPropagation(); onToggleFavorite(e, board.id); }}
+        title={isFavorited ? "즐겨찾기 해제" : "즐겨찾기 추가"}
+        aria-label={isFavorited ? "즐겨찾기 해제" : "즐겨찾기 추가"}
+        style={{
+          position: "absolute", top: "10px", right: "10px",
+          background: isFavorited ? "rgba(245,158,11,0.12)" : "transparent",
+          border: "none", borderRadius: "var(--r-sm)", cursor: "pointer",
+          padding: "5px", display: "flex", alignItems: "center", justifyContent: "center",
+          color: isFavorited ? "#f59e0b" : "var(--text-muted)",
+          transition: "background 0.2s, color 0.2s, transform 0.15s",
+        }}
+        onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.15)"; if (!isFavorited) e.currentTarget.style.color = "#f59e0b"; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; if (!isFavorited) e.currentTarget.style.color = "var(--text-muted)"; }}
+      >
+        {isFavorited ? <BookmarkSimpleFill size={18} /> : <BookmarkSimple size={18} />}
+      </button>
+
       {/* 헤더 */}
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "12px", paddingRight: "32px" }}>
         <div style={{
           width: 48, height: 48, borderRadius: "var(--r-md)",
           background: `${board.color}18`,
@@ -78,19 +99,6 @@ function BoardCard({ board, isFavorited, onToggleFavorite }) {
             <span style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)" }}>
               {board.name}
             </span>
-            <button
-              onClick={(e) => { e.stopPropagation(); onToggleFavorite(e, board.id); }}
-              title={isFavorited ? "즐겨찾기 해제" : "즐겨찾기 추가"}
-              style={{
-                background: "none", border: "none", cursor: "pointer", padding: "0",
-                fontSize: "1.35rem", lineHeight: 1, color: isFavorited ? "#f59e0b" : "var(--text-muted)",
-                transition: "transform 0.15s, color 0.15s", flexShrink: 0,
-              }}
-              onMouseEnter={e => e.currentTarget.style.transform = "scale(1.3)"}
-              onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-            >
-              {isFavorited ? "★" : "☆"}
-            </button>
             {totalCount !== null && (
               <span style={{
                 fontSize: "0.7rem", fontWeight: 700,
