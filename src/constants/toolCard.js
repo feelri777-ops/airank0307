@@ -37,6 +37,54 @@ export const getRankFontSize = (rank) => {
   return RANK_FONT_SIZES.DEFAULT;
 };
 
+/**
+ * 특정 도메인의 로고 URL을 직접 지정
+ * Google favicon API가 정확하지 않은 경우 사용
+ */
 export const LOGO_OVERRIDES = {
-  "notebooklm.google.com": "https://www.google.com/s2/favicons?domain=notebooklm.google&sz=64",
+  // Google
+  "notebooklm.google.com": "https://www.gstatic.com/lamda/images/favicon_v1_150160cddff7f294ce30.svg",
+  "gemini.google.com": "https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg",
+
+  // Anthropic
+  "claude.ai": "https://claude.ai/images/claude_app_icon.png",
+  "anthropic.com": "https://claude.ai/images/claude_app_icon.png",
+
+  // OpenAI
+  "openai.com": "https://cdn.oaistatic.com/_next/static/media/apple-touch-icon.59f2e898.png",
+  "chat.openai.com": "https://cdn.oaistatic.com/_next/static/media/apple-touch-icon.59f2e898.png",
+  "chatgpt.com": "https://cdn.oaistatic.com/_next/static/media/apple-touch-icon.59f2e898.png",
+
+  // Perplexity
+  "perplexity.ai": "https://www.perplexity.ai/favicon.svg",
+
+  // Microsoft
+  "copilot.microsoft.com": "https://copilot.microsoft.com/favicon.ico",
+  "bing.com": "https://www.bing.com/sa/simg/favicon-trans-bg-blue-mg.ico",
+
+  // Midjourney
+  "midjourney.com": "https://cdn.midjourney.com/favicon.ico",
+  "www.midjourney.com": "https://cdn.midjourney.com/favicon.ico",
+
+  // Stability AI
+  "stability.ai": "https://stability.ai/favicon.ico",
+
+  // Meta
+  "meta.ai": "https://static.xx.fbcdn.net/rsrc.php/yb/r/hLRJ1GG_y0J.ico",
+
+  // Hugging Face
+  "huggingface.co": "https://huggingface.co/front/assets/huggingface_logo.svg",
+
+  // Replicate
+  "replicate.com": "https://replicate.com/favicon.ico",
+
+  // Runway
+  "runwayml.com": "https://runwayml.com/favicon.ico",
+
+  // ElevenLabs
+  "elevenlabs.io": "https://elevenlabs.io/favicon.ico",
+
+  // Notion
+  "notion.so": "https://www.notion.so/images/favicon.ico",
+  "notion.com": "https://www.notion.so/images/favicon.ico",
 };
