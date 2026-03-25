@@ -388,3 +388,9 @@ Cloudflare Pages 배포는 두 가지 방법으로 가능합니다:
 - `CommunityWrite.jsx`: `outline: none` 제거, 입력 필드 `autoComplete="off"` 추가
 - `RichEditor.jsx`: `outline: none` 제거
 - `News.jsx`: `outline: none` 제거
+
+---
+
+## 11. GitHub 연동 테스트 (2026-03-25)
+- 로컬과 원격 저장소 동기화 확인을 위한 테스트 커밋 및 푸시 수행
+```
