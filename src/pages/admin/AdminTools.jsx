@@ -4,16 +4,29 @@ import {
   serverTimestamp, orderBy, query, onSnapshot, writeBatch
 } from "firebase/firestore";
 import { db } from "../../firebase";
+import { LOGO_OVERRIDES } from "../../constants/toolCard";
 
-import { 
-  Plus, 
-  ArrowClockwise, 
+import {
+  Plus,
+  ArrowClockwise,
   MagnifyingGlass,
   PencilSimple,
   TrashSimple,
   X,
   FileArrowUp
 } from "../../components/icons/PhosphorIcons";
+
+// 툴 URL에서 favicon 추출
+const getFaviconUrl = (url) => {
+  if (!url || typeof url !== 'string') return null;
+  try {
+    const cleanUrl = url.trim().startsWith("http") ? url.trim() : `https://${url.trim()}`;
+    const hostname = new URL(cleanUrl).hostname;
+    if (LOGO_OVERRIDES[hostname]) return LOGO_OVERRIDES[hostname];
+    return `https://www.google.com/s2/favicons?domain=${hostname}&sz=64`;
+  }
+  catch { return null; }
+};
 
 const CAT_OPTIONS = [
   { value: "multimodal", label: "멀티모달" },
@@ -243,10 +256,35 @@ export default function AdminTools() {
       <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "10px" }}>
         {loading ? <p>데이터 로딩 중...</p> : (
           filtered.length === 0 ? <p>데이터가 없습니다.</p> :
-          filtered.map(t => (
+          filtered.map(t => {
+            const logoUrl = getFaviconUrl(t.url);
+            const iconDisplay = typeof t.icon === 'string' ? t.icon : "🤖";
+
+            return (
             <div key={t._docId} style={{ display: "flex", alignItems: "center", gap: "20px", padding: "1.2rem", background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: "16px" }}>
               <div style={{ width: "40px", fontSize: "1.2rem", fontWeight: 950, color: "var(--accent-indigo)" }}>#{t.rank || "-"}</div>
-              <div style={{ fontSize: "1.5rem" }}>{typeof t.icon === 'string' ? t.icon : "🤖"}</div>
+              <div style={{ width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                {logoUrl ? (
+                  <img
+                    src={logoUrl}
+                    alt={`${t.name} 로고`}
+                    width={32}
+                    height={32}
+                    loading="lazy"
+                    style={{
+                      borderRadius: "8px",
+                      objectFit: "contain"
+                    }}
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'block';
+                    }}
+                  />
+                ) : null}
+                <div style={{ fontSize: "1.5rem", display: logoUrl ? 'none' : 'block' }}>
+                  {iconDisplay}
+                </div>
+              </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                  <div style={{ fontWeight: 800, fontSize: "1rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{String(t.name || "")} <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginLeft: "8px" }}>{String(t.change || "-")}</span></div>
                  <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{String(t.oneLineReview || "")}</div>
@@ -260,7 +298,8 @@ export default function AdminTools() {
                  <button onClick={async () => { if(window.confirm("삭제하시겠습니까?")) await deleteDoc(doc(db, "tools", t._docId)); }} style={{ width: "40px", height: "40px", borderRadius: "12px", border: "none", background: "#ef444420", color: "#ef4444", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>{TrashSimple && <TrashSimple size={20} />}</button>
               </div>
             </div>
-          ))
+            );
+          })
         )}
       </div>
       {editingTool !== null && <ToolFormModal tool={editingTool || null} onSave={handleSave} onClose={() => setEditingTool(null)} />}
