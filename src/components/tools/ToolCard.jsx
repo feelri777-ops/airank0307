@@ -1,4 +1,5 @@
 import { useState, memo } from "react";
+import PropTypes from "prop-types";
 import { useTheme } from "../../context/ThemeContext";
 
 const LOGO_OVERRIDES = {
@@ -151,6 +152,23 @@ const ToolCard = ({ tool, rank, onClick }) => {
       {inner}
     </button>
   );
+};
+
+ToolCard.propTypes = {
+  tool: PropTypes.shape({
+    id: PropTypes.string,
+    _docId: PropTypes.string,
+    name: PropTypes.string,
+    url: PropTypes.string,
+    score: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    change: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    tags: PropTypes.arrayOf(PropTypes.string),
+    icon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    oneLineReview: PropTypes.string,
+    desc: PropTypes.string,
+  }).isRequired,
+  rank: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default memo(ToolCard);

@@ -970,6 +970,12 @@ export default function Gallery() {
     return ["createdAt", "desc"];
   };
 
+  // Memory Leak 방지: 컴포넌트 언마운트 추적
+  const isMountedRef = useRef(true);
+  useEffect(() => {
+    return () => { isMountedRef.current = false; };
+  }, []);
+
   const fetchPosts = useCallback(async (after = null, sort = sortBy) => {
     if (loading) return;
     setLoading(true);
@@ -978,30 +984,43 @@ export default function Gallery() {
       let q = query(collection(db, "galleryPosts"), orderBy(field, dir), limit(PAGE_SIZE));
       if (after) q = query(collection(db, "galleryPosts"), orderBy(field, dir), startAfter(after), limit(PAGE_SIZE));
       const snap = await getDocs(q);
+      if (!isMountedRef.current) return; // Early exit if unmounted
+
       const newPosts = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-      setPosts((prev) => after ? [...prev, ...newPosts] : newPosts);
-      setLastDoc(snap.docs[snap.docs.length - 1] || null);
-      setHasMore(snap.docs.length === PAGE_SIZE);
+      if (isMountedRef.current) {
+        setPosts((prev) => after ? [...prev, ...newPosts] : newPosts);
+        setLastDoc(snap.docs[snap.docs.length - 1] || null);
+        setHasMore(snap.docs.length === PAGE_SIZE);
+      }
     } catch (err) {
       console.error("갤러리 로드 오류:", err);
     } finally {
-      setLoading(false);
+      if (isMountedRef.current) setLoading(false);
     }
   }, [loading, sortBy]);
 
   // 초기 로드
-  useEffect(() => { fetchPosts(); }, []); // eslint-disable-line
+  useEffect(() => {
+    fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // 의도적으로 초기 로드만 수행
 
   // 프로필 드롭다운에서 좋아요 이미지 클릭 시 해당 게시물 라이트박스 열기
   useEffect(() => {
     const postId = location.state?.openPostId;
     if (!postId || !user) return;
-    getDoc(doc(db, "galleryPosts", postId)).then((snap) => {
-      if (snap.exists()) setSelectedPost({ id: snap.id, ...snap.data() });
-    }).catch(() => {});
+
+    getDoc(doc(db, "galleryPosts", postId))
+      .then((snap) => {
+        if (snap.exists() && isMountedRef.current) {
+          setSelectedPost({ id: snap.id, ...snap.data() });
+        }
+      })
+      .catch(() => {});
+
     // state 소비 (뒤로가기 시 재실행 방지)
     window.history.replaceState({}, "");
-  }, [location.state, user]); // eslint-disable-line
+  }, [location.state, user]);
 
   // 무한 스크롤
   useEffect(() => {
@@ -1028,11 +1047,13 @@ export default function Gallery() {
         likedBy: liked ? arrayRemove(user.uid) : arrayUnion(user.uid),
         likeCount: increment(liked ? -1 : 1),
       });
-      
+
+      if (!isMountedRef.current) return; // Early exit if unmounted
+
       const updater = (p) => {
         if (p.id !== post.id) return p;
-        const newLikedBy = liked 
-          ? (p.likedBy || []).filter((id) => id !== user.uid) 
+        const newLikedBy = liked
+          ? (p.likedBy || []).filter((id) => id !== user.uid)
           : [...(p.likedBy || []), user.uid];
         return {
           ...p,
@@ -1040,18 +1061,21 @@ export default function Gallery() {
           likeCount: Math.max(0, (p.likeCount || 0) + (liked ? -1 : 1)),
         };
       };
-      
-      setPosts((prev) => prev.map(updater));
-      if (selectedPost?.id === post.id) setSelectedPost((prev) => updater(prev));
-    } catch (err) { 
+
+      if (isMountedRef.current) {
+        setPosts((prev) => prev.map(updater));
+        if (selectedPost?.id === post.id) setSelectedPost((prev) => updater(prev));
+      }
+    } catch (err) {
       console.error("좋아요 오류:", err);
+      if (!isMountedRef.current) return;
       if (err.code === 'permission-denied') {
         alert("좋아요 권한이 없거나Firestore 보안 규칙에 의해 차단되었습니다.");
       } else {
         alert(`좋아요 처리 중 오류가 발생했습니다: ${err.message}`);
       }
     } finally {
-      setIsLiking(false);
+      if (isMountedRef.current) setIsLiking(false);
     }
   };
 

@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef, memo } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import {
   collection, query, where, getDocs, doc, setDoc, updateDoc, writeBatch, collectionGroup, deleteDoc
 } from "firebase/firestore";
@@ -47,44 +48,135 @@ const compressAvatar = (file) => new Promise((resolve) => {
 });
 
 // ── 작은 갤러리 카드 ─────────────────────────────────────────
-const ThumbCard = ({ post, onClick, isMobile }) => (
-  <div
-    onClick={onClick}
-    style={{
-      borderRadius: "var(--r-md)", overflow: "hidden", cursor: "pointer",
-      border: "1px solid var(--border-primary)",
-      background: "var(--bg-card)",
-      transition: "transform 0.15s, box-shadow 0.15s",
-      breakInside: "avoid", marginBottom: "10px",
-    }}
-    onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,0.2)"; }}
-    onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}
-  >
-    <img
-      src={post.imageUrl}
-      alt={post.title || ""}
-      loading="lazy"
-      style={{ width: "100%", display: "block", maxHeight: isMobile ? "130px" : "180px", objectFit: "cover" }}
-    />
-    <div style={{ padding: "6px 10px" }}>
-      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{post.title || "(제목 없음)"}</div>
-      <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", marginTop: "2px" }}>♥ {post.likeCount || 0}</div>
-    </div>
-  </div>
-);
+const ThumbCard = memo(({ post, onClick, isMobile }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <article
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      aria-label={`갤러리 작품: ${post.title || '제목 없음'}, 좋아요 ${post.likeCount || 0}개`}
+      style={{
+        borderRadius: "var(--r-md)",
+        overflow: "hidden",
+        cursor: "pointer",
+        border: "1px solid var(--border-primary)",
+        background: "var(--bg-card)",
+        transition: "transform 0.15s, box-shadow 0.15s",
+        breakInside: "avoid",
+        marginBottom: "10px",
+        transform: isHovered ? "translateY(-2px)" : "none",
+        boxShadow: isHovered ? "0 6px 20px rgba(0,0,0,0.2)" : "none",
+      }}
+    >
+      <img
+        src={post.imageUrl}
+        alt={post.title || "제목 없음"}
+        loading="lazy"
+        style={{
+          width: "100%",
+          display: "block",
+          maxHeight: isMobile ? "130px" : "180px",
+          objectFit: "cover",
+        }}
+      />
+      <div style={{ padding: "6px 10px" }}>
+        <h3
+          style={{
+            fontSize: "0.75rem",
+            fontWeight: 700,
+            color: "var(--text-primary)",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            margin: 0,
+          }}
+        >
+          {post.title || "(제목 없음)"}
+        </h3>
+        <p
+          style={{
+            fontSize: "0.65rem",
+            color: "var(--text-muted)",
+            marginTop: "2px",
+            margin: 0,
+          }}
+        >
+          <span aria-label="좋아요">♥</span> {post.likeCount || 0}
+        </p>
+      </div>
+    </article>
+  );
+});
+
+ThumbCard.displayName = "ThumbCard";
+
+ThumbCard.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.string,
+    imageUrl: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    likeCount: PropTypes.number,
+  }).isRequired,
+  onClick: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+};
 
 // ── 통계 카드 ────────────────────────────────────────────────
-const StatCard = ({ label, value, icon }) => (
-  <div style={{
-    background: "var(--bg-card)", border: "1px solid var(--border-primary)",
-    borderRadius: "var(--r-md)", padding: "16px 20px",
-    display: "flex", flexDirection: "column", gap: "6px", flex: "1 1 120px",
-  }}>
-    <Icon name={icon} size={22} />
-    <span style={{ fontSize: "1.6rem", fontWeight: 800, color: "var(--text-primary)", lineHeight: 1 }}>{value ?? "—"}</span>
-    <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 600 }}>{label}</span>
+const StatCard = memo(({ label, value, icon }) => (
+  <div
+    role="region"
+    aria-label={`${label}: ${value ?? '정보 없음'}`}
+    style={{
+      background: "var(--bg-card)",
+      border: "1px solid var(--border-primary)",
+      borderRadius: "var(--r-md)",
+      padding: "16px 20px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "6px",
+      flex: "1 1 120px",
+    }}
+  >
+    <Icon name={icon} size={22} aria-hidden="true" />
+    <span
+      style={{
+        fontSize: "1.6rem",
+        fontWeight: 800,
+        color: "var(--text-primary)",
+        lineHeight: 1,
+      }}
+    >
+      {value ?? "—"}
+    </span>
+    <span
+      style={{
+        fontSize: "0.75rem",
+        color: "var(--text-muted)",
+        fontWeight: 600,
+      }}
+    >
+      {label}
+    </span>
   </div>
-);
+));
+
+StatCard.displayName = "StatCard";
+
+StatCard.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  icon: PropTypes.string.isRequired,
+};
 
 // ── 아바타 스타일 10종 ───────────────────────────────────────
 const AVATAR_STYLES = [
@@ -122,16 +214,27 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
     }
   }, [userData?.displayName, editingName]);
 
+  // Memory Leak 방지: 컴포넌트 언마운트 추적
+  const isMountedRef = useRef(true);
+  useEffect(() => {
+    return () => { isMountedRef.current = false; };
+  }, []);
+
   // ── 아바타: 로봇 선택 ──
   const handleSelectAvatar = async (url) => {
     setSavingAvatar(true);
     try {
       await updateProfile(auth.currentUser, { photoURL: url });
       await setDoc(doc(db, "users", user.uid), { photoURL: url }, { merge: true });
-      setCurrentPhotoURL(url);
-      setShowAvatarPicker(false);
-    } catch (e) { console.error(e); }
-    finally { setSavingAvatar(false); }
+      if (isMountedRef.current) {
+        setCurrentPhotoURL(url);
+        setShowAvatarPicker(false);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      if (isMountedRef.current) setSavingAvatar(false);
+    }
   };
 
   // ── 아바타: 개인 사진 업로드 ──
@@ -147,10 +250,15 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
       const url = await storageDL(storageRef);
       await updateProfile(auth.currentUser, { photoURL: url });
       await setDoc(doc(db, "users", user.uid), { photoURL: url }, { merge: true });
-      setCurrentPhotoURL(url);
-      setShowAvatarPicker(false);
-    } catch (e) { console.error(e); }
-    finally { setSavingAvatar(false); }
+      if (isMountedRef.current) {
+        setCurrentPhotoURL(url);
+        setShowAvatarPicker(false);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      if (isMountedRef.current) setSavingAvatar(false);
+    }
   };
 
   // ── 닉네임 저장 (중복확인 + 일괄 업데이트) ──
@@ -159,38 +267,53 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
     // userData.displayName과 비교하여 이미 저장된 이름과 같으면 바로 종료
     // (Retrying 시 Auth는 업데이트되었으나 Firestore는 아닐 수 있으므로 userData 기준이 안전)
     if (!trimmed || trimmed === userData?.displayName) {
-      setEditingName(false);
-      setNewName(userData?.displayName || user?.displayName || "");
+      if (isMountedRef.current) {
+        setEditingName(false);
+        setNewName(userData?.displayName || user?.displayName || "");
+      }
       return;
     }
     // 닉네임 형식 검사 (2~12자, 한글/영문/숫자)
     if (!/^[가-힣a-zA-Z0-9]{2,12}$/.test(trimmed)) {
-      setNickError("2~12자, 한글·영문·숫자만 사용 가능합니다.");
+      if (isMountedRef.current) {
+        setNickError("2~12자, 한글·영문·숫자만 사용 가능합니다.");
+      }
       return;
     }
-    setSaving(true);
-    setNickError("");
+
+    if (isMountedRef.current) {
+      setSaving(true);
+      setNickError("");
+    }
+
     try {
       // 중복 확인
       const dupSnap = await getDocs(query(collection(db, "users"), where("displayName", "==", trimmed)));
+      if (!isMountedRef.current) return; // Early exit if unmounted
+
       if (!dupSnap.empty && dupSnap.docs.some(d => d.id !== user.uid)) {
-        setNickError("이미 사용 중인 닉네임입니다.");
-        setSaving(false);
+        if (isMountedRef.current) {
+          setNickError("이미 사용 중인 닉네임입니다.");
+          setSaving(false);
+        }
         return;
       }
+
       // 1. 핵심 프로필 업데이트 (인증 정보 + Firestore 유저 문서)
       await updateProfile(auth.currentUser, { displayName: trimmed });
-      
+      if (!isMountedRef.current) return;
+
       const currentHistory = Array.isArray(userData?.nicknameHistory) ? userData.nicknameHistory : [];
       const oldName = userData?.displayName || user.displayName;
       const newHistory = (oldName && oldName !== trimmed && !currentHistory.includes(oldName))
         ? [...currentHistory, oldName]
         : currentHistory;
 
-      await updateUserData(user.uid, { 
+      await updateUserData(user.uid, {
         displayName: trimmed,
-        nicknameHistory: newHistory 
+        nicknameHistory: newHistory
       });
+      if (!isMountedRef.current) return;
 
       // 2. 관련 게시글/댓글 일괄 업데이트 (백그라운드 처리 느낌으로 진행)
       try {
@@ -198,6 +321,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
           getDocs(query(collection(db, "galleryPosts"), where("uid", "==", user.uid))),
           getDocs(query(collection(db, "communityPosts"), where("uid", "==", user.uid))),
         ]);
+        if (!isMountedRef.current) return;
 
         let ccDocs = [];
         try {
@@ -212,6 +336,7 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
         if (allDocs.length > 0) {
           const CHUNK = 450;
           for (let i = 0; i < allDocs.length; i += CHUNK) {
+            if (!isMountedRef.current) return; // Check before each batch
             const batch = writeBatch(db);
             allDocs.slice(i, i + CHUNK).forEach(d => batch.update(d.ref, { displayName: trimmed }));
             await batch.commit();
@@ -222,12 +347,18 @@ const HomeSection = ({ user, stats, isMobile, onLogout, onDeleteConfirm }) => {
         // 게시글 업데이트 실패 시에도 이미 프로필은 변경되었으므로 사용자에게 알림만 남김
       }
 
-      setNickError("");
-      setEditingName(false);
+      if (isMountedRef.current) {
+        setNickError("");
+        setEditingName(false);
+      }
     } catch (e) {
       console.error(e);
-      setNickError("저장 중 오류가 발생했습니다.");
-    } finally { setSaving(false); }
+      if (isMountedRef.current) {
+        setNickError("저장 중 오류가 발생했습니다.");
+      }
+    } finally {
+      if (isMountedRef.current) setSaving(false);
+    }
   };
 
   const handlePasswordReset = async () => {

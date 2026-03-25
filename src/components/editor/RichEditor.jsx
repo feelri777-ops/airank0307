@@ -254,27 +254,27 @@ export default function RichEditor({ value, onChange, placeholder = "내용을 �
   const [resizing, setResizing] = useState(null); // { startX, startWidth, target }
   const savedRange = useRef(null);
 
+  const updateCount = useCallback(() => {
+    const text = editorRef.current?.innerText || "";
+    setCharCount(text.replace(/\s/g, "").length);
+    onChange(editorRef.current?.innerHTML || "");
+  }, [onChange]);
+
   useEffect(() => {
     if (editorRef.current && value && editorRef.current.innerHTML !== value) {
       editorRef.current.innerHTML = value;
       updateCount();
     }
-  // eslint-disable-next-line
+    // 의도적으로 초기 마운트에만 실행 (value 초기화)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const updateCount = () => {
-    const text = editorRef.current?.innerText || "";
-    setCharCount(text.replace(/\s/g, "").length);
-    onChange(editorRef.current?.innerHTML || "");
-  };
 
   const exec = useCallback((cmd, val = null) => {
     editorRef.current?.focus();
     document.execCommand(cmd, false, val);
     updateCount();
     setActivePanel(null);
-  // eslint-disable-next-line
-  }, []);
+  }, [updateCount]);
 
   const saveRange = () => {
     const sel = window.getSelection();
