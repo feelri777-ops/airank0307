@@ -95,32 +95,32 @@ async function loadPendingReport() {
 async function validateAiTools(tools) {
   console.log("\n🔍 [검증 1/3] AI 툴 진위 확인 중 (Perplexity 실시간 검색)...");
 
-  const CHUNK_SIZE = 25;
+  const CHUNK_SIZE = 8; // 검색 품질을 위해 배치 사이즈 축소 (기존 25)
   const allResults = [];
 
   for (let i = 0; i < tools.length; i += CHUNK_SIZE) {
     const chunk = tools.slice(i, i + CHUNK_SIZE);
     const range = `${i + 1}~${Math.min(i + CHUNK_SIZE, tools.length)}`;
-    console.log(`   ${range}번째 검증 중...`);
+    console.log(`   ${range}번째 정밀 검증 중 (총 ${tools.length}개)...`);
 
-    const toolList = chunk.map((t, idx) => `${idx + 1}. "${t.Name}" — ${t.URL}`).join("\n");
+    const toolList = chunk.map((t, idx) => `${idx + 1}. "${t.Name}" (URL: ${t.URL})`).join("\n");
 
-    const systemPrompt = `당신은 AI 도구 검증 전문가입니다. 웹 검색을 통해 각 도구가 현재 실제로 운영 중이며, AI 기술(LLM, 이미지 생성, 음성 합성 등)을 핵심 기능으로 제공하는 상용 서비스인지 정확히 판별하세요. 반드시 JSON 배열만 출력하세요.`;
+    const systemPrompt = `당신은 최고 수준의 AI 기술 분석가입니다. 실시간 웹 검색을 동원하여 각 도구가 실제로 서비스 중이며, 핵심적으로 AI 기술(생성형 AI, LLM, 머신러닝 등)을 제공하는지 확인하세요.`;
 
-    const userPrompt = `아래 도구들이 현재 실제로 운영 중인 글로벌 상용 AI 서비스인지 웹 검색으로 확인해주세요.
+    const userPrompt = `아래 도구 목록에 대해 2026년 현재 기준의 실시간 정보를 바탕으로 심층 검증을 수행하세요.
 
-[판별 기준]
-- AI(인공지능) 기술이 서비스의 핵심 기능이거나, AI를 활용한 생산성 도구여야 합니다. (예: ChatGPT, Canva, DeepSeek, Grok, Perplexity, DeepL 등은 모두 대표적인 AI 서비스입니다.)
-- 현재 누구나 가입/사용할 수 있는 상용 서비스여야 합니다.
-- 서비스가 완전히 종료되었거나 아직 미출시(Coming Soon)인 경우에만 false로 판별하세요.
-- 단순히 URL이 안 열리는 경우는 별도의 URL 검증에서 처리되므로, 여기서는 '서비스의 실존 여부'와 'AI 도구 여부'에 집중하세요.
+[판별 가이드라인]
+1. **AI 서비스 정의**: 단순히 'AI 키워드'만 있는 것이 아니라, 실제 AI 기능을 통해 사용자 가치를 창출해야 합니다. (예: 캔바의 Magic Studio, ChatGPT의 LLM, DeepSeek의 독자 모델 등)
+2. **실존 및 운영 여부**: 2025-2026년 사이의 최신 소식을 검색하여 서비스가 활발히 운영 중인지 확인하세요.
+3. **오판 주의**: ChatGPT, Canva, DeepSeek, Grok, Perplexity, DeepL, Claude, Gemini, Notion AI 등은 매우 유명한 AI 서비스입니다. 이들을 'AI 아님'으로 판별하는 것은 검색 실패입니다. 충분히 검색하세요.
+4. **결과 근거**: "왜 AI 툴인지" 또는 "왜 아닌지"에 대해 구체적인 최신 기능이나 뉴스 근거를 reason에 포함하세요.
 
-[도구 목록]
+[검증 대상 도구]
 ${toolList}
 
-[출력 형식] JSON 배열만 출력. 다른 텍스트 금지.
+[출력 형식] 반드시 JSON 배열 형식만 출력하세요. 다른 설명은 생략합니다.
 [
-  { "index": 1, "name": "도구명", "isValid": true, "reason": "AI 기술 활용 방식 및 실존 여부 근거" }
+  { "index": 1, "name": "도구명", "isValid": true, "reason": "OO 기술을 활용한 OO 기능을 제공하며 현재 정상 운영 확인됨" }
 ]`;
 
     try {
@@ -281,40 +281,40 @@ async function updateToolInfo(validatedTools) {
 
   if (passedTools.length === 0) return validatedTools;
 
-  const CHUNK_SIZE = 25;
+  const CHUNK_SIZE = 8; // 정보 수집 정밀도를 위해 배치 사이즈 축소
   const updatedMap = new Map();
 
   for (let i = 0; i < passedTools.length; i += CHUNK_SIZE) {
     const chunk = passedTools.slice(i, i + CHUNK_SIZE);
     const range = `${i + 1}~${Math.min(i + CHUNK_SIZE, passedTools.length)}`;
-    console.log(`   ${range}번째 툴 정보 업데이트 중...`);
+    console.log(`   ${range}번째 툴 상세 정보 업데이트 중...`);
 
-    const toolList = chunk.map((t, idx) => `${idx + 1}. "${t.Name}" (${t.URL})`).join("\n");
+    const toolList = chunk.map((t, idx) => `${idx + 1}. "${t.Name}" (URL: ${t.URL})`).join("\n");
 
-    const systemPrompt = `당신은 AI 도구 전문 조사원입니다. 웹 검색으로 각 도구의 최신 정보를 정확하게 조사하세요. 반드시 JSON 배열만 출력하세요.`;
+    const systemPrompt = `당신은 IT 전문 기술 기자이자 데이터 분석가입니다. 각 AI 도구에 대해 실시간 웹 검색을 통해 가장 정확하고 풍부한 정보를 수집하세요.`;
 
-    const userPrompt = `아래 AI 도구들의 **현재 시점(2025년 기준) 최신 정보**를 웹 검색으로 조사해주세요.
+    const userPrompt = `아래 도구들에 대해 2026년 현재 기준의 최신 정보를 조사하여 상세 내용을 작성하세요.
+
+[조사 및 작성 지침]
+1. **Description**: 2-3문장 내외. 해당 도구가 제공하는 핵심 AI 기술(예: 어떤 모델을 사용하는지, 어떤 고유 기능을 갖고 있는지)을 포함하여 구체적으로 작성하세요. (한국어)
+2. **One_Line_Review**: 사용자가 이 도구를 써야 하는 결정적인 이유(USP)를 한 줄로 요약하세요. (한국어)
+3. **Pricing**: 공식 사이트 기준 최신 요금제 (Free / Freemium / Paid 중 선택)
+4. **Korean_Support**: 웹사이트 또는 앱 UI 내 공식 한국어 지원 여부 (Y/N)
+5. **Platform**: 지원하는 모든 플랫폼 (Web, iOS, Android, macOS, Windows 등 실제 확인된 항목만 배열로 작성)
 
 [조사 대상]
 ${toolList}
 
-[조사 항목]
-1. Description: 현재 서비스의 주된 용도와 핵심 AI 기능 (2-3문장, 한국어)
-2. One_Line_Review: 사용자가 느끼는 가장 큰 장점 한줄 요약 (한국어)
-3. Pricing: 현재 공식 사이트의 요금 모델 (Free/Freemium/Paid)
-4. Korean_Support: 공식 사이트 또는 인터페이스의 한국어 지원 여부 (Y/N)
-5. Platform: 실제 지원하는 플랫폼 리스트 (Web/iOS/Android/Desktop 등)
-
-[출력 형식] JSON 배열만 출력. 다른 텍스트 금지.
+[출력 형식] 반드시 JSON 배열만 출력하세요.
 [
   {
     "index": 1,
     "name": "도구명",
-    "Description": "최신 설명",
-    "One_Line_Review": "한줄평",
-    "Pricing": "Free/Freemium/Paid",
-    "Korean_Support": "Y/N",
-    "Platform": ["Web"]
+    "Description": "AI 기반의 OO 기능을 통해 OO 업무를 OO배 이상 효율화해주는 툴입니다...",
+    "One_Line_Review": "현 시점 가장 강력한 OO 기능을 제공하는 AI 전문가",
+    "Pricing": "Freemium",
+    "Korean_Support": "Y",
+    "Platform": ["Web", "macOS"]
   }
 ]`;
 
