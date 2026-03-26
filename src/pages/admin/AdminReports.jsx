@@ -383,7 +383,12 @@ const AdminReports = () => {
   // --- ranking_update 승인: tools 컬렉션 배치 업데이트 및 백업 ---
   const handleApproveRanking = async (report) => {
     if (!window.confirm(`총 ${report.data?.tools?.length || 0}개 도구 랭킹을 실제 DB에 반영할까요?\n기존 랭킹은 자동 백업되며 이 작업 후 롤백이 가능합니다.`)) return;
-    const newTools = report.data?.tools || [];
+    const rawTools = report.data?.tools || [];
+    // [Rank 재보정] 리포트 내의 점수와 순위가 불일치할 상황을 대비해 점수순 정렬 후 순위 재할당
+    const newTools = [...rawTools]
+      .sort((a, b) => (Number(b.Total_Score) || 0) - (Number(a.Total_Score) || 0))
+      .map((t, i) => ({ ...t, Rank: i + 1 }));
+      
     try {
       // 1. 기존 tools 컬렉션 전체 가져오기 (백업용)
       const toolsSnap = await getDocs(collection(db, "tools"));
