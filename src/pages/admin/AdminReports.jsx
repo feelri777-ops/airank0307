@@ -408,7 +408,7 @@ const AdminReports = () => {
       // 3. 500개 배치 한도 고려 — 100개이므로 단일 배치 OK
       const batch = writeBatch(db);
 
-      // [핵심 해결] 이전에 잘못 생성된 숫자 ID(1~120) 문서들 자동 정리 (중복 노출 방지)
+      // [핵심 해결] 이전에 잘못 생성된 숫자 ID(1~120) 문서들 자동 정리
       for (let i = 1; i <= 120; i++) {
         batch.delete(doc(db, "tools", String(i)));
       }
@@ -416,48 +416,49 @@ const AdminReports = () => {
       newTools.forEach(tool => {
         if (!tool.Name) return;
 
-        // 이름으로 기존 문서 찾기 (대소문자 구분 없이)
         const existing = currentTools.find(t => 
           String(t.name || "").toLowerCase() === String(tool.Name).toLowerCase()
         );
 
-        // 기존 문서가 있으면 해당 ID 사용, 없으면 새 자동 ID 생성 (Rank를 ID로 쓰지 않음)
         const toolRef = existing 
           ? doc(db, "tools", existing.id)
           : doc(collection(db, "tools"));
 
-        batch.set(toolRef, {
-          rank: tool.Rank || 0,
-          change: tool.Change || "0",
-          name: tool.Name || "",
-          url: tool.URL || "",
-          cat: tool.Category ? tool.Category.toLowerCase() : "etc",
+        // 모든 필드에 대해 undefined가 절대 발생하지 않도록 강제 보정
+        const safeData = {
+          rank: Number(tool.Rank) || 0,
+          change: String(tool.Change || "0"),
+          name: String(tool.Name || ""),
+          url: String(tool.URL || ""),
+          cat: String(tool.Category || "etc").toLowerCase(),
           tags: Array.isArray(tool.Tags) ? tool.Tags : [],
-          desc: tool.Description || "",
-          oneLineReview: tool.One_Line_Review || "",
-          usp: tool.USP || "",
-          prosCons: tool.Pros_Cons || { pros: [], cons: [] },
-          difficulty: tool.Difficulty || "중급",
-          score: tool.Total_Score || 0,
+          desc: String(tool.Description || ""),
+          oneLineReview: String(tool.One_Line_Review || ""),
+          usp: String(tool.USP || tool.usp || ""),
+          prosCons: (typeof tool.Pros_Cons === 'object' && tool.Pros_Cons !== null) ? tool.Pros_Cons : { pros: [], cons: [] },
+          difficulty: String(tool.Difficulty || "중급"),
+          score: Number(tool.Total_Score) || 0,
           metrics: {
-            usage: tool.Usage_Score || 0,
-            tech: tool.Tech_Score || 0,
-            buzz: tool.Buzz_Score || 0,
-            utility: tool.Utility_Score || 0,
-            growth: tool.Growth_Score || 0,
+            usage: Number(tool.Usage_Score) || 0,
+            tech: Number(tool.Tech_Score) || 0,
+            buzz: Number(tool.Buzz_Score) || 0,
+            utility: Number(tool.Utility_Score) || 0,
+            growth: Number(tool.Growth_Score) || 0,
           },
-          pricing: tool.Pricing || "Free",
-          koSupport: tool.Korean_Support || "N",
-          platform: tool.Platform || ["Web"],
-          weekLabel: report.data?.weekLabel || "",
+          pricing: String(tool.Pricing || "Free"),
+          koSupport: String(tool.Korean_Support || "N"),
+          platform: Array.isArray(tool.Platform) ? tool.Platform : ["Web"],
+          weekLabel: String(report.data?.weekLabel || ""),
           updatedAt: new Date(),
           updatedByAgent: true,
           hidden: false
-        }, { merge: true });
+        };
+
+        batch.set(toolRef, safeData, { merge: true });
       });
       await batch.commit();
       
-      // 4. 리포트 상태 approved로 변경 (문서가 존재하는지 다시 확인)
+      // 4. 리포트 상태 approved로 변경
       const reportRef = doc(db, "adminReports", report.id);
       const reportSnap = await getDoc(reportRef);
       if (reportSnap.exists()) {
@@ -467,15 +468,16 @@ const AdminReports = () => {
         });
       }
       
-      alert(`✅ ${newTools.length}개 도구의 랭킹 데이터가 기존 문서와 병합되어 서비스에 반영되었습니다.\n(중복 방지를 위한 이름 매칭 기반 업데이트 완료)`);
+      alert(`✅ [반영 성공] ${newTools.length}개 도구가 랭킹에 성공적으로 반영되었습니다!`);
     } catch (err) {
-      alert("❌ 반영 중 오류: " + err.message);
+      console.error("❌ 반영 중 상세 오류:", err);
+      alert("❌ 반영 중 오류: " + err.message + "\n(데이터 형식이 올바르지 않으면 오류가 날 수 있습니다. 새로고침 후 다시 시도해 보세요.)");
     }
   };
 
   // --- ranking_backup 복원 (롤백) ---
   const handleRestoreBackup = async (report) => {
-    if (!window.confirm("이 백업 시점의 랭킹 데이터로 덮어씌워 롤백하시겠습니까?\n현재 웹에서 표시되는 랭킹 데이터는 지금의 백업 데이터로 대체됩니다.")) return;
+    if (!window.confirm("이 백업 시점의 랭킹 데이터로 덮어씌워 롤백하시겠습니까?")) return;
     const backupTools = report.data?.tools || [];
     try {
       const batch = writeBatch(db);
@@ -483,7 +485,15 @@ const AdminReports = () => {
         if (!tool.id) return;
         const toolRef = doc(db, "tools", String(tool.id));
         const { id, ...dataToRestore } = tool;
-        batch.set(toolRef, dataToRestore);
+        
+        // 백업 데이터 내 undefined 필드 제거
+        const cleanData = {};
+        Object.keys(dataToRestore).forEach(key => {
+          if (dataToRestore[key] !== undefined) cleanData[key] = dataToRestore[key];
+          else cleanData[key] = null;
+        });
+
+        batch.set(toolRef, cleanData, { merge: true });
       });
       await batch.commit();
       
@@ -492,8 +502,7 @@ const AdminReports = () => {
       if (reportSnap.exists()) {
         await updateDoc(reportRef, { 
           restored: true, 
-          restoredAt: new Date(),
-          summary: `[복원 완료] 이전 랭킹 상태 백업 (${backupTools.length}개 도구)`
+          restoredAt: new Date()
         });
       } else {
         console.warn("복원 상태를 기록할 리포트 문서가 이미 삭제되었습니다.");
