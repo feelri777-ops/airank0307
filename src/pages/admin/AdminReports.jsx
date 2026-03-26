@@ -145,7 +145,7 @@ const RankingUpdateView = ({ report, onApprove, onReject }) => {
             </tr>
           </thead>
           <tbody>
-            {preview.map((tool, idx) => (
+            {preview.filter(t => t.Name).map((tool, idx) => (
               <tr key={idx} style={{ borderTop: "1px solid var(--border-color)", background: idx % 2 === 0 ? "transparent" : "var(--bg-secondary)" }}>
                 <td style={{ padding: "10px 14px", fontWeight: 900, color: "var(--accent-indigo)" }}>#{tool.Rank}</td>
                 <td style={{ padding: "10px 14px", fontWeight: 800, color: tool.Change === "NEW" ? "#10b981" : tool.Change?.startsWith("+") ? "#10b981" : "#ef4444" }}>{tool.Change}</td>

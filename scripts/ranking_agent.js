@@ -167,8 +167,26 @@ ${currentRankingContext === "현재 등록된 툴이 없습니다." ? "현재 DB
   const text = await askPerplexity(systemPrompt, userPrompt);
 
   try {
-    const chunk = extractJsonArray(text);
-    console.log(`   ✅ ${range}: ${chunk.length}개 항목 수집 완료`);
+    const rawChunk = extractJsonArray(text);
+    
+    // 데이터 정규화 및 유효성 검사
+    const chunk = rawChunk.map(item => {
+      // 키 대소문자 정규화 (Rank, Name, URL 등)
+      const normalized = {};
+      Object.keys(item).forEach(key => {
+        const lowerKey = key.toLowerCase();
+        if (lowerKey === 'rank') normalized.Rank = item[key];
+        else if (lowerKey === 'name') normalized.Name = item[key];
+        else if (lowerKey === 'url') normalized.URL = item[key];
+        else if (lowerKey === 'change') normalized.Change = item[key];
+        else if (lowerKey === 'category') normalized.Category = item[key];
+        else if (lowerKey === 'total_score') normalized.Total_Score = item[key];
+        else normalized[key] = item[key];
+      });
+      return normalized;
+    }).filter(item => item.Name && item.Rank); // 이름과 순위가 있는 것만 포함
+
+    console.log(`   ✅ ${range}: ${chunk.length}개 항목 유효성 검증 완료`);
     return chunk;
   } catch (err) {
     if (retryCount < 2) {
@@ -176,7 +194,7 @@ ${currentRankingContext === "현재 등록된 툴이 없습니다." ? "현재 DB
     }
     console.error(`\n❌ [치명적 오류]: ${range} 3회 시도 모두 실패!`);
     console.error(`=== Perplexity 응답 원본 데이터 ===\n${text}\n=================================\n`);
-    throw err;
+    return []; // 실패 시 빈 배열 반환하여 전체 중단 방지
   }
 }
 
