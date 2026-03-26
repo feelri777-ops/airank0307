@@ -45,8 +45,8 @@ jobs:
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
-      - name: 도구 정보 및 정합성 자동 점검 (AI Agent)
-        run: node scripts/tool_scout_agent.js
+      - name: 🤖 AI 랭킹 에이전트 (제안 생성 → 어드민 컨펌 대기)
+        run: node scripts/ranking_agent.js
         env:
           VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}

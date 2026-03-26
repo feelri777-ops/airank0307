@@ -103,4 +103,7 @@ export const Globe = (p) => <IconWrapper {...p}><circle cx="128" cy="128" r="96"
 export const Tag = (p) => <IconWrapper {...p}><path d="M226.3,109.7l-96-96a8.1,8.1,0,0,0-5.6-2.4H40a8,8,0,0,0-8,8V92.7a8.1,8.1,0,0,0,2.4,5.6l96,96a8,8,0,0,0,11.3,0l96-96a8,8,0,0,0,0-11.3ZM128,183,48,103V48h55l80,80-12,12Z"/><circle cx="84" cy="84" r="12"/></IconWrapper>;
 export const ArrowUpRight = (p) => <IconWrapper {...p}><line x1="64" y1="192" x2="192" y2="64"/><polyline points="192 160 192 64 96 64"/></IconWrapper>;
 export const FileArrowUp = (p) => <IconWrapper {...p}><path d="M48,208V40a8,8,0,0,1,8-8h96l56,56V208a8,8,0,0,1-8,8H56A8,8,0,0,1,48,208Z"/><polyline points="152 32 152 88 208 88"/><polyline points="96 152 128 120 160 152"/><line x1="128" y1="120" x2="128" y2="184"/></IconWrapper>;
+export const CaretDown = (p) => <IconWrapper {...p}><polyline points="48 88 128 168 208 88"/></IconWrapper>;
+export const CaretUp = (p) => <IconWrapper {...p}><polyline points="48 168 128 88 208 168"/></IconWrapper>;
+export const Trophy = (p) => <IconWrapper {...p}><path d="M56,40H200a8,8,0,0,1,8,8V88a48,48,0,0,1-48,48H96A48,48,0,0,1,48,88V48A8,8,0,0,1,56,40Z"/><line x1="88" y1="192" x2="168" y2="192"/><line x1="128" y1="136" x2="128" y2="192"/><polygon points="232 80 208 80 208 48 232 48 232 80"/><polygon points="24 80 48 80 48 48 24 48 24 80"/><line x1="56" y1="216" x2="200" y2="216"/></IconWrapper>;
 

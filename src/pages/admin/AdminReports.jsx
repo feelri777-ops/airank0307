@@ -8,6 +8,7 @@ import {
   updateDoc, 
   deleteDoc,
   getDoc,
+  writeBatch,
   orderBy 
 } from "firebase/firestore";
 import { 
@@ -22,7 +23,11 @@ import {
   Globe,
   Tag,
   Plus,
-  ArrowUpRight
+  ArrowUpRight,
+  Trophy,
+  X,
+  CaretDown,
+  CaretUp
 } from "../../components/icons/PhosphorIcons";
 
 // --- 개별 도구 비교 컴포넌트 ---
@@ -103,6 +108,96 @@ const ToolDiffView = ({ error, onApply }) => {
   );
 };
 
+// --- 랭킹 갱신 제안 미리보기 컴포넌트 ---
+const RankingUpdateView = ({ report, onApprove, onReject }) => {
+  const [showAll, setShowAll] = useState(false);
+  const [approving, setApproving] = useState(false);
+  const tools = report.data?.tools || [];
+  const preview = showAll ? tools : tools.slice(0, 10);
+  const isApproved = report.status === "approved";
+  const isRejected = report.status === "rejected";
+
+  return (
+    <div>
+      {/* 상태 배너 */}
+      {isApproved && (
+        <div style={{ padding: "12px 20px", borderRadius: "12px", background: "#10b98115", border: "1px solid #10b981", color: "#10b981", fontWeight: 800, marginBottom: "20px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <CheckCircle size={20} weight="fill" /> 승인 완료 — 랭킹이 실제 DB에 반영되었습니다.
+        </div>
+      )}
+      {isRejected && (
+        <div style={{ padding: "12px 20px", borderRadius: "12px", background: "#ef444415", border: "1px solid #ef4444", color: "#ef4444", fontWeight: 800, marginBottom: "20px", display: "flex", alignItems: "center", gap: "8px" }}>
+          <WarningCircle size={20} weight="fill" /> 거부됨 — 이 랭킹 제안은 반영되지 않았습니다.
+        </div>
+      )}
+
+      {/* 미리보기 테이블 */}
+      <div style={{ overflowX: "auto", borderRadius: "16px", border: "1px solid var(--border-color)" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
+          <thead>
+            <tr style={{ background: "var(--bg-secondary)", textAlign: "left" }}>
+              {["순위","변동","도구명","카테고리","이용량","기술력","버즈","실무","상승","총점","가격","한국어"].map(h => (
+                <th key={h} style={{ padding: "10px 14px", fontWeight: 900, color: "var(--text-muted)", fontSize: "0.75rem", whiteSpace: "nowrap" }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {preview.map((tool, idx) => (
+              <tr key={idx} style={{ borderTop: "1px solid var(--border-color)", background: idx % 2 === 0 ? "transparent" : "var(--bg-secondary)" }}>
+                <td style={{ padding: "10px 14px", fontWeight: 900, color: "var(--accent-indigo)" }}>#{tool.Rank}</td>
+                <td style={{ padding: "10px 14px", fontWeight: 800, color: tool.Change === "NEW" ? "#10b981" : tool.Change?.startsWith("+") ? "#10b981" : "#ef4444" }}>{tool.Change}</td>
+                <td style={{ padding: "10px 14px", fontWeight: 800, color: "var(--text-primary)", whiteSpace: "nowrap" }}>
+                  <a href={tool.URL} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>{tool.Name} ↗</a>
+                </td>
+                <td style={{ padding: "10px 14px", color: "var(--text-muted)" }}>{tool.Category}</td>
+                <td style={{ padding: "10px 14px", color: "var(--text-secondary)" }}>{tool.Usage_Score}</td>
+                <td style={{ padding: "10px 14px", color: "var(--text-secondary)" }}>{tool.Tech_Score}</td>
+                <td style={{ padding: "10px 14px", color: "var(--text-secondary)" }}>{tool.Buzz_Score}</td>
+                <td style={{ padding: "10px 14px", color: "var(--text-secondary)" }}>{tool.Utility_Score}</td>
+                <td style={{ padding: "10px 14px", color: "var(--text-secondary)" }}>{tool.Growth_Score}</td>
+                <td style={{ padding: "10px 14px", fontWeight: 900, color: "var(--text-primary)" }}>{tool.Total_Score}</td>
+                <td style={{ padding: "10px 14px", color: "var(--text-muted)" }}>{tool.Pricing}</td>
+                <td style={{ padding: "10px 14px", color: tool.Korean_Support === "Y" ? "#10b981" : "var(--text-muted)" }}>{tool.Korean_Support}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* 더보기 토글 */}
+      {tools.length > 10 && (
+        <button
+          onClick={() => setShowAll(v => !v)}
+          style={{ width: "100%", marginTop: "12px", padding: "10px", borderRadius: "12px", border: "1px dashed var(--border-color)", background: "transparent", color: "var(--text-muted)", cursor: "pointer", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
+        >
+          {showAll ? <><CaretUp size={16} /> 상위 10위만 보기</> : <><CaretDown size={16} /> 전체 {tools.length}개 펼쳐보기</>}
+        </button>
+      )}
+
+      {/* 승인/거부 버튼 */}
+      {!isApproved && !isRejected && (
+        <div style={{ display: "flex", gap: "12px", marginTop: "24px" }}>
+          <button
+            onClick={() => { setApproving(true); onApprove().finally(() => setApproving(false)); }}
+            disabled={approving}
+            style={{ flex: 1, padding: "14px", borderRadius: "14px", border: "none", background: "var(--accent-indigo)", color: "#fff", fontWeight: 900, cursor: approving ? "not-allowed" : "pointer", fontSize: "1rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", opacity: approving ? 0.6 : 1 }}
+          >
+            <CheckCircle size={20} weight="fill" />
+            {approving ? "반영 중…" : "✅ 승인 — 실제 랭킹에 반영하기"}
+          </button>
+          <button
+            onClick={onReject}
+            disabled={approving}
+            style={{ padding: "14px 24px", borderRadius: "14px", border: "1px solid #ef4444", background: "#ef444415", color: "#ef4444", fontWeight: 900, cursor: "pointer", fontSize: "1rem", display: "flex", alignItems: "center", gap: "8px" }}
+          >
+            <X size={20} weight="bold" /> 거부
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const AdminReports = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -170,6 +265,60 @@ const AdminReports = () => {
     setActiveReport(null);
   };
 
+  // --- ranking_update 승인: tools 컬렉션 배치 업데이트 ---
+  const handleApproveRanking = async (report) => {
+    if (!window.confirm(`총 ${report.data?.tools?.length || 0}개 도구 랭킹을 실제 DB에 반영할까요?\n이 작업은 되돌릴 수 없습니다.`)) return;
+    const tools = report.data?.tools || [];
+    try {
+      // 500개 배치 한도 고려 — 100개이므로 단일 배치 OK
+      const batch = writeBatch(db);
+      tools.forEach(tool => {
+        if (!tool.Name) return;
+        // tools 컬렉션의 docId는 Rank 기반으로 매핑 (기존 구조 유지)
+        const toolRef = doc(db, "tools", String(tool.Rank));
+        batch.set(toolRef, {
+          rank: tool.Rank,
+          change: tool.Change,
+          name: tool.Name,
+          url: tool.URL,
+          cat: tool.Category,
+          tags: Array.isArray(tool.Tags) ? tool.Tags : [],
+          desc: tool.Description,
+          oneLineReview: tool.One_Line_Review,
+          usp: tool.USP,
+          prosCons: tool.Pros_Cons,
+          difficulty: tool.Difficulty,
+          score: tool.Total_Score,
+          metrics: {
+            usage: tool.Usage_Score,
+            tech: tool.Tech_Score,
+            buzz: tool.Buzz_Score,
+            utility: tool.Utility_Score,
+            growth: tool.Growth_Score,
+          },
+          pricing: tool.Pricing,
+          koSupport: tool.Korean_Support,
+          platform: tool.Platform,
+          weekLabel: report.data?.weekLabel || "",
+          updatedAt: new Date(),
+          updatedByAgent: true,
+        }, { merge: true });
+      });
+      await batch.commit();
+      // 리포트 상태 approved로 변경
+      await updateDoc(doc(db, "adminReports", report.id), { status: "approved", approvedAt: new Date() });
+      alert(`✅ ${tools.length}개 도구 랭킹이 성공적으로 반영되었습니다!`);
+    } catch (err) {
+      alert("❌ 반영 중 오류: " + err.message);
+    }
+  };
+
+  // --- ranking_update 거부 ---
+  const handleRejectRanking = async (report) => {
+    if (!window.confirm("이 랭킹 제안을 거부하시겠습니까? 데이터는 보존됩니다.")) return;
+    await updateDoc(doc(db, "adminReports", report.id), { status: "rejected", rejectedAt: new Date() });
+  };
+
   return (
     <div style={{ padding: "40px", maxWidth: "1400px", margin: "0 auto", animation: "fadeIn 0.5s ease-out" }}>
       <header style={{ marginBottom: "40px" }}>
@@ -200,7 +349,13 @@ const AdminReports = () => {
               >
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "8px", fontWeight: 800, color: activeReport?.id === r.id ? "#ffffff90" : "var(--text-muted)" }}>
                   <span>{r.displayDate}</span>
-                  <span style={{ fontSize: "0.65rem", padding: "2px 6px", borderRadius: "4px", background: "#ffffff40", color: "#fff" }}>{r.type.toUpperCase()}</span>
+                  <span style={{ 
+                    fontSize: "0.65rem", padding: "2px 8px", borderRadius: "4px", fontWeight: 900,
+                    background: r.type === "ranking_update" ? "#f59e0b" : "#6366f1",
+                    color: "#fff"
+                  }}>
+                    {r.type === "ranking_update" ? "🏆 RANKING" : r.type === "new_tool_recommendation" ? "✨ NEW TOOL" : r.type.toUpperCase()}
+                  </span>
                 </div>
                 <div style={{ fontWeight: 900, color: activeReport?.id === r.id ? "#fff" : "var(--text-primary)", fontSize: "0.95rem" }}>{r.summary}</div>
               </div>
@@ -218,7 +373,9 @@ const AdminReports = () => {
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "2.5rem" }}>
                 <div>
                   <h2 style={{ fontSize: "1.6rem", fontWeight: 950, color: "var(--text-primary)" }}>
-                     {activeReport.type === "new_tool_recommendation" ? "✨ 신규 AI 도구 도입 제안" : "📊 통합 분석 및 점검 보고서"}
+                     {activeReport.type === "new_tool_recommendation" ? "✨ 신규 AI 도구 도입 제안"
+                      : activeReport.type === "ranking_update" ? "🏆 AI 랭킹 갱신 제안"
+                      : "📊 통합 분석 및 점검 보고서"}
                   </h2>
                   <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>{activeReport.displayDate} 작성</p>
                 </div>
@@ -272,7 +429,16 @@ const AdminReports = () => {
                 </div>
               )}
 
-              {/* [2] ERROR & UPDATE (SCOUT FULL TYPE) */}
+              {/* [2] RANKING UPDATE */}
+              {activeReport.type === "ranking_update" && (
+                <RankingUpdateView
+                  report={activeReport}
+                  onApprove={() => handleApproveRanking(activeReport)}
+                  onReject={() => handleRejectRanking(activeReport)}
+                />
+              )}
+
+              {/* [3] ERROR & UPDATE (SCOUT FULL TYPE) */}
               {activeReport.type === "tool_scout_full" && (
                 <>
                   {/* Errors Section */}
