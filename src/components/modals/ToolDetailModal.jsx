@@ -82,9 +82,19 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
 
   useEffect(() => {
     if (!tool?.name) return;
-    fetch(`/youtube-videos.json?v=${Date.now()}`).then(r => r.json()).then(data => {
-      setVideos(data?.videos?.[String(tool?.id)] || data?.videos?.[tool?.name] || []);
-    }).catch(() => setVideos([]));
+    fetch(`/youtube-videos.json?v=${Date.now()}`)
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then(data => {
+        const vids = data?.videos?.[String(tool?.id)] || data?.videos?.[tool?.name] || [];
+        setVideos(Array.isArray(vids) ? vids : []);
+      })
+      .catch(err => {
+        console.error("YouTube videos fetch failed:", err);
+        setVideos([]);
+      });
   }, [tool?.id, tool?.name]);
 
   const toggleBookmark = async () => {
@@ -235,7 +245,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             {/* 종합점수 — full width */}
             {(() => {
               const main = metrics.find(m => m.isMain);
-              const val = (tool?.[main.k] !== undefined ? tool[main.k] : null) ?? (tool?.metrics?.[main.k] !== undefined ? tool.metrics[main.k] : null) ?? 0;
+              const val = Number(tool?.[main.k] ?? tool?.metrics?.[main.k] ?? 0);
               return (
                 <div key={main.k} title={main.d} style={{
                   display: "grid", gridTemplateColumns: "100px 1fr 45px",
@@ -252,7 +262,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             {/* 나머지 5개 — 2열 그리드 */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 12px" }}>
               {metrics.filter(m => !m.isMain).map(m => {
-                const val = (tool?.[m.k] !== undefined ? tool[m.k] : null) ?? (tool?.metrics?.[m.k] !== undefined ? tool.metrics[m.k] : null) ?? 0;
+                const val = Number(tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0);
                 return (
                   <div key={m.k} title={m.d} style={{
                     display: "grid", gridTemplateColumns: "80px 1fr 35px",
@@ -342,13 +352,13 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 {videos.slice(0, 3).map((v, i) => (
                   <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "12px", textDecoration: "none", padding: "8px", borderRadius: "14px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
                     <div style={{ width: isMobile ? "140px" : "160px", height: isMobile ? "79px" : "90px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", background: "#000" }}>
-                      <img src={v.thumbnail} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      {v.thumbnail && <img src={v.thumbnail} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontSize: isMobile ? "0.75rem" : "0.88rem", fontWeight: 800, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.4, marginBottom: isMobile ? "4px" : "8px" }}>{decodeHtmlSafe(v.title)}</div>
                       <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: isMobile ? "0.62rem" : "0.73rem", color: "var(--text-muted)", fontWeight: 700 }}>
-                        {v.viewCount > 0 && <span style={{ background: "rgba(0,0,0,0.05)", padding: "2px 7px", borderRadius: "6px" }}>{formatViewCount(v.viewCount)}회</span>}
-                        <span style={{ color: "var(--accent-indigo)", opacity: 0.9, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{v.channelTitle}</span>
+                        {(v.viewCount && v.viewCount > 0) && <span style={{ background: "rgba(0,0,0,0.05)", padding: "2px 7px", borderRadius: "6px" }}>{formatViewCount(v.viewCount)}회</span>}
+                        <span style={{ color: "var(--accent-indigo)", opacity: 0.9, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{v.channelTitle || "Unknown Channel"}</span>
                       </div>
                     </div>
                   </a>
