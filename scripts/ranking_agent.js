@@ -59,6 +59,24 @@ function getSearchDateRange() {
   return `${fmt(lastMonday)} ~ ${fmt(lastSunday)}`;
 }
 
+// --- Firestore에서 현재 1~100위 랭킹 데이터 가져오기 ---
+async function getCurrentRanking() {
+  console.log("📡 Firestore에서 현재 1~100위 데이터를 가져오는 중...");
+  const snapshot = await db.collection("tools").orderBy("rank", "asc").limit(100).get();
+  if (snapshot.empty) {
+    console.log("⚠️ 기존 데이터가 없습니다. 신규로 생성합니다.");
+    return "현재 등록된 툴이 없습니다.";
+  }
+  
+  const currentList = snapshot.docs.map(doc => {
+    const data = doc.data();
+    return `#${data.rank} ${data.name} (URL: ${data.url || 'N/A'})`;
+  }).join("\n");
+  
+  console.log(`✅ 기존 데이터 ${snapshot.size}개 로드 완료`);
+  return currentList;
+}
+
 // --- JSON 클렌징: AI 응답에서 순수 JSON 배열만 추출 ---
 function extractJsonArray(text) {
   const cleaned = text.replace(/```json|```/g, '').trim();
@@ -70,17 +88,28 @@ function extractJsonArray(text) {
 }
 
 // --- 핵심 로직: 1~50위, 51~100위 분할 호출 ---
-async function fetchRankingChunk(model, range, weekLabel, dateRange) {
+async function fetchRankingChunk(model, range, weekLabel, dateRange, currentRankingContext) {
   const prompt = `
 당신은 글로벌 AI 툴 정밀 평가 에이전트입니다.
 현재 시스템의 랭킹 목표 주차는 '${weekLabel}'입니다.
-반드시 google_search를 활용하여 [${dateRange}] (월요일 ~ 일요일 7일간) 동안 발생한 최신 데이터를 우선적으로 수집하되, 만약 특정 툴의 해당 주차 데이터가 부족하더라도 가장 최신의 가용 데이터를 활용하여 **반드시 누락 없이 50개의 목록을 채우세요**. "데이터를 찾을 수 없습니다" 등의 대화형 응답은 절대 금지합니다.
 
-**[중요 지시사항]**
+[현재 TOP 100 리스트 (참고용)]
+${currentRankingContext}
+
+**[중요 임무: 랭킹 재배치 및 업데이트]**
+1. 위 [현재 TOP 100 리스트]를 기본 베이스로 사용하세요.
+2. google_search를 활용하여 [${dateRange}] (월요일 ~ 일요일 7일간) 동안 발생한 글로벌 AI 툴들의 트래픽 변동, 신규 릴리즈, 소셜 버즈를 검색하세요.
+3. 기존 리스트의 툴들 중 성적이 낮은 것은 순위를 내리거나 100위 밖으로 탈락시키고, 새롭게 급부상한 툴은 "NEW"로 진입시키세요.
+4. **절대 금지:** 공공기관 챗봇, 특정 기업 사내용 AI, 단순 보도자료용 구축 사례(예: KOTRA AI 등)는 절대 포함하지 마세요. 반드시 누구나 가입해서 쓸 수 있는 '글로벌 상용 서비스'만 취급합니다.
+
+**[지시사항]**
 1. 이번 호출에서는 전체 100위 중 **[${range}]**에 해당하는 50개의 툴 랭킹만 생성해야 합니다. 
    반드시 JSON 객체의 "Rank" 값을 ${range} 범위에 맞게 (예: 1~50 또는 51~100) 정확히 배정하세요.
-2. **반드시 일반 사용자(B2C)나 글로벌 기업(B2B)이 직접 가입하고 사용할 수 있는 상용 AI 서비스(SaaS, 웹앱 등)만 포함하세요.** (예: ChatGPT, Midjourney, Cursor 등)
-3. **절대 금지 대상:** 특정 기업 내부 도입 기사, 공공기관 자체 챗봇(예: KOTRA AI 수출비서, OO은행 AI 도입 등), 단순 시스템 구축 보도자료는 랭킹에 포함할 수 없습니다.
+2. "Change" 필드 산출 기준:
+   - 신규 진입: "NEW"
+   - 순위 변동 없음: "0"
+   - 순위 상승: "+3" (숫자는 실제 변동폭)
+   - 순위 하락: "-2" (숫자는 실제 변동폭)
 
 [알고리즘 가중치]
 - 이용량(35%): [${dateRange}] 기간의 Similarweb 트래픽 및 증감 데이터
@@ -141,15 +170,18 @@ async function runRankingAgent() {
     const dateRange = getSearchDateRange();
     console.log(`\n🚀 [Ranking Agent] ${weekLabel} (${dateRange} 기준) 글로벌 AI 툴 랭킹 생성 시작...\n`);
 
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
-      tools: [{ google_search: {} }]
-    });
+    const [currentRankingContext, model] = await Promise.all([
+      getCurrentRanking(),
+      Promise.resolve(genAI.getGenerativeModel({
+        model: "gemini-2.1-flash",
+        tools: [{ google_search: {} }]
+      }))
+    ]);
 
     // 2회 분할 호출 (응답 잘림 방지)
     const [chunk1, chunk2] = await Promise.all([
-      fetchRankingChunk(model, "1위부터 50위", weekLabel, dateRange),
-      fetchRankingChunk(model, "51위부터 100위", weekLabel, dateRange),
+      fetchRankingChunk(model, "1위부터 50위", weekLabel, dateRange, currentRankingContext),
+      fetchRankingChunk(model, "51위부터 100위", weekLabel, dateRange, currentRankingContext),
     ]);
 
     const allTools = [...chunk1, ...chunk2];
