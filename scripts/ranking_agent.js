@@ -220,6 +220,9 @@ ${JSON.stringify(exampleJson, null, 2)} (이 형식으로 10개 전송)`;
       Tags: ["AI Service", "Recommended"],
       Description: `${tool.name}은(는) 해당 분야에서 널리 사용되는 선도적인 AI 솔루션입니다.`,
       One_Line_Review: "시장 인지도가 높은 안정적인 서비스",
+      USP: "안정적인 서비스 운영과 검증된 사용자 피드백",
+      Pros_Cons: { pros: ["높은 인지도", "안정성"], cons: ["상대적으로 늦은 업데이트"] },
+      Difficulty: "중급",
       Usage_Score: 70, Tech_Score: 75, Buzz_Score: 65, Utility_Score: 80, Growth_Score: 60, Total_Score: 70,
       Pricing: "Freemium", Korean_Support: "Y", Platform: ["Web"], API_Available: "Y"
     }));
