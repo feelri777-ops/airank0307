@@ -280,8 +280,16 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           </div>
 
           <div style={{ display: "grid", gap: "6px", marginBottom: "10px" }}>
-            {(tool.usp || tool.USP) && ( <div style={{ background: "rgba(99,102,241,0.03)", borderRadius: "12px", padding: "8px 10px", border: "1px dashed rgba(99,102,241,0.2)" }}><div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.65rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "3px" }}><Lightbulb size={14} weight="fill" /> 💡 CORE USP</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{tool.usp || tool.USP}</div></div> )}
-            {(tool.prosCons || tool.Pros_Cons) && ( <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "8px 10px", border: "1px solid var(--border-primary)" }}><div style={{ fontSize: "0.65rem", fontWeight: 950, color: "var(--text-muted)", marginBottom: "3px" }}>🔍 ANALYSIS</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{tool.prosCons || tool.Pros_Cons}</div></div> )}
+            {(() => {
+              const usp = tool.usp || tool.USP;
+              const uspText = typeof usp === 'string' ? usp : typeof usp === 'object' && usp ? JSON.stringify(usp) : null;
+              return uspText ? ( <div style={{ background: "rgba(99,102,241,0.03)", borderRadius: "12px", padding: "8px 10px", border: "1px dashed rgba(99,102,241,0.2)" }}><div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.65rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "3px" }}><Lightbulb size={14} weight="fill" /> 💡 CORE USP</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{uspText}</div></div> ) : null;
+            })()}
+            {(() => {
+              const prosCons = tool.prosCons || tool.Pros_Cons;
+              const prosConsText = typeof prosCons === 'string' ? prosCons : typeof prosCons === 'object' && prosCons ? JSON.stringify(prosCons) : null;
+              return prosConsText ? ( <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "8px 10px", border: "1px solid var(--border-primary)" }}><div style={{ fontSize: "0.65rem", fontWeight: 950, color: "var(--text-muted)", marginBottom: "3px" }}>🔍 ANALYSIS</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{prosConsText}</div></div> ) : null;
+            })()}
           </div>
 
           <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
