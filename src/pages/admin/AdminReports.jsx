@@ -29,7 +29,8 @@ import {
   Trophy,
   X,
   CaretDown,
-  CaretUp
+  CaretUp,
+  ArrowClockwise
 } from "../../components/icons/PhosphorIcons";
 
 // --- 개별 도구 비교 컴포넌트 ---
@@ -200,6 +201,21 @@ const RankingUpdateView = ({ report, onApprove, onReject }) => {
   );
 };
 
+// --- 날짜 안전 변환 유틸리티 ---
+const formatDate = (ts) => {
+  if (!ts) return "방금 전";
+  try {
+    if (typeof ts.toDate === "function") return ts.toDate().toLocaleString();
+    if (ts instanceof Date) return ts.toLocaleString();
+    if (typeof ts === "string") return new Date(ts).toLocaleString();
+    // seconds/nanoseconds 구조인 경우 (직렬화된 객체)
+    if (ts.seconds) return new Date(ts.seconds * 1000).toLocaleString();
+    return String(ts);
+  } catch (e) {
+    return "날짜 표시 오류";
+  }
+};
+
 const AdminReports = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -214,24 +230,34 @@ const AdminReports = () => {
           const docData = d.data();
           return { 
             ...docData, id: d.id,
-            displayDate: docData.createdAt ? docData.createdAt.toDate().toLocaleString() : "방금 전"
+            displayDate: formatDate(docData.createdAt)
           };
         });
         setReports(data);
-        
-        // 리포트가 있고, 아직 활성 리포트가 선택되지 않은 경우만 첫 번째로 설정
-        // 의존성 배열에서 activeReport를 뺐으므로 더 이상 무한루프 위험 없음
         setLoading(false);
       } catch (err) {
+        console.error("리포트 목록 로드 중 치명적 오류:", err);
         setLoading(false);
       }
-    }, (error) => setLoading(false));
+    }, (error) => {
+      console.error("Firestore 구독 오류:", error);
+      setLoading(false);
+    });
     return () => unsubscribe();
   }, []); // 의존성 배열 비움 (안정성 확보)
 
-  // 별도의 이펙트로 첫 활성 리포트 설정 (구독과 분리)
+  // 별도의 이펙트로 활성 리포트 동기화 (리스트에서 사라지면 해제)
   useEffect(() => {
-    if (reports.length > 0 && !activeReport) {
+    if (reports.length === 0) {
+      setActiveReport(null);
+      return;
+    }
+    
+    // 현재 활성 리포트가 있는데, 실제 리스트에는 없는 경우 (삭제됨 등)
+    if (activeReport && !reports.find(r => r.id === activeReport.id)) {
+      setActiveReport(reports[0]);
+    } else if (!activeReport && reports.length > 0) {
+      // 리포트가 있고 아직 선택 안 된 경우 첫 번째로 설정
       setActiveReport(reports[0]);
     }
   }, [reports, activeReport]);
@@ -321,8 +347,16 @@ const AdminReports = () => {
         }, { merge: true });
       });
       await batch.commit();
-      // 리포트 상태 approved로 변경
-      await updateDoc(doc(db, "adminReports", report.id), { status: "approved", approvedAt: new Date() });
+      
+      // 리포트 상태 approved로 변경 (문서가 존재하는지 다시 확인)
+      const reportRef = doc(db, "adminReports", report.id);
+      const reportSnap = await getDoc(reportRef);
+      if (reportSnap.exists()) {
+        await updateDoc(reportRef, { status: "approved", approvedAt: new Date() });
+      } else {
+        console.warn("승인하려는 리포트 문서가 이미 삭제되었습니다.");
+      }
+      
       alert(`✅ ${newTools.length}개 도구 랭킹 반영 및 기존 랭킹 백업이 완료되었습니다!`);
     } catch (err) {
       alert("❌ 반영 중 오류: " + err.message);
@@ -343,11 +377,17 @@ const AdminReports = () => {
       });
       await batch.commit();
       
-      await updateDoc(doc(db, "adminReports", report.id), { 
-        restored: true, 
-        restoredAt: new Date(),
-        summary: `[복원 완료] 이전 랭킹 상태 백업 (${backupTools.length}개 도구)`
-      });
+      const reportRef = doc(db, "adminReports", report.id);
+      const reportSnap = await getDoc(reportRef);
+      if (reportSnap.exists()) {
+        await updateDoc(reportRef, { 
+          restored: true, 
+          restoredAt: new Date(),
+          summary: `[복원 완료] 이전 랭킹 상태 백업 (${backupTools.length}개 도구)`
+        });
+      } else {
+        console.warn("복원 상태를 기록할 리포트 문서가 이미 삭제되었습니다.");
+      }
       alert("✅ 랭킹 데이터가 성공적으로 롤백 복원되었습니다!");
     } catch (err) {
       alert("❌ 롤백 중 오류: " + err.message);
@@ -357,7 +397,13 @@ const AdminReports = () => {
   // --- ranking_update 거부 ---
   const handleRejectRanking = async (report) => {
     if (!window.confirm("이 랭킹 제안을 거부하시겠습니까? 데이터는 보존됩니다.")) return;
-    await updateDoc(doc(db, "adminReports", report.id), { status: "rejected", rejectedAt: new Date() });
+    const reportRef = doc(db, "adminReports", report.id);
+    const reportSnap = await getDoc(reportRef);
+    if (reportSnap.exists()) {
+      await updateDoc(reportRef, { status: "rejected", rejectedAt: new Date() });
+    } else {
+      console.warn("거부 상태를 기록할 리포트 문서가 이미 삭제되었습니다.");
+    }
   };
 
   return (
@@ -496,7 +542,7 @@ const AdminReports = () => {
                     <ul style={{ margin: 0, paddingLeft: "20px", color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.5, display: "flex", flexDirection: "column", gap: "8px" }}>
                       <li>이 백업을 활용하면 문제가 발생했을 때 즉시 원래 상태로 롤백할 수 있습니다.</li>
                       <li>롤백 실행 시 현재 라이브 서비스에 있는 툴 랭킹 정보 위에 이 백업 정보가 전부 덮어씌워집니다.</li>
-                      <li>상태: {activeReport.restored ? <strong style={{ color: "var(--accent-emerald)" }}>복원 완료 ({activeReport.restoredAt?.toDate().toLocaleString()})</strong> : <strong>안전하게 보관 중</strong>}</li>
+                      <li>상태: {activeReport.restored ? <strong style={{ color: "var(--accent-emerald)" }}>복원 완료 ({formatDate(activeReport.restoredAt)})</strong> : <strong>안전하게 보관 중</strong>}</li>
                     </ul>
                   </div>
 
