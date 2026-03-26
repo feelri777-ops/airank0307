@@ -173,7 +173,7 @@ async function runRankingAgent() {
     const [currentRankingContext, model] = await Promise.all([
       getCurrentRanking(),
       Promise.resolve(genAI.getGenerativeModel({
-        model: "gemini-2.5-flash-preview-04-17",
+        model: "gemini-2.5-flash",
         tools: [{ google_search: {} }]
       }))
     ]);
