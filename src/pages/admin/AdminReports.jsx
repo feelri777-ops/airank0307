@@ -220,6 +220,8 @@ const AdminReports = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeReport, setActiveReport] = useState(null);
+  const [transacting, setTransacting] = useState(false);
+  const [cleanupStatus, setCleanupStatus] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -288,12 +290,16 @@ const AdminReports = () => {
   };
 
   const handleCleanupDuplicates = async () => {
-    if (!window.confirm("모든 도구를 이름 기반으로 전수 조사하여 중복된 항목을 자동으로 정리하시겠습니까?\n이 작업은 이름이 같은 중복 문서들을 찾아 하나만 남기고 나머지를 삭제합니다.")) return;
+    if (!window.confirm("모든 도구를 이름 기반으로 전수 조사하여 중복된 항목을 자동으로 정리하시겠습니까?\n이 작업은 이름이 같은 중복 문서들을 찾아 하나만 남기고 나머지를 삭제합니다.\n(대량 데이터의 경우 수초가 소요될 수 있습니다.)")) return;
     setTransacting(true);
+    setCleanupStatus("데이터 분석 중...");
+    console.log("🚀 [Cleanup] 중복 제거 프로세스 시작...");
     try {
       // 1. 전체 도구 목록 가져오기
       const snap = await getDocs(collection(db, "tools"));
       const allTools = snap.docs.map(d => ({ ...d.data(), id: d.id }));
+      console.log(`📊 [Cleanup] 총 ${allTools.length}개의 도구를 불러왔습니다.`);
+      setCleanupStatus(`데이터 ${allTools.length}개 로드됨...`);
       
       // 2. 이름별로 그룹화
       const groups = {};
@@ -304,16 +310,17 @@ const AdminReports = () => {
         groups[nameKey].push(t);
       });
 
-      const batch = writeBatch(db);
       let deleteCount = 0;
+      let batch = writeBatch(db);
+      let opCount = 0;
 
       // 3. 중복된 그룹 처리
-      Object.keys(groups).forEach(nameKey => {
+      for (const nameKey of Object.keys(groups)) {
         const list = groups[nameKey];
         if (list.length > 1) {
-          // 최우선 순위: 방금 에이전트가 승인한 데이터(updatedByAgent)
-          // 차순위: 가장 최근에 업데이트된 날짜
-          // 삼순위: 점수가 높은 것
+          setCleanupStatus(`"${nameKey}" 중복 정리 중...`);
+          console.log(`🔍 [Cleanup] 중복 발견: "${nameKey}" (${list.length}개)`);
+          // 정렬: updatedByAgent -> updatedAt -> score
           list.sort((a, b) => {
             if (a.updatedByAgent && !b.updatedByAgent) return -1;
             if (!a.updatedByAgent && b.updatedByAgent) return 1;
@@ -329,22 +336,41 @@ const AdminReports = () => {
           for (let i = 1; i < list.length; i++) {
             batch.delete(doc(db, "tools", list[i].id));
             deleteCount++;
+            opCount++;
+            if (opCount >= 450) { 
+              await batch.commit();
+              batch = writeBatch(db);
+              opCount = 0;
+            }
           }
         }
-      });
-
-      // [보너스] 이름 매칭과 무관하게 숫자 ID(1~120) 문서들은 무조건 삭제 목록에 추가 (한번 더 확실하게)
-      for (let i = 1; i <= 120; i++) {
-        batch.delete(doc(db, "tools", String(i)));
       }
 
-      await batch.commit();
-      alert(`✅ 정리 완료! 중복 문서 및 숫자 ID 잔여물 총 ${deleteCount}개 이상을 정리했습니다.`);
+      // 4. 숫자 ID(1~500) 잔여물 정리
+      setCleanupStatus("잔여 데이터 소거 중...");
+      console.log("🧹 [Cleanup] 숫자 ID(1~500) 잔여물 청소 중...");
+      for (let i = 1; i <= 500; i++) {
+        batch.delete(doc(db, "tools", String(i)));
+        opCount++;
+        if (opCount >= 450) {
+          await batch.commit();
+          batch = writeBatch(db);
+          opCount = 0;
+        }
+      }
+
+      if (opCount > 0) await batch.commit();
+      
+      console.log(`✅ [Cleanup] 완료! 총 ${deleteCount}개의 중복 항목을 제거했습니다.`);
+      setCleanupStatus("");
+      alert(`✅ 정리 완료!\n- 중복 문서 ${deleteCount}개 삭제\n- 숫자 ID 잔여물(1~500) 청소 완료\n\n페이지를 새로고침하여 결과를 확인해 주세요.`);
     } catch (err) {
-      console.error("Cleanup error:", err);
+      console.error("❌ [Cleanup] Error:", err);
+      setCleanupStatus("");
       alert("❌ 정리 중 오류 발생: " + err.message);
     } finally {
       setTransacting(false);
+      setCleanupStatus("");
     }
   };
 
@@ -494,10 +520,10 @@ const AdminReports = () => {
         <div style={{ display: "flex", gap: "10px" }}>
            <button 
              onClick={handleCleanupDuplicates}
-             style={{ padding: "12px 20px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", borderRadius: "14px", fontWeight: 800, cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", color: "#ef4444" }}
+             style={{ padding: "12px 20px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", borderRadius: "14px", fontWeight: 800, cursor: cleanupStatus ? "not-allowed" : "pointer", display: "flex", alignItems: "center", gap: "8px", color: "#ef4444", opacity: cleanupStatus ? 0.6 : 1 }}
            >
              <Trash size={18} weight="bold" />
-             중복 데이터 일괄 정리
+             {cleanupStatus || "중복 데이터 일괄 정리"}
            </button>
         </div>
       </header>
