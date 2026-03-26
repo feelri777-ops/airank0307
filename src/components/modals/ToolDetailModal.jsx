@@ -199,17 +199,18 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "16px" }}>
-            {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name} width={48} height={48} style={{ borderRadius: "12px", objectFit: "contain" }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: "2.2rem" }}>{tool.icon || "🤖"}</span> )}
+            {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name || "Tool"} width={48} height={48} style={{ borderRadius: "12px", objectFit: "contain" }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: "2.2rem" }}>{typeof tool.icon === 'string' ? tool.icon : "🤖"}</span> )}
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-                <h2 style={{ fontSize: "1.4rem", fontWeight: 950, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.01em" }}>{tool.name}</h2>
+                <h2 style={{ fontSize: "1.4rem", fontWeight: 950, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.01em" }}>{tool.name || "Unknown Tool"}</h2>
                 <div style={{ background: "var(--accent-indigo)", color: "#fff", padding: "3px 10px", borderRadius: "8px", fontSize: "0.7rem", fontWeight: 900 }}>RANK {rank}위</div>
               </div>
             </div>
           </div>
 
-          {tool.oneLineReview && (() => {
-            const reviewLen = tool.oneLineReview.length;
+          {(tool.oneLineReview || tool.One_Line_Review) && (() => {
+            const reviewText = tool.oneLineReview || tool.One_Line_Review || "";
+            const reviewLen = reviewText.length;
             const dynamicSize = reviewLen > 35 ? "0.78rem" : reviewLen > 25 ? "0.88rem" : "1rem";
             return (
               <div style={{ marginBottom: "12px", paddingLeft: "12px", borderLeft: "3px solid var(--accent-indigo)", overflow: "hidden" }}>
@@ -222,19 +223,19 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                   textOverflow: "ellipsis",
                   overflow: "hidden"
                 }}>
-                  "{tool.oneLineReview}"
+                  "{reviewText}"
                 </div>
               </div>
             );
           })()}
 
-          <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55, marginBottom: "16px", fontWeight: 500 }}>{tool.desc}</p>
+          <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55, marginBottom: "16px", fontWeight: 500 }}>{tool.desc || tool.description || "설명이 없습니다."}</p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginBottom: "16px", background: "rgba(0,0,0,0.03)", padding: "12px 16px", borderRadius: "22px" }}>
             {/* 종합점수 — full width */}
             {(() => {
               const main = metrics.find(m => m.isMain);
-              const val = tool?.[main.k] ?? tool?.metrics?.[main.k] ?? 0;
+              const val = (tool?.[main.k] !== undefined ? tool[main.k] : null) ?? (tool?.metrics?.[main.k] !== undefined ? tool.metrics[main.k] : null) ?? 0;
               return (
                 <div key={main.k} title={main.d} style={{
                   display: "grid", gridTemplateColumns: "100px 1fr 45px",
@@ -251,7 +252,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             {/* 나머지 5개 — 2열 그리드 */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 12px" }}>
               {metrics.filter(m => !m.isMain).map(m => {
-                const val = tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0;
+                const val = (tool?.[m.k] !== undefined ? tool[m.k] : null) ?? (tool?.metrics?.[m.k] !== undefined ? tool.metrics[m.k] : null) ?? 0;
                 return (
                   <div key={m.k} title={m.d} style={{
                     display: "grid", gridTemplateColumns: "80px 1fr 35px",
@@ -269,16 +270,19 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           </div>
 
           <div style={{ display: "grid", gap: "6px", marginBottom: "10px" }}>
-            {tool.usp && ( <div style={{ background: "rgba(99,102,241,0.03)", borderRadius: "12px", padding: "8px 10px", border: "1px dashed rgba(99,102,241,0.2)" }}><div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.65rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "3px" }}><Lightbulb size={14} weight="fill" /> 💡 CORE USP</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{tool.usp}</div></div> )}
-            {tool.prosCons && ( <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "8px 10px", border: "1px solid var(--border-primary)" }}><div style={{ fontSize: "0.65rem", fontWeight: 950, color: "var(--text-muted)", marginBottom: "3px" }}>🔍 ANALYSIS</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{tool.prosCons}</div></div> )}
+            {(tool.usp || tool.USP) && ( <div style={{ background: "rgba(99,102,241,0.03)", borderRadius: "12px", padding: "8px 10px", border: "1px dashed rgba(99,102,241,0.2)" }}><div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.65rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "3px" }}><Lightbulb size={14} weight="fill" /> 💡 CORE USP</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{tool.usp || tool.USP}</div></div> )}
+            {(tool.prosCons || tool.Pros_Cons) && ( <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "8px 10px", border: "1px solid var(--border-primary)" }}><div style={{ fontSize: "0.65rem", fontWeight: 950, color: "var(--text-muted)", marginBottom: "3px" }}>🔍 ANALYSIS</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{tool.prosCons || tool.Pros_Cons}</div></div> )}
           </div>
 
           <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
             <a
-              href={tool.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
+              href={tool.url || tool.URL || "#"}
+              target={tool.url || tool.URL ? "_blank" : "_self"}
+              rel={tool.url || tool.URL ? "noopener noreferrer" : ""}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (!tool.url && !tool.URL) e.preventDefault();
+              }}
               style={{
                 flex: isMobile ? 2 : 1.6,
                 display: "flex",
@@ -366,18 +370,21 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 {synerToolList.map(rt => (
                   <a
                     key={rt.id}
-                    href={rt.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
+                    href={rt.url || rt.URL || "#"}
+                    target={rt.url || rt.URL ? "_blank" : "_self"}
+                    rel={rt.url || rt.URL ? "noopener noreferrer" : ""}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (!rt.url && !rt.URL) e.preventDefault();
+                    }}
                     style={{ display: "flex", alignItems: "center", gap: "14px", padding: "12px", borderRadius: "18px", background: "var(--bg-secondary)", textDecoration: "none", border: "1px solid var(--border-primary)", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s" }}
                     onMouseEnter={e => { e.currentTarget.style.transform='translateX(5px)'; e.currentTarget.style.borderColor='var(--accent-indigo)'; }}
                     onMouseLeave={e => { e.currentTarget.style.transform='translateX(0)'; e.currentTarget.style.borderColor='var(--border-primary)'; }}
                   >
-                    <img src={getFaviconUrl(rt.url)} alt={rt.name} width={32} height={32} loading="lazy" style={{ width: 32, height: 32, borderRadius: "8px" }} />
+                    {getFaviconUrl(rt.url || rt.URL) ? <img src={getFaviconUrl(rt.url || rt.URL)} alt={rt.name || "Tool"} width={32} height={32} loading="lazy" style={{ width: 32, height: 32, borderRadius: "8px" }} /> : <span style={{ width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem" }}>🤖</span>}
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{rt.name}</div>
-                      <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>{rt.cat}</div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{rt.name || "Unknown Tool"}</div>
+                      <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>{rt.cat || rt.category || "기타"}</div>
                     </div>
                   </a>
                 ))}
