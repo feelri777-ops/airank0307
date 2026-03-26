@@ -105,23 +105,22 @@ async function validateAiTools(tools) {
 
     const toolList = chunk.map((t, idx) => `${idx + 1}. "${t.Name}" — ${t.URL}`).join("\n");
 
-    const systemPrompt = `당신은 AI 도구 검증 전문가입니다. 웹 검색을 통해 각 도구가 실제 존재하는 글로벌 상용 AI 서비스인지 정확히 판별하세요. 반드시 JSON 배열만 출력하세요.`;
+    const systemPrompt = `당신은 AI 도구 검증 전문가입니다. 웹 검색을 통해 각 도구가 현재 실제로 운영 중이며, AI 기술(LLM, 이미지 생성, 음성 합성 등)을 핵심 기능으로 제공하는 상용 서비스인지 정확히 판별하세요. 반드시 JSON 배열만 출력하세요.`;
 
-    const userPrompt = `아래 AI 도구들이 현재(2026년) 실제로 운영 중인 글로벌 상용 AI 서비스인지 웹 검색으로 확인해주세요.
+    const userPrompt = `아래 도구들이 현재 실제로 운영 중인 글로벌 상용 AI 서비스인지 웹 검색으로 확인해주세요.
 
 [판별 기준]
-- 현재 누구나 가입/사용할 수 있는 상용 서비스여야 합니다
-- 서비스가 종료(shutdown)되었거나 아직 미출시인 경우 false
-- 공공기관 전용, 기업 사내용은 제외
-- URL이 해당 서비스의 공식 사이트여야 합니다
-- 같은 회사의 다른 버전이라도 실제 서비스명이 다르면 확인 필요 (예: ChatGPT-4o는 ChatGPT 내 모델이므로 ChatGPT로 통합 가능)
+- AI(인공지능) 기술이 서비스의 핵심 기능이거나, AI를 활용한 생산성 도구여야 합니다. (예: ChatGPT, Canva, DeepSeek, Grok, Perplexity, DeepL 등은 모두 대표적인 AI 서비스입니다.)
+- 현재 누구나 가입/사용할 수 있는 상용 서비스여야 합니다.
+- 서비스가 완전히 종료되었거나 아직 미출시(Coming Soon)인 경우에만 false로 판별하세요.
+- 단순히 URL이 안 열리는 경우는 별도의 URL 검증에서 처리되므로, 여기서는 '서비스의 실존 여부'와 'AI 도구 여부'에 집중하세요.
 
 [도구 목록]
 ${toolList}
 
 [출력 형식] JSON 배열만 출력. 다른 텍스트 금지.
 [
-  { "index": 1, "name": "도구명", "isValid": true, "reason": "웹 검색으로 확인된 판별 근거" }
+  { "index": 1, "name": "도구명", "isValid": true, "reason": "AI 기술 활용 방식 및 실존 여부 근거" }
 ]`;
 
     try {
@@ -294,17 +293,17 @@ async function updateToolInfo(validatedTools) {
 
     const systemPrompt = `당신은 AI 도구 전문 조사원입니다. 웹 검색으로 각 도구의 최신 정보를 정확하게 조사하세요. 반드시 JSON 배열만 출력하세요.`;
 
-    const userPrompt = `아래 AI 도구들의 **현재 최신 정보**를 웹 검색으로 조사해주세요.
+    const userPrompt = `아래 AI 도구들의 **현재 시점(2025년 기준) 최신 정보**를 웹 검색으로 조사해주세요.
 
 [조사 대상]
 ${toolList}
 
 [조사 항목]
-1. Description: 현재 시점의 정확한 설명 (2-3문장, 최신 기능 반영)
-2. One_Line_Review: 한줄 요약 (한국어)
-3. Pricing: 현재 요금 모델 (Free/Freemium/Paid)
-4. Korean_Support: 한국어 지원 여부 (Y/N)
-5. Platform: 지원 플랫폼 (Web/iOS/Android/Desktop 중 해당하는 것들)
+1. Description: 현재 서비스의 주된 용도와 핵심 AI 기능 (2-3문장, 한국어)
+2. One_Line_Review: 사용자가 느끼는 가장 큰 장점 한줄 요약 (한국어)
+3. Pricing: 현재 공식 사이트의 요금 모델 (Free/Freemium/Paid)
+4. Korean_Support: 공식 사이트 또는 인터페이스의 한국어 지원 여부 (Y/N)
+5. Platform: 실제 지원하는 플랫폼 리스트 (Web/iOS/Android/Desktop 등)
 
 [출력 형식] JSON 배열만 출력. 다른 텍스트 금지.
 [
