@@ -314,16 +314,31 @@ const AdminReports = () => {
 
       // 3. 500개 배치 한도 고려 — 100개이므로 단일 배치 OK
       const batch = writeBatch(db);
+
+      // [핵심 해결] 이전에 잘못 생성된 숫자 ID(1~120) 문서들 자동 정리 (중복 노출 방지)
+      for (let i = 1; i <= 120; i++) {
+        batch.delete(doc(db, "tools", String(i)));
+      }
+
       newTools.forEach(tool => {
         if (!tool.Name) return;
-        // tools 컬렉션의 docId는 Rank 기반으로 매핑 (기존 구조 유지)
-        const toolRef = doc(db, "tools", String(tool.Rank));
+
+        // 이름으로 기존 문서 찾기 (대소문자 구분 없이)
+        const existing = currentTools.find(t => 
+          String(t.name || "").toLowerCase() === String(tool.Name).toLowerCase()
+        );
+
+        // 기존 문서가 있으면 해당 ID 사용, 없으면 새 자동 ID 생성 (Rank를 ID로 쓰지 않음)
+        const toolRef = existing 
+          ? doc(db, "tools", existing.id)
+          : doc(collection(db, "tools"));
+
         batch.set(toolRef, {
           rank: tool.Rank,
           change: tool.Change,
           name: tool.Name,
           url: tool.URL,
-          cat: tool.Category,
+          cat: tool.Category ? tool.Category.toLowerCase() : "text",
           tags: Array.isArray(tool.Tags) ? tool.Tags : [],
           desc: tool.Description,
           oneLineReview: tool.One_Line_Review,
@@ -342,22 +357,24 @@ const AdminReports = () => {
           koSupport: tool.Korean_Support,
           platform: tool.Platform,
           weekLabel: report.data?.weekLabel || "",
-          updatedAt: new Date(),
+          updatedAt: serverTimestamp(),
           updatedByAgent: true,
+          hidden: false
         }, { merge: true });
       });
       await batch.commit();
       
-      // 리포트 상태 approved로 변경 (문서가 존재하는지 다시 확인)
+      // 4. 리포트 상태 approved로 변경 (문서가 존재하는지 다시 확인)
       const reportRef = doc(db, "adminReports", report.id);
       const reportSnap = await getDoc(reportRef);
       if (reportSnap.exists()) {
-        await updateDoc(reportRef, { status: "approved", approvedAt: new Date() });
-      } else {
-        console.warn("승인하려는 리포트 문서가 이미 삭제되었습니다.");
+        await updateDoc(reportRef, { 
+          status: "approved", 
+          approvedAt: serverTimestamp() 
+        });
       }
       
-      alert(`✅ ${newTools.length}개 도구 랭킹 반영 및 기존 랭킹 백업이 완료되었습니다!`);
+      alert(`✅ ${newTools.length}개 도구의 랭킹 데이터가 기존 문서와 병합되어 서비스에 반영되었습니다.\n(중복 방지를 위한 이름 매칭 기반 업데이트 완료)`);
     } catch (err) {
       alert("❌ 반영 중 오류: " + err.message);
     }
