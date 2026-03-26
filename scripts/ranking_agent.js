@@ -54,15 +54,17 @@ function extractJsonArray(text) {
 // --- 핵심 로직: 1~50위, 51~100위 분할 호출 ---
 async function fetchRankingChunk(model, range, weekLabel) {
   const prompt = `
-당신은 글로벌 AI 툴 랭킹 사이트의 데이터 엔진입니다.
-아래 알고리즘을 적용하여 ${weekLabel} 기준 AI 툴 ${range}까지의 랭킹을 생성하세요.
+당신은 글로벌 AI 툴 정밀 평가 에이전트입니다.
+현재 시스템의 기준 시간은 '${weekLabel}'(실행 시점)입니다.
+반드시 google_search를 활용하여 최근 1개월 내의 최신 신뢰할 수 있는 데이터를 수집하고,
+아래 알고리즘 가중치를 철저히 적용하여 글로벌 AI 툴 ${range} 랭킹을 생성하세요.
 
 [알고리즘 가중치]
-- 이용량(35%): Similarweb MAU 및 방문자 수 기준
-- 기술력(25%): LMSYS Chatbot Arena 벤치마크 및 혁신성 기준
-- 버즈량(20%): X/Reddit/Product Hunt 소셜 언급량 기준
-- 실무가치(15%): B2B 채택 및 업무 생산성 기여 기준
-- 상승률(5%): 전주 대비 성장 속도 기준
+- 이용량(35%): 최근 1개월간의 Similarweb 트래픽, MAU, 트래픽 증감률
+- 기술력(25%): 최신 LMSYS Chatbot Arena 순위, GitHub 커밋 활성도, 기술적 혁신성
+- 버즈량(20%): 최근 2주간 X/Reddit/Product Hunt 등 소셜 미디어/테크 커뮤니티 언급 빈도
+- 실무가치(15%): 실제 B2B 채택 및 업무 효율화 실사용 사례 비중
+- 상승률(5%): 전월 또는 전주 대비 사용자 및 검색량 성장(Growth) 지표
 
 [데이터 소스 참고]
 Similarweb 트래픽, LMSYS Chatbot Arena 순위, Product Hunt 트렌드, GitHub Stars, X/Reddit 버즈
