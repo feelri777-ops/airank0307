@@ -23,27 +23,7 @@ jobs:
       - name: 의존성 설치
         run: npm install
 
-      - name: 랭킹 점수 갱신
-        run: node scripts/update_ranking.js
-        env:
-          OPR_API_KEY: ${{ secrets.OPR_API_KEY }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
-          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
-          NAVER_CLIENT_ID_2: ${{ secrets.NAVER_CLIENT_ID_2 }}
-          NAVER_CLIENT_SECRET_2: ${{ secrets.NAVER_CLIENT_SECRET_2 }}
-          XPOZ_API_KEY: ${{ secrets.XPOZ_API_KEY }}
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
-      - name: Firestore 점수 동기화
-        run: node scripts/sync_tools_js.js
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-
-      - name: 100위 컷오프 및 수동 랭킹 적용
-        run: node scripts/rebalance_ranking.js
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
       - name: 🤖 AI 랭킹 에이전트 (제안 생성 → 어드민 컨펌 대기)
         run: node scripts/ranking_agent.js

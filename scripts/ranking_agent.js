@@ -30,7 +30,13 @@ function initializeFirebase() {
 }
 
 const db = initializeFirebase().firestore();
-const genAI = new GoogleGenerativeAI(process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY);
+const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+if (!apiKey || apiKey.length < 10) {
+  console.error("❌ [치명적 오류]: 유효한 GEMINI API 키가 환경 변수에 설정되지 않았습니다.");
+  console.error("💡 해결방법: GitHub Repository -> Settings -> Secrets and variables -> Actions 에 들어가서 'GEMINI_API_KEY' 라는 이름으로 구글 제미나이 API 키를 등록해주세요.");
+  process.exit(1);
+}
+const genAI = new GoogleGenerativeAI(apiKey);
 
 // --- 날짜 헬퍼 ---
 function getWeekLabel() {
