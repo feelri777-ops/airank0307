@@ -8,6 +8,8 @@ import {
   updateDoc, 
   deleteDoc,
   getDoc,
+  getDocs,
+  addDoc,
   writeBatch,
   orderBy 
 } from "firebase/firestore";
@@ -265,14 +267,28 @@ const AdminReports = () => {
     setActiveReport(null);
   };
 
-  // --- ranking_update 승인: tools 컬렉션 배치 업데이트 ---
+  // --- ranking_update 승인: tools 컬렉션 배치 업데이트 및 백업 ---
   const handleApproveRanking = async (report) => {
-    if (!window.confirm(`총 ${report.data?.tools?.length || 0}개 도구 랭킹을 실제 DB에 반영할까요?\n이 작업은 되돌릴 수 없습니다.`)) return;
-    const tools = report.data?.tools || [];
+    if (!window.confirm(`총 ${report.data?.tools?.length || 0}개 도구 랭킹을 실제 DB에 반영할까요?\n기존 랭킹은 자동 백업되며 이 작업 후 롤백이 가능합니다.`)) return;
+    const newTools = report.data?.tools || [];
     try {
-      // 500개 배치 한도 고려 — 100개이므로 단일 배치 OK
+      // 1. 기존 tools 컬렉션 전체 가져오기 (백업용)
+      const toolsSnap = await getDocs(collection(db, "tools"));
+      const currentTools = toolsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+      // 2. adminReports 컬렉션에 백업 문서 저장
+      await addDoc(collection(db, "adminReports"), {
+        type: "ranking_backup",
+        title: "랭킹 덮어쓰기 백업",
+        summary: `이전 랭킹 상태 백업 (${currentTools.length}개 도구)`,
+        data: { tools: currentTools },
+        createdAt: new Date(),
+        targetReportId: report.id
+      });
+
+      // 3. 500개 배치 한도 고려 — 100개이므로 단일 배치 OK
       const batch = writeBatch(db);
-      tools.forEach(tool => {
+      newTools.forEach(tool => {
         if (!tool.Name) return;
         // tools 컬렉션의 docId는 Rank 기반으로 매핑 (기존 구조 유지)
         const toolRef = doc(db, "tools", String(tool.Rank));
@@ -307,9 +323,34 @@ const AdminReports = () => {
       await batch.commit();
       // 리포트 상태 approved로 변경
       await updateDoc(doc(db, "adminReports", report.id), { status: "approved", approvedAt: new Date() });
-      alert(`✅ ${tools.length}개 도구 랭킹이 성공적으로 반영되었습니다!`);
+      alert(`✅ ${newTools.length}개 도구 랭킹 반영 및 기존 랭킹 백업이 완료되었습니다!`);
     } catch (err) {
       alert("❌ 반영 중 오류: " + err.message);
+    }
+  };
+
+  // --- ranking_backup 복원 (롤백) ---
+  const handleRestoreBackup = async (report) => {
+    if (!window.confirm("이 백업 시점의 랭킹 데이터로 덮어씌워 롤백하시겠습니까?\n현재 웹에서 표시되는 랭킹 데이터는 지금의 백업 데이터로 대체됩니다.")) return;
+    const backupTools = report.data?.tools || [];
+    try {
+      const batch = writeBatch(db);
+      backupTools.forEach(tool => {
+        if (!tool.id) return;
+        const toolRef = doc(db, "tools", String(tool.id));
+        const { id, ...dataToRestore } = tool;
+        batch.set(toolRef, dataToRestore);
+      });
+      await batch.commit();
+      
+      await updateDoc(doc(db, "adminReports", report.id), { 
+        restored: true, 
+        restoredAt: new Date(),
+        summary: `[복원 완료] 이전 랭킹 상태 백업 (${backupTools.length}개 도구)`
+      });
+      alert("✅ 랭킹 데이터가 성공적으로 롤백 복원되었습니다!");
+    } catch (err) {
+      alert("❌ 롤백 중 오류: " + err.message);
     }
   };
 
@@ -351,10 +392,10 @@ const AdminReports = () => {
                   <span>{r.displayDate}</span>
                   <span style={{ 
                     fontSize: "0.65rem", padding: "2px 8px", borderRadius: "4px", fontWeight: 900,
-                    background: r.type === "ranking_update" ? "#f59e0b" : "#6366f1",
+                    background: r.type === "ranking_update" ? "#f59e0b" : r.type === "ranking_backup" ? "#10b981" : "#6366f1",
                     color: "#fff"
                   }}>
-                    {r.type === "ranking_update" ? "🏆 RANKING" : r.type === "new_tool_recommendation" ? "✨ NEW TOOL" : r.type.toUpperCase()}
+                    {r.type === "ranking_update" ? "🏆 RANKING" : r.type === "ranking_backup" ? "🛡️ BACKUP" : r.type === "new_tool_recommendation" ? "✨ NEW TOOL" : r.type.toUpperCase()}
                   </span>
                 </div>
                 <div style={{ fontWeight: 900, color: activeReport?.id === r.id ? "#fff" : "var(--text-primary)", fontSize: "0.95rem" }}>{r.summary}</div>
@@ -375,6 +416,7 @@ const AdminReports = () => {
                   <h2 style={{ fontSize: "1.6rem", fontWeight: 950, color: "var(--text-primary)" }}>
                      {activeReport.type === "new_tool_recommendation" ? "✨ 신규 AI 도구 도입 제안"
                       : activeReport.type === "ranking_update" ? "🏆 AI 랭킹 갱신 제안"
+                      : activeReport.type === "ranking_backup" ? "🛡️ 랭킹 덮어쓰기 백업"
                       : "📊 통합 분석 및 점검 보고서"}
                   </h2>
                   <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>{activeReport.displayDate} 작성</p>
@@ -436,6 +478,35 @@ const AdminReports = () => {
                   onApprove={() => handleApproveRanking(activeReport)}
                   onReject={() => handleRejectRanking(activeReport)}
                 />
+              )}
+
+              {/* [2.5] RANKING BACKUP */}
+              {activeReport.type === "ranking_backup" && (
+                <div style={{ background: "var(--bg-secondary)", padding: "30px", borderRadius: "24px", border: "1px solid var(--border-primary)" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+                    <CheckCircle size={28} weight="fill" color="var(--accent-emerald)" />
+                    <h3 style={{ fontSize: "1.4rem", fontWeight: 950, margin: 0, color: "var(--text-primary)" }}>{activeReport.title || "랭킹 백업 데이터"}</h3>
+                  </div>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "1.05rem", lineHeight: 1.6, marginBottom: "24px" }}>
+                    이 백업은 랭킹이 새롭게 승인되어 업데이트될 때 자동 생성되었습니다. 총 <strong>{activeReport.data?.tools?.length || 0}개</strong>의 이전 도구 데이터를 안전하게 보존하고 있습니다.
+                  </p>
+                  
+                  <div style={{ padding: "20px", background: "var(--bg-card)", borderRadius: "16px", border: "1px dashed var(--border-color)", marginBottom: "30px" }}>
+                    <ul style={{ margin: 0, paddingLeft: "20px", color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.5, display: "flex", flexDirection: "column", gap: "8px" }}>
+                      <li>이 백업을 활용하면 문제가 발생했을 때 즉시 원래 상태로 롤백할 수 있습니다.</li>
+                      <li>롤백 실행 시 현재 라이브 서비스에 있는 툴 랭킹 정보 위에 이 백업 정보가 전부 덮어씌워집니다.</li>
+                      <li>상태: {activeReport.restored ? <strong style={{ color: "var(--accent-emerald)" }}>복원 완료 ({activeReport.restoredAt?.toDate().toLocaleString()})</strong> : <strong>안전하게 보관 중</strong>}</li>
+                    </ul>
+                  </div>
+
+                  <button
+                    onClick={() => handleRestoreBackup(activeReport)}
+                    style={{ width: "100%", padding: "16px", borderRadius: "14px", border: "none", background: "var(--accent-emerald)", color: "#fff", fontWeight: 900, cursor: "pointer", fontSize: "1.1rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}
+                  >
+                    <ArrowClockwise size={22} weight="bold" />
+                    이 백업 시점으로 기존 랭킹 롤백(원상복구)
+                  </button>
+                </div>
               )}
 
               {/* [3] ERROR & UPDATE (SCOUT FULL TYPE) */}
