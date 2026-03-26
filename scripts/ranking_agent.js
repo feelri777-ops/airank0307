@@ -41,6 +41,18 @@ function getWeekLabel() {
   return `${year}년 ${month}월 ${week}주차`;
 }
 
+function getSearchDateRange() {
+  const now = new Date();
+  const day = now.getDay() || 7; // 월=1 ... 일=7
+  const lastSunday = new Date(now);
+  lastSunday.setDate(now.getDate() - day);
+  const lastMonday = new Date(lastSunday);
+  lastMonday.setDate(lastSunday.getDate() - 6);
+  
+  const fmt = (d) => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  return `${fmt(lastMonday)} ~ ${fmt(lastSunday)}`;
+}
+
 // --- JSON 클렌징: AI 응답에서 순수 JSON 배열만 추출 ---
 function extractJsonArray(text) {
   const cleaned = text.replace(/```json|```/g, '').trim();
@@ -52,19 +64,19 @@ function extractJsonArray(text) {
 }
 
 // --- 핵심 로직: 1~50위, 51~100위 분할 호출 ---
-async function fetchRankingChunk(model, range, weekLabel) {
+async function fetchRankingChunk(model, range, weekLabel, dateRange) {
   const prompt = `
 당신은 글로벌 AI 툴 정밀 평가 에이전트입니다.
-현재 시스템의 기준 시간은 '${weekLabel}'(실행 시점)입니다.
-반드시 google_search를 활용하여 최근 1개월 내의 최신 신뢰할 수 있는 데이터를 수집하고,
-아래 알고리즘 가중치를 철저히 적용하여 글로벌 AI 툴 ${range} 랭킹을 생성하세요.
+현재 시스템의 랭킹 목표 주차는 '${weekLabel}'이며, 
+반드시 google_search를 활용하여 오직 해당 주차의 직전 주 **[${dateRange}] (월요일 ~ 일요일 7일간)** 동안 발생한 데이터만 수집하세요.
+과거 데이터가 섞이지 않도록 주의하며, 아래 알고리즘 가중치를 적용하여 글로벌 AI 툴 ${range} 랭킹을 생성하세요.
 
 [알고리즘 가중치]
-- 이용량(35%): 최근 1개월간의 Similarweb 트래픽, MAU, 트래픽 증감률
-- 기술력(25%): 최신 LMSYS Chatbot Arena 순위, GitHub 커밋 활성도, 기술적 혁신성
-- 버즈량(20%): 최근 2주간 X/Reddit/Product Hunt 등 소셜 미디어/테크 커뮤니티 언급 빈도
-- 실무가치(15%): 실제 B2B 채택 및 업무 효율화 실사용 사례 비중
-- 상승률(5%): 전월 또는 전주 대비 사용자 및 검색량 성장(Growth) 지표
+- 이용량(35%): [${dateRange}] 기간의 Similarweb 트래픽 및 증감 데이터
+- 기술력(25%): [${dateRange}] 기간 중 업데이트된 핵심 벤치마크(LMSYS 등) 순위 변동 및 기술 혁신 뉴스
+- 버즈량(20%): [${dateRange}] 7일간 X/Reddit/Product Hunt 등 소셜 미디어/테크 커뮤니티 언급 빈도
+- 실무가치(15%): [${dateRange}] 기간 동안 새롭게 파악된 B2B 채택 및 업무 효율화 사례
+- 상승률(5%): 직전 주간 대비 [${dateRange}] 주간의 급성장(Growth) 지표
 
 [데이터 소스 참고]
 Similarweb 트래픽, LMSYS Chatbot Arena 순위, Product Hunt 트렌드, GitHub Stars, X/Reddit 버즈
@@ -108,7 +120,8 @@ Similarweb 트래픽, LMSYS Chatbot Arena 순위, Product Hunt 트렌드, GitHub
 async function runRankingAgent() {
   try {
     const weekLabel = getWeekLabel();
-    console.log(`\n🚀 [Ranking Agent] ${weekLabel} 글로벌 AI 툴 랭킹 생성 시작...\n`);
+    const dateRange = getSearchDateRange();
+    console.log(`\n🚀 [Ranking Agent] ${weekLabel} (${dateRange} 기준) 글로벌 AI 툴 랭킹 생성 시작...\n`);
 
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash",
@@ -117,8 +130,8 @@ async function runRankingAgent() {
 
     // 2회 분할 호출 (응답 잘림 방지)
     const [chunk1, chunk2] = await Promise.all([
-      fetchRankingChunk(model, "1위부터 50위", weekLabel),
-      fetchRankingChunk(model, "51위부터 100위", weekLabel),
+      fetchRankingChunk(model, "1위부터 50위", weekLabel, dateRange),
+      fetchRankingChunk(model, "51위부터 100위", weekLabel, dateRange),
     ]);
 
     const allTools = [...chunk1, ...chunk2];
