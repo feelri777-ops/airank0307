@@ -1,0 +1,29 @@
+name: 🔍 AI 툴 검증 에이전트
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-validator-agent:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 의존성 설치
+        run: npm install
+
+      - name: 🔍 AI 툴 검증 (진위·URL·로고 확인 + 최신정보 업데이트)
+        run: node scripts/tool_validator_agent.js
+        env:
+          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
