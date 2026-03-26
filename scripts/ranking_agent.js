@@ -73,9 +73,8 @@ function extractJsonArray(text) {
 async function fetchRankingChunk(model, range, weekLabel, dateRange) {
   const prompt = `
 당신은 글로벌 AI 툴 정밀 평가 에이전트입니다.
-현재 시스템의 랭킹 목표 주차는 '${weekLabel}'이며, 
-반드시 google_search를 활용하여 오직 해당 주차의 직전 주 **[${dateRange}] (월요일 ~ 일요일 7일간)** 동안 발생한 데이터만 수집하세요.
-과거 데이터가 섞이지 않도록 주의하며, 아래 알고리즘 가중치를 적용하여 글로벌 AI 툴 ${range} 랭킹을 생성하세요.
+현재 시스템의 랭킹 목표 주차는 '${weekLabel}'입니다.
+반드시 google_search를 활용하여 [${dateRange}] (월요일 ~ 일요일 7일간) 동안 발생한 최신 데이터를 우선적으로 수집하되, 만약 특정 툴의 해당 주차 데이터가 부족하더라도 가장 최신의 가용 데이터를 활용하여 **반드시 누락 없이 50개의 목록을 채우세요**. "데이터를 찾을 수 없습니다" 등의 대화형 응답은 절대 금지합니다.
 
 [알고리즘 가중치]
 - 이용량(35%): [${dateRange}] 기간의 Similarweb 트래픽 및 증감 데이터
@@ -118,9 +117,16 @@ Similarweb 트래픽, LMSYS Chatbot Arena 순위, Product Hunt 트렌드, GitHub
   console.log(`🤖 [Ranking Agent] ${range} 호출 중...`);
   const result = await model.generateContent(prompt);
   const text = result.response.text();
-  const chunk = extractJsonArray(text);
-  console.log(`✅ ${range}: ${chunk.length}개 항목 수신`);
-  return chunk;
+  
+  try {
+    const chunk = extractJsonArray(text);
+    console.log(`✅ ${range}: ${chunk.length}개 항목 수신 완료`);
+    return chunk;
+  } catch (err) {
+    console.error(`\n❌ [치명적 오류]: ${range} JSON 파싱 실패!`);
+    console.error(`=== 제미나이 응답 원본 데이터 ===\n${text}\n=================================\n`);
+    throw err;
+  }
 }
 
 async function runRankingAgent() {
@@ -131,7 +137,10 @@ async function runRankingAgent() {
 
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash",
-      tools: [{ google_search: {} }]
+      tools: [{ google_search: {} }],
+      generationConfig: {
+        responseMimeType: "application/json"
+      }
     });
 
     // 2회 분할 호출 (응답 잘림 방지)
