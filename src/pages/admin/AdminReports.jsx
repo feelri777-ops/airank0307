@@ -288,16 +288,55 @@ const AdminReports = () => {
   };
 
   const handleCleanupDuplicates = async () => {
-    if (!window.confirm("이전에 잘못 생성된 숫자 형식 ID(1~120) 문서들을 모두 삭제하시겠습니까?\n이 작업은 실제 데이터에는 영향을 주지 않고 중복된 그림자 데이터만 제거합니다.")) return;
+    if (!window.confirm("모든 도구를 이름 기반으로 전수 조사하여 중복된 항목을 자동으로 정리하시겠습니까?\n이 작업은 이름이 같은 중복 문서들을 찾아 하나만 남기고 나머지를 삭제합니다.")) return;
     setTransacting(true);
     try {
+      // 1. 전체 도구 목록 가져오기
+      const snap = await getDocs(collection(db, "tools"));
+      const allTools = snap.docs.map(d => ({ ...d.data(), id: d.id }));
+      
+      // 2. 이름별로 그룹화
+      const groups = {};
+      allTools.forEach(t => {
+        const nameKey = String(t.name || "").toLowerCase().trim();
+        if (!nameKey) return;
+        if (!groups[nameKey]) groups[nameKey] = [];
+        groups[nameKey].push(t);
+      });
+
       const batch = writeBatch(db);
+      let deleteCount = 0;
+
+      // 3. 중복된 그룹 처리
+      Object.keys(groups).forEach(nameKey => {
+        const list = groups[nameKey];
+        if (list.length > 1) {
+          // 점수가 높거나 최근 업데이트된 것을 남기고 나머지는 삭제 대상으로 선정
+          list.sort((a, b) => {
+            // updatedAt이 있는 것을 우선
+            if (a.updatedAt && !b.updatedAt) return -1;
+            if (!a.updatedAt && b.updatedAt) return 1;
+            // 점수가 높은 것을 우선
+            return (Number(b.score) || 0) - (Number(a.score) || 0);
+          });
+
+          // 첫 번째 요소는 남기고 나머지 삭제
+          for (let i = 1; i < list.length; i++) {
+            batch.delete(doc(db, "tools", list[i].id));
+            deleteCount++;
+          }
+        }
+      });
+
+      // [보너스] 이름 매칭과 무관하게 숫자 ID(1~120) 문서들은 무조건 삭제 목록에 추가 (한번 더 확실하게)
       for (let i = 1; i <= 120; i++) {
         batch.delete(doc(db, "tools", String(i)));
       }
+
       await batch.commit();
-      alert("✅ 중복된 숫자 ID 문서들이 정리되었습니다.");
+      alert(`✅ 정리 완료! 중복 문서 및 숫자 ID 잔여물 총 ${deleteCount}개 이상을 정리했습니다.`);
     } catch (err) {
+      console.error("Cleanup error:", err);
       alert("❌ 정리 중 오류 발생: " + err.message);
     } finally {
       setTransacting(false);
