@@ -450,7 +450,7 @@ const AdminReports = () => {
           koSupport: tool.Korean_Support,
           platform: tool.Platform,
           weekLabel: report.data?.weekLabel || "",
-          updatedAt: serverTimestamp(),
+          updatedAt: new Date(),
           updatedByAgent: true,
           hidden: false
         }, { merge: true });
@@ -463,7 +463,7 @@ const AdminReports = () => {
       if (reportSnap.exists()) {
         await updateDoc(reportRef, { 
           status: "approved", 
-          approvedAt: serverTimestamp() 
+          approvedAt: new Date() 
         });
       }
       
