@@ -311,12 +311,17 @@ const AdminReports = () => {
       Object.keys(groups).forEach(nameKey => {
         const list = groups[nameKey];
         if (list.length > 1) {
-          // 점수가 높거나 최근 업데이트된 것을 남기고 나머지는 삭제 대상으로 선정
+          // 최우선 순위: 방금 에이전트가 승인한 데이터(updatedByAgent)
+          // 차순위: 가장 최근에 업데이트된 날짜
+          // 삼순위: 점수가 높은 것
           list.sort((a, b) => {
-            // updatedAt이 있는 것을 우선
-            if (a.updatedAt && !b.updatedAt) return -1;
-            if (!a.updatedAt && b.updatedAt) return 1;
-            // 점수가 높은 것을 우선
+            if (a.updatedByAgent && !b.updatedByAgent) return -1;
+            if (!a.updatedByAgent && b.updatedByAgent) return 1;
+            
+            const timeA = a.updatedAt?.toMillis?.() || (a.updatedAt instanceof Date ? a.updatedAt.getTime() : 0);
+            const timeB = b.updatedAt?.toMillis?.() || (b.updatedAt instanceof Date ? b.updatedAt.getTime() : 0);
+            if (timeB !== timeA) return timeB - timeA;
+
             return (Number(b.score) || 0) - (Number(a.score) || 0);
           });
 
