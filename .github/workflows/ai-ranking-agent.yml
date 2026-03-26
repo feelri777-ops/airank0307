@@ -1,0 +1,50 @@
+name: 🤖 AI 랭킹 에이전트 (매주 월요일 새벽 3시 10분)
+
+on:
+  schedule:
+    - cron: '10 18 * * 0'  # 매주 월요일 새벽 3시 10분 KST (UTC 일요일 18:10)
+  workflow_dispatch:
+
+jobs:
+  run-ranking-agent:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 의존성 설치
+        run: npm install
+
+      - name: 🤖 제미나이 AI 랭킹 자동 생성 및 승인 대기
+        run: node scripts/ranking_agent.js
+        env:
+          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: 변경사항 커밋 & 푸시
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add .
+          git stash
+          git pull --rebase origin main
+          git stash pop || echo "No changes to pop"
+          
+          git add .
+          if ! git diff --staged --quiet; then
+            COMMIT_MSG="chore: AI 랭킹 에이전트 작동 완료 [$(TZ='Asia/Seoul' date '+%Y-%m-%d %H:%M KST')]"
+            git commit -m "$COMMIT_MSG"
+            git push origin main
+          else
+            echo "변경된 데이터가 없어 푸시를 생략합니다."
+          fi
