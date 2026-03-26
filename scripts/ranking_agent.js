@@ -35,7 +35,6 @@ const db = initializeFirebase().firestore();
 const perplexityKey = process.env.PERPLEXITY_API_KEY;
 if (!perplexityKey) {
   console.error("❌ [치명적 오류]: PERPLEXITY_API_KEY가 설정되지 않았습니다.");
-  console.error("💡 해결방법: GitHub Secrets에 'PERPLEXITY_API_KEY'를 등록해주세요.");
   process.exit(1);
 }
 const perplexity = new OpenAI({
@@ -104,77 +103,59 @@ function extractJsonArray(text) {
   return JSON.parse(cleaned.slice(start, end + 1));
 }
 
-// --- 핵심 로직: 1~50위, 51~100위 분할 호출 (Perplexity) ---
+// --- 핵심 로직: 10개 단위 정밀 호출 ---
 async function fetchRankingChunk(range, weekLabel, dateRange, currentRankingContext) {
-  const systemPrompt = `당신은 글로벌 AI 툴 정밀 평가 에이전트입니다. 웹 검색을 통해 실시간 데이터를 수집하고, 정확한 랭킹을 생성하세요. 반드시 JSON 배열만 출력하세요.`;
+  const systemPrompt = `당신은 세계 최고의 AI 기술 분석가이자 시장 조사 전문가입니다. 실시간 웹 검색(Similarweb, LMSYS, GitHub, SNS 등)을 통해 [${range}]에 해당하는 도구들의 최신 지표를 상세히 조사하고 객관적인 랭킹을 생성하세요.`;
 
-  const userPrompt = `현재 시스템의 랭킹 목표 주차는 '${weekLabel}'입니다.
+  const userPrompt = `[목표 주차: ${weekLabel}] / [조사 범위: ${dateRange}]
 
-[현재 TOP 100 리스트 (참고용)]
+[현재 TOP 100 상황 (참고)]
 ${currentRankingContext}
 
-**[중요 임무: 랭킹 재배치 및 업데이트]**
-1. 위 [현재 TOP 100 리스트]를 기본 베이스로 사용하세요.
-2. 웹 검색을 통해 [${dateRange}] (월요일 ~ 일요일 7일간) 동안 발생한 글로벌 AI 툴들의 트래픽 변동, 신규 릴리즈, 소셜 버즈를 조사하세요.
-3. 기존 리스트의 툴들 중 성적이 낮은 것은 순위를 내리거나 100위 밖으로 탈락시키고, 새롭게 급부상한 툴은 "NEW"로 진입시키세요.
-4. **절대 금지:** 공공기관 챗봇, 특정 기업 사내용 AI, 단순 보도자료용 구축 사례(예: KOTRA AI 등)는 절대 포함하지 마세요. 반드시 누구나 가입해서 쓸 수 있는 '글로벌 상용 서비스'만 취급합니다.
+**[중요 임무: ${range} 정밀 분석 및 랭킹 생성]**
+위 [현재 TOP 100] 정보를 바탕으로 하되, 실시간 웹 검색을 통해 해당 순위 구간(${range})의 총 10개 도구들에 대해 아래 사항을 전수 조사하세요.
 
-**[지시사항]**
-1. 이번 호출에서는 전체 100위 중 **[${range}]**에 해당하는 50개의 툴 랭킹만 생성해야 합니다.
-   반드시 JSON 객체의 "Rank" 값을 ${range} 범위에 맞게 (예: 1~50 또는 51~100) 정확히 배정하세요.
-2. "Change" 필드 산출 기준:
-   - 신규 진입: "NEW"
-   - 순위 변동 없음: "0"
-   - 순위 상승: "+3" (숫자는 실제 변동폭)
-   - 순위 하락: "-2" (숫자는 실제 변동폭)
+1. **상세 분석**: 각 도구의 최근 7일간의 트래픽 증감, 신규 기능 업데이트 소식, Reddit/X(Twitter)에서의 소셜 버즈, 최신 벤치마크 순위를 정밀하게 확인하세요. 
+2. **순위 재배치**: 급부상 중인 툴은 순위를 올리거나 NEW로 진입시키고, 하락세인 툴은 점수를 깎아 순위를 하향 조정하세요.
+3. **엄격한 필터링**: 누구나 쓸 수 있는 '글로벌 상용 서비스'만 포함하세요. (사내용, 특정 기관 전용, 단순 뉴스 보도용 제품은 절대 제외)
+4. **점수 산정**: 가중치(이용량 35%, 기술 25%, 버즈 20%, 실무 15%, 상승률 5%)에 따라 0.0~100.0 사이의 정밀한 Total_Score를 산출하세요.
 
-[알고리즘 가중치]
-- 이용량(35%): [${dateRange}] 기간의 Similarweb 트래픽 및 증감 데이터
-- 기술력(25%): [${dateRange}] 기간 중 업데이트된 핵심 벤치마크(LMSYS 등) 순위 변동 및 기술 혁신 뉴스
-- 버즈량(20%): [${dateRange}] 7일간 X/Reddit/Product Hunt 등 소셜 미디어/테크 커뮤니티 언급 빈도
-- 실무가치(15%): [${dateRange}] 기간 동안 새롭게 파악된 B2B 채택 및 업무 효율화 사례
-- 상승률(5%): 직전 주간 대비 [${dateRange}] 주간의 급성장(Growth) 지표
-
-[데이터 소스 참고]
-Similarweb 트래픽, LMSYS Chatbot Arena 순위, Product Hunt 트렌드, GitHub Stars, X/Reddit 버즈
-
-[출력 규격]
-반드시 아래 필드를 모두 포함한 JSON 배열만 출력하세요. 다른 텍스트는 일절 쓰지 마세요.
+**[출력 데이터 규격]**
+반드시 아래 필드를 포함한 JSON 배열만 출력하세요 (10개 항목). 다른 텍스트는 일절 쓰지 마세요.
 [
   {
-    "Rank": 1,
-    "Change": "NEW",
+    "Rank": 해당 순위 숫자,
+    "Change": "NEW" 또는 "+N", "-N", "0",
     "Name": "도구명",
-    "URL": "https://...",
-    "Category": "카테고리(text/image/video/audio/code/agent/etc 중 하나)",
-    "Tags": ["태그1", "태그2", "태그3"],
-    "Description": "상세 설명 (2-3문장)",
-    "One_Line_Review": "한줄평",
-    "USP": "핵심 차별점",
+    "URL": "공식 URL",
+    "Category": "text/image/video/audio/code/agent/etc 중 택1",
+    "Tags": ["핵심기능1", "태그2", "태그3"],
+    "Description": "현재 시점의 핵심 가치와 최근 소식이 반영된 상세 설명 (3문장 내외, 한국어)",
+    "One_Line_Review": "사용자가 반드시 써야 할 결정적 이유 (한국어)",
+    "USP": "경쟁사 대비 가장 강력한 기술적 차별점",
     "Pros_Cons": { "pros": ["장점1", "장점2"], "cons": ["단점1"] },
-    "Difficulty": "초급/중급/고급 중 하나",
-    "Usage_Score": 85.0,
-    "Tech_Score": 78.0,
-    "Buzz_Score": 92.0,
-    "Utility_Score": 80.0,
-    "Growth_Score": 75.0,
-    "Total_Score": 84.5,
-    "Pricing": "Free/Freemium/Paid 중 하나",
-    "Korean_Support": "Y/N 중 하나",
-    "Platform": ["Web", "iOS", "Android", "Desktop"] 중 해당하는 것들,
-    "Logo_URL": "공식 로고 이미지 URL (SVG/PNG, 없으면 빈 문자열)",
-    "API_Available": "Y/N 중 하나 (공개 API 제공 여부)",
-    "Latest_Update": "최근 1개월 내 주요 업데이트 내용 (한 줄 요약)",
-    "Free_Tier_Limit": "무료 플랜 제한사항 요약 (없으면 '무료 플랜 없음')"
+    "Difficulty": "초급/중급/고급",
+    "Usage_Score": 0~100 실수,
+    "Tech_Score": 0~100 실수,
+    "Buzz_Score": 0~100 실수,
+    "Utility_Score": 0~100 실수,
+    "Growth_Score": 0~100 실수,
+    "Total_Score": 가중치 합산 총점,
+    "Pricing": "Free/Freemium/Paid",
+    "Korean_Support": "Y/N",
+    "Platform": ["Web", "iOS", "Android", "Desktop" 등],
+    "API_Available": "Y/N",
+    "Latest_Update": "최근 1개월 내 주요 업데이트 (구체적 내용)",
+    "Free_Tier_Limit": "무료 플랜 제약 조건"
   }
 ]`;
 
-  console.log(`🤖 [Ranking Agent] ${range} 호출 중 (Perplexity sonar-pro)...`);
+  console.log(`🤖 [Ranking Agent] ${range} 정밀 분석 중 (Perplexity sonar-pro)...`);
   const text = await askPerplexity(systemPrompt, userPrompt);
 
   try {
     const chunk = extractJsonArray(text);
-    console.log(`✅ ${range}: ${chunk.length}개 항목 수신 완료`);
+    console.log(`   ✅ ${range}: ${chunk.length}개 항목 수집 완료`);
     return chunk;
   } catch (err) {
     console.error(`\n❌ [치명적 오류]: ${range} JSON 파싱 실패!`);
@@ -187,23 +168,32 @@ async function runRankingAgent() {
   try {
     const weekLabel = getWeekLabel();
     const dateRange = getSearchDateRange();
-    console.log(`\n🚀 [Ranking Agent] ${weekLabel} (${dateRange} 기준) 글로벌 AI 툴 랭킹 생성 시작 (Perplexity sonar-pro)...\n`);
+    console.log(`\n🚀 [Ranking Agent] ${weekLabel} (${dateRange} 기준) 글로벌 AI 툴 정밀 랭킹 생성 시작...\n`);
 
     const currentRankingContext = await getCurrentRanking();
+    const allTools = [];
 
-    // 2회 분할 호출 (응답 잘림 방지) — 순차 실행 (API rate limit 대응)
-    const chunk1 = await fetchRankingChunk("1위부터 50위", weekLabel, dateRange, currentRankingContext);
-    const chunk2 = await fetchRankingChunk("51위부터 100위", weekLabel, dateRange, currentRankingContext);
+    // 10개씩 10번 호출 (총 100개) - 정밀도 극대화 전략
+    for (let i = 1; i <= 100; i += 10) {
+      const start = i;
+      const end = i + 9;
+      const rangeStr = `${start}위부터 ${end}위`;
+      
+      const chunk = await fetchRankingChunk(rangeStr, weekLabel, dateRange, currentRankingContext);
+      allTools.push(...chunk);
+      
+      // 진행률 표시
+      console.log(`   📊 진행률: ${allTools.length}/100 완료`);
+    }
 
-    const allTools = [...chunk1, ...chunk2];
-    console.log(`\n📊 총 ${allTools.length}개 도구 수집 완료`);
+    console.log(`\n✅ 총 ${allTools.length}개 도구 정밀 수집 완료`);
 
-    // Firestore adminReports에 pending 상태로 저장 (바로 반영 X)
+    // Firestore adminReports에 pending 상태로 저장
     const reportRef = await db.collection("adminReports").add({
       type: "ranking_update",
-      summary: `[${weekLabel}] 글로벌 AI 툴 랭킹 갱신 제안 (${allTools.length}개)`,
+      summary: `[${weekLabel}] 글로벌 AI 툴 랭킹 정밀 갱신 제안 (${allTools.length}개)`,
       data: {
-        tools: allTools,
+        tools: allTools.sort((a,b) => a.Rank - b.Rank),
         weekLabel,
         totalCount: allTools.length,
         generatedAt: new Date().toISOString(),
@@ -212,7 +202,7 @@ async function runRankingAgent() {
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
-    console.log(`\n🏆 [완료] adminReports에 pending 보고서 저장: ${reportRef.id}`);
+    console.log(`\n🏆 [완료] adminReports에 정밀 보고서 저장: ${reportRef.id}`);
     console.log(`   ⚠️  관리자 에이전트 제어실에서 최종 컨펌 후 랭킹이 갱신됩니다.\n`);
 
   } catch (error) {
