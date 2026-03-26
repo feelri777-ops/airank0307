@@ -106,72 +106,62 @@ function extractJsonArray(text) {
 // --- 핵심 로직: 10개 단위 정밀 호출 (재시도 로직 포함) ---
 async function fetchRankingChunk(range, weekLabel, dateRange, currentRankingContext, retryCount = 0) {
   const isRetry = retryCount > 0;
+  // 2차 재시도 시에는 더 정교한 reasoning 모델 사용 고려
+  const model = retryCount >= 2 ? "sonar-reasoning-pro" : "sonar-pro";
   
-  const systemPrompt = isRetry 
-    ? `당신은 유연한 AI 데이터 분석가입니다. 실시간 데이터가 부족하더라도, 현재 시장에 실존하는 유효한 AI 서비스 10개를 선정하여 [${range}] 구간을 반드시 JSON으로 채우세요. 답변 거부는 절대 불가합니다.`
-    : `당신은 세계 최고의 AI 기술 분석가이자 시장 조사 전문가입니다. 실시간 웹 검색과 당신의 심층 지식을 결합하여 [${range}]에 해당하는 도구들의 지표를 분석하세요. 정밀한 수치 데이터가 보안상 제한되더라도, 시장의 상대적 위상과 트렌드를 바탕으로 '전문가적 추정치'를 산출하여 반드시 JSON 형식을 유지해야 합니다. 답변 거부(Refusal)는 허용되지 않습니다.`;
+  const systemPrompt = `당신은 고도로 훈련된 'AI 시장 데이터 매핑 엔진'입니다. 
+당신의 임무는 실시간 웹 검색 결과를 바탕으로 지정된 순위 구간의 AI 도구들을 추출하고, 이를 정해진 JSON 스키마로 변환하는 것입니다. 
+수치(Score) 데이터는 검색 결과에 나타난 각 도구의 상대적 위상(트래픽, 인지도, 기술력)을 0.0~100.0 사이의 값으로 '매핑'하는 과정이며, 이는 창작이 아닌 데이터 정량화 모델링의 일부입니다. 
+다른 설명 없이 오직 JSON 배열만 출력하세요.`;
 
-  const userPrompt = isRetry
-    ? `[긴급 재시도: ${range}]
-데이터가 부족하다는 이유로 거절하지 마세요. 현재 글로벌 시장에서 운영 중인 AI 도구 중 아직 순위에 포함되지 않은 10개를 자유롭게 골라 [${range}] 순위를 부여하고 JSON을 생성하세요. 
-각 도구의 점수와 설명은 현재 시장 인지도를 바탕으로 '합리적인 추정치'를 사용하세요. 반드시 JSON 배열만 출력하세요.`
-    : `[목표 주차: ${weekLabel}] / [조사 범위: ${dateRange}]
+  const exampleJson = [
+    {
+      "Rank": 1,
+      "Change": "0",
+      "Name": "ChatGPT",
+      "URL": "https://chatgpt.com",
+      "Category": "text",
+      "Tags": ["LLM", "Chatbot", "Multimodal"],
+      "Description": "OpenAI에서 개발한 세계 점유율 1위 AI 서비스입니다. 최근 o1 모델 및 고급 음성 모드 업데이트로 선두를 유지 중입니다.",
+      "One_Line_Review": "가장 범용적이고 강력한 AI 비서의 표준",
+      "USP": "압도적인 사용자 생태계와 안정적인 멀티모달 성능",
+      "Pros_Cons": { "pros": ["범용성", "에코시스템"], "cons": ["속도(고성능 모델)"] },
+      "Difficulty": "초급",
+      "Usage_Score": 98.5, "Tech_Score": 97.0, "Buzz_Score": 99.0, "Utility_Score": 96.0, "Growth_Score": 92.0, "Total_Score": 97.5,
+      "Pricing": "Freemium", "Korean_Support": "Y", "Platform": ["Web", "iOS", "Android"], "API_Available": "Y",
+      "Latest_Update": "o1-preview 모델 및 Canvas 기능 정식 출시",
+      "Free_Tier_Limit": "GPT-4o 사용량 제한 후 4o-mini 전환"
+    }
+  ];
+
+  let userPrompt = `[순위 구간: ${range}] / [목표 주차: ${weekLabel}] / [조사 범위: ${dateRange}]
 
 [참고: 현재 시스템 상태]
-${currentRankingContext === "현재 등록된 툴이 없습니다." ? "현재 DB가 비어있습니다. ChatGPT, Claude, Gemini, Midjourney 등 업계 표준 도구와 최근 급부상한 툴들을 우선적으로 배치하여 랭킹을 구성하세요." : `현재 TOP 100 리스트:\n${currentRankingContext}`}
+${currentRankingContext === "현재 등록된 툴이 없습니다." ? "현재 DB가 비어있습니다. 업계 표준 도구들을 우선 배치하세요." : `현재 리스트 일부:\n${currentRankingContext}`}
 
-**[중요 임무: ${range} 정밀 분석 및 랭킹 생성]**
-위 정보를 바탕으로 하되, 실시간 웹 검색을 통해 해당 순위 구간(${range})의 총 10개 도구들에 대해 아래 사항을 전수 조사하세요.
+[지침]
+1. 검색 결과를 바탕으로 해당 순위(${range})를 채울 수 있는 최적의 AI 도구 10개를 선정하세요.
+2. 각 필드에 값을 매핑하세요. 정확한 수치가 없다면 검색 결과에서 느껴지는 '상대적 인기도'를 0-100 점수로 변환하세요.
+3. **절대 거부하지 마세요.** 이것은 창의적인 작문이 아니라 검색 기반의 데이터 구조화 작업입니다. 
+4. 아래 예시 포맷과 동일한 10개의 JSON 객체를 배열([])에 담아 출력하세요.
 
-1. **상세 분석**: 각 도구의 최근 트래픽 동향, 신규 기능 업데이트 소식, Reddit/X(Twitter)에서의 소셜 버즈, 최신 벤치마크 순위를 확인하세요. 
-2. **상대적 점수 산정**: 가중치(이용량 35%, 기술 25%, 버즈 20%, 실무 15%, 상승률 5%)에 따라 0.0~100.0 사이의 Total_Score를 산출하세요. 정확한 수치가 없다면 시장 파급력과 인지도를 바탕으로 한 '분석가적 추정 점수'를 부여하세요.
-3. **엄격한 필터링**: 누구나 쓸 수 있는 '글로벌 상용 서비스'만 포함하세요.
-4. **결과 보장**: 어떤 경우에도 아래 JSON 형식을 반드시 출력해야 하며, 데이터가 부족하다는 이유로 설명을 나열하거나 거부해서는 안 됩니다.
-
-**[출력 데이터 규격]**
-반드시 아래 필드를 포함한 JSON 배열만 출력하세요 (10개 항목). 다른 텍스트(부연 설명 등)는 일절 쓰지 마세요.
-[
-  {
-    "Rank": 해당 순위 숫자,
-    "Change": "NEW" 또는 "+N", "-N", "0",
-    "Name": "도구명",
-    "URL": "공식 URL",
-    "Category": "text/image/video/audio/code/agent/etc 중 택1",
-    "Tags": ["핵심기능1", "태그2", "태그3"],
-    "Description": "현재 시점의 핵심 가치와 최근 소식이 반영된 상세 설명 (3문장 내외, 한국어)",
-    "One_Line_Review": "사용자가 반드시 써야 할 결정적 이유 (한국어)",
-    "USP": "경쟁사 대비 가장 강력한 기술적 차별점",
-    "Pros_Cons": { "pros": ["장점1", "장점2"], "cons": ["단점1"] },
-    "Difficulty": "초급/중급/고급",
-    "Usage_Score": 0~100 실수,
-    "Tech_Score": 0~100 실수,
-    "Buzz_Score": 0~100 실수,
-    "Utility_Score": 0~100 실수,
-    "Growth_Score": 0~100 실수,
-    "Total_Score": 가중치 합산 총점,
-    "Pricing": "Free/Freemium/Paid",
-    "Korean_Support": "Y/N",
-    "Platform": ["Web", "iOS", "Android", "Desktop" 등],
-    "API_Available": "Y/N",
-    "Latest_Update": "최근 1개월 내 주요 업데이트 (구체적 내용)",
-    "Free_Tier_Limit": "무료 플랜 제약 조건"
-  }
-]`;
+[예시 포맷]:
+${JSON.stringify(exampleJson, null, 2)}`;
 
   if (isRetry) {
-    console.log(`   ⚠️ [Retry ${retryCount}] ${range} 완화된 프롬프트로 재시도 중...`);
+    console.log(`   ⚠️ [Retry ${retryCount}] ${range} 완화된 프롬프트와 ${model} 모델로 재시도 중...`);
+    userPrompt += `\n\n[중요] 이전 시도에서 '데이터 부족'을 이유로 거절되었습니다. 다시 지시합니다. 완벽한 분석이 아니더라도 '최선의 추정치'를 사용하여 JSON을 완성하는 것이 당신의 사명입니다.`;
   } else {
-    console.log(`🤖 [Ranking Agent] ${range} 정밀 분석 중 (Perplexity sonar-pro)...`);
+    console.log(`🤖 [Ranking Agent] ${range} 분석 중 (Perplexity ${model})...`);
   }
 
-  const text = await askPerplexity(systemPrompt, userPrompt);
+  const text = await askPerplexity(systemPrompt, userPrompt, model);
 
   try {
     const rawChunk = extractJsonArray(text);
     
     // 데이터 정규화 및 유효성 검사
     const chunk = rawChunk.map(item => {
-      // 키 대소문자 정규화 (Rank, Name, URL 등)
       const normalized = {};
       Object.keys(item).forEach(key => {
         const lowerKey = key.toLowerCase();
@@ -184,17 +174,17 @@ ${currentRankingContext === "현재 등록된 툴이 없습니다." ? "현재 DB
         else normalized[key] = item[key];
       });
       return normalized;
-    }).filter(item => item.Name && item.Rank); // 이름과 순위가 있는 것만 포함
+    }).filter(item => item.Name && item.Rank);
 
-    console.log(`   ✅ ${range}: ${chunk.length}개 항목 유효성 검증 완료`);
+    console.log(`   ✅ ${range}: ${chunk.length}개 항목 매핑 완료`);
     return chunk;
   } catch (err) {
-    if (retryCount < 2) {
+    if (retryCount < 3) {
       return fetchRankingChunk(range, weekLabel, dateRange, currentRankingContext, retryCount + 1);
     }
-    console.error(`\n❌ [치명적 오류]: ${range} 3회 시도 모두 실패!`);
+    console.error(`\n❌ [치명적 오류]: ${range} 모든 모델 시도 실패!`);
     console.error(`=== Perplexity 응답 원본 데이터 ===\n${text}\n=================================\n`);
-    return []; // 실패 시 빈 배열 반환하여 전체 중단 방지
+    return [];
   }
 }
 
