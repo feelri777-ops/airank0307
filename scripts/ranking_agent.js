@@ -103,11 +103,19 @@ function extractJsonArray(text) {
   return JSON.parse(cleaned.slice(start, end + 1));
 }
 
-// --- 핵심 로직: 10개 단위 정밀 호출 ---
-async function fetchRankingChunk(range, weekLabel, dateRange, currentRankingContext) {
-  const systemPrompt = `당신은 세계 최고의 AI 기술 분석가이자 시장 조사 전문가입니다. 실시간 웹 검색과 당신의 심층 지식을 결합하여 [${range}]에 해당하는 도구들의 지표를 분석하세요. 정밀한 수치 데이터가 보안상 제한되더라도, 시장의 상대적 위상과 트렌드를 바탕으로 '전문가적 추정치'를 산출하여 반드시 JSON 형식을 유지해야 합니다. 답변 거부(Refusal)는 허용되지 않습니다.`;
+// --- 핵심 로직: 10개 단위 정밀 호출 (재시도 로직 포함) ---
+async function fetchRankingChunk(range, weekLabel, dateRange, currentRankingContext, retryCount = 0) {
+  const isRetry = retryCount > 0;
+  
+  const systemPrompt = isRetry 
+    ? `당신은 유연한 AI 데이터 분석가입니다. 실시간 데이터가 부족하더라도, 현재 시장에 실존하는 유효한 AI 서비스 10개를 선정하여 [${range}] 구간을 반드시 JSON으로 채우세요. 답변 거부는 절대 불가합니다.`
+    : `당신은 세계 최고의 AI 기술 분석가이자 시장 조사 전문가입니다. 실시간 웹 검색과 당신의 심층 지식을 결합하여 [${range}]에 해당하는 도구들의 지표를 분석하세요. 정밀한 수치 데이터가 보안상 제한되더라도, 시장의 상대적 위상과 트렌드를 바탕으로 '전문가적 추정치'를 산출하여 반드시 JSON 형식을 유지해야 합니다. 답변 거부(Refusal)는 허용되지 않습니다.`;
 
-  const userPrompt = `[목표 주차: ${weekLabel}] / [조사 범위: ${dateRange}]
+  const userPrompt = isRetry
+    ? `[긴급 재시도: ${range}]
+데이터가 부족하다는 이유로 거절하지 마세요. 현재 글로벌 시장에서 운영 중인 AI 도구 중 아직 순위에 포함되지 않은 10개를 자유롭게 골라 [${range}] 순위를 부여하고 JSON을 생성하세요. 
+각 도구의 점수와 설명은 현재 시장 인지도를 바탕으로 '합리적인 추정치'를 사용하세요. 반드시 JSON 배열만 출력하세요.`
+    : `[목표 주차: ${weekLabel}] / [조사 범위: ${dateRange}]
 
 [참고: 현재 시스템 상태]
 ${currentRankingContext === "현재 등록된 툴이 없습니다." ? "현재 DB가 비어있습니다. ChatGPT, Claude, Gemini, Midjourney 등 업계 표준 도구와 최근 급부상한 툴들을 우선적으로 배치하여 랭킹을 구성하세요." : `현재 TOP 100 리스트:\n${currentRankingContext}`}
@@ -150,7 +158,12 @@ ${currentRankingContext === "현재 등록된 툴이 없습니다." ? "현재 DB
   }
 ]`;
 
-  console.log(`🤖 [Ranking Agent] ${range} 정밀 분석 중 (Perplexity sonar-pro)...`);
+  if (isRetry) {
+    console.log(`   ⚠️ [Retry ${retryCount}] ${range} 완화된 프롬프트로 재시도 중...`);
+  } else {
+    console.log(`🤖 [Ranking Agent] ${range} 정밀 분석 중 (Perplexity sonar-pro)...`);
+  }
+
   const text = await askPerplexity(systemPrompt, userPrompt);
 
   try {
@@ -158,7 +171,10 @@ ${currentRankingContext === "현재 등록된 툴이 없습니다." ? "현재 DB
     console.log(`   ✅ ${range}: ${chunk.length}개 항목 수집 완료`);
     return chunk;
   } catch (err) {
-    console.error(`\n❌ [치명적 오류]: ${range} JSON 파싱 실패!`);
+    if (retryCount < 2) {
+      return fetchRankingChunk(range, weekLabel, dateRange, currentRankingContext, retryCount + 1);
+    }
+    console.error(`\n❌ [치명적 오류]: ${range} 3회 시도 모두 실패!`);
     console.error(`=== Perplexity 응답 원본 데이터 ===\n${text}\n=================================\n`);
     throw err;
   }
