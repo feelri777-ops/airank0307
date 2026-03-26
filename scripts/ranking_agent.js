@@ -137,10 +137,7 @@ async function runRankingAgent() {
 
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash",
-      tools: [{ google_search: {} }],
-      generationConfig: {
-        responseMimeType: "application/json"
-      }
+      tools: [{ google_search: {} }]
     });
 
     // 2회 분할 호출 (응답 잘림 방지)
