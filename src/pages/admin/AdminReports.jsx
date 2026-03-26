@@ -392,10 +392,10 @@ const AdminReports = () => {
                   <span>{r.displayDate}</span>
                   <span style={{ 
                     fontSize: "0.65rem", padding: "2px 8px", borderRadius: "4px", fontWeight: 900,
-                    background: r.type === "ranking_update" ? "#f59e0b" : r.type === "ranking_backup" ? "#10b981" : "#6366f1",
+                    background: r.type === "ranking_update" ? "#f59e0b" : r.type === "ranking_backup" ? "#10b981" : r.type === "tool_validation" ? "#06b6d4" : "#6366f1",
                     color: "#fff"
                   }}>
-                    {r.type === "ranking_update" ? "🏆 RANKING" : r.type === "ranking_backup" ? "🛡️ BACKUP" : r.type === "new_tool_recommendation" ? "✨ NEW TOOL" : r.type.toUpperCase()}
+                    {r.type === "ranking_update" ? "🏆 RANKING" : r.type === "ranking_backup" ? "🛡️ BACKUP" : r.type === "tool_validation" ? "🔍 VALIDATION" : r.type === "new_tool_recommendation" ? "✨ NEW TOOL" : r.type.toUpperCase()}
                   </span>
                 </div>
                 <div style={{ fontWeight: 900, color: activeReport?.id === r.id ? "#fff" : "var(--text-primary)", fontSize: "0.95rem" }}>{r.summary}</div>
@@ -417,6 +417,7 @@ const AdminReports = () => {
                      {activeReport.type === "new_tool_recommendation" ? "✨ 신규 AI 도구 도입 제안"
                       : activeReport.type === "ranking_update" ? "🏆 AI 랭킹 갱신 제안"
                       : activeReport.type === "ranking_backup" ? "🛡️ 랭킹 덮어쓰기 백업"
+                      : activeReport.type === "tool_validation" ? "🔍 AI 툴 검증 보고서"
                       : "📊 통합 분석 및 점검 보고서"}
                   </h2>
                   <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>{activeReport.displayDate} 작성</p>
@@ -506,6 +507,101 @@ const AdminReports = () => {
                     <ArrowClockwise size={22} weight="bold" />
                     이 백업 시점으로 기존 랭킹 롤백(원상복구)
                   </button>
+                </div>
+              )}
+
+              {/* [2.7] TOOL VALIDATION */}
+              {activeReport.type === "tool_validation" && activeReport.data && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                  {/* 요약 카드 */}
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px" }}>
+                    <div style={{ background: "var(--bg-secondary)", padding: "20px", borderRadius: "16px", border: "1px solid var(--border-primary)", textAlign: "center" }}>
+                      <div style={{ fontSize: "2rem", fontWeight: 950, color: "var(--accent-emerald)" }}>{activeReport.data.passed}</div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-muted)" }}>검증 통과</div>
+                    </div>
+                    <div style={{ background: "var(--bg-secondary)", padding: "20px", borderRadius: "16px", border: "1px solid var(--border-primary)", textAlign: "center" }}>
+                      <div style={{ fontSize: "2rem", fontWeight: 950, color: "#ef4444" }}>{activeReport.data.failed}</div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-muted)" }}>검증 실패</div>
+                    </div>
+                    <div style={{ background: "var(--bg-secondary)", padding: "20px", borderRadius: "16px", border: "1px solid var(--border-primary)", textAlign: "center" }}>
+                      <div style={{ fontSize: "2rem", fontWeight: 950, color: "#f59e0b" }}>{activeReport.data.issues?.length || 0}</div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-muted)" }}>이슈 발견</div>
+                    </div>
+                  </div>
+
+                  {/* 이슈 목록 */}
+                  {activeReport.data.issues && activeReport.data.issues.length > 0 && (
+                    <div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+                        <WarningCircle size={24} color="#ef4444" weight="fill" />
+                        <h3 style={{ fontSize: "1.2rem", fontWeight: 950, margin: 0 }}>이슈 상세 ({activeReport.data.issues.length}건)</h3>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                        {activeReport.data.issues.map((item, idx) => (
+                          <div key={idx} style={{
+                            padding: "16px 20px", borderRadius: "16px",
+                            border: `1px solid ${item.needsReview ? "#ef444440" : "#f59e0b40"}`,
+                            background: item.needsReview ? "#ef444408" : "#f59e0b08",
+                          }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                              <span style={{ fontWeight: 900, fontSize: "1rem", color: "var(--text-primary)" }}>{item.name}</span>
+                              <div style={{ display: "flex", gap: "6px" }}>
+                                {item.issues.map((iss, j) => (
+                                  <span key={j} style={{
+                                    fontSize: "0.65rem", fontWeight: 800, padding: "3px 8px", borderRadius: "6px",
+                                    background: iss.type === "not_ai_tool" ? "#ef444420" : iss.type === "url_unreachable" ? "#f59e0b20" : "#6366f120",
+                                    color: iss.type === "not_ai_tool" ? "#ef4444" : iss.type === "url_unreachable" ? "#f59e0b" : "#6366f1",
+                                  }}>
+                                    {iss.type === "not_ai_tool" ? "AI 툴 아님" : iss.type === "url_unreachable" ? "URL 접속 불가" : "로고 없음"}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                            {item.url && (
+                              <a href={item.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem", color: "var(--accent-indigo)", textDecoration: "none" }}>
+                                {item.url} ↗
+                              </a>
+                            )}
+                            <div style={{ marginTop: "6px", fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                              {item.issues.map(iss => iss.detail).join(" | ")}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 검증 통과 툴 목록 (접기/펼치기) */}
+                  {activeReport.data.updatedTools && (
+                    <div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+                        <CheckCircle size={24} color="var(--accent-emerald)" weight="fill" />
+                        <h3 style={{ fontSize: "1.2rem", fontWeight: 950, margin: 0 }}>검증 통과 툴 ({activeReport.data.passed}개)</h3>
+                      </div>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", maxHeight: "400px", overflowY: "auto", padding: "4px" }}>
+                        {activeReport.data.updatedTools
+                          .filter(t => t._validation?.validated)
+                          .map((tool, idx) => (
+                            <div key={idx} style={{
+                              padding: "12px 16px", borderRadius: "12px",
+                              background: "var(--bg-secondary)", border: "1px solid var(--border-primary)",
+                              display: "flex", justifyContent: "space-between", alignItems: "center",
+                            }}>
+                              <div>
+                                <div style={{ fontWeight: 800, fontSize: "0.9rem", color: "var(--text-primary)" }}>
+                                  #{tool.Rank} {tool.Name}
+                                </div>
+                                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "2px" }}>
+                                  {tool.Category} · {tool.Total_Score?.toFixed(1)}점
+                                  {tool._validation?.infoUpdated && <span style={{ color: "var(--accent-indigo)", fontWeight: 700 }}> · 정보갱신</span>}
+                                </div>
+                              </div>
+                              <CheckCircle size={18} color="var(--accent-emerald)" weight="fill" />
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
