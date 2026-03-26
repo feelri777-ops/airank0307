@@ -49,12 +49,20 @@ function extractJsonArray(text) {
 // --- Phase 1: 최신 pending 보고서 로드 ---
 async function loadPendingReport() {
   console.log("📡 Firestore에서 최신 pending 랭킹 보고서를 가져오는 중...");
+  // 복합 인덱스 불필요하도록 단순 쿼리 후 필터링
   const snapshot = await db.collection("adminReports")
     .where("type", "==", "ranking_update")
     .where("status", "==", "pending")
-    .orderBy("createdAt", "desc")
-    .limit(1)
     .get();
+
+  // createdAt 기준 최신 1개만 선택
+  if (!snapshot.empty && snapshot.docs.length > 1) {
+    snapshot.docs.sort((a, b) => {
+      const aTime = a.data().createdAt?.toMillis?.() || 0;
+      const bTime = b.data().createdAt?.toMillis?.() || 0;
+      return bTime - aTime;
+    });
+  }
 
   if (snapshot.empty) {
     console.log("⚠️ pending 상태의 랭킹 보고서가 없습니다. 검증 대상이 없어 종료합니다.");
