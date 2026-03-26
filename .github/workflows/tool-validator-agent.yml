@@ -24,6 +24,5 @@ jobs:
       - name: 🔍 AI 툴 검증 (진위·URL·로고 확인 + 최신정보 업데이트)
         run: node scripts/tool_validator_agent.js
         env:
-          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}

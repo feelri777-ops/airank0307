@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import admin from 'firebase-admin';
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import OpenAI from 'openai';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,12 +30,30 @@ function initializeFirebase() {
 }
 
 const db = initializeFirebase().firestore();
-const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-if (!apiKey || apiKey.length < 10) {
-  console.error("❌ [치명적 오류]: 유효한 GEMINI API 키가 필요합니다.");
+
+// --- Perplexity API (OpenAI 호환) ---
+const perplexityKey = process.env.PERPLEXITY_API_KEY;
+if (!perplexityKey) {
+  console.error("❌ [치명적 오류]: PERPLEXITY_API_KEY가 설정되지 않았습니다.");
   process.exit(1);
 }
-const genAI = new GoogleGenerativeAI(apiKey);
+const perplexity = new OpenAI({
+  apiKey: perplexityKey,
+  baseURL: 'https://api.perplexity.ai',
+});
+
+// --- Perplexity 호출 헬퍼 ---
+async function askPerplexity(systemPrompt, userPrompt, model = "sonar") {
+  const response = await perplexity.chat.completions.create({
+    model,
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userPrompt },
+    ],
+    temperature: 0.0,
+  });
+  return response.choices[0].message.content;
+}
 
 // --- JSON 클렌징 ---
 function extractJsonArray(text) {
@@ -49,13 +67,11 @@ function extractJsonArray(text) {
 // --- Phase 1: 최신 pending 보고서 로드 ---
 async function loadPendingReport() {
   console.log("📡 Firestore에서 최신 pending 랭킹 보고서를 가져오는 중...");
-  // 복합 인덱스 불필요하도록 단순 쿼리 후 필터링
   const snapshot = await db.collection("adminReports")
     .where("type", "==", "ranking_update")
     .where("status", "==", "pending")
     .get();
 
-  // createdAt 기준 최신 1개만 선택
   if (!snapshot.empty && snapshot.docs.length > 1) {
     snapshot.docs.sort((a, b) => {
       const aTime = a.data().createdAt?.toMillis?.() || 0;
@@ -75,40 +91,55 @@ async function loadPendingReport() {
   return { reportId: doc.id, tools: data.data.tools, weekLabel: data.data.weekLabel };
 }
 
-// --- Phase 2-1: AI 툴 진위 확인 (Gemini 배치) ---
-async function validateAiTools(model, tools) {
-  console.log("\n🔍 [검증 1/3] AI 툴 진위 확인 중...");
+// --- Phase 2-1: AI 툴 진위 확인 (Perplexity 실시간 웹 검색) ---
+async function validateAiTools(tools) {
+  console.log("\n🔍 [검증 1/3] AI 툴 진위 확인 중 (Perplexity 실시간 검색)...");
 
-  const toolList = tools.map((t, i) => `${i + 1}. "${t.Name}" — ${t.URL} — ${t.Description}`).join("\n");
+  const CHUNK_SIZE = 25;
+  const allResults = [];
 
-  const prompt = `
-당신은 AI 툴 검증 전문가입니다.
-아래 목록의 각 도구가 **실제로 존재하는 글로벌 상용 AI 서비스**인지 판별하세요.
+  for (let i = 0; i < tools.length; i += CHUNK_SIZE) {
+    const chunk = tools.slice(i, i + CHUNK_SIZE);
+    const range = `${i + 1}~${Math.min(i + CHUNK_SIZE, tools.length)}`;
+    console.log(`   ${range}번째 검증 중...`);
+
+    const toolList = chunk.map((t, idx) => `${idx + 1}. "${t.Name}" — ${t.URL}`).join("\n");
+
+    const systemPrompt = `당신은 AI 도구 검증 전문가입니다. 웹 검색을 통해 각 도구가 실제 존재하는 글로벌 상용 AI 서비스인지 정확히 판별하세요. 반드시 JSON 배열만 출력하세요.`;
+
+    const userPrompt = `아래 AI 도구들이 현재(2026년) 실제로 운영 중인 글로벌 상용 AI 서비스인지 웹 검색으로 확인해주세요.
 
 [판별 기준]
-- 누구나 가입/사용할 수 있는 상용 AI 서비스여야 합니다
-- 공공기관 챗봇, 기업 사내용 AI, 보도자료용 사례는 제외
-- URL이 실제 해당 서비스의 공식 홈페이지여야 합니다
-- 서비스가 종료(shutdown)된 경우 false
+- 현재 누구나 가입/사용할 수 있는 상용 서비스여야 합니다
+- 서비스가 종료(shutdown)되었거나 아직 미출시인 경우 false
+- 공공기관 전용, 기업 사내용은 제외
+- URL이 해당 서비스의 공식 사이트여야 합니다
+- 같은 회사의 다른 버전이라도 실제 서비스명이 다르면 확인 필요 (예: ChatGPT-4o는 ChatGPT 내 모델이므로 ChatGPT로 통합 가능)
 
 [도구 목록]
 ${toolList}
 
-[출력 규격]
-반드시 아래 형식의 JSON 배열만 출력하세요. 다른 텍스트 금지.
+[출력 형식] JSON 배열만 출력. 다른 텍스트 금지.
 [
-  { "index": 1, "name": "도구명", "isValid": true, "reason": "판별 근거 한 줄" }
-]
-`;
+  { "index": 1, "name": "도구명", "isValid": true, "reason": "웹 검색으로 확인된 판별 근거" }
+]`;
 
-  const result = await model.generateContent(prompt);
-  const text = result.response.text();
-  try {
-    return extractJsonArray(text);
-  } catch (err) {
-    console.error("❌ AI 진위 확인 JSON 파싱 실패:", text.slice(0, 500));
-    return tools.map((t, i) => ({ index: i + 1, name: t.Name, isValid: true, reason: "파싱 실패로 기본 통과" }));
+    try {
+      const text = await askPerplexity(systemPrompt, userPrompt);
+      const results = extractJsonArray(text);
+      // 인덱스를 전체 기준으로 보정
+      results.forEach((r, idx) => { r.index = i + idx + 1; });
+      allResults.push(...results);
+      console.log(`   ✅ ${range}: ${results.length}개 확인 완료`);
+    } catch (err) {
+      console.error(`   ❌ ${range} 파싱 실패:`, err.message);
+      chunk.forEach((t, idx) => {
+        allResults.push({ index: i + idx + 1, name: t.Name, isValid: true, reason: "파싱 실패로 기본 통과" });
+      });
+    }
   }
+
+  return allResults;
 }
 
 // --- Phase 2-2: URL 접속 확인 ---
@@ -120,13 +151,14 @@ async function checkUrl(url, timeout = 10000) {
       method: "HEAD",
       signal: controller.signal,
       redirect: "follow",
-      headers: { "User-Agent": "AIRank-Validator/1.0" },
+      headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" },
     });
     clearTimeout(timer);
-    return { statusCode: res.status, accessible: res.status < 400, redirectedUrl: res.url !== url ? res.url : null };
+    // 403은 봇 차단일 뿐 사이트는 살아있음 → 통과 처리
+    const accessible = res.status < 400 || res.status === 403;
+    return { statusCode: res.status, accessible, redirectedUrl: res.url !== url ? res.url : null };
   } catch (err) {
     clearTimeout(timer);
-    // HEAD 차단 시 GET으로 재시도
     try {
       const controller2 = new AbortController();
       const timer2 = setTimeout(() => controller2.abort(), timeout);
@@ -134,10 +166,11 @@ async function checkUrl(url, timeout = 10000) {
         method: "GET",
         signal: controller2.signal,
         redirect: "follow",
-        headers: { "User-Agent": "AIRank-Validator/1.0" },
+        headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" },
       });
       clearTimeout(timer2);
-      return { statusCode: res.status, accessible: res.status < 400, redirectedUrl: res.url !== url ? res.url : null };
+      const accessible = res.status < 400 || res.status === 403;
+      return { statusCode: res.status, accessible, redirectedUrl: res.url !== url ? res.url : null };
     } catch {
       return { statusCode: 0, accessible: false, redirectedUrl: null, error: err.name === "AbortError" ? "timeout" : err.message };
     }
@@ -174,7 +207,6 @@ async function validateLogos(tools) {
   console.log("\n🖼️  [검증 3/3] 로고(favicon) 확인 중...");
   const results = [];
   const BATCH_SIZE = 10;
-  // 기본 지구본 아이콘의 Content-Length (약 726 bytes)
   const DEFAULT_ICON_SIZES = new Set([726, 580, 318, 256]);
 
   for (let i = 0; i < tools.length; i += BATCH_SIZE) {
@@ -213,23 +245,18 @@ function aggregateResults(tools, aiResults, urlResults, logoResults) {
     const issues = [];
     let autoFixed = {};
 
-    // AI 툴 진위
     if (!ai.isValid) issues.push({ type: "not_ai_tool", detail: ai.reason });
 
-    // URL 접속
     if (!url.accessible) {
       issues.push({ type: "url_unreachable", detail: `status: ${url.statusCode}, error: ${url.error || "N/A"}` });
     } else if (url.redirectedUrl) {
-      // 자동 수정: 리다이렉트 URL로 교체
       autoFixed.URL = url.redirectedUrl;
     }
 
-    // HTTP → HTTPS 자동 수정
     if (tool.URL && tool.URL.startsWith("http://")) {
       autoFixed.URL = tool.URL.replace("http://", "https://");
     }
 
-    // 로고 확인
     if (!logo.logoValid) issues.push({ type: "logo_missing", detail: `contentLength: ${logo.contentLength}` });
 
     const validated = !issues.some(iss => iss.type === "not_ai_tool" || iss.type === "url_unreachable");
@@ -248,40 +275,38 @@ function aggregateResults(tools, aiResults, urlResults, logoResults) {
   });
 }
 
-// --- Phase 4: 최신 정보 업데이트 (Gemini + google_search) ---
-async function updateToolInfo(model, validatedTools) {
+// --- Phase 4: 최신 정보 업데이트 (Perplexity 실시간 검색) ---
+async function updateToolInfo(validatedTools) {
   const passedTools = validatedTools.filter(t => t._validation.validated);
-  console.log(`\n📝 [정보 업데이트] 검증 통과 ${passedTools.length}개 툴의 최신 정보 수집 중...`);
+  console.log(`\n📝 [정보 업데이트] 검증 통과 ${passedTools.length}개 툴의 최신 정보 수집 중 (Perplexity)...`);
 
   if (passedTools.length === 0) return validatedTools;
 
-  const CHUNK_SIZE = 50;
+  const CHUNK_SIZE = 25;
   const updatedMap = new Map();
 
   for (let i = 0; i < passedTools.length; i += CHUNK_SIZE) {
     const chunk = passedTools.slice(i, i + CHUNK_SIZE);
     const range = `${i + 1}~${Math.min(i + CHUNK_SIZE, passedTools.length)}`;
-    console.log(`   ${range}번째 툴 정보 업데이트 호출 중...`);
+    console.log(`   ${range}번째 툴 정보 업데이트 중...`);
 
     const toolList = chunk.map((t, idx) => `${idx + 1}. "${t.Name}" (${t.URL})`).join("\n");
 
-    const prompt = `
-당신은 AI 툴 정보 전문 조사원입니다.
-google_search를 활용하여 아래 AI 도구들의 **최신 정보**를 조사하세요.
+    const systemPrompt = `당신은 AI 도구 전문 조사원입니다. 웹 검색으로 각 도구의 최신 정보를 정확하게 조사하세요. 반드시 JSON 배열만 출력하세요.`;
+
+    const userPrompt = `아래 AI 도구들의 **현재 최신 정보**를 웹 검색으로 조사해주세요.
 
 [조사 대상]
 ${toolList}
 
 [조사 항목]
-각 도구에 대해 다음을 조사하세요:
 1. Description: 현재 시점의 정확한 설명 (2-3문장, 최신 기능 반영)
 2. One_Line_Review: 한줄 요약 (한국어)
 3. Pricing: 현재 요금 모델 (Free/Freemium/Paid)
 4. Korean_Support: 한국어 지원 여부 (Y/N)
 5. Platform: 지원 플랫폼 (Web/iOS/Android/Desktop 중 해당하는 것들)
 
-[출력 규격]
-반드시 JSON 배열만 출력하세요. 다른 텍스트 금지.
+[출력 형식] JSON 배열만 출력. 다른 텍스트 금지.
 [
   {
     "index": 1,
@@ -292,12 +317,10 @@ ${toolList}
     "Korean_Support": "Y/N",
     "Platform": ["Web"]
   }
-]
-`;
+]`;
 
     try {
-      const result = await model.generateContent(prompt);
-      const text = result.response.text();
+      const text = await askPerplexity(systemPrompt, userPrompt);
       const updates = extractJsonArray(text);
       updates.forEach((u, idx) => {
         const toolName = chunk[idx]?.Name || u.name;
@@ -309,7 +332,6 @@ ${toolList}
     }
   }
 
-  // 업데이트 병합
   return validatedTools.map(tool => {
     const update = updatedMap.get(tool.Name);
     if (!update || !tool._validation.validated) return tool;
@@ -359,31 +381,22 @@ async function saveValidationReport(reportId, weekLabel, finalTools) {
 // --- 메인 실행 ---
 async function runValidator() {
   try {
-    console.log("\n🔍 [Tool Validator Agent] 시작...\n");
+    console.log("\n🔍 [Tool Validator Agent] 시작 (Perplexity sonar 기반)...\n");
 
-    // Phase 1: 데이터 로드
     const { reportId, tools, weekLabel } = await loadPendingReport();
 
-    // Phase 2: 3가지 검증 (AI 진위 + URL + 로고)
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
-      tools: [{ google_search: {} }]
-    });
-
     const [aiResults, urlResults, logoResults] = await Promise.all([
-      validateAiTools(model, tools),
+      validateAiTools(tools),
       validateUrls(tools),
       validateLogos(tools),
     ]);
 
-    // Phase 3: 결과 종합
     const validatedTools = aggregateResults(tools, aiResults, urlResults, logoResults);
 
     const passCount = validatedTools.filter(t => t._validation.validated).length;
     const failCount = validatedTools.length - passCount;
     console.log(`\n✅ 검증 결과: ${passCount}개 통과 / ${failCount}개 실패`);
 
-    // 실패 항목 상세 출력
     const failedTools = validatedTools.filter(t => !t._validation.validated);
     if (failedTools.length > 0) {
       console.log("\n❌ 검증 실패 항목:");
@@ -393,7 +406,6 @@ async function runValidator() {
       });
     }
 
-    // 로고 경고 출력
     const logoWarnings = validatedTools.filter(t => t._validation.issues.some(i => i.type === "logo_missing") && t._validation.validated);
     if (logoWarnings.length > 0) {
       console.log(`\n⚠️  로고 미확인 (경고): ${logoWarnings.length}개`);
@@ -401,10 +413,8 @@ async function runValidator() {
       if (logoWarnings.length > 10) console.log(`   ... 외 ${logoWarnings.length - 10}개`);
     }
 
-    // Phase 4: 최신 정보 업데이트
-    const finalTools = await updateToolInfo(model, validatedTools);
+    const finalTools = await updateToolInfo(validatedTools);
 
-    // Phase 5: 보고서 저장 (pending — 관리자 컨펌 필수)
     const { reportRef, summary } = await saveValidationReport(reportId, weekLabel, finalTools);
 
     console.log(`\n🏆 [완료] ${summary}`);
