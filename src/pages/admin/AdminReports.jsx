@@ -287,6 +287,23 @@ const AdminReports = () => {
     }
   };
 
+  const handleCleanupDuplicates = async () => {
+    if (!window.confirm("이전에 잘못 생성된 숫자 형식 ID(1~120) 문서들을 모두 삭제하시겠습니까?\n이 작업은 실제 데이터에는 영향을 주지 않고 중복된 그림자 데이터만 제거합니다.")) return;
+    setTransacting(true);
+    try {
+      const batch = writeBatch(db);
+      for (let i = 1; i <= 120; i++) {
+        batch.delete(doc(db, "tools", String(i)));
+      }
+      await batch.commit();
+      alert("✅ 중복된 숫자 ID 문서들이 정리되었습니다.");
+    } catch (err) {
+      alert("❌ 정리 중 오류 발생: " + err.message);
+    } finally {
+      setTransacting(false);
+    }
+  };
+
   const handleDeleteReport = async (id) => {
     if (!window.confirm("이 보고서를 영구 삭제하시겠습니까?")) return;
     await deleteDoc(doc(db, "adminReports", id));
@@ -425,9 +442,20 @@ const AdminReports = () => {
 
   return (
     <div style={{ padding: "40px", maxWidth: "1400px", margin: "0 auto", animation: "fadeIn 0.5s ease-out" }}>
-      <header style={{ marginBottom: "40px" }}>
-        <h1 style={{ fontSize: "2.4rem", fontWeight: 950, color: "var(--text-primary)", letterSpacing: "-1px" }}>에이전트 제어실</h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "1.15rem", fontWeight: 500 }}>통합 분석 보고서를 검토하고 새 탭에서 즉시 수정합니다.</p>
+      <header style={{ marginBottom: "40px", display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+        <div>
+          <h1 style={{ fontSize: "2.4rem", fontWeight: 950, color: "var(--text-primary)", letterSpacing: "-1px" }}>에이전트 제어실</h1>
+          <p style={{ color: "var(--text-muted)", fontSize: "1.15rem", fontWeight: 500 }}>통합 분석 보고서를 검토하고 새 탭에서 즉시 수정합니다.</p>
+        </div>
+        <div style={{ display: "flex", gap: "10px" }}>
+           <button 
+             onClick={handleCleanupDuplicates}
+             style={{ padding: "12px 20px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", borderRadius: "14px", fontWeight: 800, cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", color: "#ef4444" }}
+           >
+             <Trash size={18} weight="bold" />
+             중복 데이터 일괄 정리
+           </button>
+        </div>
       </header>
 
       <div style={{ display: "grid", gridTemplateColumns: "380px 1fr", gap: "30px", height: "calc(100vh - 250px)" }}>
