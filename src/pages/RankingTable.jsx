@@ -17,6 +17,8 @@ const RankingTable = () => {
   const fetchLatestRanking = async () => {
     try {
       setLoading(true);
+
+      // 1. adminReports에서 최신 랭킹 데이터 가져오기 시도
       const q = query(
         collection(db, "adminReports"),
         where("type", "==", "ranking_update"),
@@ -31,9 +33,57 @@ const RankingTable = () => {
         const data = doc.data();
         setReportData(data);
         setTools(data.data?.tools || []);
+        console.log("✅ adminReports에서 데이터 로드:", data.data?.tools?.length || 0);
+      } else {
+        // 2. adminReports에 데이터가 없으면 tools 컬렉션에서 직접 가져오기
+        console.log("⚠️ adminReports에 데이터 없음. tools 컬렉션에서 가져오는 중...");
+        const toolsQuery = query(
+          collection(db, "tools"),
+          orderBy("rank", "asc"),
+          limit(100)
+        );
+
+        const toolsSnapshot = await getDocs(toolsQuery);
+        const toolsData = toolsSnapshot.docs.map((doc, idx) => {
+          const data = doc.data();
+          return {
+            Rank: data.rank || idx + 1,
+            Change: "—",
+            Name: data.name || "Unknown",
+            URL: data.url || "",
+            Category: data.cat || "etc",
+            Tags: data.tags || [],
+            Description: data.desc || "",
+            One_Line_Review: data.oneLineReview || "",
+            USP: data.usp || "",
+            Pros_Cons: data.prosCons || { pros: [], cons: [] },
+            Difficulty: data.difficulty || "중급",
+            Usage_Score: data.metrics?.usage || 0,
+            Tech_Score: data.metrics?.tech || 0,
+            Buzz_Score: data.metrics?.buzz || 0,
+            Utility_Score: data.metrics?.utility || 0,
+            Growth_Score: data.metrics?.growth || 0,
+            Total_Score: data.score || 0,
+            Pricing: data.pricing || "—",
+            Korean_Support: data.koSupport || "N",
+            Platform: data.platform || ["Web"],
+            API_Available: data.apiAvailable || "N"
+          };
+        });
+
+        setTools(toolsData);
+        setReportData({
+          data: {
+            weekLabel: "현재 랭킹",
+            generatedAt: new Date().toISOString(),
+            totalCount: toolsData.length,
+            engine: "Firestore tools 컬렉션"
+          }
+        });
+        console.log("✅ tools 컬렉션에서 데이터 로드:", toolsData.length);
       }
     } catch (error) {
-      console.error("랭킹 데이터 로드 실패:", error);
+      console.error("❌ 랭킹 데이터 로드 실패:", error);
     } finally {
       setLoading(false);
     }
