@@ -296,16 +296,16 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           </div>
 
           {/* 통합 설명란: USP + 장점/단점 */}
-          <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "16px 18px", border: "1px solid var(--border-primary)", marginBottom: "12px" }}>
-            <div style={{ fontSize: "0.82rem", fontWeight: 850, color: "var(--accent-indigo)", marginBottom: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
-              <Icon name="lightbulb" size={18} weight="fill" /> 💡 CORE USP & 분석
+          <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "12px 14px", border: "1px solid var(--border-primary)", marginBottom: "12px" }}>
+            <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent-indigo)", marginBottom: "8px", display: "flex", alignItems: "center", gap: "4px" }}>
+              <Icon name="lightbulb" size={16} weight="fill" /> 💡 CORE USP & 분석
             </div>
 
             {(() => {
               const usp = tool.usp || tool.USP;
               const uspText = typeof usp === 'string' ? usp : null;
               return uspText ? (
-                <div style={{ fontSize: "1rem", color: "var(--text-primary)", lineHeight: 1.5, marginBottom: "14px", fontWeight: 700 }}>
+                <div style={{ fontSize: "0.8rem", color: "var(--text-primary)", lineHeight: 1.4, marginBottom: "10px", fontWeight: 500 }}>
                   {uspText}
                 </div>
               ) : null;
@@ -324,23 +324,17 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 const cons = Array.isArray(prosCons.cons) ? prosCons.cons : [];
                 if (pros.length === 0 && cons.length === 0) return null;
                 return (
-                  <div style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.5, display: "flex", flexDirection: "column", gap: "10px" }}>
+                  <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.4, display: "flex", flexDirection: "column", gap: "8px" }}>
                     {pros.length > 0 && (
-                      <div style={{ display: "flex", gap: "6px", background: "rgba(16, 185, 129, 0.05)", padding: "8px 10px", borderRadius: "10px" }}>
-                        <Icon name="thumbs-up" size={18} color="#10b981" weight="fill" />
-                        <div>
-                          <strong style={{ color: "#10b981", fontWeight: 900, fontSize: "0.92rem" }}>이건 정말 개쩔어요! 👍</strong>
-                          <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400 }}>{pros.join(", ")}</div>
-                        </div>
+                      <div style={{ background: "rgba(16, 185, 129, 0.05)", padding: "6px 10px", borderRadius: "10px" }}>
+                        <strong style={{ color: "#10b981", fontWeight: 700, fontSize: "0.8rem" }}>이건 정말 개쩔어요! 👍</strong>
+                        <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400, fontSize: "0.78rem" }}>{pros.join(", ")}</div>
                       </div>
                     )}
                     {cons.length > 0 && (
-                      <div style={{ display: "flex", gap: "6px", background: "rgba(239, 68, 68, 0.05)", padding: "8px 10px", borderRadius: "10px" }}>
-                        <Icon name="thumbs-down" size={18} color="#ef4444" weight="fill" />
-                        <div>
-                          <strong style={{ color: "#ef4444", fontWeight: 900, fontSize: "0.92rem" }}>이건 좀 아쉬워요.. 😅</strong>
-                          <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400 }}>{cons.join(", ")}</div>
-                        </div>
+                      <div style={{ background: "rgba(239, 68, 68, 0.05)", padding: "6px 10px", borderRadius: "10px" }}>
+                        <strong style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.8rem" }}>이건 좀 아쉬워요.. 😅</strong>
+                        <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400, fontSize: "0.78rem" }}>{cons.join(", ")}</div>
                       </div>
                     )}
                   </div>
