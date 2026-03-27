@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, query, where, orderBy, limit, getDocs } from "firebase/firestore";
+import { collection, query, where, limit, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import Icon from "../components/ui/Icon";
 
@@ -21,16 +21,23 @@ const RankingTable = () => {
       // 1. adminReports에서 최신 랭킹 데이터 가져오기 시도
       const q = query(
         collection(db, "adminReports"),
-        where("type", "==", "ranking_update"),
-        orderBy("createdAt", "desc"),
-        limit(1)
+        where("type", "==", "ranking_update")
       );
 
       const snapshot = await getDocs(q);
+      console.log("📊 adminReports 문서 개수:", snapshot.size);
 
       if (!snapshot.empty) {
-        const doc = snapshot.docs[0];
+        // createdAt 기준으로 클라이언트 측 정렬하여 최신 문서 찾기
+        const docs = snapshot.docs.sort((a, b) => {
+          const aTime = a.data().createdAt?.toMillis() || 0;
+          const bTime = b.data().createdAt?.toMillis() || 0;
+          return bTime - aTime; // 내림차순
+        });
+
+        const doc = docs[0];
         const data = doc.data();
+        console.log("✅ 최신 adminReport 선택:", data.createdAt?.toDate());
         setReportData(data);
         setTools(data.data?.tools || []);
         console.log("✅ adminReports에서 데이터 로드:", data.data?.tools?.length || 0);
