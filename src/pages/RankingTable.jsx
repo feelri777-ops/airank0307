@@ -39,13 +39,15 @@ const RankingTable = () => {
         console.log("⚠️ adminReports에 데이터 없음. tools 컬렉션에서 가져오는 중...");
         const toolsQuery = query(
           collection(db, "tools"),
-          orderBy("rank", "asc"),
           limit(100)
         );
 
         const toolsSnapshot = await getDocs(toolsQuery);
+        console.log("📊 tools 컬렉션 문서 개수:", toolsSnapshot.size);
+
         const toolsData = toolsSnapshot.docs.map((doc, idx) => {
           const data = doc.data();
+          console.log(`툴 ${idx + 1}:`, data.name, "rank:", data.rank, "score:", data.score);
           return {
             Rank: data.rank || idx + 1,
             Change: "—",
@@ -71,6 +73,10 @@ const RankingTable = () => {
           };
         });
 
+        // 클라이언트 측에서 rank 기준으로 정렬
+        toolsData.sort((a, b) => a.Rank - b.Rank);
+        console.log("✅ 최종 데이터:", toolsData.length, "개");
+
         setTools(toolsData);
         setReportData({
           data: {
@@ -80,7 +86,7 @@ const RankingTable = () => {
             engine: "Firestore tools 컬렉션"
           }
         });
-        console.log("✅ tools 컬렉션에서 데이터 로드:", toolsData.length);
+        console.log("✅ tools 컬렉션에서 데이터 로드 완료:", toolsData.length);
       }
     } catch (error) {
       console.error("❌ 랭킹 데이터 로드 실패:", error);
