@@ -7,7 +7,8 @@ import { useTheme } from "../../context/ThemeContext";
 import { useTools } from "../../context/ToolContext";
 import {
   YoutubeLogoFill, BookmarkSimple, BookmarkSimpleFill, ArrowRight, X, Sparkle,
-  TrendUp, Cpu, Megaphone, Lightning, Lightbulb, Quotes, Wrench, ChartLineUp
+  TrendUp, Cpu, Megaphone, Lightning, Lightbulb, Quotes, Wrench, ChartLineUp,
+  ThumbsUp, ThumbsDown
 } from "../icons/PhosphorIcons";
 
 const decodeHtmlSafe = (text) => {
@@ -280,16 +281,16 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           </div>
 
           {/* 통합 설명란: USP + 장점/단점 */}
-          <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "12px 14px", border: "1px solid var(--border-primary)", marginBottom: "12px" }}>
-            <div style={{ fontSize: "0.7rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
-              <Lightbulb size={14} weight="fill" /> 💡 CORE USP & 분석
+          <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "16px 18px", border: "1px solid var(--border-primary)", marginBottom: "12px" }}>
+            <div style={{ fontSize: "0.85rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
+              <Lightbulb size={20} weight="fill" /> 💡 CORE USP & 분석
             </div>
 
             {(() => {
               const usp = tool.usp || tool.USP;
               const uspText = typeof usp === 'string' ? usp : null;
               return uspText ? (
-                <div style={{ fontSize: "0.82rem", color: "var(--text-primary)", lineHeight: 1.5, marginBottom: "10px", fontWeight: 600 }}>
+                <div style={{ fontSize: "1rem", color: "var(--text-primary)", lineHeight: 1.5, marginBottom: "14px", fontWeight: 700 }}>
                   {uspText}
                 </div>
               ) : null;
@@ -299,7 +300,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               const prosCons = tool.prosCons || tool.Pros_Cons;
               if (typeof prosCons === 'string') {
                 return (
-                  <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                  <div style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
                     {prosCons}
                   </div>
                 );
@@ -308,22 +309,22 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 const cons = Array.isArray(prosCons.cons) ? prosCons.cons : [];
                 if (pros.length === 0 && cons.length === 0) return null;
                 return (
-                  <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.6, display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <div style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.6, display: "flex", flexDirection: "column", gap: "12px" }}>
                     {pros.length > 0 && (
-                      <div style={{ display: "flex", gap: "6px" }}>
-                        <span style={{ color: "#10b981", fontWeight: 900 }}>✓</span>
+                      <div style={{ display: "flex", gap: "8px", background: "rgba(16, 185, 129, 0.05)", padding: "10px", borderRadius: "10px" }}>
+                        <ThumbsUp size={24} color="#10b981" weight="fill" />
                         <div>
-                          <strong style={{ color: "#10b981", fontWeight: 800 }}>장점:</strong>{" "}
-                          <span style={{ color: "var(--text-secondary)" }}>{pros.join(", ")}</span>
+                          <strong style={{ color: "#10b981", fontWeight: 900, fontSize: "1.05rem" }}>이건 정말 개쩔어요! 👍</strong>
+                          <div style={{ color: "var(--text-primary)", marginTop: "4px", fontWeight: 500 }}>{pros.join(", ")}</div>
                         </div>
                       </div>
                     )}
                     {cons.length > 0 && (
-                      <div style={{ display: "flex", gap: "6px" }}>
-                        <span style={{ color: "#ef4444", fontWeight: 900 }}>✗</span>
+                      <div style={{ display: "flex", gap: "8px", background: "rgba(239, 68, 68, 0.05)", padding: "10px", borderRadius: "10px" }}>
+                        <ThumbsDown size={24} color="#ef4444" weight="fill" />
                         <div>
-                          <strong style={{ color: "#ef4444", fontWeight: 800 }}>단점:</strong>{" "}
-                          <span style={{ color: "var(--text-secondary)" }}>{cons.join(", ")}</span>
+                          <strong style={{ color: "#ef4444", fontWeight: 900, fontSize: "1.05rem" }}>이건 좀 아쉬워요.. 😅</strong>
+                          <div style={{ color: "var(--text-primary)", marginTop: "4px", fontWeight: 500 }}>{cons.join(", ")}</div>
                         </div>
                       </div>
                     )}
@@ -335,16 +336,16 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           </div>
 
           {/* 가격 플랜 */}
-          <div style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.05) 0%, rgba(168,85,247,0.05) 100%)", borderRadius: "14px", padding: "12px 14px", border: "1px solid rgba(99,102,241,0.2)", marginBottom: "10px" }}>
-            <div style={{ fontSize: "0.7rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
-              💰 가격 플랜
+          <div style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(168,85,247,0.1) 100%)", borderRadius: "14px", padding: "16px 18px", border: "1px solid rgba(99,102,241,0.3)", marginBottom: "10px" }}>
+            <div style={{ fontSize: "0.85rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
+              💰 실시간 가격 정보
             </div>
-            <div style={{ fontSize: "0.85rem", color: "var(--text-primary)", fontWeight: 700 }}>
-              {tool.pricing || tool.Pricing || "정보 없음"}
+            <div style={{ fontSize: "1.1rem", color: "var(--text-primary)", fontWeight: 900 }}>
+              {tool.pricing_detail || tool.pricing || tool.Pricing || "정보 업데이트 대기 중"}
             </div>
             {tool.koSupport === "Y" && (
-              <div style={{ marginTop: "6px", fontSize: "0.75rem", color: "#10b981", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px" }}>
-                <span>✓</span> 한국어 지원
+              <div style={{ marginTop: "10px", fontSize: "0.85rem", color: "#10b981", fontWeight: 800, display: "flex", alignItems: "center", gap: "6px" }}>
+                <span style={{ fontSize: "1.1rem" }}>✓</span> 한국어 완벽 지원! 🇰🇷
               </div>
             )}
           </div>

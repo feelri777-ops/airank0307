@@ -106,4 +106,18 @@ export const FileArrowUp = (p) => <IconWrapper {...p}><path d="M48,208V40a8,8,0,
 export const CaretDown = (p) => <IconWrapper {...p}><polyline points="48 88 128 168 208 88"/></IconWrapper>;
 export const CaretUp = (p) => <IconWrapper {...p}><polyline points="48 168 128 88 208 168"/></IconWrapper>;
 export const Trophy = (p) => <IconWrapper {...p}><path d="M56,40H200a8,8,0,0,1,8,8V88a48,48,0,0,1-48,48H96A48,48,0,0,1,48,88V48A8,8,0,0,1,56,40Z"/><line x1="88" y1="192" x2="168" y2="192"/><line x1="128" y1="136" x2="128" y2="192"/><polygon points="232 80 208 80 208 48 232 48 232 80"/><polygon points="24 80 48 80 48 48 24 48 24 80"/><line x1="56" y1="216" x2="200" y2="216"/></IconWrapper>;
+export const Table = (p) => <IconWrapper {...p}><rect x="32" y="48" width="192" height="160" rx="8"/><line x1="32" y1="96" x2="224" y2="96"/><line x1="32" y1="144" x2="224" y2="144"/><line x1="96" y1="48" x2="96" y2="208"/><line x1="160" y1="48" x2="160" y2="208"/></IconWrapper>;
+export const Calendar = (p) => <IconWrapper {...p}><rect x="40" y="40" width="176" height="176" rx="8"/><line x1="176" y1="24" x2="176" y2="56"/><line x1="80" y1="24" x2="80" y2="56"/><line x1="40" y1="88" x2="216" y2="88"/></IconWrapper>;
+export const Spinner = (p) => (
+  <IconWrapper {...p}>
+    <path d="M128,32V64" strokeDasharray="0 0" opacity="0.3"/>
+    <path d="M195.9,60.1l-22.6,22.6" opacity="0.4"/>
+    <path d="M224,128h-32" opacity="0.5"/>
+    <path d="M195.9,195.9l-22.6-22.6" opacity="0.6"/>
+    <path d="M128,224v-32" opacity="0.7"/>
+    <path d="M60.1,195.9l22.6-22.6" opacity="0.8"/>
+    <path d="128,32v32" opacity="0.9"/>
+    <animateTransform attributeName="transform" type="rotate" from="0 128 128" to="360 128 128" dur="1s" repeatCount="indefinite" />
+  </IconWrapper>
+);
 

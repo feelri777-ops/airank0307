@@ -52,6 +52,7 @@ import ArrowUpSvg       from '../../assets/icons/arrow-up.svg?react';
 import ArrowDownSvg     from '../../assets/icons/arrow-down.svg?react';
 import CaretUpSvg       from '../../assets/icons/caret-up.svg?react';
 import CaretDownSvg     from '../../assets/icons/caret-down.svg?react';
+import * as PI from '../icons/PhosphorIcons';
 
 const ICONS = {
   trophy:           TrophySvg,
@@ -108,6 +109,15 @@ const ICONS = {
   'arrow-down':     ArrowDownSvg,
   'caret-up':       CaretUpSvg,
   'caret-down':     CaretDownSvg,
+  'table':          PI.Table,
+  'calendar':       PI.Calendar,
+  'spinner':        PI.Spinner,
+  'thumbs-up':      PI.ThumbsUp,
+  'thumbs-down':    PI.ThumbsDown,
+  'moon':           PI.Moon,
+  'palette':        PI.Palette,
+  'chat-circle':    PI.ChatCircle,
+  'arrow-right':    PI.ArrowRight,
 };
 
 export default function Icon({ name, size = 20, color = 'currentColor', style, className }) {

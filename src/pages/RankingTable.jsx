@@ -183,8 +183,16 @@ const RankingTable = () => {
       );
     }
     const num = parseInt(change);
-    if (num > 0) return `▲${num}`;
-    if (num < 0) return `▼${Math.abs(num)}`;
+    if (num > 0) return (
+      <span style={{ color: "#ef4444", display: "flex", alignItems: "center", gap: "2px", fontWeight: 700 }}>
+        <Icon name="caret-up" size={14} color="#ef4444" /> {num}
+      </span>
+    );
+    if (num < 0) return (
+      <span style={{ color: "var(--accent-indigo)", display: "flex", alignItems: "center", gap: "2px", fontWeight: 700 }}>
+        <Icon name="caret-down" size={14} color="var(--accent-indigo)" /> {Math.abs(num)}
+      </span>
+    );
     return "—";
   };
 

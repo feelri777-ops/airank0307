@@ -178,8 +178,8 @@ const Navbar = () => {
                     <div className="dropdown-empty">북마크한 도구가 없어요</div>
                   ) : (
                     bookmarks.slice(0, 5).map((b) => (
-                      <button key={b.toolId} onClick={() => handleBookmarkClick(b.toolId)} className="dropdown-item">
-                        🔖 {b.toolName}
+                      <button key={b.toolId} onClick={() => handleBookmarkClick(b.toolId)} className="dropdown-item" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <Icon name="bookmark" size={14} /> {b.toolName}
                       </button>
                     ))
                   )}
@@ -278,7 +278,7 @@ const Navbar = () => {
                   onMouseEnter={() => setShowRankingDropdown(true)}
                 >
                   <Icon name={item.icon} size={16} /> {item.label}
-                  <span style={{ fontSize: "10px", marginLeft: "2px" }}>▾</span>
+                  <Icon name="caret-down" size={10} style={{ marginLeft: "2px" }} />
                 </button>
 
                 {showRankingDropdown && (

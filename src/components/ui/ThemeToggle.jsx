@@ -1,13 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "../../context/ThemeContext";
+import Icon from "./Icon";
 
 const THEMES = [
-  // { id: 'light', icon: '🌸', label: '벚꽃' }, // 숨김 처리: 정신없음
-  { id: 'dark',  icon: '🌙', label: '다크' },
-  // { id: 'pure',  icon: '⚪', label: '퓨어' },
-  { id: 'mono',  icon: '◑',  label: '모노' },
-  { id: 'community', icon: '💬', label: '커뮤니티' },
-  // { id: 'community-dark', icon: '🌲', label: '아보레텀' }, // 보류: 다크 테마
+  { id: 'dark',  icon: 'moon', label: '다크' },
+  { id: 'mono',  icon: 'palette',  label: '모노' },
+  { id: 'community', icon: 'chat-circle', label: '커뮤니티' },
 ];
 
 const TRACK_COLORS = {
@@ -68,11 +66,10 @@ const ThemeToggle = ({ dropUp = false }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: "11px",
           boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
           flexShrink: 0,
         }}>
-          {current.icon}
+          <Icon name={current.icon} size={12} color="#fff" />
         </div>
         <span style={{
           fontSize: "11px",
@@ -128,7 +125,7 @@ const ThemeToggle = ({ dropUp = false }) => {
                 if (theme !== t.id) e.currentTarget.style.background = "transparent";
               }}
             >
-              <span>{t.icon}</span>
+              <Icon name={t.icon} size={14} color={theme === t.id ? "var(--accent-indigo)" : "var(--text-secondary)"} />
               <span>{t.label}</span>
             </button>
           ))}
