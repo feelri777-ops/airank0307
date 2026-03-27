@@ -13,7 +13,8 @@ import {
   PencilSimple,
   TrashSimple,
   X,
-  FileArrowUp
+  FileArrowUp,
+  Trash
 } from "../../components/icons/PhosphorIcons";
 
 // 툴 URL에서 favicon 추출
@@ -234,6 +235,28 @@ export default function AdminTools() {
     alert("데이터 싱크 완료");
   };
 
+  const handleDeleteAll = async () => {
+    const confirmText = `정말로 모든 툴(${tools.length}개)을 삭제하시겠습니까?\n\n⚠️ 이 작업은 되돌릴 수 없습니다.\n\n계속하려면 "삭제"를 입력하세요.`;
+    const userInput = prompt(confirmText);
+
+    if (userInput !== "삭제") {
+      alert("취소되었습니다.");
+      return;
+    }
+
+    try {
+      const batch = writeBatch(db);
+      tools.forEach(t => {
+        batch.delete(doc(db, "tools", t._docId));
+      });
+      await batch.commit();
+      alert(`✅ 모든 툴(${tools.length}개)이 삭제되었습니다.`);
+    } catch (error) {
+      console.error("전체 삭제 실패:", error);
+      alert("삭제 중 오류가 발생했습니다: " + error.message);
+    }
+  };
+
   const filtered = useMemo(() => 
     tools.filter(t => String(t.name || "").toLowerCase().includes(search.toLowerCase()))
   , [tools, search]);
@@ -243,9 +266,32 @@ export default function AdminTools() {
       <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2.5rem" }}>
         <div>
           <h1 style={{ fontSize: "2rem", fontWeight: 950, letterSpacing: "-0.04em" }}>WEEKLY AI MAP <span style={{ color: "var(--accent-indigo)" }}>MASTER</span></h1>
-          <p style={{ color: "var(--text-secondary)" }}>AI 툴 순위 및 표준 지표를 매주 관리합니다.</p>
+          <p style={{ color: "var(--text-secondary)" }}>AI 툴 순위 및 표준 지표를 매주 관리합니다. <span style={{ color: "var(--accent-indigo)", fontWeight: 800 }}>({tools.length}개 등록됨)</span></p>
         </div>
         <div style={{ display: "flex", gap: "10px" }}>
+            <button
+              onClick={handleDeleteAll}
+              disabled={tools.length === 0}
+              style={{
+                padding: "12px 20px",
+                background: tools.length === 0 ? "var(--bg-secondary)" : "#fee2e2",
+                border: "1px solid",
+                borderColor: tools.length === 0 ? "var(--border-primary)" : "#fca5a5",
+                color: tools.length === 0 ? "var(--text-muted)" : "#dc2626",
+                borderRadius: "14px",
+                fontWeight: 800,
+                cursor: tools.length === 0 ? "not-allowed" : "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                opacity: tools.length === 0 ? 0.5 : 1,
+                transition: "all 0.2s"
+              }}
+              onMouseEnter={e => { if (tools.length > 0) { e.currentTarget.style.background = "#fecaca"; e.currentTarget.style.borderColor = "#f87171"; } }}
+              onMouseLeave={e => { if (tools.length > 0) { e.currentTarget.style.background = "#fee2e2"; e.currentTarget.style.borderColor = "#fca5a5"; } }}
+            >
+              {Trash && <Trash size={20} />} 전체 삭제
+            </button>
             <button onClick={() => setShowBulk(true)} style={{ padding: "12px 20px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", borderRadius: "14px", fontWeight: 800, cursor: "pointer", display: "flex", alignItems: "center", gap: "8px" }}>
               {FileArrowUp && <FileArrowUp size={20} />} AI JSON 임포트
             </button>

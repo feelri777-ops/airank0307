@@ -185,6 +185,7 @@ ${JSON.stringify(exampleJson, null, 2)} (이 형식으로 10개 전송)`;
 
   try {
     const rawChunk = extractJsonArray(text);
+    const seenNames = new Set();
     const chunk = rawChunk.map(item => {
       const normalized = {};
       Object.keys(item).forEach(key => {
@@ -198,7 +199,17 @@ ${JSON.stringify(exampleJson, null, 2)} (이 형식으로 10개 전송)`;
         else normalized[key] = item[key];
       });
       return normalized;
-    }).filter(item => item.Name && item.Rank);
+    }).filter(item => {
+      if (!item.Name || !item.Rank) return false;
+      // 중복 제거: 이미 나온 이름은 제외
+      const nameLower = String(item.Name).toLowerCase().trim();
+      if (seenNames.has(nameLower)) {
+        console.log(`   ⚠️ 중복 툴 제외: ${item.Name}`);
+        return false;
+      }
+      seenNames.add(nameLower);
+      return true;
+    });
 
     if (chunk.length < 10 && retryCount < 3) throw new Error("10개를 다 채우지 못함");
     

@@ -282,13 +282,20 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           <div style={{ display: "grid", gap: "6px", marginBottom: "10px" }}>
             {(() => {
               const usp = tool.usp || tool.USP;
-              const uspText = typeof usp === 'string' ? usp : typeof usp === 'object' && usp ? JSON.stringify(usp) : null;
+              const uspText = typeof usp === 'string' ? usp : null;
               return uspText ? ( <div style={{ background: "rgba(99,102,241,0.03)", borderRadius: "12px", padding: "8px 10px", border: "1px dashed rgba(99,102,241,0.2)" }}><div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.65rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "3px" }}><Lightbulb size={14} weight="fill" /> 💡 CORE USP</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{uspText}</div></div> ) : null;
             })()}
             {(() => {
               const prosCons = tool.prosCons || tool.Pros_Cons;
-              const prosConsText = typeof prosCons === 'string' ? prosCons : typeof prosCons === 'object' && prosCons ? JSON.stringify(prosCons) : null;
-              return prosConsText ? ( <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "8px 10px", border: "1px solid var(--border-primary)" }}><div style={{ fontSize: "0.65rem", fontWeight: 950, color: "var(--text-muted)", marginBottom: "3px" }}>🔍 ANALYSIS</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{prosConsText}</div></div> ) : null;
+              if (typeof prosCons === 'string') {
+                return ( <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "8px 10px", border: "1px solid var(--border-primary)" }}><div style={{ fontSize: "0.65rem", fontWeight: 950, color: "var(--text-muted)", marginBottom: "3px" }}>🔍 ANALYSIS</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{prosCons}</div></div> );
+              } else if (prosCons && typeof prosCons === 'object') {
+                const pros = Array.isArray(prosCons.pros) ? prosCons.pros : [];
+                const cons = Array.isArray(prosCons.cons) ? prosCons.cons : [];
+                if (pros.length === 0 && cons.length === 0) return null;
+                return ( <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "8px 10px", border: "1px solid var(--border-primary)" }}><div style={{ fontSize: "0.65rem", fontWeight: 950, color: "var(--text-muted)", marginBottom: "6px" }}>🔍 ANALYSIS</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.5, display: "flex", flexDirection: "column", gap: "4px" }}>{pros.length > 0 && <div><strong style={{ color: "var(--accent-indigo)" }}>장점:</strong> {pros.join(", ")}</div>}{cons.length > 0 && <div><strong style={{ color: "var(--text-muted)" }}>단점:</strong> {cons.join(", ")}</div>}</div></div> );
+              }
+              return null;
             })()}
           </div>
 
