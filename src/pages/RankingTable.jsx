@@ -10,16 +10,35 @@ const RankingTable = () => {
   const [tools, setTools] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "Rank", direction: "asc" });
   const [filterCategory, setFilterCategory] = useState("all");
+  const [allReports, setAllReports] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   useEffect(() => {
     fetchLatestRanking();
   }, []);
 
+  useEffect(() => {
+    if (allReports[selectedIndex]) {
+      const data = allReports[selectedIndex];
+      setReportData(data);
+      setTools(data.data?.tools || []);
+    }
+  }, [selectedIndex, allReports]);
+
+  useEffect(() => {
+    const handleClickOutside = () => setShowDatePicker(false);
+    if (showDatePicker) {
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
+    }
+  }, [showDatePicker]);
+
   const fetchLatestRanking = async () => {
     try {
       setLoading(true);
 
-      // 1. adminReports에서 최신 랭킹 데이터 가져오기 시도
+      // 1. adminReports에서 모든 랭킹 데이터 가져오기 시도
       const q = query(
         collection(db, "adminReports"),
         where("type", "==", "ranking_update")
@@ -29,19 +48,17 @@ const RankingTable = () => {
       console.log("📊 adminReports 문서 개수:", snapshot.size);
 
       if (!snapshot.empty) {
-        // createdAt 기준으로 클라이언트 측 정렬하여 최신 문서 찾기
-        const docs = snapshot.docs.sort((a, b) => {
+        // createdAt 기준으로 클라이언트 측 정렬 (내림차순 = 최신부터)
+        const sortedDocs = snapshot.docs.sort((a, b) => {
           const aTime = a.data().createdAt?.toMillis() || 0;
           const bTime = b.data().createdAt?.toMillis() || 0;
-          return bTime - aTime; // 내림차순
+          return bTime - aTime;
         });
 
-        const doc = docs[0];
-        const data = doc.data();
-        console.log("✅ 최신 adminReport 선택:", data.createdAt?.toDate());
-        setReportData(data);
-        setTools(data.data?.tools || []);
-        console.log("✅ adminReports에서 데이터 로드:", data.data?.tools?.length || 0);
+        const allData = sortedDocs.map(doc => doc.data());
+        setAllReports(allData);
+        setSelectedIndex(0);
+        console.log("✅ adminReports에서 데이터 로드 (주차 개수:", allData.length, ")");
       } else {
         // 2. adminReports에 데이터가 없으면 tools 컬렉션에서 직접 가져오기
         console.log("⚠️ adminReports에 데이터 없음. tools 컬렉션에서 가져오는 중...");
@@ -85,15 +102,16 @@ const RankingTable = () => {
         toolsData.sort((a, b) => a.Rank - b.Rank);
         console.log("✅ 최종 데이터:", toolsData.length, "개");
 
-        setTools(toolsData);
-        setReportData({
+        const fallbackReport = {
           data: {
             weekLabel: "현재 랭킹",
             generatedAt: new Date().toISOString(),
             totalCount: toolsData.length,
             engine: "Firestore tools 컬렉션"
           }
-        });
+        };
+        setAllReports([fallbackReport]);
+        setSelectedIndex(0);
         console.log("✅ tools 컬렉션에서 데이터 로드 완료:", toolsData.length);
       }
     } catch (error) {
@@ -246,18 +264,137 @@ const RankingTable = () => {
         }}>
           랭킹 세부 데이터
         </h1>
-        <div style={{
-          fontSize: "0.9rem",
-          color: "var(--text-secondary)",
-          display: "flex",
-          alignItems: "center",
-          gap: "6px"
-        }}>
-          <Icon name="calendar" size={16} />
-          <span>
-            {reportData?.data?.weekLabel || "2026년 3월 3주차"} (
-            {formatDateRange(reportData?.data?.generatedAt)})
-          </span>
+        <div style={{ position: "relative" }}>
+          {allReports.length > 1 ? (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDatePicker(!showDatePicker);
+              }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "0.9rem",
+                color: "var(--text-secondary)",
+                background: "var(--bg-card)",
+                border: "1px solid var(--border-primary)",
+                borderRadius: "var(--r-sm)",
+                padding: "6px 10px",
+                cursor: "pointer",
+                transition: "all 0.2s ease"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "var(--bg-tertiary)";
+                e.currentTarget.style.borderColor = "var(--accent-indigo)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "var(--bg-card)";
+                e.currentTarget.style.borderColor = "var(--border-primary)";
+              }}
+            >
+              <Icon name="calendar" size={16} />
+              <span>
+                {reportData?.data?.weekLabel || "2026년 3월 3주차"} (
+                {formatDateRange(reportData?.data?.generatedAt)})
+              </span>
+              <Icon name="caret-down" size={12} />
+            </button>
+          ) : (
+            <div style={{
+              fontSize: "0.9rem",
+              color: "var(--text-secondary)",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px"
+            }}>
+              <Icon name="calendar" size={16} />
+              <span>
+                {reportData?.data?.weekLabel || "2026년 3월 3주차"} (
+                {formatDateRange(reportData?.data?.generatedAt)})
+              </span>
+            </div>
+          )}
+
+          {showDatePicker && allReports.length > 1 && (
+            <div
+              style={{
+                position: "absolute",
+                right: 0,
+                top: "calc(100% + 8px)",
+                background: "var(--bg-card)",
+                border: "1px solid var(--border-primary)",
+                borderRadius: "var(--r-md)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.15)",
+                minWidth: "240px",
+                zIndex: 100,
+                maxHeight: "320px",
+                overflowY: "auto"
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {allReports.map((report, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setSelectedIndex(idx);
+                    setShowDatePicker(false);
+                  }}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    textAlign: "left",
+                    padding: "10px 14px",
+                    background:
+                      idx === selectedIndex ? "var(--bg-tertiary)" : "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    fontSize: "0.85rem",
+                    color:
+                      idx === selectedIndex
+                        ? "var(--text-primary)"
+                        : "var(--text-secondary)",
+                    fontWeight: idx === selectedIndex ? 700 : 400,
+                    borderBottom:
+                      idx < allReports.length - 1
+                        ? "1px solid var(--border-primary)"
+                        : "none",
+                    transition: "background 0.15s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    if (idx !== selectedIndex) {
+                      e.currentTarget.style.background = "var(--bg-secondary)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (idx !== selectedIndex) {
+                      e.currentTarget.style.background = "transparent";
+                    }
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span>
+                      {report.data?.weekLabel || "랭킹 데이터"} (
+                      {formatDateRange(report.data?.generatedAt)})
+                    </span>
+                    {idx === 0 && (
+                      <span
+                        style={{
+                          fontSize: "0.65rem",
+                          color: "var(--accent-indigo)",
+                          fontWeight: 600,
+                          marginLeft: "8px",
+                          whiteSpace: "nowrap"
+                        }}
+                      >
+                        최신
+                      </span>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </header>
 
