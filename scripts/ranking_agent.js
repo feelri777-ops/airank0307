@@ -127,6 +127,63 @@ const FALLBACK_POOL = [
   { name: "Framer AI", url: "https://framer.com", cat: "etc" }
 ];
 
+// --- AI 기반 중복 판별 (Perplexity 실시간 판단) ---
+const duplicateCheckCache = new Map(); // 캐시로 중복 API 호출 방지
+
+async function isSameProduct(name1, name2) {
+  // 1단계: 완전 동일한 경우 빠른 반환
+  const clean1 = name1.toLowerCase().trim();
+  const clean2 = name2.toLowerCase().trim();
+  if (clean1 === clean2) return true;
+
+  // 2단계: 캐시 확인
+  const cacheKey = [clean1, clean2].sort().join('|||');
+  if (duplicateCheckCache.has(cacheKey)) {
+    return duplicateCheckCache.get(cacheKey);
+  }
+
+  // 3단계: Perplexity AI 판별
+  try {
+    const systemPrompt = `당신은 AI 제품 분류 전문가입니다. 두 AI 도구가 같은 제품/서비스의 다른 버전이거나 같은 회사의 동일 제품군인지 판단하세요.`;
+
+    const userPrompt = `다음 두 AI 도구를 비교하세요:
+
+도구 A: "${name1}"
+도구 B: "${name2}"
+
+[판단 기준]
+1. 같은 회사의 같은 제품 → YES
+   예: "ChatGPT"와 "GPT-4", "Claude"와 "Sonnet 4.6", "Midjourney"와 "Midjourney v6"
+
+2. 같은 회사의 동일 제품군/브랜드 → YES
+   예: "Opus 4.6"과 "Claude Code", "DALL-E"와 "ChatGPT"
+
+3. 이름만 비슷하지만 다른 회사/제품 → NO
+   예: "Midjourney"와 "Stable Diffusion", "Cursor"와 "Copilot"
+
+4. 완전히 다른 제품 → NO
+
+[중요] 반드시 YES 또는 NO만 한 단어로 출력하세요. 다른 설명은 절대 금지입니다.`;
+
+    const response = await askPerplexity(systemPrompt, userPrompt, "sonar");
+    const answer = response.trim().toUpperCase();
+    const result = answer.includes("YES");
+
+    // 캐시 저장
+    duplicateCheckCache.set(cacheKey, result);
+
+    if (result) {
+      console.log(`      🔍 AI 판별: "${name1}" ≈ "${name2}" → 같은 제품`);
+    }
+
+    return result;
+  } catch (err) {
+    console.error(`      ❌ 중복 판별 실패 (${name1} vs ${name2}):`, err.message);
+    // 에러 시 보수적으로 다른 제품으로 간주
+    return false;
+  }
+}
+
 // --- 핵심 로직: 10개 단위 정밀 호출 (재시도 로직 포함) ---
 async function fetchRankingChunk(range, weekLabel, dateRange, currentRankingContext, retryCount = 0) {
   const isRetry = retryCount > 0;
@@ -249,21 +306,95 @@ async function runRankingAgent() {
 
     const currentRankingContext = await getCurrentRanking();
     const allTools = [];
+    const globalSeenNames = new Set(); // 전체 구간 중복 체크용
 
     // 10개씩 10번 호출 (총 100개) - 정밀도 극대화 전략
     for (let i = 1; i <= 100; i += 10) {
       const start = i;
       const end = i + 9;
       const rangeStr = `${start}위부터 ${end}위`;
-      
+
       const chunk = await fetchRankingChunk(rangeStr, weekLabel, dateRange, currentRankingContext);
-      allTools.push(...chunk);
-      
+
+      // 구간 간 중복 제거 (AI 기반 판별)
+      const uniqueChunk = [];
+      for (const tool of chunk) {
+        const toolName = String(tool.Name).trim();
+        let isDuplicate = false;
+
+        // 기존 툴들과 AI 기반 중복 검사
+        for (const existingName of globalSeenNames) {
+          if (await isSameProduct(toolName, existingName)) {
+            console.log(`   ⚠️ AI 중복 감지: "${tool.Name}" (기존: "${existingName}")`);
+            isDuplicate = true;
+            break;
+          }
+        }
+
+        if (!isDuplicate) {
+          globalSeenNames.add(toolName);
+          uniqueChunk.push(tool);
+        }
+      }
+
+      allTools.push(...uniqueChunk);
+
       // 진행률 표시
-      console.log(`   📊 진행률: ${allTools.length}/100 완료`);
+      console.log(`   📊 진행률: ${allTools.length}/100 완료 (이번 구간 ${uniqueChunk.length}개 추가)`);
     }
 
-    console.log(`\n✅ 총 ${allTools.length}개 도구 정밀 수집 완료`);
+    console.log(`\n✅ 총 ${allTools.length}개 도구 정밀 수집 완료 (중복 제거됨)`);
+
+    // 100개 미만이면 추가 요청
+    if (allTools.length < 100) {
+      const needed = 100 - allTools.length;
+      console.log(`\n⚠️  ${needed}개 부족 → 추가 AI 툴 수집 시작...`);
+
+      const excludeList = Array.from(globalSeenNames).join(", ");
+      const extraPrompt = `다음 툴들은 이미 포함되어 있으니 절대 중복하지 말고, 새로운 AI 툴 ${needed}개를 추천하세요:\n${excludeList}`;
+
+      try {
+        const extraChunk = await fetchRankingChunk(
+          `추가 ${needed}개`,
+          weekLabel,
+          dateRange,
+          extraPrompt,
+          0
+        );
+
+        const extraUnique = [];
+        for (const tool of extraChunk) {
+          if (extraUnique.length >= needed) break;
+
+          const toolName = String(tool.Name).trim();
+          let isDuplicate = false;
+
+          for (const existingName of globalSeenNames) {
+            if (await isSameProduct(toolName, existingName)) {
+              console.log(`   ⚠️ 추가 요청에서도 AI 중복 감지: "${tool.Name}"`);
+              isDuplicate = true;
+              break;
+            }
+          }
+
+          if (!isDuplicate) {
+            globalSeenNames.add(toolName);
+            extraUnique.push(tool);
+          }
+        }
+
+        // Rank 재조정
+        extraUnique.forEach((tool, idx) => {
+          tool.Rank = allTools.length + idx + 1;
+        });
+
+        allTools.push(...extraUnique);
+        console.log(`   ✅ 추가 수집 완료: ${extraUnique.length}개 (총 ${allTools.length}개)`);
+      } catch (err) {
+        console.error(`   ❌ 추가 수집 실패:`, err.message);
+        console.log(`   ⚠️  ${allTools.length}개로 계속 진행합니다.`);
+      }
+    }
 
     // Firestore adminReports에 pending 상태로 저장
     const reportRef = await db.collection("adminReports").add({
