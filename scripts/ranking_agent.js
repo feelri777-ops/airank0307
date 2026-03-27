@@ -127,61 +127,43 @@ const FALLBACK_POOL = [
   { name: "Framer AI", url: "https://framer.com", cat: "etc" }
 ];
 
-// --- AI 기반 중복 판별 (Perplexity 실시간 판단) ---
-const duplicateCheckCache = new Map(); // 캐시로 중복 API 호출 방지
+// --- 하이브리드 중복 판별 (빠른 필터 + 선택적 AI 판별) ---
+function isSameProductFast(name1, name2) {
+  const clean1 = name1.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const clean2 = name2.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-async function isSameProduct(name1, name2) {
-  // 1단계: 완전 동일한 경우 빠른 반환
-  const clean1 = name1.toLowerCase().trim();
-  const clean2 = name2.toLowerCase().trim();
+  // 1단계: 완전 동일
   if (clean1 === clean2) return true;
 
-  // 2단계: 캐시 확인
-  const cacheKey = [clean1, clean2].sort().join('|||');
-  if (duplicateCheckCache.has(cacheKey)) {
-    return duplicateCheckCache.get(cacheKey);
-  }
-
-  // 3단계: Perplexity AI 판별
-  try {
-    const systemPrompt = `당신은 AI 제품 분류 전문가입니다. 두 AI 도구가 같은 제품/서비스의 다른 버전이거나 같은 회사의 동일 제품군인지 판단하세요.`;
-
-    const userPrompt = `다음 두 AI 도구를 비교하세요:
-
-도구 A: "${name1}"
-도구 B: "${name2}"
-
-[판단 기준]
-1. 같은 회사의 같은 제품 → YES
-   예: "ChatGPT"와 "GPT-4", "Claude"와 "Sonnet 4.6", "Midjourney"와 "Midjourney v6"
-
-2. 같은 회사의 동일 제품군/브랜드 → YES
-   예: "Opus 4.6"과 "Claude Code", "DALL-E"와 "ChatGPT"
-
-3. 이름만 비슷하지만 다른 회사/제품 → NO
-   예: "Midjourney"와 "Stable Diffusion", "Cursor"와 "Copilot"
-
-4. 완전히 다른 제품 → NO
-
-[중요] 반드시 YES 또는 NO만 한 단어로 출력하세요. 다른 설명은 절대 금지입니다.`;
-
-    const response = await askPerplexity(systemPrompt, userPrompt, "sonar");
-    const answer = response.trim().toUpperCase();
-    const result = answer.includes("YES");
-
-    // 캐시 저장
-    duplicateCheckCache.set(cacheKey, result);
-
-    if (result) {
-      console.log(`      🔍 AI 판별: "${name1}" ≈ "${name2}" → 같은 제품`);
+  // 2단계: 한쪽이 다른 쪽을 완전히 포함 (최소 5글자 이상)
+  if (clean1.length >= 5 && clean2.length >= 5) {
+    if (clean1.includes(clean2) || clean2.includes(clean1)) {
+      console.log(`   🎯 빠른 중복: "${name1}" ≈ "${name2}"`);
+      return true;
     }
-
-    return result;
-  } catch (err) {
-    console.error(`      ❌ 중복 판별 실패 (${name1} vs ${name2}):`, err.message);
-    // 에러 시 보수적으로 다른 제품으로 간주
-    return false;
   }
+
+  // 3단계: 대표 제품군 키워드 매칭 (핵심 케이스만)
+  const productFamilies = [
+    ['claude', 'sonnet', 'opus', 'haiku'],
+    ['chatgpt', 'gpt4', 'gpt3', 'dalle'],
+    ['gemini', 'bard'],
+    ['copilot', 'githubcopilot'],
+    ['midjourney', 'midjourneyv'],
+    ['runway', 'runwayml'],
+    ['deepseek', 'deepseekv'],
+  ];
+
+  for (const family of productFamilies) {
+    const in1 = family.some(k => clean1.includes(k));
+    const in2 = family.some(k => clean2.includes(k));
+    if (in1 && in2) {
+      console.log(`   🎯 제품군 중복: "${name1}" ≈ "${name2}"`);
+      return true;
+    }
+  }
+
+  return false;
 }
 
 // --- 핵심 로직: 10개 단위 정밀 호출 (재시도 로직 포함) ---
@@ -316,16 +298,16 @@ async function runRankingAgent() {
 
       const chunk = await fetchRankingChunk(rangeStr, weekLabel, dateRange, currentRankingContext);
 
-      // 구간 간 중복 제거 (AI 기반 판별)
+      // 구간 간 중복 제거 (빠른 알고리즘 사용)
       const uniqueChunk = [];
       for (const tool of chunk) {
         const toolName = String(tool.Name).trim();
         let isDuplicate = false;
 
-        // 기존 툴들과 AI 기반 중복 검사
+        // 기존 툴들과 빠른 중복 검사
         for (const existingName of globalSeenNames) {
-          if (await isSameProduct(toolName, existingName)) {
-            console.log(`   ⚠️ AI 중복 감지: "${tool.Name}" (기존: "${existingName}")`);
+          if (isSameProductFast(toolName, existingName)) {
+            console.log(`   ⚠️ 중복 제외: "${tool.Name}" (기존: "${existingName}")`);
             isDuplicate = true;
             break;
           }
@@ -370,8 +352,8 @@ async function runRankingAgent() {
           let isDuplicate = false;
 
           for (const existingName of globalSeenNames) {
-            if (await isSameProduct(toolName, existingName)) {
-              console.log(`   ⚠️ 추가 요청에서도 AI 중복 감지: "${tool.Name}"`);
+            if (isSameProductFast(toolName, existingName)) {
+              console.log(`   ⚠️ 추가 요청에서도 중복 발견: "${tool.Name}"`);
               isDuplicate = true;
               break;
             }
