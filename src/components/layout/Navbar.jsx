@@ -11,7 +11,6 @@ import LoginModal from "../modals/LoginModal";
 import ThemeToggle from "../ui/ThemeToggle";
 import Icon from "../ui/Icon";
 import { useGalleryLightbox } from "../../context/GalleryLightboxContext";
-import { ArrowRight } from "../icons/PhosphorIcons";
 
 const Navbar = () => {
   const { user, userData, logout } = useAuth();
@@ -149,7 +148,7 @@ const Navbar = () => {
                     {newsBookmarks.length > 0 && (
                       <button onClick={() => { navigate("/dashboard", { state: { section: "news" } }); setShowDropdown(false); }}
                         style={{ fontSize: "0.72rem", color: "var(--accent-indigo, #6366f1)", background: "none", border: "none", cursor: "pointer", fontWeight: 600, padding: 0 }}>
-                        더보기 <ArrowRight size={10} />
+                        더보기 <Icon name="arrow-right" size={10} />
                       </button>
                     )}
                   </div>
@@ -170,7 +169,7 @@ const Navbar = () => {
                     {bookmarks.length > 0 && (
                       <button onClick={() => { navigate("/dashboard", { state: { section: "toolBookmarks" } }); setShowDropdown(false); }}
                         style={{ fontSize: "0.72rem", color: "var(--accent-indigo, #6366f1)", background: "none", border: "none", cursor: "pointer", fontWeight: 600, padding: 0 }}>
-                        더보기 <ArrowRight size={10} />
+                        더보기 <Icon name="arrow-right" size={10} />
                       </button>
                     )}
                   </div>
@@ -191,7 +190,7 @@ const Navbar = () => {
                     {likedPosts.length > 0 && (
                       <button onClick={() => { navigate("/dashboard", { state: { section: "liked" } }); setShowDropdown(false); }}
                         style={{ fontSize: "0.72rem", color: "var(--accent-indigo, #6366f1)", background: "none", border: "none", cursor: "pointer", fontWeight: 600, padding: 0 }}>
-                        더보기 <ArrowRight size={10} />
+                        더보기 <Icon name="arrow-right" size={10} />
                       </button>
                     )}
                   </div>

@@ -5,11 +5,7 @@ import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 import { useTools } from "../../context/ToolContext";
-import {
-  YoutubeLogoFill, BookmarkSimple, BookmarkSimpleFill, ArrowRight, X, Sparkle,
-  TrendUp, Cpu, Megaphone, Lightning, Lightbulb, Quotes, Wrench, ChartLineUp,
-  ThumbsUp, ThumbsDown
-} from "../icons/PhosphorIcons";
+import Icon from "../ui/Icon";
 
 const decodeHtmlSafe = (text) => {
   if (!text) return "";
@@ -205,7 +201,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               onMouseEnter={e => { e.currentTarget.style.transform='scale(1.1)'; e.currentTarget.style.backgroundColor='var(--bg-card)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform='scale(1)'; e.currentTarget.style.backgroundColor='var(--bg-secondary)'; }}
             >
-              {bookmarked ? <BookmarkSimpleFill size={22} /> : <BookmarkSimple size={22} />}
+              <Icon name={bookmarked ? "bookmark-simple-fill" : "bookmark-simple"} size={22} weight={bookmarked ? "fill" : "bold"} />
             </button>
           </div>
 
@@ -253,7 +249,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                   alignItems: "center", gap: "16px", cursor: "help", height: "32px",
                 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.92rem", fontWeight: 950, color: "var(--text-primary)" }}>
-                    {React.cloneElement(main.i, { size: 18 })} {main.l}
+                    <Icon name={main.k === 'score' ? 'trend-up' : main.k} size={18} /> {main.l}
                   </div>
                   <SparkLine val={val} color={main.c} height="7px" glow />
                   <span style={{ fontSize: "1.05rem", fontWeight: 950, color: main.c, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{Number(val).toFixed(0)}</span>
@@ -270,7 +266,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                     alignItems: "center", gap: "8px", cursor: "help", height: "26px",
                   }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: "0.78rem", fontWeight: 800, color: "var(--text-secondary)" }}>
-                      {React.cloneElement(m.i, { size: 14 })} {m.l}
+                      <Icon name={m.k === 'usage' ? 'wrench' : m.k === 'tech' ? 'cpu' : m.k === 'buzz' ? 'megaphone' : m.k === 'utility' ? 'lightning' : 'chart-line-up'} size={14} /> {m.l}
                     </div>
                     <SparkLine val={val} color={m.c} height="4px" />
                     <span style={{ fontSize: "0.8rem", fontWeight: 950, color: m.c, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{Number(val).toFixed(0)}</span>
@@ -282,8 +278,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
 
           {/* 통합 설명란: USP + 장점/단점 */}
           <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "16px 18px", border: "1px solid var(--border-primary)", marginBottom: "12px" }}>
-            <div style={{ fontSize: "0.85rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
-              <Lightbulb size={20} weight="fill" /> 💡 CORE USP & 분석
+            <div style={{ fontSize: "0.82rem", fontWeight: 850, color: "var(--accent-indigo)", marginBottom: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
+              <Icon name="lightbulb" size={18} weight="fill" /> 💡 CORE USP & 분석
             </div>
 
             {(() => {
@@ -309,22 +305,22 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 const cons = Array.isArray(prosCons.cons) ? prosCons.cons : [];
                 if (pros.length === 0 && cons.length === 0) return null;
                 return (
-                  <div style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.6, display: "flex", flexDirection: "column", gap: "12px" }}>
+                  <div style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.5, display: "flex", flexDirection: "column", gap: "10px" }}>
                     {pros.length > 0 && (
-                      <div style={{ display: "flex", gap: "8px", background: "rgba(16, 185, 129, 0.05)", padding: "10px", borderRadius: "10px" }}>
-                        <ThumbsUp size={24} color="#10b981" weight="fill" />
+                      <div style={{ display: "flex", gap: "6px", background: "rgba(16, 185, 129, 0.05)", padding: "8px 10px", borderRadius: "10px" }}>
+                        <Icon name="thumbs-up" size={18} color="#10b981" weight="fill" />
                         <div>
-                          <strong style={{ color: "#10b981", fontWeight: 900, fontSize: "1.05rem" }}>이건 정말 개쩔어요! 👍</strong>
-                          <div style={{ color: "var(--text-primary)", marginTop: "4px", fontWeight: 500 }}>{pros.join(", ")}</div>
+                          <strong style={{ color: "#10b981", fontWeight: 900, fontSize: "0.92rem" }}>이건 정말 개쩔어요! 👍</strong>
+                          <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400 }}>{pros.join(", ")}</div>
                         </div>
                       </div>
                     )}
                     {cons.length > 0 && (
-                      <div style={{ display: "flex", gap: "8px", background: "rgba(239, 68, 68, 0.05)", padding: "10px", borderRadius: "10px" }}>
-                        <ThumbsDown size={24} color="#ef4444" weight="fill" />
+                      <div style={{ display: "flex", gap: "6px", background: "rgba(239, 68, 68, 0.05)", padding: "8px 10px", borderRadius: "10px" }}>
+                        <Icon name="thumbs-down" size={18} color="#ef4444" weight="fill" />
                         <div>
-                          <strong style={{ color: "#ef4444", fontWeight: 900, fontSize: "1.05rem" }}>이건 좀 아쉬워요.. 😅</strong>
-                          <div style={{ color: "var(--text-primary)", marginTop: "4px", fontWeight: 500 }}>{cons.join(", ")}</div>
+                          <strong style={{ color: "#ef4444", fontWeight: 900, fontSize: "0.92rem" }}>이건 좀 아쉬워요.. 😅</strong>
+                          <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400 }}>{cons.join(", ")}</div>
                         </div>
                       </div>
                     )}
@@ -340,7 +336,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             <div style={{ fontSize: "0.85rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
               💰 실시간 가격 정보
             </div>
-            <div style={{ fontSize: "1.1rem", color: "var(--text-primary)", fontWeight: 900 }}>
+            <div style={{ fontSize: "1rem", color: "var(--text-primary)", fontWeight: 900 }}>
               {tool.pricing_detail || tool.pricing || tool.Pricing || "정보 업데이트 대기 중"}
             </div>
             {tool.koSupport === "Y" && (
@@ -375,7 +371,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 whiteSpace: "nowrap",
                 boxShadow: "0 6px 14px rgba(99,102,241,0.2)"
               }}
-            >공식 사이트 바로가기 <ArrowRight size={isMobile ? 14 : 16} weight="bold" /></a>
+            >공식 사이트 바로가기 <Icon name="arrow-right" size={isMobile ? 14 : 16} weight="bold" /></a>
             <button
               onClick={(e) => { e.stopPropagation(); onClose(); navigate("/community"); }}
               style={{
@@ -408,7 +404,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           {/* 유튜브 링크 */}
           <div style={{ marginBottom: "28px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-              <div style={{ background: "rgba(255,0,0,0.1)", padding: "6px", borderRadius: "8px", display: "flex" }}><YoutubeLogoFill size={20} color="#ff0000" /></div>
+              <div style={{ background: "rgba(255,0,0,0.1)", padding: "6px", borderRadius: "8px", display: "flex" }}><Icon name="youtube-logo-fill" size={20} color="#ff0000" weight="fill" /></div>
               <span style={{ fontSize: "0.9rem", fontWeight: 900 }}>AI 실전 활용 팁</span>
             </div>
             {videos.length === 0 ? (
@@ -439,7 +435,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           {synerToolList.length > 0 && (
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-                <div style={{ background: "rgba(99,102,241,0.1)", padding: "6px", borderRadius: "8px", display: "flex" }}><Sparkle size={20} weight="fill" color="var(--accent-indigo)" /></div>
+                <div style={{ background: "rgba(99,102,241,0.1)", padding: "6px", borderRadius: "8px", display: "flex" }}><Icon name="sparkle" size={20} weight="fill" color="var(--accent-indigo)" /></div>
                 <span style={{ fontSize: "0.9rem", fontWeight: 900 }}>함께 쓰면 좋은 시너지 AI</span>
               </div>
               <div style={{ display: "grid", gap: "10px" }}>

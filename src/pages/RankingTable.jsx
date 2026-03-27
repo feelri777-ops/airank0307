@@ -216,7 +216,7 @@ const RankingTable = () => {
         color: "var(--text-secondary)"
       }}>
         <div style={{ textAlign: "center" }}>
-          <Icon name="spinner" size={32} style={{ marginBottom: "12px" }} />
+          <Icon name="spinner" size={24} style={{ marginBottom: "12px" }} />
           <p>랭킹 데이터 로딩중…</p>
         </div>
       </div>
@@ -477,8 +477,8 @@ const SortableHeader = ({ label, sortKey, sortConfig, onSort }) => {
         onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-primary)"}
       >
         {label}
-        <span style={{ fontSize: "10px", opacity: isActive ? 1 : 0.3 }}>
-          {direction === "asc" ? "▲" : "▼"}
+        <span style={{ fontSize: "10px", opacity: isActive ? 1 : 0.3, display: "flex", alignItems: "center" }}>
+          {direction === "asc" ? <Icon name="caret-up" size={10} /> : <Icon name="caret-down" size={10} />}
         </span>
       </button>
     </th>

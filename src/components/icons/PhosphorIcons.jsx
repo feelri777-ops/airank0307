@@ -1,23 +1,33 @@
 import React from 'react';
 
 // Common SVG Wrapper
-const IconWrapper = ({ children, size = 20, color = "currentColor", weight = "bold", ...props }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    viewBox="0 0 256 256" 
-    width={size} 
-    height={size} 
-    fill={weight === 'fill' ? color : 'none'}
-    stroke={weight === 'fill' ? 'none' : color}
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    strokeWidth="16"
-    {...props}
-  >
-    <rect width="256" height="256" fill="none" stroke="none"/>
-    {children}
-  </svg>
-);
+const IconWrapper = ({ children, size = 20, color = "currentColor", weight = "bold", ...props }) => {
+  const strokeWidth = {
+    thin: 8,
+    light: 12,
+    regular: 16,
+    bold: 24,
+    fill: 16
+  }[weight] || 16;
+
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 256 256" 
+      width={size} 
+      height={size} 
+      fill={weight === 'fill' ? color : 'none'}
+      stroke={weight === 'fill' ? 'none' : color}
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      strokeWidth={strokeWidth}
+      {...props}
+    >
+      <rect width="256" height="256" fill="none" stroke="none"/>
+      {children}
+    </svg>
+  );
+};
 
 export const TrendUp = (p) => <IconWrapper {...p}><polyline points="232 56 136 152 96 112 24 184"/><polyline points="232 120 232 56 168 56"/></IconWrapper>;
 export const Cpu = (p) => <IconWrapper {...p}><rect x="104" y="104" width="48" height="48" rx="8"/><rect x="48" y="48" width="160" height="160" rx="8"/><line x1="208" y1="104" x2="232" y2="104"/><line x1="208" y1="152" x2="232" y2="152"/><line x1="24" y1="104" x2="48" y2="104"/><line x1="24" y1="152" x2="48" y2="152"/><line x1="152" y1="208" x2="152" y2="232"/><line x1="104" y1="208" x2="104" y2="232"/><line x1="152" y1="24" x2="152" y2="48"/><line x1="104" y1="24" x2="104" y2="48"/></IconWrapper>;
@@ -103,20 +113,21 @@ export const Globe = (p) => <IconWrapper {...p}><circle cx="128" cy="128" r="96"
 export const Tag = (p) => <IconWrapper {...p}><path d="M226.3,109.7l-96-96a8.1,8.1,0,0,0-5.6-2.4H40a8,8,0,0,0-8,8V92.7a8.1,8.1,0,0,0,2.4,5.6l96,96a8,8,0,0,0,11.3,0l96-96a8,8,0,0,0,0-11.3ZM128,183,48,103V48h55l80,80-12,12Z"/><circle cx="84" cy="84" r="12"/></IconWrapper>;
 export const ArrowUpRight = (p) => <IconWrapper {...p}><line x1="64" y1="192" x2="192" y2="64"/><polyline points="192 160 192 64 96 64"/></IconWrapper>;
 export const FileArrowUp = (p) => <IconWrapper {...p}><path d="M48,208V40a8,8,0,0,1,8-8h96l56,56V208a8,8,0,0,1-8,8H56A8,8,0,0,1,48,208Z"/><polyline points="152 32 152 88 208 88"/><polyline points="96 152 128 120 160 152"/><line x1="128" y1="120" x2="128" y2="184"/></IconWrapper>;
-export const CaretDown = (p) => <IconWrapper {...p}><polyline points="48 88 128 168 208 88"/></IconWrapper>;
-export const CaretUp = (p) => <IconWrapper {...p}><polyline points="48 168 128 88 208 168"/></IconWrapper>;
+export const CaretDown = (p) => <IconWrapper {...p}><polyline points="208 96 128 176 48 96"/></IconWrapper>;
+export const CaretUp = (p) => <IconWrapper {...p}><polyline points="48 160 128 80 208 160"/></IconWrapper>;
 export const Trophy = (p) => <IconWrapper {...p}><path d="M56,40H200a8,8,0,0,1,8,8V88a48,48,0,0,1-48,48H96A48,48,0,0,1,48,88V48A8,8,0,0,1,56,40Z"/><line x1="88" y1="192" x2="168" y2="192"/><line x1="128" y1="136" x2="128" y2="192"/><polygon points="232 80 208 80 208 48 232 48 232 80"/><polygon points="24 80 48 80 48 48 24 48 24 80"/><line x1="56" y1="216" x2="200" y2="216"/></IconWrapper>;
 export const Table = (p) => <IconWrapper {...p}><rect x="32" y="48" width="192" height="160" rx="8"/><line x1="32" y1="96" x2="224" y2="96"/><line x1="32" y1="144" x2="224" y2="144"/><line x1="96" y1="48" x2="96" y2="208"/><line x1="160" y1="48" x2="160" y2="208"/></IconWrapper>;
 export const Calendar = (p) => <IconWrapper {...p}><rect x="40" y="40" width="176" height="176" rx="8"/><line x1="176" y1="24" x2="176" y2="56"/><line x1="80" y1="24" x2="80" y2="56"/><line x1="40" y1="88" x2="216" y2="88"/></IconWrapper>;
 export const Spinner = (p) => (
   <IconWrapper {...p}>
-    <path d="M128,32V64" strokeDasharray="0 0" opacity="0.3"/>
-    <path d="M195.9,60.1l-22.6,22.6" opacity="0.4"/>
-    <path d="M224,128h-32" opacity="0.5"/>
-    <path d="M195.9,195.9l-22.6-22.6" opacity="0.6"/>
-    <path d="M128,224v-32" opacity="0.7"/>
-    <path d="M60.1,195.9l22.6-22.6" opacity="0.8"/>
-    <path d="128,32v32" opacity="0.9"/>
+    <line x1="128" y1="32" x2="128" y2="64" opacity="0.3"/>
+    <line x1="195.9" y1="60.1" x2="173.3" y2="82.7" opacity="0.4"/>
+    <line x1="224" y1="128" x2="192" y2="128" opacity="0.5"/>
+    <line x1="195.9" y1="195.9" x2="173.3" y2="173.3" opacity="0.6"/>
+    <line x1="128" y1="224" x2="128" y2="192" opacity="0.7"/>
+    <line x1="60.1" y1="195.9" x2="82.7" y2="173.3" opacity="0.8"/>
+    <line x1="32" y1="128" x2="64" y2="128" opacity="0.9"/>
+    <line x1="60.1" y1="60.1" x2="82.7" y2="82.7" opacity="1.0"/>
     <animateTransform attributeName="transform" type="rotate" from="0 128 128" to="360 128 128" dur="1s" repeatCount="indefinite" />
   </IconWrapper>
 );

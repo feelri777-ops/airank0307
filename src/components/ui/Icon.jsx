@@ -120,14 +120,20 @@ const ICONS = {
   'arrow-right':    PI.ArrowRight,
 };
 
-export default function Icon({ name, size = 20, color = 'currentColor', style, className }) {
+export default function Icon({ name, size = 20, color = 'currentColor', weight, style, className }) {
   const Comp = ICONS[name];
   if (!Comp) return null;
+
+  // Phosphor 아이콘(PI.*)은 size, color, weight를 직접 받음
+  // SVG 컴포넌트는 width, height, fill을 받음
   return (
     <Comp
+      size={size}
       width={size}
       height={size}
-      fill={color}
+      color={color}
+      fill={color === 'currentColor' ? undefined : color}
+      weight={weight}
       style={{ display: 'inline-block', flexShrink: 0, ...style }}
       className={className}
     />
