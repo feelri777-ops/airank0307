@@ -138,7 +138,7 @@ const THEME_CONFIG = {
   },
 };
 
-const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard, onOpenRankingMethod }) => {
+const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
   const { theme } = useTheme();
   const cfg = THEME_CONFIG[theme] || THEME_CONFIG.dark;
   const isDark = theme === "dark" || theme === "mono"; // || theme === "community-dark"; // 보류
@@ -246,22 +246,6 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard, onOpenRankingM
       }}>
         전 세계 검색 데이터를 실시간 수집 —<br />
         지금 가장 주목받는 AI를 큐레이션합니다.
-        <span 
-          onClick={onOpenRankingMethod}
-          style={{
-            display: "inline-block",
-            marginTop: "8px",
-            fontSize: "0.75rem",
-            color: cfg.iconColor,
-            textDecoration: "underline",
-            textUnderlineOffset: "3px",
-            cursor: "pointer",
-            opacity: 0.8,
-            fontWeight: 500,
-          }}
-        >
-          랭킹은 어떤 기준으로 산출되나요?
-        </span>
       </p>
 
       {/* 검색바 + 마법사 버튼 */}

@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import BackgroundEffects from "../components/layout/BackgroundEffects";
 import Navbar from "../components/layout/Navbar";
 import TickerBar from "../components/layout/TickerBar";
+import RankingGuideSection from "../components/sections/RankingGuideSection";
 import Footer from "../components/layout/Footer";
 
 export default function MainLayout() {
@@ -20,7 +21,8 @@ export default function MainLayout() {
       }}>
         <Navbar />
         {location.pathname === '/' && <TickerBar />}
-        <Outlet /> 
+        <Outlet />
+        <RankingGuideSection />
         <Footer />
       </div>
     </>
