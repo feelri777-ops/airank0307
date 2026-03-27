@@ -29,6 +29,7 @@ const Gallery = lazy(() => import("./pages/Gallery"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Directory = lazy(() => import("./pages/Directory"));
 const TreemapPage = lazy(() => import("./pages/TreemapPage"));
+const RankingTable = lazy(() => import("./pages/RankingTable"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const AdminCommunity = lazy(() => import("./pages/admin/AdminCommunity"));
 const AdminGallery = lazy(() => import("./pages/admin/AdminGallery"));
@@ -100,6 +101,7 @@ export default function App() {
                               <Route path="gallery" element={<Gallery />} />
                               <Route path="directory" element={<Directory />} />
                               <Route path="treemap" element={<TreemapPage />} />
+                              <Route path="ranking-table" element={<RankingTable />} />
                               <Route path="dashboard" element={<Dashboard />} />
                             </Route>
                             <Route path="/admin" element={<AdminLayout />}>

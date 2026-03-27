@@ -21,11 +21,13 @@ const Navbar = () => {
   
   const [showDropdown, setShowDropdown] = useState(false); // 로그인 후 프로필 드롭다운
   const [showLoginModal, setShowLoginModal] = useState(false); // 로그인 모달
-  
+  const [showRankingDropdown, setShowRankingDropdown] = useState(false); // 랭킹 드롭다운
+
   const [bookmarks, setBookmarks] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
   const { openLightbox } = useGalleryLightbox();
   const dropdownRef = useRef(null);
+  const rankingDropdownRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -49,6 +51,9 @@ const Navbar = () => {
     const handler = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setShowDropdown(false);
+      }
+      if (rankingDropdownRef.current && !rankingDropdownRef.current.contains(e.target)) {
+        setShowRankingDropdown(false);
       }
     };
     document.addEventListener("mousedown", handler);
@@ -241,6 +246,60 @@ const Navbar = () => {
             item.id === "directory" ? "/directory" :
             item.id === "news"      ? "/news" :
             item.id === "prompt"    ? "/prompt" : "/";
+
+          // 랭킹 메뉴는 드롭다운으로 처리
+          if (item.id === "ranking") {
+            return (
+              <div
+                key={item.id}
+                ref={rankingDropdownRef}
+                style={{ position: "relative" }}
+                onMouseEnter={() => setShowRankingDropdown(true)}
+                onMouseLeave={() => setShowRankingDropdown(false)}
+              >
+                <Link
+                  to={path}
+                  className={`nav-link ${isActive ? "active" : ""}`}
+                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                >
+                  <Icon name={item.icon} size={16} /> {item.label}
+                  <span style={{ fontSize: "10px", marginLeft: "2px" }}>▾</span>
+                </Link>
+
+                {showRankingDropdown && (
+                  <div
+                    className="navbar-dropdown"
+                    style={{
+                      position: "absolute",
+                      top: "calc(100% + 8px)",
+                      left: 0,
+                      minWidth: "180px",
+                      zIndex: 100
+                    }}
+                  >
+                    <Link
+                      to="/"
+                      onClick={() => setShowRankingDropdown(false)}
+                      className="dropdown-item"
+                      style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                    >
+                      <Icon name="trophy" size={14} />
+                      홈 (랭킹 보기)
+                    </Link>
+                    <Link
+                      to="/ranking-table"
+                      onClick={() => setShowRankingDropdown(false)}
+                      className="dropdown-item"
+                      style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                    >
+                      <Icon name="table" size={14} />
+                      랭킹 세부 데이터
+                    </Link>
+                  </div>
+                )}
+              </div>
+            );
+          }
 
           return (
             <Link
