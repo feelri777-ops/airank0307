@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { collection, query, where, limit, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import Icon from "../components/ui/Icon";
+import { CATEGORIES } from "../constants";
 
 const RankingTable = () => {
   const [loading, setLoading] = useState(true);
@@ -157,13 +158,43 @@ const RankingTable = () => {
     return (sum / toolsList.length).toFixed(2);
   };
 
+  const getCategoryLabel = (catId) => {
+    const cat = CATEGORIES.find((c) => c.id === catId);
+    return cat?.label || catId;
+  };
+
   const getChangeIcon = (change) => {
-    if (!change || change === "0" || change === "-") return "—";
-    if (change === "NEW") return "🆕";
+    if (!change || change === "0" || change === "-" || change === "—") return "—";
+    if (change === "NEW") {
+      return (
+        <span style={{
+          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          color: "white",
+          padding: "4px 10px",
+          borderRadius: "6px",
+          fontSize: "0.75rem",
+          fontWeight: 700,
+          letterSpacing: "0.5px",
+          display: "inline-block",
+          boxShadow: "0 2px 8px rgba(102, 126, 234, 0.3)"
+        }}>
+          NEW
+        </span>
+      );
+    }
     const num = parseInt(change);
     if (num > 0) return `▲${num}`;
     if (num < 0) return `▼${Math.abs(num)}`;
     return "—";
+  };
+
+  const formatPricing = (pricing) => {
+    if (!pricing || pricing === "—") return "—";
+    // "Freemium" -> "Free / $20 / $30 / $40" 형식으로 변환
+    // 실제 데이터에 가격 정보가 없으면 간단히 표시
+    if (pricing.toLowerCase().includes("free")) return "Free";
+    if (pricing.toLowerCase().includes("paid")) return "Paid";
+    return pricing;
   };
 
   if (loading) {
@@ -267,7 +298,7 @@ const RankingTable = () => {
               <th style={thStyle}>변동</th>
               <th style={thStyle}>툴명</th>
               <th style={thStyle}>카테고리</th>
-              <th style={thStyle}>도메인</th>
+              <th style={thStyle}>주요 태그</th>
               <SortableHeader label="종합" sortKey="Total_Score" sortConfig={sortConfig} onSort={handleSort} />
               <SortableHeader label="사용량" sortKey="Usage_Score" sortConfig={sortConfig} onSort={handleSort} />
               <SortableHeader label="기술력" sortKey="Tech_Score" sortConfig={sortConfig} onSort={handleSort} />
@@ -292,19 +323,35 @@ const RankingTable = () => {
                 <td style={tdStyle}>{tool.Rank || idx + 1}</td>
                 <td style={tdStyle}>{getChangeIcon(tool.Change)}</td>
                 <td style={{ ...tdStyle, fontWeight: 600 }}>
-                  <a
-                    href={tool.URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      color: "var(--accent-indigo)",
-                      textDecoration: "none"
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.textDecoration = "underline"}
-                    onMouseLeave={(e) => e.currentTarget.style.textDecoration = "none"}
-                  >
-                    {tool.Name}
-                  </a>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <img
+                      src={tool.Logo || `https://www.google.com/s2/favicons?domain=${tool.URL}&sz=64`}
+                      alt={`${tool.Name} logo`}
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                        borderRadius: "4px",
+                        objectFit: "cover",
+                        flexShrink: 0
+                      }}
+                      onError={(e) => {
+                        e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23ddd'/%3E%3Ctext x='12' y='16' text-anchor='middle' font-size='12' fill='%23999'%3E?%3C/text%3E%3C/svg%3E";
+                      }}
+                    />
+                    <a
+                      href={tool.URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        color: "var(--accent-indigo)",
+                        textDecoration: "none"
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.textDecoration = "underline"}
+                      onMouseLeave={(e) => e.currentTarget.style.textDecoration = "none"}
+                    >
+                      {tool.Name}
+                    </a>
+                  </div>
                 </td>
                 <td style={tdStyle}>
                   <span style={{
@@ -313,11 +360,25 @@ const RankingTable = () => {
                     background: "var(--bg-tertiary)",
                     fontSize: "0.75rem"
                   }}>
-                    {tool.Category}
+                    {getCategoryLabel(tool.Category)}
                   </span>
                 </td>
-                <td style={{ ...tdStyle, fontSize: "0.75rem", color: "var(--text-muted)" }}>
-                  {tool.URL ? new URL(tool.URL).hostname.replace("www.", "") : "—"}
+                <td style={{ ...tdStyle, fontSize: "0.75rem" }}>
+                  {tool.Tags && tool.Tags.length > 0 ? (
+                    <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                      {tool.Tags.slice(0, 2).map((tag, i) => (
+                        <span key={i} style={{
+                          padding: "2px 6px",
+                          borderRadius: "3px",
+                          background: "var(--bg-secondary)",
+                          color: "var(--text-muted)",
+                          fontSize: "0.7rem"
+                        }}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  ) : "—"}
                 </td>
                 <td style={{ ...tdStyle, fontWeight: 600, fontVariantNumeric: "tabular-nums" }}>
                   {tool.Total_Score?.toFixed(1) || "—"}
@@ -337,7 +398,7 @@ const RankingTable = () => {
                 <td style={{ ...tdStyle, fontVariantNumeric: "tabular-nums" }}>
                   {tool.Growth_Score?.toFixed(1) || "—"}
                 </td>
-                <td style={tdStyle}>{tool.Pricing || "—"}</td>
+                <td style={tdStyle}>{formatPricing(tool.Pricing)}</td>
                 <td style={tdStyle}>{tool.Korean_Support === "Y" ? "✓" : "—"}</td>
               </tr>
             ))}
