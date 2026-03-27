@@ -235,14 +235,28 @@ export default function AdminCommunity() {
 
   const handleSaveBoard = async (e) => {
     e.preventDefault();
+
+    // 유효성 검사
+    if (!form.id || form.id.trim() === "") {
+      alert("게시판 ID를 입력해주세요. (예: free, tips, notice)");
+      return;
+    }
+    if (!form.name || form.name.trim() === "") {
+      alert("게시판 이름을 입력해주세요.");
+      return;
+    }
+
     try {
       if (editingBoard) {
         await updateDoc(doc(db, "boards", editingBoard.id), form);
       } else {
-        await setDoc(doc(db, "boards", form.id), form);
+        await setDoc(doc(db, "boards", form.id.trim()), form);
       }
       setIsModalOpen(false);
-    } catch (err) { alert(err.message); }
+    } catch (err) {
+      console.error("게시판 저장 오류:", err);
+      alert(`저장 실패: ${err.message}`);
+    }
   };
 
   const handleDeleteBoard = async (id) => {
