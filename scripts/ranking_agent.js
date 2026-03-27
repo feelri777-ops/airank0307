@@ -116,6 +116,9 @@ function extractJsonArray(text) {
     // 마크다운 코드 블록 제거
     let cleaned = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
 
+    // Gemini가 잘못 생성한 *** 를 중괄호로 변환
+    cleaned = cleaned.replace(/\*\*\*/g, '{').replace(/\*\*\*/g, '}');
+
     // JSON 배열 찾기
     const start = cleaned.indexOf('[');
     const end = cleaned.lastIndexOf(']');
@@ -465,7 +468,13 @@ async function runRankingAgent() {
       const end = i + 9;
       const rangeStr = `${start}위부터 ${end}위`;
 
-      const chunk = await fetchRankingChunk(rangeStr, weekLabel, dateRange, currentRankingContext);
+      // 이미 수집된 툴 리스트를 명확히 전달
+      const alreadyCollected = Array.from(globalSeenNames).join(", ");
+      const contextWithExclusions = alreadyCollected.length > 0
+        ? `${currentRankingContext}\n\n[⚠️ 이미 선정된 툴 - 절대 중복 금지]\n${alreadyCollected}`
+        : currentRankingContext;
+
+      const chunk = await fetchRankingChunk(rangeStr, weekLabel, dateRange, contextWithExclusions);
 
       // 전역 중복 제거
       const uniqueChunk = [];
