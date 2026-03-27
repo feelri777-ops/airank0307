@@ -60,6 +60,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   const [videos, setVideos] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [activeCard, setActiveCard] = useState(0);
+  const [hoveredMetric, setHoveredMetric] = useState(null);
   const touchStartX = React.useRef(null);
   const { user, loginWithGoogle } = useAuth();
   const { tools: allTools } = useTools();
@@ -136,11 +137,11 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
 
   const metrics = [
     { k: "score", l: "종합점수", c: "#fbbf24", d: "Google Search 실시간 데이터와 Gemini 3 분석을 통해 산출된 통합 AIRANK 점수입니다.", isMain: true },
-    { k: "usage", l: "사용량 (30%)", c: "#06b6d4", d: "실제 웹 트래픽, 앱 활성 사용자 수 등 대중적인 보급률을 측정합니다." },
-    { k: "tech", l: "기술력 (25%)", c: "#818cf8", d: "AI 모델 성능(Benchmark), 독자적인 기술 혁신성 및 엔진의 완성도를 평가합니다." },
-    { k: "buzz", l: "화제성 (20%)", c: "#22d3ee", d: "뉴스 보도량, 소셜 미디어(SNS) 반응, 커뮤니티 내 화제 정도를 분석합니다." },
-    { k: "utility", l: "유용성 (15%)", c: "#a5b4fc", d: "실제 업무의 생산성 향상 기여도 및 사용자들의 실전 팁과 리뷰를 종합합니다." },
-    { k: "growth", l: "성장성 (10%)", c: "#67e8f9", d: "업데이트 빈도, 이용자 증가 속도 및 향후 발전 가능성을 예측합니다." },
+    { k: "usage", l: "사용량", c: "#06b6d4", d: "실제 웹 트래픽, 앱 활성 사용자 수 등 대중적인 보급률을 측정합니다." },
+    { k: "tech", l: "기술력", c: "#818cf8", d: "AI 모델 성능(Benchmark), 독자적인 기술 혁신성 및 엔진의 완성도를 평가합니다." },
+    { k: "buzz", l: "화제성", c: "#22d3ee", d: "뉴스 보도량, 소셜 미디어(SNS) 반응, 커뮤니티 내 화제 정도를 분석합니다." },
+    { k: "utility", l: "유용성", c: "#a5b4fc", d: "실제 업무의 생산성 향상 기여도 및 사용자들의 실전 팁과 리뷰를 종합합니다." },
+    { k: "growth", l: "성장성", c: "#67e8f9", d: "업데이트 빈도, 이용자 증가 속도 및 향후 발전 가능성을 예측합니다." },
   ];
 
   return (
@@ -256,21 +257,41 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               );
             })()}
             {/* 나머지 5개 — 2열 그리드 */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 12px" }}>
-              {metrics.filter(m => !m.isMain).map(m => {
-                const val = Number(tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0);
-                return (
-                  <div key={m.k} title={m.d} style={{
-                    display: "grid", gridTemplateColumns: "80px 1fr",
-                    alignItems: "center", gap: "8px", cursor: "help", height: "26px",
-                  }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: "0.78rem", fontWeight: 800, color: "var(--text-secondary)" }}>
-                      <Icon name={m.k === 'usage' ? 'wrench' : m.k === 'tech' ? 'cpu' : m.k === 'buzz' ? 'megaphone' : m.k === 'utility' ? 'lightning' : 'chart-line-up'} size={14} /> {m.l}
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 12px" }}>
+                {metrics.filter(m => !m.isMain).map(m => {
+                  const val = Number(tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0);
+                  const isHovered = hoveredMetric === m.k;
+                  return (
+                    <div
+                      key={m.k}
+                      onMouseEnter={() => setHoveredMetric(m.k)}
+                      onMouseLeave={() => setHoveredMetric(null)}
+                      style={{
+                        display: "grid", gridTemplateColumns: "80px 1fr",
+                        alignItems: "center", gap: "8px", cursor: "help", height: "26px",
+                        padding: "4px 6px", borderRadius: "6px",
+                        background: isHovered ? `${m.c}15` : "transparent",
+                        transition: "background 0.15s ease",
+                      }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: "0.78rem", fontWeight: 800, color: isHovered ? m.c : "var(--text-secondary)", transition: "color 0.15s ease" }}>
+                        <Icon name={m.k === 'usage' ? 'wrench' : m.k === 'tech' ? 'cpu' : m.k === 'buzz' ? 'megaphone' : m.k === 'utility' ? 'lightning' : 'chart-line-up'} size={14} /> {m.l}
+                      </div>
+                      <SparkLine val={val} color={m.c} height="4px" />
                     </div>
-                    <SparkLine val={val} color={m.c} height="4px" />
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+              {hoveredMetric && (
+                <div style={{
+                  fontSize: "0.75rem", color: "var(--text-secondary)", lineHeight: 1.4,
+                  padding: "8px 10px", background: "var(--bg-secondary)", borderRadius: "6px",
+                  border: `1px solid var(--border-primary)`, animation: "fadeIn 0.15s ease"
+                }}>
+                  {metrics.find(m => m.k === hoveredMetric)?.d}
+                </div>
+              )}
+              <style>{`@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }`}</style>
             </div>
           </div>
 
