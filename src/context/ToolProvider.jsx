@@ -60,12 +60,19 @@ export const ToolProvider = ({ children }) => {
     const fetchScores = async () => {
       try {
         const timestamp = Date.now();
-        const res = await fetch(`/scores.json?t=${timestamp}`).then(r => r.ok ? r.json() : null);
-        if (res) {
-          scoresMap = res.tools || {};
-          scoresUpdatedTime = res.updated || null;
+        const res = await fetch(`/scores.json?t=${timestamp}`);
+        if (!res.ok) return;
+        const contentType = res.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+           const data = await res.json();
+           if (data) {
+             scoresMap = data.tools || {};
+             scoresUpdatedTime = data.updated || null;
+           }
         }
-      } catch (e) { console.error("Scores fetch error:", e); }
+      } catch (e) {
+        console.error("Scores fetch error:", e);
+      }
     };
 
     // 실시간 Firestore 툴 리스너 가동
