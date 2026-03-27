@@ -532,6 +532,9 @@ const GlobalStyles = () => (
     .dropdown-divider { height: 1px; background: var(--border-primary); margin: 6px 0; }
     .dropdown-label { font-size: 0.65rem; font-weight: 600; color: var(--text-muted); padding: 4px 8px 6px; }
 
+    .tool-card { transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    .tool-card:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 10px 28px rgba(150, 60, 80, 0.13), 0 4px 8px rgba(150, 60, 80, 0.06); }
+
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes pulse-dot { 0%, 100% { box-shadow: 0 0 0 3px rgba(34,197,94,0.2); } 50% { box-shadow: 0 0 0 5px rgba(34,197,94,0.08); } }
     @keyframes glowPulseGold {

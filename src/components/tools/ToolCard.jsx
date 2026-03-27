@@ -16,6 +16,12 @@ const getFaviconUrl = (url) => {
   catch { return null; }
 };
 
+const getScoreColor = (score) => {
+  if (score >= 95) return "#10b981";
+  if (score >= 85) return "var(--accent-indigo)";
+  return "var(--text-secondary)";
+};
+
 const ToolCard = ({ tool, rank, onClick }) => {
   const { theme } = useTheme();
   if (!tool) return null; // Safety Guard
@@ -25,18 +31,40 @@ const ToolCard = ({ tool, rank, onClick }) => {
   const faviconUrl = getFaviconUrl(tool.url);
 
   const score = Number(tool.score || 0);
-  const change = tool.change ?? "-"; 
-  const progress = Math.min(Math.max(score, 0), 100);
+  const change = tool.change ?? "-";
 
   const RankBadge = () => {
+    if (rank <= 3) {
+      const gradients = {
+        1: "linear-gradient(135deg, #fbbf24, #f59e0b)",
+        2: "linear-gradient(135deg, #94a3b8, #64748b)",
+        3: "linear-gradient(135deg, #cd7c2f, #a85d1d)",
+      };
+      return (
+        <div style={{
+          position: "absolute", top: "10px", right: "10px",
+          width: "36px", height: "36px", borderRadius: "50%",
+          background: gradients[rank],
+          display: "flex", alignItems: "center", justifyContent: "center",
+          color: "white", fontSize: "1rem", fontWeight: 900,
+          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.25)",
+          flexShrink: 0,
+          lineHeight: 1,
+          fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif"
+        }}>
+          {rank}
+        </div>
+      );
+    }
     const color = getRankColor(rank, isMono);
     const fontSize = getRankFontSize(rank);
     return (
       <span style={{
+        position: "absolute", top: "12px", right: "12px",
         fontSize, fontWeight: 800, lineHeight: 1,
         color, fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
         flexShrink: 0,
-        opacity: rank > 3 ? 0.8 : 1
+        opacity: 0.8
       }}>
         {rank}
       </span>
@@ -46,9 +74,9 @@ const ToolCard = ({ tool, rank, onClick }) => {
   const inner = (
     <>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0, paddingRight: "48px" }}>
           {!iconError && faviconUrl ? (
-            <img src={faviconUrl} alt={tool.name || "Tool"} width={36} height={36} loading="lazy"
+            <img src={faviconUrl} alt={tool.name || "Tool"} width={isTop3 ? 44 : 40} height={isTop3 ? 44 : 40} loading="lazy"
               style={{ borderRadius: "8px", objectFit: "contain", flexShrink: 0, filter: isMono ? "grayscale(100%) brightness(0.9)" : "none" }}
               onError={() => setIconError(true)} />
           ) : (
@@ -76,7 +104,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "7px", flexWrap: "wrap" }}>
-          <span style={{ fontSize: "1.4rem", fontWeight: 900, lineHeight: 1, color: isMono ? "var(--text-primary)" : "var(--accent-indigo)", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
+          <span style={{ fontSize: "1.4rem", fontWeight: 900, lineHeight: 1, color: isMono ? "var(--text-primary)" : getScoreColor(score), fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
             {score.toFixed(1)}
           </span>
           <div style={{ display: "flex", gap: "3px", flexWrap: "wrap" }}>
@@ -98,10 +126,6 @@ const ToolCard = ({ tool, rank, onClick }) => {
           </span>
         )}
       </div>
-
-      <div style={{ height: "4px", borderRadius: "2px", background: "rgba(128,128,128,0.1)", overflow: "hidden" }}>
-        <div style={{ width: `${progress}%`, height: "100%", borderRadius: "2px", background: isMono ? "var(--text-primary)" : "var(--accent-indigo)", transition: "width 0.6s cubic-bezier(0.4, 0, 0.2, 1)" }} />
-      </div>
     </>
   );
 
@@ -122,6 +146,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
         padding: "0.8rem 1.1rem",
         background: isTop3 ? `var(--rank${rank}-bg)` : "var(--bg-card)",
         border: "1px solid var(--border-primary)",
+        borderTop: isTop3 ? (rank === 1 ? "2px solid #fbbf24" : rank === 2 ? "2px solid #94a3b8" : "2px solid #cd7c2f") : "1px solid var(--border-primary)",
         boxShadow: isTop3 ? `var(--rank${rank}-shadow)` : "var(--shadow-card)",
         cursor: "pointer",
         position: "relative",
