@@ -135,12 +135,12 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   if (!tool) return null;
 
   const metrics = [
-    { k: "score", l: "종합점수", c: "#fbbf24", i: <TrendUp size={16} />, d: "모든 실시간 데이터를 분석하여 산출된 통합 AIRANK 점수입니다.", isMain: true },
-    { k: "usage", l: "활용성", c: "#06b6d4", i: <Wrench size={14} />, d: "실제 업무 현장에서의 범용성과 실무 투입 가치를 측정합니다." },
-    { k: "tech", l: "기술력", c: "#818cf8", i: <Cpu size={14} />, d: "엔진의 성능, 독자적인 AI 기술 수준 및 혁신성을 평가합니다." },
-    { k: "buzz", l: "인지도", c: "#22d3ee", i: <Megaphone size={14} />, d: "SNS, 미디어 언급량 및 실사용자 트렌드를 반영한 화제성 지표입니다." },
-    { k: "utility", l: "유용성", c: "#a5b4fc", i: <Lightning size={14} />, d: "사용자의 시간 절약 및 문제 해결에 기여하는 직접적인 도움 정도입니다." },
-    { k: "growth", l: "성장성", c: "#67e8f9", i: <ChartLineUp size={14} />, d: "현재 이용자 증가 추이 및 향후 기술 발전 가능성을 예측합니다." },
+    { k: "score", l: "종합점수", c: "#fbbf24", d: "모든 실시간 데이터를 분석하여 산출된 통합 AIRANK 점수입니다.", isMain: true },
+    { k: "usage", l: "활용성", c: "#06b6d4", d: "실제 업무 현장에서의 범용성과 실무 투입 가치를 측정합니다." },
+    { k: "tech", l: "기술력", c: "#818cf8", d: "엔진의 성능, 독자적인 AI 기술 수준 및 혁신성을 평가합니다." },
+    { k: "buzz", l: "인지도", c: "#22d3ee", d: "SNS, 미디어 언급량 및 실사용자 트렌드를 반영한 화제성 지표입니다." },
+    { k: "utility", l: "유용성", c: "#a5b4fc", d: "사용자의 시간 절약 및 문제 해결에 기여하는 직접적인 도움 정도입니다." },
+    { k: "growth", l: "성장성", c: "#67e8f9", d: "현재 이용자 증가 추이 및 향후 기술 발전 가능성을 예측합니다." },
   ];
 
   return (
