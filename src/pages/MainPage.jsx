@@ -9,38 +9,9 @@ import WizardModal from "../components/modals/WizardModal";
 import HeroSection from "../components/hero/HeroSection";
 import { SORT_OPTIONS, mapCatToGroup } from "../constants";
 
-const ScoreDataNotice = ({ error, scoresUpdated }) => {
-  const isStale = scoresUpdated && (Date.now() - new Date(scoresUpdated).getTime()) > 48 * 60 * 60 * 1000;
-  if (!error && !isStale) return null;
-
-  const updatedStr = scoresUpdated
-    ? new Date(scoresUpdated).toLocaleString("ko-KR", { month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" })
-    : null;
-
-  return (
-    <div style={{
-      display: "flex", alignItems: "center", gap: "8px",
-      margin: "0 0 12px",
-      padding: "8px 14px",
-      borderRadius: "var(--r-sm)",
-      background: "rgba(234, 179, 8, 0.08)",
-      border: "1px solid rgba(234, 179, 8, 0.3)",
-      fontSize: "0.78rem",
-      color: "var(--text-secondary)",
-    }}>
-      <span style={{ fontSize: "1rem" }}>⚠️</span>
-      <span>
-        {error
-          ? "점수 데이터를 불러오지 못했습니다. 현재 점수는 추정값으로, 실제와 다를 수 있습니다."
-          : `마지막 점수 갱신: ${updatedStr} — 데이터가 오래되어 실제와 다를 수 있습니다.`
-        }
-      </span>
-    </div>
-  );
-};
 
 export default function MainPage() {
-  const { tools: rawTools, openToolDetail, error, scoresUpdated } = useTools();
+  const { tools: rawTools, openToolDetail } = useTools();
   const { news } = useNews();
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("all");
@@ -144,7 +115,6 @@ export default function MainPage() {
         </div>
 
         <div className="sort-middle-col" style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-          <ScoreDataNotice error={error} scoresUpdated={scoresUpdated} />
           <div className="sort-container">
             {SORT_OPTIONS.map((opt) => (
               <button
