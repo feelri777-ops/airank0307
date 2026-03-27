@@ -257,15 +257,27 @@ const Navbar = () => {
                 onMouseEnter={() => setShowRankingDropdown(true)}
                 onMouseLeave={() => setShowRankingDropdown(false)}
               >
-                <Link
-                  to={path}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setShowRankingDropdown((prev) => !prev);
+                  }}
                   className={`nav-link ${isActive ? "active" : ""}`}
-                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "4px",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: "8px 12px"
+                  }}
                   onMouseEnter={() => setShowRankingDropdown(true)}
                 >
                   <Icon name={item.icon} size={16} /> {item.label}
                   <span style={{ fontSize: "10px", marginLeft: "2px" }}>▾</span>
-                </Link>
+                </button>
 
                 {showRankingDropdown && (
                   <div
@@ -278,12 +290,17 @@ const Navbar = () => {
                       left: 0,
                       minWidth: "180px",
                       zIndex: 100,
-                      marginTop: "2px"
+                      marginTop: "2px",
+                      maxHeight: "200px",
+                      overflowY: "auto"
                     }}
                   >
                     <Link
                       to="/"
-                      onClick={() => setShowRankingDropdown(false)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowRankingDropdown(false);
+                      }}
                       className="dropdown-item"
                       style={{ display: "flex", alignItems: "center", gap: "8px" }}
                     >
@@ -292,7 +309,10 @@ const Navbar = () => {
                     </Link>
                     <Link
                       to="/ranking-table"
-                      onClick={() => setShowRankingDropdown(false)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowRankingDropdown(false);
+                      }}
                       className="dropdown-item"
                       style={{ display: "flex", alignItems: "center", gap: "8px" }}
                     >
