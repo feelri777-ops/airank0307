@@ -23,7 +23,7 @@ const RankingGuideSection = () => {
             </h2>
           </div>
           <p style={{ fontSize: "0.75rem", color: "var(--text-secondary)", lineHeight: 1.3, margin: 0, marginLeft: "36px" }}>
-            Google의 AI(Gemini 3)와 실시간 검색 데이터 분석
+            매일 자동 수집된 검색, 트래픽, SNS 데이터를 Google AI(Gemini 3)가 분석해 실시간 점수로 정리
           </p>
         </div>
 
