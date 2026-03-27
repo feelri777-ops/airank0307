@@ -32,6 +32,7 @@ const ToolCard = ({ tool, rank, onClick }) => {
 
   const score = Number(tool.score || 0);
   const change = tool.change ?? "-";
+  const isTop3 = rank <= 3;
 
   const RankBadge = () => {
     if (rank <= 3) {
@@ -128,8 +129,6 @@ const ToolCard = ({ tool, rank, onClick }) => {
       </div>
     </>
   );
-
-  const isTop3 = rank <= 3;
 
   return (
     <button
