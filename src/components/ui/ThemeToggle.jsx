@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useTheme } from "../../context/ThemeContext";
 
 const THEMES = [
-  { id: 'light', icon: '🌸', label: '벚꽃' },
+  // { id: 'light', icon: '🌸', label: '벚꽃' }, // 숨김 처리: 정신없음
   { id: 'dark',  icon: '🌙', label: '다크' },
   // { id: 'pure',  icon: '⚪', label: '퓨어' },
   { id: 'mono',  icon: '◑',  label: '모노' },
