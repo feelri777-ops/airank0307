@@ -261,6 +261,7 @@ const Navbar = () => {
                   to={path}
                   className={`nav-link ${isActive ? "active" : ""}`}
                   style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                  onMouseEnter={() => setShowRankingDropdown(true)}
                 >
                   <Icon name={item.icon} size={16} /> {item.label}
                   <span style={{ fontSize: "10px", marginLeft: "2px" }}>▾</span>
@@ -269,9 +270,11 @@ const Navbar = () => {
                 {showRankingDropdown && (
                   <div
                     className="navbar-dropdown"
+                    onMouseEnter={() => setShowRankingDropdown(true)}
+                    onMouseLeave={() => setShowRankingDropdown(false)}
                     style={{
                       position: "absolute",
-                      top: "calc(100% + 8px)",
+                      top: "calc(100% + 4px)",
                       left: 0,
                       minWidth: "180px",
                       zIndex: 100
