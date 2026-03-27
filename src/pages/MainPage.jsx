@@ -6,6 +6,7 @@ import FilterBar from "../components/filters/FilterBar";
 import RightSidebar from "../components/sidebar/RightSidebar";
 import ToolCard from "../components/tools/ToolCard";
 import WizardModal from "../components/modals/WizardModal";
+import RankingMethodModal from "../components/modals/RankingMethodModal";
 import HeroSection from "../components/hero/HeroSection";
 import { SORT_OPTIONS, mapCatToGroup } from "../constants";
 
@@ -46,6 +47,7 @@ export default function MainPage() {
   const [category, setCategory] = useState("all");
   const [sortBy, setSortBy] = useState("score_desc");
   const [showWizard, setShowWizard] = useState(false);
+  const [showRankingMethod, setShowRankingMethod] = useState(false);
   
   const [visibleCount, setVisibleCount] = useState(10);
 
@@ -136,6 +138,7 @@ export default function MainPage() {
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onOpenWizard={() => setShowWizard(true)}
+        onOpenRankingMethod={() => setShowRankingMethod(true)}
       />
 
       <div className="main-grid">
@@ -201,6 +204,7 @@ export default function MainPage() {
       </div>
 
       <WizardModal isOpen={showWizard} onClose={() => setShowWizard(false)} tools={tools} />
+      <RankingMethodModal isOpen={showRankingMethod} onClose={() => setShowRankingMethod(false)} />
     </>
   );
 }
