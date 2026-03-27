@@ -268,10 +268,12 @@ const Navbar = () => {
                     display: "flex",
                     alignItems: "center",
                     gap: "4px",
-                    background: "none",
-                    border: "none",
                     cursor: "pointer",
-                    padding: "8px 12px"
+                    padding: "8px 12px",
+                    // background: "none"과 border: "none"을 제거하여 .active 클래스의 배경색이 보이도록 함
+                    border: "none",
+                    background: isActive ? "var(--accent-gradient)" : "transparent",
+                    color: isActive ? "#fff" : "inherit"
                   }}
                   onMouseEnter={() => setShowRankingDropdown(true)}
                 >
@@ -289,10 +291,11 @@ const Navbar = () => {
                       top: "calc(100% + 0px)",
                       left: 0,
                       minWidth: "180px",
-                      zIndex: 100,
+                      zIndex: 1000,
                       marginTop: "2px",
-                      maxHeight: "200px",
-                      overflowY: "auto"
+                      maxHeight: "300px",
+                      overflowY: "auto",
+                      boxShadow: "var(--shadow-lg)"
                     }}
                   >
                     <Link

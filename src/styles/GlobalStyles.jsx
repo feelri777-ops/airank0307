@@ -428,8 +428,7 @@ const GlobalStyles = () => (
     @media (max-width: 850px) {
       .navbar-nav {
         width: 100%; padding: 8px 1rem; border-top: 1px solid var(--border-primary);
-        justify-content: flex-start; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
+        justify-content: center; flex-wrap: wrap; overflow: visible;
       }
       .navbar-nav::-webkit-scrollbar { display: none; }
       .navbar-top-row { height: 60px; padding: 0 1rem; }
