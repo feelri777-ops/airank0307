@@ -245,14 +245,13 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               const val = Number(tool?.[main.k] ?? tool?.metrics?.[main.k] ?? 0);
               return (
                 <div key={main.k} title={main.d} style={{
-                  display: "grid", gridTemplateColumns: "100px 1fr 45px",
+                  display: "grid", gridTemplateColumns: "100px 1fr",
                   alignItems: "center", gap: "16px", cursor: "help", height: "32px",
                 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.92rem", fontWeight: 950, color: "var(--text-primary)" }}>
                     <Icon name={main.k === 'score' ? 'trend-up' : main.k} size={18} /> {main.l}
                   </div>
                   <SparkLine val={val} color={main.c} height="7px" glow />
-                  <span style={{ fontSize: "1.05rem", fontWeight: 950, color: main.c, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{Number(val).toFixed(0)}</span>
                 </div>
               );
             })()}
@@ -262,14 +261,13 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 const val = Number(tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0);
                 return (
                   <div key={m.k} title={m.d} style={{
-                    display: "grid", gridTemplateColumns: "80px 1fr 35px",
+                    display: "grid", gridTemplateColumns: "80px 1fr",
                     alignItems: "center", gap: "8px", cursor: "help", height: "26px",
                   }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: "0.78rem", fontWeight: 800, color: "var(--text-secondary)" }}>
                       <Icon name={m.k === 'usage' ? 'wrench' : m.k === 'tech' ? 'cpu' : m.k === 'buzz' ? 'megaphone' : m.k === 'utility' ? 'lightning' : 'chart-line-up'} size={14} /> {m.l}
                     </div>
                     <SparkLine val={val} color={m.c} height="4px" />
-                    <span style={{ fontSize: "0.8rem", fontWeight: 950, color: m.c, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{Number(val).toFixed(0)}</span>
                   </div>
                 );
               })}
