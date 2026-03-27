@@ -446,11 +446,21 @@ const RankingTable = () => {
 
 // 정렬 가능한 헤더 컴포넌트
 const SortableHeader = ({ label, sortKey, sortConfig, onSort }) => {
+  const [isHovered, setIsHovered] = useState(false);
   const isActive = sortConfig.key === sortKey;
   const direction = isActive ? sortConfig.direction : null;
 
+  const tooltips = {
+    "Total_Score": "Google Search 실시간 데이터와 Gemini 3 분석을 통한 통합 점수",
+    "Usage_Score": "실제 웹 트래픽, 앱 활성 사용자 수 등 대중적 보급률 (30%)",
+    "Tech_Score": "AI 모델 성능, 기술 혁신성 및 엔진 완성도 (25%)",
+    "Buzz_Score": "뉴스 보도량, SNS 반응, 커뮤니티 화제성 분석 (20%)",
+    "Utility_Score": "실무 생산성 향상 기여도 및 사용자 리뷰 종합 (15%)",
+    "Growth_Score": "업데이트 빈도, 이용자 증가 속도 및 발전 가능성 (10%)"
+  };
+
   return (
-    <th style={thStyle}>
+    <th style={{...thStyle, position: "relative"}}>
       <button
         onClick={() => onSort(sortKey)}
         onKeyDown={(e) => {
@@ -459,11 +469,13 @@ const SortableHeader = ({ label, sortKey, sortConfig, onSort }) => {
             onSort(sortKey);
           }
         }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         aria-label={`${label} 기준으로 정렬`}
         style={{
           background: "none",
           border: "none",
-          color: "var(--text-primary)",
+          color: isHovered ? "var(--accent-indigo)" : "var(--text-primary)",
           cursor: "pointer",
           display: "flex",
           alignItems: "center",
@@ -471,16 +483,37 @@ const SortableHeader = ({ label, sortKey, sortConfig, onSort }) => {
           fontWeight: 600,
           padding: 0,
           fontFamily: "inherit",
-          fontSize: "inherit"
+          fontSize: "inherit",
+          transition: "color 0.15s ease"
         }}
-        onMouseEnter={(e) => e.currentTarget.style.color = "var(--accent-indigo)"}
-        onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-primary)"}
       >
         {label}
         <span style={{ fontSize: "10px", opacity: isActive ? 1 : 0.3, display: "flex", alignItems: "center" }}>
           {direction === "asc" ? <Icon name="caret-up" size={10} /> : <Icon name="caret-down" size={10} />}
         </span>
       </button>
+      {isHovered && tooltips[sortKey] && (
+        <div style={{
+          position: "absolute",
+          bottom: "-48px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          whiteSpace: "nowrap",
+          background: "var(--bg-card)",
+          border: "1px solid var(--border-primary)",
+          borderRadius: "6px",
+          padding: "6px 10px",
+          fontSize: "0.7rem",
+          color: "var(--text-secondary)",
+          pointerEvents: "none",
+          zIndex: 10,
+          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+          animation: "fadeIn 0.15s ease"
+        }}>
+          {tooltips[sortKey]}
+          <style>{`@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }`}</style>
+        </div>
+      )}
     </th>
   );
 };
