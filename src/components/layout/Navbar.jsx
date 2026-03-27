@@ -274,10 +274,11 @@ const Navbar = () => {
                     onMouseLeave={() => setShowRankingDropdown(false)}
                     style={{
                       position: "absolute",
-                      top: "calc(100% + 4px)",
+                      top: "calc(100% + 0px)",
                       left: 0,
                       minWidth: "180px",
-                      zIndex: 100
+                      zIndex: 100,
+                      marginTop: "2px"
                     }}
                   >
                     <Link

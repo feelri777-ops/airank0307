@@ -279,24 +279,74 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             </div>
           </div>
 
-          <div style={{ display: "grid", gap: "6px", marginBottom: "10px" }}>
+          {/* 통합 설명란: USP + 장점/단점 */}
+          <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "12px 14px", border: "1px solid var(--border-primary)", marginBottom: "12px" }}>
+            <div style={{ fontSize: "0.7rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
+              <Lightbulb size={14} weight="fill" /> 💡 CORE USP & 분석
+            </div>
+
             {(() => {
               const usp = tool.usp || tool.USP;
               const uspText = typeof usp === 'string' ? usp : null;
-              return uspText ? ( <div style={{ background: "rgba(99,102,241,0.03)", borderRadius: "12px", padding: "8px 10px", border: "1px dashed rgba(99,102,241,0.2)" }}><div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.65rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "3px" }}><Lightbulb size={14} weight="fill" /> 💡 CORE USP</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{uspText}</div></div> ) : null;
+              return uspText ? (
+                <div style={{ fontSize: "0.82rem", color: "var(--text-primary)", lineHeight: 1.5, marginBottom: "10px", fontWeight: 600 }}>
+                  {uspText}
+                </div>
+              ) : null;
             })()}
+
             {(() => {
               const prosCons = tool.prosCons || tool.Pros_Cons;
               if (typeof prosCons === 'string') {
-                return ( <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "8px 10px", border: "1px solid var(--border-primary)" }}><div style={{ fontSize: "0.65rem", fontWeight: 950, color: "var(--text-muted)", marginBottom: "3px" }}>🔍 ANALYSIS</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>{prosCons}</div></div> );
+                return (
+                  <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                    {prosCons}
+                  </div>
+                );
               } else if (prosCons && typeof prosCons === 'object') {
                 const pros = Array.isArray(prosCons.pros) ? prosCons.pros : [];
                 const cons = Array.isArray(prosCons.cons) ? prosCons.cons : [];
                 if (pros.length === 0 && cons.length === 0) return null;
-                return ( <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "8px 10px", border: "1px solid var(--border-primary)" }}><div style={{ fontSize: "0.65rem", fontWeight: 950, color: "var(--text-muted)", marginBottom: "6px" }}>🔍 ANALYSIS</div><div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.5, display: "flex", flexDirection: "column", gap: "4px" }}>{pros.length > 0 && <div><strong style={{ color: "var(--accent-indigo)" }}>장점:</strong> {pros.join(", ")}</div>}{cons.length > 0 && <div><strong style={{ color: "var(--text-muted)" }}>단점:</strong> {cons.join(", ")}</div>}</div></div> );
+                return (
+                  <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", lineHeight: 1.6, display: "flex", flexDirection: "column", gap: "6px" }}>
+                    {pros.length > 0 && (
+                      <div style={{ display: "flex", gap: "6px" }}>
+                        <span style={{ color: "#10b981", fontWeight: 900 }}>✓</span>
+                        <div>
+                          <strong style={{ color: "#10b981", fontWeight: 800 }}>장점:</strong>{" "}
+                          <span style={{ color: "var(--text-secondary)" }}>{pros.join(", ")}</span>
+                        </div>
+                      </div>
+                    )}
+                    {cons.length > 0 && (
+                      <div style={{ display: "flex", gap: "6px" }}>
+                        <span style={{ color: "#ef4444", fontWeight: 900 }}>✗</span>
+                        <div>
+                          <strong style={{ color: "#ef4444", fontWeight: 800 }}>단점:</strong>{" "}
+                          <span style={{ color: "var(--text-secondary)" }}>{cons.join(", ")}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
               }
               return null;
             })()}
+          </div>
+
+          {/* 가격 플랜 */}
+          <div style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.05) 0%, rgba(168,85,247,0.05) 100%)", borderRadius: "14px", padding: "12px 14px", border: "1px solid rgba(99,102,241,0.2)", marginBottom: "10px" }}>
+            <div style={{ fontSize: "0.7rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
+              💰 가격 플랜
+            </div>
+            <div style={{ fontSize: "0.85rem", color: "var(--text-primary)", fontWeight: 700 }}>
+              {tool.pricing || tool.Pricing || "정보 없음"}
+            </div>
+            {tool.koSupport === "Y" && (
+              <div style={{ marginTop: "6px", fontSize: "0.75rem", color: "#10b981", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px" }}>
+                <span>✓</span> 한국어 지원
+              </div>
+            )}
           </div>
 
           <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>

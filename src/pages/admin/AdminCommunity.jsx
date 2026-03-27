@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { 
-  collection, query, orderBy, onSnapshot, doc, 
-  deleteDoc, updateDoc, getDocs, where, writeBatch 
+import {
+  collection, query, orderBy, onSnapshot, doc,
+  deleteDoc, updateDoc, setDoc, getDocs, where, writeBatch
 } from "firebase/firestore";
 import { db } from "../../firebase";
 
@@ -236,8 +236,11 @@ export default function AdminCommunity() {
   const handleSaveBoard = async (e) => {
     e.preventDefault();
     try {
-      if (editingBoard) await updateDoc(doc(db, "boards", editingBoard.id), form);
-      else await updateDoc(doc(db, "boards", form.id), form);
+      if (editingBoard) {
+        await updateDoc(doc(db, "boards", editingBoard.id), form);
+      } else {
+        await setDoc(doc(db, "boards", form.id), form);
+      }
       setIsModalOpen(false);
     } catch (err) { alert(err.message); }
   };
