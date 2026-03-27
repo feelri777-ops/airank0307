@@ -117,7 +117,12 @@ function extractJsonArray(text) {
     let cleaned = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
 
     // Gemini가 잘못 생성한 *** 를 중괄호로 변환
-    cleaned = cleaned.replace(/\*\*\*/g, '{').replace(/\*\*\*/g, '}');
+    // 짝수 번째 ***는 {, 홀수 번째 ***는 }로 변환
+    let count = 0;
+    cleaned = cleaned.replace(/\*\*\*/g, () => {
+      count++;
+      return count % 2 === 1 ? '{' : '}';
+    });
 
     // JSON 배열 찾기
     const start = cleaned.indexOf('[');
