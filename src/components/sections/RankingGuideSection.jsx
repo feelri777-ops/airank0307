@@ -114,6 +114,29 @@ const RankingGuideSection = () => {
             </p>
           </div>
         </div>
+
+        {/* 투명성 시스템 */}
+        <div style={{
+          padding: "12px 14px", background: "var(--bg-card)", borderRadius: "8px",
+          border: "1px solid var(--border-primary)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px"
+        }}>
+          <div>
+            <div style={{ fontSize: "0.75rem", fontWeight: 700, marginBottom: "4px", color: "var(--accent-indigo)" }}>
+              ✨ AI 순혈성
+            </div>
+            <p style={{ fontSize: "0.7rem", color: "var(--text-secondary)", margin: 0, lineHeight: 1.3 }}>
+              Pure AI 도구에 더 높은 점수 부여
+            </p>
+          </div>
+          <div>
+            <div style={{ fontSize: "0.75rem", fontWeight: 700, marginBottom: "4px", color: "var(--accent-indigo)" }}>
+              🛡️ 왜곡 방지
+            </div>
+            <p style={{ fontSize: "0.7rem", color: "var(--text-secondary)", margin: 0, lineHeight: 1.3 }}>
+              AI 기술 비중 낮은 서비스 견제
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
