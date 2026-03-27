@@ -23,10 +23,11 @@ jobs:
       - name: 의존성 설치
         run: npm install
 
-      - name: 🤖 Perplexity AI 랭킹 자동 생성 및 승인 대기
+      - name: 🤖 Gemini 3 AI 랭킹 자동 생성 및 승인 대기
         run: node scripts/ranking_agent.js
         env:
-          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
       - name: 변경사항 커밋 & 푸시
