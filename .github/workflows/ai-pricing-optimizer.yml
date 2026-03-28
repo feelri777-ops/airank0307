@@ -1,8 +1,10 @@
 name: AI 도구 요금제(Pricing) 자동 수집 및 최적화
 
 on:
-  schedule:
-    - cron: '0 0 * * 1' # 매주 월요일 00:00 (UTC) 실행
+  workflow_run:
+    workflows: ["🤖 AI 랭킹 에이전트 (매주 월요일 새벽 3시 10분)"]
+    types:
+      - completed
   workflow_dispatch:
     inputs:
       limit:
@@ -19,6 +21,7 @@ on:
 jobs:
   update-pricing:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     timeout-minutes: 60
 
     steps:
