@@ -49,7 +49,16 @@ const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 // 2. 결제 플랜(Pricing) 추출 함수 (다중 모델 시도)
 // ========================================
 async function generatePricingInfo(toolChunk) {
-  const modelsToTry = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro", "models/gemini-1.5-flash", "models/gemini-pro"];
+  const modelsToTry = [
+    "gemini-3-flash-preview", 
+    "gemini-2.0-flash-exp",
+    "gemini-1.5-flash-latest",
+    "gemini-1.5-flash", 
+    "gemini-1.5-pro", 
+    "gemini-pro", 
+    "models/gemini-1.5-flash", 
+    "models/gemini-pro"
+  ];
   let lastError = null;
 
   for (const modelName of modelsToTry) {
