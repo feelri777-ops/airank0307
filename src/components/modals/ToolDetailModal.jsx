@@ -244,7 +244,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
                     <h2 style={{ fontSize: isBigUI ? "1.7rem" : "1.4rem", fontWeight: 950, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.01em" }}>{tool.name || "Unknown Tool"}</h2>
-                    <div style={{ background: "var(--accent-indigo)", color: "#fff", padding: isBigUI ? "4px 12px" : "3px 10px", borderRadius: "8px", fontSize: isBigUI ? "0.85rem" : "0.7rem", fontWeight: 900 }}>RANK {rank}위</div>
+                    <div style={{ background: "var(--accent-indigo)", color: "#fff", padding: isBigUI ? "4px 12px" : "3px 10px", borderRadius: "8px", fontSize: isBigUI ? "0.85rem" : "0.7rem", fontWeight: 900, fontFamily: "var(--font-rounded)" }}>RANK {rank}위</div>
                   </div>
                 </div>
               </div>
@@ -284,7 +284,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                         fontWeight: 1000, 
                         color: "var(--accent-indigo)", 
                         textAlign: "right", 
-                        fontFamily: "'Outfit', 'Pretendard', sans-serif",
+                        fontFamily: "var(--font-rounded)",
                         textShadow: "0 0 10px rgba(99,102,241,0.2)"
                       }}>{val.toFixed(1)}</div>
                     </div>
@@ -304,7 +304,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                             <Icon name={m.k === 'usage' ? 'wrench' : m.k === 'tech' ? 'cpu' : m.k === 'buzz' ? 'megaphone' : m.k === 'utility' ? 'lightning' : 'chart-line-up'} size={!isBigUI ? 14 : 17} /> {m.l}
                           </div>
                           <SparkLine val={val} color={m.c} height={!isBigUI ? "4px" : "5px"} />
-                          <div style={{ fontSize: !isBigUI ? "0.75rem" : "0.9rem", fontWeight: 900, color: isHovered ? m.c : "var(--text-primary)", textAlign: "right", opacity: 0.9 }}>{val.toFixed(1)}</div>
+                          <div style={{ fontSize: isBigUI ? "0.9rem" : "0.75rem", fontWeight: 900, color: isHovered ? m.c : "var(--text-primary)", textAlign: "right", opacity: 0.9, fontFamily: "var(--font-rounded)" }}>{val.toFixed(1)}</div>
                         </div>
                       );
                     })}
@@ -430,7 +430,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                         <div style={{ fontSize: "0.9rem", fontWeight: 900, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.planName}</div>
                         <div style={{ display: "flex", flexDirection: "column" }}>
                           <div style={{ display: "flex", alignItems: "baseline", gap: "2px" }}>
-                            <span style={{ fontSize: "1.3rem", fontWeight: 1000, color: "var(--text-primary)" }}>{p.price === '0' ? 'Free' : (p.price.includes('$') || p.price.includes('₩') || p.price.includes('KRW') ? p.price : `$${p.price}`)}</span>
+                            <span style={{ fontSize: "1.3rem", fontWeight: 1000, color: "var(--text-primary)", fontFamily: "var(--font-rounded)" }}>{p.price === '0' ? 'Free' : (p.price.includes('$') || p.price.includes('₩') || p.price.includes('KRW') ? p.price : `$${p.price}`)}</span>
                             {p.price !== '0' && !p.price.includes('month') && !p.price.includes('mo') && <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 700 }}>/mo</span>}
                           </div>
                           {p.billing && <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 600, lineHeight: 1.2 }}>{p.billing}</div>}

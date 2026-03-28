@@ -2,6 +2,7 @@ const GlobalStyles = () => (
   <style>{`
     /* ── Google Fonts 로드 ── */
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
     @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:ital,wght@0,500;1,500&display=swap');
@@ -45,8 +46,9 @@ const GlobalStyles = () => (
       --tag-color: #a0303c;
       --tag-border: rgba(192, 80, 92, 0.18);
       --modal-overlay: rgba(30, 10, 14, 0.32);
-      --font-main: 'Pretendard', -apple-system, 'Segoe UI', sans-serif;
-      --font-title: 'Pretendard', -apple-system, 'Segoe UI', sans-serif;
+      --font-main: 'Outfit', 'Pretendard', -apple-system, sans-serif;
+      --font-title: 'Outfit', 'Pretendard', -apple-system, sans-serif;
+      --font-rounded: 'Nunito', 'Outfit', sans-serif;
       --rank1-bg: var(--bg-card);
       --rank2-bg: var(--bg-card);
       --rank3-bg: var(--bg-card);
