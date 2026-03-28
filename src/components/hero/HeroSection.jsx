@@ -147,7 +147,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
   return (
   <section className="hero-section-wrap" style={{
     textAlign: "center",
-    padding: "2rem 2rem 2.5rem",
+    padding: "1.5rem 2rem 0.4rem",
     position: "relative",
     zIndex: 5,
     overflow: "hidden",
@@ -162,7 +162,19 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
         .hero-section-wrap { background-size: cover !important; }
       }
       @media (max-width: 1100px) {
-        .hero-section-wrap { padding: 1.5rem 1rem 2rem !important; }
+        .hero-section-wrap { padding: 1.2rem 1rem 1.2rem !important; }
+      }
+      @media (max-width: 768px) {
+        .hero-section-wrap { 
+          padding: 0.8rem 1rem 0 !important;
+          background: var(--bg-primary) !important;
+        }
+        .hero-section-wrap::after, .hero-logos-wrap, .hero-title, .hero-subtitle { 
+          display: none !important; 
+        }
+        .hero-search-container {
+          margin-top: 0 !important;
+        }
       }
       @media (max-width: 600px) {
         .hero-section-wrap {
@@ -184,11 +196,13 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
     `}</style>
 
     {/* 라이트/퓨어 테마용 로고 (커뮤니티 테마는 제외) */}
-    {!isDark && !isCommunity && <HeroLogos />}
+    <div className="hero-logos-wrap">
+      {!isDark && !isCommunity && <HeroLogos />}
+    </div>
 
     <div style={{ maxWidth: "800px", margin: "0 auto", position: "relative", zIndex: 1 }}>
       {/* 메인 타이틀 */}
-      <h1 style={{
+      <h1 className="hero-title" style={{
         fontFamily: "'Outfit', 'Pretendard', sans-serif",
         fontSize: "clamp(2rem, 6vw, 3.4rem)",
         fontWeight: 900,
@@ -235,7 +249,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
       </h1>
 
       {/* 서브 텍스트 */}
-      <p style={{
+      <p className="hero-subtitle" style={{
         color: cfg.subColor,
         fontSize: "clamp(0.82rem, 1.3vw, 0.98rem)",
         lineHeight: 1.6,
@@ -249,7 +263,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
       </p>
 
       {/* 검색바 + 마법사 버튼 */}
-      <div style={{ display: "flex", gap: "8px", alignItems: "center", maxWidth: "480px", margin: "0 auto" }}>
+      <div className="hero-search-container" style={{ display: "flex", gap: "8px", alignItems: "center", maxWidth: "480px", margin: "0 auto" }}>
         <div style={{ flex: 1, position: "relative" }}>
           <label htmlFor="ai-search-input" style={{ position: "absolute", width: "1px", height: "1px", padding: 0, margin: "-1px", overflow: "hidden", clip: "rect(0, 0, 0, 0)", whiteSpace: "nowrap", border: 0 }}>
             AI 도구 검색

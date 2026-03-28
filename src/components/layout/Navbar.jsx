@@ -281,47 +281,70 @@ const Navbar = () => {
                 </button>
 
                 {showRankingDropdown && (
-                  <div
-                    className="navbar-dropdown"
-                    onMouseEnter={() => setShowRankingDropdown(true)}
-                    onMouseLeave={() => setShowRankingDropdown(false)}
-                    style={{
-                      position: "absolute",
-                      top: "calc(100% + 0px)",
-                      left: 0,
-                      minWidth: "180px",
-                      zIndex: 1000,
-                      marginTop: "2px",
-                      maxHeight: "300px",
-                      overflowY: "auto",
-                      boxShadow: "var(--shadow-lg)"
-                    }}
-                  >
-                    <Link
-                      to="/"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setShowRankingDropdown(false);
+                  <>
+                    {/* 모바일 전용 배경 블러/딤드 효과 */}
+                    <div 
+                      style={{
+                        display: window.innerWidth <= 850 ? "block" : "none",
+                        position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+                        background: "rgba(0,0,0,0.1)", backdropFilter: "blur(2px)",
+                        zIndex: 999
                       }}
-                      className="dropdown-item"
-                      style={{ display: "flex", alignItems: "center", gap: "8px" }}
-                    >
-                      <Icon name="trophy" size={14} />
-                      홈 (랭킹 보기)
-                    </Link>
-                    <Link
-                      to="/ranking-table"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setShowRankingDropdown(false);
+                      onClick={() => setShowRankingDropdown(false)}
+                    />
+                    <div
+                      className="navbar-dropdown"
+                      onMouseEnter={() => setShowRankingDropdown(true)}
+                      onMouseLeave={() => setShowRankingDropdown(false)}
+                      style={{
+                        position: window.innerWidth <= 850 ? "fixed" : "absolute",
+                        top: window.innerWidth <= 850 ? "110px" : "calc(100% + 0px)",
+                        left: window.innerWidth <= 850 ? "1rem" : 0,
+                        right: window.innerWidth <= 850 ? "1rem" : "auto",
+                        minWidth: "180px",
+                        zIndex: 1000,
+                        marginTop: "2px",
+                        maxHeight: "300px",
+                        overflowY: "auto",
+                        boxShadow: "var(--shadow-lg)",
+                        background: "var(--bg-card)",
+                        border: "1px solid var(--border-primary)",
+                        borderRadius: "var(--r-md)"
                       }}
-                      className="dropdown-item"
-                      style={{ display: "flex", alignItems: "center", gap: "8px" }}
                     >
-                      <Icon name="table" size={14} />
-                      랭킹 세부 데이터
-                    </Link>
-                  </div>
+                      <Link
+                        to="/"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowRankingDropdown(false);
+                        }}
+                        className="dropdown-item"
+                        style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 16px" }}
+                      >
+                        <Icon name="trophy" size={16} />
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          <span style={{ fontWeight: 700, fontSize: "0.85rem" }}>홈 (랭킹 보기)</span>
+                          <span style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>전체 AI 랭킹을 확인합니다</span>
+                        </div>
+                      </Link>
+                      <div className="dropdown-divider" style={{ margin: "4px 0" }} />
+                      <Link
+                        to="/ranking-table"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowRankingDropdown(false);
+                        }}
+                        className="dropdown-item"
+                        style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 16px" }}
+                      >
+                        <Icon name="table" size={16} />
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          <span style={{ fontWeight: 700, fontSize: "0.85rem" }}>랭킹 세부 데이터</span>
+                          <span style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>상세 스코어 지표를 비교합니다</span>
+                        </div>
+                      </Link>
+                    </div>
+                  </>
                 )}
               </div>
             );

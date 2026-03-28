@@ -82,7 +82,7 @@ export default function MainPage() {
     else if (sortBy === "buzz_desc")    data.sort((a, b) => (Number(b.metrics?.buzz) || 0) - (Number(a.metrics?.buzz) || 0));
     else if (sortBy === "growth_desc")  data.sort((a, b) => (Number(b.metrics?.growth) || 0) - (Number(a.metrics?.growth) || 0));
     else if (sortBy === "utility_desc") data.sort((a, b) => (Number(b.metrics?.utility) || 0) - (Number(a.metrics?.utility) || 0));
-    else data.sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "ko"));
+    else data.sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
     
     return data;
   }, [tools, category, searchQuery, sortBy]);

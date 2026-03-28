@@ -10,10 +10,10 @@ export const RANK_COLORS = {
 };
 
 export const RANK_FONT_SIZES = {
-  TOP_10: "2.0rem",
-  TOP_50: "1.5rem",
-  TOP_99: "1.1rem",
-  DEFAULT: "0.85rem",
+  TOP_10: "2.8rem",
+  TOP_50: "2.2rem",
+  TOP_99: "1.6rem",
+  DEFAULT: "1.0rem",
 };
 
 /**

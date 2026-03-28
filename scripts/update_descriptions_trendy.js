@@ -41,23 +41,25 @@ const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
 
 // ========================================
-// 2. 트렌디한 설명 생성 함수
+// 2. 공대생/개발자 스타일 설명 생성 함수
 // ========================================
-async function generateTrendyReviews(toolChunk) {
-  const prompt = `당신은 20-30대 트렌드에 민감한 AI 도구 마케터입니다. 아래 AI 도구들의 기존 '한 줄 리뷰'를 2030 세대의 '힙한' 말투로 길고 상세하게 수정해 주세요.
+async function generateGeekyReviews(toolChunk) {
+  const prompt = `당신은 SOTA 기술과 효율성을 추구하는 'AI밖에 모르는 천재 공대생'입니다. 
+아래 AI 도구들의 '한 줄 리뷰'와 '상세 설명'을 해당 페르소나의 말투로 전문적이면서도 열정적으로 수정해 주세요.
 
-[규칙]
-1. 말투는 '~임', '~함', '~함' 등의 담백하면서도 힙한 종결 어미 사용.
-2. '갓생', '치트키', '못 참지', '국밥', '육각형', '손해임', '닥치고 씀' 같은 요즘 유행어 활용.
-3. 이모지는 절대 사용하지 마세요.
-4. 각 리뷰는 25~45자 내외로 기존보다 상세하게 작성할 것.
-5. 반드시 원본의 의미(툴의 실제 기능)는 정확하게 유지할 것.
+[페르소나 가이드라인]
+1. 말투: '~인 듯', '~함', '~임' 등의 담백하면서도 기술적 확신이 느껴지는 어미 사용.
+2. 키워드: SOTA, 레이턴시, 아키텍처, 인퍼런스, 멀티모달, 프롬프트 엔지니어링, 벡터 DB, 모델 성능, 생산성 한계 돌파 등 기술적 용어 적절히 융합.
+3. 이모지 금지. 
+4. 너무 진지하기보다는 본인이 감탄해서 쓴 듯한 '덕후' 느낌 한 스푼 추가 (예: "성능 미쳤음", "속도 체감 됨", "이건 혁명임").
+5. 기존의 '갓생', '치트키' 같은 너무 흔한 마케팅 용어는 지양할 것.
 
 [대상 툴 목록]
-${toolChunk.map(t => `- ID: ${t.id}, 이름: ${t.name}, 기존 설명: ${t.oneLineReview || t.desc}`).join('\n')}
+${toolChunk.map(t => `- ID: ${t.id}, 이름: ${t.name}, 현재 한 줄: ${t.oneLineReview || ""}, 현재 상세: ${t.desc || ""}`).join('\n')}
 
 [출력 형식]
-JSON 형식으로만 대답하세요. 예: [{ "id": "툴ID", "newReview": "수정된 설명" }]
+반드시 아래 JSON 배열 형식으로만 대답하세요:
+[{ "id": "툴ID", "newReview": "수정된 한 줄 리뷰 (25~45자)", "newDesc": "수정된 상세 설명 (80~120자)" }]
 `;
 
   try {
@@ -87,13 +89,16 @@ async function main() {
       const chunk = allTools.slice(i, i + batchSize);
       console.log(`📡 [${i + 1}~${Math.min(i + batchSize, allTools.length)}] 구간 처리 중...`);
 
-      const updates = await generateTrendyReviews(chunk);
+      const updates = await generateGeekyReviews(chunk);
 
       const batch = db.batch();
       for (const update of updates) {
-          if (update.id && update.newReview) {
+          if (update.id && (update.newReview || update.newDesc)) {
               const ref = db.collection("tools").doc(update.id);
-              batch.update(ref, { oneLineReview: update.newReview });
+              const data = {};
+              if (update.newReview) data.oneLineReview = update.newReview;
+              if (update.newDesc) data.desc = update.newDesc;
+              batch.update(ref, data);
           }
       }
       await batch.commit();

@@ -145,14 +145,20 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   ];
 
   return (
-    <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 2000, background: "rgba(0,0,0,0.8)", backdropFilter: "blur(12px)", overflowY: "auto", overscrollBehavior: "contain", display: "flex", justifyContent: "center", alignItems: isMobile ? "flex-start" : "flex-start", padding: isMobile ? "16px 0 32px" : "60px 20px" }}>
+    <div onClick={onClose} style={{ 
+      position: "fixed", inset: 0, zIndex: 2000, 
+      background: "rgba(0,0,0,0.85)", backdropFilter: "blur(16px)", 
+      overflowY: "auto", overscrollBehavior: "contain", 
+      display: "flex", justifyContent: "center", alignItems: "center", 
+      padding: isMobile ? "40px 0" : "60px 20px" 
+    }}>
       <div onClick={(e) => {}} style={{
         display: "flex",
         flexDirection: "column",
-        width: "100%",
-        maxWidth: isMobile ? "100vw" : "920px",
+        width: isMobile ? "calc(100% - 32px)" : "100%",
+        maxWidth: isMobile ? "420px" : "920px",
         height: "fit-content",
-        padding: isMobile ? "0" : "0"
+        padding: "0"
       }}>
       {/* 모바일: 스와이프 캐러셀 / 데스크탑: 가로 배치 */}
       <div

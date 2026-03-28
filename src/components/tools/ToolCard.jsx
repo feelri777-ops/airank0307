@@ -37,34 +37,54 @@ const ToolCard = ({ tool, rank, onClick }) => {
   const RankBadge = () => {
     const color = getRankColor(rank, isMono);
     const fontSize = getRankFontSize(rank);
+    const isUp = String(change).includes("▲") || String(change).includes("+") || Number(change) > 0;
+    const isDown = String(change).includes("▼") || String(change).includes("-") || Number(change) < 0;
+
     return (
-      <span style={{
+      <div style={{
         position: "absolute", top: "12px", right: "12px",
-        fontSize, fontWeight: 800, lineHeight: 1,
-        color, fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
-        flexShrink: 0,
-        opacity: 0.8
+        display: "flex", alignItems: "center", gap: "8px",
+        lineHeight: 1
       }}>
-        {rank}
-      </span>
+        {change !== "-" && change !== 0 && (
+          <span style={{
+            fontSize: "0.85rem", fontWeight: 900,
+            color: isMono ? "var(--text-muted)" : (isUp ? "#22c55e" : isDown ? "#ef4444" : "var(--text-muted)"),
+            fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
+            marginTop: "6px"
+          }}>
+            {change}
+          </span>
+        )}
+        <span style={{
+          fontSize, fontWeight: 950, lineHeight: 1,
+          color, fontFamily: "'Outfit', 'IBM Plex Sans KR', 'Pretendard', sans-serif",
+          flexShrink: 0,
+          opacity: 0.9,
+          letterSpacing: "-0.05em"
+        }}>
+          {rank}
+        </span>
+      </div>
     );
   };
 
   const inner = (
     <>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0, paddingRight: "48px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: 0, paddingRight: "60px" }}>
           {!iconError && faviconUrl ? (
-            <img src={faviconUrl} alt={tool.name || "Tool"} width={40} height={40} loading="lazy"
-              style={{ borderRadius: "8px", objectFit: "contain", flexShrink: 0, filter: isMono ? "grayscale(100%) brightness(0.9)" : "none" }}
+            <img src={faviconUrl} alt={tool.name || "Tool"} width={42} height={42} loading="lazy"
+              style={{ borderRadius: "10px", objectFit: "contain", flexShrink: 0, filter: isMono ? "grayscale(100%) brightness(0.9)" : "none" }}
               onError={() => setIconError(true)} />
           ) : (
-            <span style={{ fontSize: "1.6rem", flexShrink: 0 }}>{typeof tool.icon === 'string' ? tool.icon : "🤖"}</span>
+            <span style={{ fontSize: "1.8rem", flexShrink: 0 }}>{typeof tool.icon === 'string' ? tool.icon : "🤖"}</span>
           )}
           <h3 style={{
-            fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.2rem", fontWeight: 700,
+            fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif", fontSize: "1.25rem", fontWeight: 900,
             color: "var(--text-primary)", margin: 0,
             whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+            letterSpacing: "-0.02em"
           }}>
             {tool.name || "Unknown Tool"}
           </h3>
@@ -73,25 +93,26 @@ const ToolCard = ({ tool, rank, onClick }) => {
       </div>
 
       <p style={{
-        fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.4,
-        marginBottom: "8px", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
+        fontSize: "0.92rem", color: "var(--text-secondary)", lineHeight: 1.5,
+        marginBottom: "12px", fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
         display: "-webkit-box", WebkitLineClamp: 2,
-        WebkitBoxOrient: "vertical", overflow: "hidden", minHeight: "2.4rem"
+        WebkitBoxOrient: "vertical", overflow: "hidden", minHeight: "2.8rem",
+        fontWeight: 500
       }}>
         {tool.oneLineReview || tool.desc || "상세 설명이 없습니다."}
       </p>
 
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "7px", flexWrap: "wrap" }}>
-          <span style={{ fontSize: "1.4rem", fontWeight: 900, lineHeight: 1, color: isMono ? "var(--text-primary)" : getScoreColor(score), fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+          <span style={{ fontSize: "1.45rem", fontWeight: 950, lineHeight: 1, color: isMono ? "var(--text-primary)" : getScoreColor(score), fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
             {score.toFixed(1)}
           </span>
-          <div style={{ display: "flex", gap: "3px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
             {(Array.isArray(tool.tags) ? tool.tags : []).slice(0, 2).map((tag) => (
               <span key={tag} style={{
-                fontSize: "0.75rem", padding: "2px 8px", borderRadius: "10px",
+                fontSize: "0.78rem", padding: "2px 10px", borderRadius: "10px",
                 background: "var(--bg-secondary)", color: "var(--text-secondary)",
-                border: "1px solid var(--border-primary)", fontWeight: 600,
+                border: "1px solid var(--border-primary)", fontWeight: 750,
                 fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
               }}>
                 {tag}
@@ -99,11 +120,6 @@ const ToolCard = ({ tool, rank, onClick }) => {
             ))}
           </div>
         </div>
-        {change !== "-" && change !== 0 && (
-          <span style={{ fontSize: "0.75rem", fontWeight: 800, flexShrink: 0, color: isMono ? "var(--text-muted)" : (String(change).includes("▲") || String(change).includes("+") ? "#22c55e" : "#ef4444"), fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif" }}>
-            {change}
-          </span>
-        )}
       </div>
     </>
   );

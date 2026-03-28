@@ -41,6 +41,7 @@ const ThemeToggle = ({ dropUp = false }) => {
       <button
         onClick={() => setOpen((prev) => !prev)}
         onKeyDown={handleToggleKeyDown}
+        className="theme-toggle-btn"
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={`테마 선택: 현재 ${current.label}`}
@@ -48,38 +49,54 @@ const ThemeToggle = ({ dropUp = false }) => {
           display: "flex",
           alignItems: "center",
           gap: "5px",
-          height: "30px",
+          height: "32px",
           padding: "0 8px 0 5px",
           borderRadius: "var(--r-pill)",
           border: "1px solid var(--border-primary)",
           background: TRACK_COLORS[theme] || 'var(--bg-tertiary)',
           cursor: "pointer",
-          transition: "background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease",
+          transition: "all 0.3s ease",
           flexShrink: 0,
         }}
       >
         <div style={{
-          width: "20px",
-          height: "20px",
+          width: "24px",
+          height: "24px",
           borderRadius: "50%",
           background: "var(--accent-gradient)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
           flexShrink: 0,
         }}>
-          <Icon name={current.icon} size={12} color="#fff" />
+          <Icon name={current.icon} size={14} color="#fff" />
         </div>
-        <span style={{
+        <span className="theme-toggle-label" style={{
           fontSize: "11px",
-          fontWeight: 500,
+          fontWeight: 700,
           color: "var(--text-secondary)",
           lineHeight: 1,
+          whiteSpace: "nowrap",
         }}>
           {current.label}
         </span>
-        <span style={{ fontSize: "8px", color: "var(--text-muted)", marginLeft: "1px" }}>▾</span>
+        <span className="theme-toggle-arrow" style={{ fontSize: "8px", color: "var(--text-muted)", marginLeft: "1px" }}>▾</span>
+        
+        <style dangerouslySetInnerHTML={{ __html: `
+          @media (max-width: 768px) {
+            .theme-toggle-btn {
+              width: 32px !important;
+              height: 32px !important;
+              padding: 0 !important;
+              justify-content: center !important;
+              border-radius: 50% !important;
+            }
+            .theme-toggle-label, .theme-toggle-arrow {
+              display: none !important;
+            }
+          }
+        `}} />
       </button>
 
       {open && (

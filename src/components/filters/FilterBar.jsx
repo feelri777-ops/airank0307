@@ -74,17 +74,18 @@ const FilterBar = ({ category, onCategoryChange }) => {
   }, [activeGroup]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", gap: "12px", marginBottom: "1.2rem" }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", gap: "4px", marginBottom: "0" }}>
       {/* 1단: 메인 그룹 탭 */}
       <div 
+        className="filter-scroll-container"
         style={{ 
           display: "flex", 
           gap: "8px", 
           overflowX: "auto", 
           width: "100%", 
-          justifyContent: "center",
-          padding: "4px 0",
+          padding: "4px 16px",
           scrollbarWidth: "none",
+          WebkitOverflowScrolling: "touch",
         }}
       >
         {MAIN_GROUPS.map((group) => (
@@ -107,14 +108,15 @@ const FilterBar = ({ category, onCategoryChange }) => {
       {/* 2단: 세부 카테고리 (애니메이션 효과를 위해 존재 여부에 따라 렌더링) */}
       {filteredSubCategories.length > 0 && (
         <div 
+          className="filter-scroll-container"
           style={{ 
             display: "flex", 
-            gap: "8px", 
+            gap: "4px", 
             overflowX: "auto", 
             width: "100%", 
-            justifyContent: "center",
-            padding: "2px 0",
+            padding: "2px 16px",
             scrollbarWidth: "none",
+            WebkitOverflowScrolling: "touch",
             animation: "fadeIn 0.3s ease",
           }}
         >
@@ -136,7 +138,12 @@ const FilterBar = ({ category, onCategoryChange }) => {
             from { opacity: 0; transform: translateY(-5px); }
             to { opacity: 1; transform: translateY(0); }
           }
-          div::-webkit-scrollbar { display: none; }
+          .filter-scroll-container::-webkit-scrollbar { display: none; }
+          @media (min-width: 1025px) {
+            .filter-scroll-container {
+              justify-content: center !important;
+            }
+          }
         `}
       </style>
     </div>

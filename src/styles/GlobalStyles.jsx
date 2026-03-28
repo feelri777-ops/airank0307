@@ -428,18 +428,29 @@ const GlobalStyles = () => (
     @media (max-width: 850px) {
       .navbar-nav {
         width: 100%; padding: 8px 1rem; border-top: 1px solid var(--border-primary);
-        justify-content: center; flex-wrap: wrap; overflow: visible;
+        justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto;
+        -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 0.5rem;
       }
       .navbar-nav::-webkit-scrollbar { display: none; }
       .navbar-top-row { height: 60px; padding: 0 1rem; }
     }
 
-    .nav-link {
+      .nav-link {
       padding: 6px 14px; border-radius: var(--r-xs); text-decoration: none;
       color: var(--text-secondary); font-size: 0.82rem; transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; white-space: nowrap;
       font-family: var(--font-main);
     }
     .nav-link.active { background: var(--accent-gradient); color: #fff !important; font-weight: 600; }
+    
+    .user-name {
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.85rem;
+      transition: color 0.3s ease;
+    }
+    @media (max-width: 480px) {
+      .user-name { display: none; }
+    }
 
     /* ── 모바일 뉴스 박스 ── */
     .mobile-news-box {

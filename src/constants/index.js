@@ -49,7 +49,6 @@ export const SORT_OPTIONS = [
   { id: "buzz_desc",    label: "화제성높은순" },
   { id: "growth_desc",  label: "성장세높은순" },
   { id: "utility_desc", label: "실용성높은순" },
-  { id: "name",         label: "이름순" },
 ];
 
 /**
