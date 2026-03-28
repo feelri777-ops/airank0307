@@ -22,6 +22,8 @@ jobs:
   update-pricing:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') }}
+    permissions:
+      contents: write
     timeout-minutes: 60
 
     steps:
