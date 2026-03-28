@@ -99,3 +99,35 @@ export const COMMUNITY_CATEGORIES = [
   { id: "tips",     label: "팁&노하우" },
   { id: "free",     label: "자유" },
 ];
+
+/** 태그 번역 맵 (영어 -> 한글) */
+export const TAG_TRANSLATIONS = {
+  "LLM": "LLM",
+  "Chatbot": "챗봇",
+  "Programming": "프로그래밍",
+  "Code": "코드",
+  "Writing": "글쓰기",
+  "Image Generation": "이미지 생성",
+  "Video Generation": "비디오 생성",
+  "Audio": "오디오",
+  "Music": "음악",
+  "SEO": "SEO",
+  "Marketing": "마케팅",
+  "Productivity": "생산성",
+  "Automation": "자동화",
+  "Education": "교육",
+  "Research": "연구",
+  "Search": "검색",
+  "Design": "디자인",
+  "Multimodal": "멀티모달",
+  "Agent": "에이전트",
+  "Transcription": "받아쓰기",
+  "Translation": "번역",
+  "Data Analysis": "데이터 분석",
+};
+
+/** 태그 한글 변환 함수 */
+export function translateTag(tag) {
+  if (!tag) return tag;
+  return TAG_TRANSLATIONS[tag] || tag;
+}

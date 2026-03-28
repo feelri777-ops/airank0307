@@ -343,8 +343,10 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               {!isMobile && <button onClick={onClose} aria-label="모달 닫기" style={{ position: "absolute", top: "-45px", right: "0", background: "rgba(255,255,255,0.1)", border: "none", color: "#fff", cursor: "pointer", fontSize: "1.2rem", width: "32px", height: "32px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(5px)" }}>✕</button>}
               <div style={{ marginBottom: "28px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-                  <div style={{ background: "rgba(255,0,0,0.1)", padding: "6px", borderRadius: "8px", display: "flex" }}><Icon name="youtube-logo-fill" size={20} color="#ff0000" weight="fill" /></div>
-                  <span style={{ fontSize: "0.9rem", fontWeight: 900 }}>AI 실전 활용 팁</span>
+                  <div style={{ background: "rgba(255,0,0,0.1)", padding: "8px", borderRadius: "10px", display: "flex" }}>
+                    <Icon name="youtube-logo" size={20} weight="fill" color="#FF0000" />
+                  </div>
+                  <span style={{ fontSize: "1.3rem", fontWeight: 900, color: "var(--text-primary)" }}>AI 실전 활용 팁</span>
                 </div>
                 {videos.length === 0 ? ( <div style={{ padding: "30px 20px", textAlign: "center", background: "var(--bg-secondary)", borderRadius: "20px", fontSize: "0.75rem", color: "var(--text-muted)", border: "1px dashed var(--border-primary)" }}>관련 영상이 준비 중입니다.</div> ) : (
                   <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>

@@ -2,6 +2,7 @@ import { useState, memo } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "../../context/ThemeContext";
 import { LOGO_OVERRIDES, getRankColor, getRankFontSize } from "../../constants/toolCard";
+import { translateTag } from "../../constants/index";
 
 const getFaviconUrl = (url) => {
   if (!url || typeof url !== 'string') return null;
@@ -108,16 +109,21 @@ const ToolCard = ({ tool, rank, onClick }) => {
             {score.toFixed(1)}
           </span>
           <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-            {(Array.isArray(tool.tags) ? tool.tags : []).slice(0, 2).map((tag) => (
-              <span key={tag} style={{
-                fontSize: "0.78rem", padding: "2px 10px", borderRadius: "10px",
-                background: "var(--bg-secondary)", color: "var(--text-secondary)",
-                border: "1px solid var(--border-primary)", fontWeight: 750,
-                fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
-              }}>
-                {tag}
-              </span>
-            ))}
+            {(Array.isArray(tool.tags) ? tool.tags : []).slice(0, 3).map((tag, idx) => {
+              const isFirst = idx === 0;
+              return (
+                <span key={tag} style={{
+                  fontSize: "0.78rem", padding: "2px 10px", borderRadius: "10px",
+                  background: isFirst ? "var(--accent-indigo)" : "var(--bg-secondary)", 
+                  color: isFirst ? "#fff" : "var(--text-secondary)",
+                  border: isFirst ? "none" : "1px solid var(--border-primary)", 
+                  fontWeight: 800,
+                  fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
+                }}>
+                  {translateTag(tag)}
+                </span>
+              );
+            })}
           </div>
         </div>
       </div>
