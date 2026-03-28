@@ -270,7 +270,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               </div>
 
               {/* 활용 상황 섹션 (컴팩트 버전) */}
-              <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "8px 14px", border: "1px solid var(--border-primary)", marginBottom: "12px", position: "relative" }}>
+              <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "8px 14px", border: "none", marginBottom: "12px", position: "relative" }}>
                 <div style={{ 
                   height: isBigUI ? "48px" : "44px", // 더 컴팩트한 높이로 변경
                   display: "flex",
@@ -339,7 +339,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               </div>
             </div>
 
-            <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: isBigUI ? "36px" : "20px", ...(isMobile ? { width: "50%", flexShrink: 0, padding: isBigUI ? "24px" : "16px 14px" } : { flex: 1, minWidth: 0, padding: "20px" }), boxShadow: "0 20px 40px rgba(0,0,0,0.3)", position: "relative" }}>
+            <div style={{ background: "var(--bg-card)", border: "none", borderRadius: isBigUI ? "36px" : "20px", ...(isMobile ? { width: "50%", flexShrink: 0, padding: isBigUI ? "24px" : "16px 14px" } : { flex: 1, minWidth: 0, padding: "20px" }), boxShadow: "0 20px 40px rgba(0,0,0,0.3)", position: "relative" }}>
               {!isMobile && <button onClick={onClose} aria-label="모달 닫기" style={{ position: "absolute", top: "-45px", right: "0", background: "rgba(255,255,255,0.1)", border: "none", color: "#fff", cursor: "pointer", fontSize: "1.2rem", width: "32px", height: "32px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(5px)" }}>✕</button>}
               <div style={{ marginBottom: "28px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
@@ -349,7 +349,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 {videos.length === 0 ? ( <div style={{ padding: "30px 20px", textAlign: "center", background: "var(--bg-secondary)", borderRadius: "20px", fontSize: "0.75rem", color: "var(--text-muted)", border: "1px dashed var(--border-primary)" }}>관련 영상이 준비 중입니다.</div> ) : (
                   <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                     {videos.slice(0, 3).map((v, i) => (
-                      <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "12px", textDecoration: "none", padding: "8px", borderRadius: "14px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "background 0.2s, transform 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor="var(--accent-indigo)"; e.currentTarget.style.transform="translateY(-2px)"; }} onMouseLeave={e => { e.currentTarget.style.borderColor="var(--border-primary)"; e.currentTarget.style.transform="translateY(0)"; }}>
+                      <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "12px", textDecoration: "none", padding: "8px", borderRadius: "14px", background: "var(--bg-secondary)", border: "none", transition: "background 0.2s, transform 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.06)" }} onMouseEnter={e => { e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.background="var(--border-primary)"; }} onMouseLeave={e => { e.currentTarget.style.transform="translateY(0)"; e.currentTarget.style.background="var(--bg-secondary)"; }}>
                         <div style={{ width: isBigUI ? "192px" : "140px", height: isBigUI ? "108px" : "79px", flexShrink: 0, borderRadius: "10px", overflow: "hidden", background: "#000" }}>{v.thumbnail && <img src={v.thumbnail} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}</div>
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <div style={{ fontSize: isBigUI ? "0.95rem" : "0.75rem", fontWeight: 800, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.4, marginBottom: isBigUI ? "8px" : "4px" }}>{decodeHtmlSafe(v.title)}</div>
@@ -363,26 +363,6 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                   </div>
                 )}
               </div>
-              <div style={{ height: "1px", background: "var(--border-primary)", margin: "0 -24px 24px", opacity: 0.5 }} />
-              {synerToolList.length > 0 && (
-                <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-                    <div style={{ background: "rgba(99,102,241,0.1)", padding: "6px", borderRadius: "8px", display: "flex" }}><Icon name="sparkle" size={20} weight="fill" color="var(--accent-indigo)" /></div>
-                    <span style={{ fontSize: "0.9rem", fontWeight: 900 }}>함께 쓰면 좋은 시너지 AI</span>
-                  </div>
-                  <div style={{ display: "grid", gap: "10px" }}>
-                    {synerToolList.map(rt => (
-                      <a key={rt.id} href={rt.url || rt.URL || "#"} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "12px", borderRadius: "18px", background: "var(--bg-secondary)", textDecoration: "none", border: "1px solid var(--border-primary)", transition: "background 0.2s, transform 0.2s" }} onMouseEnter={e => { e.currentTarget.style.transform="translateX(5px)"; e.currentTarget.style.borderColor="var(--accent-indigo)"; }} onMouseLeave={e => { e.currentTarget.style.transform="translateX(0)"; e.currentTarget.style.borderColor="var(--border-primary)"; }}>
-                        {getFaviconUrl(rt.url || rt.URL) ? <img src={getFaviconUrl(rt.url || rt.URL)} alt={rt.name || "Tool"} width={32} height={32} loading="lazy" style={{ borderRadius: "8px" }} /> : <span style={{ width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem" }}>🤖</span>}
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{rt.name || "Unknown Tool"}</div>
-                          <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>{rt.cat || rt.category || "기타"}</div>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
