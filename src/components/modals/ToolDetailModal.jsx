@@ -268,8 +268,49 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                   </div>
                 </div>
               </div>
-
-              {/* 활용 상황 섹션 (컴팩트 버전) */}
+              {/* 결제 플랜 (Pricing) 섹션 - NEW */}
+              {tool.pricing && Array.isArray(tool.pricing) && tool.pricing.length > 0 && (
+                <div style={{ marginBottom: "20px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px", paddingLeft: "4px" }}>
+                    <Icon name="tag" size={18} color="var(--accent-indigo)" weight="fill" />
+                    <span style={{ fontSize: "1.05rem", fontWeight: 900, color: "var(--text-primary)" }}>결제 플랜</span>
+                  </div>
+                  <div style={{ 
+                    display: "flex", gap: "12px", overflowX: "auto", paddingBottom: "8px",
+                    scrollbarWidth: "none", msOverflowStyle: "none", // 스크롤바 숨기기
+                  }}>
+                    {tool.pricing?.map((p, idx) => (
+                      <div key={idx} style={{
+                        flex: "0 0 160px", // 카드 넓이 고정
+                        background: idx === 1 ? "var(--bg-card)" : "rgba(0,0,0,0.02)",
+                        border: idx === 1 ? "2px solid var(--accent-indigo)" : "1.5px solid var(--border-primary)",
+                        borderRadius: "18px", padding: "14px",
+                        display: "flex", flexDirection: "column", gap: "8px",
+                        position: "relative", overflow: "hidden",
+                        boxShadow: idx === 1 ? "0 10px 25px rgba(0,0,0,0.1)" : "none"
+                      }}>
+                        {idx === 1 && (
+                          <div style={{ position: "absolute", top: "0", right: "0", background: "var(--accent-indigo)", color: "#fff", fontSize: "0.6rem", fontWeight: 900, padding: "2px 8px", borderRadius: "0 0 0 10px" }}>BEST</div>
+                        )}
+                        <div style={{ fontSize: "0.85rem", fontWeight: 900, color: idx === 1 ? "var(--accent-indigo)" : "var(--text-primary)" }}>{p.planName}</div>
+                        <div style={{ display: "flex", alignItems: "baseline", gap: "2px" }}>
+                          <span style={{ fontSize: "1.3rem", fontWeight: 1000, color: "var(--text-primary)" }}>{p.price === '0' ? 'Free' : `$${p.price}`}</span>
+                          {p.price !== '0' && <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 700 }}>/mo</span>}
+                        </div>
+                        <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 600, marginBottom: "4px" }}>{p.billing}</div>
+                        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                          {p.features?.slice(0, 3)?.map((f, fIdx) => (
+                            <div key={fIdx} style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                              <Icon name="check" size={10} color={idx === 1 ? "var(--accent-indigo)" : "var(--text-muted)"} weight="bold" />
+                              <span style={{ fontSize: "0.68rem", color: "var(--text-secondary)", fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{f}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "8px 14px", border: "none", marginBottom: "12px", position: "relative" }}>
                 <div style={{ 
                   height: isBigUI ? "48px" : "44px", // 더 컴팩트한 높이로 변경

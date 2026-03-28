@@ -1,0 +1,44 @@
+name: AI 도구 요금제(Pricing) 자동 수집 및 최적화
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: '업데이트할 도구 개수 (상위 순위 기준)'
+        required: true
+        default: '50'
+        type: string
+      dry_run:
+        description: '시뮬레이션 모드 (실제 DB 업데이트 안함)'
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  update-pricing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: 📦 코드 체크아웃
+        uses: actions/checkout@v4
+
+      - name: 🟢 Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 🛠️ 의존성 설치
+        run: npm install
+
+      - name: 🤖 AI 기반 요금제 수집 및 업데이트
+        run: |
+          node scripts/update_pricing.js --limit=${{ github.event.inputs.limit }} ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: ✨ 완료 보고
+        run: echo "🎉 AI 요금제 최적화 작업이 완료되었습니다!"
