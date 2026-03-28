@@ -297,8 +297,13 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
 
           {/* 통합 설명란: USP + 장점/단점 */}
           <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "12px 14px", border: "1px solid var(--border-primary)", marginBottom: "12px" }}>
-            <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--accent-indigo)", marginBottom: "8px", display: "flex", alignItems: "center", gap: "4px" }}>
-              <Icon name="lightbulb" size={16} weight="fill" /> 💡 CORE USP & 분석
+            <div style={{ fontSize: "0.78rem", fontWeight: 800, color: "var(--accent-indigo)", marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <Icon name="lightbulb" size={18} weight="fill" /> 핵심 기능 및 분석
+              </div>
+              {tool.koSupport === "Y" && (
+                <span style={{ fontSize: "0.7rem", color: "#10b981", background: "rgba(16, 185, 129, 0.1)", padding: "2px 8px", borderRadius: "12px", fontWeight: 800 }}>한국어 지원</span>
+              )}
             </div>
 
             {(() => {
@@ -327,13 +332,13 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                   <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.4, display: "flex", flexDirection: "column", gap: "8px" }}>
                     {pros.length > 0 && (
                       <div style={{ background: "rgba(16, 185, 129, 0.05)", padding: "6px 10px", borderRadius: "10px" }}>
-                        <strong style={{ color: "#10b981", fontWeight: 700, fontSize: "0.8rem" }}>이건 정말 개쩔어요! 👍</strong>
+                        <strong style={{ color: "#10b981", fontWeight: 700, fontSize: "0.78rem" }}>강점 👍</strong>
                         <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400, fontSize: "0.78rem" }}>{pros.join(", ")}</div>
                       </div>
                     )}
                     {cons.length > 0 && (
                       <div style={{ background: "rgba(239, 68, 68, 0.05)", padding: "6px 10px", borderRadius: "10px" }}>
-                        <strong style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.8rem" }}>이건 좀 아쉬워요.. 😅</strong>
+                        <strong style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.78rem" }}>약점 😅</strong>
                         <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400, fontSize: "0.78rem" }}>{cons.join(", ")}</div>
                       </div>
                     )}
@@ -344,20 +349,6 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
             })()}
           </div>
 
-          {/* 가격 플랜 */}
-          <div style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(168,85,247,0.1) 100%)", borderRadius: "14px", padding: "16px 18px", border: "1px solid rgba(99,102,241,0.3)", marginBottom: "10px" }}>
-            <div style={{ fontSize: "0.85rem", fontWeight: 950, color: "var(--accent-indigo)", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
-              💰 실시간 가격 정보
-            </div>
-            <div style={{ fontSize: "1rem", color: "var(--text-primary)", fontWeight: 900 }}>
-              {tool.pricing_detail || tool.pricing || tool.Pricing || "정보 업데이트 대기 중"}
-            </div>
-            {tool.koSupport === "Y" && (
-              <div style={{ marginTop: "10px", fontSize: "0.85rem", color: "#10b981", fontWeight: 800, display: "flex", alignItems: "center", gap: "6px" }}>
-                <span style={{ fontSize: "1.1rem" }}>✓</span> 한국어 완벽 지원! 🇰🇷
-              </div>
-            )}
-          </div>
 
           <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
             <a

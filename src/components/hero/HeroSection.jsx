@@ -263,28 +263,29 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
             </svg>
           </span>
           <input
-            type="search"
+            type="text"
             id="ai-search-input"
             name="ai-search"
             autoComplete="off"
+            spellCheck="false"
             className="hero-search-input"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="어떤 기능의 AI를 찾으시나요…"
             style={{
               width: "100%",
-              padding: "10px 14px 10px 40px",
+              padding: "12px 14px 12px 42px",
               borderRadius: "100px",
               border: `1px solid ${cfg.inputBorder}`,
               background: cfg.inputBg,
               backdropFilter: isDark ? "blur(10px)" : "blur(8px)",
               color: cfg.inputColor,
               fontFamily: "'Pretendard', sans-serif",
-              fontSize: "0.88rem",
+              fontSize: "0.92rem",
               outline: "none",
               boxSizing: "border-box",
-              transition: "border-color 0.2s, background 0.2s, box-shadow 0.2s",
-              boxShadow: isDark ? "none" : "0 2px 12px rgba(0,0,0,0.06)",
+              transition: "all 0.2s ease",
+              boxShadow: isDark ? "none" : "0 2px 15px rgba(0,0,0,0.06)",
             }}
             onFocus={(e) => {
               e.target.style.borderColor = cfg.inputBorderFocus;

@@ -126,6 +126,9 @@ const ICONS = {
   'moon':           PI.Moon,
   'palette':        PI.Palette,
   'chat-circle':    PI.ChatCircle,
+  'briefcase':      PI.Briefcase,
+  'code':           PI.Code,
+  'graduation-cap': PI.GraduationCap,
 };
 
 export default function Icon({ name, size = 20, color = 'currentColor', weight, style, className }) {

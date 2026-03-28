@@ -57,14 +57,24 @@ export default function MainPage() {
     if (searchQuery.trim()) {
       const q = searchQuery.normalize("NFC").toLowerCase();
       const norm = (s) => String(s || "").normalize("NFC").toLowerCase();
-      data = data.filter((t) =>
-        norm(t.name).includes(q) ||
-        (t.nameKo && norm(t.nameKo).includes(q)) ||
-        norm(t.desc).includes(q) ||
-        (t.ytKo && norm(t.ytKo).includes(q)) ||
-        (t.gtKo && norm(t.gtKo).includes(q)) ||
-        (t.naverKw && Array.isArray(t.naverKw) && t.naverKw.some(kw => norm(kw).includes(q)))
-      );
+      
+      data = data.filter((t) => {
+        // 검색 대상 필드 확장
+        const targetFields = [
+          t.name, 
+          t.nameKo, 
+          t.desc, 
+          t.oneLineReview, 
+          t.usp, 
+          t.ytKo, 
+          t.gtKo,
+          ...(Array.isArray(t.tags) ? t.tags : []),
+          ...(Array.isArray(t.naverKw) ? t.naverKw : []),
+          ...(t.prosCons?.pros || []),
+          ...(t.prosCons?.cons || [])
+        ];
+        return targetFields.some(field => field && norm(field).includes(q));
+      });
     }
 
     // 정렬 로직
