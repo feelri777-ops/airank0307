@@ -485,6 +485,24 @@ const GlobalStyles = () => (
       overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
     }
     .sort-container::-webkit-scrollbar { display: none; }
+
+    /* ── 결제 플랜 전용 가로 스크롤 최적화 (스크롤바 완전 박멸!) ── */
+    .pricing-scrollbar-hide {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;       /* Firefox */
+      -webkit-overflow-scrolling: touch;
+      overflow-x: auto;
+    }
+    .pricing-scrollbar-hide::-webkit-scrollbar {
+      display: none !important;    /* Chrome, Safari, Opera */
+      width: 0 !important;
+      height: 0 !important;
+      background: transparent !important;
+    }
+    .pricing-card-snap {
+      scroll-snap-align: start;
+    }
+
     @media (max-width: 768px) { .sort-container { justify-content: flex-start !important; } }
 
     /* FilterBar 행 - PC 3열: 중앙 정렬 / 태블릿·모바일: 좌측 스크롤 */

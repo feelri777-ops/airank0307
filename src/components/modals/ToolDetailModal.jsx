@@ -142,6 +142,32 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
     }
   };
 
+  // ── 드래그 스크롤용 상태 및 Ref (FIX) ──
+  const pricingScrollRef = React.useRef(null);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [dragScrollLeft, setDragScrollLeft] = useState(0);
+
+  const startDragging = (e) => {
+    if (!pricingScrollRef.current) return;
+    e.stopPropagation(); // 모달 닫힘 방지를 위해 전파 차단
+    setIsMouseDown(true);
+    setDragStartX(e.pageX - pricingScrollRef.current.offsetLeft);
+    setDragScrollLeft(pricingScrollRef.current.scrollLeft);
+  };
+
+  const stopDragging = () => {
+    setIsMouseDown(false);
+  };
+
+  const moveDragging = (e) => {
+    if (!isMouseDown || !pricingScrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - pricingScrollRef.current.offsetLeft;
+    const walk = (x - dragStartX) * 1.5; // 스크롤 속도 배율
+    pricingScrollRef.current.scrollLeft = dragScrollLeft - walk;
+  };
+
   const synerToolList = useMemo(() =>
     (allTools || []).filter(t => t && t.id !== tool?.id && (t.cat === tool?.cat))
     .sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0)).slice(0, 3)
@@ -268,41 +294,75 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                   </div>
                 </div>
               </div>
-              {/* 결제 플랜 (Pricing) 섹션 - NEW */}
+              {/* 결제 플랜 (Pricing) 섹션 */}
               {tool.pricing && Array.isArray(tool.pricing) && tool.pricing.length > 0 && (
                 <div style={{ marginBottom: "20px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px", paddingLeft: "4px" }}>
                     <Icon name="tag" size={18} color="var(--accent-indigo)" weight="fill" />
                     <span style={{ fontSize: "1.05rem", fontWeight: 900, color: "var(--text-primary)" }}>결제 플랜</span>
                   </div>
-                  <div style={{ 
-                    display: "flex", gap: "12px", overflowX: "auto", paddingBottom: "8px",
-                    scrollbarWidth: "none", msOverflowStyle: "none", // 스크롤바 숨기기
-                  }}>
+                  <div 
+                    ref={pricingScrollRef}
+                    className="pricing-scrollbar-hide"
+                    onMouseDown={startDragging}
+                    onMouseLeave={stopDragging}
+                    onMouseUp={stopDragging}
+                    onMouseMove={moveDragging}
+                    onTouchStart={(e) => e.stopPropagation()} // 모바일 페이지 전환 방지 (핵심!)
+                    onTouchMove={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    onClick={(e) => e.stopPropagation()} // 클릭 버블링 차단
+                    onWheel={(e) => {
+                      if (e.deltaY !== 0) {
+                        e.preventDefault();
+                        e.currentTarget.scrollLeft += e.deltaY;
+                      }
+                    }}
+                    style={{ 
+                      display: "flex", 
+                      gap: "14px", 
+                      overflowX: "auto", 
+                      paddingBottom: "16px", 
+                      paddingTop: "6px",
+                      paddingLeft: "2px",
+                      scrollBehavior: isMouseDown ? "auto" : "smooth", // 드래그 중에는 즉각 반응
+                      cursor: isMouseDown ? "grabbing" : "grab",
+                      userSelect: isMouseDown ? "none" : "auto" // 드래그 시 텍스트 선택 방지
+                    }}
+                  >
                     {tool.pricing?.map((p, idx) => (
-                      <div key={idx} style={{
-                        flex: "0 0 160px", // 카드 넓이 고정
-                        background: idx === 1 ? "var(--bg-card)" : "rgba(0,0,0,0.02)",
-                        border: idx === 1 ? "2px solid var(--accent-indigo)" : "1.5px solid var(--border-primary)",
-                        borderRadius: "18px", padding: "14px",
-                        display: "flex", flexDirection: "column", gap: "8px",
-                        position: "relative", overflow: "hidden",
-                        boxShadow: idx === 1 ? "0 10px 25px rgba(0,0,0,0.1)" : "none"
-                      }}>
+                      <div 
+                        key={idx} 
+                        className="pricing-card-snap"
+                        style={{
+                          flex: "0 0 170px", // 카드 폭 살짝 확대
+                          background: idx === 1 ? "var(--bg-card)" : "rgba(0,0,0,0.02)",
+                          border: idx === 1 ? "2px solid var(--accent-indigo)" : "1px solid var(--border-primary)",
+                          borderRadius: "18px", 
+                          padding: "16px",
+                          display: "flex", 
+                          flexDirection: "column", 
+                          gap: "10px",
+                          position: "relative",
+                          boxShadow: idx === 1 ? "0 8px 20px rgba(0,0,0,0.08)" : "none",
+                        }}
+                      >
                         {idx === 1 && (
                           <div style={{ position: "absolute", top: "0", right: "0", background: "var(--accent-indigo)", color: "#fff", fontSize: "0.6rem", fontWeight: 900, padding: "2px 8px", borderRadius: "0 0 0 10px" }}>BEST</div>
                         )}
-                        <div style={{ fontSize: "0.85rem", fontWeight: 900, color: idx === 1 ? "var(--accent-indigo)" : "var(--text-primary)" }}>{p.planName}</div>
-                        <div style={{ display: "flex", alignItems: "baseline", gap: "2px" }}>
-                          <span style={{ fontSize: "1.3rem", fontWeight: 1000, color: "var(--text-primary)" }}>{p.price === '0' ? 'Free' : `$${p.price}`}</span>
-                          {p.price !== '0' && <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 700 }}>/mo</span>}
+                        <div style={{ fontSize: "0.9rem", fontWeight: 900, color: idx === 1 ? "var(--accent-indigo)" : "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.planName}</div>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          <div style={{ display: "flex", alignItems: "baseline", gap: "2px" }}>
+                            <span style={{ fontSize: "1.3rem", fontWeight: 1000, color: "var(--text-primary)" }}>{p.price === '0' ? 'Free' : (p.price.includes('$') || p.price.includes('₩') || p.price.includes('KRW') ? p.price : `$${p.price}`)}</span>
+                            {p.price !== '0' && !p.price.includes('month') && !p.price.includes('mo') && <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 700 }}>/mo</span>}
+                          </div>
+                          {p.billing && <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 600, lineHeight: 1.2 }}>{p.billing}</div>}
                         </div>
-                        <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 600, marginBottom: "4px" }}>{p.billing}</div>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                        <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginTop: "4px" }}>
                           {p.features?.slice(0, 3)?.map((f, fIdx) => (
-                            <div key={fIdx} style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                              <Icon name="check" size={10} color={idx === 1 ? "var(--accent-indigo)" : "var(--text-muted)"} weight="bold" />
-                              <span style={{ fontSize: "0.68rem", color: "var(--text-secondary)", fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{f}</span>
+                            <div key={fIdx} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                              <Icon name="check" size={12} color={idx === 1 ? "var(--accent-indigo)" : "var(--text-muted)"} weight="bold" />
+                              <span style={{ fontSize: "0.7rem", color: "var(--text-secondary)", fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{f}</span>
                             </div>
                           ))}
                         </div>
