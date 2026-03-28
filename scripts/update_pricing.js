@@ -65,9 +65,9 @@ async function generatePricingInfo(toolChunk) {
     try {
       const model = genAI.getGenerativeModel({ model: modelName });
       const prompt = `AI 도구 전문가로서 아래 도구들의 결제 플랜(Pricing)을 추출하세요. 
-대상: ${toolChunk.map(t => `${t.name} (${t.url})`).join(', ')}
-형식: JSON [{ "id": "툴ID", "pricing": [{ "planName": "Free", "price": "0", "billing": "Free Forever", "features": ["..."] }] }]
-상세 설명은 한글로, 플랜명은 영문으로 작성하세요.`;
+대상: ${toolChunk.map(t => `- ID: ${t.id}, 이름: ${t.name}, URL: ${t.url || ""}`).join('\n')}
+형식: JSON [{ "id": "제공된ID", "pricing": [{ "planName": "Free", "price": "0", "billing": "Free Forever", "features": ["..."] }] }]
+[주의] 반드시 위에서 제공한 "ID"를 그대로 사용하세요. 설명은 한글로, 플랜명은 영문으로 작성하세요.`;
 
       const result = await model.generateContent(prompt);
       const text = result.response.text();
@@ -115,13 +115,17 @@ async function main() {
         const batch = db.batch();
         let upCount = 0;
         for (const update of updatesByAI) {
-            if (update.id && Array.isArray(update.pricing)) {
+            // AI가 준 ID가 현재 처리 중인 청크에 실제로 존재하는지 확인
+            const originalTool = chunk.find(c => c.id === update.id);
+            if (originalTool && Array.isArray(update.pricing)) {
                 const ref = db.collection("tools").doc(update.id);
-                batch.update(ref, { 
+                batch.set(ref, { 
                   pricing: update.pricing,
                   last_pricing_update: new Date().toISOString()
-                });
+                }, { merge: true });
                 upCount++;
+            } else if (update.id) {
+                console.log(`  ⚠️  건너뜀: ID 미일치 (${update.id})`);
             }
         }
         if (upCount > 0) {
