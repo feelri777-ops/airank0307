@@ -62,6 +62,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   const [isBigUI, setIsBigUI] = useState(window.innerWidth >= 768);
   const [activeCard, setActiveCard] = useState(0);
   const [hoveredMetric, setHoveredMetric] = useState(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const touchStartX = React.useRef(null);
   const { user, loginWithGoogle } = useAuth();
   const { tools: allTools } = useTools();
@@ -73,8 +74,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
       setIsMobile(window.innerWidth < 1024);
       setIsBigUI(window.innerWidth >= 768);
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -102,15 +103,10 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   const toggleBookmark = async () => {
     if (!user) {
       if (window.confirm("북마크 기능을 사용하려면 로그인이 필요합니다. 로그인하시겠습니까?")) {
-        try {
-          await loginWithGoogle();
-        } catch (err) {
-          console.error("🔴 Login Error:", err);
-        }
+        try { await loginWithGoogle(); } catch (err) { console.error("🔴 Login Error:", err); }
       }
       return;
     }
-
     try {
       const toolIdStr = String(tool.id);
       const ref = doc(db, "bookmarks", `${user.uid}_${toolIdStr}`);
@@ -118,17 +114,12 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
         await deleteDoc(ref);
         setBookmarked(false);
       } else {
-        await setDoc(ref, {
-          uid: user.uid,
-          toolId: toolIdStr,
-          toolName: tool.name,
-          savedAt: Date.now()
-        });
+        await setDoc(ref, { uid: user.uid, toolId: toolIdStr, toolName: tool.name, savedAt: Date.now() });
         setBookmarked(true);
       }
     } catch (err) {
       console.error("🔴 Bookmark Error:", err);
-      alert("북마크 저장 중 오류가 발생했습니다. 권한을 확인해주세요.");
+      alert("북마크 저장 중 오류가 발생했습니다.");
     }
   };
 
@@ -164,380 +155,229 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
         height: "fit-content",
         padding: "0"
       }}>
-      {/* 모바일: 스와이프 캐러셀 / 데스크탑: 가로 배치 */}
-      <div
-        style={{
+        <div style={{
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
           gap: isMobile ? "0" : "22px",
           width: "100%",
           alignItems: "flex-start",
-          ...(isMobile ? {
-            overflow: "hidden",
-            position: "relative",
-          } : {})
-        }}
-      >
-      {/* 모바일 슬라이드 트랙 */}
-      <div
-        onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
-        onTouchEnd={(e) => {
-          if (touchStartX.current === null) return;
-          const diff = touchStartX.current - e.changedTouches[0].clientX;
-          if (Math.abs(diff) > 50) setActiveCard(diff > 0 ? 1 : 0);
-          touchStartX.current = null;
-        }}
-        style={isMobile ? {
-          display: "flex",
-          flexDirection: "row",
-          width: "200%",
-          transform: `translateX(${activeCard === 0 ? "0%" : "-50%"})`,
-          transition: "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
-        } : {
-          display: "contents",
-        }}
-      >
-
-        <div
-          onClick={(e) => {
-            // Card background/content also closes.
-          }}
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: isBigUI ? "36px" : "20px", ...(isMobile ? { width: "50%", flexShrink: 0, padding: isBigUI ? "28px 24px" : "16px 14px" } : { flex: 1, minWidth: 0, padding: "28px 32px 32px" }), position: "relative", boxShadow: "0 25px 50px rgba(0,0,0,0.4)" }}
-        >
-          <div style={{ position: "absolute", top: "18px", right: "18px", zIndex: 20 }}>
-            <button
-              onClick={(e) => { e.stopPropagation(); toggleBookmark(); }}
-              aria-label={bookmarked ? "북마크 제거" : "북마크 추가"}
-              style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", cursor: "pointer", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", color: bookmarked ? "var(--accent-indigo)" : "var(--text-muted)", transition: "transform 0.2s, background-color 0.2s, box-shadow 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}
-              onMouseEnter={e => { e.currentTarget.style.transform='scale(1.1)'; e.currentTarget.style.backgroundColor='var(--bg-card)'; }}
-              onMouseLeave={e => { e.currentTarget.style.transform='scale(1)'; e.currentTarget.style.backgroundColor='var(--bg-secondary)'; }}
-            >
-              <Icon name={bookmarked ? "bookmark-simple-fill" : "bookmark-simple"} size={22} weight={bookmarked ? "fill" : "bold"} />
-            </button>
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "16px" }}>
-            {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name || "Tool"} width={isBigUI ? 58 : 48} height={isBigUI ? 58 : 48} style={{ borderRadius: "14px", objectFit: "contain" }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: isBigUI ? "2.6rem" : "2.2rem" }}>{typeof tool.icon === 'string' ? tool.icon : "🤖"}</span> )}
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-                <h2 style={{ fontSize: isBigUI ? "1.7rem" : "1.4rem", fontWeight: 950, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.01em" }}>{tool.name || "Unknown Tool"}</h2>
-                <div style={{ background: "var(--accent-indigo)", color: "#fff", padding: isBigUI ? "4px 12px" : "3px 10px", borderRadius: "8px", fontSize: isBigUI ? "0.85rem" : "0.7rem", fontWeight: 900 }}>RANK {rank}위</div>
+          ...(isMobile ? { overflow: "hidden", position: "relative" } : {})
+        }}>
+          <div
+            onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+            onTouchEnd={(e) => {
+              if (touchStartX.current === null) return;
+              const diff = touchStartX.current - e.changedTouches[0].clientX;
+              if (Math.abs(diff) > 50) setActiveCard(diff > 0 ? 1 : 0);
+              touchStartX.current = null;
+            }}
+            style={isMobile ? {
+              display: "flex", flexDirection: "row", width: "200%",
+              transform: `translateX(${activeCard === 0 ? "0%" : "-50%"})`,
+              transition: "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+            } : { display: "contents" }}
+          >
+            <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: isBigUI ? "36px" : "20px", ...(isMobile ? { width: "50%", flexShrink: 0, padding: isBigUI ? "28px 24px" : "16px 14px" } : { flex: 1, minWidth: 0, padding: "28px 32px 32px" }), position: "relative", boxShadow: "0 25px 50px rgba(0,0,0,0.4)" }}>
+              <div style={{ position: "absolute", top: "18px", right: "18px", zIndex: 20 }}>
+                <button onClick={(e) => { e.stopPropagation(); toggleBookmark(); }} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", cursor: "pointer", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", color: bookmarked ? "var(--accent-indigo)" : "var(--text-muted)", transition: "transform 0.2s, background-color 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}>
+                  <Icon name={bookmarked ? "bookmark-simple-fill" : "bookmark-simple"} size={22} weight={bookmarked ? "fill" : "bold"} />
+                </button>
               </div>
-            </div>
-          </div>
 
-          {(tool.oneLineReview || tool.One_Line_Review) && (() => {
-            const reviewText = tool.oneLineReview || tool.One_Line_Review || "";
-            const reviewLen = reviewText.length;
-            // 폰트 크기 1.3배 추가 상향 (기존 대비 시각적 가독성 극대화)
-            const desktopBaseSize = (reviewLen > 35 ? 1.05 : reviewLen > 25 ? 1.25 : 1.45) * 1.3;
-            const mobileBaseSize = (reviewLen > 35 ? 0.85 : reviewLen > 25 ? 0.95 : 1.1) * 1.3;
-            
-            return (
-              <div style={{
-                marginBottom: "12px",
-                paddingLeft: "12px",
-                borderLeft: "4px solid var(--accent-indigo)",
-                overflow: "hidden",
-                position: "relative",
-                background: "rgba(99,102,241,0.03)",
-                borderRadius: "0 12px 12px 0",
-                padding: "10px 12px"
-              }}>
-                <div 
-                  className={reviewLen > 15 ? "review-marquee-track" : ""}
-                  style={{
-                    display: "flex",
-                    gap: "80px", // 문구 간의 간격 (60% 지점 요구사항 반영)
-                    width: "max-content", 
-                    fontSize: isBigUI ? `${desktopBaseSize}rem` : `${mobileBaseSize}rem`,
-                    fontWeight: 950,
-                    color: "var(--text-primary)",
-                    lineHeight: 1.2,
-                    whiteSpace: "nowrap",
-                  }}>
-                  <span>"{reviewText}"</span>
-                  {/* 무한 루프를 위해 동일한 문구 한 번 더 렌더링 */}
-                  {reviewLen > 15 && <span>"{reviewText}"</span>}
-                </div>
-              </div>
-            );
-          })()}
-
-          <p style={{ fontSize: isBigUI ? "1rem" : "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55, marginBottom: "16px", fontWeight: 500 }}>{tool.desc || tool.description || "설명이 없습니다."}</p>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginBottom: "16px", background: "rgba(0,0,0,0.03)", padding: "12px 16px", borderRadius: "22px" }}>
-            {/* 종합점수 — full width */}
-            {(() => {
-              const main = metrics.find(m => m.isMain);
-              const val = Number(tool?.[main.k] ?? tool?.metrics?.[main.k] ?? 0);
-              return (
-                <div key={main.k} title={main.d} style={{
-                  display: "grid", gridTemplateColumns: !isBigUI ? "80px 1fr 40px" : "110px 1fr 50px",
-                  alignItems: "center", gap: !isBigUI ? "10px" : "16px", cursor: "help", height: "32px",
-                }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: !isBigUI ? "0.92rem" : "1.1rem", fontWeight: 950, color: "var(--text-primary)" }}>
-                    <Icon name={main.k === 'score' ? 'trend-up' : main.k} size={!isBigUI ? 18 : 22} /> {main.l}
-                  </div>
-                  <SparkLine val={val} color={main.c} height={!isBigUI ? "7px" : "8.5px"} glow />
-                  <div style={{ fontSize: !isBigUI ? "0.95rem" : "1.2rem", fontWeight: 1000, color: main.c, textAlign: "right", fontFamily: "'Outfit', 'Pretendard', sans-serif" }}>
-                    {val.toFixed(1)}
+              <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "16px" }}>
+                {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name || "Tool"} width={isBigUI ? 58 : 48} height={isBigUI ? 58 : 48} style={{ borderRadius: "14px", objectFit: "contain" }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: isBigUI ? "2.6rem" : "2.2rem" }}>{typeof tool.icon === 'string' ? tool.icon : "🤖"}</span> )}
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                    <h2 style={{ fontSize: isBigUI ? "1.7rem" : "1.4rem", fontWeight: 950, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.01em" }}>{tool.name || "Unknown Tool"}</h2>
+                    <div style={{ background: "var(--accent-indigo)", color: "#fff", padding: isBigUI ? "4px 12px" : "3px 10px", borderRadius: "8px", fontSize: isBigUI ? "0.85rem" : "0.7rem", fontWeight: 900 }}>RANK {rank}위</div>
                   </div>
                 </div>
-              );
-            })()}
-            {/* 나머지 5개 — 2열 그리드 */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 12px" }}>
-                {metrics.filter(m => !m.isMain).map(m => {
-                  const val = Number(tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0);
-                  const isHovered = hoveredMetric === m.k;
+              </div>
+
+              {(tool.oneLineReview || tool.One_Line_Review) && (() => {
+                const reviewText = tool.oneLineReview || tool.One_Line_Review || "";
+                const reviewLen = reviewText.length;
+                const desktopBaseSize = (reviewLen > 35 ? 1.05 : reviewLen > 25 ? 1.25 : 1.45) * 1.3;
+                const mobileBaseSize = (reviewLen > 35 ? 0.85 : reviewLen > 25 ? 0.95 : 1.1) * 1.3;
+                return (
+                  <div style={{ marginBottom: "12px", paddingLeft: "12px", borderLeft: "4px solid var(--accent-indigo)", overflow: "hidden", position: "relative", background: "rgba(99,102,241,0.03)", borderRadius: "0 12px 12px 0", padding: "10px 12px" }}>
+                    <div className={reviewLen > 15 ? "review-marquee-track" : ""} style={{ display: "flex", gap: "80px", width: "max-content", fontSize: isBigUI ? `${desktopBaseSize}rem` : `${mobileBaseSize}rem`, fontWeight: 950, color: "var(--text-primary)", lineHeight: 1.2, whiteSpace: "nowrap" }}>
+                      <span>"{reviewText}"</span>
+                      {reviewLen > 15 && <span>"{reviewText}"</span>}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              <p style={{ fontSize: isBigUI ? "1rem" : "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55, marginBottom: "16px", fontWeight: 500 }}>{tool.desc || tool.description || "설명이 없습니다."}</p>
+
+              <div onMouseMove={(e) => { if (isBigUI) setMousePos({ x: e.clientX, y: e.clientY }); }} style={{ display: "flex", flexDirection: "column", gap: "6px", marginBottom: "16px", background: "rgba(0,0,0,0.03)", padding: "12px 16px", borderRadius: "22px" }}>
+                {(() => {
+                  const main = metrics.find(m => m.isMain);
+                  const val = Number(tool?.[main.k] ?? tool?.metrics?.[main.k] ?? 0);
                   return (
-                    <div
-                      key={m.k}
-                      onMouseEnter={() => setHoveredMetric(m.k)}
-                      onMouseLeave={() => setHoveredMetric(null)}
-                      style={{
-                        display: "grid", gridTemplateColumns: !isBigUI ? "65px 1fr 30px" : "85px 1fr 38px",
-                        alignItems: "center", gap: !isBigUI ? "6px" : "10px", cursor: "help", height: "26px",
-                        padding: "4px 6px", borderRadius: "6px",
-                        background: isHovered ? `${m.c}15` : "transparent",
-                        transition: "background 0.15s ease",
-                      }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: !isBigUI ? "0.78rem" : "0.92rem", fontWeight: 800, color: isHovered ? m.c : "var(--text-secondary)", transition: "color 0.15s ease" }}>
-                        <Icon name={m.k === 'usage' ? 'wrench' : m.k === 'tech' ? 'cpu' : m.k === 'buzz' ? 'megaphone' : m.k === 'utility' ? 'lightning' : 'chart-line-up'} size={!isBigUI ? 14 : 17} /> {m.l}
+                    <div key={main.k} onMouseEnter={() => setHoveredMetric(main.k)} onMouseLeave={() => setHoveredMetric(null)} style={{ display: "grid", gridTemplateColumns: !isBigUI ? "80px 1fr 40px" : "110px 1fr 50px", alignItems: "center", gap: !isBigUI ? "10px" : "16px", cursor: "help", height: "32px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: !isBigUI ? "0.92rem" : "1.1rem", fontWeight: 950, color: "var(--text-primary)" }}>
+                        <Icon name={main.k === 'score' ? 'trend-up' : main.k} size={!isBigUI ? 18 : 22} /> {main.l}
                       </div>
-                      <SparkLine val={val} color={m.c} height={!isBigUI ? "4px" : "5px"} />
-                      <div style={{ fontSize: !isBigUI ? "0.75rem" : "0.9rem", fontWeight: 900, color: isHovered ? m.c : "var(--text-primary)", textAlign: "right", opacity: 0.9 }}>
-                        {val.toFixed(1)}
-                      </div>
+                      <SparkLine val={val} color={main.c} height={!isBigUI ? "7px" : "8.5px"} glow />
+                      <div style={{ fontSize: !isBigUI ? "0.95rem" : "1.2rem", fontWeight: 1000, color: main.c, textAlign: "right", fontFamily: "'Outfit', 'Pretendard', sans-serif" }}>{val.toFixed(1)}</div>
                     </div>
                   );
-                })}
+                })()}
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 12px" }}>
+                    {metrics.filter(m => !m.isMain).map(m => {
+                      const val = Number(tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0);
+                      const isHovered = hoveredMetric === m.k;
+                      return (
+                        <div key={m.k} onMouseEnter={() => setHoveredMetric(m.k)} onMouseLeave={() => setHoveredMetric(null)} style={{ display: "grid", gridTemplateColumns: !isBigUI ? "65px 1fr 30px" : "85px 1fr 38px", alignItems: "center", gap: !isBigUI ? "6px" : "10px", cursor: "help", height: "26px", padding: "4px 6px", borderRadius: "6px", background: isHovered ? `${m.c}15` : "transparent", transition: "background 0.15s ease" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: !isBigUI ? "0.78rem" : "0.92rem", fontWeight: 800, color: isHovered ? m.c : "var(--text-secondary)", transition: "color 0.15s ease" }}>
+                            <Icon name={m.k === 'usage' ? 'wrench' : m.k === 'tech' ? 'cpu' : m.k === 'buzz' ? 'megaphone' : m.k === 'utility' ? 'lightning' : 'chart-line-up'} size={!isBigUI ? 14 : 17} /> {m.l}
+                          </div>
+                          <SparkLine val={val} color={m.c} height={!isBigUI ? "4px" : "5px"} />
+                          <div style={{ fontSize: !isBigUI ? "0.75rem" : "0.9rem", fontWeight: 900, color: isHovered ? m.c : "var(--text-primary)", textAlign: "right", opacity: 0.9 }}>{val.toFixed(1)}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-              {hoveredMetric && (
-                <div style={{
-                  fontSize: "0.75rem", color: "var(--text-secondary)", lineHeight: 1.4,
-                  padding: "8px 10px", background: "var(--bg-secondary)", borderRadius: "6px",
-                  border: `1px solid var(--border-primary)`, animation: "fadeIn 0.15s ease"
-                }}>
-                  {metrics.find(m => m.k === hoveredMetric)?.d}
+
+              <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "12px 14px", border: "1px solid var(--border-primary)", marginBottom: "12px" }}>
+                <div style={{ fontSize: "0.78rem", fontWeight: 800, color: "var(--accent-indigo)", marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}><Icon name="lightbulb" size={18} weight="fill" /> 핵심 기능 및 분석</div>
+                  {tool.koSupport === "Y" && <span style={{ fontSize: "0.7rem", color: "#10b981", background: "rgba(16, 185, 129, 0.1)", padding: "2px 8px", borderRadius: "12px", fontWeight: 800 }}>한국어 지원</span>}
+                </div>
+                {(() => {
+                  const usp = tool.usp || tool.USP;
+                  const uspText = typeof usp === 'string' ? usp : null;
+                  return uspText ? ( <div style={{ fontSize: isBigUI ? "0.95rem" : "0.8rem", color: "var(--text-primary)", lineHeight: 1.4, marginBottom: "10px", fontWeight: 500 }}>{uspText}</div> ) : null;
+                })()}
+                {(() => {
+                  const prosCons = tool.prosCons || tool.Pros_Cons;
+                  if (typeof prosCons === 'string') { return ( <div style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{prosCons}</div> ); }
+                  else if (prosCons && typeof prosCons === 'object') {
+                    const pros = Array.isArray(prosCons.pros) ? prosCons.pros : [];
+                    const cons = Array.isArray(prosCons.cons) ? prosCons.cons : [];
+                    if (pros.length === 0 && cons.length === 0) return null;
+                    return (
+                      <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.4, display: "flex", flexDirection: "column", gap: "8px" }}>
+                        {pros.length > 0 && (
+                          <div style={{ background: "rgba(16, 185, 129, 0.05)", padding: "6px 10px", borderRadius: "10px" }}>
+                            <strong style={{ color: "#10b981", fontWeight: 700, fontSize: "0.78rem" }}>강점 👍</strong>
+                            <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400, fontSize: "0.78rem" }}>{pros.join(", ")}</div>
+                          </div>
+                        )}
+                        {cons.length > 0 && (
+                          <div style={{ background: "rgba(239, 68, 68, 0.05)", padding: "6px 10px", borderRadius: "10px" }}>
+                            <strong style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.78rem" }}>약점 😅</strong>
+                            <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400, fontSize: "0.78rem" }}>{cons.join(", ")}</div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
+              </div>
+
+              <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
+                <a href={tool.url || tool.URL || "#"} target="_blank" rel="noopener noreferrer" style={{ flex: isMobile ? 2 : 1.6, display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", padding: isBigUI ? "14px" : "10px 8px", borderRadius: "14px", background: "var(--accent-indigo)", color: "#fff", fontWeight: 950, textDecoration: "none", fontSize: isBigUI ? "1.1rem" : "0.8rem", whiteSpace: "nowrap", boxShadow: "0 6px 14px rgba(99,102,241,0.2)" }}>공식 사이트 바로가기 <Icon name="arrow-right" size={isBigUI ? 18 : 14} weight="bold" /></a>
+                <button onClick={(e) => { e.stopPropagation(); onClose(); navigate("/community"); }} style={{ flex: 1, padding: isBigUI ? "14px" : "10px 8px", borderRadius: "14px", border: "1px solid var(--border-primary)", background: "none", color: "var(--text-primary)", fontWeight: 900, cursor: "pointer", fontSize: isBigUI ? "1rem" : "0.8rem", whiteSpace: "nowrap" }}>게시판</button>
+              </div>
+            </div>
+
+            <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: isBigUI ? "36px" : "20px", ...(isMobile ? { width: "50%", flexShrink: 0, padding: isBigUI ? "24px" : "16px 14px" } : { flex: 1, minWidth: 0, padding: "20px" }), boxShadow: "0 20px 40px rgba(0,0,0,0.3)", position: "relative" }}>
+              {!isMobile && <button onClick={onClose} aria-label="모달 닫기" style={{ position: "absolute", top: "-45px", right: "0", background: "rgba(255,255,255,0.1)", border: "none", color: "#fff", cursor: "pointer", fontSize: "1.2rem", width: "32px", height: "32px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(5px)" }}>✕</button>}
+              <div style={{ marginBottom: "28px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+                  <div style={{ background: "rgba(255,0,0,0.1)", padding: "6px", borderRadius: "8px", display: "flex" }}><Icon name="youtube-logo-fill" size={20} color="#ff0000" weight="fill" /></div>
+                  <span style={{ fontSize: "0.9rem", fontWeight: 900 }}>AI 실전 활용 팁</span>
+                </div>
+                {videos.length === 0 ? ( <div style={{ padding: "30px 20px", textAlign: "center", background: "var(--bg-secondary)", borderRadius: "20px", fontSize: "0.75rem", color: "var(--text-muted)", border: "1px dashed var(--border-primary)" }}>관련 영상이 준비 중입니다.</div> ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    {videos.slice(0, 3).map((v, i) => (
+                      <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "12px", textDecoration: "none", padding: "8px", borderRadius: "14px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "background 0.2s, transform 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor="var(--accent-indigo)"; e.currentTarget.style.transform="translateY(-2px)"; }} onMouseLeave={e => { e.currentTarget.style.borderColor="var(--border-primary)"; e.currentTarget.style.transform="translateY(0)"; }}>
+                        <div style={{ width: isBigUI ? "192px" : "140px", height: isBigUI ? "108px" : "79px", flexShrink: 0, borderRadius: "10px", overflow: "hidden", background: "#000" }}>{v.thumbnail && <img src={v.thumbnail} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}</div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ fontSize: isBigUI ? "0.95rem" : "0.75rem", fontWeight: 800, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.4, marginBottom: isBigUI ? "8px" : "4px" }}>{decodeHtmlSafe(v.title)}</div>
+                          <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: isBigUI ? "0.78rem" : "0.62rem", color: "var(--text-muted)", fontWeight: 700 }}>
+                            {(v.viewCount && v.viewCount > 0) && <span style={{ background: "rgba(0,0,0,0.05)", padding: "2px 7px", borderRadius: "6px" }}>{formatViewCount(v.viewCount)}회</span>}
+                            <span style={{ color: "var(--accent-indigo)", opacity: 0.9, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{v.channelTitle || "Unknown Channel"}</span>
+                          </div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div style={{ height: "1px", background: "var(--border-primary)", margin: "0 -24px 24px", opacity: 0.5 }} />
+              {synerToolList.length > 0 && (
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+                    <div style={{ background: "rgba(99,102,241,0.1)", padding: "6px", borderRadius: "8px", display: "flex" }}><Icon name="sparkle" size={20} weight="fill" color="var(--accent-indigo)" /></div>
+                    <span style={{ fontSize: "0.9rem", fontWeight: 900 }}>함께 쓰면 좋은 시너지 AI</span>
+                  </div>
+                  <div style={{ display: "grid", gap: "10px" }}>
+                    {synerToolList.map(rt => (
+                      <a key={rt.id} href={rt.url || rt.URL || "#"} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "12px", borderRadius: "18px", background: "var(--bg-secondary)", textDecoration: "none", border: "1px solid var(--border-primary)", transition: "background 0.2s, transform 0.2s" }} onMouseEnter={e => { e.currentTarget.style.transform="translateX(5px)"; e.currentTarget.style.borderColor="var(--accent-indigo)"; }} onMouseLeave={e => { e.currentTarget.style.transform="translateX(0)"; e.currentTarget.style.borderColor="var(--border-primary)"; }}>
+                        {getFaviconUrl(rt.url || rt.URL) ? <img src={getFaviconUrl(rt.url || rt.URL)} alt={rt.name || "Tool"} width={32} height={32} loading="lazy" style={{ borderRadius: "8px" }} /> : <span style={{ width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem" }}>🤖</span>}
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{rt.name || "Unknown Tool"}</div>
+                          <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>{rt.cat || rt.category || "기타"}</div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
                 </div>
               )}
-              <style>{`
-                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-                @keyframes marqueeReview {
-                  0% { transform: translateX(0); }
-                  100% { transform: translateX(calc(-50% - 40px)); }
-                }
-                .review-marquee-track {
-                  animation: marqueeReview 18s linear infinite;
-                  animation-delay: 2s;
-                }
-              `}</style>
             </div>
-          </div>
-
-          {/* 통합 설명란: USP + 장점/단점 */}
-          <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "12px 14px", border: "1px solid var(--border-primary)", marginBottom: "12px" }}>
-            <div style={{ fontSize: "0.78rem", fontWeight: 800, color: "var(--accent-indigo)", marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <Icon name="lightbulb" size={18} weight="fill" /> 핵심 기능 및 분석
-              </div>
-              {tool.koSupport === "Y" && (
-                <span style={{ fontSize: "0.7rem", color: "#10b981", background: "rgba(16, 185, 129, 0.1)", padding: "2px 8px", borderRadius: "12px", fontWeight: 800 }}>한국어 지원</span>
-              )}
-            </div>
-
-            {(() => {
-              const usp = tool.usp || tool.USP;
-              const uspText = typeof usp === 'string' ? usp : null;
-              return uspText ? (
-                <div style={{ fontSize: isBigUI ? "0.95rem" : "0.8rem", color: "var(--text-primary)", lineHeight: 1.4, marginBottom: "10px", fontWeight: 500 }}>
-                  {uspText}
-                </div>
-              ) : null;
-            })()}
-
-            {(() => {
-              const prosCons = tool.prosCons || tool.Pros_Cons;
-              if (typeof prosCons === 'string') {
-                return (
-                  <div style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
-                    {prosCons}
-                  </div>
-                );
-              } else if (prosCons && typeof prosCons === 'object') {
-                const pros = Array.isArray(prosCons.pros) ? prosCons.pros : [];
-                const cons = Array.isArray(prosCons.cons) ? prosCons.cons : [];
-                if (pros.length === 0 && cons.length === 0) return null;
-                return (
-                  <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.4, display: "flex", flexDirection: "column", gap: "8px" }}>
-                    {pros.length > 0 && (
-                      <div style={{ background: "rgba(16, 185, 129, 0.05)", padding: "6px 10px", borderRadius: "10px" }}>
-                        <strong style={{ color: "#10b981", fontWeight: 700, fontSize: "0.78rem" }}>강점 👍</strong>
-                        <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400, fontSize: "0.78rem" }}>{pros.join(", ")}</div>
-                      </div>
-                    )}
-                    {cons.length > 0 && (
-                      <div style={{ background: "rgba(239, 68, 68, 0.05)", padding: "6px 10px", borderRadius: "10px" }}>
-                        <strong style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.78rem" }}>약점 😅</strong>
-                        <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400, fontSize: "0.78rem" }}>{cons.join(", ")}</div>
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-              return null;
-            })()}
-          </div>
-
-
-          <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
-            <a
-              href={tool.url || tool.URL || "#"}
-              target={tool.url || tool.URL ? "_blank" : "_self"}
-              rel={tool.url || tool.URL ? "noopener noreferrer" : ""}
-              onClick={(e) => {
-                e.stopPropagation();
-                if (!tool.url && !tool.URL) e.preventDefault();
-              }}
-              style={{
-                flex: isMobile ? 2 : 1.6,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "6px",
-                padding: isBigUI ? "14px" : "10px 8px",
-                borderRadius: "14px",
-                background: "var(--accent-indigo)",
-                color: "#fff",
-                fontWeight: 950,
-                textDecoration: "none",
-                fontSize: isBigUI ? "1.1rem" : "0.8rem",
-                whiteSpace: "nowrap",
-                boxShadow: "0 6px 14px rgba(99,102,241,0.2)"
-              }}
-            >공식 사이트 바로가기 <Icon name="arrow-right" size={isBigUI ? 18 : 14} weight="bold" /></a>
-            <button
-              onClick={(e) => { e.stopPropagation(); onClose(); navigate("/community"); }}
-              style={{
-                flex: 1,
-                padding: isBigUI ? "14px" : "10px 8px",
-                borderRadius: "14px",
-                border: "1px solid var(--border-primary)",
-                background: "none",
-                color: "var(--text-primary)",
-                fontWeight: 900,
-                cursor: "pointer",
-                fontSize: isBigUI ? "1rem" : "0.8rem",
-                whiteSpace: "nowrap"
-              }}
-            >게시판</button>
           </div>
         </div>
+        {isMobile && (
+          <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginTop: "14px" }}>
+            {[0, 1].map((i) => (
+              <button key={i} onClick={(e) => { e.stopPropagation(); setActiveCard(i); }} style={{ width: activeCard === i ? "24px" : "8px", height: "8px", borderRadius: "4px", background: activeCard === i ? "var(--accent-indigo)" : "rgba(255,255,255,0.3)", border: "none", cursor: "pointer", padding: 0, transition: "width 0.3s ease, background 0.3s ease" }} />
+            ))}
+          </div>
+        )}
+      </div>
 
-        {/* [우측 카드]: 유튜브 및 시너지 AI 추천 */}
+      {hoveredMetric && isBigUI && (
         <div style={{
-          background: "var(--bg-card)",
-          border: "1px solid var(--border-primary)",
-          borderRadius: isBigUI ? "36px" : "20px",
-          ...(isMobile ? { width: "50%", flexShrink: 0, padding: isBigUI ? "24px" : "16px 14px" } : { flex: 1, minWidth: 0, padding: "20px" }),
-          boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-          position: "relative"
+          position: "fixed",
+          left: (mousePos.x > window.innerWidth - 300) ? mousePos.x - 290 : mousePos.x + 20,
+          top: (mousePos.y > window.innerHeight - 100) ? mousePos.y - 80 : mousePos.y + 20,
+          zIndex: 3000,
+          pointerEvents: "none",
+          maxWidth: "280px",
+          background: "rgba(255, 255, 255, 0.95)",
+          backdropFilter: "blur(12px)",
+          border: "1px solid rgba(0, 0, 0, 0.1)",
+          borderRadius: "12px",
+          padding: "12px 16px",
+          boxShadow: "0 15px 35px rgba(0,0,0,0.25)",
+          animation: "tooltipReveal 0.2s cubic-bezier(0.19, 1, 0.22, 1)",
+          fontSize: "0.85rem",
+          fontWeight: 600,
+          color: "rgba(0,0,0,0.85)",
+          lineHeight: 1.5
         }}>
-          {!isMobile && <button onClick={onClose} aria-label="모달 닫기" style={{ position: "absolute", top: "-45px", right: "0", background: "rgba(255,255,255,0.1)", border: "none", color: "#fff", cursor: "pointer", fontSize: "1.2rem", width: "32px", height: "32px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(5px)" }}>✕</button>}
-
-          {/* 유튜브 링크 */}
-          <div style={{ marginBottom: "28px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-              <div style={{ background: "rgba(255,0,0,0.1)", padding: "6px", borderRadius: "8px", display: "flex" }}><Icon name="youtube-logo-fill" size={20} color="#ff0000" weight="fill" /></div>
-              <span style={{ fontSize: "0.9rem", fontWeight: 900 }}>AI 실전 활용 팁</span>
-            </div>
-            {videos.length === 0 ? (
-               <div style={{ padding: "30px 20px", textAlign: "center", background: "var(--bg-secondary)", borderRadius: "20px", fontSize: "0.75rem", color: "var(--text-muted)", border: "1px dashed var(--border-primary)" }}>관련 영상이 준비 중입니다.</div>
-            ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                {videos.slice(0, 3).map((v, i) => (
-                  <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "12px", textDecoration: "none", padding: "8px", borderRadius: "14px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
-                    <div style={{ width: isBigUI ? "192px" : "140px", height: isBigUI ? "108px" : "79px", flexShrink: 0, borderRadius: "10px", overflow: "hidden", background: "#000" }}>
-                      {v.thumbnail && <img src={v.thumbnail} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
-                    </div>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: isBigUI ? "0.95rem" : "0.75rem", fontWeight: 800, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.4, marginBottom: isBigUI ? "8px" : "4px" }}>{decodeHtmlSafe(v.title)}</div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: isBigUI ? "0.78rem" : "0.62rem", color: "var(--text-muted)", fontWeight: 700 }}>
-                        {(v.viewCount && v.viewCount > 0) && <span style={{ background: "rgba(0,0,0,0.05)", padding: "2px 7px", borderRadius: "6px" }}>{formatViewCount(v.viewCount)}회</span>}
-                        <span style={{ color: "var(--accent-indigo)", opacity: 0.9, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{v.channelTitle || "Unknown Channel"}</span>
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            )}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px", color: metrics.find(m => m.k === hoveredMetric)?.c || "var(--accent-indigo)" }}>
+            <Icon name={hoveredMetric === "score" ? "trend-up" : (hoveredMetric === "usage" ? "wrench" : hoveredMetric === "tech" ? "cpu" : hoveredMetric === "buzz" ? "megaphone" : hoveredMetric === "utility" ? "lightning" : "chart-line-up")} size={16} weight="fill" />
+            <span style={{ fontWeight: 900 }}>{metrics.find(m => m.k === hoveredMetric)?.l}</span>
           </div>
-
-          <div style={{ height: "1px", background: "var(--border-primary)", margin: "0 -24px 24px", opacity: 0.5 }} />
-
-          {/* 시너지 AI 추천 */}
-          {synerToolList.length > 0 && (
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-                <div style={{ background: "rgba(99,102,241,0.1)", padding: "6px", borderRadius: "8px", display: "flex" }}><Icon name="sparkle" size={20} weight="fill" color="var(--accent-indigo)" /></div>
-                <span style={{ fontSize: "0.9rem", fontWeight: 900 }}>함께 쓰면 좋은 시너지 AI</span>
-              </div>
-              <div style={{ display: "grid", gap: "10px" }}>
-                {synerToolList.map(rt => (
-                  <a
-                    key={rt.id}
-                    href={rt.url || rt.URL || "#"}
-                    target={rt.url || rt.URL ? "_blank" : "_self"}
-                    rel={rt.url || rt.URL ? "noopener noreferrer" : ""}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (!rt.url && !rt.URL) e.preventDefault();
-                    }}
-                    style={{ display: "flex", alignItems: "center", gap: "14px", padding: "12px", borderRadius: "18px", background: "var(--bg-secondary)", textDecoration: "none", border: "1px solid var(--border-primary)", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s" }}
-                    onMouseEnter={e => { e.currentTarget.style.transform='translateX(5px)'; e.currentTarget.style.borderColor='var(--accent-indigo)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform='translateX(0)'; e.currentTarget.style.borderColor='var(--border-primary)'; }}
-                  >
-                    {getFaviconUrl(rt.url || rt.URL) ? <img src={getFaviconUrl(rt.url || rt.URL)} alt={rt.name || "Tool"} width={32} height={32} loading="lazy" style={{ width: 32, height: 32, borderRadius: "8px" }} /> : <span style={{ width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem" }}>🤖</span>}
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{rt.name || "Unknown Tool"}</div>
-                      <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>{rt.cat || rt.category || "기타"}</div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>{/* 슬라이드 트랙 끝 */}
-      </div>{/* 오버플로우 래퍼 끝 */}
-
-      {/* 모바일 도트 인디케이터 */}
-      {isMobile && (
-        <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginTop: "14px" }}>
-          {[0, 1].map((i) => (
-            <button
-              key={i}
-              onClick={(e) => { e.stopPropagation(); setActiveCard(i); }}
-              aria-label={`${i + 1}번째 카드로 이동`}
-              aria-current={activeCard === i}
-              style={{
-                width: activeCard === i ? "24px" : "8px",
-                height: "8px",
-                borderRadius: "4px",
-                background: activeCard === i ? "var(--accent-indigo)" : "rgba(255,255,255,0.3)",
-                border: "none",
-                cursor: "pointer",
-                padding: 0,
-                transition: "width 0.3s ease, background 0.3s ease",
-              }}
-            />
-          ))}
+          {metrics.find(m => m.k === hoveredMetric)?.d}
         </div>
       )}
-      </div>{/* 컨테이너 끝 */}
+
+      <style>{`
+        @keyframes tooltipReveal { from { opacity: 0; transform: scale(0.95) translateY(5px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes marqueeReview { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 40px)); } }
+        .review-marquee-track { animation: marqueeReview 18s linear infinite; animation-delay: 2s; }
+      `}</style>
     </div>
   );
 };
