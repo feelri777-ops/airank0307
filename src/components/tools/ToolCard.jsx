@@ -4,6 +4,8 @@ import { useTheme } from "../../context/ThemeContext";
 import { LOGO_OVERRIDES, getRankColor, getRankFontSize } from "../../constants/toolCard";
 import { translateTag } from "../../constants/index";
 
+import { CaretUp, CaretDown, Minus } from "../icons/PhosphorIcons";
+
 const getFaviconUrl = (url) => {
   if (!url || typeof url !== 'string') return null;
   try {
@@ -38,25 +40,38 @@ const ToolCard = ({ tool, rank, onClick }) => {
   const RankBadge = () => {
     const color = getRankColor(rank, isMono);
     const fontSize = getRankFontSize(rank);
-    const isUp = String(change).includes("▲") || String(change).includes("+") || Number(change) > 0;
-    const isDown = String(change).includes("▼") || String(change).includes("-") || Number(change) < 0;
+    
+    // 변화량 타입 분석
+    const changeVal = parseInt(change);
+    const isUp = !isNaN(changeVal) && changeVal > 0;
+    const isDown = !isNaN(changeVal) && changeVal < 0;
+    const isStable = changeVal === 0 || change === "-" || change === "0";
 
     return (
       <div style={{
         position: "absolute", top: "12px", right: "12px",
-        display: "flex", alignItems: "center", gap: "8px",
+        display: "flex", alignItems: "center", gap: "6px",
         lineHeight: 1
       }}>
-        {change !== "-" && change !== 0 && (
+        {/* 변화량 인디케이터 (Option 2: Floating Icon) */}
+        <div style={{
+          display: "flex", alignItems: "center", gap: "1px",
+          color: isMono ? "var(--text-muted)" : (isUp ? "#22c55e" : isDown ? "#ef4444" : "var(--text-muted)"),
+          marginTop: "8px"
+        }}>
+          {isUp && <CaretUp size={12} weight="bold" />}
+          {isDown && <CaretDown size={12} weight="bold" />}
+          {isStable && <Minus size={10} weight="bold" />}
+          
           <span style={{
-            fontSize: "0.85rem", fontWeight: 900,
-            color: isMono ? "var(--text-muted)" : (isUp ? "#22c55e" : isDown ? "#ef4444" : "var(--text-muted)"),
-            fontFamily: "'IBM Plex Sans KR', 'Pretendard', sans-serif",
-            marginTop: "6px"
+            fontSize: "0.75rem", fontWeight: 800,
+            fontFamily: "'Outfit', sans-serif",
+            marginLeft: isStable ? "1px" : "0px"
           }}>
-            {change}
+            {isStable ? "" : Math.abs(changeVal)}
           </span>
-        )}
+        </div>
+
         <span style={{
           fontSize, fontWeight: 950, lineHeight: 1,
           color, fontFamily: "'Outfit', 'IBM Plex Sans KR', 'Pretendard', sans-serif",

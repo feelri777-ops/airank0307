@@ -21,10 +21,10 @@ export const RANK_FONT_SIZES = {
  */
 export const getRankColor = (rank, isMono) => {
   if (isMono) return "var(--text-primary)";
+  // 1위는 상징적인 골드 유지, 2/3위는 테마 컬러와 조화로운 색상으로 변경
   if (rank === 1) return RANK_COLORS.GOLD;
-  if (rank === 2) return RANK_COLORS.SILVER;
-  if (rank === 3) return RANK_COLORS.BRONZE;
-  return RANK_COLORS.DEFAULT;
+  // 2, 3위 및 일반 순위는 테마의 포인트 컬러(Indigo)를 사용하여 통일감 부여
+  return "var(--accent-indigo)";
 };
 
 /**

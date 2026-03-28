@@ -107,7 +107,7 @@ async function searchYouTube(query, { lang = true } = {}) {
     q: lang ? `${query} 사용법` : `${query} tutorial`,
     type: 'video',
     order: 'viewCount',
-    maxResults: 8,
+    maxResults: 15,
     key,
   });
   if (lang) {
@@ -150,8 +150,7 @@ async function searchYouTube(query, { lang = true } = {}) {
     .map(v => ({
       ...v,
       viewCount: detailMap[v.videoId]?.viewCount || 0
-    }))
-    .slice(0, 4);
+    }));
 }
 
 async function main() {
@@ -201,26 +200,38 @@ async function main() {
 
     console.log(`  [${tid}] ${tool.name} 영상 갱신 중... (쿼리: ${query})`);
     try {
-      // 1차: 한국어 검색
-      let results = await searchYouTube(query);
+      let finalResults = [];
+
+      // 1-1차: 한국어 검색 (기본 이름)
+      let ko1 = await searchYouTube(query);
+      finalResults = [...ko1];
       await sleep(300);
 
-      // 2차: 한국어 이름으로 재시도
-      if (results.length === 0 && queryKo !== query) {
-        results = await searchYouTube(queryKo);
+      // 1-2차: 한국어 이름으로 추가 검색 (결과 부족 시)
+      if (finalResults.length < 4 && queryKo && queryKo !== query) {
+        let ko2 = await searchYouTube(queryKo);
+        const existingIds = new Set(finalResults.map(v => v.videoId));
+        const newKo = ko2.filter(v => !existingIds.has(v.videoId));
+        finalResults = [...finalResults, ...newKo];
         await sleep(300);
       }
 
-      // 3차: 언어 제한 없이 영어 tutorial 검색 (폴백)
-      if (results.length === 0) {
-        results = await searchYouTube(query, { lang: false });
+      // 2차: 영문 tutorial 검색 (복합/폴백 - 한국어 영상 4개 미달 시 부족분 채우기)
+      if (finalResults.length < 4) {
+        let en = await searchYouTube(query, { lang: false });
+        const existingIds = new Set(finalResults.map(v => v.videoId));
+        const newEn = en.filter(v => !existingIds.has(v.videoId));
+        finalResults = [...finalResults, ...newEn];
         await sleep(300);
       }
 
-      if (results.length > 0) {
-        videos[tid] = results;
+      // 최종 상위 4개만 선택
+      const finalSelected = finalResults.slice(0, 4);
+
+      if (finalSelected.length > 0) {
+        videos[tid] = finalSelected;
         fetchedAt[tid] = new Date().toISOString();
-        console.log(`      ✅ ${results.length}개 갱신 성공`);
+        console.log(`      ✅ ${finalSelected.length}개 수집 (국문: ${finalResults.filter(v => ko1.some(k => k.videoId === v.videoId)).length}개 포함)`);
       } else {
         console.log(`      ⚠️ 결과 없음 — 기존 데이터 유지`);
       }

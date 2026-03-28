@@ -161,7 +161,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   return (
     <div onClick={onClose} style={{ 
       position: "fixed", inset: 0, zIndex: 2000, 
-      background: "rgba(0,0,0,0.85)", backdropFilter: "blur(16px)", 
+      background: "rgba(0,0,0,0.2)", backdropFilter: "blur(10px)", 
       overflowY: "auto", overscrollBehavior: "contain", 
       display: "flex", justifyContent: "center", alignItems: "center", 
       padding: isMobile ? "40px 0" : "60px 20px" 

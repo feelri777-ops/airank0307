@@ -481,7 +481,7 @@ const GlobalStyles = () => (
 
     /* ── 정렬 및 그리드 ── */
     .sort-container {
-      display: flex; justify-content: flex-end; gap: 4px; margin-bottom: 8px;
+      display: flex; justify-content: flex-start; gap: 4px; margin-bottom: 8px;
       overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
     }
     .sort-container::-webkit-scrollbar { display: none; }

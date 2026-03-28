@@ -65,6 +65,7 @@ export const Image = (p) => <IconWrapper {...p}><rect x="32" y="48" width="192" 
 // --- Admin Enhanced Icons (New) ---
 export const X = (p) => <IconWrapper {...p}><line x1="200" y1="56" x2="56" y2="200"/><line x1="200" y1="200" x2="56" y2="56"/></IconWrapper>;
 export const Plus = (p) => <IconWrapper {...p}><line x1="40" y1="128" x2="216" y2="128"/><line x1="128" y1="40" x2="128" y2="216"/></IconWrapper>;
+export const Minus = (p) => <IconWrapper {...p}><line x1="40" y1="128" x2="216" y2="128"/></IconWrapper>;
 export const MagnifyingGlass = (p) => <IconWrapper {...p}><circle cx="116" cy="116" r="84"/><line x1="175.4" y1="175.4" x2="224" y2="224"/></IconWrapper>;
 export const ArrowClockwise = (p) => <IconWrapper {...p}><polyline points="176 80 224 80 224 32"/><path d="M190.2,190.2a88,88,0,1,1,0-124.4L224,80"/></IconWrapper>;
 export const Users = (p) => <IconWrapper {...p}><circle cx="88" cy="72" r="40"/><path d="M160,80a40,40,0,1,0-40-40A40,40,0,0,0,160,80Z"/><path d="M40,216a80,80,0,0,1,160,0"/></IconWrapper>;
