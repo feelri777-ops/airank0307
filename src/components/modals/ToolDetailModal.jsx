@@ -131,12 +131,12 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   if (!tool) return null;
 
   const metrics = [
-    { k: "score", l: "종합점수", c: "#fbbf24", d: "Google Search 실시간 데이터와 Gemini 3 분석을 통해 산출된 통합 AIRANK 점수입니다.", isMain: true },
-    { k: "usage", l: "사용량", c: "#06b6d4", d: "실제 웹 트래픽, 앱 활성 사용자 수 등 대중적인 보급률을 측정합니다." },
-    { k: "tech", l: "기술력", c: "#818cf8", d: "AI 모델 성능(Benchmark), 독자적인 기술 혁신성 및 엔진의 완성도를 평가합니다." },
-    { k: "buzz", l: "화제성", c: "#22d3ee", d: "뉴스 보도량, 소셜 미디어(SNS) 반응, 커뮤니티 내 화제 정도를 분석합니다." },
-    { k: "utility", l: "유용성", c: "#a5b4fc", d: "실제 업무의 생산성 향상 기여도 및 사용자들의 실전 팁과 리뷰를 종합합니다." },
-    { k: "growth", l: "성장성", c: "#67e8f9", d: "업데이트 빈도, 이용자 증가 속도 및 향후 발전 가능성을 예측합니다." },
+    { k: "score", l: "종합점수", c: "var(--accent-indigo)", d: "Google Search 실시간 데이터와 Gemini 3 분석을 통해 산출된 통합 AIRANK 점수입니다.", isMain: true },
+    { k: "usage", l: "사용량", c: "var(--accent-cyan)", d: "실제 웹 트래픽, 앱 활성 사용자 수 등 대중적인 보급률을 측정합니다." },
+    { k: "tech", l: "기술력", c: "var(--accent-indigo)", d: "AI 모델 성능(Benchmark), 독자적인 기술 혁신성 및 엔진의 완성도를 평가합니다." },
+    { k: "buzz", l: "화제성", c: "var(--accent-cyan)", d: "뉴스 보도량, 소셜 미디어(SNS) 반응, 커뮤니티 내 화제 정도를 분석합니다." },
+    { k: "utility", l: "유용성", c: "var(--accent-indigo)", d: "실제 업무의 생산성 향상 기여도 및 사용자들의 실전 팁과 리뷰를 종합합니다." },
+    { k: "growth", l: "성장성", c: "var(--accent-cyan)", d: "업데이트 빈도, 이용자 증가 속도 및 향후 발전 가능성을 예측합니다." },
   ];
 
   return (
@@ -216,8 +216,11 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                   const main = metrics.find(m => m.isMain);
                   const val = Number(tool?.[main.k] ?? tool?.metrics?.[main.k] ?? 0);
                   return (
-                    <div key={main.k} onMouseEnter={() => setHoveredMetric(main.k)} onMouseLeave={() => setHoveredMetric(null)} style={{ display: "grid", gridTemplateColumns: !isBigUI ? "80px 1fr 40px" : "110px 1fr 50px", alignItems: "center", gap: !isBigUI ? "10px" : "16px", cursor: "help", height: "32px" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: !isBigUI ? "0.92rem" : "1.1rem", fontWeight: 950, color: "var(--text-primary)" }}>
+                    <div key={main.k} onMouseEnter={() => setHoveredMetric(main.k)} onMouseLeave={() => setHoveredMetric(null)} style={{
+                      display: "grid", gridTemplateColumns: !isBigUI ? "80px 1fr 42px" : "100px 1fr 55px",
+                      alignItems: "center", gap: !isBigUI ? "10px" : "16px", cursor: "help", height: "32px",
+                    }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: !isBigUI ? "0.88rem" : "1.0rem", fontWeight: 950, color: "var(--text-primary)" }}>
                         <Icon name={main.k === 'score' ? 'trend-up' : main.k} size={!isBigUI ? 18 : 22} /> {main.l}
                       </div>
                       <SparkLine val={val} color={main.c} height={!isBigUI ? "7px" : "8.5px"} glow />
@@ -231,7 +234,10 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                       const val = Number(tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0);
                       const isHovered = hoveredMetric === m.k;
                       return (
-                        <div key={m.k} onMouseEnter={() => setHoveredMetric(m.k)} onMouseLeave={() => setHoveredMetric(null)} style={{ display: "grid", gridTemplateColumns: !isBigUI ? "65px 1fr 30px" : "85px 1fr 38px", alignItems: "center", gap: !isBigUI ? "6px" : "10px", cursor: "help", height: "26px", padding: "4px 6px", borderRadius: "6px", background: isHovered ? `${m.c}15` : "transparent", transition: "background 0.15s ease" }}>
+                        <div key={m.k} onMouseEnter={() => setHoveredMetric(m.k)} onMouseLeave={() => setHoveredMetric(null)} style={{
+                          display: "grid", gridTemplateColumns: !isBigUI ? "55px 1fr 32px" : "70px 1fr 42px",
+                          alignItems: "center", gap: !isBigUI ? "6px" : "10px", cursor: "help", height: "26px",
+                          padding: "4px 6px", borderRadius: "6px", background: isHovered ? `${m.c}15` : "transparent", transition: "background 0.15s ease" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: !isBigUI ? "0.78rem" : "0.92rem", fontWeight: 800, color: isHovered ? m.c : "var(--text-secondary)", transition: "color 0.15s ease" }}>
                             <Icon name={m.k === 'usage' ? 'wrench' : m.k === 'tech' ? 'cpu' : m.k === 'buzz' ? 'megaphone' : m.k === 'utility' ? 'lightning' : 'chart-line-up'} size={!isBigUI ? 14 : 17} /> {m.l}
                           </div>
