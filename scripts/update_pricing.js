@@ -71,7 +71,11 @@ async function generatePricingInfo(toolChunk) {
 
       const result = await model.generateContent(prompt);
       const text = result.response.text();
-      const cleanedText = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+      
+      // JSON 배열 패턴([...])만 명확하게 추출 (앞뒤 텍스트 무시)
+      const jsonMatch = text.match(/\[\s*\{[\s\S]*\}\s*\]/);
+      const cleanedText = jsonMatch ? jsonMatch[0] : text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+      
       return JSON.parse(cleanedText);
     } catch (e) {
       lastError = e;
