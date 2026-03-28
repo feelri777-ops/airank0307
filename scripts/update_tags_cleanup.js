@@ -44,38 +44,33 @@ if (admin.apps.length === 0) {
 
 const db = admin.firestore();
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
 // ========================================
-// 2. 핵심 태그(3개) 추출 함수
+// 2. 핵심 태그(3개) 추출 함수 (다중 모델 시도)
 // ========================================
 async function generateSmartTags(toolChunk) {
-  const prompt = `당신은 AI 도구 데이터베이스를 관리하는 시니어 데이터 엔지니어입니다.
-아래 AI 도구들의 '명칭'과 '설명'을 분석하여, 각 도구를 가장 잘 나타내는 **핵심 태그 3가지**를 추출해 주세요.
+  const modelsToTry = ["gemini-3-flash-preview", "gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro", "models/gemini-1.5-flash", "models/gemini-pro"];
+  let lastError = null;
 
-[태그 작성 규칙]
-1. 개수: 반드시 툴 당 **딱 3개**만 추출하세요.
-2. 언어: 'LLM', 'SEO', 'API', 'SOTA', 'RAG', 'Prompt', 'GPT', 'UI' 등 전문적인 기술 용어는 **영문**으로 표기하고, 일반적인 기능이나 목적은 **한글**로 작성하세요. (예: 챗봇, 이미지생성)
-3. 순서: 가장 중요한 특징이 첫 번째 태그(Index 0)가 되도록 배치하세요. (이 태그는 UI에서 테마 색상으로 하이라이트됩니다.)
-4. 내용: 변별력 없는 공통 단어(AI, 도구 등)는 제외하고, 실제 사용자 경험에 도움되는 키워드로 구성하세요.
+  for (const modelName of modelsToTry) {
+    try {
+      const model = genAI.getGenerativeModel({ model: modelName });
+      const prompt = `AI 도구의 핵심 태그 3가지(분별력 있는 한글/영문 전문 용어)를 JSON 배열 [{ "id": "툴ID", "newTags": ["태그1", "태그2", "태그3"] }] 형식으로 추출하세요.
+대상: ${toolChunk.map(t => `${t.name}: ${t.desc || ""}`).join(', ')}`;
 
-[대상 툴 목록]
-${toolChunk.map(t => `- ID: ${t.id}, 이름: ${t.name}, 설명: ${t.desc || t.oneLineReview || ""}`).join('\n')}
-
-[출력 형식]
-반드시 아래 JSON 배열 형식으로만 대답하세요:
-[{ "id": "툴ID", "newTags": ["첫번째핵심태그", "두번째태그", "세번째태그"] }]
-`;
-
-  try {
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
-    const cleanedText = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
-    return JSON.parse(cleanedText);
-  } catch (e) {
-    console.error("❌ Gemini 생성 실패:", e.message);
-    return [];
+      const result = await model.generateContent(prompt);
+      const text = result.response.text();
+      const cleanedText = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+      return JSON.parse(cleanedText);
+    } catch (e) {
+      lastError = e;
+      console.log(`  - ${modelName} 시도 실패: ${e.message.substring(0, 50)}...`);
+      continue;
+    }
   }
+
+  console.error("❌ 모든 Gemini 모델 시도 실패:", lastError?.message);
+  return [];
 }
 
 // ========================================

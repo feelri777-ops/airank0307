@@ -43,45 +43,35 @@ if (admin.apps.length === 0) {
 
 const db = admin.firestore();
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }); // 최신 모델 사용
 
 // ========================================
-// 2. 결제 플랜(Pricing) 추출 함수
+// 2. 결제 플랜(Pricing) 추출 함수 (다중 모델 시도)
 // ========================================
 async function generatePricingInfo(toolChunk) {
-  const prompt = `당신은 AI 도구 시장 분석 전문가입니다.
-아래 AI 도구들의 '명칭', '설명', 'URL'을 분석하여, 각 도구의 현재 **결제 플랜(Pricing Plans)** 정보를 추출해 주세요.
+  const modelsToTry = ["gemini-3-flash-preview", "gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro", "models/gemini-1.5-flash", "models/gemini-pro"];
+  let lastError = null;
 
-[분석 규칙]
-1. 플랜 개수: 도구 당 2~3개 (예: Free, Pro, Team/Enterprise)
-2. 언어: 플랜 명칭(Free, Pro 등)은 **영문**으로, 상세 기능 설명은 **한글**로 작성하세요.
-3. 가격: 가급적 달러($) 기준으로 표기하되, 무료인 경우 '0'으로 표기하세요.
-4. 특징: 각 플랜별 핵심 혜택을 2~3가지 핵심 키워드로 추출하세요.
-5. 최신성: 2024~2025년 기준 공식 홈페이지 정보를 바탕으로 추론하세요. 정확한 정보를 모를 경우 'Free'와 보편적인 'Pro' 플랜으로 구성하세요.
+  for (const modelName of modelsToTry) {
+    try {
+      const model = genAI.getGenerativeModel({ model: modelName });
+      const prompt = `AI 도구 전문가로서 아래 도구들의 결제 플랜(Pricing)을 추출하세요. 
+대상: ${toolChunk.map(t => `${t.name} (${t.url})`).join(', ')}
+형식: JSON [{ "id": "툴ID", "pricing": [{ "planName": "Free", "price": "0", "billing": "Free Forever", "features": ["..."] }] }]
+상세 설명은 한글로, 플랜명은 영문으로 작성하세요.`;
 
-[대상 툴 목록]
-${toolChunk.map(t => `- ID: ${t.id}, 이름: ${t.name}, URL: ${t.url || ""}, 설명: ${t.desc || t.oneLineReview || ""}`).join('\n')}
-
-[출력 형식]
-반드시 아래 JSON 배열 형식으로만 대답하세요:
-[{ 
-  "id": "툴ID", 
-  "pricing": [
-    { "planName": "Free", "price": "0", "billing": "Free Forever", "features": ["기본 기능", "제한된 사용량"] },
-    { "planName": "Pro", "price": "20", "billing": "per month", "features": ["고급 기능", "우선 순위 지원"] }
-  ]
-}]
-`;
-
-  try {
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
-    const cleanedText = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
-    return JSON.parse(cleanedText);
-  } catch (e) {
-    console.error("❌ Gemini 생성 실패:", e.message);
-    return [];
+      const result = await model.generateContent(prompt);
+      const text = result.response.text();
+      const cleanedText = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+      return JSON.parse(cleanedText);
+    } catch (e) {
+      lastError = e;
+      console.log(`  - ${modelName} 시도 실패: ${e.message.substring(0, 100)}...`);
+      continue;
+    }
   }
+
+  console.error("❌ 모든 Gemini 모델 시도 실패:", lastError?.message);
+  return [];
 }
 
 // ========================================
