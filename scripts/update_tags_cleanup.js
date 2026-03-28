@@ -26,17 +26,20 @@ if (!GEMINI_API_KEY) {
   process.exit(1);
 }
 
-const keyPath = path.resolve(process.cwd(), 'serviceAccountKey.json');
-if (!fs.existsSync(keyPath)) {
-  console.error("❌ serviceAccountKey.json을 찾을 수 없습니다.");
-  process.exit(1);
-}
-
-// 명시적으로 Firebase 앱 초기화 여부 확인
+// Firebase 초기화 로직 개선 (GitHub Actions 지원)
 if (admin.apps.length === 0) {
-  admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(fs.readFileSync(keyPath, 'utf8')))
-  });
+  if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+    const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+    admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+  } else {
+    const keyPath = path.resolve(process.cwd(), 'serviceAccountKey.json');
+    if (fs.existsSync(keyPath)) {
+      admin.initializeApp({ credential: admin.credential.cert(JSON.parse(fs.readFileSync(keyPath, 'utf8'))) });
+    } else {
+      console.error("❌ Firebase 인증 키를 찾을 수 없습니다.");
+      process.exit(1);
+    }
+  }
 }
 
 const db = admin.firestore();
