@@ -5,6 +5,7 @@ import { db } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 import { useTools } from "../../context/ToolContext";
+import { getTrendyScenarios } from "../../utils/TrendyScenarios";
 import Icon from "../ui/Icon";
 
 const decodeHtmlSafe = (text) => {
@@ -60,7 +61,9 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   const [videos, setVideos] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [isBigUI, setIsBigUI] = useState(window.innerWidth >= 768);
-  const [activeCard, setActiveCard] = useState(0);
+  const [activeCard, setActiveCard] = useState(0); 
+  const [activeUseCasePage, setActiveUseCasePage] = useState(0);
+  const [useCaseStage, setUseCaseStage] = useState('visible'); // 'entering' | 'visible' | 'exiting'
   const [hoveredMetric, setHoveredMetric] = useState(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const touchStartX = React.useRef(null);
@@ -77,6 +80,22 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // 4초 간격으로 활용 사례(Scenario) 페이지 순차적 전환 (Sleek Slide-up & Blur 효과)
+  useEffect(() => {
+    const trendyList = getTrendyScenarios(tool);
+    const totalItems = trendyList.length || 1;
+    
+    const timer = setInterval(() => {
+      setUseCaseStage('exiting');
+      setTimeout(() => {
+        setActiveUseCasePage(prev => (prev + 1) % totalItems); // 전체 리스트 개수만큼 순환
+        setUseCaseStage('entering');
+        setTimeout(() => setUseCaseStage('visible'), 50);
+      }, 600);
+    }, 4000); // 4초 주기로 변경
+    return () => clearInterval(timer);
+  }, [tool]);
 
   useEffect(() => {
     if (!user || !tool?.id) return;
@@ -250,42 +269,68 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 </div>
               </div>
 
-              <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "12px 14px", border: "1px solid var(--border-primary)", marginBottom: "12px" }}>
-                <div style={{ fontSize: "0.78rem", fontWeight: 800, color: "var(--accent-indigo)", marginBottom: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}><Icon name="lightbulb" size={18} weight="fill" /> 핵심 기능 및 분석</div>
-                  {tool.koSupport === "Y" && <span style={{ fontSize: "0.7rem", color: "#10b981", background: "rgba(16, 185, 129, 0.1)", padding: "2px 8px", borderRadius: "12px", fontWeight: 800 }}>한국어 지원</span>}
-                </div>
-                {(() => {
-                  const usp = tool.usp || tool.USP;
-                  const uspText = typeof usp === 'string' ? usp : null;
-                  return uspText ? ( <div style={{ fontSize: isBigUI ? "0.95rem" : "0.8rem", color: "var(--text-primary)", lineHeight: 1.4, marginBottom: "10px", fontWeight: 500 }}>{uspText}</div> ) : null;
-                })()}
-                {(() => {
-                  const prosCons = tool.prosCons || tool.Pros_Cons;
-                  if (typeof prosCons === 'string') { return ( <div style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{prosCons}</div> ); }
-                  else if (prosCons && typeof prosCons === 'object') {
-                    const pros = Array.isArray(prosCons.pros) ? prosCons.pros : [];
-                    const cons = Array.isArray(prosCons.cons) ? prosCons.cons : [];
-                    if (pros.length === 0 && cons.length === 0) return null;
-                    return (
-                      <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: 1.4, display: "flex", flexDirection: "column", gap: "8px" }}>
-                        {pros.length > 0 && (
-                          <div style={{ background: "rgba(16, 185, 129, 0.05)", padding: "6px 10px", borderRadius: "10px" }}>
-                            <strong style={{ color: "#10b981", fontWeight: 700, fontSize: "0.78rem" }}>강점 👍</strong>
-                            <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400, fontSize: "0.78rem" }}>{pros.join(", ")}</div>
-                          </div>
-                        )}
-                        {cons.length > 0 && (
-                          <div style={{ background: "rgba(239, 68, 68, 0.05)", padding: "6px 10px", borderRadius: "10px" }}>
-                            <strong style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.78rem" }}>약점 😅</strong>
-                            <div style={{ color: "var(--text-primary)", marginTop: "2px", fontWeight: 400, fontSize: "0.78rem" }}>{cons.join(", ")}</div>
-                          </div>
-                        )}
+              {/* 활용 상황 섹션 (컴팩트 버전) */}
+              <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "8px 14px", border: "1px solid var(--border-primary)", marginBottom: "12px", position: "relative" }}>
+                <div style={{ 
+                  height: isBigUI ? "48px" : "44px", // 더 컴팩트한 높이로 변경
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  overflow: "hidden",
+                  position: "relative"
+                }}>
+                  {(() => {
+                    const scenarios = getTrendyScenarios(tool);
+                    const currentItem = scenarios[activeUseCasePage % scenarios.length];
+                    
+                    if (!currentItem) return (
+                      <div style={{ fontSize: isBigUI ? "1.0rem" : "0.85rem", color: "var(--text-primary)", fontWeight: 700, lineHeight: 1.5, opacity: 0.5 }}>
+                        활용 시나리오 분석 중...
                       </div>
                     );
-                  }
-                  return null;
-                })()}
+
+                    const [job, desc] = currentItem.split(": ");
+                    return (
+                      <div key={`${activeUseCasePage}`} style={{ 
+                        fontSize: isBigUI ? "1.0rem" : "0.85rem", // 폰트 크기 상향
+                        color: "var(--text-primary)", 
+                        lineHeight: 1.4, 
+                        fontWeight: 700,
+                        display: "flex",
+                        alignItems: "flex-start", // 상단 정렬로 2행 대응
+                        gap: "10px",
+                        opacity: useCaseStage === 'visible' ? 1 : 0,
+                        filter: useCaseStage === 'visible' ? "blur(0)" : "blur(8px)",
+                        transform: useCaseStage === 'visible' ? "translateY(0)" : (useCaseStage === 'entering' ? "translateY(12px)" : "translateY(-12px)"),
+                        transition: "all 0.55s cubic-bezier(0.16, 1, 0.3, 1)",
+                      }}>
+                        <span style={{ 
+                          background: "rgba(99, 102, 241, 0.08)", 
+                          color: "var(--accent-indigo)", 
+                          padding: "2px 8px", 
+                          borderRadius: "4px", 
+                          fontSize: "0.72rem", 
+                          whiteSpace: "nowrap",
+                          border: "1px solid rgba(99, 102, 241, 0.12)",
+                          marginTop: "2px"
+                        }}>
+                          {job || "상황"}
+                        </span>
+                        <div style={{ 
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2, // 무조건 2행 허용
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          wordBreak: "keep-all", // 한글 단어 단위 줄바꿈으로 깔끔하게
+                          opacity: 0.95,
+                          letterSpacing: "-0.02em"
+                        }}>
+                          {desc || currentItem}
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </div>
               </div>
 
               <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
