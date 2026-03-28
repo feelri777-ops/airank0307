@@ -42,15 +42,25 @@ const SparkLine = ({ val, color, height = "4px", glow = false }) => {
     return () => clearTimeout(timer);
   }, [val]);
   return (
-    <div style={{ width: "100%", height, background: "rgba(128,128,128,0.1)", borderRadius: "10px", overflow: "hidden" }}>
+    <div style={{ width: "100%", height, background: "rgba(128,128,128,0.1)", borderRadius: "10px", overflow: "hidden", boxShadow: glow ? "inset 0 1px 2px rgba(0,0,0,0.1)" : "none" }}>
       <div style={{
         width: `${width}%`,
         height: "100%",
-        background: color,
+        background: glow ? "linear-gradient(90deg, #6366f1, #06b6d4)" : color, // 그라데이션 적용
         borderRadius: "10px",
         transition: "width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
-        boxShadow: glow ? `0 0 10px ${color}66` : "none"
-      }} />
+        boxShadow: glow ? "0 0 15px rgba(99,102,241,0.5), 0 0 5px rgba(6,182,212,0.3)" : "none", // 네온 글로우
+        position: "relative",
+        overflow: "hidden"
+      }}>
+        {glow && (
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
+            animation: "shimmer 2s infinite"
+          }} />
+        )}
+      </div>
     </div>
   );
 };
@@ -269,7 +279,14 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                         <Icon name={main.k === 'score' ? 'trend-up' : main.k} size={!isBigUI ? 18 : 22} /> {main.l}
                       </div>
                       <SparkLine val={val} color={main.c} height={!isBigUI ? "7px" : "8.5px"} glow />
-                      <div style={{ fontSize: !isBigUI ? "0.95rem" : "1.2rem", fontWeight: 1000, color: main.c, textAlign: "right", fontFamily: "'Outfit', 'Pretendard', sans-serif" }}>{val.toFixed(1)}</div>
+                      <div style={{ 
+                        fontSize: !isBigUI ? "0.95rem" : "1.25rem", 
+                        fontWeight: 1000, 
+                        color: "var(--accent-indigo)", 
+                        textAlign: "right", 
+                        fontFamily: "'Outfit', 'Pretendard', sans-serif",
+                        textShadow: "0 0 10px rgba(99,102,241,0.2)"
+                      }}>{val.toFixed(1)}</div>
                     </div>
                   );
                 })()}
@@ -294,86 +311,10 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                   </div>
                 </div>
               </div>
-              {/* 결제 플랜 (Pricing) 섹션 */}
-              {tool.pricing && Array.isArray(tool.pricing) && tool.pricing.length > 0 && (
-                <div style={{ marginBottom: "20px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px", paddingLeft: "4px" }}>
-                    <Icon name="tag" size={18} color="var(--accent-indigo)" weight="fill" />
-                    <span style={{ fontSize: "1.05rem", fontWeight: 900, color: "var(--text-primary)" }}>결제 플랜</span>
-                  </div>
-                  <div 
-                    ref={pricingScrollRef}
-                    className="pricing-scrollbar-hide"
-                    onMouseDown={startDragging}
-                    onMouseLeave={stopDragging}
-                    onMouseUp={stopDragging}
-                    onMouseMove={moveDragging}
-                    onTouchStart={(e) => e.stopPropagation()} // 모바일 페이지 전환 방지 (핵심!)
-                    onTouchMove={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                    onClick={(e) => e.stopPropagation()} // 클릭 버블링 차단
-                    onWheel={(e) => {
-                      if (e.deltaY !== 0) {
-                        e.preventDefault();
-                        e.currentTarget.scrollLeft += e.deltaY;
-                      }
-                    }}
-                    style={{ 
-                      display: "flex", 
-                      gap: "14px", 
-                      overflowX: "auto", 
-                      paddingBottom: "16px", 
-                      paddingTop: "6px",
-                      paddingLeft: "2px",
-                      scrollBehavior: isMouseDown ? "auto" : "smooth", // 드래그 중에는 즉각 반응
-                      cursor: isMouseDown ? "grabbing" : "grab",
-                      userSelect: isMouseDown ? "none" : "auto" // 드래그 시 텍스트 선택 방지
-                    }}
-                  >
-                    {tool.pricing?.map((p, idx) => (
-                      <div 
-                        key={idx} 
-                        className="pricing-card-snap"
-                        style={{
-                          flex: "0 0 170px", // 카드 폭 살짝 확대
-                          background: idx === 1 ? "var(--bg-card)" : "rgba(0,0,0,0.02)",
-                          border: idx === 1 ? "2px solid var(--accent-indigo)" : "1px solid var(--border-primary)",
-                          borderRadius: "18px", 
-                          padding: "16px",
-                          display: "flex", 
-                          flexDirection: "column", 
-                          gap: "10px",
-                          position: "relative",
-                          boxShadow: idx === 1 ? "0 8px 20px rgba(0,0,0,0.08)" : "none",
-                        }}
-                      >
-                        {idx === 1 && (
-                          <div style={{ position: "absolute", top: "0", right: "0", background: "var(--accent-indigo)", color: "#fff", fontSize: "0.6rem", fontWeight: 900, padding: "2px 8px", borderRadius: "0 0 0 10px" }}>BEST</div>
-                        )}
-                        <div style={{ fontSize: "0.9rem", fontWeight: 900, color: idx === 1 ? "var(--accent-indigo)" : "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.planName}</div>
-                        <div style={{ display: "flex", flexDirection: "column" }}>
-                          <div style={{ display: "flex", alignItems: "baseline", gap: "2px" }}>
-                            <span style={{ fontSize: "1.3rem", fontWeight: 1000, color: "var(--text-primary)" }}>{p.price === '0' ? 'Free' : (p.price.includes('$') || p.price.includes('₩') || p.price.includes('KRW') ? p.price : `$${p.price}`)}</span>
-                            {p.price !== '0' && !p.price.includes('month') && !p.price.includes('mo') && <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 700 }}>/mo</span>}
-                          </div>
-                          {p.billing && <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 600, lineHeight: 1.2 }}>{p.billing}</div>}
-                        </div>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginTop: "4px" }}>
-                          {p.features?.slice(0, 3)?.map((f, fIdx) => (
-                            <div key={fIdx} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                              <Icon name="check" size={12} color={idx === 1 ? "var(--accent-indigo)" : "var(--text-muted)"} weight="bold" />
-                              <span style={{ fontSize: "0.7rem", color: "var(--text-secondary)", fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{f}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-              <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "8px 14px", border: "none", marginBottom: "12px", position: "relative" }}>
+              {/* 사용 팁 (Scenarios) 섹션 - 상단 이동 */}
+              <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "8px 14px", border: "none", marginBottom: "16px", position: "relative" }}>
                 <div style={{ 
-                  height: isBigUI ? "48px" : "44px", // 더 컴팩트한 높이로 변경
+                  height: isBigUI ? "48px" : "44px", 
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
@@ -393,12 +334,12 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                     const [job, desc] = currentItem.split(": ");
                     return (
                       <div key={`${activeUseCasePage}`} style={{ 
-                        fontSize: isBigUI ? "1.0rem" : "0.85rem", // 폰트 크기 상향
+                        fontSize: isBigUI ? "1.0rem" : "0.85rem", 
                         color: "var(--text-primary)", 
                         lineHeight: 1.4, 
                         fontWeight: 700,
                         display: "flex",
-                        alignItems: "flex-start", // 상단 정렬로 2행 대응
+                        alignItems: "flex-start", 
                         gap: "10px",
                         opacity: useCaseStage === 'visible' ? 1 : 0,
                         filter: useCaseStage === 'visible' ? "blur(0)" : "blur(8px)",
@@ -419,10 +360,10 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                         </span>
                         <div style={{ 
                           display: "-webkit-box",
-                          WebkitLineClamp: 2, // 무조건 2행 허용
+                          WebkitLineClamp: 2, 
                           WebkitBoxOrient: "vertical",
                           overflow: "hidden",
-                          wordBreak: "keep-all", // 한글 단어 단위 줄바꿈으로 깔끔하게
+                          wordBreak: "keep-all", 
                           opacity: 0.95,
                           letterSpacing: "-0.02em"
                         }}>
@@ -433,6 +374,80 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                   })()}
                 </div>
               </div>
+
+              {/* 결제 플랜 (Pricing) 섹션 - 하단 이동 */}
+              {tool.pricing && Array.isArray(tool.pricing) && tool.pricing.length > 0 && (
+                <div style={{ marginBottom: "20px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px", paddingLeft: "4px" }}>
+                    <Icon name="tag" size={18} color="var(--accent-indigo)" weight="fill" />
+                    <span style={{ fontSize: "1.05rem", fontWeight: 900, color: "var(--text-primary)" }}>결제 플랜</span>
+                  </div>
+                  <div 
+                    ref={pricingScrollRef}
+                    className="pricing-scrollbar-hide"
+                    onMouseDown={startDragging}
+                    onMouseLeave={stopDragging}
+                    onMouseUp={stopDragging}
+                    onMouseMove={moveDragging}
+                    onTouchStart={(e) => e.stopPropagation()} 
+                    onTouchMove={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
+                    onClick={(e) => e.stopPropagation()} 
+                    onWheel={(e) => {
+                      if (e.deltaY !== 0) {
+                        e.preventDefault();
+                        e.currentTarget.scrollLeft += e.deltaY;
+                      }
+                    }}
+                    style={{ 
+                      display: "flex", 
+                      gap: "14px", 
+                      overflowX: "auto", 
+                      paddingBottom: "16px", 
+                      paddingTop: "6px",
+                      paddingLeft: "2px",
+                      scrollBehavior: isMouseDown ? "auto" : "smooth", 
+                      cursor: isMouseDown ? "grabbing" : "grab",
+                      userSelect: isMouseDown ? "none" : "auto" 
+                    }}
+                  >
+                    {tool.pricing?.map((p, idx) => (
+                      <div 
+                        key={idx} 
+                        className="pricing-card-snap"
+                        style={{
+                          flex: "0 0 170px", 
+                          background: "var(--bg-card)",
+                          border: "1.5px solid var(--accent-indigo)", // 전체 테두리 테마 컬러 통일
+                          borderRadius: "18px", 
+                          padding: "16px",
+                          display: "flex", 
+                          flexDirection: "column", 
+                          gap: "10px",
+                          position: "relative"
+                        }}
+                      >
+                        <div style={{ fontSize: "0.9rem", fontWeight: 900, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.planName}</div>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          <div style={{ display: "flex", alignItems: "baseline", gap: "2px" }}>
+                            <span style={{ fontSize: "1.3rem", fontWeight: 1000, color: "var(--text-primary)" }}>{p.price === '0' ? 'Free' : (p.price.includes('$') || p.price.includes('₩') || p.price.includes('KRW') ? p.price : `$${p.price}`)}</span>
+                            {p.price !== '0' && !p.price.includes('month') && !p.price.includes('mo') && <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 700 }}>/mo</span>}
+                          </div>
+                          {p.billing && <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 600, lineHeight: 1.2 }}>{p.billing}</div>}
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginTop: "4px" }}>
+                          {p.features?.slice(0, 3)?.map((f, fIdx) => (
+                            <div key={fIdx} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                              <Icon name="check" size={12} color="var(--text-muted)" weight="bold" />
+                              <span style={{ fontSize: "0.7rem", color: "var(--text-secondary)", fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{f}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
                 <a href={tool.url || tool.URL || "#"} target="_blank" rel="noopener noreferrer" style={{ flex: isMobile ? 2 : 1.6, display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", padding: isBigUI ? "14px" : "10px 8px", borderRadius: "14px", background: "var(--accent-indigo)", color: "#fff", fontWeight: 950, textDecoration: "none", fontSize: isBigUI ? "1.1rem" : "0.8rem", whiteSpace: "nowrap", boxShadow: "0 6px 14px rgba(99,102,241,0.2)" }}>공식 사이트 바로가기 <Icon name="arrow-right" size={isBigUI ? 18 : 14} weight="bold" /></a>
@@ -507,10 +522,13 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
       )}
 
       <style>{`
+        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
         @keyframes tooltipReveal { from { opacity: 0; transform: scale(0.95) translateY(5px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes marqueeReview { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 40px)); } }
         .review-marquee-track { animation: marqueeReview 18s linear infinite; animation-delay: 2s; }
+        .pricing-scrollbar-hide::-webkit-scrollbar { display: none; }
+        .pricing-scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </div>
   );
