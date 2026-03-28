@@ -1,6 +1,8 @@
 name: AI 도구 요금제(Pricing) 자동 수집 및 최적화
 
 on:
+  schedule:
+    - cron: '0 0 * * 1' # 매주 월요일 00:00 (UTC) 실행
   workflow_dispatch:
     inputs:
       limit:
@@ -17,11 +19,13 @@ on:
 jobs:
   update-pricing:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
 
     steps:
       - name: 📦 코드 체크아웃
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🟢 Node.js 설정
         uses: actions/setup-node@v4
@@ -34,11 +38,24 @@ jobs:
 
       - name: 🤖 AI 기반 요금제 수집 및 업데이트
         run: |
-          node scripts/update_pricing.js --limit=${{ github.event.inputs.limit }} ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+          # limit 입력값이 없을 경우(스케줄 실행 등) 기본값 100 사용
+          LIMIT=${{ github.event.inputs.limit || '100' }}
+          DRY_RUN=${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+          node scripts/update_pricing.js --limit=$LIMIT $DRY_RUN
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
+      - name: 💾 변경사항 커밋 및 푸시
+        if: github.event.inputs.dry_run != 'true'
+        run: |
+          git config --global user.name "AI Rank Optimizer"
+          git config --global user.email "action@github.com"
+          git add public/pricing-data.json
+          git commit -m "chore: AI 도구 요금제 데이터 업데이트 (자동) 🦾🚩🦾" || echo "No changes to commit"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: ✨ 완료 보고
-        run: echo "🎉 AI 요금제 최적화 작업이 완료되었습니다!"
+        run: echo "🎉 AI 요금제 최적화 및 JSON 업데이트가 완료되었습니다!"

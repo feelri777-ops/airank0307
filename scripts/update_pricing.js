@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const PRICING_JSON_PATH = path.join(__dirname, '..', 'public', 'pricing-data.json');
 
 // ========================================
 // 1. Firebase 및 Gemini 초기화
@@ -48,7 +49,7 @@ const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 // 2. 결제 플랜(Pricing) 추출 함수 (다중 모델 시도)
 // ========================================
 async function generatePricingInfo(toolChunk) {
-  const modelsToTry = ["gemini-3-flash-preview", "gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro", "models/gemini-1.5-flash", "models/gemini-pro"];
+  const modelsToTry = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro", "models/gemini-1.5-flash", "models/gemini-pro"];
   let lastError = null;
 
   for (const modelName of modelsToTry) {
@@ -80,6 +81,7 @@ async function generatePricingInfo(toolChunk) {
 async function main() {
   const isDryRun = process.argv.includes('--dry-run');
   const limit = process.argv.find(arg => arg.startsWith('--limit='))?.split('=')[1] || 100;
+  const allPricingUpdates = [];
   
   console.log(`🚀 Firestore 툴 결제 플랜 자동 수집 시작... (상위 ${limit}개, ${isDryRun ? "시뮬레이션 모드" : "실제 업데이트 모드"})`);
 
@@ -88,12 +90,13 @@ async function main() {
     const allTools = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     console.log(`✅ 총 ${allTools.length}개의 툴을 대상으로 작업을 시작합니다.`);
 
-    const batchSize = 5; // 가격 정보는 더 복잡하므로 청크 사이즈를 줄임
+    const batchSize = 5;
     for (let i = 0; i < allTools.length; i += batchSize) {
       const chunk = allTools.slice(i, i + batchSize);
       console.log(`📡 [${i + 1}~${Math.min(i + batchSize, allTools.length)}] 구간 결제 플랜 분석 중...`);
 
       const updatesByAI = await generatePricingInfo(chunk);
+      allPricingUpdates.push(...updatesByAI);
 
       if (!isDryRun) {
         const batch = db.batch();
@@ -120,8 +123,28 @@ async function main() {
         });
       }
       
-      // API 할당량 초과 방지
       await new Promise(r => setTimeout(r, 2000));
+    }
+
+    if (!isDryRun) {
+      try {
+        const existingData = fs.existsSync(PRICING_JSON_PATH) 
+          ? JSON.parse(fs.readFileSync(PRICING_JSON_PATH, 'utf8')) 
+          : {};
+        
+        const mergedData = { ...existingData };
+        allPricingUpdates.forEach(u => {
+          mergedData[u.id] = u.pricing;
+        });
+
+        const publicDir = path.dirname(PRICING_JSON_PATH);
+        if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true });
+
+        fs.writeFileSync(PRICING_JSON_PATH, JSON.stringify(mergedData, null, 2));
+        console.log(`\n💾 로컬 캐시 JSON 저장 완료 : ${PRICING_JSON_PATH}`);
+      } catch (err) {
+        console.error("❌ JSON 파일 저장 실패:", err);
+      }
     }
 
     console.log(`\n🎉 결제 플랜 업데이트가 완료되었습니다! ${isDryRun ? "" : "(실제 DB 업데이트 수행됨)"}`);
