@@ -59,6 +59,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   const [bookmarked, setBookmarked] = useState(false);
   const [videos, setVideos] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [isBigUI, setIsBigUI] = useState(window.innerWidth >= 768);
   const [activeCard, setActiveCard] = useState(0);
   const [hoveredMetric, setHoveredMetric] = useState(null);
   const touchStartX = React.useRef(null);
@@ -68,7 +69,10 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   const faviconUrl = tool ? getFaviconUrl(tool.url) : null;
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+      setIsBigUI(window.innerWidth >= 768);
+    };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -156,7 +160,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
         display: "flex",
         flexDirection: "column",
         width: isMobile ? "calc(100% - 32px)" : "100%",
-        maxWidth: isMobile ? "420px" : "920px",
+        maxWidth: isBigUI ? (isMobile ? "720px" : "1100px") : "420px",
         height: "fit-content",
         padding: "0"
       }}>
@@ -165,7 +169,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
         style={{
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
-          gap: isMobile ? "0" : "18px",
+          gap: isMobile ? "0" : "22px",
           width: "100%",
           alignItems: "flex-start",
           ...(isMobile ? {
@@ -198,7 +202,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           onClick={(e) => {
             // Card background/content also closes.
           }}
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: isMobile ? "20px" : "30px", ...(isMobile ? { width: "50%", flexShrink: 0, padding: "16px 14px" } : { flex: 1, minWidth: 0, padding: "22px 24px 24px" }), position: "relative", boxShadow: "0 25px 50px rgba(0,0,0,0.4)" }}
+          style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: isBigUI ? "36px" : "20px", ...(isMobile ? { width: "50%", flexShrink: 0, padding: isBigUI ? "28px 24px" : "16px 14px" } : { flex: 1, minWidth: 0, padding: "28px 32px 32px" }), position: "relative", boxShadow: "0 25px 50px rgba(0,0,0,0.4)" }}
         >
           <div style={{ position: "absolute", top: "18px", right: "18px", zIndex: 20 }}>
             <button
@@ -213,11 +217,11 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "16px" }}>
-            {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name || "Tool"} width={48} height={48} style={{ borderRadius: "12px", objectFit: "contain" }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: "2.2rem" }}>{typeof tool.icon === 'string' ? tool.icon : "🤖"}</span> )}
+            {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name || "Tool"} width={isBigUI ? 58 : 48} height={isBigUI ? 58 : 48} style={{ borderRadius: "14px", objectFit: "contain" }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: isBigUI ? "2.6rem" : "2.2rem" }}>{typeof tool.icon === 'string' ? tool.icon : "🤖"}</span> )}
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-                <h2 style={{ fontSize: "1.4rem", fontWeight: 950, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.01em" }}>{tool.name || "Unknown Tool"}</h2>
-                <div style={{ background: "var(--accent-indigo)", color: "#fff", padding: "3px 10px", borderRadius: "8px", fontSize: "0.7rem", fontWeight: 900 }}>RANK {rank}위</div>
+                <h2 style={{ fontSize: isBigUI ? "1.7rem" : "1.4rem", fontWeight: 950, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.01em" }}>{tool.name || "Unknown Tool"}</h2>
+                <div style={{ background: "var(--accent-indigo)", color: "#fff", padding: isBigUI ? "4px 12px" : "3px 10px", borderRadius: "8px", fontSize: isBigUI ? "0.85rem" : "0.7rem", fontWeight: 900 }}>RANK {rank}위</div>
               </div>
             </div>
           </div>
@@ -225,25 +229,42 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
           {(tool.oneLineReview || tool.One_Line_Review) && (() => {
             const reviewText = tool.oneLineReview || tool.One_Line_Review || "";
             const reviewLen = reviewText.length;
-            const dynamicSize = reviewLen > 35 ? "0.78rem" : reviewLen > 25 ? "0.88rem" : "1rem";
+            // 폰트 크기 1.3배 추가 상향 (기존 대비 시각적 가독성 극대화)
+            const desktopBaseSize = (reviewLen > 35 ? 1.05 : reviewLen > 25 ? 1.25 : 1.45) * 1.3;
+            const mobileBaseSize = (reviewLen > 35 ? 0.85 : reviewLen > 25 ? 0.95 : 1.1) * 1.3;
+            
             return (
-              <div style={{ marginBottom: "12px", paddingLeft: "12px", borderLeft: "3px solid var(--accent-indigo)", overflow: "hidden" }}>
-                <div style={{
-                  fontSize: dynamicSize,
-                  fontWeight: 850,
-                  color: "var(--text-primary)",
-                  lineHeight: 1.3,
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                  overflow: "hidden"
-                }}>
-                  "{reviewText}"
+              <div style={{
+                marginBottom: "12px",
+                paddingLeft: "12px",
+                borderLeft: "4px solid var(--accent-indigo)",
+                overflow: "hidden",
+                position: "relative",
+                background: "rgba(99,102,241,0.03)",
+                borderRadius: "0 12px 12px 0",
+                padding: "10px 12px"
+              }}>
+                <div 
+                  className={reviewLen > 15 ? "review-marquee-track" : ""}
+                  style={{
+                    display: "flex",
+                    gap: "80px", // 문구 간의 간격 (60% 지점 요구사항 반영)
+                    width: "max-content", 
+                    fontSize: isBigUI ? `${desktopBaseSize}rem` : `${mobileBaseSize}rem`,
+                    fontWeight: 950,
+                    color: "var(--text-primary)",
+                    lineHeight: 1.2,
+                    whiteSpace: "nowrap",
+                  }}>
+                  <span>"{reviewText}"</span>
+                  {/* 무한 루프를 위해 동일한 문구 한 번 더 렌더링 */}
+                  {reviewLen > 15 && <span>"{reviewText}"</span>}
                 </div>
               </div>
             );
           })()}
 
-          <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55, marginBottom: "16px", fontWeight: 500 }}>{tool.desc || tool.description || "설명이 없습니다."}</p>
+          <p style={{ fontSize: isBigUI ? "1rem" : "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55, marginBottom: "16px", fontWeight: 500 }}>{tool.desc || tool.description || "설명이 없습니다."}</p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginBottom: "16px", background: "rgba(0,0,0,0.03)", padding: "12px 16px", borderRadius: "22px" }}>
             {/* 종합점수 — full width */}
@@ -252,13 +273,16 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               const val = Number(tool?.[main.k] ?? tool?.metrics?.[main.k] ?? 0);
               return (
                 <div key={main.k} title={main.d} style={{
-                  display: "grid", gridTemplateColumns: "100px 1fr",
-                  alignItems: "center", gap: "16px", cursor: "help", height: "32px",
+                  display: "grid", gridTemplateColumns: !isBigUI ? "80px 1fr 40px" : "110px 1fr 50px",
+                  alignItems: "center", gap: !isBigUI ? "10px" : "16px", cursor: "help", height: "32px",
                 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.92rem", fontWeight: 950, color: "var(--text-primary)" }}>
-                    <Icon name={main.k === 'score' ? 'trend-up' : main.k} size={18} /> {main.l}
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: !isBigUI ? "0.92rem" : "1.1rem", fontWeight: 950, color: "var(--text-primary)" }}>
+                    <Icon name={main.k === 'score' ? 'trend-up' : main.k} size={!isBigUI ? 18 : 22} /> {main.l}
                   </div>
-                  <SparkLine val={val} color={main.c} height="7px" glow />
+                  <SparkLine val={val} color={main.c} height={!isBigUI ? "7px" : "8.5px"} glow />
+                  <div style={{ fontSize: !isBigUI ? "0.95rem" : "1.2rem", fontWeight: 1000, color: main.c, textAlign: "right", fontFamily: "'Outfit', 'Pretendard', sans-serif" }}>
+                    {val.toFixed(1)}
+                  </div>
                 </div>
               );
             })()}
@@ -274,16 +298,19 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                       onMouseEnter={() => setHoveredMetric(m.k)}
                       onMouseLeave={() => setHoveredMetric(null)}
                       style={{
-                        display: "grid", gridTemplateColumns: "80px 1fr",
-                        alignItems: "center", gap: "8px", cursor: "help", height: "26px",
+                        display: "grid", gridTemplateColumns: !isBigUI ? "65px 1fr 30px" : "85px 1fr 38px",
+                        alignItems: "center", gap: !isBigUI ? "6px" : "10px", cursor: "help", height: "26px",
                         padding: "4px 6px", borderRadius: "6px",
                         background: isHovered ? `${m.c}15` : "transparent",
                         transition: "background 0.15s ease",
                       }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: "0.78rem", fontWeight: 800, color: isHovered ? m.c : "var(--text-secondary)", transition: "color 0.15s ease" }}>
-                        <Icon name={m.k === 'usage' ? 'wrench' : m.k === 'tech' ? 'cpu' : m.k === 'buzz' ? 'megaphone' : m.k === 'utility' ? 'lightning' : 'chart-line-up'} size={14} /> {m.l}
+                      <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: !isBigUI ? "0.78rem" : "0.92rem", fontWeight: 800, color: isHovered ? m.c : "var(--text-secondary)", transition: "color 0.15s ease" }}>
+                        <Icon name={m.k === 'usage' ? 'wrench' : m.k === 'tech' ? 'cpu' : m.k === 'buzz' ? 'megaphone' : m.k === 'utility' ? 'lightning' : 'chart-line-up'} size={!isBigUI ? 14 : 17} /> {m.l}
                       </div>
-                      <SparkLine val={val} color={m.c} height="4px" />
+                      <SparkLine val={val} color={m.c} height={!isBigUI ? "4px" : "5px"} />
+                      <div style={{ fontSize: !isBigUI ? "0.75rem" : "0.9rem", fontWeight: 900, color: isHovered ? m.c : "var(--text-primary)", textAlign: "right", opacity: 0.9 }}>
+                        {val.toFixed(1)}
+                      </div>
                     </div>
                   );
                 })}
@@ -297,7 +324,17 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                   {metrics.find(m => m.k === hoveredMetric)?.d}
                 </div>
               )}
-              <style>{`@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }`}</style>
+              <style>{`
+                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                @keyframes marqueeReview {
+                  0% { transform: translateX(0); }
+                  100% { transform: translateX(calc(-50% - 40px)); }
+                }
+                .review-marquee-track {
+                  animation: marqueeReview 18s linear infinite;
+                  animation-delay: 2s;
+                }
+              `}</style>
             </div>
           </div>
 
@@ -316,7 +353,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               const usp = tool.usp || tool.USP;
               const uspText = typeof usp === 'string' ? usp : null;
               return uspText ? (
-                <div style={{ fontSize: "0.8rem", color: "var(--text-primary)", lineHeight: 1.4, marginBottom: "10px", fontWeight: 500 }}>
+                <div style={{ fontSize: isBigUI ? "0.95rem" : "0.8rem", color: "var(--text-primary)", lineHeight: 1.4, marginBottom: "10px", fontWeight: 500 }}>
                   {uspText}
                 </div>
               ) : null;
@@ -371,29 +408,29 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: "6px",
-                padding: isMobile ? "10px 8px" : "12px",
+                padding: isBigUI ? "14px" : "10px 8px",
                 borderRadius: "14px",
                 background: "var(--accent-indigo)",
                 color: "#fff",
                 fontWeight: 950,
                 textDecoration: "none",
-                fontSize: isMobile ? "0.8rem" : "0.95rem",
+                fontSize: isBigUI ? "1.1rem" : "0.8rem",
                 whiteSpace: "nowrap",
                 boxShadow: "0 6px 14px rgba(99,102,241,0.2)"
               }}
-            >공식 사이트 바로가기 <Icon name="arrow-right" size={isMobile ? 14 : 16} weight="bold" /></a>
+            >공식 사이트 바로가기 <Icon name="arrow-right" size={isBigUI ? 18 : 14} weight="bold" /></a>
             <button
               onClick={(e) => { e.stopPropagation(); onClose(); navigate("/community"); }}
               style={{
                 flex: 1,
-                padding: isMobile ? "10px 8px" : "12px",
+                padding: isBigUI ? "14px" : "10px 8px",
                 borderRadius: "14px",
                 border: "1px solid var(--border-primary)",
                 background: "none",
                 color: "var(--text-primary)",
                 fontWeight: 900,
                 cursor: "pointer",
-                fontSize: isMobile ? "0.8rem" : "0.9rem",
+                fontSize: isBigUI ? "1rem" : "0.8rem",
                 whiteSpace: "nowrap"
               }}
             >게시판</button>
@@ -404,8 +441,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
         <div style={{
           background: "var(--bg-card)",
           border: "1px solid var(--border-primary)",
-          borderRadius: isMobile ? "20px" : "30px",
-          ...(isMobile ? { width: "50%", flexShrink: 0, padding: "16px 14px" } : { flex: 1, minWidth: 0, padding: "16px" }),
+          borderRadius: isBigUI ? "36px" : "20px",
+          ...(isMobile ? { width: "50%", flexShrink: 0, padding: isBigUI ? "24px" : "16px 14px" } : { flex: 1, minWidth: 0, padding: "20px" }),
           boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
           position: "relative"
         }}>
@@ -423,12 +460,12 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {videos.slice(0, 3).map((v, i) => (
                   <a key={i} href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "12px", textDecoration: "none", padding: "8px", borderRadius: "14px", background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", transition: "background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }} onMouseEnter={e => { e.currentTarget.style.borderColor='var(--accent-indigo)'; e.currentTarget.style.transform='translateY(-2px)'; }} onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border-primary)'; e.currentTarget.style.transform='translateY(0)'; }}>
-                    <div style={{ width: isMobile ? "140px" : "160px", height: isMobile ? "79px" : "90px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", background: "#000" }}>
+                    <div style={{ width: isBigUI ? "192px" : "140px", height: isBigUI ? "108px" : "79px", flexShrink: 0, borderRadius: "10px", overflow: "hidden", background: "#000" }}>
                       {v.thumbnail && <img src={v.thumbnail} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: isMobile ? "0.75rem" : "0.88rem", fontWeight: 800, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.4, marginBottom: isMobile ? "4px" : "8px" }}>{decodeHtmlSafe(v.title)}</div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: isMobile ? "0.62rem" : "0.73rem", color: "var(--text-muted)", fontWeight: 700 }}>
+                      <div style={{ fontSize: isBigUI ? "0.95rem" : "0.75rem", fontWeight: 800, color: "var(--text-primary)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", lineHeight: 1.4, marginBottom: isBigUI ? "8px" : "4px" }}>{decodeHtmlSafe(v.title)}</div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: isBigUI ? "0.78rem" : "0.62rem", color: "var(--text-muted)", fontWeight: 700 }}>
                         {(v.viewCount && v.viewCount > 0) && <span style={{ background: "rgba(0,0,0,0.05)", padding: "2px 7px", borderRadius: "6px" }}>{formatViewCount(v.viewCount)}회</span>}
                         <span style={{ color: "var(--accent-indigo)", opacity: 0.9, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{v.channelTitle || "Unknown Channel"}</span>
                       </div>
