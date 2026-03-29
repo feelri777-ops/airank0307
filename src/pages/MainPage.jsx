@@ -18,7 +18,7 @@ export default function MainPage() {
   const [sortBy, setSortBy] = useState("score_desc");
   const [showWizard, setShowWizard] = useState(false);
 
-  const [visibleCount, setVisibleCount] = useState(10);
+  const [visibleCount, setVisibleCount] = useState(20);
 
   // 0. 기초 데이터 정제 (null 제거 및 id 보장)
   const tools = useMemo(() => 
@@ -88,7 +88,7 @@ export default function MainPage() {
   }, [tools, category, searchQuery, sortBy]);
 
   useEffect(() => {
-    setVisibleCount(10);
+    setVisibleCount(20);
   }, [category, searchQuery, sortBy]);
 
   const MobileNewsSection = () => {
@@ -160,7 +160,7 @@ export default function MainPage() {
               {filteredTools.length > visibleCount && (
                 <div style={{ textAlign: "center", marginTop: "24px", marginBottom: "32px" }}>
                   <button
-                    onClick={() => setVisibleCount((prev) => prev + 10)}
+                    onClick={() => setVisibleCount((prev) => prev + 20)}
                     style={{
                       padding: "12px 48px", borderRadius: "var(--r-md)",
                       border: "1px solid var(--border-primary)", background: "var(--bg-card)",

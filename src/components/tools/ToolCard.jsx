@@ -20,7 +20,6 @@ const getFaviconUrl = (url) => {
 };
 
 const getScoreColor = (score) => {
-  if (score >= 95) return "#10b981";
   if (score >= 85) return "var(--accent-indigo)";
   return "var(--text-secondary)";
 };

@@ -3,9 +3,8 @@ import { useTheme } from "../../context/ThemeContext";
 import Icon from "./Icon";
 
 const THEMES = [
-  { id: 'dark',  icon: 'moon', label: '다크' },
-  { id: 'mono',  icon: 'palette',  label: '모노' },
   { id: 'community', icon: 'chat-circle', label: '커뮤니티' },
+  { id: 'mono',  icon: 'palette',  label: '모노' },
 ];
 
 const TRACK_COLORS = {
@@ -21,7 +20,7 @@ const ThemeToggle = ({ dropUp = false }) => {
   const { theme, selectTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
-  const current = THEMES.find((t) => t.id === theme) || THEMES[1];
+  const current = THEMES.find((t) => t.id === theme) || THEMES[0];
 
   useEffect(() => {
     const handler = (e) => {

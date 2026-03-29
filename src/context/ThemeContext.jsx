@@ -3,7 +3,12 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    // 다크 모드 및 기존 비선호 테마들을 'community'로 강제 전환
+    if (saved === 'dark' || saved === 'light' || saved === 'pure') return 'community';
+    return saved || 'community';
+  });
 
   useEffect(() => {
     localStorage.setItem('theme', theme);

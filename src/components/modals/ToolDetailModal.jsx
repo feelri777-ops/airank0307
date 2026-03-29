@@ -205,8 +205,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
       <div onClick={(e) => {}} style={{
         display: "flex",
         flexDirection: "column",
-        width: isMobile ? "calc(100% - 32px)" : "100%",
-        maxWidth: isBigUI ? (isMobile ? "720px" : "1100px") : "420px",
+        width: isMobile ? (isBigUI ? "calc(100% - 80px)" : "calc(100% - 32px)") : "100%",
+        maxWidth: isBigUI ? (isMobile ? "660px" : "1100px") : "420px",
         height: "fit-content",
         padding: "0"
       }}>
@@ -232,14 +232,14 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
               transition: "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
             } : { display: "contents" }}
           >
-            <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: isBigUI ? "36px" : "20px", ...(isMobile ? { width: "50%", flexShrink: 0, padding: isBigUI ? "28px 24px" : "16px 14px" } : { flex: 1, minWidth: 0, padding: "28px 32px 32px" }), position: "relative", boxShadow: "0 25px 50px rgba(0,0,0,0.4)" }}>
+            <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-primary)", borderRadius: isBigUI ? "36px" : "20px", ...(isMobile ? { width: "50%", flexShrink: 0, padding: isBigUI ? "28px 24px" : "10px 14px" } : { flex: 1, minWidth: 0, padding: "28px 32px 32px" }), position: "relative", boxShadow: "0 25px 50px rgba(0,0,0,0.4)" }}>
               <div style={{ position: "absolute", top: "18px", right: "18px", zIndex: 20 }}>
                 <button onClick={(e) => { e.stopPropagation(); toggleBookmark(); }} style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-primary)", cursor: "pointer", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", color: bookmarked ? "var(--accent-indigo)" : "var(--text-muted)", transition: "transform 0.2s, background-color 0.2s", boxShadow: "0 4px 12px rgba(0,0,0,0.2)" }}>
                   <Icon name={bookmarked ? "bookmark-simple-fill" : "bookmark-simple"} size={22} weight={bookmarked ? "fill" : "bold"} />
                 </button>
               </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: isBigUI ? "16px" : "10px" }}>
                 {!iconError && faviconUrl ? ( <img src={faviconUrl} alt={tool.name || "Tool"} width={isBigUI ? 58 : 48} height={isBigUI ? 58 : 48} style={{ borderRadius: "14px", objectFit: "contain" }} onError={() => setIconError(true)} /> ) : ( <span style={{ fontSize: isBigUI ? "2.6rem" : "2.2rem" }}>{typeof tool.icon === 'string' ? tool.icon : "🤖"}</span> )}
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
@@ -255,7 +255,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 const desktopBaseSize = (reviewLen > 35 ? 1.05 : reviewLen > 25 ? 1.25 : 1.45) * 1.3;
                 const mobileBaseSize = (reviewLen > 35 ? 0.85 : reviewLen > 25 ? 0.95 : 1.1) * 1.3;
                 return (
-                  <div style={{ marginBottom: "12px", paddingLeft: "12px", borderLeft: "4px solid var(--accent-indigo)", overflow: "hidden", position: "relative", background: "rgba(99,102,241,0.03)", borderRadius: "0 12px 12px 0", padding: "10px 12px" }}>
+                  <div style={{ marginBottom: isBigUI ? "12px" : "6px", paddingLeft: "12px", borderLeft: "4px solid var(--accent-indigo)", overflow: "hidden", position: "relative", background: "rgba(99,102,241,0.03)", borderRadius: "0 12px 12px 0", padding: isBigUI ? "10px 12px" : "6px 12px" }}>
                     <div className={reviewLen > 15 ? "review-marquee-track" : ""} style={{ display: "flex", gap: "80px", width: "max-content", fontSize: isBigUI ? `${desktopBaseSize}rem` : `${mobileBaseSize}rem`, fontWeight: 950, color: "var(--text-primary)", lineHeight: 1.2, whiteSpace: "nowrap" }}>
                       <span>"{reviewText}"</span>
                       {reviewLen > 15 && <span>"{reviewText}"</span>}
@@ -264,16 +264,16 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 );
               })()}
 
-              <p style={{ fontSize: isBigUI ? "1rem" : "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55, marginBottom: "16px", fontWeight: 500 }}>{tool.desc || tool.description || "설명이 없습니다."}</p>
+              <p style={{ fontSize: isBigUI ? "1rem" : "0.85rem", color: "var(--text-secondary)", lineHeight: 1.55, marginBottom: isBigUI ? "16px" : "10px", fontWeight: 500 }}>{tool.desc || tool.description || "설명이 없습니다."}</p>
 
-              <div onMouseMove={(e) => { if (isBigUI) setMousePos({ x: e.clientX, y: e.clientY }); }} style={{ display: "flex", flexDirection: "column", gap: "6px", marginBottom: "16px", background: "rgba(0,0,0,0.03)", padding: "12px 16px", borderRadius: "22px" }}>
+              <div onMouseMove={(e) => { if (isBigUI) setMousePos({ x: e.clientX, y: e.clientY }); }} style={{ display: "flex", flexDirection: "column", gap: isBigUI ? "6px" : "2px", marginBottom: isBigUI ? "16px" : "8px", background: "rgba(0,0,0,0.03)", padding: isBigUI ? "12px 16px" : "8px 16px", borderRadius: "22px" }}>
                 {(() => {
                   const main = metrics.find(m => m.isMain);
                   const val = Number(tool?.[main.k] ?? tool?.metrics?.[main.k] ?? 0);
                   return (
                     <div key={main.k} onMouseEnter={() => setHoveredMetric(main.k)} onMouseLeave={() => setHoveredMetric(null)} style={{
                       display: "grid", gridTemplateColumns: !isBigUI ? "80px 1fr 42px" : "100px 1fr 55px",
-                      alignItems: "center", gap: !isBigUI ? "10px" : "16px", cursor: "help", height: "32px",
+                      alignItems: "center", gap: !isBigUI ? "10px" : "16px", cursor: "help", height: isBigUI ? "32px" : "24px",
                     }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: !isBigUI ? "0.88rem" : "1.0rem", fontWeight: 950, color: "var(--text-primary)" }}>
                         <Icon name={main.k === 'score' ? 'trend-up' : main.k} size={!isBigUI ? 18 : 22} /> {main.l}
@@ -290,16 +290,16 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                     </div>
                   );
                 })()}
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 12px" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: isBigUI ? "8px" : "2px" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: isBigUI ? "4px 12px" : "2px 12px" }}>
                     {metrics.filter(m => !m.isMain).map(m => {
                       const val = Number(tool?.[m.k] ?? tool?.metrics?.[m.k] ?? 0);
                       const isHovered = hoveredMetric === m.k;
                       return (
                         <div key={m.k} onMouseEnter={() => setHoveredMetric(m.k)} onMouseLeave={() => setHoveredMetric(null)} style={{
                           display: "grid", gridTemplateColumns: !isBigUI ? "55px 1fr 32px" : "70px 1fr 42px",
-                          alignItems: "center", gap: !isBigUI ? "6px" : "10px", cursor: "help", height: "26px",
-                          padding: "4px 6px", borderRadius: "6px", background: isHovered ? `${m.c}15` : "transparent", transition: "background 0.15s ease" }}>
+                          alignItems: "center", gap: !isBigUI ? "6px" : "10px", cursor: "help", height: isBigUI ? "26px" : "20px",
+                          padding: isBigUI ? "4px 6px" : "2px 6px", borderRadius: "6px", background: isHovered ? `${m.c}15` : "transparent", transition: "background 0.15s ease" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: !isBigUI ? "0.78rem" : "0.92rem", fontWeight: 800, color: isHovered ? m.c : "var(--text-secondary)", transition: "color 0.15s ease" }}>
                             <Icon name={m.k === 'usage' ? 'wrench' : m.k === 'tech' ? 'cpu' : m.k === 'buzz' ? 'megaphone' : m.k === 'utility' ? 'lightning' : 'chart-line-up'} size={!isBigUI ? 14 : 17} /> {m.l}
                           </div>
@@ -312,7 +312,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 </div>
               </div>
               {/* 사용 팁 (Scenarios) 섹션 - 상단 이동 */}
-              <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: "8px 14px", border: "none", marginBottom: "16px", position: "relative" }}>
+              <div style={{ background: "var(--bg-secondary)", borderRadius: "14px", padding: isBigUI ? "8px 14px" : "6px 14px", border: "none", marginBottom: isBigUI ? "16px" : "8px", position: "relative" }}>
                 <div style={{ 
                   height: isBigUI ? "48px" : "44px", 
                   display: "flex",
@@ -377,8 +377,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
 
               {/* 결제 플랜 (Pricing) 섹션 - 하단 이동 */}
               {tool.pricing && Array.isArray(tool.pricing) && tool.pricing.length > 0 && (
-                <div style={{ marginBottom: "20px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px", paddingLeft: "4px" }}>
+                <div style={{ marginBottom: isBigUI ? "20px" : "10px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: isBigUI ? "12px" : "2px", paddingLeft: "4px" }}>
                     <Icon name="tag" size={18} color="var(--accent-indigo)" weight="fill" />
                     <span style={{ fontSize: "1.05rem", fontWeight: 900, color: "var(--text-primary)" }}>결제 플랜</span>
                   </div>
@@ -403,8 +403,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                       display: "flex", 
                       gap: "14px", 
                       overflowX: "auto", 
-                      paddingBottom: "16px", 
-                      paddingTop: "6px",
+                      paddingBottom: isBigUI ? "16px" : "2px", 
+                      paddingTop: isBigUI ? "6px" : "0px",
                       paddingLeft: "2px",
                       scrollBehavior: isMouseDown ? "auto" : "smooth", 
                       cursor: isMouseDown ? "grabbing" : "grab",
@@ -418,33 +418,48 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                         style={{
                           flex: "0 0 170px", 
                           background: "var(--bg-card)",
-                          border: "1.5px solid var(--accent-indigo)", // 전체 테두리 테마 컬러 통일
+                          border: "1.5px solid var(--accent-indigo)", 
                           borderRadius: "18px", 
-                          padding: "16px",
+                          padding: isBigUI ? "16px" : "7px 14px",
                           display: "flex", 
                           flexDirection: "column", 
-                          gap: "10px",
+                          gap: isBigUI ? "10px" : "2px",
                           position: "relative"
                         }}
                       >
-                        <div style={{ fontSize: "0.9rem", fontWeight: 900, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.planName}</div>
+                        <div style={{ fontSize: isBigUI ? "0.9rem" : "0.82rem", fontWeight: 950, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.planName}</div>
                         <div style={{ display: "flex", flexDirection: "column" }}>
                           <div style={{ display: "flex", alignItems: "baseline", gap: "2px" }}>
-                            <span style={{ fontSize: "1.3rem", fontWeight: 1000, color: "var(--text-primary)", fontFamily: "var(--font-rounded)" }}>{p.price === '0' ? 'Free' : (p.price.includes('$') || p.price.includes('₩') || p.price.includes('KRW') ? p.price : `$${p.price}`)}</span>
+                            <span style={{ fontSize: isBigUI ? "1.3rem" : "1.1rem", fontWeight: 1000, color: "var(--text-primary)", fontFamily: "var(--font-rounded)" }}>{p.price === '0' ? 'Free' : (p.price.includes('$') || p.price.includes('₩') || p.price.includes('KRW') ? p.price : `$${p.price}`)}</span>
                             {p.price !== '0' && !p.price.includes('month') && !p.price.includes('mo') && <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 700 }}>/mo</span>}
                           </div>
                           {p.billing && <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 600, lineHeight: 1.2 }}>{p.billing}</div>}
                         </div>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginTop: "4px" }}>
+                        <div style={{ display: "flex", flexDirection: "column", gap: isBigUI ? "6px" : "1px", marginTop: isBigUI ? "4px" : "0px" }}>
                           {p.features?.slice(0, 3)?.map((f, fIdx) => (
                             <div key={fIdx} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                              <Icon name="check" size={12} color="var(--text-muted)" weight="bold" />
-                              <span style={{ fontSize: "0.7rem", color: "var(--text-secondary)", fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{f}</span>
+                              <span style={{ color: "var(--text-muted)", fontSize: "10px" }}>•</span>
+                              <span style={{ fontSize: isBigUI ? "0.7rem" : "0.68rem", color: "var(--text-secondary)", fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{f}</span>
                             </div>
                           ))}
                         </div>
                       </div>
                     ))}
+                  </div>
+                  {/* 요금제 주의사항 추가 */}
+                  <div style={{ 
+                    marginTop: isBigUI ? "4px" : "0px", 
+                    padding: "0 4px", 
+                    fontSize: "0.75rem", 
+                    color: "var(--text-muted)", 
+                    lineHeight: 1.4,
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "4px",
+                    opacity: 0.8
+                  }}>
+                    <span style={{ marginTop: "1px" }}>💡</span>
+                    <span>실제 요금제와 기능 제공 범위는 서비스사 정책에 따라 예고 없이 변경될 수 있습니다. 최종 결제 전 반드시 공식 홈페이지 정보를 확인해 주세요.</span>
                   </div>
                 </div>
               )}
