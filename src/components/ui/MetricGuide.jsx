@@ -56,7 +56,7 @@ const MetricGuide = () => {
           margin: '0 0 8px 0'
         }}>
           <Icon name="info" size={20} color="var(--accent-indigo)" />
-          AI머씀? 순위 산출 방식
+          AIRANK 순위 산출 방식
         </h3>
         <p style={{ 
           fontSize: '0.9rem', 

@@ -244,7 +244,7 @@ const HeroSection = ({ searchQuery, onSearchChange, onOpenWizard }) => {
             WebkitTextFillColor: "transparent",
           }),
         }}>
-          {isDark ? "AI머씀?" : "실시간 AI 추출기"}
+          {isDark ? "AIRANK.KR" : "실시간 AI 추출기"}
         </span>}
       </h1>
 

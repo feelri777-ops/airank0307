@@ -203,7 +203,7 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
               <Sparkle size={isMobile ? 18 : 24} color="white" weight="fill" />
             </div>
             <div>
-              <h2 style={{ fontSize: isMobile ? "1rem" : "1.2rem", fontWeight: 800, margin: 0, letterSpacing: "-0.02em" }}>AI머씀? 컨시어지</h2>
+              <h2 style={{ fontSize: isMobile ? "1rem" : "1.2rem", fontWeight: 800, margin: 0, letterSpacing: "-0.02em" }}>AIRANK 컨시어지</h2>
               {!isMobile && <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", margin: 0 }}>실시간 트렌드 기반의 도구 설계사</p>}
             </div>
           </div>
@@ -531,7 +531,7 @@ const AIConciergeModal = ({ isOpen, onClose, tools }) => {
             </button>
           </div>
           <p style={{ textAlign: "center", fontSize: "0.65rem", color: "var(--text-muted)", marginTop: "8px" }}>
-            AI머씀? AI는 실시간 랭킹 데이터를 기반으로 분석합니다.
+            AIRANK AI는 실시간 랭킹 데이터를 기반으로 분석합니다.
           </p>
         </div>
       </div>

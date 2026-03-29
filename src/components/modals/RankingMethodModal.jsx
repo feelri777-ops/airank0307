@@ -99,7 +99,7 @@ const RankingMethodModal = ({ isOpen, onClose }) => {
               어떻게 순위가 결정되나요?
             </h3>
             <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
-              AI머씀?은 매주 월요일, <strong>Google의 차세대 AI(Gemini 3)와 실시간 구글 검색(Google Search)</strong>을 통해 수만 건의 데이터를 검색하고 분석하여 순위를 산출합니다. 사람이 매기는 주관적 순위를 넘어 데이터 기반의 투명한 랭킹을 제공합니다.
+              AIRANK는 매주 월요일, <strong>Google의 차세대 AI(Gemini 3)와 실시간 구글 검색(Google Search)</strong>을 통해 수만 건의 데이터를 검색하고 분석하여 순위를 산출합니다. 사람이 매기는 주관적 순위를 넘어 데이터 기반의 투명한 랭킹을 제공합니다.
             </p>
           </div>
 
@@ -150,7 +150,7 @@ const RankingMethodModal = ({ isOpen, onClose }) => {
           <div className="guide-section">
             <h3 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "12px", color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "8px" }}>
               <ShieldCheck size={18} color="var(--accent-indigo)" weight="fill" />
-              AI머씀?만의 특별한 투명성 시스템
+              AIRANK만의 특별한 투명성 시스템
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               <div style={{ padding: "12px", background: "var(--bg-secondary)", borderRadius: "12px", border: "1px solid var(--border-primary)" }}>

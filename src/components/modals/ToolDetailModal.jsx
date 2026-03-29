@@ -186,7 +186,7 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
   if (!tool) return null;
 
   const metrics = [
-    { k: "score", l: "종합점수", c: "var(--accent-indigo)", d: "Google Search 실시간 데이터와 Gemini 3 분석을 통해 산출된 통합 AI머씀? 점수입니다.", isMain: true },
+    { k: "score", l: "종합점수", c: "var(--accent-indigo)", d: "Google Search 실시간 데이터와 Gemini 3 분석을 통해 산출된 통합 AIRANK 점수입니다.", isMain: true },
     { k: "usage", l: "사용량", c: "var(--accent-cyan)", d: "실제 웹 트래픽, 앱 활성 사용자 수 등 대중적인 보급률을 측정합니다." },
     { k: "tech", l: "기술력", c: "var(--accent-indigo)", d: "AI 모델 성능(Benchmark), 독자적인 기술 혁신성 및 엔진의 완성도를 평가합니다." },
     { k: "buzz", l: "화제성", c: "var(--accent-cyan)", d: "뉴스 보도량, 소셜 미디어(SNS) 반응, 커뮤니티 내 화제 정도를 분석합니다." },
