@@ -162,9 +162,7 @@ function isSameProductFast(name1, name2) {
   const clean1 = name1.toLowerCase().replace(/[^a-z0-9]/g, '');
   const clean2 = name2.toLowerCase().replace(/[^a-z0-9]/g, '');
   if (clean1 === clean2) return true;
-  if (clean1.length >= 5 && clean2.length >= 5) {
-    if (clean1.includes(clean2) || clean2.includes(clean1)) return true;
-  }
+  if (clean1.includes(clean2) || clean2.includes(clean1)) return true;
   return false;
 }
 
