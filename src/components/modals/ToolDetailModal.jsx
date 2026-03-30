@@ -33,6 +33,9 @@ const formatViewCount = (count) => {
 };
 
 const getFaviconUrl = (url) => { if (!url) return null; try { const domain = new URL(url).hostname; return `https://www.google.com/s2/favicons?sz=128&domain=${domain}`; } catch { return null; } };
+const getPlanNameFontSize = (text, isBigUI) => { if (!text) return isBigUI ? "0.85rem" : "0.78rem"; if (text.length > 12) return isBigUI ? "0.75rem" : "0.7rem"; return isBigUI ? "0.85rem" : "0.78rem"; };
+const getPriceFontSize = (text, isBigUI) => { if (!text) return isBigUI ? "1.15rem" : "0.95rem"; const len = text.length; if (len > 25) return isBigUI ? "0.78rem" : "0.68rem"; if (len > 15) return isBigUI ? "0.92rem" : "0.8rem"; return isBigUI ? "1.15rem" : "0.95rem"; };
+const getPriceLineHeight = (text) => (text && text.length > 15 ? 1.15 : 1.3);
 
 const SparkLine = ({ val, color, height = "4px", glow = false }) => {
   const [width, setWidth] = useState(0);
@@ -420,8 +423,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                   : reliability?.score === 'Low' ? 'var(--text-muted)' : null;
 
                 return (
-                  <div style={{ marginBottom: isBigUI ? "20px" : "10px" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: isBigUI ? "12px" : "2px", paddingLeft: "4px" }}>
+                  <div style={{ marginBottom: isBigUI ? "16px" : "8px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: isBigUI ? "10px" : "2px", paddingLeft: "4px" }}>
                       <Icon name="tag" size={18} color="var(--accent-indigo)" weight="fill" />
                       <span style={{ fontSize: "1.05rem", fontWeight: 900, color: "var(--text-primary)" }}>결제 플랜</span>
                       {reliability && (
@@ -451,8 +454,8 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                         display: "flex",
                         gap: "14px",
                         overflowX: "auto",
-                        paddingBottom: isBigUI ? "16px" : "2px",
-                        paddingTop: isBigUI ? "6px" : "0px",
+                        paddingBottom: isBigUI ? "4px" : "0px",
+                        paddingTop: isBigUI ? "4px" : "0px",
                         paddingLeft: "2px",
                         scrollBehavior: isMouseDown ? "auto" : "smooth",
                         cursor: isMouseDown ? "grabbing" : "grab",
@@ -465,61 +468,85 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                           className="pricing-card-snap"
                           style={{
                             flex: "0 0 170px",
+                            height: isBigUI ? "160px" : "140px",
                             background: "var(--bg-card)",
                             border: "1.5px solid var(--accent-indigo)",
                             borderRadius: "18px",
-                            padding: isBigUI ? "16px" : "7px 14px",
+                            padding: isBigUI ? "12px 14px" : "6px 12px",
                             display: "flex",
                             flexDirection: "column",
-                            gap: isBigUI ? "10px" : "2px",
+                            gap: isBigUI ? "6px" : "2px",
                             position: "relative"
                           }}
                         >
-                          <div style={{ fontSize: isBigUI ? "0.9rem" : "0.82rem", fontWeight: 950, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                          <div style={{ fontSize: getPlanNameFontSize(card.planName, isBigUI), fontWeight: 950, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", lineHeight: 1.2 }}>
                             {card.planName}
                           </div>
-                          <div style={{ display: "flex", flexDirection: "column" }}>
-                            <div style={{ display: "flex", alignItems: "baseline", gap: "2px" }}>
-                              <span style={{ fontSize: isBigUI ? "1.3rem" : "1.1rem", fontWeight: 1000, color: "var(--text-primary)", fontFamily: "var(--font-rounded)" }}>
+                          <div style={{ display: "flex", flexDirection: "column", flexShrink: 0 }}>
+                            <div style={{ display: "flex", alignItems: "baseline", gap: "2px", flexWrap: "wrap", lineHeight: getPriceLineHeight(card.price) }}>
+                              <span style={{ fontSize: getPriceFontSize(card.price, isBigUI), fontWeight: 1000, color: "var(--text-primary)", fontFamily: "var(--font-rounded)", wordBreak: "keep-all" }}>
                                 {card.price}
                               </span>
                               {!card.isFree && card.price !== 'Contact Sales' && !card.price?.includes('/mo') && (
-                                <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 700 }}>/mo</span>
+                                <span style={{ fontSize: "0.62rem", color: "var(--text-muted)", fontWeight: 700 }}>/mo</span>
                               )}
                             </div>
                             {card.subPrice && (
-                              <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 600, lineHeight: 1.2 }}>
+                              <div style={{ fontSize: "0.62rem", color: "var(--text-muted)", fontWeight: 600, lineHeight: 1.2 }}>
                                 {card.subPrice}
                               </div>
                             )}
                           </div>
                           {card.details && (
-                            <div style={{ fontSize: isBigUI ? "0.7rem" : "0.68rem", color: "var(--text-secondary)", fontWeight: 600, lineHeight: 1.4, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                            <div style={{ fontSize: isBigUI ? "0.68rem" : "0.65rem", color: "var(--text-secondary)", fontWeight: 600, lineHeight: 1.4, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                               {card.details}
                             </div>
                           )}
                         </div>
                       ))}
                     </div>
-                    {/* 비고 및 주의사항 */}
-                    {tool.pricingNote && (
-                      <div style={{ marginTop: "6px", padding: "6px 10px", background: "var(--bg-secondary)", borderRadius: "8px", fontSize: "0.72rem", color: "var(--text-muted)", lineHeight: 1.5 }}>
-                        {tool.pricingNote}
-                      </div>
-                    )}
+                    {/* 완벽히 정렬된 통합 안내 섹션 */}
                     <div style={{
-                      marginTop: isBigUI ? "4px" : "0px",
-                      padding: "0 4px",
-                      fontSize: "0.75rem",
-                      color: "var(--text-muted)",
-                      lineHeight: 1.4,
+                      marginTop: isBigUI ? "2px" : "0px",
+                      padding: isBigUI ? "8px 12px" : "6px 10px",
+                      background: "var(--bg-secondary)",
+                      borderRadius: "12px",
                       display: "flex",
-                      alignItems: "flex-start",
-                      gap: "4px",
-                      opacity: 0.8
+                      flexDirection: "column",
+                      gap: "2px",
+                      border: "1px solid var(--border-primary)",
+                      boxShadow: "0 1px 4px rgba(0,0,0,0.02)"
                     }}>
-                      <span style={{ marginTop: "1px" }}>💡</span>
-                      <span>실제 요금제와 기능 제공 범위는 서비스사 정책에 따라 예고 없이 변경될 수 있습니다. 최종 결제 전 반드시 공식 홈페이지 정보를 확인해 주세요.</span>
+                      {tool.pricingNote && (
+                        <>
+                          <div style={{
+                            fontSize: isBigUI ? "0.72rem" : "0.68rem",
+                            color: "var(--text-muted)",
+                            lineHeight: 1.4,
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "6px",
+                            fontWeight: 600
+                          }}>
+                            <span style={{ marginTop: "1px", flexShrink: 0 }}>💡</span>
+                            <span style={{ overflow: "hidden", wordBreak: "keep-all" }}>{tool.pricingNote}</span>
+                          </div>
+                          <div style={{ height: "1px", background: "var(--border-primary)", opacity: 0.3 }} />
+                        </>
+                      )}
+                      <div style={{
+                        fontSize: isBigUI ? "0.72rem" : "0.68rem",
+                        color: "var(--text-muted)",
+                        lineHeight: 1.4,
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: "6px",
+                        opacity: 0.85,
+                        fontWeight: 500
+                      }}>
+                        <span style={{ marginTop: "1px", flexShrink: 0 }}>💡</span>
+                        <span style={{ overflow: "hidden", wordBreak: "keep-all" }}>실제 요금제와 기능 제공 범위는 서비스사 정책에 따라 예고 없이 변경될 수 있습니다. 최종 결제 전 반드시 공식 홈페이지 정보를 확인해 주세요.</span>
+                      </div>
                     </div>
                   </div>
                 );
