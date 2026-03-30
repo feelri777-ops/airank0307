@@ -1,16 +1,12 @@
 name: AI 도구 요금제(Pricing) 자동 수집 및 최적화
 
 on:
-  workflow_run:
-    workflows: ["🤖 AI 랭킹 에이전트 (매주 월요일 새벽 3시 10분)"]
-    types:
-      - completed
   workflow_dispatch:
     inputs:
       limit:
         description: '업데이트할 도구 개수 (상위 순위 기준)'
         required: true
-        default: '50'
+        default: '100'
         type: string
       dry_run:
         description: '시뮬레이션 모드 (실제 DB 업데이트 안함)'
@@ -21,10 +17,9 @@ on:
 jobs:
   update-pricing:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') }}
     permissions:
       contents: write
-    timeout-minutes: 60
+    timeout-minutes: 90
 
     steps:
       - name: 📦 코드 체크아웃
@@ -41,9 +36,8 @@ jobs:
       - name: 🛠️ 의존성 설치
         run: npm install
 
-      - name: 🤖 AI 기반 요금제 수집 및 업데이트
+      - name: 🤖 AI 기반 요금제 수집 (gemini-3-flash-preview)
         run: |
-          # limit 입력값이 없을 경우(스케줄 실행 등) 기본값 100 사용
           LIMIT=${{ github.event.inputs.limit || '100' }}
           DRY_RUN=${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
           node scripts/update_pricing.js --limit=$LIMIT $DRY_RUN
@@ -63,4 +57,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: ✨ 완료 보고
-        run: echo "🎉 AI 요금제 최적화 및 JSON 업데이트가 완료되었습니다!"
+        run: echo "AI 요금제 수집 및 JSON 업데이트가 완료되었습니다"

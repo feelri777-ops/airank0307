@@ -375,94 +375,155 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                 </div>
               </div>
 
-              {/* 결제 플랜 (Pricing) 섹션 - 하단 이동 */}
-              {tool.pricing && Array.isArray(tool.pricing) && tool.pricing.length > 0 && (
-                <div style={{ marginBottom: isBigUI ? "20px" : "10px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: isBigUI ? "12px" : "2px", paddingLeft: "4px" }}>
-                    <Icon name="tag" size={18} color="var(--accent-indigo)" weight="fill" />
-                    <span style={{ fontSize: "1.05rem", fontWeight: 900, color: "var(--text-primary)" }}>결제 플랜</span>
-                  </div>
-                  <div 
-                    ref={pricingScrollRef}
-                    className="pricing-scrollbar-hide"
-                    onMouseDown={startDragging}
-                    onMouseLeave={stopDragging}
-                    onMouseUp={stopDragging}
-                    onMouseMove={moveDragging}
-                    onTouchStart={(e) => e.stopPropagation()} 
-                    onTouchMove={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                    onClick={(e) => e.stopPropagation()} 
-                    onWheel={(e) => {
-                      if (e.deltaY !== 0) {
-                        e.preventDefault();
-                        e.currentTarget.scrollLeft += e.deltaY;
-                      }
-                    }}
-                    style={{ 
-                      display: "flex", 
-                      gap: "14px", 
-                      overflowX: "auto", 
-                      paddingBottom: isBigUI ? "16px" : "2px", 
-                      paddingTop: isBigUI ? "6px" : "0px",
-                      paddingLeft: "2px",
-                      scrollBehavior: isMouseDown ? "auto" : "smooth", 
-                      cursor: isMouseDown ? "grabbing" : "grab",
-                      userSelect: isMouseDown ? "none" : "auto" 
-                    }}
-                  >
-                    {tool.pricing?.map((p, idx) => (
-                      <div 
-                        key={idx} 
-                        className="pricing-card-snap"
-                        style={{
-                          flex: "0 0 170px", 
-                          background: "var(--bg-card)",
-                          border: "1.5px solid var(--accent-indigo)", 
-                          borderRadius: "18px", 
-                          padding: isBigUI ? "16px" : "7px 14px",
-                          display: "flex", 
-                          flexDirection: "column", 
-                          gap: isBigUI ? "10px" : "2px",
-                          position: "relative"
-                        }}
-                      >
-                        <div style={{ fontSize: isBigUI ? "0.9rem" : "0.82rem", fontWeight: 950, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.planName}</div>
-                        <div style={{ display: "flex", flexDirection: "column" }}>
-                          <div style={{ display: "flex", alignItems: "baseline", gap: "2px" }}>
-                            <span style={{ fontSize: isBigUI ? "1.3rem" : "1.1rem", fontWeight: 1000, color: "var(--text-primary)", fontFamily: "var(--font-rounded)" }}>{p.price === '0' ? 'Free' : (p.price.includes('$') || p.price.includes('₩') || p.price.includes('KRW') ? p.price : `$${p.price}`)}</span>
-                            {p.price !== '0' && !p.price.includes('month') && !p.price.includes('mo') && <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 700 }}>/mo</span>}
+              {/* 결제 플랜 (Pricing) 섹션 */}
+              {(() => {
+                // 새 포맷(pricingData) 우선, 구 포맷(pricing 배열) fallback
+                const pd = tool.pricingData;
+                const hasNewFormat = pd && typeof pd === 'object' && !Array.isArray(pd) &&
+                  (pd.free || pd.pro || pd.business);
+                const hasOldFormat = tool.pricing && Array.isArray(tool.pricing) && tool.pricing.length > 0;
+
+                if (!hasNewFormat && !hasOldFormat) return null;
+
+                // 새 포맷 → 카드 배열로 변환
+                const cards = hasNewFormat ? [
+                  pd.free?.available !== false && pd.free ? {
+                    planName: "Free",
+                    price: "무료",
+                    isFree: true,
+                    details: pd.free.details,
+                  } : null,
+                  pd.pro ? {
+                    planName: "Pro",
+                    price: pd.pro.monthly || "확인 필요",
+                    subPrice: pd.pro.yearly ? `연간 ${pd.pro.yearly}` : null,
+                    details: pd.pro.details,
+                  } : null,
+                  pd.business ? {
+                    planName: "Business",
+                    price: pd.business.price || "Contact Sales",
+                    details: pd.business.details,
+                  } : null,
+                ].filter(Boolean)
+                // 구 포맷 그대로 사용
+                : tool.pricing.map(p => ({
+                  planName: p.planName,
+                  price: p.price === '0' ? '무료' : (p.price?.includes('$') || p.price?.includes('₩') ? p.price : `$${p.price}`),
+                  isFree: p.price === '0',
+                  subPrice: p.billing || null,
+                  details: p.features?.join(' · ') || null,
+                }));
+
+                const reliability = tool.pricingReliability;
+                const reliabilityColor = reliability?.score === 'High' ? 'var(--accent-green, #10b981)'
+                  : reliability?.score === 'Mid' ? 'var(--accent-yellow, #f59e0b)'
+                  : reliability?.score === 'Low' ? 'var(--text-muted)' : null;
+
+                return (
+                  <div style={{ marginBottom: isBigUI ? "20px" : "10px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: isBigUI ? "12px" : "2px", paddingLeft: "4px" }}>
+                      <Icon name="tag" size={18} color="var(--accent-indigo)" weight="fill" />
+                      <span style={{ fontSize: "1.05rem", fontWeight: 900, color: "var(--text-primary)" }}>결제 플랜</span>
+                      {reliability && (
+                        <span style={{ fontSize: "0.68rem", fontWeight: 700, color: reliabilityColor, marginLeft: "auto", paddingRight: "4px" }}>
+                          {reliability.source}
+                        </span>
+                      )}
+                    </div>
+                    <div
+                      ref={pricingScrollRef}
+                      className="pricing-scrollbar-hide"
+                      onMouseDown={startDragging}
+                      onMouseLeave={stopDragging}
+                      onMouseUp={stopDragging}
+                      onMouseMove={moveDragging}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onTouchMove={(e) => e.stopPropagation()}
+                      onTouchEnd={(e) => e.stopPropagation()}
+                      onClick={(e) => e.stopPropagation()}
+                      onWheel={(e) => {
+                        if (e.deltaY !== 0) {
+                          e.preventDefault();
+                          e.currentTarget.scrollLeft += e.deltaY;
+                        }
+                      }}
+                      style={{
+                        display: "flex",
+                        gap: "14px",
+                        overflowX: "auto",
+                        paddingBottom: isBigUI ? "16px" : "2px",
+                        paddingTop: isBigUI ? "6px" : "0px",
+                        paddingLeft: "2px",
+                        scrollBehavior: isMouseDown ? "auto" : "smooth",
+                        cursor: isMouseDown ? "grabbing" : "grab",
+                        userSelect: isMouseDown ? "none" : "auto"
+                      }}
+                    >
+                      {cards.map((card, idx) => (
+                        <div
+                          key={idx}
+                          className="pricing-card-snap"
+                          style={{
+                            flex: "0 0 170px",
+                            background: "var(--bg-card)",
+                            border: "1.5px solid var(--accent-indigo)",
+                            borderRadius: "18px",
+                            padding: isBigUI ? "16px" : "7px 14px",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: isBigUI ? "10px" : "2px",
+                            position: "relative"
+                          }}
+                        >
+                          <div style={{ fontSize: isBigUI ? "0.9rem" : "0.82rem", fontWeight: 950, color: "var(--text-primary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                            {card.planName}
                           </div>
-                          {p.billing && <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 600, lineHeight: 1.2 }}>{p.billing}</div>}
-                        </div>
-                        <div style={{ display: "flex", flexDirection: "column", gap: isBigUI ? "6px" : "1px", marginTop: isBigUI ? "4px" : "0px" }}>
-                          {p.features?.slice(0, 3)?.map((f, fIdx) => (
-                            <div key={fIdx} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                              <span style={{ color: "var(--text-muted)", fontSize: "10px" }}>•</span>
-                              <span style={{ fontSize: isBigUI ? "0.7rem" : "0.68rem", color: "var(--text-secondary)", fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{f}</span>
+                          <div style={{ display: "flex", flexDirection: "column" }}>
+                            <div style={{ display: "flex", alignItems: "baseline", gap: "2px" }}>
+                              <span style={{ fontSize: isBigUI ? "1.3rem" : "1.1rem", fontWeight: 1000, color: "var(--text-primary)", fontFamily: "var(--font-rounded)" }}>
+                                {card.price}
+                              </span>
+                              {!card.isFree && card.price !== 'Contact Sales' && !card.price?.includes('/mo') && (
+                                <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 700 }}>/mo</span>
+                              )}
                             </div>
-                          ))}
+                            {card.subPrice && (
+                              <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 600, lineHeight: 1.2 }}>
+                                {card.subPrice}
+                              </div>
+                            )}
+                          </div>
+                          {card.details && (
+                            <div style={{ fontSize: isBigUI ? "0.7rem" : "0.68rem", color: "var(--text-secondary)", fontWeight: 600, lineHeight: 1.4, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                              {card.details}
+                            </div>
+                          )}
                         </div>
+                      ))}
+                    </div>
+                    {/* 비고 및 주의사항 */}
+                    {tool.pricingNote && (
+                      <div style={{ marginTop: "6px", padding: "6px 10px", background: "var(--bg-secondary)", borderRadius: "8px", fontSize: "0.72rem", color: "var(--text-muted)", lineHeight: 1.5 }}>
+                        {tool.pricingNote}
                       </div>
-                    ))}
+                    )}
+                    <div style={{
+                      marginTop: isBigUI ? "4px" : "0px",
+                      padding: "0 4px",
+                      fontSize: "0.75rem",
+                      color: "var(--text-muted)",
+                      lineHeight: 1.4,
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "4px",
+                      opacity: 0.8
+                    }}>
+                      <span style={{ marginTop: "1px" }}>💡</span>
+                      <span>실제 요금제와 기능 제공 범위는 서비스사 정책에 따라 예고 없이 변경될 수 있습니다. 최종 결제 전 반드시 공식 홈페이지 정보를 확인해 주세요.</span>
+                    </div>
                   </div>
-                  {/* 요금제 주의사항 추가 */}
-                  <div style={{ 
-                    marginTop: isBigUI ? "4px" : "0px", 
-                    padding: "0 4px", 
-                    fontSize: "0.75rem", 
-                    color: "var(--text-muted)", 
-                    lineHeight: 1.4,
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: "4px",
-                    opacity: 0.8
-                  }}>
-                    <span style={{ marginTop: "1px" }}>💡</span>
-                    <span>실제 요금제와 기능 제공 범위는 서비스사 정책에 따라 예고 없이 변경될 수 있습니다. 최종 결제 전 반드시 공식 홈페이지 정보를 확인해 주세요.</span>
-                  </div>
-                </div>
-              )}
+                );
+              })()}
 
               <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
                 <a href={tool.url || tool.URL || "#"} target="_blank" rel="noopener noreferrer" style={{ flex: isMobile ? 2 : 1.6, display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", padding: isBigUI ? "14px" : "10px 8px", borderRadius: "14px", background: "var(--accent-indigo)", color: "#fff", fontWeight: 950, textDecoration: "none", fontSize: isBigUI ? "1.1rem" : "0.8rem", whiteSpace: "nowrap", boxShadow: "0 6px 14px rgba(99,102,241,0.2)" }}>공식 사이트 바로가기 <Icon name="arrow-right" size={isBigUI ? 18 : 14} weight="bold" /></a>
