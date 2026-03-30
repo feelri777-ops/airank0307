@@ -196,49 +196,62 @@ async function askGemini(prompt, retryCount = 0) {
 }
 
 // ========================================
-// 가변 랭킹 청크 수집
+// 고정 구간 랭킹 청크 수집 (10개씩)
 // ========================================
-async function fetchRankingChunk(rangeLabel, count, weekLabel, dateRange, currentRankingContext, retryCount = 0) {
-  console.log(`🤖 [Ranking Agent] ${rangeLabel} 분석 중 (${count}개 요청)...`);
+async function fetchRankingChunk(startRank, endRank, weekLabel, dateRange, excludeList, retryCount = 0) {
+  const rangeLabel = `${startRank}위부터 ${endRank}위`;
+  const count = endRank - startRank + 1;
+  console.log(`🤖 [Ranking Agent] ${rangeLabel} 분석 중 (Gemini 3 Flash Preview + Google Search)...`);
+
+  if (retryCount > 0) {
+    console.log(`   ⚠️ [재시도 ${retryCount}/3] ${rangeLabel} 구간 데이터 수집 중...`);
+  }
 
   const prompt = `당신은 AI 도구 시장 분석 전문가입니다. Google Search를 기반으로 글로벌 AI 툴 랭킹을 생성하세요.
 
 [작업 지침]
-- 요청 개수: **정확히 ${count}개**
-- 순위 대역: ${rangeLabel}
-- 목표 주차: ${weekLabel}
+- 목표: ${weekLabel} 기준 글로벌 AI 툴 랭킹 ${rangeLabel} 선정
 - 조사 기간: ${dateRange}
+- 선정 개수: 정확히 ${count}개 (${startRank}위 ~ ${endRank}위)
 
-[참고: 이미 목록에 포함된 주요 툴 - 절대 중복 금지]
-${currentRankingContext}
+[이미 선정된 툴 - 절대 중복 금지]
+${excludeList || "없음"}
 
 [핵심 요구사항]
-1. 선정 기준: 실제 사용량, 기술력, 화제성을 종합하여 현재 가장 인기 있는 AI 도구를 선정하세요.
-2. 각 툴마다 세부 점수 및 정보를 JSON 형식으로 제공하세요.
-3. **중복 엄격 금지**: 위 '참고' 리스트에 있는 툴은 절대 다시 언급하지 마세요.
-4. **절대 거부 금지**: 유명하지 않은 툴이라도 시장 가치가 있다면 포함하여 반드시 ${count}개를 채우세요.
+1. 선정 기준: 실제 사용량, 기술력, 화제성을 종합하여 현재 가장 인기 있는 AI 도구를 선정
+2. 툴 이름은 서비스 단위로만 (예: "ChatGPT" O, "ChatGPT-4o" X / "Grok" O, "Grok-3" X)
+3. 중복 엄격 금지: 위 목록에 있는 툴은 절대 다시 언급하지 마세요
+4. 반드시 ${count}개를 채우세요
+
+[점수 기준]
+- Usage_Score: 실제 월간 사용자수 및 트래픽 기반 (0~100)
+- Tech_Score: 기술력, 모델 성능, 혁신성 기반 (0~100)
+- Buzz_Score: SNS·뉴스·커뮤니티 화제성 기반 (0~100)
+- Utility_Score: 실용성, 사용 편의성, 문제 해결력 기반 (0~100)
+- Growth_Score: 최근 성장세, 신규 유저 유입 속도 기반 (0~100)
+- Total_Score: 위 5개 점수의 가중 평균 (Usage 35% + Utility 25% + Buzz 20% + Tech 15% + Growth 5%)
 
 [출력 형식]
-반드시 JSON 배열 형식으로만 응답하세요.
+반드시 순수 JSON 배열만 출력하세요. 마크다운 코드블록 없이.
 
 [
   {
-    "Rank": 0,
+    "Rank": ${startRank},
     "Change": "0",
-    "Name": "Name",
+    "Name": "툴이름",
     "URL": "https://...",
     "Category": "text",
-    "Tags": ["Tag"],
-    "Description": "...",
-    "One_Line_Review": "...",
-    "USP": "...",
-    "Pros_Cons": { "pros": ["..."], "cons": ["..."] },
+    "Tags": ["태그1", "태그2"],
+    "Description": "한국어 설명",
+    "One_Line_Review": "한 줄 리뷰",
+    "USP": "핵심 차별점",
+    "Pros_Cons": { "pros": ["장점1", "장점2"], "cons": ["단점1"] },
     "Usage_Score": 85.0,
     "Tech_Score": 80.0,
     "Buzz_Score": 75.0,
     "Utility_Score": 90.0,
     "Growth_Score": 70.0,
-    "Total_Score": 80.0,
+    "Total_Score": 82.5,
     "Pricing": "Free",
     "Korean_Support": "Y",
     "Platform": ["Web"]
@@ -250,30 +263,27 @@ ${currentRankingContext}
     const rawChunk = extractJsonArray(text);
 
     const seenNames = new Set();
-    const chunk = rawChunk.map(item => {
-      const normalized = {
-        Rank: 0,
-        Change: String(item.Change || item.change || "0"),
-        Name: String(item.Name || item.name || ""),
-        URL: String(item.URL || item.url || ""),
-        Category: String(item.Category || item.category || "etc"),
-        Tags: Array.isArray(item.Tags || item.tags) ? (item.Tags || item.tags) : [],
-        Description: String(item.Description || item.description || ""),
-        One_Line_Review: String(item.One_Line_Review || item.one_line_review || ""),
-        USP: String(item.USP || item.usp || ""),
-        Pros_Cons: (item.Pros_Cons || item.pros_cons) || { pros: [], cons: [] },
-        Usage_Score: parseFloat(item.Usage_Score || item.usage_score) || 0,
-        Tech_Score: parseFloat(item.Tech_Score || item.tech_score) || 0,
-        Buzz_Score: parseFloat(item.Buzz_Score || item.buzz_score) || 0,
-        Utility_Score: parseFloat(item.Utility_Score || item.utility_score) || 0,
-        Growth_Score: parseFloat(item.Growth_Score || item.growth_score) || 0,
-        Total_Score: parseFloat(item.Total_Score || item.total_score) || 0,
-        Pricing: String(item.Pricing || item.pricing || "Free"),
-        Korean_Support: String(item.Korean_Support || item.korean_support || "N"),
-        Platform: Array.isArray(item.Platform || item.platform) ? (item.Platform || item.platform) : ["Web"]
-      };
-      return normalized;
-    }).filter(item => {
+    const chunk = rawChunk.map(item => ({
+      Rank: parseInt(item.Rank || item.rank) || 0,
+      Change: String(item.Change || item.change || "0"),
+      Name: String(item.Name || item.name || ""),
+      URL: String(item.URL || item.url || ""),
+      Category: String(item.Category || item.category || "etc"),
+      Tags: Array.isArray(item.Tags || item.tags) ? (item.Tags || item.tags) : [],
+      Description: String(item.Description || item.description || ""),
+      One_Line_Review: String(item.One_Line_Review || item.one_line_review || ""),
+      USP: String(item.USP || item.usp || ""),
+      Pros_Cons: (item.Pros_Cons || item.pros_cons) || { pros: [], cons: [] },
+      Usage_Score: parseFloat(item.Usage_Score || item.usage_score) || 0,
+      Tech_Score: parseFloat(item.Tech_Score || item.tech_score) || 0,
+      Buzz_Score: parseFloat(item.Buzz_Score || item.buzz_score) || 0,
+      Utility_Score: parseFloat(item.Utility_Score || item.utility_score) || 0,
+      Growth_Score: parseFloat(item.Growth_Score || item.growth_score) || 0,
+      Total_Score: parseFloat(item.Total_Score || item.total_score) || 0,
+      Pricing: String(item.Pricing || item.pricing || "Free"),
+      Korean_Support: String(item.Korean_Support || item.korean_support || "N"),
+      Platform: Array.isArray(item.Platform || item.platform) ? (item.Platform || item.platform) : ["Web"]
+    })).filter(item => {
       if (!item.Name || !item.URL) return false;
       const nameLower = item.Name.toLowerCase().trim();
       if (seenNames.has(nameLower)) return false;
@@ -281,16 +291,21 @@ ${currentRankingContext}
       return true;
     });
 
+    console.log(`   ✅ ${rangeLabel}: ${chunk.length}개 항목 수집 완료`);
     return chunk;
   } catch (error) {
-    if (retryCount < 2) return fetchRankingChunk(rangeLabel, count, weekLabel, dateRange, currentRankingContext, retryCount + 1);
-    
-    // Fallback: globalSeenNames 무관하게 count개 반환 (중복 제거는 호출부에서 처리)
-    console.error(`\n❌ [최종 실패]: 백업 데이터 사용`);
+    if (retryCount < 3) {
+      console.log(`   ❌ ${rangeLabel} 수집 실패: ${error.message}`);
+      console.log(`   ⏳ 5초 후 재시도...`);
+      await new Promise(r => setTimeout(r, 5000));
+      return fetchRankingChunk(startRank, endRank, weekLabel, dateRange, excludeList, retryCount + 1);
+    }
+
+    console.error(`\n❌ [최종 실패]: ${rangeLabel} 구간을 백업 데이터로 대체합니다.`);
     const shuffled = [...FALLBACK_POOL].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, Math.max(count, FALLBACK_POOL.length)).map(tool => ({
+    return shuffled.slice(0, Math.max(count, FALLBACK_POOL.length)).map((tool, i) => ({
       Name: tool.name, URL: tool.url, Category: tool.cat,
-      Rank: 0, Change: "0", Tags: ["AI"], Description: "백업 데이터", 
+      Rank: startRank + i, Change: "0", Tags: ["AI"], Description: "백업 데이터",
       Total_Score: 70.0, Usage_Score: 70, Tech_Score: 70, Buzz_Score: 70, Utility_Score: 70, Growth_Score: 70,
       Pricing: "Free", Korean_Support: "Y", Platform: ["Web"]
     }));
@@ -304,25 +319,32 @@ async function runRankingAgent() {
   try {
     const weekLabel = getWeekLabel();
     const dateRange = getSearchDateRange();
-    console.log(`\n🚀 [Ranking Agent v2.5] ${weekLabel} 시작...\n`);
+    console.log(`\n🚀 [Ranking Agent v2.0] ${weekLabel} (${dateRange} 기준) 글로벌 AI 툴 랭킹 생성 시작...`);
+    console.log(`\n🔧 AI 엔진: Google Gemini 3 Flash Preview + Google Search Grounding\n`);
 
+    console.log(`📡 Firestore에서 현재 1~100위 데이터를 가져오는 중...`);
     const currentRankingContext = await getCurrentRanking();
+
     const allTools = [];
     const globalSeenNames = new Set();
 
-    let round = 1;
-    while (allTools.length < 100 && round <= 20) {
-      const needed = 100 - allTools.length;
-      const countToRequest = Math.min(needed, 5); // 한 번에 5개씩 요청하여 JSON 안정성 확보
-      
-      const chunk = await fetchRankingChunk(`라운드 ${round}`, countToRequest, weekLabel, dateRange, Array.from(globalSeenNames).slice(-40).join(", "));
+    // 10개씩 고정 구간으로 수집
+    const ranges = [];
+    for (let start = 1; start <= 100; start += 10) {
+      ranges.push([start, start + 9]);
+    }
 
+    for (const [startRank, endRank] of ranges) {
+      const excludeList = Array.from(globalSeenNames).join(", ");
+      const chunk = await fetchRankingChunk(startRank, endRank, weekLabel, dateRange, excludeList);
+
+      let added = 0;
       for (const tool of chunk) {
-        if (allTools.length >= 100) break;
         const name = tool.Name.trim();
         let isDuplicate = false;
         for (const existing of globalSeenNames) {
           if (isSameProductFast(name, existing)) {
+            console.log(`   🎯 전역 중복 제외: "${name}" (기존: "${existing}")`);
             isDuplicate = true;
             break;
           }
@@ -330,11 +352,38 @@ async function runRankingAgent() {
         if (!isDuplicate) {
           globalSeenNames.add(name);
           allTools.push(tool);
+          added++;
         }
       }
-      console.log(`📊 진행률: ${allTools.length}/100\n`);
-      round++;
-      if (allTools.length < 100) await new Promise(r => setTimeout(r, 2000));
+      console.log(`   📊 진행률: ${allTools.length}/100 완료 (${startRank - 1}%) [이번 구간 +${added}개]\n`);
+      await new Promise(r => setTimeout(r, 2000));
+    }
+
+    // 부족분 추가 수집
+    if (allTools.length < 100) {
+      const needed = 100 - allTools.length;
+      console.log(`\n⚠️  ${needed}개 부족 → 추가 AI 툴 수집 시작...`);
+      const excludeList = Array.from(globalSeenNames).join(", ");
+      const extra = await fetchRankingChunk(allTools.length + 1, 100, weekLabel, dateRange, excludeList);
+      let added = 0;
+      for (const tool of extra) {
+        if (allTools.length >= 100) break;
+        const name = tool.Name.trim();
+        let isDuplicate = false;
+        for (const existing of globalSeenNames) {
+          if (isSameProductFast(name, existing)) {
+            console.log(`   ⚠️ 추가 요청에서도 중복: "${name}"`);
+            isDuplicate = true;
+            break;
+          }
+        }
+        if (!isDuplicate) {
+          globalSeenNames.add(name);
+          allTools.push(tool);
+          added++;
+        }
+      }
+      console.log(`   ✅ 추가 수집 완료: ${added}개 (총 ${allTools.length}개)`);
     }
 
     // 100개 강제 충원
@@ -342,10 +391,10 @@ async function runRankingAgent() {
       const shuffled = [...FALLBACK_POOL].sort(() => 0.5 - Math.random());
       for (const f of shuffled) {
         if (allTools.length >= 100) break;
-        if (!globalSeenNames.has(f.name)) {
+        if (![...globalSeenNames].some(n => isSameProductFast(n, f.name))) {
           allTools.push({
             Name: f.name, URL: f.url, Category: f.cat,
-            Rank: 0, Change: "0", Tags: ["AI"], Description: "백업 충원", 
+            Rank: 0, Change: "0", Tags: ["AI"], Description: "백업 충원",
             Total_Score: 60.0, Usage_Score: 60, Tech_Score: 60, Buzz_Score: 60, Utility_Score: 60, Growth_Score: 60,
             Pricing: "Free", Korean_Support: "Y", Platform: ["Web"]
           });
@@ -354,22 +403,37 @@ async function runRankingAgent() {
       }
     }
 
+    console.log(`\n✅ 총 ${allTools.length}개 도구 수집 완료 (중복 제거됨)\n`);
     allTools.forEach((t, i) => t.Rank = i + 1);
 
+    console.log(`💾 Firestore adminReports에 저장 중...`);
     const reportRef = await db.collection("adminReports").add({
       type: "ranking_update",
       summary: `[${weekLabel}] 글로벌 AI 툴 랭킹 100 갱신 (${allTools.length}개) - Gemini 3`,
-      data: { 
-        tools: allTools, 
-        weekLabel, 
-        totalCount: allTools.length, 
+      data: {
+        tools: allTools,
+        weekLabel,
+        totalCount: allTools.length,
         generatedAt: new Date().toISOString(),
         engine: "Gemini 3 Flash Preview + Google Search"
       },
-      status: "pending", createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      status: "pending",
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
-    console.log(`\n🎉 완료: ${reportRef.id} (${allTools.length}개)`);
+    console.log(`\n🎉 [완료] adminReports에 보고서 저장 완료!`);
+    console.log(`   📄 보고서 ID: ${reportRef.id}`);
+    console.log(`   📊 수집된 툴: ${allTools.length}개`);
+    console.log(`   ⚠️  관리자 에이전트 제어실에서 최종 승인 후 랭킹이 갱신됩니다.\n`);
+
+    const scores = allTools.map(t => t.Total_Score).filter(s => s > 0);
+    const avg = scores.length ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(2) : 0;
+    const top3 = allTools.slice(0, 3).map(t => t.Name).join(", ");
+    const bot3 = allTools.slice(-3).map(t => t.Name).join(", ");
+    console.log(`\n📈 [통계]`);
+    console.log(`   평균 Total Score: ${avg}`);
+    console.log(`   상위 3개 툴: ${top3}`);
+    console.log(`   하위 3개 툴: ${bot3}`);
   } catch (error) {
     console.error("❌ 오류:", error);
     process.exit(1);
