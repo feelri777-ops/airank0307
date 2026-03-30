@@ -141,6 +141,64 @@ async function rebalance() {
     console.log("✅ [공유] public/scores.json 동기화 완료!");
   }
 
+  // ============================================================
+  // adminReports 최신 랭킹 보고서도 보정된 score/rank로 동기화
+  // → 랭킹 세부 페이지와 메인 페이지 순위 일치
+  // ============================================================
+  console.log("\n📋 adminReports 최신 보고서 동기화 시작...");
+  try {
+    const reportsSnap = await db.collection("adminReports")
+      .where("type", "==", "ranking_update")
+      .get();
+
+    if (!reportsSnap.empty) {
+      // 보정된 score 기준 이름→순위 맵 생성
+      const nameToRank = {};
+      const nameToScore = {};
+      tools.forEach((t, i) => {
+        if (i < 100) {
+          nameToRank[t.name?.toLowerCase().trim()] = i + 1;
+          nameToScore[t.name?.toLowerCase().trim()] = t._calCalcScore;
+        }
+      });
+
+      // 최신 보고서 찾기
+      const sortedReports = reportsSnap.docs.sort((a, b) => {
+        const aTime = a.data().createdAt?.toMillis() || 0;
+        const bTime = b.data().createdAt?.toMillis() || 0;
+        return bTime - aTime;
+      });
+      const latestDoc = sortedReports[0];
+      const latestData = latestDoc.data();
+      const reportTools = latestData.data?.tools || [];
+
+      // 보정된 score/rank 적용
+      const updatedTools = reportTools.map(t => {
+        const key = t.Name?.toLowerCase().trim();
+        const newRank = nameToRank[key];
+        const newScore = nameToScore[key];
+        if (newRank !== undefined) {
+          return { ...t, Rank: newRank, Total_Score: newScore };
+        }
+        return t;
+      });
+
+      // Rank 기준 재정렬
+      updatedTools.sort((a, b) => a.Rank - b.Rank);
+
+      await db.collection("adminReports").doc(latestDoc.id).update({
+        "data.tools": updatedTools,
+        "data.rebalancedAt": new Date().toISOString()
+      });
+
+      console.log(`✅ adminReports 최신 보고서(${latestDoc.id}) 동기화 완료! (${updatedTools.length}개 툴)`);
+    } else {
+      console.log("⚠️ adminReports에 랭킹 보고서가 없습니다. 건너뜁니다.");
+    }
+  } catch (e) {
+    console.error("❌ adminReports 동기화 실패:", e.message);
+  }
+
   console.log(`\n✅ [성공] 가점/감점 보정 점수로 1~100위 방어 성공, 점수 덮어쓰기 및 숨김 처리 완료!`);
 }
 
