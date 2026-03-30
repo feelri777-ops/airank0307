@@ -23,11 +23,16 @@ jobs:
       - name: 의존성 설치
         run: npm install
 
-      - name: 🤖 Gemini 3 AI 랭킹 자동 생성 및 승인 대기
+      - name: 🤖 Gemini 3 AI 랭킹 자동 생성
         run: node scripts/ranking_agent.js
         env:
           VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: ⚖️ 보정 점수 적용 및 두 페이지 순위 동기화
+        run: node scripts/rebalance_ranking.js
+        env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
       - name: 변경사항 커밋 & 푸시
