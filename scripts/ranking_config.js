@@ -12,7 +12,7 @@ export const RETRY_LIMIT = 3; // 청크 실패 시 재시도 횟수
 export const RETRY_DELAY_MS = 5000; // 재시도 대기 시간 (ms)
 export const CHUNK_DELAY_MS = 2000; // 청크 간 대기 시간 (ms)
 
-export const GEMINI_MODEL = "gemini-3-flash-preview";
+export const GEMINI_MODEL = "gemini-2.0-flash";
 export const GEMINI_CONFIG = {
   temperature: 0.2,
   topP: 0.95,
