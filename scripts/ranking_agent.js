@@ -104,22 +104,11 @@ async function getCurrentRanking() {
 // ========================================
 function extractJsonArray(text) {
   try {
-    let cleaned = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
-    let count = 0;
-    cleaned = cleaned.replace(/\*\*\*/g, () => {
-      count++;
-      return count % 2 === 1 ? '{' : '}';
-    });
-
-    const start = cleaned.indexOf('[');
-    const end = cleaned.lastIndexOf(']');
-
-    if (start === -1 || end === -1) throw new Error("JSON 배열을 찾을 수 없습니다.");
-
-    const jsonStr = cleaned.slice(start, end + 1);
-    const parsed = JSON.parse(jsonStr);
-    if (!Array.isArray(parsed)) throw new Error("JSON이 배열 형식이 아닙니다.");
-    return parsed;
+    const jsonMatch = text.match(/\[\s*\{[\s\S]*\}\s*\]/);
+    if (!jsonMatch) throw new Error("JSON 배열을 찾을 수 없습니다.");
+    // 마크다운 볼드/이탤릭 제거 (***text***, **text**, *text*)
+    const sanitized = jsonMatch[0].replace(/\*{1,3}(.*?)\*{1,3}/g, '$1');
+    return JSON.parse(sanitized);
   } catch (error) {
     console.error("❌ JSON 파싱 실패:", error.message);
     throw error;
@@ -296,10 +285,10 @@ ${currentRankingContext}
   } catch (error) {
     if (retryCount < 2) return fetchRankingChunk(rangeLabel, count, weekLabel, dateRange, currentRankingContext, retryCount + 1);
     
-    // Fallback
+    // Fallback: globalSeenNames 무관하게 count개 반환 (중복 제거는 호출부에서 처리)
     console.error(`\n❌ [최종 실패]: 백업 데이터 사용`);
     const shuffled = [...FALLBACK_POOL].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count).map(tool => ({
+    return shuffled.slice(0, Math.max(count, FALLBACK_POOL.length)).map(tool => ({
       Name: tool.name, URL: tool.url, Category: tool.cat,
       Rank: 0, Change: "0", Tags: ["AI"], Description: "백업 데이터", 
       Total_Score: 70.0, Usage_Score: 70, Tech_Score: 70, Buzz_Score: 70, Utility_Score: 70, Growth_Score: 70,
@@ -322,9 +311,9 @@ async function runRankingAgent() {
     const globalSeenNames = new Set();
 
     let round = 1;
-    while (allTools.length < 100 && round <= 15) {
+    while (allTools.length < 100 && round <= 20) {
       const needed = 100 - allTools.length;
-      const countToRequest = Math.min(needed, 10 + (round * 2));
+      const countToRequest = Math.min(needed, 5); // 한 번에 5개씩 요청하여 JSON 안정성 확보
       
       const chunk = await fetchRankingChunk(`라운드 ${round}`, countToRequest, weekLabel, dateRange, Array.from(globalSeenNames).slice(-40).join(", "));
 
