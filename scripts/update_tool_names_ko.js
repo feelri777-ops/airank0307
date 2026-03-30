@@ -90,10 +90,13 @@ async function main() {
 
       const batch = db.batch();
       for (const update of updates) {
-          if (update.id && update.nameKo) {
+          const originalTool = chunk.find(c => c.id === update.id);
+          if (originalTool && update.nameKo) {
               const ref = db.collection("tools").doc(update.id);
               batch.update(ref, { nameKo: update.nameKo });
               console.log(`  - ${update.id} -> ${update.nameKo}`);
+          } else if (update.id) {
+              console.log(`  ⚠️  건너뜀: ID 미일치 (${update.id})`);
           }
       }
       await batch.commit();

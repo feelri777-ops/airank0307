@@ -56,7 +56,7 @@ async function generateSmartTags(toolChunk) {
     try {
       const model = genAI.getGenerativeModel({ model: modelName });
       const prompt = `AI 도구의 핵심 태그 3가지(분별력 있는 한글/영문 전문 용어)를 JSON 배열 [{ "id": "툴ID", "newTags": ["태그1", "태그2", "태그3"] }] 형식으로 추출하세요.
-대상: ${toolChunk.map(t => `${t.name}: ${t.desc || ""}`).join(', ')}`;
+대상: ${toolChunk.map(t => `ID: ${t.id}, 이름: ${t.name}, 설명: ${t.desc || ""}`).join('\n')}`;
 
       const result = await model.generateContent(prompt);
       const text = result.response.text();
@@ -100,13 +100,16 @@ async function main() {
         const batch = db.batch();
         let upCount = 0;
         for (const update of updatesByAI) {
-            if (update.id && Array.isArray(update.newTags) && update.newTags.length === 3) {
+            const originalTool = chunk.find(c => c.id === update.id);
+            if (originalTool && Array.isArray(update.newTags) && update.newTags.length === 3) {
                 const ref = db.collection("tools").doc(update.id);
                 batch.update(ref, { 
                   tags: update.newTags,
                   last_tags_cleanup: new Date().toISOString()
                 });
                 upCount++;
+            } else if (update.id) {
+                console.log(`  ⚠️  건너뜀: ID 미일치 또는 태그 형식 오류 (${update.id})`);
             }
         }
         if (upCount > 0) {

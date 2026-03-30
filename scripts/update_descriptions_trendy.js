@@ -93,12 +93,15 @@ async function main() {
 
       const batch = db.batch();
       for (const update of updates) {
-          if (update.id && (update.newReview || update.newDesc)) {
+          const originalTool = chunk.find(c => c.id === update.id);
+          if (originalTool && (update.newReview || update.newDesc)) {
               const ref = db.collection("tools").doc(update.id);
               const data = {};
               if (update.newReview) data.oneLineReview = update.newReview;
               if (update.newDesc) data.desc = update.newDesc;
               batch.update(ref, data);
+          } else if (update.id) {
+              console.log(`  ⚠️  건너뜀: ID 미일치 (${update.id})`);
           }
       }
       await batch.commit();

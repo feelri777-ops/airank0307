@@ -456,6 +456,15 @@ const AdminReports = () => {
 
         batch.set(toolRef, safeData, { merge: true });
       });
+
+      // [핵심 해결] 기존에 rank가 있었으나 새 랭킹에는 포함되지 않은 도구들의 rank 필드 제거
+      const newToolNamesLower = new Set(newTools.map(t => String(t.Name || "").toLowerCase().trim()));
+      currentTools.forEach(t => {
+        const nameLower = String(t.name || "").toLowerCase().trim();
+        if (t.rank && !newToolNamesLower.has(nameLower)) {
+          batch.update(doc(db, "tools", t.id), { rank: deleteField() });
+        }
+      });
       await batch.commit();
       
       // 4. 리포트 상태 approved로 변경
