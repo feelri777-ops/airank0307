@@ -185,7 +185,7 @@ function isSameProductFast(name1, name2) {
 async function askGemini(prompt, retryCount = 0) {
   try {
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash", 
+      model: "gemini-3-flash-preview", 
       generationConfig: { temperature: 0.2, topP: 0.95, topK: 40, maxOutputTokens: 8192 }
     });
 
@@ -369,8 +369,14 @@ async function runRankingAgent() {
 
     const reportRef = await db.collection("adminReports").add({
       type: "ranking_update",
-      summary: `[${weekLabel}] 글로벌 AI 툴 랭킹 100 갱신 (${allTools.length}개)`,
-      data: { tools: allTools, weekLabel, totalCount: allTools.length, generatedAt: new Date().toISOString() },
+      summary: `[${weekLabel}] 글로벌 AI 툴 랭킹 100 갱신 (${allTools.length}개) - Gemini 3`,
+      data: { 
+        tools: allTools, 
+        weekLabel, 
+        totalCount: allTools.length, 
+        generatedAt: new Date().toISOString(),
+        engine: "Gemini 3 Flash Preview + Google Search"
+      },
       status: "pending", createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
