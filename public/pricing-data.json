@@ -6316,3238 +6316,2373 @@
       ]
     }
   ],
-  "xQykWoRaYiGlbphJOQF2": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "GPT-4o mini 무제한 사용",
-        "GPT-4o 제한적 사용",
-        "데이터 분석, 파일 업로드, 웹 브라우징 가능",
-        "맞춤형 GPT 탐색 및 사용"
-      ]
-    },
-    {
-      "planName": "Plus",
-      "price": "20",
-      "billing": "Monthly",
-      "features": [
-        "GPT-4o에 대해 최대 5배 더 많은 메시지 전송",
-        "DALL-E 이미지 생성",
-        "맞춤형 GPT 생성 및 편집",
-        "새로운 기능(고급 음성 모드 등) 우선 접속"
-      ]
-    },
-    {
-      "planName": "Team",
-      "price": "25",
-      "billing": "Monthly (Billed Annually)",
-      "features": [
-        "Plus 플랜의 모든 기능 포함",
-        "GPT-4o 및 도구 활용 한도 상향",
-        "워크스페이스 내 GPT 공유 및 관리",
-        "학습에 데이터 미사용 (보안 강화)"
-      ]
-    }
-  ],
-  "RSmPnt6AyNe87mus9Mi5": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "Claude 3.5 Sonnet 등 최신 모델 사용",
-        "웹 및 모바일 앱 액세스",
-        "일일 메시지 전송 제한 있음"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "20",
-      "billing": "Monthly",
-      "features": [
-        "Free 플랜 대비 5배 더 많은 사용 한도",
-        "트래픽 집중 시 우선 접속",
-        "신규 기능 우선 체험",
-        "Claude 3 Opus 및 Haiku 모델 선택 가능"
-      ]
-    },
-    {
-      "planName": "Team",
-      "price": "25",
-      "billing": "Monthly",
-      "features": [
-        "Pro 플랜의 모든 기능 포함",
-        "더 높은 사용 한도",
-        "사용자 관리 및 청구서 관리 콘솔",
-        "공유 프로젝트 및 지식 베이스 구축"
-      ]
-    }
-  ],
-  "7g4Wr4uERJMdaSyzAhWA": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "Gemini 1.5 Flash 모델 액세스",
-        "Google 앱(Gmail, Drive, Map 등) 연동",
-        "기본적인 텍스트 및 이미지 분석"
-      ]
-    },
-    {
-      "planName": "Gemini Advanced",
-      "price": "19.99",
-      "billing": "Monthly",
-      "features": [
-        "Gemini 1.5 Pro 최상위 모델 사용",
-        "2TB의 Google One 저장 공간 포함",
-        "Docs, Gmail에서 Gemini 직접 사용",
-        "복잡한 코딩 및 추론 작업에 최적화"
-      ]
-    }
-  ],
-  "ABMcFr95bu5undR9Nx1g": [
-    {
-      "planName": "Coming Soon",
-      "price": "TBA",
-      "billing": "Not Yet Available",
-      "features": [
-        "현재 레드팀 및 일부 전문가 한정 테스트 중",
-        "일반 공개 전으로 공식 결제 플랜 미정",
-        "고품질 비디오 생성 기능 제공 예정"
-      ]
-    }
-  ],
-  "W8XqDGllDgdgfyQnljw6": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "기본적인 AI 검색 및 답변",
-        "일일 5회의 Pro 검색 기능 제공",
-        "최신 정보 실시간 검색"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "20",
-      "billing": "Monthly",
-      "features": [
-        "일일 300회 이상의 Pro 검색 제공",
-        "AI 모델 선택 기능 (GPT-4o, Claude 3 등)",
-        "파일(PDF, 이미지) 업로드 및 분석",
-        "매월 $5 상당의 API 크레딧 제공"
-      ]
-    }
-  ],
-  "XKSS4GsM264wrJPKX6Pm": [
-    {
-      "planName": "Hobby",
-      "price": "0",
-      "billing": "Free",
-      "features": [
-        "2,000개의 코드 완성(Completions) 제공",
-        "50개의 프리미엄 모델 요청",
-        "200개의 Cursor-small 모델 요청",
-        "공용 공개 저장소 내에서 사용 가능"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "20",
-      "billing": "Monthly",
-      "features": [
-        "무제한 코드 완성 제공",
-        "월 500개의 프리미엄 모델 요청(Fast)",
-        "무제한 Cursor-small 모델 요청",
-        "일일 10개의 Claude 3.5 Sonnet 요청"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "40",
-      "billing": "Per user / Monthly",
-      "features": [
-        "Pro 플랜의 모든 기능 포함",
-        "중앙 집중식 팀 결제 관리",
-        "개인 정보 보호 모드 기본 적용",
-        "관리자 대시보드 및 사용량 통계"
-      ]
-    }
-  ],
-  "wusEun5ko9kQavx2OmyJ": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free",
-      "features": [
-        "매월 30개의 무료 생성",
-        "비상업적 용도",
-        "대기 시간 발생 가능"
-      ]
-    },
-    {
-      "planName": "Standard",
-      "price": "29.99",
-      "billing": "Monthly",
-      "features": [
-        "매월 120개의 생성",
-        "상업적 이용 가능",
-        "우선 순위 생성(Priority)",
-        "워터마크 제거"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "99.99",
-      "billing": "Monthly",
-      "features": [
-        "매월 400개의 생성",
-        "상업적 이용 가능",
-        "더 빠른 우선 순위 대기열",
-        "최신 모델 조기 액세스"
-      ]
-    },
-    {
-      "planName": "Premier",
-      "price": "499.99",
-      "billing": "Monthly",
-      "features": [
-        "매월 2,000개의 생성",
-        "가장 높은 우선 순위",
-        "모든 프로 기능 포함",
-        "대규모 프로젝트용"
-      ]
-    }
-  ],
-  "NlMZZVRjWqCS9PrOWJMp": [
-    {
-      "planName": "Basic Plan",
-      "price": "10",
-      "billing": "Monthly",
-      "features": [
-        "월 3.3시간의 빠른(Fast) 생성 시간",
-        "갤러리 이용 가능",
-        "개인 DM을 통한 생성 가능"
-      ]
-    },
-    {
-      "planName": "Standard Plan",
-      "price": "30",
-      "billing": "Monthly",
-      "features": [
-        "월 15시간의 빠른(Fast) 생성 시간",
-        "무제한 느린(Relax) 생성 시간",
-        "커뮤니티 쇼케이스 참여"
-      ]
-    },
-    {
-      "planName": "Pro Plan",
-      "price": "60",
-      "billing": "Monthly",
-      "features": [
-        "월 30시간의 빠른(Fast) 생성 시간",
-        "무제한 느린(Relax) 생성 시간",
-        "스텔스(Stealth) 모드 (이미지 숨기기)",
-        "동시 12개의 빠른 생성 작업"
-      ]
-    },
-    {
-      "planName": "Mega Plan",
-      "price": "120",
-      "billing": "Monthly",
-      "features": [
-        "월 60시간의 빠른(Fast) 생성 시간",
-        "무제한 느린(Relax) 생성 시간",
-        "스텔스 모드 포함",
-        "최고 속도 우선 순위"
-      ]
-    }
-  ],
-  "i2l8tdQ7UVjP6ZeN5Ygt": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free",
-      "features": [
-        "월 10,000자 텍스트 음성 변환",
-        "최대 3개의 사용자 지정 목소리",
-        "상업적 이용 시 출처 표기 필수",
-        "29개국 언어 지원"
-      ]
-    },
-    {
-      "planName": "Starter",
-      "price": "5",
-      "billing": "Monthly",
-      "features": [
-        "월 30,000자 텍스트 음성 변환",
-        "최대 10개의 사용자 지정 목소리",
-        "상업적 이용 라이선스 포함",
-        "Instant Voice Cloning 기능"
-      ]
-    },
-    {
-      "planName": "Creator",
-      "price": "22",
-      "billing": "Monthly",
-      "features": [
-        "월 100,000자 텍스트 음성 변환",
-        "최대 30개의 사용자 지정 목소리",
-        "Professional Voice Cloning",
-        "고품질 오디오 출력 (44.1kHz)"
-      ]
-    }
-  ],
-  "kcFNz8AqzZzouvM7fyzO": [
-    {
-      "planName": "Notion AI Add-on",
-      "price": "10",
-      "billing": "Per member / Monthly",
-      "features": [
-        "기존 노션 워크스페이스에 추가 가능",
-        "무제한 AI 응답 요청",
-        "AI 글쓰기 및 편집 보조",
-        "데이터베이스 자동 요약 및 추출",
-        "Q&A 기능을 통한 워크스페이스 내 답변 검색"
-      ]
-    },
-    {
-      "planName": "Notion AI Add-on (Annual)",
-      "price": "8",
-      "billing": "Per member / Monthly (Billed annually)",
-      "features": [
-        "연간 결제 시 20% 할인",
-        "월간 플랜과 동일한 무제한 AI 기능 제공",
-        "워크스페이스 전체 AI 검색 지원",
-        "문서 번역 및 톤 수정"
-      ]
-    }
-  ],
-  "7QFuRBvVD5LIDvw45E8U": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "웹, Android 및 iOS에서 Copilot 사용",
-        "GPT-4 및 GPT-4o 이용",
-        "이미지 생성 (Designer, 하루 15회)",
-        "플러그인 및 GPT 사용"
-      ]
-    },
-    {
-      "planName": "Copilot Pro",
-      "price": "20",
-      "billing": "Per user/month",
-      "features": [
-        "피크 타임 시 GPT-4 및 GPT-4o 우선 접속",
-        "Word, Excel, PowerPoint 등 주요 Office 앱에서 Copilot 사용 (구독 필요)",
-        "향상된 AI 이미지 생성 (하루 100회 및 가로 모드)",
-        "나만의 Copilot GPT 생성 가능"
-      ]
-    },
-    {
-      "planName": "Copilot for Microsoft 365",
-      "price": "30",
-      "billing": "Per user/month (Annual commitment)",
-      "features": [
-        "Microsoft Teams 내 Copilot 사용",
-        "기업급 보안, 개인정보 보호 및 규정 준수",
-        "Microsoft Graph 커넥터 및 인덱스",
-        "엔터프라이즈 맞춤형 사용자 지정 가능"
-      ]
-    }
-  ],
-  "w8Pt2Tdfwdk24z6YNgZV": [
-    {
-      "planName": "X Premium",
-      "price": "8",
-      "billing": "Per month",
-      "features": [
-        "Grok AI 도우미 액세스",
-        "게시물 수정 및 긴 게시물 작성",
-        "광고 감소",
-        "체크마크 인증"
-      ]
-    },
-    {
-      "planName": "X Premium+",
-      "price": "16",
-      "billing": "Per month",
-      "features": [
-        "Grok AI의 모든 기능 제공",
-        "광고 없음 (For You 및 Following 피드)",
-        "게시물 작성 시 더 큰 도달 범위 제공",
-        "기사 작성 및 게시 도구 제공"
-      ]
-    }
-  ],
-  "Cz17qkvR1q14g0qWU6IV": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "가입 시 AI 크레딧 400개 제공",
-        "무제한 감마 생성물 제작 (수동)",
-        "PDF 및 PPT 내보내기 (감마 워터마크 포함)",
-        "7일간의 변경 내역 확인"
-      ]
-    },
-    {
-      "planName": "Plus",
-      "price": "8",
-      "billing": "Per user/month (Billed annually)",
-      "features": [
-        "매월 AI 크레딧 400개 제공",
-        "내보내기 시 'Made with Gamma' 배지 제거",
-        "사용자 지정 글꼴 업로드",
-        "30일간의 변경 내역 확인"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "15",
-      "billing": "Per user/month (Billed annually)",
-      "features": [
-        "AI 크레딧 무제한 사용",
-        "고성능 AI 모델 액세스 (GPT-4 등)",
-        "상세 문서 분석 기능",
-        "무제한 변경 내역 및 고급 커스터마이징"
-      ]
-    }
-  ],
-  "W2vUrM3cVfk8ioQxQyjX": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "1 크레딧 제공 (약 1분 영상)",
-        "300개 이상의 아바타 및 300개 이상의 음성",
-        "HeyGen 워터마크 포함",
-        "AI 스크립트 생성"
-      ]
-    },
-    {
-      "planName": "Creator",
-      "price": "24",
-      "billing": "Per month (Billed annually)",
-      "features": [
-        "매월 15 크레딧 제공",
-        "워터마크 없음",
-        "빠른 영상 생성 속도",
-        "자동 캡션 및 3개의 인스턴트 아바타"
-      ]
-    },
-    {
-      "planName": "Team",
-      "price": "120",
-      "billing": "Per month (Billed annually)",
-      "features": [
-        "매월 30 크레딧 제공",
-        "4K 해상도 지원",
-        "공동 작업 공간 (3명 이내)",
-        "브랜드 키트 및 팀 관리 기능"
-      ]
-    }
-  ],
-  "XNIVkduWWkHZs3NDWrK5": [
-    {
-      "planName": "Basic Plan",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "매일 50 크레딧 제공 (약 10곡)",
-        "비상업적 용도만 가능",
-        "공유 링크를 통한 노래 공유",
-        "표준 대기 시간 적용"
-      ]
-    },
-    {
-      "planName": "Pro Plan",
-      "price": "8",
-      "billing": "Per month (Billed annually)",
-      "features": [
-        "매월 2,500 크레딧 제공 (약 500곡)",
-        "상업적 권리 포함 (유료 구독 중 생성 시)",
-        "우선 생성 대기열",
-        "동시 생성 가능 개수 증가"
-      ]
-    },
-    {
-      "planName": "Premier Plan",
-      "price": "24",
-      "billing": "Per month (Billed annually)",
-      "features": [
-        "매월 10,000 크레딧 제공 (약 2,000곡)",
-        "상업적 권리 포함",
-        "최우선 생성 대기열",
-        "신규 기능 우선 액세스"
-      ]
-    }
-  ],
-  "5p4E8lXNfUFKUWzVQLtw": [
-    {
-      "planName": "Early Access / Enterprise",
-      "price": "별도 문의",
-      "billing": "Custom",
-      "features": [
-        "AI 소프트웨어 엔지니어 소통 및 작업 수행",
-        "복잡한 엔지니어링 워크플로우 자동화",
-        "현재 대기 명단(Waitlist)을 통한 순차적 권한 부여",
-        "기업별 맞춤형 온보딩 및 지원"
-      ]
-    }
-  ],
-  "PjRvLTYQf4ZeiMuGB1s3": [
-    {
-      "planName": "Free (Public Preview)",
-      "price": "0",
-      "billing": "Free Forever (Beta)",
-      "features": [
-        "최대 10개의 AI 봇(Central assistants) 생성",
-        "봇당 무제한 데이터 소스 연결",
-        "2,000개 이상의 앱과 연동 가능",
-        "실시간 활동 기록 및 제어"
-      ]
-    }
-  ],
-  "CyLGfaWkUWDZLl0PsEJa": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Daily Credits",
-      "features": [
-        "매일 66 크레딧 제공 (익일 소멸)",
-        "표준 대기 시간 비디오 생성",
-        "생성된 영상에 워터마크 포함"
-      ]
-    },
-    {
-      "planName": "Standard",
-      "price": "10",
-      "billing": "Monthly",
-      "features": [
-        "매월 660 크레딧 제공",
-        "고성능 생성 모드 사용 가능",
-        "비디오 화질 향상(Upscale) 기능",
-        "워터마크 제거"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "37",
-      "billing": "Monthly",
-      "features": [
-        "매월 3,000 크레딧 제공",
-        "우선 순위 생성 권한",
-        "전문가급 비디오 편집 도구 제공"
-      ]
-    }
-  ],
-  "4CUIK4vewhoNV5Zcvprt": [
-    {
-      "planName": "Basic",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "매일 30 크레딧 제공 (리필 방식)",
-        "비디오 애니메이션 및 기본 편집",
-        "워터마크 포함"
-      ]
-    },
-    {
-      "planName": "Starter",
-      "price": "10",
-      "billing": "Monthly",
-      "features": [
-        "매월 700 크레딧 제공",
-        "워터마크 제거",
-        "비디오 길이 연장 기능"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "35",
-      "billing": "Monthly",
-      "features": [
-        "매월 2,000 크레딧 제공",
-        "고화질 렌더링 우선권",
-        "상업적 이용 권한"
-      ]
-    },
-    {
-      "planName": "Unlimited",
-      "price": "95",
-      "billing": "Monthly",
-      "features": [
-        "무제한 비디오 생성",
-        "최우선순위 생성 지원",
-        "모든 프리미엄 기능 포함"
-      ]
-    }
-  ],
-  "xPKibbzJ8ccSkVi5TzPk": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "노트북당 최대 50개의 소스 업로드",
-        "소스당 50만 단어 제한",
-        "오디오 개요(Audio Overview) 생성",
-        "Google Gemini Pro 기반 문서 분석 및 질문 답변"
-      ]
-    }
-  ],
-  "SdDIx17UhCZSVqv0oZry": [
-    {
-      "planName": "Pro",
-      "price": "39",
-      "billing": "Monthly",
-      "features": [
-        "매월 2,500 노멀 토큰 제공",
-        "이미지 업스케일링 및 강화",
-        "표준 처리 속도",
-        "개인용 라이선스"
-      ]
-    },
-    {
-      "planName": "Premium",
-      "price": "99",
-      "billing": "Monthly",
-      "features": [
-        "매월 8,500 노멀 토큰 제공",
-        "우선 처리 지원",
-        "신규 기능 우선 체험",
-        "상업용 라이선스"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "299",
-      "billing": "Monthly",
-      "features": [
-        "매월 30,000 노멀 토큰 제공",
-        "공동 작업 기능",
-        "전담 고객 성공 매니저",
-        "기업 맞춤형 지원"
-      ]
-    }
-  ],
-  "D5PQQAdHCNNZohX0nm6k": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "매일 10 크레딧 제공 (월 최대 300)",
-        "기본 생성 품질",
-        "커뮤니티 지원"
-      ]
-    },
-    {
-      "planName": "Standard",
-      "price": "10",
-      "billing": "Monthly",
-      "features": [
-        "매월 1,200 크레딧 제공",
-        "고품질 오디오 생성",
-        "우선 생성 대기열",
-        "고급 제어 기능"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "30",
-      "billing": "Monthly",
-      "features": [
-        "매월 4,800 크레딧 제공",
-        "최고 우선순위 처리",
-        "베타 기능 우선 액세스",
-        "상업적 권리 포함"
-      ]
-    }
-  ],
-  "J9NnPP6GnXPmliUYJiF1": [
-    {
-      "planName": "Free (Le Chat)",
-      "price": "0",
-      "billing": "Free",
-      "features": [
-        "Mistral 모델과의 대화 서비스",
-        "기본적인 텍스트 생성 및 분석",
-        "웹 인터페이스 무료 이용"
-      ]
-    },
-    {
-      "planName": "API Pay-as-you-go",
-      "price": "Variable",
-      "billing": "Based on usage",
-      "features": [
-        "사용한 토큰만큼 과금",
-        "Mistral Large, Small, Tiny 등 다양한 모델 선택",
-        "개발자 도구 및 SDK 지원",
-        "엔터프라이즈급 보안"
-      ]
-    }
-  ],
-  "N0SuczaZvYvLGZWK1KvD": [
-    {
-      "planName": "Open Source",
-      "price": "0",
-      "billing": "Free License",
-      "features": [
-        "모델 가중치 무료 다운로드",
-        "로컬 서버 또는 클라우드 설치 가능",
-        "상업적 이용 가능 (사용자 수 제한 정책 적용)",
-        "맞춤형 파인튜닝 지원"
-      ]
-    }
-  ],
-  "r3NvmUZISWI76DwsJ04k": [
-    {
-      "planName": "Individual",
-      "price": "30",
-      "billing": "Monthly",
-      "features": [
-        "가장 빠른 이메일 환경",
-        "AI 기반 이메일 작성 및 요약",
-        "수신 확인 및 일정 예약 도구",
-        "단축키 기반 워크플로우"
-      ]
-    },
-    {
-      "planName": "Growth",
-      "price": "45",
-      "billing": "Monthly (per user)",
-      "features": [
-        "Individual의 모든 기능",
-        "팀 공유 템플릿",
-        "팀 가시성 및 협업 도구",
-        "중앙 집중식 관리 콘솔"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "Contact for pricing",
-      "features": [
-        "보안 및 규정 준수 도구 (SSO, SAML)",
-        "전담 계정 관리자",
-        "사용량 통계 및 대시보드",
-        "무제한 팀 협업"
-      ]
-    }
-  ],
-  "c2Z1SRlv5BcKXNB7M1Ak": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "매월 1,000 크레딧 무료 제공",
-        "표정 및 음성 감정 분석 API 접근",
-        "Hume Playground 이용 가능",
-        "커뮤니티 지원"
-      ]
-    },
-    {
-      "planName": "Pay-as-you-go",
-      "price": "사용량 기반",
-      "billing": "Usage-based",
-      "features": [
-        "사용량에 따른 크레딧 구매 ($0.01/credit)",
-        "모든 API 및 기능 제한 없음",
-        "대규모 데이터 처리 가능",
-        "우선 기술 지원"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "별도 문의",
-      "billing": "Custom",
-      "features": [
-        "맞춤형 모델 학습",
-        "전담 계정 매니저",
-        "보안 및 규정 준수 솔루션",
-        "SLA(서비스 수준 계약) 보장"
-      ]
-    }
-  ],
-  "GG7J4zaMKRdyAU9PveLN": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무제한 개인 프로젝트 생성",
-        "기본 3D 모델링 도구 및 라이브러리",
-        "웹 링크를 통한 디자인 공유",
-        "최대 2명의 협업자 초대"
-      ]
-    },
-    {
-      "planName": "Super (Individual)",
-      "price": "7",
-      "billing": "Per month, billed annually",
-      "features": [
-        "Spline 로고 제거",
-        "동영상 및 GIF로 내보내기",
-        "애니메이션 및 인터랙션 도구 확장",
-        "이미지 및 비디오 텍스처 업로드"
-      ]
-    },
-    {
-      "planName": "Super (Team)",
-      "price": "9",
-      "billing": "Per editor/month, billed annually",
-      "features": [
-        "팀 공유 라이브러리",
-        "팀 권한 관리 및 관리자 제어",
-        "폴더 기반 프로젝트 구성",
-        "모든 Super Individual 기능 포함"
-      ]
-    }
-  ],
-  "lQTxzd8fb3z6ZStvVVeR": [
-    {
-      "planName": "Basic",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "매월 5,000 크레딧 제공 (일회성)",
-        "2억 개 이상의 학술 논문 검색",
-        "데이터 요약 및 추출",
-        "논문 본문 질문 및 답변"
-      ]
-    },
-    {
-      "planName": "Plus",
-      "price": "10",
-      "billing": "Per month, billed annually",
-      "features": [
-        "매월 12,000 크레딧 제공",
-        "결과 데이터 CSV/BibTeX 내보내기",
-        "고성능 언어 모델 사용",
-        "우선 고객 지원"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "25",
-      "billing": "Per month, billed annually",
-      "features": [
-        "매월 50,000 크레딧 제공",
-        "기관/팀 단위 공유 기능",
-        "가장 빠른 응답 속도 및 최신 모델 접근",
-        "고급 분석 워크플로우 지원"
-      ]
-    }
-  ],
-  "2kDHXYswujhg7aY2B9iV": [
-    {
-      "planName": "Enterprise",
-      "price": "별도 문의",
-      "billing": "Custom",
-      "features": [
-        "법률 전문가를 위한 맞춤형 LLM 솔루션",
-        "문서 검토 및 법률 리서치 자동화",
-        "기업 내 보안 데이터 전용 환경 구축",
-        "고객사별 맞춤형 워크플로우 통합"
-      ]
-    }
-  ],
-  "x6IDEhYtAJnD7S2D6eHt": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "기본 의료 노트 자동 작성 (Nabla Copilot)",
-        "임상 요약 기능",
-        "환자 프라이버시 보호 시스템 적용"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "119",
-      "billing": "Per month, per clinician",
-      "features": [
-        "무제한 진료 기록 생성",
-        "EHR(전자건강기록) 시스템 통합 지원",
-        "다양한 서식의 의료 요약 템플릿",
-        "우선 기술 지원"
-      ]
-    },
-    {
-      "planName": "Organization",
-      "price": "별도 문의",
-      "billing": "Custom",
-      "features": [
-        "대규모 병원 및 의료 기관용 대시보드",
-        "중앙 집중식 청구 및 계정 관리",
-        "보안 및 규정 준수(HIPAA 등) 보증",
-        "API 접근 및 대량 통합 지원"
-      ]
-    }
-  ],
-  "Q7o9EkRlmosYNXTnFSOJ": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무제한 퍼블릭 Repl 생성",
-        "0.5 vCPU 및 0.5 GB RAM 제공",
-        "기본 AI 도구 사용 가능",
-        "커뮤니티 지원"
-      ]
-    },
-    {
-      "planName": "Replit Core",
-      "price": "15",
-      "billing": "Per Month (Billed Annually)",
-      "features": [
-        "고급 AI 모델(Replit AI) 사용",
-        "무제한 프라이빗 Repl",
-        "4 vCPU 및 8 GB RAM 제공",
-        "우선순위 지원"
-      ]
-    },
-    {
-      "planName": "Teams",
-      "price": "Custom",
-      "billing": "Contact for Pricing",
-      "features": [
-        "중앙 집중식 팀 결제",
-        "화이트보드 및 협업 도구",
-        "SSO 로그인 및 보안 강화",
-        "전용 기술 지원"
-      ]
-    }
-  ],
-  "gz4UUQWfo7VEfGGYt1xV": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "월 25개의 생성 크레딧 제공",
-        "Adobe Firefly 웹 앱 및 일부 앱 내 기능 사용",
-        "결과물에 워터마크 포함"
-      ]
-    },
-    {
-      "planName": "Premium Plan",
-      "price": "4.99",
-      "billing": "Per Month",
-      "features": [
-        "월 100개의 생성 크레딧 제공",
-        "Adobe Fonts 무료 버전 사용",
-        "결과물에 워터마크 미포함",
-        "고해상도 다운로드 지원"
-      ]
-    },
-    {
-      "planName": "Adobe Creative Cloud All Apps",
-      "price": "59.99",
-      "billing": "Per Month",
-      "features": [
-        "월 1,000개의 생성 크레딧 제공",
-        "Photoshop, Illustrator 등 20개 이상의 앱 포함",
-        "100GB 클라우드 스토리지",
-        "모든 프리미엄 기능 포함"
-      ]
-    }
-  ],
-  "paqAuYIWu7wT8iCIEsA6": [
-    {
-      "planName": "Canva Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "드래그 앤 드롭 디자인 도구",
-        "25만 개 이상의 무료 템플릿",
-        "5GB 클라우드 스토리지",
-        "일부 AI 매직 디자인 도구 사용"
-      ]
-    },
-    {
-      "planName": "Canva Pro",
-      "price": "15",
-      "billing": "Per Month / 1 Person",
-      "features": [
-        "1억 개 이상의 프리미엄 스톡 사진 및 비디오",
-        "무제한 매직 스위치(크기 조정)",
-        "1TB 클라우드 스토리지",
-        "브랜드 키트 및 배경 제거 도구"
-      ]
-    },
-    {
-      "planName": "Canva for Teams",
-      "price": "10",
-      "billing": "Per User/Month (Min. 3 users)",
-      "features": [
-        "팀 협업 워크플로우",
-        "브랜드 가이드라인 설정",
-        "팀 보고서 및 인사이트",
-        "엔터프라이즈급 보안 관리"
-      ]
-    }
-  ],
-  "kgAendvSl1lPWmeW5olO": [
-    {
-      "planName": "Copilot Individual",
-      "price": "10",
-      "billing": "Per Month",
-      "features": [
-        "코드 자동 완성 및 채팅 기능",
-        "주요 IDE 및 에디터 플러그인 제공",
-        "공개 코드 필터링",
-        "연간 결제 시 $100/년"
-      ]
-    },
-    {
-      "planName": "Copilot Business",
-      "price": "19",
-      "billing": "Per User/Month",
-      "features": [
-        "조직 차원의 정책 관리",
-        "프록시 지원 및 엔터프라이즈 보안",
-        "채팅 내 데이터 비공개 보장",
-        "관리자 콘솔 제공"
-      ]
-    },
-    {
-      "planName": "Copilot Enterprise",
-      "price": "39",
-      "billing": "Per User/Month",
-      "features": [
-        "내부 코드베이스 기반 맞춤형 답변",
-        "코드 검토 요약 기능",
-        "고급 보안 및 규정 준수",
-        "조직 맞춤형 미세 조정(Fine-tuning)"
-      ]
-    }
-  ],
-  "IFr7kZspy9pm6O5rTM65": [
-    {
-      "planName": "Basic",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "실시간 대화 기록 및 요약",
-        "월 300분 녹음(대화당 최대 30분)",
-        "주요 회의 플랫폼 연동(Zoom, Meet, Teams)"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "16.99",
-      "billing": "Per Month (Billed Annually $10/mo)",
-      "features": [
-        "월 1,200분 녹음(대화당 최대 90분)",
-        "사용자 지정 어휘 추가",
-        "고급 검색 및 태그 기능",
-        "과거 대화 대량 업로드"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "35",
-      "billing": "Per User/Month (Billed Annually $20/mo)",
-      "features": [
-        "월 6,000분 녹음(대화당 최대 4시간)",
-        "팀 공동 작업 도구 및 공유 폴더",
-        "중앙 집중식 관리자 대시보드",
-        "우선순위 고객 지원"
-      ]
-    }
-  ],
-  "MEK5XrCqul2Aqb1qiZxt": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무료 AI 크레딧 제공 (가입 시 500 크레딧)",
-        "최대 5명의 팀원 협업",
-        "Tome 로고 포함된 공유 링크"
-      ]
-    },
-    {
-      "planName": "Professional",
-      "price": "16",
-      "billing": "Per user/month (Annual billing)",
-      "features": [
-        "무제한 AI 생성 기능",
-        "PDF로 내보내기",
-        "사용자 지정 로고 및 브랜드 설정",
-        "고급 분석 기능"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "Contact sales",
-      "features": [
-        "중앙 집중식 팀 관리",
-        "SSO(Single Sign-On) 지원",
-        "전담 고객 성공 매니저",
-        "맞춤형 보안 및 규정 준수"
-      ]
-    }
-  ],
-  "PWuwM2Vkh4XQmaOx6lnc": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "회의 녹음 및 전사(Transcription)",
-        "회의 요약 및 액션 아이템 추출",
-        "웹 앱 및 모바일 앱 접근"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "19",
-      "billing": "Per month (Annual billing)",
-      "features": [
-        "무제한 오디오 저장 공간",
-        "과거 대화 전체 검색 기능",
-        "우선순위 고객 지원",
-        "고급 AI 분석 도구"
-      ]
-    }
-  ],
-  "xGUX9J4BmFo1RpxPBI7d": [
-    {
-      "planName": "Hobby",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "2,000개의 코드 완성(Completions)",
-        "매월 200개의 일반 채팅 요청",
-        "50개의 프리미엄 요청 (최초 1회 한정)"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "20",
-      "billing": "Per month",
-      "features": [
-        "무제한 코드 완성",
-        "매월 500개의 빠른 프리미엄 요청",
-        "무제한 느린 프리미엄 요청",
-        "하루 10개의 Claude 3.5 Sonnet 요청"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "40",
-      "billing": "Per user/month",
-      "features": [
-        "중앙 집중식 청구 관리",
-        "관리자 대시보드",
-        "프라이버시 모드 (코드 학습 방지)",
-        "SOC2 인증 보안"
-      ]
-    }
-  ],
-  "Kha5CiYOHLJpvOagnPJK": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "매일 150개의 토큰 제공",
-        "최대 3개의 대기열 작업",
-        "개인용 라이선스 (상업적 이용 제한적)"
-      ]
-    },
-    {
-      "planName": "Apprentice",
-      "price": "10",
-      "billing": "Per month (Annual billing)",
-      "features": [
-        "매월 8,500개의 토큰 제공",
-        "이미지 생성 속도 향상",
-        "비공개 이미지 생성 옵션",
-        "상업적 이용 가능 라이선스"
-      ]
-    },
-    {
-      "planName": "Artisan",
-      "price": "24",
-      "billing": "Per month (Annual billing)",
-      "features": [
-        "매월 25,000개의 토큰 제공",
-        "최대 10개의 대기열 작업",
-        "고급 AI 비디오 생성 기능"
-      ]
-    },
-    {
-      "planName": "Maestro",
-      "price": "48",
-      "billing": "Per month (Annual billing)",
-      "features": [
-        "매월 60,000개의 토큰 제공",
-        "최대 20개의 대기열 작업",
-        "모든 고급 편집 도구 포함"
-      ]
-    }
-  ],
-  "A0UzjGk5pItjYvG37vKW": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "매일 제한된 이미지 생성",
-        "실시간 생성 도구(Real-time) 체험",
-        "비상업적 용도 전용"
-      ]
-    },
-    {
-      "planName": "Basic",
-      "price": "8",
-      "billing": "Per month (Annual billing)",
-      "features": [
-        "매월 36,000장의 이미지 생성 (Fast Mode)",
-        "상업적 라이선스 제공",
-        "무제한 일반 모드 생성"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "28",
-      "billing": "Per month (Annual billing)",
-      "features": [
-        "매월 120,000장의 이미지 생성",
-        "매일 8개의 비디오 생성",
-        "비공개 생성 모드",
-        "사용자 정의 AI 모델 훈련"
-      ]
-    },
-    {
-      "planName": "Max",
-      "price": "48",
-      "billing": "Per month (Annual billing)",
-      "features": [
-        "매월 450,000장의 이미지 생성",
-        "매일 20개의 비디오 생성",
-        "최우선 순위 생성 속도",
-        "최대 5개의 모델 동시 훈련"
-      ]
-    }
-  ],
-  "WrTcKwE3tbtsuYHUGNWF": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무제한 검색",
-        "매월 20 AI 크레딧 제공",
-        "GPT-4o 기반 요약 기능 체험",
-        "기본 필터 및 데이터 시각화"
-      ]
-    },
-    {
-      "planName": "Premium",
-      "price": "8.99",
-      "billing": "USD/월 (연간 결제 시)",
-      "features": [
-        "무제한 GPT-4o 기반 요약 및 답변",
-        "무제한 연구 스냅샷(Study Snapshots)",
-        "고급 필터링 기능 (품질, 저널 유형 등)",
-        "북마크 및 폴더 관리"
-      ]
-    },
-    {
-      "planName": "Team",
-      "price": "9.99",
-      "billing": "USD/인/월 (연간 결제 시)",
-      "features": [
-        "Premium 플랜의 모든 기능 포함",
-        "공유 워크스페이스 제공",
-        "중앙 집중식 결제 및 라이선스 관리",
-        "팀 내 연구 자료 공유 및 협업"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "별도 문의",
-      "features": [
-        "맞춤형 AI 모델 학습",
-        "전담 계정 관리자 지원",
-        "보안 및 규정 준수 강화",
-        "API 접근 권한 제공"
-      ]
-    }
-  ],
-  "YeUo61OPBLqt0OrGBPp3": [
-    {
-      "planName": "Contact Sales",
-      "price": "Custom",
-      "billing": "별도 문의",
-      "features": [
-        "엔터프라이즈급 계약 생애주기 관리(CLM)",
-        "AI 기반 계약 데이터 추출 및 분석",
-        "워크플로우 자동화 설계",
-        "Salesforce, Ironclad Sign 등 타 솔루션 연동"
-      ]
-    }
-  ],
-  "0QenZpwcNNMk3WvAki4l": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "매월 1시간 전사(Transcription)",
-        "720p 영상 내보내기 (워터마크 포함)",
-        "기본적인 편집 및 AI 효과",
-        "5GB 클라우드 저장 공간"
-      ]
-    },
-    {
-      "planName": "Hobbyist",
-      "price": "12",
-      "billing": "USD/월 (연간 결제 시)",
-      "features": [
-        "매월 10시간 전사",
-        "1080p 영상 내보내기 (워터마크 제거)",
-        "무제한 원격 녹화",
-        "20GB 클라우드 저장 공간"
-      ]
-    },
-    {
-      "planName": "Creator",
-      "price": "24",
-      "billing": "USD/월 (연간 결제 시)",
-      "features": [
-        "매월 30시간 전사",
-        "4K 영상 내보내기",
-        "고급 AI 기능 (Underlord 등 무제한 활용)",
-        "100GB 클라우드 저장 공간"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "40",
-      "billing": "USD/월 (연간 결제 시)",
-      "features": [
-        "매월 40시간 전사",
-        "팀 협업 도구 및 관리자 기능",
-        "화이트라벨 리뷰 링크",
-        "무제한 클라우드 저장 공간"
-      ]
-    }
-  ],
-  "HEbixDuERcWpNR96eyE2": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "120개 이상의 음성 샘플 체험",
-        "총 10분 음성 생성 (가입 시 1회)",
-        "공유용 링크 생성 기능",
-        "내보내기(Download) 불가"
-      ]
-    },
-    {
-      "planName": "Creator",
-      "price": "23",
-      "billing": "USD/월 (연간 결제 시)",
-      "features": [
-        "무제한 내보내기",
-        "연간 24시간 음성 생성 권한",
-        "상업적 이용 권한 포함",
-        "5개 프로젝트 생성 가능"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "79",
-      "billing": "USD/월 (연간 결제 시)",
-      "features": [
-        "연간 96시간 음성 생성 권한",
-        "무제한 프로젝트 생성",
-        "협업 워크스페이스 및 관리 권한",
-        "AI 보이스 복제(Voice Cloning) 추가 가능"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "별도 문의",
-      "features": [
-        "무제한 음성 생성 시간",
-        "전담 기술 지원 및 교육",
-        "보안 및 법적 규정 준수 검토",
-        "맞춤형 워크플로우 지원"
-      ]
-    }
-  ],
-  "8d82mOneGSFwevN8ksP7": [
-    {
-      "planName": "Pro",
-      "price": "12",
-      "billing": "USD/월 (연간 결제 시)",
-      "features": [
-        "개인 사용자용 무제한 슬라이드 제작",
-        "AI 프레젠테이션 봇 이용",
-        "PowerPoint 내보내기",
-        "고급 분석 데이터 제공"
-      ]
-    },
-    {
-      "planName": "Team",
-      "price": "40",
-      "billing": "USD/인/월 (연간 결제 시)",
-      "features": [
-        "팀 공동 편집 및 협업",
-        "공유 템플릿 라이브러리",
-        "중앙 집중식 브랜드 관리 (로고, 폰트 설정)",
-        "사용자 관리 대시보드"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "별도 문의",
-      "features": [
-        "무제한 리소스 및 스토리지",
-        "SSO(Single Sign-On) 로그인 지원",
-        "맞춤형 브랜드 템플릿 제작 서비스",
-        "보안 및 전용 서버 옵션"
-      ]
-    }
-  ],
-  "kSZtMJx2BTL31pBr65IS": [
-    {
-      "planName": "Creator",
-      "price": "$39",
-      "billing": "사용자당/월 (연간 결제 시)",
-      "features": [
-        "무제한 AI 생성 단어",
-        "1명의 시트(Seat)",
-        "1개의 브랜드 보이스",
-        "50개 이상의 템플릿 이용",
-        "SEO 모드 지원"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "$59",
-      "billing": "사용자당/월 (연간 결제 시)",
-      "features": [
-        "Creator 플랜의 모든 기능 포함",
-        "최대 5명의 시트",
-        "3개의 브랜드 보이스",
-        "10개의 지식 자산(Knowledge Assets)",
-        "협업 도구 및 캠페인 관리"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "별도 문의",
-      "billing": "맞춤형 견적",
-      "features": [
-        "무제한 브랜드 보이스 및 지식 자산",
-        "엔터프라이즈급 보안 및 제어",
-        "전담 계정 관리자",
-        "API 접근 권한",
-        "맞춤형 템플릿 및 워크플로우"
-      ]
-    }
-  ],
-  "IrmcIZIQKQtm0HyHwYbn": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "1명의 시트",
-        "2,000 단어 채팅 제한",
-        "무제한 프로젝트",
-        "기본 도구 및 템플릿 이용"
-      ]
-    },
-    {
-      "planName": "Starter",
-      "price": "$36",
-      "billing": "월 결제 (연간 결제 시)",
-      "features": [
-        "1명의 시트",
-        "무제한 단어(채팅)",
-        "무제한 프로젝트",
-        "최신 모델(GPT-4 등) 우선 접근"
-      ]
-    },
-    {
-      "planName": "Advanced",
-      "price": "$186",
-      "billing": "월 결제 (연간 결제 시)",
-      "features": [
-        "최대 5명의 시트 포함",
-        "무제한 단어",
-        "워크플로우 자동화 기능",
-        "2,000개 이상의 자동화 통합"
-      ]
-    }
-  ],
-  "yNr6Sgk3HLZ7RZWk1Uuv": [
-    {
-      "planName": "Basic Logo Package",
-      "price": "$20",
-      "billing": "1회성 결제",
-      "features": [
-        "1개의 저해상도 로고 파일(PNG)",
-        "흰색 배경 전용"
-      ]
-    },
-    {
-      "planName": "Premium Logo Package",
-      "price": "$65",
-      "billing": "1회성 결제",
-      "features": [
-        "여러 유형의 고해상도 파일(PNG, EPS, PDF, SVG)",
-        "무제한 로고 수정 권한",
-        "평생 소유권(Commercial Ownership)"
-      ]
-    },
-    {
-      "planName": "Brand Kit Subscription",
-      "price": "$96",
-      "billing": "연간 결제 (월 $8 상당)",
-      "features": [
-        "로고 고해상도 파일 무제한 다운로드",
-        "명함, SNS 프로필, 인보이스 등 300개 이상의 브랜드 자료",
-        "브랜드 가이드라인 제공"
-      ]
-    }
-  ],
-  "rvOiOjNhkn29n3DZfbW0": [
-    {
-      "planName": "Open Source",
-      "price": "0",
-      "billing": "Free (MIT License)",
-      "features": [
-        "무료로 소스 코드 다운로드 및 수정 가능",
-        "로컬 환경 설치 및 사용",
-        "2개/4개/5개 트랙 분리 지원",
-        "상업적 용도 사용 가능(라이선스 준수 시)"
-      ]
-    }
-  ],
-  "ERVDVfis9EWNQQT8deyc": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무제한 공개 모델 및 데이터셋 호스팅",
-        "기본 컴퓨팅 리소스로 Spaces 이용",
-        "커뮤니티 지원"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "$9",
-      "billing": "사용자당/월",
-      "features": [
-        "프로 배지 부여",
-        "Spaces용 추가 무료 하드웨어 업그레이드",
-        "AutoTrain 이용 권한",
-        "얼리 액세스 기능 제공"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "$20",
-      "billing": "사용자당/월",
-      "features": [
-        "엔터프라이즈급 보안(SSO/SAML)",
-        "비공개 모델 및 데이터셋 관리",
-        "우선순위 기술 지원",
-        "중앙 집중식 청구 및 관리"
-      ]
-    }
-  ],
-  "JLNlMWFYIScdQF4Jg5kM": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "최대 100개의 소스 팔로우",
-        "최대 3개의 피드 구성",
-        "웹 및 모바일 앱 버전 제공"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "6",
-      "billing": "Month (Billed annually)",
-      "features": [
-        "최대 1,000개의 소스 팔로우",
-        "메모 및 하이라이트 기능",
-        "광고 없는 환경",
-        "프리미엄 폰트 제공"
-      ]
-    },
-    {
-      "planName": "Pro+",
-      "price": "12",
-      "billing": "Month (Billed annually)",
-      "features": [
-        "최대 2,500개의 소스 팔로우",
-        "AI 피드 어시스턴트(Leo) 사용",
-        "구글 뉴스, 트위터 피드 연동",
-        "뉴스레터 직접 구독 기능"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "Contact for pricing",
-      "features": [
-        "무제한 소스 및 피드",
-        "팀 공유 보드 및 협업 도구",
-        "사이버 보안 및 시장 정보 특화 AI",
-        "보안 인증(SSO) 지원"
-      ]
-    }
-  ],
-  "Ct7vnMd8bXekvJId3UWm": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "주당 10분의 AI 영상 생성",
-        "10GB 클라우드 저장 공간",
-        "영상 내 워터마크 포함",
-        "표준 미디어 라이브러리 이용"
-      ]
-    },
-    {
-      "planName": "Plus",
-      "price": "20",
-      "billing": "Month (Billed annually)",
-      "features": [
-        "월 50분의 AI 영상 생성",
-        "무제한 워터마크 제거 수출",
-        "100GB 클라우드 저장 공간",
-        "월 80개의 프리미엄 스톡 미디어"
-      ]
-    },
-    {
-      "planName": "Max",
-      "price": "48",
-      "billing": "Month (Billed annually)",
-      "features": [
-        "월 200분의 AI 영상 생성",
-        "400GB 클라우드 저장 공간",
-        "월 320개의 프리미엄 스톡 미디어",
-        "우선순위 고객 지원"
-      ]
-    }
-  ],
-  "JOZi6nxCzsCqdz0DyXEp": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Trial",
-      "features": [
-        "기본 AI 비디오 개인화 테스트",
-        "한정된 크레딧 제공",
-        "기본 템플릿 이용"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "Custom",
-      "billing": "Contact for pricing",
-      "features": [
-        "대규모 비디오 개인화 생성",
-        "고급 분석 대시보드",
-        "CRM 도구 연동 (HubSpot, Salesforce 등)",
-        "커스텀 템플릿 제작"
-      ]
-    }
-  ],
-  "z6WfRPYx5uCUqTM85qi4": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "매월 3분의 비디오 생성",
-        "9가지 기본 AI 아바타",
-        "120개 이상의 언어 지원",
-        "Synthesia 워터마크 포함"
-      ]
-    },
-    {
-      "planName": "Starter",
-      "price": "18",
-      "billing": "Month (Billed annually)",
-      "features": [
-        "매월 10분의 비디오 생성",
-        "70가지 이상의 표준 AI 아바타",
-        "비디오 편집기 및 AI 스크립트 도우미",
-        "스톡 미디어 라이브러리"
-      ]
-    },
-    {
-      "planName": "Creator",
-      "price": "59",
-      "billing": "Month (Billed annually)",
-      "features": [
-        "매월 30분의 비디오 생성",
-        "90가지 이상의 프리미엄 AI 아바타",
-        "브랜드 자산 관리 (로고, 폰트)",
-        "커스텀 아바타 추가 구매 가능"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "Contact for pricing",
-      "features": [
-        "무제한 비디오 생성",
-        "맞춤형 AI 아바타 생성",
-        "엔터프라이즈급 보안 및 워크플로우",
-        "전담 계정 매니저"
-      ]
-    }
-  ],
-  "SvA4k1sqOw9zceECd5s0": [
-    {
-      "planName": "Personal",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "월 250개 쿼리 제공",
-        "최대 1개의 봇 생성",
-        "500페이지 문서 학습",
-        "GPT-3.5 모델 기반"
-      ]
-    },
-    {
-      "planName": "Basic",
-      "price": "29",
-      "billing": "Month",
-      "features": [
-        "월 2,500개 쿼리 제공",
-        "최대 3개의 봇 생성",
-        "1,000페이지 문서 학습",
-        "GPT-4 및 Claude 3 모델 선택 가능"
-      ]
-    },
-    {
-      "planName": "Premium",
-      "price": "99",
-      "billing": "Month",
-      "features": [
-        "월 10,000개 쿼리 제공",
-        "무제한 봇 생성",
-        "5,000페이지 문서 학습",
-        "팀 협업 도구 및 API 액세스"
-      ]
-    },
-    {
-      "planName": "Advanced",
-      "price": "249",
-      "billing": "Month",
-      "features": [
-        "월 25,000개 쿼리 제공",
-        "무제한 봇 생성",
-        "10,000페이지 문서 학습",
-        "고급 분석 및 맞춤형 위젯"
-      ]
-    }
-  ],
-  "fXfz5vDxBZvrAPGKnFJa": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "기초 문법 및 맞춤법 검사",
-        "텍스트 요약 및 어조 감지",
-        "일부 AI 텍스트 생성 기능(월 100회)"
-      ]
-    },
-    {
-      "planName": "Premium",
-      "price": "12",
-      "billing": "Monthly (Billed Annually)",
-      "features": [
-        "문장 전체 재구성 제안",
-        "표절 검사기 기능",
-        "전문적/학술적 어조 조정",
-        "고급 AI 텍스트 생성(월 1,000회)"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "15",
-      "billing": "Per member / month",
-      "features": [
-        "팀 스타일 가이드 설정",
-        "중앙 집중식 관리자 패널",
-        "SAML SSO 지원",
-        "공동 작업용 브랜드 보이스 설정"
-      ]
-    }
-  ],
-  "YWflWrsKr6uZFAr2lWL7": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무제한 양식(Form) 생성",
-        "무제한 응답 수집",
-        "파일 업로드 지원(파일당 10MB)",
-        "결제 연동 가능"
-      ]
-    },
-    {
-      "planName": "Tally Pro",
-      "price": "29",
-      "billing": "Monthly",
-      "features": [
-        "사용자 지정 도메인 연결",
-        "Tally 로고 제거(화이트 레이블)",
-        "팀 멤버 초대 및 협업",
-        "부분 제출 데이터 수집"
-      ]
-    }
-  ],
-  "tRMczR9SwCxeaKlLuCW2": [
-    {
-      "planName": "Non-commercial",
-      "price": "0",
-      "billing": "For personal/research use",
-      "features": [
-        "개인적 용도 및 연구용 무료 사용",
-        "최신 Stable Diffusion 모델 액세스",
-        "상업적 이용 불가"
-      ]
-    },
-    {
-      "planName": "Professional",
-      "price": "20",
-      "billing": "Per month",
-      "features": [
-        "연 매출 100만 달러 미만 기업 상업적 이용권",
-        "최신 생성형 AI 모델 상업적 활용",
-        "전문가용 지원 서비스"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "Contact Sales",
-      "features": [
-        "대규모 기업용 맞춤형 라이선스",
-        "전담 기술 지원 및 솔루션 컨설팅",
-        "자체 인프라 배포 지원"
-      ]
-    }
-  ],
-  "Ecazox3IgRKuLr4HgDT3": [
-    {
-      "planName": "Free Trial",
-      "price": "0",
-      "billing": "Limited Credits",
-      "features": [
-        "기본 이미지 생성 테스트",
-        "제한된 수의 워터마크 포함 이미지",
-        "비상업적 용도"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "29",
-      "billing": "Monthly",
-      "features": [
-        "무제한 고해상도 AI 스톡 이미지 생성",
-        "상업적 이용 가능 라이선스 포함",
-        "개별 컬렉션 관리 도구"
-      ]
-    }
-  ],
-  "i5xcEarD3HxpOvmxd5qi": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무제한 AI 앱 생성",
-        "공용 모델(GPT-3.5 등) 액세스",
-        "커뮤니티 지원"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "20",
-      "billing": "Monthly",
-      "features": [
-        "고급 AI 모델(GPT-4, Claude 3 등) 연동",
-        "전용 데이터 소스 업로드 및 학습",
-        "API를 통한 외부 연동 가능"
-      ]
-    },
-    {
-      "planName": "Team",
-      "price": "50",
-      "billing": "Per month",
-      "features": [
-        "팀 전용 작업 공간",
-        "앱 공유 및 공동 편집 권한",
-        "고급 분석 대시보드"
-      ]
-    }
-  ],
-  "sqGt0mm7DJyOHCbDNoLK": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "워터마크 포함 수출",
-        "최대 10분 길이 동영상",
-        "자동 자막 생성 (월 30분)",
-        "720p 화질 제한"
-      ]
-    },
-    {
-      "planName": "Basic",
-      "price": "12",
-      "billing": "사용자당/월 (연간 결제 시)",
-      "features": [
-        "워터마크 제거",
-        "최대 25분 길이 동영상",
-        "자동 자막 생성 (월 60분)",
-        "1080p 화질 제공"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "24",
-      "billing": "사용자당/월 (연간 결제 시)",
-      "features": [
-        "자동 자막 생성 (월 120분)",
-        "자막 번역 및 다운로드",
-        "스톡 오디오 및 비디오 라이브러리",
-        "클린 오디오 기능"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "59",
-      "billing": "사용자당/월 (연간 결제 시)",
-      "features": [
-        "자동 자막 생성 (월 600분)",
-        "맞춤형 템플릿 및 브랜드 키트",
-        "동영상 분석(Analytics)",
-        "우선 고객 지원"
-      ]
-    }
-  ],
-  "ZyibOZlO3b9xRdkDJMNb": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "월 25세대(Generations) 제공",
-        "GPT-3.5 및 GPT-4 접근",
-        "Sonic Editor (구글 문서 도구 스타일 에디터)",
-        "25개 이상의 언어 지원"
-      ]
-    },
-    {
-      "planName": "Small Team",
-      "price": "13",
-      "billing": "월 (연간 결제 시)",
-      "features": [
-        "무제한 세대 제공",
-        "GPT-4 및 Claude 3 Opus 접근",
-        "AI 이미지 생성 (Photosonic)",
-        "대량 처리 도구"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "상담 필요",
-      "features": [
-        "SAML/SSO 로그인",
-        "맞춤형 AI 모델 훈련",
-        "전담 계정 관리자",
-        "최우선 지원"
-      ]
-    }
-  ],
-  "OwUypiCTBhsOUZhGfs9N": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "음성 향상 기능 (AI 가청도 개선)",
-        "하루 최대 1시간 분량 처리",
-        "파일당 최대 500MB 및 30분 제한",
-        "마이크 확인 기능"
-      ]
-    },
-    {
-      "planName": "Premium",
-      "price": "9.99",
-      "billing": "월 (Adobe Express 포함)",
-      "features": [
-        "하루 최대 4시간 분량 처리",
-        "파일당 최대 1GB 및 2시간 제한",
-        "일괄 처리(Batch Upload) 지원",
-        "Adobe Express 프리미엄 기능 포함"
-      ]
-    }
-  ],
-  "l9hMSW3jYmm4SSudfXk8": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "오픈 데이터 소스 접근",
-        "기본 데이터 시각화 도구",
-        "데이터 검색 및 웹 애플리케이션 사용",
-        "제한된 데이터 내보내기"
-      ]
-    },
-    {
-      "planName": "Personal",
-      "price": "25",
-      "billing": "월",
-      "features": [
-        "고급 데이터 소스 통합",
-        "무제한 데이터 내보내기 (Excel/CSV)",
-        "고급 대시보드 및 위젯",
-        "API 접근 권한"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "상담 필요",
-      "features": [
-        "조직 내 비공개 데이터 저장소",
-        "맞춤형 데이터 파이프라인",
-        "보안 및 규정 준수 기능",
-        "전담 지원 팀"
-      ]
-    }
-  ],
-  "MCNaPfiMF1Ov9uFDeP3a": [
-    {
-      "planName": "Basic Logo Package",
-      "price": "20",
-      "billing": "1회성 결제",
-      "features": [
-        "저해상도 로고 파일 1개 (PNG)",
-        "비독점적 소유권"
-      ]
-    },
-    {
-      "planName": "Premium Logo Package",
-      "price": "65",
-      "billing": "1회성 결제",
-      "features": [
-        "고해상도 로고 파일 (PNG, EPS, PDF, SVG)",
-        "다양한 색상 변형 버전",
-        "평생 소유권 및 기술 지원",
-        "로고 수정 가능"
-      ]
-    },
-    {
-      "planName": "Brand Kit Subscription",
-      "price": "96",
-      "billing": "연간 결제",
-      "features": [
-        "무제한 로고 수정",
-        "명함, 소셜 미디어 키트 등 300+ 브랜드 에셋",
-        "브랜드 가이드라인 제공"
-      ]
-    },
-    {
-      "planName": "Brand Kit Web Subscription",
-      "price": "192",
-      "billing": "연간 결제",
-      "features": [
-        "Brand Kit의 모든 기능 포함",
-        "AI 기반 웹사이트 빌더 포함"
-      ]
-    }
-  ],
-  "MZSDQo77wtone6csJPdm": [
-    {
-      "planName": "Free (Desktop)",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "오픈소스 데스크톱 애플리케이션",
-        "로컬 하드웨어 기반 무제한 처리",
-        "다양한 AI 모델(Real-ESRGAN 등) 제공",
-        "이미지 해상도 최대 8배 확대"
-      ]
-    },
-    {
-      "planName": "Upscayl Cloud",
-      "price": "10",
-      "billing": "Monthly",
-      "features": [
-        "클라우드 서버를 통한 빠른 처리",
-        "웹 브라우저 어디서나 접근 가능",
-        "다중 이미지 일괄 처리 최적화",
-        "전용 GPU 자원 사용"
-      ]
-    }
-  ],
-  "SxgjIMBvYaBgWvaDgxkU": [
-    {
-      "planName": "Trial",
-      "price": "0",
-      "billing": "5 Credits (One-time)",
-      "features": [
-        "5 크레딧 제공 (약 5분 분량 비디오)",
-        "D-ID 워터마크 포함",
-        "AI 비디오 아바타 생성 기능"
-      ]
-    },
-    {
-      "planName": "Lite",
-      "price": "5.9",
-      "billing": "Monthly",
-      "features": [
-        "매월 10분 분량의 비디오 생성",
-        "작은 워터마크 포함",
-        "상업적 용도 사용 가능",
-        "표준 AI 아바타 지원"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "16",
-      "billing": "Monthly (Billed Annually)",
-      "features": [
-        "매월 15분 분량의 비디오 생성",
-        "워터마크 없음",
-        "프리미엄 보이스 및 API 지원",
-        "고급 AI 모델 활용"
-      ]
-    }
-  ],
-  "X6m7U6NqF3I3A7Rxmxth": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "일일 최대 2개 PDF 업로드",
-        "파일당 최대 120페이지",
-        "일일 20개 질문 제한",
-        "최대 10MB 파일 용량"
-      ]
-    },
-    {
-      "planName": "Plus",
-      "price": "5",
-      "billing": "Monthly",
-      "features": [
-        "무제한 PDF 업로드",
-        "파일당 최대 2,000페이지",
-        "질문 수 무제한",
-        "최대 32MB 파일 용량",
-        "멀티 파일 동시 질문 가능"
-      ]
-    }
-  ],
-  "L0lrvGyB6uKiotZ8HZhO": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "비회원 체험 기능 제공",
-        "제한적인 AI 분석 결과",
-        "기본적인 SWOT 및 의사결정 모델"
-      ]
-    },
-    {
-      "planName": "Lite",
-      "price": "9.9",
-      "billing": "Monthly",
-      "features": [
-        "20개 결정 분석 크레딧",
-        "고급 의사결정 알고리즘 사용",
-        "상세 리포트 생성"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "29",
-      "billing": "Monthly",
-      "features": [
-        "100개 결정 분석 크레딧",
-        "비즈니스 시나리오 분석",
-        "팀 공유 기능 및 맞춤형 템플릿"
-      ]
-    }
-  ],
-  "aUzZIWi7Kx9h0RN3t5qB": [
-    {
-      "planName": "Free Plan",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "매월 10,000자 생성",
-        "40개 이상의 사용 사례 제공",
-        "30개 이상의 언어 지원",
-        "AI 이미지 생성(월 5개)"
-      ]
-    },
-    {
-      "planName": "Saver Plan",
-      "price": "9",
-      "billing": "Monthly",
-      "features": [
-        "매월 100,000자 생성",
-        "나만의 고유 사용 사례(Custom Use-case) 생성",
-        "AI 이미지 생성(월 20개)",
-        "프리미엄 커뮤니티 접근권"
-      ]
-    },
-    {
-      "planName": "Unlimited Plan",
-      "price": "29",
-      "billing": "Monthly",
-      "features": [
-        "무제한 글자 수 생성",
-        "전용 계정 관리자 지원",
-        "우선적인 이메일 및 채팅 지원",
-        "AI 이미지 생성(월 100개)"
-      ]
-    }
-  ],
-  "m3WncrSJ2tOQWAgs08QK": [
-    {
-      "planName": "Lite",
-      "price": "29",
-      "billing": "Monthly",
-      "features": [
-        "100 Wonder 유닛 제공",
-        "최대 HD(720p) 해상도 내보내기",
-        "개인 사용 용도",
-        "최대 1GB 스토리지"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "84",
-      "billing": "Monthly",
-      "features": [
-        "500 Wonder 유닛 제공",
-        "최대 4K 해상도 내보내기",
-        "상업적 이용 가능",
-        "클린 플레이트 및 마스크 내보내기"
-      ]
-    },
-    {
-      "planName": "Studio",
-      "price": "499",
-      "billing": "Monthly",
-      "features": [
-        "2,000 Wonder 유닛 제공",
-        "전문 스튜디오용 워크플로우",
-        "커스텀 캐릭터 도구 지원",
-        "우선 순위 렌더링"
-      ]
-    }
-  ],
-  "GKIEXxcwx4TFkZMzWJSy": [
-    {
-      "planName": "Pro",
-      "price": "12",
-      "billing": "Billed annually ($144/yr)",
-      "features": [
-        "무제한 슬라이드 제작",
-        "AI 콘텐츠 생성 (DesignerBot)",
-        "PowerPoint 가져오기 및 내보내기",
-        "개별 뷰어 분석 보고서"
-      ]
-    },
-    {
-      "planName": "Team",
-      "price": "40",
-      "billing": "Per user / Monthly",
-      "features": [
-        "협업 워크스페이스 제공",
-        "공동 편집 및 중앙 집중식 라이브러리",
-        "회사 맞춤형 테마 및 템플릿",
-        "무제한 뷰어(게스트) 초대"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "Contact for pricing",
-      "features": [
-        "SSO(Single Sign-On) 지원",
-        "무제한 팀 리소스",
-        "관리자 제어 및 보안 강화",
-        "전담 계정 관리자 지원"
-      ]
-    }
-  ],
-  "1S4iGM6dqfS8hlZE8rei": [
-    {
-      "planName": "Small",
-      "price": "6.30",
-      "billing": "One-time payment",
-      "features": [
-        "96개의 아바타 이미지 생성",
-        "12개 스타일 적용",
-        "4K 해상도 지원",
-        "상업적 이용 가능"
-      ]
-    },
-    {
-      "planName": "Large",
-      "price": "12.60",
-      "billing": "One-time payment",
-      "features": [
-        "280개의 아바타 이미지 생성",
-        "35개 스타일 적용",
-        "4K 해상도 지원",
-        "전용 대시보드 제공"
-      ]
-    },
-    {
-      "planName": "Ultimate",
-      "price": "21.50",
-      "billing": "One-time payment",
-      "features": [
-        "800개 이상의 아바타 이미지 생성",
-        "모든 스타일 포함 (100개 이상)",
-        "AI 프로필 비디오 포함",
-        "최우선 순위 처리"
-      ]
-    }
-  ],
-  "KAw2eplRQ4579348QRPP": [
-    {
-      "planName": "Creator",
-      "price": "49",
-      "billing": "Monthly",
-      "features": [
-        "무제한 AI 이미지 생성",
-        "워터마크 없는 고해상도 이미지",
-        "50개 이상의 템플릿 접근",
-        "브랜드 목소리 1개 설정 가능"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "69",
-      "billing": "Monthly",
-      "features": [
-        "Creator 플랜의 모든 기능 포함",
-        "최대 3명의 사용자 팀 시트",
-        "브랜드 목소리 3개 설정 가능",
-        "고급 AI 편집 도구 지원"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "Custom",
-      "billing": "Contact for pricing",
-      "features": [
-        "무제한 브랜드 목소리",
-        "API 접근 권한",
-        "맞춤형 AI 모델 학습",
-        "엔터프라이즈급 보안 및 기술 지원"
-      ]
-    }
-  ],
-  "TEPcoseMb2S6jaSLTSh9": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "월 500개 이미지 생성",
-        "커스텀 모델 1개 학습 가능",
-        "기본 커뮤니티 지원",
-        "비상업적 용도 전용"
-      ]
-    },
-    {
-      "planName": "Starter",
-      "price": "29",
-      "billing": "Monthly",
-      "features": [
-        "월 3,000개 이미지 생성",
-        "커스텀 모델 5개 학습 가능",
-        "이미지 비공개 모드 지원",
-        "API 접근 기본 권한"
-      ]
-    },
-    {
-      "planName": "Premium",
-      "price": "99",
-      "billing": "Monthly",
-      "features": [
-        "월 15,000개 이미지 생성",
-        "커스텀 모델 무제한 학습",
-        "고급 API 기능 제공",
-        "팀 공유 워크스페이스"
-      ]
-    }
-  ],
-  "wmpzuBtHLsynDb8uGNdE": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "1,000 AI 크레딧/월 제공",
-        "3개의 워크스페이스 생성 가능",
-        "무제한 작업 및 프로젝트",
-        "실시간 협업 및 화상 회의"
-      ]
-    },
-    {
-      "planName": "Starter",
-      "price": "4",
-      "billing": "사용자당/월 (연간 결제 시)",
-      "features": [
-        "5,000 AI 크레딧/월 제공",
-        "1개의 워크스페이스",
-        "2GB 스토리지 용량",
-        "캘린더 통합 및 위젯"
-      ]
-    },
-    {
-      "planName": "Plus",
-      "price": "8",
-      "billing": "사용자당/월 (연간 결제 시)",
-      "features": [
-        "10,000 AI 크레딧/월 제공",
-        "2개의 워크스페이스",
-        "5GB 스토리지 용량",
-        "맞춤형 워크플로우 자동화"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "12",
-      "billing": "사용자당/월 (연간 결제 시)",
-      "features": [
-        "30,000 AI 크레딧/월 제공",
-        "5개의 워크스페이스",
-        "20GB 스토리지 용량",
-        "고급 권한 설정 및 보안"
-      ]
-    }
-  ],
-  "PbFKYMnqWk8qqiD6CLO1": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "총 800분의 저장 공간",
-        "주요 화상 회의 소프트웨어 연동",
-        "핵심 요약 기능 제공",
-        "검색 기능 제공"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "10",
-      "billing": "사용자당/월 (연간 결제 시)",
-      "features": [
-        "무제한 전사(Transcription)",
-        "8,000분의 저장 공간",
-        "AI 요약 및 검색 필터",
-        "CRM 연동 및 API 접근"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "19",
-      "billing": "사용자당/월 (연간 결제 시)",
-      "features": [
-        "무제한 전사 및 저장 공간",
-        "비디오 캡처 및 화면 녹화",
-        "대화 인사이트 및 팀 분석",
-        "우선 고객 지원"
-      ]
-    }
-  ],
-  "VtkVwEE5Lz3jlYBq6hrm": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "10가지 표준 음성 제공",
-        "최대 1배속 속도 조절",
-        "웹 및 모바일 지원"
-      ]
-    },
-    {
-      "planName": "Premium",
-      "price": "139",
-      "billing": "연간 결제",
-      "features": [
-        "30개 이상의 고품질 AI 음성",
-        "20개 이상의 언어 지원",
-        "문서 스캔 및 읽기 기능",
-        "무제한 속도 조절"
-      ]
-    },
-    {
-      "planName": "Studio Basic",
-      "price": "24",
-      "billing": "사용자당/월 (연간 결제 시)",
-      "features": [
-        "월 2시간 분량의 음성 생성",
-        "무제한 다운로드",
-        "상업적 이용 권한"
-      ]
-    }
-  ],
-  "sGr6zOZkGpSoXXMvveVW": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "Framer 하위 도메인 제공",
-        "Framer 배너 포함",
-        "취미용 프로젝트에 적합"
-      ]
-    },
-    {
-      "planName": "Mini",
-      "price": "5",
-      "billing": "사이트당/월 (연간 결제 시)",
-      "features": [
-        "개인 도메인 연결",
-        "랜딩 페이지 1개",
-        "월간 방문자 1,000명 제한"
-      ]
-    },
-    {
-      "planName": "Basic",
-      "price": "15",
-      "billing": "사이트당/월 (연간 결제 시)",
-      "features": [
-        "최대 10개 페이지",
-        "월간 방문자 10,000명",
-        "CMS 기능(1개 컬렉션)",
-        "암호 보호 기능"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "30",
-      "billing": "사이트당/월 (연간 결제 시)",
-      "features": [
-        "무제한 페이지 생성",
-        "월간 방문자 200,000명",
-        "고급 CMS 기능",
-        "사이트 분석 도구"
-      ]
-    }
-  ],
-  "5Dn42bsIngucAYvHgEII": [
-    {
-      "planName": "Starter",
-      "price": "12",
-      "billing": "월 결제 (연간 결제 시)",
-      "features": [
-        "맞춤형 도메인 포함",
-        "무제한 스토리지",
-        "10개의 마케팅 이메일 발송",
-        "24/7 고객 지원"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "20",
-      "billing": "월 결제 (연간 결제 시)",
-      "features": [
-        "무제한 AI 생성 기능",
-        "무제한 웹사이트 구축",
-        "무제한 마케팅 이메일",
-        "우선 순위 지원"
-      ]
-    },
-    {
-      "planName": "Mogul",
-      "price": "80",
-      "billing": "월 결제 (연간 결제 시)",
-      "features": [
-        "최대 5개 웹사이트 포함",
-        "고급 SEO 도구",
-        "계정 관리자 전담 배정",
-        "화이트 라벨링 기능"
-      ]
-    }
-  ],
-  "n7rg3GxL7ziMjbeiJGd9": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "14일간 Pro 플랜 무료 체험 제공",
-        "5분 음성 생성 (월간)",
-        "20분 음성 복제 (1회성)",
-        "개인적 용도로만 사용 가능"
-      ]
-    },
-    {
-      "planName": "Starter",
-      "price": "4",
-      "billing": "Per month (Billed annually)",
-      "features": [
-        "20분 음성 생성 (월간)",
-        "5개 음성 복제",
-        "500개 이상의 AI 음성",
-        "광고 및 소셜 미디어 활용 가능"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "24",
-      "billing": "Per month (Billed annually)",
-      "features": [
-        "5시간 음성 생성 (월간)",
-        "무제한 음성 복제",
-        "상업적 저작권 소유",
-        "우선적인 고객 지원"
-      ]
-    },
-    {
-      "planName": "Pro+",
-      "price": "75",
-      "billing": "Per month (Billed annually)",
-      "features": [
-        "20시간 음성 생성 (월간)",
-        "400GB 저장 공간",
-        "가장 고성능의 생성 기능 제공"
-      ]
-    }
-  ],
-  "Oq2Vy6A67yjbPd3WUnHb": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Trial",
-      "features": [
-        "3분 분량의 영상/오디오 편집",
-        "1분 음성 복제",
-        "Rask 워터마크 포함"
-      ]
-    },
-    {
-      "planName": "Basic",
-      "price": "49",
-      "billing": "Per month (Billed annually)",
-      "features": [
-        "매월 25분 크레딧 제공",
-        "음성 복제 기능",
-        "자동 자막 생성 및 번역",
-        "워터마크 제거"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "119",
-      "billing": "Per month (Billed annually)",
-      "features": [
-        "매월 100분 크레딧 제공",
-        "립싱크(Lip-sync) 기능 포함",
-        "SRT 파일 업로드 지원",
-        "API 접근 권한"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "499",
-      "billing": "Per month (Billed annually)",
-      "features": [
-        "매월 500분 크레딧 제공",
-        "맞춤형 전담 매니저",
-        "기업용 보안 및 규정 준수"
-      ]
-    }
-  ],
-  "QZON2H86bUDLr6pGQ8vS": [
-    {
-      "planName": "Captions Pro",
-      "price": "9.99",
-      "billing": "Per month (Standard)",
-      "features": [
-        "AI 자동 자막 생성",
-        "AI 아이컨택(Eye Contact) 교정",
-        "배경 소음 제거",
-        "AI 줌(Zoom) 및 컷 편집 기능",
-        "무제한 프로젝트 저장"
-      ]
-    },
-    {
-      "planName": "Creator",
-      "price": "Custom",
-      "billing": "Contact sales",
-      "features": [
-        "팀 단위 협업 도구",
-        "브랜드 가이드라인 적용",
-        "대량 콘텐츠 생성 최적화"
-      ]
-    }
-  ],
-  "k1MczcsE3bgN76OaAXiV": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "기본 배경 제거 도구",
-        "표준 화질 이미지 저장",
-        "앱 내 기본 템플릿 사용 가능"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "9.49",
-      "billing": "Per month (Approx.)",
-      "features": [
-        "일괄 편집(Batch Mode) 기능",
-        "고화질(HD) 이미지 저장",
-        "워터마크 제거",
-        "AI 생성 배경 사용 가능",
-        "상업용 라이선스 제공"
-      ]
-    },
-    {
-      "planName": "Business",
-      "price": "Custom",
-      "billing": "API usage based",
-      "features": [
-        "이미지 편집 API 연동",
-        "대규모 이미지 자동화 처리",
-        "기업용 보안 설정"
-      ]
-    }
-  ],
-  "L2wD9u0l8n7jwY19JyAq": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무제한 스프레드시트 생성",
-        "최대 10개 데이터 통합(Integrations) 지원",
-        "팀원 무제한 초대 가능"
-      ]
-    },
-    {
-      "planName": "Plus",
-      "price": "59",
-      "billing": "Per month",
-      "features": [
-        "무제한 데이터 통합 권한",
-        "프리미엄 데이터 소스 접근",
-        "맞춤형 도메인 설정 가능"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "189",
-      "billing": "Per month",
-      "features": [
-        "무제한 API 호출",
-        "우선 순위 고객 지원",
-        "고급 관리자 제어 기능"
-      ]
-    }
-  ],
-  "Pbg4NKkIknauVfFd0y2t": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "기본 프리젠테이션 생성",
-        "제한된 수의 AI 크레딧 제공",
-        "Decktopus 워터마크 포함"
-      ]
-    },
-    {
-      "planName": "Pro AI",
-      "price": "14.99",
-      "billing": "per month",
-      "features": [
-        "매월 750 AI 크레딧 제공",
-        "워터마크 제거",
-        "PDF 및 PPT 내보내기",
-        "폴더 관리 기능"
-      ]
-    },
-    {
-      "planName": "Business AI",
-      "price": "48",
-      "billing": "per month",
-      "features": [
-        "매월 1000 AI 크레딧 제공",
-        "커스텀 도메인 연결",
-        "폼 데이터 수집 및 분석",
-        "브랜드 키트 설정"
-      ]
-    }
-  ],
-  "XQyRdWZiUm6gcIbELTG9": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "저해상도 다운로드",
-        "이미지에 워터마크 포함",
-        "기본 편집 도구 사용"
-      ]
-    },
-    {
-      "planName": "Magic Studio Pro",
-      "price": "9.99",
-      "billing": "per month",
-      "features": [
-        "워터마크 없는 고해상도 다운로드",
-        "모든 도구 무제한 사용",
-        "벌크 이미지 편집",
-        "우선 순위 지원"
-      ]
-    }
-  ],
-  "vSVUWta6DEptPzWAJJtO": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "Paraphraser 125단어 제한",
-        "표준 및 유창성 모드 사용 가능",
-        "요약기 1,200단어 제한"
-      ]
-    },
-    {
-      "planName": "Premium",
-      "price": "19.95",
-      "billing": "per month",
-      "features": [
-        "무제한 단어 Paraphraser",
-        "모든 고급 쓰기 모드 잠금 해제",
-        "표절 검사기(월 20페이지)",
-        "고급 문법 검사 및 톤 분석"
-      ]
-    }
-  ],
-  "4bNmklUe2ZDDjrL8q5Y1": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "챗봇 1개 생성 가능",
-        "월 20개의 메시지 크레딧",
-        "400,000자 학습 데이터"
-      ]
-    },
-    {
-      "planName": "Hobby",
-      "price": "19",
-      "billing": "per month",
-      "features": [
-        "챗봇 2개 생성 가능",
-        "월 2,000개의 메시지 크레딧",
-        "11,000,000자 학습 데이터"
-      ]
-    },
-    {
-      "planName": "Standard",
-      "price": "99",
-      "billing": "per month",
-      "features": [
-        "챗봇 5개 생성 가능",
-        "월 10,000개의 메시지 크레딧",
-        "GPT-4 Access 지원",
-        "사용자 지정 도메인"
-      ]
-    },
-    {
-      "planName": "Unlimited",
-      "price": "399",
-      "billing": "per month",
-      "features": [
-        "챗봇 10개 생성 가능",
-        "월 40,000개의 메시지 크레딧",
-        "화이트 라벨링 기능",
-        "API 연동 지원"
-      ]
-    }
-  ],
-  "BHupw60sh85dCR8Ehm5q": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무제한 음악 생성",
-        "즐겨찾기 저장"
-      ]
-    },
-    {
-      "planName": "Creator",
-      "price": "19.99",
-      "billing": "per month",
-      "features": [
-        "콘텐츠 제작용 무제한 다운로드",
-        "유튜브 및 소셜 미디어 상업적 이용",
-        "배경 음악(BGM) 사용 가능"
-      ]
-    },
-    {
-      "planName": "Artist",
-      "price": "35.99",
-      "billing": "per month",
-      "features": [
-        "음원 스트리밍 배포 가능 (Spotify, Apple Music 등)",
-        "보컬 추가 및 곡 완성 가능",
-        "음반 상업적 권리 포함"
-      ]
-    }
-  ],
-  "8tUBiq1VCaoO2TDipzZ4": [
-    {
-      "planName": "Free Trial",
-      "price": "0",
-      "billing": "7 Days",
-      "features": [
-        "7일간 모든 기능 무료 체험",
-        "스마트 인용(Smart Citations) 검색",
-        "AI 어시스턴트 활용 가능"
-      ]
-    },
-    {
-      "planName": "Individual",
-      "price": "20",
-      "billing": "Monthly",
-      "features": [
-        "무제한 스마트 인용 검색",
-        "논문 레퍼런스 체크 기능",
-        "시각화 도구 및 대시보드 이용",
-        "브라우저 확장 프로그램 제공"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "Annual",
-      "features": [
-        "대학 및 연구 기관용 맞춤 플랜",
-        "IP 기반 접속 및 SSO 지원",
-        "전담 고객 성공 매니저 배정"
-      ]
-    }
-  ],
-  "gVuQOmG2OI0qJfb6JiJc": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "하루 60분 소음 제거 기능",
-        "무제한 회의 녹취(Transcriptions)",
-        "회의 요약 및 노트 제공"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "8",
-      "billing": "Per Month (Billed Annually)",
-      "features": [
-        "무제한 소음 제거 (스피커 및 마이크)",
-        "무제한 회의 요약 및 AI 노트",
-        "HD 음질 지원",
-        "중앙 집중식 관리 대시보드"
-      ]
-    },
-    {
-      "planName": "Enterprise",
-      "price": "Custom",
-      "billing": "Contact for Pricing",
-      "features": [
-        "대규모 팀을 위한 보안 및 관리 기능",
-        "SSO(Single Sign-On) 지원",
-        "우선 고객 지원"
-      ]
-    }
-  ],
-  "jAyvPzyEqhZIbqKRZz8v": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "AI 기반 비즈니스 이름 생성",
-        "필터링 기능(이름 길이, 키워드 등) 제공",
-        "생성된 이름 저장 기능",
-        "로고 제작 템플릿 연동(로고 구매 시 비용 발생)"
-      ]
-    }
-  ],
-  "TyGG789e6YE91onqxQca": [
-    {
-      "planName": "Free Trial",
-      "price": "0",
-      "billing": "Once",
-      "features": [
-        "최대 20회의 밈(Meme) 생성",
-        "110개 이상의 언어 지원",
-        "기본 밈 템플릿 접근"
-      ]
-    },
-    {
-      "planName": "Solo",
-      "price": "11",
-      "billing": "Per Month (Billed Annually)",
-      "features": [
-        "월 100회 밈 생성",
-        "개인용 라이선스",
-        "워터마크 제거",
-        "텍스트를 밈으로 변환"
-      ]
-    },
-    {
-      "planName": "Startup",
-      "price": "24",
-      "billing": "Per Month (Billed Annually)",
-      "features": [
-        "월 500회 밈 생성",
-        "상업용 라이선스",
-        "커스텀 템플릿 업로드",
-        "우선 고객 지원"
-      ]
-    }
-  ],
-  "5alP2RmVK4BVEsrEuRRn": [
-    {
-      "planName": "Starter",
-      "price": "8",
-      "billing": "Per Month (Billed Annually)",
-      "features": [
-        "월 1,000회 이미지 생성",
-        "동시 2개 작업 처리",
-        "상업적 이용 가능"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "24",
-      "billing": "Per Month (Billed Annually)",
-      "features": [
-        "월 3,000회 이미지 생성",
-        "동시 3개 작업 처리",
-        "이미지 비공개 생성 모드 지원"
-      ]
-    },
-    {
-      "planName": "Max",
-      "price": "48",
-      "billing": "Per Month (Billed Annually)",
-      "features": [
-        "월 7,000회 이미지 생성",
-        "무제한 슬로우 생성 모드",
-        "동시 3개 작업 처리"
-      ]
-    }
-  ],
-  "NBRe32WYOG4agRZsvLyG": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무제한 모델 검색 및 다운로드",
-        "커뮤니티 이미지 및 모델 공유",
-        "기본적인 생성 도구 사용 가능"
-      ]
-    },
-    {
-      "planName": "Supporter Tier",
-      "price": "10",
-      "billing": "Monthly",
-      "features": [
-        "매월 5,000 Buzz 제공",
-        "독점 프로필 배지 및 꾸미기 아이템",
-        "신규 기능 우선 체험 권한",
-        "광고 없는 브라우징 환경"
-      ]
-    }
-  ],
-  "e4hbEyffkKOpxpb9BF4m": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "최대 1,500자 텍스트 번역",
-        "매월 3개의 편집 불가능한 문서 번역",
-        "최대 10개의 용어집 항목"
-      ]
-    },
-    {
-      "planName": "Starter",
-      "price": "8.74",
-      "billing": "Per user/Month (Billed annually)",
-      "features": [
-        "무제한 텍스트 번역",
-        "데이터 암호화 및 보안 강화",
-        "매월 5개의 편집 가능한 문서 번역",
-        "최대 1개(5,000개 항목) 용어집"
-      ]
-    },
-    {
-      "planName": "Advanced",
-      "price": "28.74",
-      "billing": "Per user/Month (Billed annually)",
-      "features": [
-        "Starter의 모든 기능 포함",
-        "매월 20개의 편집 가능한 문서 번역",
-        "최대 100개(연간 5만 개 항목) 용어집",
-        "SSO(Single Sign-On) 지원"
-      ]
-    }
-  ],
-  "jUyHdwDCddZPB8gCDyVN": [
-    {
-      "planName": "Basic",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무제한 고음질 녹음 및 편집",
-        "매월 3시간 분량의 오디오 전사(Transcription)",
-        "기본 음악 및 효과음 라이브러리"
-      ]
-    },
-    {
-      "planName": "Storyteller",
-      "price": "11.99",
-      "billing": "Monthly (Billed annually)",
-      "features": [
-        "매월 10시간 분량의 오디오 전사",
-        "AI 기반 무음 제거 및 노이즈 캔슬링",
-        "모든 프리미엄 음악 및 효과음 라이브러리",
-        "최대 10개 AI 음성 생성"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "23.99",
-      "billing": "Monthly (Billed annually)",
-      "features": [
-        "매월 20시간 분량의 오디오 전사",
-        "4K 비디오 녹화 지원",
-        "AI 음성 복제(Voice Cloning)",
-        "우선 고객 지원 서비스"
-      ]
-    }
-  ],
-  "qnXdnVch2JsmCJsWiG0M": [
-    {
-      "planName": "Monthly",
-      "price": "9.99",
-      "billing": "Monthly",
-      "features": [
-        "집중력 향상을 위한 모든 음악 라이브러리 이용",
-        "모바일 및 데스크톱 앱 무제한 사용",
-        "오프라인 청취 모드 지원",
-        "사용자 맞춤형 사운드 조절"
-      ]
-    },
-    {
-      "planName": "Yearly",
-      "price": "6.99",
-      "billing": "Monthly (Billed annually)",
-      "features": [
-        "월간 플랜의 모든 기능 포함",
-        "연간 결제 시 약 30% 할인 혜택",
-        "고급 집중력 분석 리포트(제공 예정)"
-      ]
-    }
-  ],
-  "DRLYHxobcBMvR2ttqkOt": [
-    {
-      "planName": "Free",
-      "price": "0",
-      "billing": "Free Forever",
-      "features": [
-        "무제한 보드 및 협업자",
-        "매월 10회의 AI 마인드맵 생성",
-        "기본 템플릿 사용 가능"
-      ]
-    },
-    {
-      "planName": "Pro",
-      "price": "10",
-      "billing": "Per editor/Month (Billed annually)",
-      "features": [
-        "무제한 AI 생성 기능",
-        "우선 고객 지원",
-        "고급 권한 설정 및 게스트 권한 부여",
-        "모든 프리미엄 아이콘 및 요소 사용"
-      ]
-    },
-    {
-      "planName": "Organization",
-      "price": "20",
-      "billing": "Per editor/Month (Billed annually)",
-      "features": [
-        "Pro의 모든 기능 포함",
-        "SSO(SAML) 보안 로그인",
-        "중앙 집중식 팀 관리 및 빌링",
-        "맞춤형 계약 및 보안 검토"
-      ]
-    }
-  ]
+  "xQykWoRaYiGlbphJOQF2": {
+    "id": "xQykWoRaYiGlbphJOQF2",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "GPT-5.2 모델 제공 (5시간당 10메시지 제한), 광고 포함 (미국 지역), 기본적인 데이터 분석 및 이미지 생성 가능"
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": null,
+        "details": "Plus 플랜 기준: GPT-5.4 모델 및 고성능 Deep Research(월 10회) 제공, Sora 비디오 생성 기능 포함, 고급 음성 모드 및 에이전트 모드 지원"
+      },
+      "business": {
+        "price": "$25/월 per user (연간 결제 시)",
+        "details": "Team 플랜 기준: 공유 워크스페이스, 데이터 학습 제외 보안 정책, 관리자 콘솔 및 높은 메시지 캡 제공"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "2026년 초 신규 출시된 $8 'Go' 플랜(모바일 중심)과 $200 'Pro' 플랜(무제한 컴퓨팅)이 추가되어 개인용 티어가 세분화됨."
+  },
+  "RSmPnt6AyNe87mus9Mi5": {
+    "id": "RSmPnt6AyNe87mus9Mi5",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "Claude 4.5 Sonnet 기반 기본 채팅, 일일 사용량 제한 엄격 (약 10-15개 메시지)"
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": "$17/mo",
+        "details": "Claude Pro: 무료 플랜 대비 5배 사용량, 신규 Opus 4.6 및 Sonnet 4.6 모델 우선 접근권, Claude Code 및 프로젝트 기능 제공"
+      },
+      "business": {
+        "price": "$25/월 per user (연간 결제 시)",
+        "details": "Standard Team 플랜: 중앙 관리형 빌링, 조직 내 공유 프로젝트, 강화된 보안 및 관리 기능"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "파워 유저를 위한 $100-$200 가격대의 'Max' 플랜이 2025년 하반기에 도입됨."
+  },
+  "7g4Wr4uERJMdaSyzAhWA": {
+    "id": "7g4Wr4uERJMdaSyzAhWA",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "Gemini 3 기본 모델 제공, 구글 서비스(Gmail, Drive 등)와 기본 연동 가능"
+      },
+      "pro": {
+        "monthly": "$19.99",
+        "yearly": null,
+        "details": "Google AI Pro (구 Advanced): Gemini 3.1 Pro 제공, 2TB Google One 스토리지 포함, Deep Research 및 워크스페이스 내 AI 기능 통합"
+      },
+      "business": {
+        "price": "$20/월 per user",
+        "details": "Gemini Business: 기업급 보안 정책, 관리자 제어 기능, 회의 요약 및 전사 기능 제공"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "2026년 브랜드 개편으로 'Gemini Advanced'가 'Google AI Pro'로 명칭 변경됨. 최상위 'AI Ultra' 플랜은 월 $249.99에 제공."
+  },
+  "ABMcFr95bu5undR9Nx1g": {
+    "id": "ABMcFr95bu5undR9Nx1g",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": "무료 체험 종료"
+      },
+      "pro": {
+        "monthly": "null",
+        "yearly": "null",
+        "details": "ChatGPT Plus ($20) 플랜에 통합되어 제공 중"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "기업용 API 및 전문 제작 스튜디오 대상 커스텀 플랜 제공"
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "독립형 소비자 앱(Sora App)은 2026년 3월 운영 중단되었으며, 기술 및 생성 기능은 ChatGPT Plus 구독 모델 내로 통합됨."
+  },
+  "W8XqDGllDgdgfyQnljw6": {
+    "id": "W8XqDGllDgdgfyQnljw6",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "기본 검색 무제한, 일일 Pro 검색 횟수 제한(5회), 기본 모델 사용"
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": "$200/yr",
+        "details": "무제한 Pro 검색, 최신 모델(GPT, Claude 등) 선택 가능, 파일 분석 및 이미지 생성 기능 포함"
+      },
+      "business": {
+        "price": "$40/월 per user",
+        "details": "Enterprise Pro: 팀 단위 검색 공간(Spaces), SSO 보안 지원, 강화된 데이터 보호 정책"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "연구 전문 분석가를 위한 $200/월 'Max' 플랜이 신설되어 에이전트 기능(Comet browser 등) 우선 제공 중."
+  },
+  "XKSS4GsM264wrJPKX6Pm": {
+    "id": "XKSS4GsM264wrJPKX6Pm",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "Hobby 플랜: 2,000회 자동 완성(Completions), 50회 슬로우 요청(Slow requests) 제공"
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": "$16/mo",
+        "details": "Pro 플랜: 무제한 자동 완성, $20 상당의 프론티어 모델 크레딧 풀, 고급 에이전트 기능 지원"
+      },
+      "business": {
+        "price": "$40/월 per user",
+        "details": "Teams 플랜: 팀 공유 채팅 및 규칙 설정, 중앙 집중식 관리, SAML/SSO 지원 및 프라이버시 모드 제어"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "2025년 하반기부터 단순 요청 횟수 방식에서 모델별 복잡도에 따른 크레딧 차감 시스템으로 전환됨."
+  },
+  "wusEun5ko9kQavx2OmyJ": {
+    "id": "wusEun5ko9kQavx2OmyJ",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "월 30회 비디오 생성, 워터마크 포함, 비상업적 용도 한정"
+      },
+      "pro": {
+        "monthly": "$99.99",
+        "yearly": "$79.99/mo",
+        "details": "Pro 플랜: 월 480회 생성, 최고 우선순위 처리, 상업적 이용 가능, 워터마크 제거"
+      },
+      "business": {
+        "price": "$499.99/월 (Premier)",
+        "details": "전문 스튜디오용: 월 2,430회 생성, 4K 업스케일링 및 HDR 지원, 데이터 보안 강화"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Lite($9.99), Standard($29.99), Plus($64.99) 등 사용량에 따른 다양한 중간 단계 요금제 존재."
+  },
+  "NlMZZVRjWqCS9PrOWJMp": {
+    "id": "NlMZZVRjWqCS9PrOWJMp",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": "무료 체험판 없음"
+      },
+      "pro": {
+        "monthly": "$60",
+        "yearly": "$48/mo",
+        "details": "Pro 플랜: 30시간 Fast GPU 타임, 무제한 Relax 모드, 스텔스(비공개) 생성 모드 지원"
+      },
+      "business": {
+        "price": "$120/월 (Mega)",
+        "details": "Mega 플랜: 60시간 Fast GPU 타임, 대규모 팀 및 기업 대상 높은 동시 생성 작업 수 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "연간 결제 시 전 플랜 20% 할인 적용. 입문용 Basic 플랜은 월 $10(Fast 타임 3.3시간)부터 시작."
+  },
+  "i2l8tdQ7UVjP6ZeN5Ygt": {
+    "id": "i2l8tdQ7UVjP6ZeN5Ygt",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "월 10,000자 생성, 기본 음성 도구 사용 가능, 상업적 이용 불가 (출처 표기 필수)"
+      },
+      "pro": {
+        "monthly": "$99",
+        "yearly": "$82.50/mo",
+        "details": "Pro 플랜: 월 500,000자 생성, 무제한 음성 클로닝, 최고 음질(192kbps) 출력, 우선 순위 지원"
+      },
+      "business": {
+        "price": "$1,320/월",
+        "details": "Business 플랜: 월 1,100만 자 생성, 팀 워크스페이스 공유, 전문 오디오북 제작 수준의 할당량"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Starter($5) 및 Creator($22) 플랜 등 개인 창작자를 위한 세부 요금제 운영 중."
+  },
+  "kcFNz8AqzZzouvM7fyzO": {
+    "id": "kcFNz8AqzZzouvM7fyzO",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "노션 AI 미포함 (단순 글쓰기 보조만 제한적으로 가능)"
+      },
+      "pro": {
+        "monthly": "$10 add-on",
+        "yearly": "$8/mo add-on",
+        "details": "개인 Pro/Plus 플랜 사용 시 AI 기능을 추가 구매 형식으로 이용 (AI 에이전트, Q&A 포함)"
+      },
+      "business": {
+        "price": "$20/월 per user (연간 결제 시)",
+        "details": "2025년 개편: Business 및 Enterprise 플랜에 무제한 Notion AI 및 AI 에이전트 기능이 기본 포함됨"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "2025년 5월 요금제 개편으로 비즈니스 티어부터 AI가 기본 번들로 제공되기 시작함."
+  },
+  "7QFuRBvVD5LIDvw45E8U": {
+    "id": "7QFuRBvVD5LIDvw45E8U",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "웹, 모바일, Windows에서 기본 검색 및 텍스트 생성 가능. GPT-4 및 GPT-4o 일부 기능 포함."
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": null,
+        "details": "개인용 플랜. 피크 시간대 GPT-4 및 GPT-4o 우선 접근권, Microsoft 365 앱(Word, Excel 등) 내 Copilot 사용 가능."
+      },
+      "business": {
+        "price": "$30/월 per user",
+        "details": "Microsoft 365 Business Standard/Premium 고객 대상. 엔터프라이즈급 보안, 팀 내 데이터 참조 및 커스텀 Copilot 빌더 제공."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "w8Pt2Tdfwdk24z6YNgZV": {
+    "id": "w8Pt2Tdfwdk24z6YNgZV",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": null
+      },
+      "pro": {
+        "monthly": "$8 ~ $16",
+        "yearly": null,
+        "details": "X(구 트위터) Premium($8) 또는 Premium+($16) 구독자에게 제공. 실시간 정보 접근 및 Grok-1.5, Grok-2 모델 사용 가능."
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "API 사용량에 따른 별도 과금 체계 존재."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "X 서비스 구독이 필수적임."
+  },
+  "Cz17qkvR1q14g0qWU6IV": {
+    "id": "Cz17qkvR1q14g0qWU6IV",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "가입 시 400 크레딧 제공, Gamma 로고 표시, 기본 템플릿 사용 가능."
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": "$180/yr",
+        "details": "무제한 AI 크레딧, 고급 AI 모델 접근, 로고 제거, 폰트 및 테마 커스텀 가능."
+      },
+      "business": {
+        "price": "$15/월 per user",
+        "details": "Plus 플랜 기준 가격이며, Pro 버전 비즈니스 협업 기능 및 팀 분석 도구 포함."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Plus 플랜($10/월)과 Pro 플랜이 구분되어 있음."
+  },
+  "W2vUrM3cVfk8ioQxQyjX": {
+    "id": "W2vUrM3cVfk8ioQxQyjX",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "1 크레딧(약 1분 영상) 제공, 워터마크 포함, 상업적 이용 불가."
+      },
+      "pro": {
+        "monthly": "$29",
+        "yearly": "$240/yr",
+        "details": "Creator 플랜 기준. 월 15 크레딧 제공, 워터마크 제거, 상업적 이용 가능, 빠른 렌더링 지원."
+      },
+      "business": {
+        "price": "$89/월",
+        "details": "월 30 크레딧 제공, 4K 해상도 지원, 브랜드 키트 관리 및 팀 협업 도구 제공."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "XNIVkduWWkHZs3NDWrK5": {
+    "id": "XNIVkduWWkHZs3NDWrK5",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "매일 50 크레딧 제공(약 10곡), 상업적 이용 불가, 생성물 소유권 Suno 보유."
+      },
+      "pro": {
+        "monthly": "$10",
+        "yearly": "$96/yr",
+        "details": "매달 2,500 크레딧 제공, 상업적 이용 가능, 일반 생성 속도보다 빠름."
+      },
+      "business": {
+        "price": "$30/월",
+        "details": "Premier 플랜 기준. 매달 10,000 크레딧 제공, 새로운 기능 우선 체험 권한 부여."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "5p4E8lXNfUFKUWzVQLtw": {
+    "id": "5p4E8lXNfUFKUWzVQLtw",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": null
+      },
+      "pro": {
+        "monthly": "Contact Sales",
+        "yearly": null,
+        "details": "현재 개별 가입은 대기열(Waitlist)을 통해 순차적으로 허용되며, 가격은 비공개임."
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "기업용 엔지니어링 자동화 솔루션으로 제공되며, 프로젝트 규모에 따라 별도 산정."
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Devin은 현재 일반 대중에게 공개된 고정 가격 플랜이 없으며, 얼리 액세스 방식으로 운영됨."
+  },
+  "PjRvLTYQf4ZeiMuGB1s3": {
+    "id": "PjRvLTYQf4ZeiMuGB1s3",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "Zapier 계정 필요. 기본 AI 봇 생성 및 일부 앱 연동 지원."
+      },
+      "pro": {
+        "monthly": "$20 ~",
+        "yearly": null,
+        "details": "Zapier 유료 구독 플랜(Starter 이상)과 연동. 더 많은 AI 행동 수행 및 외부 데이터 소스 연결 가능."
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "팀 단위의 AI 에이전트 공유, 중앙 집중식 데이터 보안 및 권한 관리."
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Zapier Central은 Zapier의 메인 구독 체계와 연동되므로 가격이 변동적일 수 있음."
+  },
+  "CyLGfaWkUWDZLl0PsEJa": {
+    "id": "CyLGfaWkUWDZLl0PsEJa",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "매일 약 66 크레딧 무료 제공(로그인 시), 생성 속도 제한 및 워터마크 포함."
+      },
+      "pro": {
+        "monthly": "$37",
+        "yearly": "$300/yr",
+        "details": "Pro 플랜 기준. 고품질 영상 생성, 생성 우선순위 부여, 워터마크 제거."
+      },
+      "business": {
+        "price": "$92/월",
+        "details": "Max 플랜 기준. 최대 2500 크레딧 제공, 고급 영상 편집 도구 및 상업용 라이선스 확대."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Essential($10) 플랜도 존재함."
+  },
+  "4CUIK4vewhoNV5Zcvprt": {
+    "id": "4CUIK4vewhoNV5Zcvprt",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "매일 30 크레딧 자동 리필(초기 가입 시 250 크레딧), 워터마크 포함."
+      },
+      "pro": {
+        "monthly": "$35",
+        "yearly": "$336/yr",
+        "details": "무제한 생성(Chill mode), 생성 우선권, 워터마크 제거, 고해상도 업스케일링."
+      },
+      "business": {
+        "price": "$95/월",
+        "details": "Unlimited 플랜. Pro의 모든 기능에 더해 가장 빠른 생성 속도 보장 및 기업 전용 기능 제공."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Standard 플랜($10/월)은 제한적 크레딧 제공."
+  },
+  "xPKibbzJ8ccSkVi5TzPk": {
+    "id": "xPKibbzJ8ccSkVi5TzPk",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "완전 무료. 사용자의 구글 드라이브나 텍스트 소스를 기반으로 지식 모델 구축 및 질문 답변 가능."
+      },
+      "pro": {
+        "monthly": null,
+        "yearly": null,
+        "details": "현재 유료 개인 플랜이 존재하지 않음."
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "Google Workspace 엔터프라이즈 기능의 일부로 통합 논의 중이나 별도 유료화 미정."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "현재 실험적 서비스 단계로 모든 기능이 무료임."
+  },
+  "SdDIx17UhCZSVqv0oZry": {
+    "id": "SdDIx17UhCZSVqv0oZry",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": null
+      },
+      "pro": {
+        "monthly": "$39",
+        "yearly": "$396/yr",
+        "details": "이미지 업스케일링 및 고해상도 변환, 월 2,500토큰 제공."
+      },
+      "business": {
+        "price": "$299/월",
+        "details": "엔터프라이즈급 대량 작업, 월 20,000토큰 제공 및 우선 지원."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Pro와 Business 사이의 Premium($99/월) 플랜이 별도로 존재함."
+  },
+  "D5PQQAdHCNNZohX0nm6k": {
+    "id": "D5PQQAdHCNNZohX0nm6k",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "월 100크레딧 제공, 표준 생성 품질 및 비상업적 이용만 가능."
+      },
+      "pro": {
+        "monthly": "$10",
+        "yearly": "$96/yr",
+        "details": "Standard 플랜 기준 월 1,200크레딧 제공, 상업적 이용 가능."
+      },
+      "business": {
+        "price": "$30/월",
+        "details": "Pro 플랜 기준 월 4,800크레딧 제공, 고급 오디오 제어 기능 포함."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "J9NnPP6GnXPmliUYJiF1": {
+    "id": "J9NnPP6GnXPmliUYJiF1",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "Le Chat 웹 서비스를 통해 Mistral 모델에 대한 무료 접근 가능."
+      },
+      "pro": {
+        "monthly": "€15",
+        "yearly": null,
+        "details": "Mistral Pro: 더 높은 사용 한도와 우선적인 최신 모델 접근권 제공."
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "La Plateforme을 통한 API 사용량 기반 과금(Usage-based) 및 기업용 보안 솔루션."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "일반 사용자는 Le Chat Pro 구독이 가능하며, 개발자는 API 종량제를 주로 사용함."
+  },
+  "N0SuczaZvYvLGZWK1KvD": {
+    "id": "N0SuczaZvYvLGZWK1KvD",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "오픈 소스 가중치(Open Weights)로 제공되어 누구나 무료로 다운로드 및 로컬 실행 가능."
+      },
+      "pro": null,
+      "business": {
+        "price": "Free (under license)",
+        "details": "월간 활성 사용자 7억 명 미만인 경우 대부분의 상업적 이용 무료."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "SaaS 형태의 유료 구독 플랜이 아닌 오픈 소스 라이선스 모델로 운영됨."
+  },
+  "r3NvmUZISWI76DwsJ04k": {
+    "id": "r3NvmUZISWI76DwsJ04k",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": null
+      },
+      "pro": {
+        "monthly": "$30",
+        "yearly": "$300/yr",
+        "details": "개인용 Starter/Essential 플랜. AI 이메일 작성 및 생산성 도구 풀 세트 제공."
+      },
+      "business": {
+        "price": "$45/월 per user",
+        "details": "팀 단위 관리 및 협업 기능, 향상된 보안 및 제어 옵션 포함."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "무료 플랜은 없으나 초대 또는 체험 기간 제공 가능."
+  },
+  "c2Z1SRlv5BcKXNB7M1Ak": {
+    "id": "c2Z1SRlv5BcKXNB7M1Ak",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "EVI(Empathic Voice Interface) 및 분석 도구에 대한 제한적 무료 사용 가능."
+      },
+      "pro": {
+        "monthly": "Contact Sales",
+        "yearly": null,
+        "details": "API 호출당 비용이 발생하는 Usage-based 모델 중심."
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "엔터프라이즈 맞춤형 모델 학습 및 대규모 데이터 분석 지원."
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "고정 구독료보다는 API 사용량(분당 약 $0.05 수준)에 기반하여 과금됨."
+  },
+  "GG7J4zaMKRdyAU9PveLN": {
+    "id": "GG7J4zaMKRdyAU9PveLN",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "개인 작업 공간 및 커뮤니티 파일 접근 가능, 무제한 퍼블릭 파일 생성."
+      },
+      "pro": {
+        "monthly": "$9",
+        "yearly": "$84/yr",
+        "details": "Super 플랜: 개인용 비공개 프로젝트, 무제한 에셋 저장소 및 제거된 워터마크."
+      },
+      "business": {
+        "price": "$12/월 per editor",
+        "details": "Super Team: 팀 협업 기능, 중앙 관리형 청구 및 팀 라이브러리 제공."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "lQTxzd8fb3z6ZStvVVeR": {
+    "id": "lQTxzd8fb3z6ZStvVVeR",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "가입 시 일회성으로 5,000 크레딧 제공, 제한적인 검색 기능."
+      },
+      "pro": {
+        "monthly": "$12",
+        "yearly": "$120/yr",
+        "details": "Plus 플랜: 매월 12,000 크레딧 제공, 고성능 모델 접근 및 결과 수출 기능."
+      },
+      "business": {
+        "price": "$49/월",
+        "details": "Pro 플랜: 팀 공유 기능, 매월 50,000 크레딧 및 우선 기술 지원."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "2kDHXYswujhg7aY2B9iV": {
+    "id": "2kDHXYswujhg7aY2B9iV",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": null
+      },
+      "pro": {
+        "monthly": "Contact Sales",
+        "yearly": "Contact Sales",
+        "details": "법률 전문가 전용 AI 솔루션으로 개별 계약을 통해 제공."
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "로펌 및 기업 법무팀을 위한 엔터프라이즈 전용 보안 및 데이터 통합."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "개인 구독 플랜이 없으며 기업용 상담(Contact Sales)을 통해서만 이용 가능함."
+  },
+  "x6IDEhYtAJnD7S2D6eHt": {
+    "id": "x6IDEhYtAJnD7S2D6eHt",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "최대 30건의 진료 기록 작성 및 기본 기능 무료 체험 가능."
+      },
+      "pro": {
+        "monthly": "$119",
+        "yearly": null,
+        "details": "임상의 1인당 요금. 무제한 진료 기록 요약 및 의료 시스템 연동."
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "대형 병원 및 의료 기관을 위한 대규모 계정 관리 및 보안 정책 적용."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "Q7o9EkRlmosYNXTnFSOJ": {
+    "id": "Q7o9EkRlmosYNXTnFSOJ",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "무료 퍼블릭 Repl 제공, 기본적인 컴퓨팅 파워 및 커뮤니티 지원."
+      },
+      "pro": {
+        "monthly": "$15",
+        "yearly": "$120/yr",
+        "details": "Replit Core 플랜. 무제한 프라이빗 Repl, 고급 AI 자동완성 및 디버깅, 8GB RAM 및 향상된 CPU 지원."
+      },
+      "business": {
+        "price": "$20/월 per user",
+        "details": "Teams 플랜. 팀 협업 도구, 중앙 집중식 관리 콘솔, 우선 기술 지원 및 보안 기능 강화."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Replit Core는 기존의 Pro 플랜을 대체하며 AI 기능이 통합된 형태입니다."
+  },
+  "gz4UUQWfo7VEfGGYt1xV": {
+    "id": "gz4UUQWfo7VEfGGYt1xV",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "매월 25개의 생성형 크레딧 제공, 결과물에 워터마크 포함."
+      },
+      "pro": {
+        "monthly": "$4.99",
+        "yearly": null,
+        "details": "Premium 플랜. 매월 100개의 생성형 크레딧 제공, Adobe Fonts 제공 및 결과물 워터마크 제거."
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "Adobe Creative Cloud for Teams에 포함되어 제공되며, 기업용 라이선스 및 IP 배상 책임 보험 포함."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Creative Cloud 전체 구독 시 추가 비용 없이 Firefly 프리미엄 혜택 이용 가능."
+  },
+  "paqAuYIWu7wT8iCIEsA6": {
+    "id": "paqAuYIWu7wT8iCIEsA6",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "드래그 앤 드롭 편집기, 25만 개 이상의 무료 템플릿, 5GB 클라우드 저장 공간."
+      },
+      "pro": {
+        "monthly": "$15",
+        "yearly": "$120/yr",
+        "details": "Magic Media를 통한 무제한 AI 생성, 1TB 저장 공간, 브랜드 키트 및 배경 제거 도구 제공."
+      },
+      "business": {
+        "price": "$10/월 per user",
+        "details": "Canva for Teams. 팀 워크플로 관리, 보고서 도구, SSO 및 엔터프라이즈급 보안 기능."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Teams 플랜은 최소 인원 요건에 따라 총 결제 금액이 달라질 수 있습니다."
+  },
+  "kgAendvSl1lPWmeW5olO": {
+    "id": "kgAendvSl1lPWmeW5olO",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": "무료 플랜 없음 (학생 및 오픈소스 관리자에게는 무료 제공 가능)"
+      },
+      "pro": {
+        "monthly": "$10",
+        "yearly": "$100/yr",
+        "details": "Individual 플랜. 코드 제안, 채팅 기능, CLI 지원 및 공용 리포지토리 기반 학습 기능."
+      },
+      "business": {
+        "price": "$19/월 per user",
+        "details": "Business 플랜. 조직 관리 기능, 정책 설정, 프록시 지원 및 데이터 프라이버시 보장."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "최상위 플랜으로 Copilot Enterprise($39/mo)가 존재하며 맞춤형 모델 튜닝을 지원합니다."
+  },
+  "IFr7kZspy9pm6O5rTM65": {
+    "id": "IFr7kZspy9pm6O5rTM65",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "Basic 플랜. 매월 300분의 대화 기록 및 요약, 실시간 텍스트 변환 제공."
+      },
+      "pro": {
+        "monthly": "$16.99",
+        "yearly": "$120/yr",
+        "details": "매월 1,200분 녹음, 고급 검색, 사용자 지정 어휘 추가 및 임포트 기능 제공."
+      },
+      "business": {
+        "price": "$30/월 per user",
+        "details": "매월 6,000분 녹음, 팀 관리자 도구, 중앙 집중식 결제 및 분석 대시보드."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "연간 결제 시 월 $10(Pro) 또는 $20(Business) 수준으로 할인됩니다."
+  },
+  "MEK5XrCqul2Aqb1qiZxt": {
+    "id": "MEK5XrCqul2Aqb1qiZxt",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "최초 500 AI 크레딧 제공, 기본 템플릿 사용 가능."
+      },
+      "pro": {
+        "monthly": "$10",
+        "yearly": "$96/yr",
+        "details": "무제한 크레딧, PDF 수출 기능, 맞춤형 폰트 및 로고 적용, 협업 도구 강화."
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "기업용 맞춤형 솔루션, 고급 보안 및 권한 설정, API 지원."
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "최근 세일즈 및 비즈니스 프레젠테이션 최적화로 기능이 개편되었습니다."
+  },
+  "PWuwM2Vkh4XQmaOx6lnc": {
+    "id": "PWuwM2Vkh4XQmaOx6lnc",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "무제한 회의 기록 저장, 매월 10시간 분량의 AI 요약 기능 제공."
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": "$228/yr",
+        "details": "무제한 AI 요약 및 질문 답변, Limitless 전용 웨어러블 하드웨어 연동 지원."
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "조직 단위 보안 정책 적용, 전사적 회의 분석 및 통합 관리 도구."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Rewind.ai에서 Limitless로 리브랜딩되었으며, 웨어러블 펜던트 기기 결합 상품이 있습니다."
+  },
+  "xGUX9J4BmFo1RpxPBI7d": {
+    "id": "xGUX9J4BmFo1RpxPBI7d",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "Hobby 플랜. 2,000개의 코드 자동완성 제공, 기본 모델 사용."
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": null,
+        "details": "Pro 플랜. 무제한 자동완성, 매월 500개의 프리미엄 모델 요청, 무제한 터미널 사용."
+      },
+      "business": {
+        "price": "$40/월 per user",
+        "details": "Business 플랜. 프라이버시 모드 지원(코드 학습 방지), 중앙 결제 및 팀 관리 대시보드."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Anysphere는 Cursor AI의 개발사이며, 가격 정보는 Cursor 서비스 기준입니다."
+  },
+  "Kha5CiYOHLJpvOagnPJK": {
+    "id": "Kha5CiYOHLJpvOagnPJK",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "매일 150개의 토큰 제공, 최대 3개의 활성 작업 제한."
+      },
+      "pro": {
+        "monthly": "$12",
+        "yearly": "$120/yr",
+        "details": "Apprentice 플랜. 매월 8,500개의 토큰 제공, 비공개 생성 기능 지원."
+      },
+      "business": {
+        "price": "$30/월 per user",
+        "details": "Artisan 플랜 기반 팀 구성. 고급 모델 액세스, 대용량 토큰(25,000개/월) 및 우선 순위 생성."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "플랜 명칭은 Apprentice, Artisan, Maestro로 구분되며 Maestro($60/mo) 플랜이 존재합니다."
+  },
+  "A0UzjGk5pItjYvG37vKW": {
+    "id": "A0UzjGk5pItjYvG37vKW",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "기본 실시간 렌더링 지원, 생성된 이미지에 워터마크 적용."
+      },
+      "pro": {
+        "monthly": "$30",
+        "yearly": "$288/yr",
+        "details": "워터마크 제거, 고해상도 업스케일링, 무제한 이미지 생성 및 상업적 이용 허용."
+      },
+      "business": {
+        "price": "$60/월 per user",
+        "details": "Max 플랜. 2개 이상의 동시 실시간 비디오 세션 지원, 고성능 GPU 모드 우선 배정."
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Krea는 실시간 AI 향상 및 생성 기능을 주력으로 하며 고성능 연산이 필요한 경우 Max 플랜을 권장합니다."
+  },
+  "WrTcKwE3tbtsuYHUGNWF": {
+    "id": "WrTcKwE3tbtsuYHUGNWF",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "매월 20 크레딧 제공, AI 검색 및 기본 요약 기능 이용 가능"
+      },
+      "pro": {
+        "monthly": "$15.99",
+        "yearly": "$119.88/yr",
+        "details": "Premium 플랜: 무제한 검색, 고도화된 AI 요약(Copilot) 및 북마크 기능 제공"
+      },
+      "business": {
+        "price": "$9.99/월 per user",
+        "details": "Teams 플랜: 팀 단위 협업 도구, 중앙 집중식 청구 관리 및 관리 콘솔 제공"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "YeUo61OPBLqt0OrGBPp3": {
+    "id": "YeUo61OPBLqt0OrGBPp3",
+    "pricing": {
+      "free": null,
+      "pro": null,
+      "business": {
+        "price": "Contact Sales",
+        "details": "계약 관리(CLM) 솔루션으로 기업 규모 및 필요 기능에 따라 별도 견적 책정"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "엔터프라이즈 전용 서비스로 공개된 개별 결제 플랜이 없음"
+  },
+  "0QenZpwcNNMk3WvAki4l": {
+    "id": "0QenZpwcNNMk3WvAki4l",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "매월 1시간 전사(Transcription) 제공, 720p 영상 수출(워터마크 포함) 가능"
+      },
+      "pro": {
+        "monthly": "$30",
+        "yearly": "$288/yr",
+        "details": "매월 30시간 전사, 4K 수출, 스튜디오 사운드 및 AI 기능(Eye Contact 등) 무제한 사용"
+      },
+      "business": {
+        "price": "$40/월 per user",
+        "details": "팀 협업, 전용 고객 관리 및 보안 기능 강화"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "HEbixDuERcWpNR96eyE2": {
+    "id": "HEbixDuERcWpNR96eyE2",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "모든 음성 체험 가능, 10분 생성(다운로드 불가), 협업 공유 가능"
+      },
+      "pro": {
+        "monthly": "$39",
+        "yearly": "$312/yr",
+        "details": "매월 4시간 생성, 800개 이상의 음성 라이브러리, 상업적 이용 권한 포함"
+      },
+      "business": {
+        "price": "$75/월 per user",
+        "details": "Enterprise 플랜: 무제한 생성, 고급 보안(SSO), 전담 관리자 및 팀 워크플로우 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "8d82mOneGSFwevN8ksP7": {
+    "id": "8d82mOneGSFwevN8ksP7",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": "무료 플랜은 없으며, 14일 무료 트라이얼 제공 후 유료 전환"
+      },
+      "pro": {
+        "monthly": "$12 (연간 전용)",
+        "yearly": "$144/yr",
+        "details": "Pro 플랜: 무제한 슬라이드 제작, AI 콘텐츠 생성, 고급 분석 및 애니메이션 제공"
+      },
+      "business": {
+        "price": "$50/월 per user",
+        "details": "Team 플랜: 공유 라이브러리, 브랜드 가이드라인 적용, 실시간 협업 및 편집 기능"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "개인용 Pro 플랜은 연간 결제만 지원함"
+  },
+  "kSZtMJx2BTL31pBr65IS": {
+    "id": "kSZtMJx2BTL31pBr65IS",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": "공식 무료 플랜은 없으나 무료 체험판(Trial) 제공"
+      },
+      "pro": {
+        "monthly": "$69",
+        "yearly": "$708/yr",
+        "details": "3개 브랜드 보이스, 10개 지식 기반, SEO 모드 및 고급 AI 이미지 생성 포함"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "무제한 단어 및 브랜드 보이스, 맞춤형 워크플로우, 기업급 보안 및 분석 제공"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "IrmcIZIQKQtm0HyHwYbn": {
+    "id": "IrmcIZIQKQtm0HyHwYbn",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "매월 2,000 단어 제공, 1명 사용자, 200개 이상의 보너스 크레딧 제공"
+      },
+      "pro": {
+        "monthly": "$49",
+        "yearly": "$432/yr",
+        "details": "무제한 단어(채팅), 5명 사용자, 최신 모델 접근 권한 및 자동화 워크플로우 지원"
+      },
+      "business": {
+        "price": "$249/월 (팀)",
+        "details": "Team 플랜: 20명 사용자, 무제한 채팅 및 워크플로우, 우선 지원 서비스"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "yNr6Sgk3HLZ7RZWk1Uuv": {
+    "id": "yNr6Sgk3HLZ7RZWk1Uuv",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "로고 디자인은 무료이나 다운로드 시 결제 필요"
+      },
+      "pro": {
+        "monthly": "$8 (연간)",
+        "yearly": "$96/yr",
+        "details": "Brand Kit Subscription: 로고 고해상도 파일, 브랜드 자산 가이드, 소셜 미디어 템플릿 제공"
+      },
+      "business": {
+        "price": "$192/년 (연간 결제)",
+        "details": "Brand Kit Web: 로고 및 브랜드 키트와 함께 AI 기반 웹사이트 제작 기능 포함"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "1회성 구매 옵션($20 Basic / $65 Premium)도 별도 존재함"
+  },
+  "rvOiOjNhkn29n3DZfbW0": {
+    "id": "rvOiOjNhkn29n3DZfbW0",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "오픈소스 라이브러리(MIT License)로 모든 기능을 무료로 사용 가능"
+      },
+      "pro": null,
+      "business": null
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트(GitHub)"
+    },
+    "last_updated": "2026-03-30",
+    "note": "SaaS 형태가 아닌 개발자용 라이브러리이므로 별도의 구독 플랜이 존재하지 않음"
+  },
+  "ERVDVfis9EWNQQT8deyc": {
+    "id": "ERVDVfis9EWNQQT8deyc",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "커뮤니티 플랜: 모델, 데이터셋 공유 및 호스팅 기본 무료"
+      },
+      "pro": {
+        "monthly": "$9",
+        "yearly": null,
+        "details": "Hugging Face PRO: 배지 표시, 조기 기능 접근, GPU 사용량 우대"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "Enterprise Hub: 관리형 보안, 규정 준수 대시보드 및 전용 인프라 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "추론 엔드포인트(Inference Endpoints) 등은 종량제(Pay-as-you-go)로 별도 과금"
+  },
+  "JLNlMWFYIScdQF4Jg5kM": {
+    "id": "JLNlMWFYIScdQF4Jg5kM",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "최대 100개의 소스 및 3개의 피드 구성 가능, 모바일 및 데스크톱 앱 지원"
+      },
+      "pro": {
+        "monthly": "$8.25",
+        "yearly": "$6/mo",
+        "details": "무제한 소스 및 피드, 구글 키워드 알림, 노트 및 하이라이트 기능, 광고 제거 및 프리미엄 고객 지원"
+      },
+      "business": {
+        "price": "$18/월 per user",
+        "details": "팀 공유 보드 및 피드, 슬랙(Slack) 연동, 팀 뉴스레터 제작, 보안 강화(SSO/SAML) 및 API 액세스"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "Ct7vnMd8bXekvJId3UWm": {
+    "id": "Ct7vnMd8bXekvJId3UWm",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "주당 10분의 AI 영상 생성, 720p 수출, InVideo 워터마크 포함, 10GB 저장 공간"
+      },
+      "pro": {
+        "monthly": "$25",
+        "yearly": "$20/mo",
+        "details": "Plus 플랜: 월 50분 AI 생성, 워터마크 제거, 1080p HD 수출, 80개 iStock 에셋 제공"
+      },
+      "business": {
+        "price": "$48/월 (연결제 기준)",
+        "details": "Max 플랜: 월 200분 AI 생성, 4K 수출 지원, 320개 iStock 에셋, 무제한 저장 공간 및 우선 렌더링"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "2025년 말 OpenAI Sora 2 및 Google VEO 3.1 모델 통합으로 가치 상승"
+  },
+  "JOZi6nxCzsCqdz0DyXEp": {
+    "id": "JOZi6nxCzsCqdz0DyXEp",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "개발자를 위한 오픈 소스 라이브러리 및 기본 테스트 환경 제공"
+      },
+      "pro": {
+        "monthly": "null",
+        "yearly": "null",
+        "details": null
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "기업용 FHE(완전 동형 암호) 기반 프라이버시 보호 AI 인프라 구축 및 컨설팅"
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "암호화 기술 중심의 B2B 솔루션으로 일반적인 SaaS 구독형 플랜이 공개되어 있지 않음"
+  },
+  "z6WfRPYx5uCUqTM85qi4": {
+    "id": "z6WfRPYx5uCUqTM85qi4",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "월 3분의 영상 생성, 제한된 AI 아바타 및 언어 선택, Synthesia 워터마크 포함"
+      },
+      "pro": {
+        "monthly": "$29",
+        "yearly": "$18/mo",
+        "details": "Starter 플랜: 월 10분 영상 생성, 120개 이상의 언어 및 음성, AI 대본 어시스턴트 제공"
+      },
+      "business": {
+        "price": "$64/월 (연결제 기준)",
+        "details": "Creator 플랜: 월 30분 영상 생성, 커스텀 AI 아바타 제작 가능(연결제 시), 고급 브랜드 맞춤 설정"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "신규 크레딧 시스템 도입으로 영상 생성 분량에 따라 요금 산정"
+  },
+  "SvA4k1sqOw9zceECd5s0": {
+    "id": "SvA4k1sqOw9zceECd5s0",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "월 100 크레딧 제공, 1개의 웹사이트 위젯, 최대 100개의 문서 업로드 가능"
+      },
+      "pro": {
+        "monthly": "$29",
+        "yearly": "null",
+        "details": "Basic 플랜: 2,500 크레딧, GPT-5 Mini 사용 가능, 3명의 팀 멤버, 1,000개 문서 학습"
+      },
+      "business": {
+        "price": "$99/월",
+        "details": "Premium 플랜: 10,000 크레딧, GPT-5 및 Claude 4 Sonnet 지원, 10명의 팀 멤버, 브랜드 제거 기능"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Advanced 플랜($249/월)을 통해 대규모 데이터 및 API 연동 지원"
+  },
+  "fXfz5vDxBZvrAPGKnFJa": {
+    "id": "fXfz5vDxBZvrAPGKnFJa",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "기본 문법 및 맞춤법 검사, 100개의 AI 프롬프트 제공"
+      },
+      "pro": {
+        "monthly": "$30",
+        "yearly": "$12/mo",
+        "details": "Pro 플랜(구 Premium): 2,000개의 AI 프롬프트, 표절 검사기, 문체 및 톤 조정, 고급 교정 기능"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "Enterprise 플랜: 무제한 AI 프롬프트, 중앙 집중식 관리 콘솔, 브랜드 가이드라인 설정, 강화된 보안 정책"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "기존 Business 플랜이 Enterprise로 통합되었으며 Pro 플랜에서 팀 기능을 일부 수용함"
+  },
+  "YWflWrsKr6uZFAr2lWL7": {
+    "id": "YWflWrsKr6uZFAr2lWL7",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "무제한 폼 제작 및 응답 수집, 지불 결제 수집(수수료 5%), 기본 로직 및 계산 기능 포함"
+      },
+      "pro": {
+        "monthly": "$29",
+        "yearly": "$24/mo",
+        "details": "Tally 워터마크 제거, 커스텀 도메인 사용, 팀 협업 워크스페이스, 부분 응답 수집 기능"
+      },
+      "business": {
+        "price": "$89/월",
+        "details": "데이터 보유 기간 제어, 이메일 인증 기능, 엔터프라이즈급 보안 및 관리 도구 제공"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "대부분의 기능을 무료로 제공하는 정책을 유지 중"
+  },
+  "tRMczR9SwCxeaKlLuCW2": {
+    "id": "tRMczR9SwCxeaKlLuCW2",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "비상업적 용도 및 연구 목적의 오픈 소스 모델 이용 가능"
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": "null",
+        "details": "Professional Membership: 소규모 비즈니스 및 크리에이터를 위한 상업적 이용 권한 부여, 최신 코어 모델 조기 액세스"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "Enterprise Membership: 대규모 기업을 위한 맞춤형 라이선스, 전용 기술 지원 및 솔루션 엔지니어링"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "자체 호스팅(Self-hosted) 모델 이용을 위한 멤버십 라이선스 구조"
+  },
+  "Ecazox3IgRKuLr4HgDT3": {
+    "id": "Ecazox3IgRKuLr4HgDT3",
+    "pricing": {
+      "free": {
+        "available": null,
+        "details": null
+      },
+      "pro": {
+        "monthly": "null",
+        "yearly": "null",
+        "details": null
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "이커머스 재고 동기화 및 품절 방지 솔루션으로 파트너십 기반 수익 공유 모델 운영"
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "B2B 이커머스 네트워크 서비스로 표준 월간 구독료 대신 거래 기반 또는 협의된 수수료 방식 사용"
+  },
+  "i5xcEarD3HxpOvmxd5qi": {
+    "id": "i5xcEarD3HxpOvmxd5qi",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "1개의 AI 에이전트 생성, 월 1,000회 실행, 200개 이상의 AI 모델 액세스"
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": "$16/mo",
+        "details": "Individual 플랜: 무제한 에이전트 생성 및 실행, 모델 사용료 마진 없이 원가 제공"
+      },
+      "business": {
+        "price": "$60/월 (연결제 기준)",
+        "details": "Pro 플랜: 월 25,000회 실행 한도, API 액세스, 고성능 모델 최적화 및 팀 협업 기능"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "플랫폼 이용료 외에 AI 모델 사용량에 따른 API 비용이 별도 발생할 수 있음 (마진 없는 원가 방식)"
+  },
+  "sqGt0mm7DJyOHCbDNoLK": {
+    "id": "sqGt0mm7DJyOHCbDNoLK",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "최대 10분 길이 비디오 수출 가능, 워터마크 포함, 720p 해상도 제한"
+      },
+      "pro": {
+        "monthly": "$30",
+        "yearly": "$288/yr",
+        "details": "워터마크 제거, 1440p 4K 수출 가능, 100분 자막 생성 서비스 제공"
+      },
+      "business": {
+        "price": "$70/월 per user",
+        "details": "팀 협업 툴, 4k 화질, 600분 자막 생성, 맞춤형 폰트 및 브랜드 키트 제공"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "ZyibOZlO3b9xRdkDJMNb": {
+    "id": "ZyibOZlO3b9xRdkDJMNb",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "매월 10,000 단어 제공, GPT-4o 기반 챗봇 Chatsonic 이용 가능"
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": "$192/yr",
+        "details": "무제한 단어 생성(Individual 플랜 기준), 최신 AI 모델 접근 및 고품질 이미지 생성 포함"
+      },
+      "business": {
+        "price": "$99/월",
+        "details": "팀 협업 기능, SSO/SAML 지원, 맞춤형 AI 모델 훈련 및 우선 지원 서비스"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "OwUypiCTBhsOUZhGfs9N": {
+    "id": "OwUypiCTBhsOUZhGfs9N",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "하루 최대 30분, 총 1시간 오디오 향상 기능 제공 (최대 500MB)"
+      },
+      "pro": {
+        "monthly": "$9.99",
+        "yearly": "$99.99/yr",
+        "details": "Adobe Express Premium에 포함. 하루 최대 4시간 처리 가능, 대용량 파일(1GB) 지원"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "Adobe Creative Cloud for Teams 플랜을 통해 기업용 라이선스 관리 및 협업 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Adobe Podcast 제품군의 일부로 Adobe Express 구독과 통합되어 운영됨"
+  },
+  "l9hMSW3jYmm4SSudfXk8": {
+    "id": "l9hMSW3jYmm4SSudfXk8",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "기본 데이터 검색 및 시각화 기능 제공, 제한된 데이터 통합 서비스"
+      },
+      "pro": {
+        "monthly": "$30",
+        "yearly": "$300/yr",
+        "details": "데이터 프리미엄 소스 접근, 대량의 데이터 세트 처리 및 고급 시각화 도구 제공"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "기업 전용 데이터 통합, 맞춤형 인프라 및 전담 계정 관리자 지원"
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "주로 금융 및 연구용 데이터 분석 플랫폼으로 가격 정책이 변동적일 수 있음"
+  },
+  "MCNaPfiMF1Ov9uFDeP3a": {
+    "id": "MCNaPfiMF1Ov9uFDeP3a",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "로고 디자인 생성 자체는 무료이나 다운로드 및 소유권 획득은 유료"
+      },
+      "pro": {
+        "monthly": "N/A",
+        "yearly": "$96/yr",
+        "details": "Brand Kit 구독 플랜. 무제한 로고 수정 및 고해상도 파일 다운로드, 명함 디자인 포함"
+      },
+      "business": {
+        "price": "$192/년",
+        "details": "Brand Kit Web 플랜. 로고 소유권과 함께 AI 기반 웹사이트 제작 도구 포함"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "구독 형태 외에 $20(기본) 또는 $65(프리미엄)의 일회성 구매 옵션도 존재함"
+  },
+  "MZSDQo77wtone6csJPdm": {
+    "id": "MZSDQo77wtone6csJPdm",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "오픈 소스 데스크톱 앱으로 로컬 환경에서 무상으로 무제한 사용 가능"
+      },
+      "pro": {
+        "monthly": "$10",
+        "yearly": "$100/yr",
+        "details": "Upscayl Cloud 서비스. 클라우드 기반 GPU를 활용한 빠른 처리 및 모바일 접근 지원"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "API 연동 및 대규모 일괄 처리(Batch processing)를 위한 엔터프라이즈 솔루션"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "데스크톱 버전은 무료로 제공되나 클라우드 기반 서비스는 유료 구독 모델임"
+  },
+  "SxgjIMBvYaBgWvaDgxkU": {
+    "id": "SxgjIMBvYaBgWvaDgxkU",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "5분 분량의 체험용 비디오 생성, 워터마크 포함, 개인적 용도 제한"
+      },
+      "pro": {
+        "monthly": "$16",
+        "yearly": "$192/yr",
+        "details": "AI 아바타 생성 기능 강화, 워터마크 일부 제거(Lite 버전 이상), 상업적 이용 허용"
+      },
+      "business": {
+        "price": "$108/월",
+        "details": "Advanced 플랜 기준. 팀 협업, 고급 음성 선택 가능, 무제한 생성 가능(크레딧 기준)"
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "생성된 영상의 크레딧 단위로 과금되며, 플랜에 따라 1크레딧당 단가가 달라짐"
+  },
+  "X6m7U6NqF3I3A7Rxmxth": {
+    "id": "X6m7U6NqF3I3A7Rxmxth",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "매일 PDF 2개 처리 가능(최대 120페이지), 질문 20개 제한"
+      },
+      "pro": {
+        "monthly": "$5",
+        "yearly": "$60/yr",
+        "details": "Plus 플랜. 하루 PDF 50개(최대 2,000페이지) 처리 가능, 무제한 질문 기능"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "기업 내 다수 사용자 관리, 보안 강화된 데이터 처리 및 API 접근"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "L0lrvGyB6uKiotZ8HZhO": {
+    "id": "L0lrvGyB6uKiotZ8HZhO",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "신규 가입 시 10개의 무료 크레딧 제공, 기본 의사결정 보고서 체험 가능"
+      },
+      "pro": {
+        "monthly": "$29",
+        "yearly": "$290/yr",
+        "details": "Standard 플랜 기준. 매월 100 크레딧 제공, 고급 분석 프레임워크 접근 가능"
+      },
+      "business": {
+        "price": "$99/월",
+        "details": "Enterprise 플랜. 무제한 크레딧, 팀 대시보드 및 맞춤형 의사결정 모델링 지원"
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Jina AI에서 제공하며 크레딧 기반 시스템으로 운영됨"
+  },
+  "aUzZIWi7Kx9h0RN3t5qB": {
+    "id": "aUzZIWi7Kx9h0RN3t5qB",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "매월 10,000자 생성 가능, AI 이미지 생성 5회 및 30개 이상의 언어 지원"
+      },
+      "pro": {
+        "monthly": "$29",
+        "yearly": "$290/yr",
+        "details": "Unlimited 플랜 기준. 글자 수 무제한 생성, 우선 이메일/채팅 지원, 전용 매니저 배정"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "대규모 팀용 엔터프라이즈 기능, 커스텀 사용량 설정 및 보안 관리 기능"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Saver 플랜($9/월)을 통해 월 100,000자 생성 가능한 중간 옵션도 존재함"
+  },
+  "m3WncrSJ2tOQWAgs08QK": {
+    "id": "m3WncrSJ2tOQWAgs08QK",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": "무료 플랜은 없으나 가입 시 제한적인 테스트 가능 여부 확인 필요"
+      },
+      "pro": {
+        "monthly": "$19",
+        "yearly": "$192/yr ($16/mo)",
+        "details": "Lite 플랜 기준이며, Pro 플랜은 월 $99(연간 결제 시 월 $84)에 고급 캐릭터 리타겟팅 및 고해상도 내보내기 제공"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "팀 및 기업용 플랜으로 사용자 지정 워크플로우 및 우선순위 렌더링 지원"
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "내부 지식 및 search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": "AI 기반 CG 캐릭터 합성 도구로, 결제 방식이 구독형으로 운영됨"
+  },
+  "GKIEXxcwx4TFkZMzWJSy": {
+    "id": "GKIEXxcwx4TFkZMzWJSy",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": "무료 플랜은 없으며 14일 무료 체험판 제공"
+      },
+      "pro": {
+        "monthly": "$15",
+        "yearly": "$144/yr ($12/mo)",
+        "details": "개인용 무제한 슬라이드 및 PowerPoint 내보내기 기능 제공"
+      },
+      "business": {
+        "price": "$40/월 per user",
+        "details": "팀 협업을 위한 공동 편집 및 공유 템플릿 라이브러리 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "내부 지식"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "1S4iGM6dqfS8hlZE8rei": {
+    "id": "1S4iGM6dqfS8hlZE8rei",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": null
+      },
+      "pro": {
+        "monthly": "null",
+        "yearly": "null",
+        "details": "구독형이 아닌 1회성 결제 방식. 약 $6.70(Small) ~ $14.75(Large) 패키지로 구성"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "기업용 대량 프로필 생성 서비스 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "내부 지식"
+    },
+    "last_updated": "2026-03-30",
+    "note": "구독 모델이 아닌 일회성 결제 도구임"
+  },
+  "KAw2eplRQ4579348QRPP": {
+    "id": "KAw2eplRQ4579348QRPP",
+    "pricing": {
+      "free": {
+        "available": false,
+        "details": "별도의 무료 플랜은 없으나 Jasper 전체 구독 내 포함"
+      },
+      "pro": {
+        "monthly": "$49",
+        "yearly": "$468/yr ($39/mo)",
+        "details": "Creator 플랜 기준이며, 무제한 AI 이미지 생성 포함"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "맞춤형 AI 가이드라인 및 API 접근 권한 포함"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "내부 지식"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Jasper Art는 별도 구매가 아닌 Jasper 플랫폼 구독에 포함되어 제공됨"
+  },
+  "TEPcoseMb2S6jaSLTSh9": {
+    "id": "TEPcoseMb2S6jaSLTSh9",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "제한된 수의 트레이닝 세션 및 이미지 생성 지원"
+      },
+      "pro": {
+        "monthly": "$29",
+        "yearly": "$348/yr",
+        "details": "Starter 플랜 기준. 더 많은 학습 세션과 고화질 이미지 생성 제공"
+      },
+      "business": {
+        "price": "$199/월",
+        "details": "Premium 플랜 기준. 대규모 팀을 위한 API 및 고급 커스텀 모델 지원"
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "내부 지식 및 search_estimated"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "wmpzuBtHLsynDb8uGNdE": {
+    "id": "wmpzuBtHLsynDb8uGNdE",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "기본 협업 및 할 일 목록 제공 (제한된 AI Credit)"
+      },
+      "pro": {
+        "monthly": "$12/월 per user",
+        "yearly": "$96/yr per user",
+        "details": "고급 마인드맵 및 프로젝트 관리 기능, 더 많은 AI 활용 가능"
+      },
+      "business": {
+        "price": "$20/월 per user",
+        "details": "팀 보안 설정 및 맞춤형 워크스페이스 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "내부 지식"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "PbFKYMnqWk8qqiD6CLO1": {
+    "id": "PbFKYMnqWk8qqiD6CLO1",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "기본 회의 기록(제한적 시간) 및 요약 기능 제공"
+      },
+      "pro": {
+        "monthly": "$18",
+        "yearly": "$120/yr ($10/mo)",
+        "details": "무제한 전사 기록 및 AI 필터링 기능 제공"
+      },
+      "business": {
+        "price": "$19/월 per user (연간 결제 시)",
+        "details": "팀 협업 분석 및 무제한 대화 데이터 보관 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "내부 지식"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "VtkVwEE5Lz3jlYBq6hrm": {
+    "id": "VtkVwEE5Lz3jlYBq6hrm",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "기본적인 텍스트 읽어주기 기능 및 표준 목소리 제공"
+      },
+      "pro": {
+        "monthly": "$30",
+        "yearly": "$139/yr ($11.58/mo)",
+        "details": "Premium 기준. 고품질 AI 목소리 및 무제한 텍스트 변환 지원"
+      },
+      "business": {
+        "price": "$288/yr per user",
+        "details": "Studio 플랜. 상업적 이용 권한 및 음성 복제(Cloning) 기능 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "내부 지식"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "sGr6zOZkGpSoXXMvveVW": {
+    "id": "sGr6zOZkGpSoXXMvveVW",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "Framer 브랜드 표시 및 제한된 방문자 수 내 무료 이용"
+      },
+      "pro": {
+        "monthly": "$40",
+        "yearly": "$360/yr ($30/mo)",
+        "details": "고급 CMS 및 검색 기능, 스테이징 서버 지원"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "엔터프라이즈 보안 및 전용 고객 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "내부 지식"
+    },
+    "last_updated": "2026-03-30",
+    "note": "사이트당 과금 체계로 구성되어 있음"
+  },
+  "5Dn42bsIngucAYvHgEII": {
+    "id": "5Dn42bsIngucAYvHgEII",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "웹사이트 빌더 테스트 가능 (호스팅 시 유료 전환 필요)"
+      },
+      "pro": {
+        "monthly": "$15",
+        "yearly": "$144/yr ($12/mo)",
+        "details": "Starter 플랜 기준. 커스텀 도메인 및 10개 서비스 페이지 제공"
+      },
+      "business": {
+        "price": "$20/월 per user",
+        "details": "무제한 페이지 및 우선 지원, 고급 CRM 기능 포함"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "내부 지식"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "n7rg3GxL7ziMjbeiJGd9": {
+    "id": "n7rg3GxL7ziMjbeiJGd9",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "14일 무료 체험 제공, 20분의 음성 생성 및 1GB 저장 공간 포함"
+      },
+      "pro": {
+        "monthly": "$48",
+        "yearly": "$24/mo (첫 해 할인 적용 시)",
+        "details": "5시간 음성 생성, 무제한 다운로드, 하이퍼 리얼리스틱 보이스, 상업적 이용 권한"
+      },
+      "business": {
+        "price": "$149/월",
+        "details": "Pro+ 플랜: 20시간 음성 생성, 팀 협업 도구 및 우선 지원 서비스 제공"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "Oq2Vy6A67yjbPd3WUnHb": {
+    "id": "Oq2Vy6A67yjbPd3WUnHb",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "3분 분량의 영상 번역/더빙 무료 체험 (일회성)"
+      },
+      "pro": {
+        "monthly": "$150",
+        "yearly": "$120/mo",
+        "details": "Pro 플랜: 월 100분 영상 번역, 프리미엄 보이스, 워터마크 제거"
+      },
+      "business": {
+        "price": "$600/월",
+        "details": "월 500분 번역, API 접근 권한, 전담 매니저 및 맞춤형 워크플로우 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "QZON2H86bUDLr6pGQ8vS": {
+    "id": "QZON2H86bUDLr6pGQ8vS",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "기본 자막 생성 및 제한된 편집 기능 체험 가능"
+      },
+      "pro": {
+        "monthly": "$15",
+        "yearly": "$10/mo",
+        "details": "AI 아이콘, 맞춤형 폰트, 무제한 익스포트 및 AI 기반 시선 보정 기능"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "기업용 대량 워크플로우 및 커스텀 브랜딩 킷 지원"
+      }
+    },
+    "reliability": {
+      "score": "Mid",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "결제 국가 및 플랫폼(iOS/Web)에 따라 가격이 상이할 수 있음"
+  },
+  "k1MczcsE3bgN76OaAXiV": {
+    "id": "k1MczcsE3bgN76OaAXiV",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "기본 배경 제거 및 편집 가능하나 워터마크 포함"
+      },
+      "pro": {
+        "monthly": "$12.99",
+        "yearly": "$7.49/mo",
+        "details": "워터마크 제거, 고화질 다운로드, 일괄 편집(Batch Mode) 및 AI 배경 생성"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "API 기반 대량 이미지 처리 및 팀 관리자 대시보드 제공"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "L2wD9u0l8n7jwY19JyAq": {
+    "id": "L2wD9u0l8n7jwY19JyAq",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "무제한 멤버 초대 가능, 월 50개의 자동화 작업(Tasks) 제공"
+      },
+      "pro": {
+        "monthly": "$189",
+        "yearly": "$149/mo",
+        "details": "월 100,000개 작업, 상급 도구 연결(API/Integrations), 워터마크 제거"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "Enterprise: 보안 정책 설정, 전담 계정 관리 및 커스텀 온보딩"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Plus 플랜($69/mo)이 중간 단계로 존재함"
+  },
+  "Pbg4NKkIknauVfFd0y2t": {
+    "id": "Pbg4NKkIknauVfFd0y2t",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "제한된 AI 크레딧 제공, PDF 내보내기 불가"
+      },
+      "pro": {
+        "monthly": "$14.99",
+        "yearly": "$9.99/mo",
+        "details": "750 AI 크레딧, 워터마크 제거, 폴더 관리 및 PDF 저장"
+      },
+      "business": {
+        "price": "$48/월 per user",
+        "details": "1000 AI 크레딧, 팀 라이브러리 공유, 도메인 연결 및 폼 데이터 분석"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "XQyRdWZiUm6gcIbELTG9": {
+    "id": "XQyRdWZiUm6gcIbELTG9",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "저화질 다운로드 및 워터마크 포함, 기본 편집 기능"
+      },
+      "pro": {
+        "monthly": "$14.99",
+        "yearly": "$4.99/mo",
+        "details": "고화질 무제한 다운로드, 모든 유료 도구(Magic Eraser, Background Editor 등) 사용 가능"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "API 연동 및 대규모 비즈니스용 커스텀 플랜"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "vSVUWta6DEptPzWAJJtO": {
+    "id": "vSVUWta6DEptPzWAJJtO",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "패러프레이저 125단어 제한, 기본 문법 검사기 사용 가능"
+      },
+      "pro": {
+        "monthly": "$19.95",
+        "yearly": "$8.33/mo",
+        "details": "단어 수 제한 없는 패러프레이저, 표절 검사기, 고급 요약 기능 및 톤 분석"
+      },
+      "business": {
+        "price": "$3.99/월 per user",
+        "details": "5명 이상 팀 기준, 중앙 관리 콘솔 및 사용자 분석 대시보드 제공"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "4bNmklUe2ZDDjrL8q5Y1": {
+    "id": "4bNmklUe2ZDDjrL8q5Y1",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "1개의 챗봇 생성, 월 20개의 메시지 크레딧 제공"
+      },
+      "pro": {
+        "monthly": "$99",
+        "yearly": "$83/mo",
+        "details": "Standard 플랜: 20개의 챗봇, 10,000개 메시지 크레딧, GPT-4 사용"
+      },
+      "business": {
+        "price": "$399/월",
+        "details": "Unlimited 플랜: 40,000개 메시지 크레딧, 화이트 라벨링 및 커스텀 도메인 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "입문용 Hobby 플랜($19/mo) 별도 존재"
+  },
+  "BHupw60sh85dCR8Ehm5q": {
+    "id": "BHupw60sh85dCR8Ehm5q",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "무제한 음악 생성 및 감상 가능하나 다운로드 불가"
+      },
+      "pro": {
+        "monthly": "$19.99",
+        "yearly": "$16.99/mo",
+        "details": "Creator 플랜: 무제한 다운로드, 유튜브 및 SNS 배경음악 상업적 이용"
+      },
+      "business": {
+        "price": "$39.99/월",
+        "details": "Artist 플랜: 보컬 곡 생성 지원, 방송 및 광고 등 고수준 상업 라이선스 포함"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "8tUBiq1VCaoO2TDipzZ4": {
+    "id": "8tUBiq1VCaoO2TDipzZ4",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "7일간의 무료 체험판 제공, 스마트 인용 분석 기능 한시적 이용 가능"
+      },
+      "pro": {
+        "monthly": "$20",
+        "yearly": "$144/yr",
+        "details": "무제한 스마트 인용 검색, 시각화 도구, 브라우저 확장 프로그램 및 레퍼런스 관리 도구 전체 이용"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "대학, 연구 기관 및 기업용 맞춤형 대시보드 및 팀 관리 기능 제공"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "gVuQOmG2OI0qJfb6JiJc": {
+    "id": "gVuQOmG2OI0qJfb6JiJc",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "하루 60분 무료 소음 제거, 기본 에코 제거 기능 제공"
+      },
+      "pro": {
+        "monthly": "$12",
+        "yearly": "$96/yr",
+        "details": "무제한 소음 및 에코 제거, 저지연 모드, 고급 목소리 격리 기술 포함"
+      },
+      "business": {
+        "price": "$12/월 per user",
+        "details": "중앙 관리형 청구, 사용자 관리 대시보드, SSO 지원"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "jAyvPzyEqhZIbqKRZz8v": {
+    "id": "jAyvPzyEqhZIbqKRZz8v",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "AI 기반 비즈니스 이름 생성 및 아이디어 검색 서비스 무료 이용"
+      },
+      "pro": null,
+      "business": null
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "이름 생성 자체는 무료이나, 결과물에서 로고 구매나 도메인 등록 시 비용이 발생할 수 있음"
+  },
+  "TyGG789e6YE91onqxQca": {
+    "id": "TyGG789e6YE91onqxQca",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "최대 20개의 AI 밈 생성 가능, 워터마크 포함"
+      },
+      "pro": {
+        "monthly": "$24",
+        "yearly": "$240/yr",
+        "details": "무제한 밈 생성, 워터마크 제거, API 접근 권한, 상업적 이용 가능"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "맞춤형 AI 모델링 및 기업 전용 밈 마케팅 솔루션"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Solo 플랜($10/월)도 별도로 존재함"
+  },
+  "5alP2RmVK4BVEsrEuRRn": {
+    "id": "5alP2RmVK4BVEsrEuRRn",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "기본 검색 및 한정된 수량의 이미지 생성(초기 체험용)"
+      },
+      "pro": {
+        "monthly": "$30",
+        "yearly": "$288/yr",
+        "details": "월 1,000건의 고속 생성, 상업적 이용 권한 부여, 생성 이미지 비공개 모드 지원"
+      },
+      "business": null
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Starter($10/월) 및 Max($60/월) 플랜이 별도로 구성되어 있음"
+  },
+  "NBRe32WYOG4agRZsvLyG": {
+    "id": "NBRe32WYOG4agRZsvLyG",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "모델 공유 및 다운로드 기본 무료, 커뮤니티 활동을 통한 Buzz 획득 가능"
+      },
+      "pro": {
+        "monthly": "$10",
+        "yearly": null,
+        "details": "Supporter 티어: 매월 Buzz 지급, 전용 뱃지, 신기능 우선 접근권 및 광고 제거"
+      },
+      "business": null
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "회원제 기반의 Buzz 시스템으로 운영되며, 기업용 별도 플랜보다는 개인 후원 중심임"
+  },
+  "e4hbEyffkKOpxpb9BF4m": {
+    "id": "e4hbEyffkKOpxpb9BF4m",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "텍스트 번역 글자수 제한, 파일 번역 월 3회(편집 불가)"
+      },
+      "pro": {
+        "monthly": "$10.49",
+        "yearly": "$105/yr",
+        "details": "Pro Starter 기준: 무제한 텍스트 번역, 데이터 보안 강화, 파일 번역 월 5회"
+      },
+      "business": {
+        "price": "$34.49/월 per user",
+        "details": "Pro Advanced 기준: 팀 관리 기능, API 연동 지원(일부 플랜), CAT 툴 통합"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "가격은 연간 결제 기준 Starter 플랜을 기준으로 함"
+  },
+  "jUyHdwDCddZPB8gCDyVN": {
+    "id": "jUyHdwDCddZPB8gCDyVN",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "무제한 녹음 및 편집, 품질이 제한된 오디오 내보내기"
+      },
+      "pro": {
+        "monthly": "$29.99",
+        "yearly": "$287.88/yr",
+        "details": "월 20시간의 AI 전사/편집, 무제한 무손실 다운로드, 배경 소음 제거 전문 툴"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "다인원 팀 협업, 전담 매니저 지원 및 맞춤형 워크플로우"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Storyteller($14.99/월) 중간 플랜이 존재함"
+  },
+  "qnXdnVch2JsmCJsWiG0M": {
+    "id": "qnXdnVch2JsmCJsWiG0M",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "가입 시 제공되는 제한된 기간의 무료 체험 스트리밍"
+      },
+      "pro": {
+        "monthly": "$9.99",
+        "yearly": "$49.99/yr",
+        "details": "모든 집중력/휴식용 음악 라이브러리 무제한 접근, 오프라인 저장 가능"
+      },
+      "business": {
+        "price": "Contact Sales",
+        "details": "직원 복지용 단체 구독 및 기업용 집중력 향상 프로그램"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": ""
+  },
+  "DRLYHxobcBMvR2ttqkOt": {
+    "id": "DRLYHxobcBMvR2ttqkOt",
+    "pricing": {
+      "free": {
+        "available": true,
+        "details": "최대 3개의 보드 생성 가능, 기본적인 AI 마인드맵 생성 도구 포함"
+      },
+      "pro": {
+        "monthly": "$12",
+        "yearly": "$120/yr",
+        "details": "무제한 보드, 고급 AI 기능(Whimsical AI), 우선 순위 지원"
+      },
+      "business": {
+        "price": "$20/월 per user",
+        "details": "Organization 플랜: SSO 보안, 팀 데이터 관리, 전용 고객 성공 매니저"
+      }
+    },
+    "reliability": {
+      "score": "High",
+      "source": "공식 사이트"
+    },
+    "last_updated": "2026-03-30",
+    "note": "Whimsical 사이트 내의 AI 마인드맵 기능을 기준으로 함"
+  }
 }
