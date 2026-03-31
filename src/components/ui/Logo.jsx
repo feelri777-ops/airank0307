@@ -17,7 +17,7 @@ const Logo = ({ onClick }) => {
         fontSize: "1.5rem",
         fontWeight: 800,
         letterSpacing: "-0.01em",
-        background: "linear-gradient(135deg, #e06070, #c050a0)",
+        background: "var(--accent-gradient)",
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
         lineHeight: 1,
@@ -27,7 +27,7 @@ const Logo = ({ onClick }) => {
         fontSize: "1.5rem",
         fontWeight: 800,
         letterSpacing: "-0.01em",
-        color: "#c0505c",
+        color: "var(--accent-indigo)",
         opacity: 0.5,
         lineHeight: 1,
       }}>.KR</span>
