@@ -85,6 +85,12 @@ export const LOGO_OVERRIDES = {
   "lumalabs.ai": "https://www.google.com/s2/favicons?domain=lumalabs.ai&sz=128",
   "luma.ai": "https://www.google.com/s2/favicons?domain=luma.ai&sz=128",
 
+  // Grok (x.ai 도메인이지만 grok.com의 고유 아이콘 사용)
+  "x.ai": "https://www.google.com/s2/favicons?domain=grok.com&sz=128",
+
+  // Llama (llama.meta.com 도메인이지만 llama.com의 고유 아이콘 사용)
+  "llama.meta.com": "https://www.google.com/s2/favicons?domain=llama.com&sz=128",
+
   // Meta
   "meta.ai": "https://www.google.com/s2/favicons?domain=meta.ai&sz=128",
 
