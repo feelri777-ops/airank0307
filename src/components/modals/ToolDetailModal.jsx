@@ -517,23 +517,6 @@ const ToolDetailModal = ({ tool, rank, onClose }) => {
                       border: "1px solid var(--border-primary)",
                       boxShadow: "0 1px 4px rgba(0,0,0,0.02)"
                     }}>
-                      {tool.pricingNote && (
-                        <>
-                          <div style={{
-                            fontSize: isBigUI ? "0.72rem" : "0.68rem",
-                            color: "var(--text-muted)",
-                            lineHeight: 1.4,
-                            display: "flex",
-                            alignItems: "flex-start",
-                            gap: "6px",
-                            fontWeight: 600
-                          }}>
-                            <span style={{ marginTop: "1px", flexShrink: 0 }}>💡</span>
-                            <span style={{ overflow: "hidden", wordBreak: "keep-all" }}>{tool.pricingNote}</span>
-                          </div>
-                          <div style={{ height: "1px", background: "var(--border-primary)", opacity: 0.3 }} />
-                        </>
-                      )}
                       <div style={{
                         fontSize: isBigUI ? "0.72rem" : "0.68rem",
                         color: "var(--text-muted)",
