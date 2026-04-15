@@ -1,20 +1,12 @@
 {
-  "lastUpdated": "2026-04-15T17:05:49.012Z",
+  "lastUpdated": "2026-04-15T19:19:53.861Z",
   "items": [
     {
       "title": "파수AI, '미토스 위협'에 'AI 보안'으로 대응한다",
       "link": "https://www.bloter.net/news/articleView.html?idxno=659610",
       "description": "미국 생성형 인공지능(AI) 기업 앤트로픽의 미토스(Mythos) 발(發) 보안 위협에 대응하는 파수AI의 전략은 AI 기반 방어 솔루션으로 요약된다. '에이전트 해커' 시대, 방어도 에이전트로 앤트로픽이 최근 공개한 AI 모델...",
       "pubDate": "Wed, 15 Apr 2026 22:26:00 +0900",
-      "relativeTime": "3시간 전",
-      "hot": true
-    },
-    {
-      "title": "“삼성 고마워”…머스크, AI 칩 ‘AI5 설계 완료’ 선언",
-      "link": "https://biz.chosun.com/it-science/ict/2026/04/15/GGV5DJHOJFBP3DVPS3N5MR3BVQ/?utm_source=naver&utm_medium=original&utm_campaign=biz",
-      "description": "A15, 국내 삼성전자 팹서 시제품 제조 일론 머스크 테슬라 최고경영자(CEO)가 차세대 인공지능(AI) 칩 ‘AI5’의 설계를 완료했다고 밝혔다. AI5의 생산을 맡은 삼성전자와 TSMC에 감사의 뜻도 전했다. 머스크 CEO는...",
-      "pubDate": "Wed, 15 Apr 2026 22:05:00 +0900",
-      "relativeTime": "4시간 전",
+      "relativeTime": "5시간 전",
       "hot": true
     },
     {
@@ -22,7 +14,15 @@
       "link": "https://www.newsis.com/view/NISX20260415_0003592991",
       "description": "인공지능(AI) 풀스택 기업 엘리스그룹이 국산 기술 기반의 차세대 AI 데이터센터 인프라를 앞세워 AI 클라우드 시장 공략에 본격 나선다. 엘리스그룹은 15일 서울 강남구 본사에서 AI 인프라부터 클라우드, 솔루션...",
       "pubDate": "Wed, 15 Apr 2026 18:24:00 +0900",
-      "relativeTime": "7시간 전",
+      "relativeTime": "9시간 전",
+      "hot": true
+    },
+    {
+      "title": "파수AI \"AX를 제일 잘 지원하는 AI보안기업 될 것\"",
+      "link": "https://zdnet.co.kr/view/?no=20260415153302",
+      "description": "이날 조규곤 파수AI 대표는 \"26년전 파수 닷컴으로 시작한 파수AI는 데이터 관리 영역으로 사업을 넓혀 왔고, 현재 인공지능(AI)으로 3년 전부터 사업 영역을 확장해 왔다\"며 \"파수AI는 기존의 보안 사업을 지속하면서도...",
+      "pubDate": "Wed, 15 Apr 2026 16:14:00 +0900",
+      "relativeTime": "12시간 전",
       "hot": true
     },
     {
@@ -30,7 +30,7 @@
       "link": "https://www.yna.co.kr/view/AKR20260414163400530?input=1195m",
       "description": "(전략산업)과 인공지능(AI) 인재양성 대학으로 키운다. 이들 대학에 투입되는 추가 예산은 올해만 교당 1천억원에 달할 만큼 '파격 지원'이다. 교육부는 15일 이러한 내용의 '성장엔진 연계 지역인재 양성방안'을 발표했다....",
       "pubDate": "Wed, 15 Apr 2026 11:00:00 +0900",
-      "relativeTime": "15시간 전",
+      "relativeTime": "17시간 전",
       "hot": true
     },
     {
@@ -38,127 +38,191 @@
       "link": "https://www.segye.com/newsView/20260415509628?OutUrl=naver",
       "description": "인공지능(AI) 스타트업 업스테이지가 국내 AI 기업 처음으로 기업 가치 1조원 이상인 유니콘 기업에 올랐다. 업스테이지는 시리즈 C 1차 투자 1800억원을 유치해 국내 생성형 AI 기업 최초로 유니콘 기업에 등극했다고...",
       "pubDate": "Wed, 15 Apr 2026 10:32:00 +0900",
-      "relativeTime": "15시간 전",
+      "relativeTime": "17시간 전",
       "hot": true
     },
     {
-      "title": "‘예수 행세 논란’ 트럼프, 이번엔 예수에 안긴 이미지 SNS 올려",
-      "link": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8537206&ref=A",
-      "description": "인공지능(AI)으로 생성된 것으로 추정되는 이 이미지는 예수가 트럼프 대통령을 감싸 안고 있는 모습인데 눈을 감은 채 머리를 맞댄 두 사람 뒤로 미국 국기가 보입니다. 해당 이미지는 원래 엑스(X)에 올라온 게시물로...",
-      "pubDate": "Thu, 16 Apr 2026 01:56:00 +0900",
+      "title": "자동화로 무차별 공격…괴물 AI, 막기도 전에 뚫는다",
+      "link": "https://www.mt.co.kr/tech/2026/04/16/2026041514284120477",
+      "description": "고성능 AI(인공지능)가 사이버보안의 전제를 흔들고 있다. 사람이 오랜 시간 들여 찾던 취약점을 AI가 훨씬 짧은 시간 안에 찾아내기 시작하면서다. 앤트로픽의 최신모델 '미토스'(Mithos)가 이런 변화를 상징적으로...",
+      "pubDate": "Thu, 16 Apr 2026 04:15:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "이번엔 예수에 안긴 트럼프…“미치광이들은 싫어할지도”",
-      "link": "https://www.joongang.co.kr/article/25420563",
-      "description": "공개된 이미지는 인공지능(AI)으로 생성된 것으로 추정되며 예수가 트럼프 대통령을 감싸 안고 있는 장면을 담고 있다. 예수와 트럼프 대통령은 눈을 감은 채 머리를 맞댄 모습이며 배경에는 미국 국기가 보인다. 이...",
-      "pubDate": "Thu, 16 Apr 2026 01:52:00 +0900",
+      "title": "월가은행들, 美 경제 낙관론…\"유가 급등에도 소비 지속\"",
+      "link": "https://www.bloter.net/news/articleView.html?idxno=659620",
+      "description": "이 밖에도 전날 씨티그룹과 웰스파고도 중동전쟁, 인공지능(AI), 인플레이션, 사모신용 관련 리스크 우려가 커지는 상황에서도 지난 1분기에 고객들이 소비, 대출과 투자를 이어나갔다고 밝혔다. 제이미 다이먼 JP모건...",
+      "pubDate": "Thu, 16 Apr 2026 04:15:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "'신성모독 논란' 트럼프, 이번엔 예수에 안긴 이미지 올려",
-      "link": "http://www.yonhapnewstv.co.kr/AKR20260416014354xiK",
-      "description": "인공지능(AI)으로 생성된 것으로 추정되는 이 이미지는 예수가 트럼프 대통령을 감싸 안고 있는 모습인데 눈을 감은 채 머리를 맞댄 두 사람 뒤로 미국 국기가 보입니다. 해당 이미지는 원래 엑스(X)에 올라온 게시물로...",
-      "pubDate": "Thu, 16 Apr 2026 01:44:00 +0900",
+      "title": "S&P500, 전쟁 충격 딛고 사상 최고치 경신…\"리스크 완화 기대 반영\"",
+      "link": "https://www.thefairnews.co.kr/news/articleView.html?idxno=74474",
+      "description": "향후 충돌이 재격화될 경우 시장 변동성이 다시 확대될 수 있으며, 인공지능(AI) 관련 리스크 등 기존의 구조적 우려도 다시 부각될 가능성이 있다. 시장 전문가들은 \"현재 상승세는 기대감이 크게 반영된 결과\"라며...",
+      "pubDate": "Thu, 16 Apr 2026 04:12:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "[오늘의 경제뉴스] AI가 전문직·IT 업종 일자리 대체…청년고용 41개월...",
-      "link": "https://www.newsverse.kr/news/articleView.html?idxno=10183",
-      "description": "(사진=연합뉴스) 인공지능(AI) 확산으로 화이트칼라 업종의 청년 일자리가 빠르게 사라지면서 청년층 취업자가 41개월째 감소했다. 반면 60세 이상 고령층의 질 낮은 일자리는 계속 늘고 있어 세대 간 고용 양극화가...",
-      "pubDate": "Thu, 16 Apr 2026 01:42:00 +0900",
+      "title": "삼성전자 \"AI TV 대중화 원년… 中 따돌릴 것\"",
+      "link": "https://www.mt.co.kr/industry/2026/04/16/2026041519572097218",
+      "description": "그러면서 \"올해를 AI(인공지능) TV 대중화 시대의 원년으로 삼아 한국시장과 글로벌 시장을 선도하겠다\"고 강조했다. 삼성전자는 이날 마이크로 RGB(적녹청)·OLED(유기발광다이오드)·네오QLED(퀀텀닷발광다이오드)...",
+      "pubDate": "Thu, 16 Apr 2026 04:10:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "머스크 \"생큐 삼성\"…자체 AI칩 설계 완료 발표",
-      "link": "https://www.hankyung.com/article/2026041538841",
-      "description": "일론 머스크 테슬라 최고경영자(CEO)가 자율주행과 로봇의 두뇌가 될 차세대 인공지능(AI) 반도체 AI5의 설계를 마쳤다고 15일 발표했다. 머스크 CEO는 AI5 시제품 사진을 공개했는데, 이 제품이 삼성전자 국내...",
-      "pubDate": "Thu, 16 Apr 2026 01:37:00 +0900",
+      "title": "기업·지자체 직접 '메가특구' 설계, 규제특례·재정 쏟아붓는다",
+      "link": "https://www.mt.co.kr/politics/2026/04/16/2026041519591468412",
+      "description": "다양한 분야의 메가특구가 논의되는 가운데 로봇, 재생에너지, 바이오, AI(인공지능) 자율주행차 4개 분야를 중심으로 청사진까지 제시됐다. 정부는 15일 이재명 대통령 주재로 열린 규제합리화위원회에서 '5극3특 지원을...",
+      "pubDate": "Thu, 16 Apr 2026 04:10:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "오라클, 가트너 운송관리시스템 ‘리더’…AI 기반 물류 최적화 강화",
-      "link": "https://www.tokenpost.kr/news/tech/349997",
-      "description": "인공지능(AI)과 고급 분석 기능을 앞세운 오라클의 공급망 소프트웨어 경쟁력이 물류 효율성과 비용 절감 수요를 타고 존재감을 키우는 모습이다. 가트너 매직 쿼드런트 19번째 ‘리더’ 선정 오라클은 ‘오라클 퓨전...",
-      "pubDate": "Thu, 16 Apr 2026 01:32:00 +0900",
+      "title": "\"특사 급파는 처음, 한국 최우선으로\"…원유 확보 '정성' 통했다",
+      "link": "https://www.mt.co.kr/politics/2026/04/16/2026041520012542082",
+      "description": "기존에 구축된 상호신뢰 관계와 함께 AI(인공지능)·광물분야 협력을 원하는 상대국의 수요도 긍정적으로 작용했다. 강 실장은 15일 지난 7일부터 14일까지 이어진 4개국 방문성과를 설명하면서 연말까지 원유...",
+      "pubDate": "Thu, 16 Apr 2026 04:10:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "정읍시, 사회적 고립가구 실태조사 돌입",
-      "link": "http://www.jeonmin.co.kr/news/articleView.html?idxno=438051",
-      "description": "한편, 시는 고독사 예방을 위해 인공지능(AI) 안부 확인 서비스와 지능형(스마트) 돌봄 플러그 보급 등 다각적인 사업을 추진하고 있다. 이와 함께 관내 사회복지관 등과 민관 협력을 강화해 지역 사회가 중심이 되는 튼튼한...",
-      "pubDate": "Thu, 16 Apr 2026 01:28:00 +0900",
+      "title": "'서울대 10곳' 만들기 접고… '지거국 3곳' 키우기 택했다",
+      "link": "https://www.mt.co.kr/policy/2026/04/16/2026041520034215252",
+      "description": "올 하반기에 선정될 3곳은 특별히 성장엔진과 AI(인공지능) 인재양성을 위해 연간 500억원씩 5년간 받는다. 여기에 대학 전반 성장 지원 등을 합하면 연간 총 1000억원의 지원금이 순증된다. 반면 선정되지 못한 6곳은 지원...",
+      "pubDate": "Thu, 16 Apr 2026 04:08:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "[AI의 종목 이야기] 올버즈 876% 폭등...AI 인프라 사업 전환 선언",
-      "link": "https://www.newspim.com/news/view/20260416000010",
-      "description": "이 기사는 인공지능(AI) 번역으로 생산된 콘텐츠로, 원문은 4월 15일자 로이터 기사(Allbirds shares jump over 400% on plans to pivot to AI from sneakers)입니다.  신발 제조업체 올버즈(종목코드: BIRD)의 주가가 15일(현지시간)...",
-      "pubDate": "Thu, 16 Apr 2026 01:21:00 +0900",
+      "title": "\"데이터센터 석달만에 짓는다\"... AI인프라 장벽 허무는 엘리스",
+      "link": "https://www.mt.co.kr/future/2026/04/16/2026041520020332903",
+      "description": "\"AI(인공지능)산업의 경쟁축이 모델 중심에서 컴퓨팅 인프라 중심으로 이동하고 있습니다. AI 인프라 경쟁력은 단순히 GPU(그래픽처리장치) 보유 개수가 아니라 이를 얼마나 효율적으로 활용하고 운용하느냐에...",
+      "pubDate": "Thu, 16 Apr 2026 04:05:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "엔비디아, 세계 첫 개방형 양자 AI 모델 '이징' 공개",
-      "link": "https://www.yna.co.kr/view/AKR20260416002000091?input=1195m",
-      "description": "권영전 특파원 = 세계 최대 인공지능(AI) 칩 업체 엔비디아가 개방형(오픈소스) 양자 AI 모델 제품군 '이징'(Ising)을 15일(현지시간) 선보였다. 젠슨 황 엔비디아 최고경영자(CEO)는 \"AI는 양자 컴퓨팅을 실용화하는 데 필수적...",
-      "pubDate": "Thu, 16 Apr 2026 01:10:00 +0900",
+      "title": "\"성과급 40조\" 삼전 파업 후폭풍…대한민국 넘어 세계가 흔들린다",
+      "link": "https://www.mt.co.kr/industry/2026/04/16/2026041520024968679",
+      "description": "글로벌 메모리반도체 1위인 삼성전자의 생산차질은 단순한 기업 이슈를 넘어 글로벌 AI(인공지능)산업과 국가경제 전반에 부정적 영향을 미칠 수 있다. 반도체 공정 특성상 공장가동이 멈추면 '즉시 재개'가 어렵기...",
+      "pubDate": "Thu, 16 Apr 2026 04:04:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "4월 16일 명리학적 접근 – 오늘의 띠별 운세",
-      "link": "https://www.cbci.co.kr/news/articleView.html?idxno=568064",
-      "description": "[본 콘텐츠는 인공지능(AI)의 분석 및 작성 보조를 받아 제작되었습니다. 운세 정보는 일반적인 참고용으로 제공되는 것이며 개인의 상황에 따라 결과가 달라질 수 있습니다.] ▮ CBC뉴스ㅣCBCNEWS",
-      "pubDate": "Thu, 16 Apr 2026 01:10:00 +0900",
+      "title": "뜨거운 치킨삼국지… BBQ·bhc·교촌 \"1등은 나야 나\"",
+      "link": "https://www.mt.co.kr/living/2026/04/16/2026041519583922958",
+      "description": "AI(인공지능)와 글로벌로 승부하겠단 전략이다. 윤홍근 BBQ 회장은 올해를 '신(新)경영'의 원년으로 삼고 단순한 매장확대를 넘어 AI 기반의 경영혁신을 도입했다. 빅데이터를 활용한 상권분석과 원가절감 시스템을...",
+      "pubDate": "Thu, 16 Apr 2026 04:04:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "LG CNS, 영하 26도서 움직이는 'AI 물류 로봇' 글로벌 출격",
-      "link": "https://www.etnews.com/20260416000003",
-      "description": "LG CNS는 '모바일 셔틀'에 인공지능(AI) 에이전트 기능을 탑재해 사용 편의성을 높였다. 현장 작업자가 자연어 기반 챗봇에 지시하는 것만으로 셔틀로봇을 직접 제어할 수 있다. 셔틀로봇에 이상 발생 시 AI 에이전트가...",
-      "pubDate": "Thu, 16 Apr 2026 01:03:00 +0900",
+      "title": "“땡큐 삼성전자!”… 일론 머스크, 차세대 AI5 칩 설계 끝냈다",
+      "link": "https://www.dt.co.kr/article/12057707?ref=naver",
+      "description": "테슬라의 수장 일론 머스크가 차세대 인공지능(AI) 반도체 ‘AI5’의 설계 완료 소식을 알리며 본격적인 생산 준비에 들어갔음을 시사했다. 머스크는 15일(현지시간) 자신의 사회관계망서비스(SNS) 엑스(X)를 통해...",
+      "pubDate": "Thu, 16 Apr 2026 04:03:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "李 \"로봇·AI등 첨단산업, 네거티브 규제 전환\"",
+      "link": "https://www.mt.co.kr/politics/2026/04/16/2026041520003640853",
+      "description": "정부는 규제 합리화로 '로봇·재생에너지·바이오·AI(인공지능) 자율주행차' 등 첨단산업에 특화된 '메가특구' 지역 도입의 청사진을 공개했다. 이 대통령은 15일 청와대에서 열린 규제합리화위원회 1차 전체회의에서...",
+      "pubDate": "Thu, 16 Apr 2026 04:02:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "[사설] 인천 강화남단 경자구역 지정... 규제특구 많을수록 좋다",
+      "link": "https://www.kyeonggi.com/article/20260415580595",
+      "description": "이를 기반으로 인천시는 바이오·피지컬 인공지능(AI)·글로벌 복합관광 기지로 육성한다는 전략이다. 공간적 한계에 다다른 인천경제자유구역의 숨통을 틔울 수 있다. 미래산업 중심의 성장 거점을 마련, 국가경쟁력...",
+      "pubDate": "Thu, 16 Apr 2026 04:02:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "솔라나, 80~90달러 박스권 내 방향성 모색 중",
+      "link": "https://www.tokenpost.kr/news/cryptocurrency/350027",
+      "description": "생태계 활성도 지표 청산 지도: 레버리지 포지션 청산 가격대를 시각화한 도구로 유동성 밀집 구간 파악 온체인 지표: 블록체인상 거래량, 활성 주소 등 네트워크 활동 데이터 기반 분석 지표 TokenPost AI 유의사항",
+      "pubDate": "Thu, 16 Apr 2026 04:02:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "美SNS 스냅, AI 도입으로 1천명 감원…전체 정규직 16% 포함",
+      "link": "https://www.yna.co.kr/view/AKR20260416007000091?input=1195m",
+      "description": "그는 \"인공지능(AI)의 빠른 발전이 반복 업무를 줄이고 속도를 높이며 커뮤니티·파트너·광고주를 더욱 잘 지원해줄 것\"이라고 말해 이번 감원이 AI 도입에 따른 효율화 차원임을 시사했다. 그는 이번 인력 감축을 통해...",
+      "pubDate": "Thu, 16 Apr 2026 04:00:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "AI, 반드시 노동시장에 위협적이기만 할까?",
+      "link": "http://weekly.chosun.com/news/articleView.html?idxno=50568",
+      "description": "(로아이자·리고본의 'AI의 시대(The EPOCH of AI)'). 인공지능만큼 인간 지능도 대단히 효율적이고 독특한 장점이 있다. 그 능력을 낭비하는 않는 것이 진정한 혁신의 길이다.",
+      "pubDate": "Thu, 16 Apr 2026 04:00:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "\"합성사진인데 수천만원 벌었다\"…코첼라 점령한 'AI 인플루언서'",
+      "link": "https://www.newsis.com/view/NISX20260415_0003592714",
+      "description": "다만 생성형 AI 이미지 및 영상 기술이 고도화되면서 실제 사진과 구분이 어려운 콘텐츠가 늘어나고 있으며, 일부 이용자들이 이를 실제 인물로 착각하는 사례도 발생하고 있다. 실제로 한 게시물에는 \"이 계정이 AI라는...",
+      "pubDate": "Thu, 16 Apr 2026 04:00:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "앤스로픽 '몸값 1178조' 쇼크… 오픈AI 제치고 AI 상장 대어(大魚) 되나",
+      "link": "https://www.g-enews.com/view.php?ud=202604151425201840fbbec65dfb_1",
+      "description": "자금력이 풍부한 기업용(Enterprise) 고객 시장에서 '클로드(Claude)' 모델이 확고한 지지를 얻으며 오픈AI와 대등한 수익 기반을 확보했다는 평가가 나온다. 금융투자업계 한 관계자는 \"앤스로픽의 매출 증가 속도는 과거...",
+      "pubDate": "Thu, 16 Apr 2026 03:26:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "케이던스, 엔비디아와 로봇용 AI 개발…구글과도 협력",
+      "link": "https://www.newspim.com/news/view/20260416000015",
+      "description": "별도로 이날 케이던스는 구글의 생성형 AI인 제미나이(Gemini)를 자사의 반도체 설계 도구인 칩스택(ChipStack) AI에 이식한다고 발표했다. 케이던스 측은 이번 구글과 협력으로 반도체 설계 및 검증 과정의 생산성이...",
+      "pubDate": "Thu, 16 Apr 2026 02:51:00 +0900",
       "relativeTime": "1시간 전",
       "hot": false
     },
     {
-      "title": "'예수 행세 논란' 트럼프, 이번엔 예수에 안긴 이미지 SNS 올려",
-      "link": "https://www.yna.co.kr/view/AKR20260416001800071?input=1195m",
-      "description": "인공지능(AI)으로 생성된 것으로 추정되는 이 이미지는 예수가 트럼프 대통령을 감싸 안고 있는 모습인데 눈을 감은 채 머리를 맞댄 두 사람 뒤로 미국 국기가 보인다. 해당 이미지는 원래 엑스(X)에 올라온 게시물로...",
-      "pubDate": "Thu, 16 Apr 2026 01:02:00 +0900",
+      "title": "한국전문신문협회, 제32대 김광탁호 공식 출범",
+      "link": "https://www.klnews.co.kr/news/articleView.html?idxno=320735",
+      "description": "이사회는 생성형 AI가 생성해내는 일반 정보와 차별화되는 전문신문만의 '심층 분석'과 '현장 통찰력'이야말로 미래 미디어 시장의 핵심 가치라는 점에 공감대를 형성했다. 이를 위해 우수 콘텐츠 발굴 사업을 확대하고...",
+      "pubDate": "Thu, 16 Apr 2026 02:26:00 +0900",
       "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "김주영 의원, 'AI 전환과 노동의 미래' 국회 토론회 개최",
+      "link": "https://www.klnews.co.kr/news/articleView.html?idxno=320741",
+      "description": "△더불어민주당 김주영 의원이 인사말을 전하고 있다 김주영 의원이 직접 제안한 이번 토론회는 생성형 AI를 넘어 휴머노이드 로봇 등 산업 현장에 본격 도입되고 있는 AI 기술이 사무직과 제조·물류 등 전반에 미칠...",
+      "pubDate": "Thu, 16 Apr 2026 02:26:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "서산지역, 자립지원·다문화 진로교육 강화…포용적 복지 실현 적극 '앞...",
+      "link": "https://www.joongdo.co.kr/web/view.php?key=20260416010004891",
+      "description": "특히 학교 현장의 의견을 반영해 상호문화이해교육 연계와 여름방학 기간 운영 예정인 '대학 탐방 및 생성형 AI 활용 진로 프로그램' 등 구체적인 협력 방안에 대해 심도 있는 논의가 이뤄졌다. 류순희 센터장은 \"이번...",
+      "pubDate": "Thu, 16 Apr 2026 02:14:00 +0900",
+      "relativeTime": "2시간 전",
       "hot": false
     },
     {
       "title": "AI에 밀려난 청년들… 실업률 5년새 최악",
       "link": "https://www.chosun.com/economy/economy_general/2026/04/16/GYQXV2O4CVD5RN6SJLV4OZ2BFQ/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
-      "description": "제조업·건설업 등 주력 산업 부진에 인공지능(AI) 확산에 따른 전문직·정보통신(IT) 분야 일자리 쇼크까지 가세했기 때문으로 분석된다. 변호사, 회계사, 세무사, 프로그래머, 건축엔지니어 등 전문직은 AI의 실무...",
+      "description": "이 분야 청년층 취업자는 챗GPT, 제미나이 등 생성형 AI를 기업들이 본격적으로 활용한 작년부터 2년 연속 줄었다. 중동 전쟁의 영향이 고용 시장에 본격적으로 반영되는 4월부터는 청년층을 중심으로 구직난이 더...",
       "pubDate": "Thu, 16 Apr 2026 00:58:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "트럼프, 신성모독 논란 이어 '예수와 포옹' 이미지 게시",
-      "link": "https://www.newspim.com/news/view/20260416000005",
-      "description": "김민정 특파원 = 도널드 트럼프 미국 대통령이 15일(현지시간) 예수 그리스도와 포옹하는 모습을 담은 인공지능(AI) 생성 이미지를 자신의 소셜미디어에 올렸다. 자신을 예수에 빗댄다는 비판을 받은 게시물을 삭제한 지...",
-      "pubDate": "Thu, 16 Apr 2026 00:56:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "로봇·자율주행·바이오·에너지… 규제 확 줄인 ‘메가 특구’ 만든다",
-      "link": "https://www.chosun.com/politics/politics_general/2026/04/16/IKJFQLKMXRGHTHTRKUFV6NEMUY/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
-      "description": "이와 관련해 로봇·바이오·재생에너지·인공지능(AI) 자율주행차 산업을 대상으로 규제를 대폭 줄인 ‘메가 특구’를 지정하고 연내 특별법을 만들기로 했다. 이 대통령은 이날 청와대에서 열린 규제합리화위원회 첫...",
-      "pubDate": "Thu, 16 Apr 2026 00:55:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
@@ -166,7 +230,7 @@
       "link": "https://www.chosun.com/economy/economy_general/2026/04/16/L66C4MU4W5BIBGR6CWP7JZX27I/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
       "description": "한국은행은 지난해 10월 보고서에서 오픈AI의 생성형 AI 모델 챗GPT 출시 이후인 2022년 7월부터 지난해 7월까지 청년층 고용이 컴퓨터 프로그래밍·시스템 통합 및 관리업에서 11.2%, 출판업에서 20.4%, 전문...",
       "pubDate": "Thu, 16 Apr 2026 00:53:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
@@ -174,7 +238,7 @@
       "link": "https://www.chosun.com/economy/economy_general/2026/04/16/RXWKJKDVBZGQNN3Q2VSIBCYV5I/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
       "description": "네이처가 AI를 어디까지나 인간의 연구를 돕는 ‘도구’로 규정하는 이유다.” -한국 과학계를 어떻게 생각하나. “한국 논문들은 연구 경쟁력이 매우 높은 편이다. 영향력 있는 학술지에 게재되는 비율이 높고, 인용도...",
       "pubDate": "Thu, 16 Apr 2026 00:38:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
@@ -182,7 +246,7 @@
       "link": "https://www.chosun.com/economy/tech_it/2026/04/16/COYFACYKOBA7RCR4SIJXJJIXN4/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
       "description": "0은 일반적인 AI와 다르게 정책 데이터에 근거해 구체적인 답변만을 내놓는다”고 했다. 연구원은 “정책을 단순히 조회하는 도구가 아니라 정책을 이해하고 대응 전략까지 제시하는 정책 AI 에이전트”라고 했다.",
       "pubDate": "Thu, 16 Apr 2026 00:35:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
@@ -190,7 +254,7 @@
       "link": "https://www.chosun.com/economy/tech_it/2026/04/16/HYI4RQXXGVDDVJZGH5CKP6KSOU/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
       "description": "또 다른 코딩 AI 서비스 운영 기업인 ‘윈드서프’도 지난 3월 기존 AI 도구 이용 체계를 손보며 일간·주간 사용 한도를 기준으로 과금하는 방식을 도입했다. 샘 올트먼 오픈AI 최고경영자(CEO)도 줄곧 “(지금의...",
       "pubDate": "Thu, 16 Apr 2026 00:34:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
@@ -198,7 +262,7 @@
       "link": "https://www.news2day.co.kr/article/20260416500001",
       "description": "생성형 AI, 자율주행, 클라우드 컴퓨팅, 데이터센터 확장 등은 모두 고성능 반도체를 필요로 한다. 특히 GPU(그래픽처리장치)는 AI 연산의 핵심 인프라로 자리 잡으면서 폭발적인 수요를 만들어내고 있다. 이 흐름의 중심에는...",
       "pubDate": "Thu, 16 Apr 2026 00:28:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
@@ -206,7 +270,7 @@
       "link": "http://www.lawissue.co.kr/view.php?ud=202604151741091487edd30pn2gj_12",
       "description": "이번 교육은 급변하는 디지털 환경에 발맞춰 생성형 AI 기술을 행정 홍보에 접목하고 군민과의 소통을 강화하기 위해 마련됐다. 특히 정화영 권한대행이 직접 교육에 참여해 디지털 전환 시대의 전략적 홍보 중요성을...",
       "pubDate": "Thu, 16 Apr 2026 00:24:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
@@ -214,15 +278,7 @@
       "link": "https://www.tokenpost.kr/news/blockchain/349973",
       "description": "최근 대형 은행들은 블록체인을 기존 금융을 ‘대체’하기보다 ‘개선’하는 도구로 활용하는 방향으로... 기사요약 by TokenPost.ai 시장 해석 모건스탠리가 토큰화와 온체인 금융을 자산관리의 핵심 전략으로 채택하면서...",
       "pubDate": "Thu, 16 Apr 2026 00:22:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "That Meeting You Hate May Keep A.I. From Stealing Your Job",
-      "link": "https://www.nytimes.com/2026/04/15/business/ai-jobs-human-work.html?partner=naver",
-      "description": "It’s a juggling act made far more manageable by artificial intelligence tools like Claude, Gemini and ChatGPT. It used to take Mr. Sirk three to six months, or longer, to build a custom website...",
-      "pubDate": "Thu, 16 Apr 2026 00:20:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
@@ -230,7 +286,15 @@
       "link": "https://www.nytimes.com/2026/04/15/technology/how-jagged-intelligence-can-reframe-the-ai-debate.html?partner=naver",
       "description": "systems like Claude and OpenAI’s ChatGPT learn their skills by pinpointing patterns in digital data, including Wikipedia articles, news stories, computer programs and other text culled from...",
       "pubDate": "Thu, 16 Apr 2026 00:20:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "3시간 전",
+      "hot": false
+    },
+    {
+      "title": "That Meeting You Hate May Keep A.I. From Stealing Your Job",
+      "link": "https://www.nytimes.com/2026/04/15/business/ai-jobs-human-work.html?partner=naver",
+      "description": "It’s a juggling act made far more manageable by artificial intelligence tools like Claude, Gemini and ChatGPT. It used to take Mr. Sirk three to six months, or longer, to build a custom website...",
+      "pubDate": "Thu, 16 Apr 2026 00:20:00 +0900",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
@@ -238,7 +302,7 @@
       "link": "http://www.lawissue.co.kr/view.php?ud=202604151242299091edd30pn2gj_12",
       "description": "주요 내용은 ▲농업경영 및 사업계획 수립, ▲유통‧브랜드 전략, ▲ChatGPT‧Canva 등 AI 활용 실습, ▲퍼스널컬러·원예치료 등 자기 이해‧역량 개발 교육, ▲청년농업인 우수사례 벤치마킹, ▲농업기계 실습 및...",
       "pubDate": "Thu, 16 Apr 2026 00:10:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
@@ -246,7 +310,7 @@
       "link": "http://www.gjdream.com/news/articleView.html?idxno=668698",
       "description": "꽃가루 발생 시기도 점차 빨라지는 추세다. 기상청에 따르면 우리나라 봄철 평균기온은 1961~1990년 대비 1991~2020년 기준 약 1.2도 상승했다. ※이 기사는 생성형 AI(챗GPT) 도움을 받아 작성했습니다.",
       "pubDate": "Thu, 16 Apr 2026 00:06:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
@@ -254,7 +318,7 @@
       "link": "http://www.ilemonde.com/news/articleView.html?idxno=22231",
       "description": "ⓒ ParkStephanus by AI Sora 기억을 길어 올리는 일에도 숨을 고르는 시간이 필요해진다. 오래된 장면은 더 이상... 근대 이후 자본주의는 인간을 점점 도구처럼 다루어왔다. 가치는 효율로 평가되고, 더 많은 결과를 빠르게...",
       "pubDate": "Thu, 16 Apr 2026 00:06:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
@@ -262,79 +326,7 @@
       "link": "https://www.joongang.co.kr/article/25420515",
       "description": "안종범 정책평가연구원장은 “PERI AI 2.0은 단순히 조회하는 도구가 아니라 정책을 이해하고, 대응 전략까지 세우는 AI 에이전트”라며 “정책 대응이 곧 경쟁력이 되는 시대에 새로운 기준을 제시할 것”이라고...",
       "pubDate": "Thu, 16 Apr 2026 00:02:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "뜻밖의 좋은 글 찾았다…AI가 책 골라주는 시대",
-      "link": "https://www.joongang.co.kr/article/25420509",
-      "description": "밀리의서재 관계자는 “(독파밍의 경우) 경제경영서·자기계발서 등 비문학 도서의 이용자 활용도가 높은 편”이라며 “독서의 문턱을 낮추고, 더 깊은 독서경험을 할 수 있는 도구로 AI를 활용하고 있다”고 설명했다....",
-      "pubDate": "Thu, 16 Apr 2026 00:01:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "[오늘의 운세] 띠별 운세, 양띠의 4월 16일 하루 흐름 공개",
-      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512041",
-      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 양띠의 4월 16일 오늘의 운세를 공개한다. 양은 온화함과 배려의 상징이다. 내일은 감정의 균형이 중요한 날이다....",
-      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "[오늘의 운세] 띠별 운세, 소띠의 4월 16일 운세 공개",
-      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512039",
-      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 소띠의 4월 16일 오늘의 운세를 공개한다. 소는 인내와 성실의 상징이다. 내일은 꾸준함이 빛을 발하는 날이다....",
-      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "[오늘의 운세] 띠별 운세, 호랑이띠의 4월 16일 운세가 전하는 메시지 공...",
-      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512034",
-      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지] 호랑이띠의 4월 16일 오늘의 운세를 공개한다. 호랑이는 용맹과 결단의 상징이다. 내일은 추진력은 강하지만 방향 설정이 중요하다. 무작정...",
-      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "[오늘의 운세] 띠별 운세, 쥐띠의 4월 16일 흐름 공개",
-      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512036",
-      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 쥐띠의 4월 16일 오늘의 운세를 공개한다. 쥐는 지혜와 기민함의 상징이다. 내일은 판단력이 중요한 하루이다....",
-      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "[오늘의 운세] 띠별 운세, 용띠 4월 16일 운세 흐름 정리",
-      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512031",
-      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 용띠의 4월 16일 오늘의 운세를 공개한다. 용은 본래 하늘을 나는 기운을 품은 존재로, 변화의 흐름을 타고 스스로 길을...",
-      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "[오늘의 운세] 띠별 운세, 말띠 4월 16일 하루의 운세",
-      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512040",
-      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 말띠의 4월 16일 오늘의 운세를 공개한다. 말은 자유와 열정의 상징이다. 내일은 활동성이 강조되는 날이다. 연애는...",
-      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "[오늘의 운세] 띠별 운세, 원숭이띠의 4월 16일 운세 공개",
-      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512037",
-      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 원숭이띠의 4월 16일 오늘의 운세를 공개한다. 원숭이는 재치와 변화의 상징이다. 내일은 유연함이 중요한 날이다....",
-      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "[오늘의 운세] 띠별 운세, 토끼띠 4월 16일 하루의 운세 공개",
-      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512035",
-      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 토끼띠의 4월 16일 오늘의 운세를 공개한다. 토끼는 섬세함과 조화를 상징한다. 내일은 작은 변화 속에서 기회를...",
-      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
@@ -342,7 +334,31 @@
       "link": "https://www.joongangenews.com/news/articleView.html?idxno=512032",
       "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 돼지띠의 4월 16일 오늘의 운세를 공개한다. 돼지는 풍요와 여유의 상징으로, 현실 속에서 안정과 만족을 추구하는...",
       "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
+      "relativeTime": "4시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 말띠 4월 16일 하루의 운세",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512040",
+      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 말띠의 4월 16일 오늘의 운세를 공개한다. 말은 자유와 열정의 상징이다. 내일은 활동성이 강조되는 날이다. 연애는...",
+      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
+      "relativeTime": "4시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 원숭이띠의 4월 16일 운세 공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512037",
+      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 원숭이띠의 4월 16일 오늘의 운세를 공개한다. 원숭이는 재치와 변화의 상징이다. 내일은 유연함이 중요한 날이다....",
+      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
+      "relativeTime": "4시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 토끼띠 4월 16일 하루의 운세 공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512035",
+      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 토끼띠의 4월 16일 오늘의 운세를 공개한다. 토끼는 섬세함과 조화를 상징한다. 내일은 작은 변화 속에서 기회를...",
+      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
@@ -350,15 +366,7 @@
       "link": "https://www.joongangenews.com/news/articleView.html?idxno=512038",
       "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지] 개띠의 4월 16일 오늘의 운세를 공개한다. 개는 충직과 신뢰의 상징이다. 내일은 관계 속 신뢰가 중요한 날이다. 연애는 안정적이며, 금전은...",
       "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "[오늘의 운세] 띠별 운세, 뱀띠 4월 16일 하루 운세 대공개",
-      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512042",
-      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 뱀띠의 4월 16일 오늘의 운세를 공개한다. 뱀은 통찰과 지혜의 상징이다. 내일은 내면의 흐름을 읽는 것이 중요한...",
-      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
@@ -366,15 +374,55 @@
       "link": "https://www.joongangenews.com/news/articleView.html?idxno=512033",
       "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 닭띠의 4월 16일 오늘의 운세를 공개한다. 닭은 새벽을 알리는 존재로, 시작과 질서를 상징한다. 내일은 계획과 실행...",
       "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
-      "title": "[MBTI 오늘의 운세] 2026년 4월 16일",
-      "link": "https://www.hankookilbo.com/news/article/A2026041509250001860?did=NA",
-      "description": "컨디션 조용한 카페나 공원 벤치에서 혼자만의 시간을 가지면 마음이 정리돼요. ※ 이 기사는 생성형 AI로 제작했습니다. 한국일보는 생성형 AI 활용 준칙을 준수합니다.",
+      "title": "[오늘의 운세] 띠별 운세, 뱀띠 4월 16일 하루 운세 대공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512042",
+      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 뱀띠의 4월 16일 오늘의 운세를 공개한다. 뱀은 통찰과 지혜의 상징이다. 내일은 내면의 흐름을 읽는 것이 중요한...",
       "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
+      "relativeTime": "4시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 쥐띠의 4월 16일 흐름 공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512036",
+      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 쥐띠의 4월 16일 오늘의 운세를 공개한다. 쥐는 지혜와 기민함의 상징이다. 내일은 판단력이 중요한 하루이다....",
+      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
+      "relativeTime": "4시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 용띠 4월 16일 운세 흐름 정리",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512031",
+      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 용띠의 4월 16일 오늘의 운세를 공개한다. 용은 본래 하늘을 나는 기운을 품은 존재로, 변화의 흐름을 타고 스스로 길을...",
+      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
+      "relativeTime": "4시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 소띠의 4월 16일 운세 공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512039",
+      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 소띠의 4월 16일 오늘의 운세를 공개한다. 소는 인내와 성실의 상징이다. 내일은 꾸준함이 빛을 발하는 날이다....",
+      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
+      "relativeTime": "4시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 호랑이띠의 4월 16일 운세가 전하는 메시지 공...",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512034",
+      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지] 호랑이띠의 4월 16일 오늘의 운세를 공개한다. 호랑이는 용맹과 결단의 상징이다. 내일은 추진력은 강하지만 방향 설정이 중요하다. 무작정...",
+      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
+      "relativeTime": "4시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 양띠의 4월 16일 하루 흐름 공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=512041",
+      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 양띠의 4월 16일 오늘의 운세를 공개한다. 양은 온화함과 배려의 상징이다. 내일은 감정의 균형이 중요한 날이다....",
+      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
@@ -382,7 +430,15 @@
       "link": "https://www.hankookilbo.com/news/article/A2026040916280003606?did=NA",
       "description": "운동을 일주일에 2~3번 규칙적으로 하는 것도 좋습니다. 50세 전후라면 한 번쯤 골밀도 검사를 받아 보는 것도 권해요. 전체기사보기: ※ 이 기사는 생성형 AI로 제작했습니다. 한국일보는 생성형 AI 활용 준칙을 준수합니다.",
       "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
-      "relativeTime": "2시간 전",
+      "relativeTime": "4시간 전",
+      "hot": false
+    },
+    {
+      "title": "[MBTI 오늘의 운세] 2026년 4월 16일",
+      "link": "https://www.hankookilbo.com/news/article/A2026041509250001860?did=NA",
+      "description": "컨디션 조용한 카페나 공원 벤치에서 혼자만의 시간을 가지면 마음이 정리돼요. ※ 이 기사는 생성형 AI로 제작했습니다. 한국일보는 생성형 AI 활용 준칙을 준수합니다.",
+      "pubDate": "Thu, 16 Apr 2026 00:00:00 +0900",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
@@ -390,7 +446,7 @@
       "link": "https://www.mediatoday.co.kr/news/articleView.html?idxno=333777",
       "description": "지식 콘텐츠 스타트업 언더스코어가 생성형AI를 활용해 국내 주요 언론사 기사들을 이슈별로 비교한 뒤 재구성하는 방식으로 작성합니다. 해당 기사는 미디어오늘 편집국의 검토 및 편집을 거쳤으며 한국언론진흥재단의...",
       "pubDate": "Wed, 15 Apr 2026 23:28:00 +0900",
-      "relativeTime": "2시간 전",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
@@ -398,7 +454,7 @@
       "link": "http://coinreaders.com/230959",
       "description": "미토스(Claude Mythos)’ 출시를 앞두고 대응에 나섰다. 해당 모델은 기존 인공지능과 차원이 다른 ‘에이전트형 AI’로 분류된다. 단순 텍스트 생성이 아니라 인터넷 탐색, 코드 분석, 시스템 상호작용을 동시에 수행할...",
       "pubDate": "Wed, 15 Apr 2026 23:22:00 +0900",
-      "relativeTime": "2시간 전",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
@@ -406,47 +462,7 @@
       "link": "https://www.tokenpost.kr/news/ai/349953",
       "description": "기업들이 생성형 AI 시범 도입을 넘어 실제 업무, 거래, 로봇, 보안 체계에 적용하는 국면으로 들어섰다는 의미다. 이번 보고서는 기술 상용화 시점을 기준으로 단기, 중기, 장기 영역을 나눠 제시했다. 단기 분야에서는...",
       "pubDate": "Wed, 15 Apr 2026 23:18:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "조국 평택을 출마에 언론 \"마지막 승부수\" \"친문 vs 친명\"",
-      "link": "https://www.mediatoday.co.kr/news/articleView.html?idxno=333778",
-      "description": "지식 콘텐츠 스타트업 언더스코어가 생성형AI를 활용해 국내 주요 언론사 기사들을 이슈별로 비교한 뒤 재구성하는 방식으로 작성합니다. 해당 기사는 미디어오늘 편집국의 검토 및 편집을 거쳤으며 한국언론진흥재단의...",
-      "pubDate": "Wed, 15 Apr 2026 23:12:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "“AI로 데이터 교차분석…옥외광고 패러다임 바꾼다”",
-      "link": "https://www.sedaily.com/article/20033078?ref=naver",
-      "description": "해외 시장 진출을 희망하는 중소기업 등을 대상으로 AI로 생성형 광고도 제작한다. 그 결과 2024년 4억 원이었던 매출은 지난해 30억 원으로 일년 새 약 7.5배 증가했다. 지난해에는 3억 원의 영업이익을 달성하며 흑자...",
-      "pubDate": "Wed, 15 Apr 2026 23:09:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "TBN 경인교통방송, 한국 PD 대상 2년 연속 수상",
-      "link": "https://www.cnbnews.com/news/article.html?no=789454",
-      "description": "매주 음주운전 교통사고 실제 사례를 집중 분석, 위험성을 고발한 프로그램으로 “전문가와 함께 가해자의 망언, 유가족의 슬픔 등을 다루며 생성형 AI 기술을 활용해 입체적인 메시지를 전달했다”는 평가를 받았다....",
-      "pubDate": "Wed, 15 Apr 2026 22:56:00 +0900",
-      "relativeTime": "3시간 전",
-      "hot": false
-    },
-    {
-      "title": "[설왕설래] 해킹 가능한 AI",
-      "link": "https://www.segye.com/newsView/20260415521029?OutUrl=naver",
-      "description": "올 1월 내놓은 업무 자동화 도구인 ‘클로드 코워크’로 소프트웨어(SW) 업종을 줄줄이 대체할 것이라는 공포를 시장에 심은 데 이어 생성형 AI 모델 ‘클로드’가 니콜라스 마두로 베네수엘라 대통령 생포 작전과 이란...",
-      "pubDate": "Wed, 15 Apr 2026 22:47:00 +0900",
-      "relativeTime": "3시간 전",
-      "hot": false
-    },
-    {
-      "title": "[Review] 우아한 사유라는 최후의 저항 - 우아한 사고를 위한 철학 [도서...",
-      "link": "https://www.artinsight.co.kr/news/view.php?no=80535",
-      "description": "자극의 도구가 된다. 그 속에서 긴 글을 끝까지 읽고 사유하는 일은 낡고 비효율적인 일처럼 취급된다. 우리는 ‘세 줄 요약’을 요구하고, 제목만 읽은 채 글을 판단하고, AI의 의견을 자신의 생각처럼 받아들인다. 사람들은...",
-      "pubDate": "Wed, 15 Apr 2026 22:38:00 +0900",
-      "relativeTime": "3시간 전",
+      "relativeTime": "5시간 전",
       "hot": false
     },
     {
@@ -454,7 +470,7 @@
       "link": "https://www.tokenpost.kr/news/tech/349866",
       "description": "앤트로픽 PBC가 코딩 보조 도구 ‘클로드 코드(Claude Code)’에 새 자동화 기능인 ‘루틴(routines)’을 도입했다. 복잡한 자율형 AI 에이전트를 따로 구축하지 않아도 반복 업무를 자동으로 처리할 수 있게 하면서, 개발자용 AI...",
       "pubDate": "Wed, 15 Apr 2026 20:04:00 +0900",
-      "relativeTime": "6시간 전",
+      "relativeTime": "8시간 전",
       "hot": false
     },
     {
@@ -462,7 +478,7 @@
       "link": "https://www.dailysecu.com/news/articleView.html?idxno=206262",
       "description": "그런데 얼마전 보안업계를 충격으로 이끌었던 Anthropic Claude Mythos의 발표가 있었다. 예상은 했지만 AI가 취약점을 찾는 것에서 멈추는 것이 아닌 exploit까지 만들어서 자발적으로 공격까지 가능한 수준인 것이다....",
       "pubDate": "Wed, 15 Apr 2026 19:36:00 +0900",
-      "relativeTime": "6시간 전",
+      "relativeTime": "8시간 전",
       "hot": false
     },
     {
@@ -470,7 +486,7 @@
       "link": "https://www.gamevu.co.kr/news/articleView.html?idxno=57259",
       "description": "-줌 커뮤니케이션스(Zoom Communications, Inc., 이하 '줌')는 앤트로픽(Anthropic)의 클로드(Claude)와의 통합을 통해, 사용자가 클로드 환경에서 줌 미팅의 회의 인텔리전스를 활용한 AI 워크플로우 구축하고 실행할 수...",
       "pubDate": "Wed, 15 Apr 2026 18:42:00 +0900",
-      "relativeTime": "7시간 전",
+      "relativeTime": "9시간 전",
       "hot": false
     },
     {
@@ -478,7 +494,7 @@
       "link": "https://www.aitimes.com/news/articleView.html?idxno=209261",
       "description": "앤트로픽은 14일(현지시간) 디 인포메이션을 통해 기업용 서비스인 '클로드 엔터프라이즈(Claude Enterprise)' 요금 체계를 개편해, 기존 사용자당 고정 구독료 외에 실제 AI 사용량(컴퓨팅 소비량)에 따라 추가 과금을...",
       "pubDate": "Wed, 15 Apr 2026 18:30:00 +0900",
-      "relativeTime": "7시간 전",
+      "relativeTime": "9시간 전",
       "hot": false
     },
     {
@@ -486,7 +502,7 @@
       "link": "http://www.gndomin.com/news/articleView.html?idxno=472412",
       "description": "기존 부서 단위 지원 방식에서 올해는 개인별 신청 방식으로 전환해 접근성을 높였으며, 챗지피티(ChatGPT)·제미나이(Gemini)·클로드(Claude) 등 다양한 최신 인공지능(AI) 모델을 선택해 활용할 수 있도록 했다. 향후 사용량...",
       "pubDate": "Wed, 15 Apr 2026 17:51:00 +0900",
-      "relativeTime": "8시간 전",
+      "relativeTime": "10시간 전",
       "hot": false
     },
     {
@@ -494,7 +510,7 @@
       "link": "https://www.tokenpost.kr/news/tech/349794",
       "description": "클로드(Claude) 역시 주요 금융 데이터 소스 연결 기능을 제공하고 있으며, 지난해에는 금융 전문가에 초점을 맞춘 고사용량 버전을 내놨다. 오픈AI가 히로의 기술과 금융 도메인 지식을 흡수하면, 기업용 AI 금융 도구...",
       "pubDate": "Wed, 15 Apr 2026 17:04:00 +0900",
-      "relativeTime": "9시간 전",
+      "relativeTime": "11시간 전",
       "hot": false
     },
     {
@@ -502,15 +518,7 @@
       "link": "https://www.dailysecu.com/news/articleView.html?idxno=206253",
       "description": "줌 커뮤니케이션스는 앤트로픽(Anthropic)의 클로드(Claude)와의 통합을 통해, 사용자가 클로드 환경에서 줌 미팅의 회의 인텔리전스를 활용한 AI 워크플로우 구축하고 실행할 수 있도록 지원한다고 밝혔다. 이번 통합은 모델...",
       "pubDate": "Wed, 15 Apr 2026 16:06:00 +0900",
-      "relativeTime": "9시간 전",
-      "hot": false
-    },
-    {
-      "title": "과기정통부, ‘미토스’ 파장 점검…“제로트러스트·공급망 보안 강화...",
-      "link": "https://byline.network/?p=9004111222599468",
-      "description": "앤스로픽은 지난 7일 최신 모델 ‘클로드 미토스 프리뷰(Claude Mythos Preview)’를 기반으로 한 ‘프로젝트 글래스윙(Project Glasswing)’을 공개했고, 오픈AI는 14일 고도화된 사이버 보안 역량을 신뢰 기반으로 제한...",
-      "pubDate": "Wed, 15 Apr 2026 15:54:00 +0900",
-      "relativeTime": "10시간 전",
+      "relativeTime": "12시간 전",
       "hot": false
     }
   ]
