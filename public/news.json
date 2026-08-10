@@ -1,20 +1,36 @@
 {
-  "lastUpdated": "2026-08-10T05:27:41.922Z",
+  "lastUpdated": "2026-08-10T07:42:04.881Z",
   "items": [
+    {
+      "title": "[단독]AI가 대신 \"금리 깎아주세요\" 신청 1000만건, 1년새 6배 폭증",
+      "link": "https://www.mt.co.kr/finance/2026/08/10/2026081014360461644",
+      "description": "생업에 바쁜 차주를 대신해 인공지능(AI) 에이전트가 금융회사에 \"대출금리를 내려달라\"고 요구하면서 금리인하요구권 신청이 폭발적으로 늘고 있다. 올해 마이데이터 사업자의 자동 신청 서비스가 시작된 지 5개월여...",
+      "pubDate": "Mon, 10 Aug 2026 16:13:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": true
+    },
+    {
+      "title": "北기술 이정도야? AI까지 동원한 해커 '김수키'",
+      "link": "https://www.edaily.co.kr/news/newspath.asp?newsid=03362006645546008",
+      "description": "북한 연계 해킹조직 ‘김수키’가 대규모언어모델(LLM)을 자체적으로 구동하고 사이버공격을 자동화할 수 있는 인공지능(AI) 도구를 구축한 정황이 포착됐다. 생성형 AI로 피싱 문구를 만드는 수준을 넘어 악성코드...",
+      "pubDate": "Mon, 10 Aug 2026 14:03:00 +0900",
+      "relativeTime": "2시간 전",
+      "hot": true
+    },
     {
       "title": "“북한 기술력 이 정도일 줄은”...정찰총국 ‘김수키’ AI로 기밀 다 빼...",
       "link": "https://www.mk.co.kr/article/12122734",
       "description": "이처럼 최근 북한 해킹조직이 생성형 인공지능(AI)을 이용해 실제 문서와 구분하기 어려운 피싱메일을 만들어 공격에 활용하는 것으로 나타났다. 10일 사이버 보안 기업 지니언스는 북한 정찰정보총국 산하 해킹조직으로...",
       "pubDate": "Mon, 10 Aug 2026 12:52:00 +0900",
-      "relativeTime": "1시간 전",
+      "relativeTime": "3시간 전",
       "hot": true
     },
     {
-      "title": "삼성전자·NTT도코모, AI로 통신 끊김 잡는다…6G 선점 속도",
-      "link": "https://www.bloter.net/news/articleView.html?idxno=670452",
-      "description": "삼성전자가 일본 NTT도코모와 AI(인공지능)로 사용자별 통신 환경을 조정하는 기술을 개발했다. 이용자의 이동 경로와 서비스 이용 패턴을 분석해 통신 품질이 떨어지기 전에 주파수 등 네트워크 설정을 바꾸는...",
-      "pubDate": "Mon, 10 Aug 2026 10:05:00 +0900",
-      "relativeTime": "4시간 전",
+      "title": "고양, UN글로벌 AI 허브 유치 총력… 범시민 추진단 구성",
+      "link": "https://www.segye.com/newsView/20260810508037?OutUrl=naver",
+      "description": "고양특례시 킨텍스 전경 ‘UN 글로벌 AI 허브’는 전세계가 인공지능(AI)을 안전하고 공정하게 활용하기 위한 AI 협력 플랫폼이다.  AI 윤리와 국제표준 마련을 비롯해 인재 양성·공동연구, 의료·교육·환경·기후·재난...",
+      "pubDate": "Mon, 10 Aug 2026 10:43:00 +0900",
+      "relativeTime": "5시간 전",
       "hot": true
     },
     {
@@ -22,327 +38,439 @@
       "link": "https://www.newsis.com/view/NISX20260809_0003741696",
       "description": "시는 생계·의료·주거 지원을 확대해 취약 계층 생활 기반을 보호하고 청년 인공 지능(AI) 역량 강화와 자율주행·전기차 등 미래 산업 투자를 늘려 서울 성장 기반을 강화한다. 수해 예방·교통 등 생활 안전시설과...",
       "pubDate": "Mon, 10 Aug 2026 10:00:00 +0900",
-      "relativeTime": "4시간 전",
+      "relativeTime": "6시간 전",
       "hot": true
     },
     {
-      "title": "고양시, 'UN 글로벌 AI 허브 유치' 범시민 추진단 구성",
-      "link": "https://www.yna.co.kr/view/AKR20260810040400060?input=1195m",
-      "description": "경기 고양시가 'UN 글로벌 인공지능(AI) 허브' 유치를 위해 민관 합동 추진체계를 구축해 경쟁력을 높일 계획이다. 고양시는 스마트시티과에 유치추진단을 구성하고, 이달 중 전문가와 시민 등이 참여하는 범시민...",
-      "pubDate": "Mon, 10 Aug 2026 09:52:00 +0900",
-      "relativeTime": "4시간 전",
-      "hot": true
-    },
-    {
-      "title": "식품 트렌드 분석부터 상품화까지 AI로 ‘뚝딱’… K푸드 날개",
-      "link": "https://www.segye.com/newsView/20260809511347?OutUrl=naver",
-      "description": "CJ제일제당은 유통업계 최초의 MI(마켓 인텔리전스)룸을 도입한 데 이어 트렌드 분석부터 마케팅, 상품 기획·개발, 소비자 반응 시뮬레이션까지 지원하는 AI(인공지능) 플랫폼, AI 딥러닝을 통한 제품 품질검사 등...",
-      "pubDate": "Mon, 10 Aug 2026 06:04:00 +0900",
-      "relativeTime": "8시간 전",
-      "hot": true
-    },
-    {
-      "title": "덕성여대-태안초-㈜코더블, AI 미래교육 혁신 위한 업무협약 체결",
-      "link": "https://news.unn.net/news/articleView.html?idxno=595756",
-      "description": "AX(AI Transformation·인공지능 전환) 산업 기반 AI 교육 및 미래교육 혁신을 위한 3자 업무협약(MOU)을 체결했다. 이번 협약은 빠르게 변화하는 인공지능 전환 시대에 대응해 AI·디지털 기술을 활용한 미래교육 체제를...",
-      "pubDate": "Mon, 10 Aug 2026 14:26:00 +0900",
+      "title": "[은행장 연임 성적표⑤] ‘AI 행장’ 강태영 농협은행장…기업대출 vs 건...",
+      "link": "https://www.mydaily.co.kr/page/view/2026081015335520662",
+      "description": "강 행장은 올해 신년사에서 “AI는 단순히 업무 효율을 높이는 도구를 넘어 업무를 판단하고 실행하는 방식을 근본적으로 바꾸는 기술”이라며 ‘Agentic AI Bank’ 전환을 선언했다. AI는 새로운 서비스를 위한...",
+      "pubDate": "Mon, 10 Aug 2026 16:41:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "이화여대 대학혁신지원사업 교육혁신 3년 연속 S등급.. '109억7800만원 확...",
-      "link": "https://www.veritas-a.com/news/articleView.html?idxno=622624",
-      "description": "이화여대는 인공지능 기반 교육생태계를 단계적으로 구축했고, AI 기반 지능형 학사지원시스템을 통해 학생 맞춤형 학사 지원을 고도화하고 있다. 기초학문 보호와 육성을 위해서는 '이화 펀더멘탈즈+' 지원체계를...",
-      "pubDate": "Mon, 10 Aug 2026 14:26:00 +0900",
+      "title": "[동정] 오세훈 서울시장, 청년 AI 스타트업과 간담회",
+      "link": "https://www.yna.co.kr/view/AKR20260810123100004?input=1195m",
+      "description": "▲ 오세훈 서울시장은 10일 오후 2시 30분 서울창업허브 공덕을 찾아 인공지능(AI) 기술을 체험한 뒤 AI 분야 청년 스타트업 대표 5명을 만나 기술 개발 및 사업화의 어려움과 정책 건의 사항을 들었다. 오 시장은 \"청년 AI...",
+      "pubDate": "Mon, 10 Aug 2026 16:40:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "안도걸 \"20조 지원·800조 투자, 전남광주 대도약 연결\"",
-      "link": "https://www.namdonews.com/news/articleView.html?idxno=919545",
-      "description": "안 의원은 이날 국회에서 지역 기자들과 만나 \"전남광주통합특별시를 성공적으로 안착시키고 반도체·인공지능(AI)·에너지 등 첨단산업 투자를 성공시켜 지역 경제의 대도약을 이뤄야 한다\"며 이같이 말했다. 그는 \"이런...",
-      "pubDate": "Mon, 10 Aug 2026 14:26:00 +0900",
+      "title": "GS건설, LS일렉트릭과 AI데이터센터 직류배전사업 협력",
+      "link": "https://www.munhwa.com/article/11608512?ref=naver",
+      "description": "GS건설이 LS일렉트릭과 손잡고 인공지능(AI) 데이터센터 사업 공략에 나섰다. GS건설은 10일 서울 용산구 LS용산타워에서 LS일렉트릭과 ‘AIDC(AI 데이터센터) 사업환경 변화에 따른 공동 대응을 위한 업무협약(MOU)’을...",
+      "pubDate": "Mon, 10 Aug 2026 16:40:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "[특징주] 대한광통신, \"美 중국산 광트랜시버 금지 추진\" 반사수혜 기대...",
-      "link": "https://www.widedaily.com/news/articleView.html?idxno=299144",
-      "description": "광트랜시버는 데이터센터 내부와 상호 간 정보 송수신을 위해 광신호를 활용하는 필수 장비로, 트럼프 행정부는 인공지능(AI) 붐으로 급증하는 데이터센터 인프라를 보호하고 중국의 사이버 위협을 사전 차단하겠다는...",
-      "pubDate": "Mon, 10 Aug 2026 14:26:00 +0900",
+      "title": "‘새 먹거리’ AIDC 증설 외치는 통신 3사···실행까지는 ‘산 넘어 산...",
+      "link": "https://www.khan.co.kr/article/202608101640001",
+      "description": "SK텔레콤과 KT·LG유플러스가 잇따라 대규모 인공지능 데이터센터(AIDC) 확장을 선언하고 있다. 통신업... SKT는 지난 5일 2분기 실적 발표에서 2029년을 목표로 5GW 규모의 AI 데이터센터를 단계적으로 가동하겠다고...",
+      "pubDate": "Mon, 10 Aug 2026 16:40:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "李 “메가프로젝트, 속도전 넘어 전격전…호남 클러스터, 日구마모토처...",
-      "link": "https://www.donga.com/news/Politics/article/all/20260810/134449726/1",
-      "description": "이어 “국가적 투자와 지원의 범위가 3대 메가프로젝트 대상 기업이나 산업에 한정돼서는 안 되겠다”며 “소재·부품·장비 등 산업 생태계 전반을 함께 지원할 방안, 나아가 피지컬 AI의 발전이 제조 인공지능 전환의...",
-      "pubDate": "Mon, 10 Aug 2026 14:26:00 +0900",
+      "title": "서울시교육청, 2차 추경...3세 유아 무상교육에 111억",
+      "link": "https://www.hankookilbo.com/news/article/A2026081016090000167?did=NA",
+      "description": "이밖에 △인공지능(AI)·디지털 기반 미래형 수업 환경 조성 173억 원 △장애학생 맞춤형 진로·직업교육 기반 조성과 특수학급 신·증설 등 특수교육 지원 38억 원 △학생 마음건강 회복 4억 원 △다문화교육 지원 7억 원...",
+      "pubDate": "Mon, 10 Aug 2026 16:40:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "웰컴저축은행, 전 직원 '1인 1 AI 에이전트' 추진",
-      "link": "http://mbnmoney.mbn.co.kr/news/view?news_no=MM1005897803",
-      "description": "웰컴저축은행은 저축은행 업권 최초로 생성형 AI 기반 대화형 금융 서비스인 'AI금융비서'를 선보인 데 이어, 이번에는 에이전트 플랫폼을 도입해 사내 업무 인프라까지 AI 활용 범위를 넓혔습니다. 빠른 시일 내 '1인 1...",
-      "pubDate": "Mon, 10 Aug 2026 14:26:00 +0900",
+      "title": "메모리주 반등 시동 거나…모건스탠리 \"지금이 재진입 기회\"",
+      "link": "https://www.sisajournal.com/news/articleView.html?idxno=383017",
+      "description": "인공지능(AI) 관련 설비투자와 주주환원은 향후 주가에 긍정적인 요인으로 꼽았다. 삼성전자는 특별배당을 포함한 주주환원 방안을 논의하고 있으며, SK하이닉스도 당초 연내로 예정했던 추가 주주환원 방안 발표를 올해...",
+      "pubDate": "Mon, 10 Aug 2026 16:40:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "경기도 재정위기에 ‘3주 비상체제’…“뼈 깎는 구조조정 돌입”",
-      "link": "https://www.kyeonggi.com/article/20260810580225",
-      "description": "동시에 인공지능(AI) 시대의 산업·재정 구조를 반영하지 못하는 현행 지방재정제도 개편과 새로운 세원 확보에도 나선다. 도는 10일 주형철 경제부지사를 단장으로 하는 ‘재정위기 극복 TF’를 구성하고 이달 31일까지...",
-      "pubDate": "Mon, 10 Aug 2026 14:25:00 +0900",
+      "title": "유럽 증시, 글로벌 기술주 변동장세 속 대안 투자처로 부상",
+      "link": "https://www.ajunews.com/view/20260810162110719",
+      "description": "com 독일 프랑크푸르트 증권거래소 [사진=로이터·연합뉴스] 최근 인공지능(AI), 반도체를 중심으로 한 글로벌 기술주의 변동성이 커지는 가운데 유럽 증시가 대안 투자처로 주목받고 있다. 미국·이란 전쟁으로...",
+      "pubDate": "Mon, 10 Aug 2026 16:40:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "대신증권, 12일 여의도서 콥데이 주관…박윤영 대표 취임 후 첫 기관 대...",
-      "link": "https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065589917364852",
-      "description": "KT가 올해 인공지능 전환(AX)을 통신에 이은 핵심 성장축으로 내세운 만큼 인공지능(AI) 사업을 실제 매출과 이익으로 연결할 구체적인 사업화 전략을 얼마나 제시할지가 이번 만남의 관전 포인트다. 대신증권은 오는...",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "폭염 피해 실내서 스파·다이빙 즐겨볼까…경기도 이색 피서지 6선",
+      "link": "https://www.segye.com/newsView/20260810517297?OutUrl=naver",
+      "description": "생성형 AI로 만든 이미지 경기관광공사는 8월 무더위를 피해 여름을 시원하게 즐길 수 있는 경기도 실내 여행지 6곳을 10일 추천했다. 먼저 하남 아쿠아필드는 물놀이와 찜질스파를 함께 즐길 수 있는 도심 속 여름...",
+      "pubDate": "Mon, 10 Aug 2026 16:40:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "네이버, 시니어용 'AI·디지털 교과서' 만든다…디지털 격차 해소 지원",
-      "link": "https://www.e-science.co.kr/news/articleView.html?idxno=133236",
-      "description": "| 이코노미사이언스 박성현 기자 | 네이버가 시니어와 디지털 소외계층을 대상으로 인공지능(AI)·디지털 서비스 활용법을 교육하는 교과서 개발에 나선다. 단순한 디지털 기기 사용법을 넘어 쇼핑과 웹브라우저 등...",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "[기고] 한국딥러닝 \"에이전틱 AI, 오답보다 위험한 '잘못된 실행'\"",
+      "link": "https://www.aitimes.com/news/articleView.html?idxno=213761",
+      "description": "에이전틱 AI는 질문에 답하는 생성 AI와 다릅니다. 주어진 목표를 작업 단위로 나누고, 필요한 정보와 도구를 선택하며, 중간 결과에 따라 다음 행동을 결정합니다. 기업 업무에서는 문서를 검토하는 데 그치지 않고 누락...",
+      "pubDate": "Mon, 10 Aug 2026 16:40:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "하동군·창원대, AI·로봇 분야 협력…지역 첨단산업 육성 나선다",
-      "link": "http://www.newsmaker.or.kr/news/articleView.html?idxno=180514",
-      "description": "Human Physical AI는 인공지능이 로봇 등 물리적 장치와 결합해 실제 환경에서 사람과 상호작용하며 작업을 수행하는 기술을 말한다. 양 기관은 이 기술을 하동군의 지역특화산업과 연계하는 방안을 모색할 계획이다....",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "[포항소식] 점심시간 주정차 단속 유예시간 30분 확대",
+      "link": "https://www.yna.co.kr/view/AKR20260810122100053?input=1195m",
+      "description": "이 대학은 학생의 다양한 전공 선택 수요를 반영한 유연한 학사제도 운영, 학생 중심의 전공선택 및 학습 지원체계, 인공지능(AI) 기반 맞춤형 교육모델 구축 등에서 높은 점수를 얻었다.",
+      "pubDate": "Mon, 10 Aug 2026 16:39:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "광양시 광영도서관, 생성형 AI 활용 글쓰기 인문학 프로그램 11회 운영",
-      "link": "http://www.newsmaker.or.kr/news/articleView.html?idxno=180445",
-      "description": "광양시 광영도서관은 「2026년 길 위의 인문학」 공모사업에 선정돼 인공지능(AI)을 활용한 글쓰기 프로그램을 9월부터 11월까지 총 11회 진행한다고 밝혔다. 이번 프로그램은 AI 시대에 필요한 글쓰기 역량을 기르는...",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "이상일 \"경기도 법인지방소득세 공동 세원화, 시·군 반발 부를 것\"",
+      "link": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2457722",
+      "description": "다낭에서 열린 'AI 성장과 발전의 새로운 동력'을 주제로 한 '한국과의 만남' 콘퍼런스에서는 용인의 반도체 프로젝트와 인공지능 활용 정책을 발표했다. 이 시장은 \"용인의 반도체산업을 비롯해 스마트 횡단보도와 어르신...",
+      "pubDate": "Mon, 10 Aug 2026 16:39:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "메이슨캐피탈, 투자 회수 성과 덕 수익 지표 '흑전'",
-      "link": "https://dealsite.co.kr/articles/166880",
-      "description": "그동안 메이슨캐피탈은 인공지능(AI), 바이오·헬스케어, 소재·부품·장비(소부장) 등 고성장 산업의 유망 기업을 발굴해 기업가치를 제고하는 데 집중해 왔다. 회사는 앞으로 페르소나AI, 한국전광, 뷰텔 등 주요 투자...",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "충북, AI로 청소년 마음건강 지킨다",
+      "link": "https://www.hangyo.com/news/article.html?no=108794",
+      "description": "충북교육청이 인공지능(AI)을 활용해 청소년의 우울·불안·자해 등 심리·정서적 위험신호를 조기에 발견하고 전문상담까지 연결하는 마음건강 지원체계 구축에 나선다. AI 상담의 접근성과 전문상담의 지속성을...",
+      "pubDate": "Mon, 10 Aug 2026 16:38:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "경우스님, 조계종 총무원장 출사표…“교구와 함께 불교 대도약 시대 열...",
-      "link": "https://biz.heraldcorp.com/article/10836130?ref=naver",
-      "description": "아울러 인공지능(AI) 시대를 맞아 종단의 디지털 혁신을 추진하고 승가 복지 강화, K-불교문화의 세계화를 통해 전통과 미래가 조화를 이루는 종단을 만들겠다고 전했다. 이날 간담회에는 최근 조계종 제4교구 본사 월정사...",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "이 대통령 \"광주 군공항 인근에 반도체 산단 조기착공할 수 있도록 최선...",
+      "link": "https://www.delighti.co.kr/news/articleView.html?idxno=120026",
+      "description": "그러면서 \"소재, 부품, 장비 등 산업 생태계 전반을 함께 지원할 방안, 나아가서 피지컬 AI의 발전이 제조업 인공지능 전환의 역량 강화로 이어지는 산업 대도약 전략이 반드시 필요하다\"고 말했다. 딜라이트닷넷 이남석",
+      "pubDate": "Mon, 10 Aug 2026 16:38:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "지니언스 “北 김수키, 로컬 AI 구축해 사이버 공격 자동화 시도”",
-      "link": "https://www.etnews.com/20260810000303",
-      "description": "북한 해킹조직으로 알려진 '김수키(Kimsuky)'가 생성형 인공지능(AI)을 사이버 공격에 활용하기 위해 로컬 대형언어모델(LLM)과 AI 개발 환경을 구축한 정황이 포착됐다. 지니언스는 김수키의 최근 공격 활동을 분석한...",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "\"취업, 점점 더 어려워진다\"···29세 이하 고용보험 47개월째 후퇴",
+      "link": "https://magazine.hankyung.com/job-joy/article/202608104816d",
+      "description": "경기 불황과 인공지능(AI) 도입 등 영향으로 청년 취업난이 심화하면서 29세 이하 고용보험 상시가입자 수가 전년보다 47개월 연속 후퇴했다. 고용노동부는 10일 이 같은 내용을 담은 '7월 고용행정 통계로 본...",
+      "pubDate": "Mon, 10 Aug 2026 16:38:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "충북교육청, 9월 인사 단행…교육국장에 채숙희·주요 교육기관장 대폭...",
-      "link": "https://www.newspim.com/news/view/20260810000973",
-      "description": "도교육청은 학생을 교육의 중심에 두고 교원의 전문성을 존중하는 교육 환경을 만드는 동시에, 인공지능(AI) 등 교육 환경 변화에 대응할 인재를 주요 보직에 배치했다고 설명했다. 특히 학생들이 스스로 삶의 방향을...",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "통신 3사, 광복 81주년 기념 캠페인 전개·NH농협은행 차세대 AICC 구축 ...",
+      "link": "http://www.wsobi.com/news/articleView.html?idxno=316247",
+      "description": "KT는 400억원 규모의 NH농협은행 차세대 인공지능 AICC 구축을 완료했다. KT는 이를 토대로 전국 농협은행과 상호금융 상담 시스템을 AI 기반으로 전환했다. 양사는 AI 서비스 경험 강화 데이터 기반 고객 여정 최적화...",
+      "pubDate": "Mon, 10 Aug 2026 16:38:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "한국정보공학, 100억원 규모 연안재해 예측 HPC 구축 사업 수주",
-      "link": "https://it.chosun.com/news/articleView.html?idxno=2023092167717",
-      "description": "대규모 병렬 연산과 인공지능(AI) 기반 연구를 함께 수행할 수 있도록 설계한다. AI 기반 과학기술 연구와 디지털 트윈, 초고해상도 시뮬레이션 등에도 활용될 예정이다. 한국정보공학은 연구 목적에 맞춰 시스템을...",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "롯데마트, AI 물류센터 '제타 스마트센터 부산' 가동…최대 1000대 로봇 ...",
+      "link": "http://www.kdfnews.com/news/articleView.html?idxno=186309",
+      "description": "사진=롯데마트 제공 롯데마트가 인공지능(AI)과 로봇 자동화 기술을 적용한 온라인 전용 물류센터를 부산에서 가동한다. 롯데마트는 지난 7일 부산 강서구 국제산업물류도시에 고객 풀필먼트 센터(CFC) '제타...",
+      "pubDate": "Mon, 10 Aug 2026 16:38:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "서울시 '26년도 제2회 추경예산(안) 2조 8,061억 편성",
-      "link": "http://www.newsmaker.or.kr/news/articleView.html?idxno=180504",
-      "description": "학생·취업준비생 등 50만 명(19~29세)에 코딩․에이전트 등 고급 생성형AI 이용권 1년간 지원하고 청년(19~39세·8,000명 → 1만 명)에 부동산 중개보수와 이사비(최대 40만 원)를 제공한다. 달빛야장 5개 권역에서...",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "美 금리인상 부담 완화에 기술주 강세…닛케이, 2.08%↑ [Asia마감]",
+      "link": "https://www.mt.co.kr/world/2026/08/10/2026081016205637455",
+      "description": "미국의 금리인상 전망 후퇴 속 AI(인공지능)·반도체 종목 강세가 지수를 밀어올렸다. 일본 도쿄의 닛케이225지수는 전 거래일 대비 2.08% 상승한 6만6970.22로 거래를 마쳤다. 지수는 한때 장중 기준 약 2주만에...",
+      "pubDate": "Mon, 10 Aug 2026 16:38:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "크래프톤, 게임 AI 넘어 '로봇 두뇌'로…루도로보틱스 사업 윤곽",
-      "link": "https://www.e-science.co.kr/news/articleView.html?idxno=133237",
-      "description": "| 이코노미사이언스 박성현 기자 | 크래프톤이 게임을 넘어 휴머노이드 로봇에 적용할 인공지능(AI) 기술... 하위 도구를 결합한 구조로 알려졌다. 주변 환경을 시각적으로 인식하는 데 그치지 않고 이용자의 음성 요청...",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "데이터‧인공지능 세계적 권위자 제주도로 집결",
+      "link": "https://www.jejumaeil.net/news/articleView.html?idxno=403539",
+      "description": "데이터 마이닝과 사이언스, 인공지능(AI) 분야 세계 최고 권위자들이 제주도로 몰려들고 있다. 제주국제컨벤션센터(대표이사 김용범, ICC제주)는 9일부터 13일까지 개최하는 세계적인 데이터 마이닝·데이터 사이언스...",
+      "pubDate": "Mon, 10 Aug 2026 16:38:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "“기본이 강한 혁신 대학으로”…배충식 KAIST 총장 비전선포",
-      "link": "https://www.kmib.co.kr/article/view.asp?arcid=9000001764&cp=nv",
-      "description": "AI 분야의 경우 특정 전공이나 전문가만의 기술이 아닌 모든 학문의 공통 언어이자 범용 도구로 확산시키겠다는 계획이다. 로봇·자율주행·첨단제조 등 현실 세계에서 작동하는 피지컬 AI, 양자 및 기후·에너지 등...",
-      "pubDate": "Mon, 10 Aug 2026 14:24:00 +0900",
+      "title": "동대문구휘경어린이도서관, AI로 역사 인물 되살린다",
+      "link": "https://www.munhwa.com/article/11608509?ref=naver",
+      "description": "이번 프로그램은 생성형 AI와 그래픽 디자인 도구 ‘Canva’를 활용해 어린이들이 직접 디지털 콘텐츠를 만드는 독서 연계 미디어 교육이다. 초등학교 4~6학년 어린이들이 역사 속 인물을 자신만의 시각으로 재해석하고...",
+      "pubDate": "Mon, 10 Aug 2026 16:38:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "청년 AI·야간경제 담은 서울시 추경…‘여소야대’ 시의회 문턱 넘을까",
-      "link": "https://www.kukinews.com/article/view/kuk202608100094",
-      "description": "서울시는 약 56억원을 투입해 19~29세 청년 50만명에게 코딩·에이전트 등 고급 생성형 AI 이용권을 지원한다. 오는 10월부터 1년간 시범 운영해 청년들 취업·창업 역량을 높인다는 구상이다. 이번 추경에 반영된 예산은...",
-      "pubDate": "Mon, 10 Aug 2026 14:22:00 +0900",
+      "title": "웰컴저축은행, AI 리더·AI 에이전트로 업무혁신 본격화",
+      "link": "https://it.chosun.com/news/articleView.html?idxno=2023092167734",
+      "description": "웰컴저축은행이 생성형 AI 기반 업무 플랫폼을 전 직원으로 확대하며 AI를 업무 혁신의 핵심 전략으로 내세웠다. 특히 올해 각자대표 체제로 전환하며 합류한 손대희 대표가 취임 이후 디지털금융과 데이터 기반 경영을...",
+      "pubDate": "Mon, 10 Aug 2026 16:38:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "조정식 국회의장, 2026 부산 세계도서관정보대회 개회식 참석",
-      "link": "http://www.financialreview.co.kr/news/articleView.html?idxno=44108",
-      "description": "또한 \"생성형 AI가 몇 초 만에 답을 내놓는 인공지능 시대일수록 스스로 생각하고 질문하는 능력이 더욱 중요하다\"고 이야기했다. 아울러 \"도서관은 질문의 힘을 키우는 공간이자, 다양한 생각과 정보가 만나 소통하는...",
-      "pubDate": "Mon, 10 Aug 2026 14:22:00 +0900",
+      "title": "충북교육연구정보원, 생성형 AI로 나만의 'K-POP' 만든다",
+      "link": "https://www.dynews.co.kr/news/articleView.html?idxno=861184",
+      "description": "이번 특강은 생성형 AI와 디지털 음악 제작 도구를 활용해 학생들이 기획부터 음원 제작, 앨범 디자인, 뮤직비디오 제작, 발표까지 하나의 K-POP 콘텐츠를 직접 완성하는 프로젝트형 교육으로 마련됐다. 학생들은 음악의...",
+      "pubDate": "Mon, 10 Aug 2026 16:37:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "NH투자증권, 오픈 API 서비스 '나무 플러그·N2 플러그' 정식 출시",
-      "link": "https://www.newstnt.com/news/articleView.html?idxno=713362",
-      "description": "API 사용 신청을 완료한 고객에게 수수료 우대 혜택을 제공하며, API를 통한 첫 거래를 완료한 고객에게는 'ChatGPT Plus 1개월 이용권'을 증정한다. 이와 함께 선착순 1,000명에게는 전용 멀티플러그 굿즈를 제공할...",
-      "pubDate": "Mon, 10 Aug 2026 14:20:00 +0900",
+      "title": "BIP-110 좌초·법안 표결 연기 악재...비트코인, 규제 먹구름에도 기관 ...",
+      "link": "http://coinreaders.com/251955",
+      "description": "비트코인 보안 그룹 비트코인 레드 팀(Bitcoin Red Team)은 16명의 자원봉사자가 AI 도구와 사람의 검토를 병행해 비트코인 생태계의 오픈소스 저장소를 점검한 결과, 주말까지 잠재적 문제 7,958건을 발견했다고...",
+      "pubDate": "Mon, 10 Aug 2026 16:36:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "강원TP, AI 서비스 개발 개인정보 활용 역량 강화",
-      "link": "http://amenews.kr/news/view.php?idx=67625",
-      "description": "이번 교육은 생성형 AI와 검색증강생성(RAG) 등 AI 기술 활용이 확대되면서 AI 기반 서비스 개발 과정에서 요구되는 개인정보 활용 역량을 높이고 가명정보를 안전하게 처리·활용할 수 있는 실무 능력을 강화하기 위해...",
-      "pubDate": "Mon, 10 Aug 2026 14:20:00 +0900",
+      "title": "월드옥타, 이달 14일까지 스타트업 대회 기업가정신교육 참가자 모집",
+      "link": "https://biz.chosun.com/topics/topics_social/2026/08/10/4CZ3RO3KYZE3HPCHLFS7ZA6S7M/?utm_source=naver&utm_medium=original&utm_campaign=biz",
+      "description": "마케팅 ▲생성형 AI·에이전틱 AI와 AI 네이티브 기업 구축 등이다. 강사진은 UC 버클리 수타르자 기업가정신·기술센터의 릭 라스무센(Rick Rasmussen) 인더스트리 펠로우, 마이클 레펙(Michael Lepech) 스탠퍼드대 교수...",
+      "pubDate": "Mon, 10 Aug 2026 16:35:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "앱 없이 전화로 ‘카카오T’ 택시 부른다…월 2만건 넘어",
-      "link": "https://www.segye.com/newsView/20260810513185?OutUrl=naver",
-      "description": "기사 이해를 돕기 위해 구글 생성형 인공지능(AI) ‘제미나이’로 생성한 이미지 앱 사용이 어려운 디지털 취약계층 등을 위한 카카오모빌리티의 서비스인데, 서울 외 지역에서도 호출 건수가 발생해 전국적으로...",
-      "pubDate": "Mon, 10 Aug 2026 14:20:00 +0900",
+      "title": "급락장에 꺾인 국장 열기…개인 자금도 다시 해외로",
+      "link": "http://www.newstomato.com/ReadNews.aspx?no=1309746&inflow=N",
+      "description": "있기 때문에 반도체 관련 이슈가 터질 때마다 지수가 과도하게 흔들린 것\"이라며 \"투자 지역 환기가 필요하고 반도체 집중 포트폴리오에서 고배당 기업으로 시선을 돌려야 한다\"고 설명했습니다. (사진=ChatGPT)",
+      "pubDate": "Mon, 10 Aug 2026 16:34:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "네이버-국가평생교육진흥원, 디지털 문해 교과서 만든다",
-      "link": "https://zdnet.co.kr/view/?no=20260810140917",
-      "description": "네이버와 국가평생교육진흥원이 AI·디지털 역량 향상을 지원하기 위해 업무 협약을 체결했다 김월용 국가평생교육진흥원 원장은 “생성형 AI 시대에 네이버의 기술력을 교육 현장과 연계함으로써 일상 속 디지털 문해...",
-      "pubDate": "Mon, 10 Aug 2026 14:18:00 +0900",
+      "title": "AI가 상품 고르는 시대…온라인몰 ‘검색 노출’ 전략도 바뀐다",
+      "link": "https://www.dailian.co.kr/news/view/1676815/?sc=Naver",
+      "description": "이커머스 업계가 생성형 AI를 활용한 검색 환경 변화에 대응하기 위해 AI 검색 최적화에 주목하고 있다. 최근 소비자들은 단순 키워드 입력 대신 생성형 AI를 통해 원하는 상품 조건을 자연스럽게 질문하고 추천받는...",
+      "pubDate": "Mon, 10 Aug 2026 16:34:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "네이버, 시니어 AI 교과서 제작 추진 \"디지털 소외 없앨 것\"",
-      "link": "https://www.dizzotv.com/site/data/html_dir/2026/08/10/2026081080120.html",
-      "description": "김월용 국가평생교육진흥원 원장은 \"생성형 AI 시대에 네이버의 기술력을 교육 현장과 연계함으로써 일상 속 디지털 문해 격차를 해소할 것\"이라며 \"양 기관의 인프라를 유기적으로 연결해 보편적 평생교육 복지 실현에...",
-      "pubDate": "Mon, 10 Aug 2026 14:18:00 +0900",
+      "title": "국민체육진흥공단, AI로 다시 만든 ‘나만의 스포츠’ 쇼트폼 공모전",
+      "link": "https://www.segye.com/newsView/20260810517634?OutUrl=naver",
+      "description": "실제 스포츠 활동 영상에 생성형 AI 접목…30~90초 영상 출품 일반부·학생부 대상 등 총 14명(팀) 선정…총상금 2080만원 서울올림픽기념국민체육진흥공단(이사장 하형주)이 생성형 인공지능(AI)을 활용해 국민의 스포츠...",
+      "pubDate": "Mon, 10 Aug 2026 16:34:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "캠퍼스 미사용 물품 AI로 잇는다… 제주대 '이음' 구축비 3000만원 이상 ...",
-      "link": "http://www.fnnews.com/news/202608101414492815",
-      "description": "생성형 AI를 개발 과정과 물품 등록에 활용해 자산 재사용과 행정 효율을 함께 높이는 방식이다. 10일 제주대학교에 따르면 디지털정보처는 학내 미사용 물품 정보공유 플랫폼 '이음(ieum)'을 이날 시범 개통했다. 제주대는...",
-      "pubDate": "Mon, 10 Aug 2026 14:18:00 +0900",
+      "title": "KT, NH농협은행 차세대 AICC 구축 완료…AI 상담 업무 확대",
+      "link": "https://www.delighti.co.kr/news/articleView.html?idxno=119998",
+      "description": "양사는 이번 구축 경험을 바탕으로 AI 콜봇과 생성형 AI 상담지원 서비스 등 AI 상담 역량을 지속적으로 강화하고, 상담 데이터를 활용한 맞춤형 고객 경험 관리 체계를 고도화할 계획이다. 홍해천 KT AX사업부문...",
+      "pubDate": "Mon, 10 Aug 2026 16:34:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "가짜·도용 콘텐츠 양산 근절하겠다... X, 수익 공유 프로그램 전면 개편...",
-      "link": "https://ditoday.com/%ea%b0%80%ec%a7%9c%c2%b7%eb%8f%84%ec%9a%a9-%ec%bd%98%ed%85%90%ec%b8%a0-%ec%96%91%ec%82%b0-%ea%b7%bc%ec%a0%88%ed%95%98%ea%b2%a0%eb%8b%a4-x-%ec%88%98%ec%9d%b5-%ea%b3%b5%ec%9c%a0-%ed%94%84%eb%a1%9c/",
-      "description": "(자료=X) AI 등 자동화 수단으로 만들거나 게시한 콘텐츠도 수익 창출 대상에서 제외된다. 허위 정보 및 오도 콘텐츠 등도 부적격 항목에 해당된다. 봇이나 자동화 도구로 좋아요·팔로우·조회수·댓글 공유를 인위적으로...",
-      "pubDate": "Mon, 10 Aug 2026 14:18:00 +0900",
+      "title": "AI, ‘영구적 하층계급’ 만드나…노동시장 양극화 경고",
+      "link": "https://www.etoday.co.kr/news/view/2612881",
+      "description": "앤스로픽의 최근 연구에서도 코딩 도구 ‘클로드 코드’를 사용할 때 전문성이 높은 이용자가 더 큰 생산성 향상 효과를 얻은 것으로 나타났다. AI가 모든 근로자의 역량을 고르게 높이기보다 이미 높은 전문성을 갖춘...",
+      "pubDate": "Mon, 10 Aug 2026 16:34:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "인천보훈병원, 복권기금 지원으로 노후 의료장비 개선해 소화기 진단역...",
-      "link": "https://www.kmaeil.com/news/articleView.html?idxno=647995",
-      "description": "두 기능은 내시경이 단순 영상을 전달하는 장비에서 병변을 세밀하게 관찰하는 진단 도구로 활용되는 과정에서 의료진의 시야 확보를 지원한다. 인천보훈병원은 새 장비를 기존에 운영하고 있는 AI 내시경 진단보조...",
-      "pubDate": "Mon, 10 Aug 2026 14:18:00 +0900",
+      "title": "탈진실 다음은 '탈현실'인가…욕망이 세계를 바꾸려 할 때",
+      "link": "https://www.nocutnews.co.kr/news/6560752?utm_source=naver&utm_medium=article&utm_campaign=20260810043242",
+      "description": "인공지능(AI), 가상현실(VR), 트랜스휴머니즘, 메타버스 같은 기술은 현실을 우회하거나 변형하려는 인간의 상상력에 새로운 도구를 제공한다. 죽음, 나이, 신체, 종(種), 건강 상태처럼 한때 비교적 분명해 보였던 범주도...",
+      "pubDate": "Mon, 10 Aug 2026 16:33:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "클로드 코드, 14일부터 '오토모드' 기본 적용…반복 승인 사라진다",
-      "link": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=691474",
-      "description": "앤트로픽 클로드 [사진: 셔터스톡] 앤트로픽이 14일부터 인공지능(AI) 코딩 에이전트 '클로드 코드'에... 클로드 코드는 코딩과 PC 작업을 대신 수행하는 도구지만, 지금까지는 명령을 실행할 때마다 사용자의 허가가...",
-      "pubDate": "Mon, 10 Aug 2026 14:18:00 +0900",
+      "title": "2026 자율주행모빌리티산업전, 8월 25일 코엑스서 개막",
+      "link": "https://www.newspim.com/news/view/20260810001191",
+      "description": "이번 행사는 생성형 AI를 넘어 피지컬 AI 시대를 조망하는 자율주행 전문 전시회다. 2026 자율주행모빌리티산업전 포스터 코엑스, 한국자율주행산업협회, 한국무역협회, 한국중견기업연합회가 공동 주최하는 AME는...",
+      "pubDate": "Mon, 10 Aug 2026 16:30:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "동아출판, 교과서 81주년 교사 힐링콘서트 개최…김경일 교수 '행복·회...",
-      "link": "https://www.lecturernews.com/news/articleView.html?idxno=208172",
-      "description": "회복과 AI 시대의 역할 등에 대한 의견을 공유했다. 김 교수는 강연에서 행복을 삶의 최종 목표가 아닌 긴 삶과 일을 지속하기 위한 도구로 바라볼 필요가 있다고 강조했다. 행복이 어려움 자체를 없애지는 않지만 고난을...",
-      "pubDate": "Mon, 10 Aug 2026 14:18:00 +0900",
+      "title": "KAIT, 진화하는 보이스피싱·AI 피해예방 눈높이 교육 강화",
+      "link": "https://it.chosun.com/news/articleView.html?idxno=2023092167732",
+      "description": "AI 서비스 이용 과정에서 발생하는 불편사항은 KAIT에서 운영하고 있는 '생성형 AI 이용자 참여 플랫폼'에 제보하고 서비스 피해는 '온라인피해365센터'를 통해 언제든 상담할 수 있다. 김정기 KAIT 상근부회장은...",
+      "pubDate": "Mon, 10 Aug 2026 16:28:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "배충식 KAIST 18대 총장 취임…\"AI·연구창업으로 '글로벌 혁신 선도대학...",
-      "link": "https://www.cctoday.co.kr/news/articleView.html?idxno=2234619",
-      "description": "교육의 'AI 인터랙티브 교육', 연구의 'AI 자율랩', 행정의 'AI 에이전트 행정' 등을 연결한 'AI 네이티브 캠퍼스'도 구축한다.연구와 창업을 연구실 밖으로 확장하는 'Beyond Laboratory'도 핵심 전략이다.장기...",
-      "pubDate": "Mon, 10 Aug 2026 14:18:00 +0900",
+      "title": "아틀라시안 AI·클라우드 성장에…폴라리스오피스, 국내 AX 수혜 기대감",
+      "link": "https://news.mtn.co.kr/news-detail/2026081015152510954",
+      "description": "폴라리스오피스는 DX를 통해 기업이 AI 도구 도입에 따른 투자 효과를 확인할 수 있도록 지원한다.AI 협업 솔루션 공급도 확대한다. 지라와 컨플루언스, 로보, 룸을 묶은 '팀워크 컬렉션'을 활용해 기업의 도입 부담을...",
+      "pubDate": "Mon, 10 Aug 2026 16:28:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "일상 보고 듣는 AI 기기 위협…해법은 온디바이스?",
-      "link": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=691448",
-      "description": "가르그 CEO는 \"AI가 광고 수익을 위한 데이터 수집 도구가 아니라, 중립적이고 사용자에게 진짜 도움이 되는 방식으로 설계돼야 한다\"라고 강조했다. 가르그는 이를 '제로 트러스트'(Zero-Trust) 접근으로 설명했다....",
-      "pubDate": "Mon, 10 Aug 2026 14:16:00 +0900",
+      "title": "[유니콘브릿지] 서우석 대표 \"K-팝은 시작일 뿐···팬덤 비즈니스 세계...",
+      "link": "https://www.sisajournal-e.com/news/articleView.html?idxno=422995",
+      "description": "생성형 AI는 팬덤 비즈니스에 어떤 변화를 가져올 것으로 보는지 아직 과도기지만 IP를 만드는 쪽이나 팬들 모두 다양한 형태로 AI를 활용하고 있다. 팬덤 비즈니스에서는 결국 어떤 IP가 어떻게 만들어지는지가 중요하기...",
+      "pubDate": "Mon, 10 Aug 2026 16:26:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "NH투자증권, OpenAPI ‘나무 플러그’ 출시…AI 활용한 맞춤형 투자환경...",
-      "link": "https://www.socialvalue.kr/news/view/1065589951804775",
-      "description": "또한 API 첫 거래를 완료한 고객에게는 월 29,000원 상당의 'ChatGPT Plus 1개월 이용권'을 증정하며, API 사용 신청을 완료한 선착순 1,000명에게는 전용 멀티플러그 굿즈를 제공한다. 자세한 내용과 이벤트 신청은...",
-      "pubDate": "Mon, 10 Aug 2026 14:14:00 +0900",
+      "title": "제주대, AI로 재활용품에 새 주인 찾는다… ‘이음’ 플랫폼 10일 시범 ...",
+      "link": "https://www.seoul.co.kr/news/society/2026/08/10/20260810500190?wlog_tag3=naver",
+      "description": "바이브 코딩은 개발자가 복잡한 코드를 직접 작성하기보다 생성형 AI에 자연어로 원하는 기능을 설명하고 AI의 도움을 받아 프로그램을 구축하는 방식이다. 제주대는 외부 업체에 개발을 맡기는 대신 내부 인력이 AI를...",
+      "pubDate": "Mon, 10 Aug 2026 16:26:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "NH투자증권, Open API ‘PLUG’ 출시",
-      "link": "https://www.megaeconomy.co.kr/news/newsview.php?ncode=1065588306307940",
-      "description": "NH투자증권이 API 첫 거래 고객에게 ChatGPT Plus 이용권을 제공하는 것도 Open API와 생성형 AI를 결합한 투자... API를 이용해 첫 거래를 마친 고객에게는 월 2만 9000원 상당의 ChatGPT Plus 1개월 이용권을 증정한다. API 사용...",
-      "pubDate": "Mon, 10 Aug 2026 14:12:00 +0900",
+      "title": "세종교육청, 제12기 교육기자단 2차 매체 연수",
+      "link": "https://www.ggilbo.com/news/articleView.html?idxno=1174495",
+      "description": "주요 프로그램은 최승희 아나운서의 '효과적인 스피치' 특강을 비롯해 TJB 대전방송 시설 견학, 박금상 기자의 '생성형 AI 활용과 뉴미디어 콘텐츠 전략' 특강 등으로 구성됐다. 세종시교육청은 교육기자단이 뉴미디어...",
+      "pubDate": "Mon, 10 Aug 2026 16:26:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "NH證, '나무 플러그·N2 PLUG' 출시…\"투자전략 직접 구현 지원\"",
-      "link": "http://www.newsdream.kr/news/articleView.html?idxno=115994",
-      "description": "API 첫 거래 고객에게는 'ChatGPT Plus' 1개월 이용권을 제공하고 API 사용 신청 선착순 1000명에게는 전용 굿즈를 증정한다. 이벤트 관련 자세한 내용은 나무증권 앱과 전용 포털에서 확인할 수 있다. NH투자증권...",
-      "pubDate": "Mon, 10 Aug 2026 14:10:00 +0900",
+      "title": "[보험·카드24시] 한화손보, '성조숙증 검사비' 특약 배타적사용권 획득...",
+      "link": "https://news.dealsitetv.com/articles/174512",
+      "description": "웰컴저축은행은 저축은행 업권 최초로 생성형 AI 기반 대화형 금융 서비스 'AI금융비서'를 선보인 데 이어, 사내 업무 인프라까지 AI 활용 범위를 넓혔다. 빠른 시일 안에 '1인 1 에이전트' 환경을 구축하고, 업무 특성에...",
+      "pubDate": "Mon, 10 Aug 2026 16:24:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "NH투자증권, OpenAPI 'PLUG' 선봬... AI 활용 맞춤투자 지원",
-      "link": "http://www.thefirstmedia.net/news/articleView.html?idxno=205679",
-      "description": "API를 처음 거래한 고객에게는 'ChatGPT Plus 1개월 이용권'을 제공하며, API 사용 신청을 마친 고객 가운데 선착순 1000명에게 전용 멀티플러그 굿즈를 증정한다. 강민훈 NH투자증권 디지털사업부 대표는 \"이제 투자의...",
-      "pubDate": "Mon, 10 Aug 2026 14:08:00 +0900",
+      "title": "KT, NH농협은행 상담 시스템 400억원 규모 구축 완료",
+      "link": "https://www.polinews.co.kr/news/articleView.html?idxno=739661",
+      "description": "늘면서 은행의 상담 시스템과 기존 업무 시스템을 연결하는 작업도 중요해지고 있다. 양사는 앞으로 콜봇과 생성형 AI 기반 상담지원 서비스 등을 추가하고 상담 데이터를 활용한 고객 관리 체계를 구축할 계획이다.",
+      "pubDate": "Mon, 10 Aug 2026 16:24:00 +0900",
       "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "NH투자증권, 오픈API 'PLUG' 출시…개인 투자전략 구현 지원",
-      "link": "http://www.press9.kr/news/articleView.html?idxno=80843",
-      "description": "API 첫 거래 고객에게는 'ChatGPT Plus 1개월 이용권'을 제공하고 사용 신청을 마친 선착순 1000명에게 전용 멀티플러그 굿즈를 지급한다. 강민훈 NH투자증권 디지털사업부 대표는 \"이제 투자의 핵심 경쟁력은 얼마나...",
-      "pubDate": "Mon, 10 Aug 2026 14:02:00 +0900",
+      "title": "\"코딩 잘해도 본질 모르면 진다\"…삼성, 임원평가에 'AX역량' 배점 10배...",
+      "link": "https://www.newsworks.co.kr/news/articleView.html?idxno=849856",
+      "description": "\"문제에 대해 본질을 꿰뚫고 있는 사람이 인공지능(AI)이라는 도구를 통해 가장 좋은 결과물을 얻는 것 같다. AI가 실력 차이를 무너뜨리고 있다.\" 10일 관련업계에 따르면, 삼성전자가 임원들을 대상으로 2박 3일간 실시...",
+      "pubDate": "Mon, 10 Aug 2026 16:24:00 +0900",
       "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "NH투자증권, OpenAPI 'PLUG' 출시…AI 결합해 투자전략 구현 지원",
+      "link": "https://www.polinews.co.kr/news/articleView.html?idxno=739683",
+      "description": "첫 API 거래 고객에 'ChatGPT Plus 1개월 이용권' 서비스 출시를 기념해 'Namuh PLUG' 고객을 대상으로 프로모션도... 또 API를 이용해 첫 거래를 완료한 고객에게는 월 2만9000원 상당의 'ChatGPT Plus 1개월 이용권'을 증정한다....",
+      "pubDate": "Mon, 10 Aug 2026 16:18:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "NH투자증권, 여러 계좌 한 번에 연결하는 OpenAPI 'PLUG' 출시",
+      "link": "http://www.popcornnews.net/news/articleView.html?idxno=129191",
+      "description": "API를 이용해 첫 거래를 완료한 고객에게는 월 2만 9000원 상당의 ChatGPT Plus 1개월 이용권을 지급한다. API 사용 신청을 마친 고객 가운데 선착순 1000명에게는 PLUG 전용 멀티플러그 굿즈도 제공한다. 이벤트 내용과 신청...",
+      "pubDate": "Mon, 10 Aug 2026 16:12:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "임실군, 전북시민대학 운영…AI·금융·건강 5개 과정 개설",
+      "link": "https://www.betanews.net/article/view/beta202608100055",
+      "description": "주요 프로그램은 ▲임실에서 활용하는 ChatGPT 사용법 ▲행복한 노후생활과 금융 이해 ▲한의학 체질 건강관리 ▲아로마·싱잉볼을 활용한 뇌 휴식 ▲근기능 회복과 만성질환 예방 운동법 등이다. 강의는 이론보다...",
+      "pubDate": "Mon, 10 Aug 2026 16:12:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "[AI & 퍼스펙티브] STOW, 그리고 AI - 미래 전쟁은 현실보다 먼저 실행된...",
+      "link": "https://www.ntoday.co.kr/news/articleView.html?idxno=128655",
+      "description": "ChatGPT가 각종 시험에서 높은 점수를 받는다고 해서 복잡한 전장 맥락 속 결심을 맡길 수 없는 이유와 같다. 신뢰는 선언으로 확보되지 않는다, 검증을 통해 축적된다 미 국방부는 일찍이 M&S 체계의 신뢰성을...",
+      "pubDate": "Mon, 10 Aug 2026 16:00:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "숭실대 캠퍼스타운사업단, '2026 숭실 스타트업 아카데미'운영",
+      "link": "https://www.etnews.com/20260810000382",
+      "description": "5·6회차에서는 AI를 활용한 마케팅 콘텐츠 제작과 실전 확산 전략을 다뤘다. 정명훈 JSS 대표 겸 창업진흥원 정부지원과제 평가위원은 랜딩페이지 기획, 광고 콘텐츠 제작, Claude와 챗GPT의 비교 활용법, 프롬프트 작성...",
+      "pubDate": "Mon, 10 Aug 2026 15:57:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "NH투자증권, AI 기반 투자 전략 구현 지원…OpenAPI 'PLUG' 출시",
+      "link": "https://www.cnbizm.com/news/articleView.html?idxno=311037",
+      "description": "API 첫 거래를 완료한 고객에게는 월 2만9천 원 상당의 'ChatGPT Plus 1개월 이용권'을 제공한다. 이벤트와 서비스 관련 내용은 나무증권 앱과 전용 포털에서 확인할 수 있다. 이번 서비스는 AI와 OpenAPI를 결합해 개인...",
+      "pubDate": "Mon, 10 Aug 2026 15:56:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "[증권UP+] AI·투자교육·실전투자 '삼박자'···금투업계, 서비스 혁신...",
+      "link": "https://www.smartbizn.com/news/articleView.html?idxno=150844",
+      "description": "NH투자증권 관계자는 \"서비스 출시를 기념해 수수료 우대와 ChatGPT Plus 이용권 제공, 전용 굿즈 증정 등 다양한 이벤트를 진행한다\"며 \"앞으로도 AI 기반 투자 환경 확산에 맞춰 디지털 투자 생태계를 지속 확대해 나갈...",
+      "pubDate": "Mon, 10 Aug 2026 15:36:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "NH투자증권, ‘업계 최저수수료’ 오픈 API 'PLUG' 출시",
+      "link": "https://www.edaily.co.kr/news/newspath.asp?newsid=03673606645546008",
+      "description": "또 API 첫 거래를 완료한 고객에게는 월 2만9000원 상당의 ‘ChatGPT Plus 1개월 이용권’을 증정한다. API 사용 신청을 완료한 선착순 1000명에게는 전용 멀티플러그 굿즈를 제공한다. 자세한 내용과 이벤트 신청은...",
+      "pubDate": "Mon, 10 Aug 2026 15:33:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "대부업서 보험까지…OK금융, 종합금융그룹 퍼즐 맞춘다",
+      "link": "http://www.newstomato.com/ReadNews.aspx?no=1309761&inflow=N",
+      "description": "OK금융이 대부업 중심의 과거에서 벗어나 종합금융그룹으로 체질을 전환하는 동시에 그룹 내 자본과 지배구조를 재편하는 계기가 될 전망입니다. OK저축은행 간판과 예금보험공사 사옥. (사진=연합뉴스, ChatGPT 합성)",
+      "pubDate": "Mon, 10 Aug 2026 15:20:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[금융권 이모저모]미래에셋운용, 미국배당 커버드콜 투자전략 제시 外",
+      "link": "https://www.businessplus.kr/news/articleView.html?idxno=115252",
+      "description": "NH투자증권은 서비스 출시를 기념해 API 첫 거래 고객에게 'ChatGPT Plus' 1개월 이용권을 제공하는 등 프로모션도 진행한다. 지난 7일 서울 중구 NH농협금융지주 본사에서 열린 '2026년 하반기 경영전략회의'에서 이찬우...",
+      "pubDate": "Mon, 10 Aug 2026 15:20:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "\"군민 누구나 평생교육\" 임실군, 전북시민대학 운영",
+      "link": "https://www.newsis.com/view/NISX20260810_0003743095",
+      "description": "교육과정은 ▲임실에서 활용하는 ChatGPT 사용법 ▲행복한 노후생활과 금융 이해 ▲한의학을 통한 체질 건강관리 ▲아로마와 싱잉볼로 설계하는 뇌 휴식 ▲근기능 회복과 만성질환 예방을 위한 운동법 등으로 구성됐다....",
+      "pubDate": "Mon, 10 Aug 2026 15:19:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "NH투자증권, 오픈 API 'PLUG' 출시",
+      "link": "https://daily.hankooki.com/news/articleView.html?idxno=1394322",
+      "description": "NH투자증권은 'Namuh PLUG' 출시를 기념해 이용 신청 고객 대상 수수료 우대, 첫 거래 완료 고객 대상 ChatGPT Plus 1개월 이용권 증정, 선착순 1000명 대상 전용 멀티플러그 제공 등 프로모션을 진행한다고 밝혔다. 자세한...",
+      "pubDate": "Mon, 10 Aug 2026 15:14:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "여름철 차량 화재 사고 집중…소방청 “폭염 속 엔진 과열 주의”",
+      "link": "https://idsn.co.kr/news/view/1065593258795605",
+      "description": "▲ 차량 화재 (사진: ChatGPT AI 생성 이미지) 최근 5년간 내연기관 차량에서 1만8000건이 넘는 화재가 발생해 899명이 숨지거나 다친 것으로 나타났다. 특히 전체 차량 화재의 약 19%가 여름철 7~8월에 집중된 것으로 집계돼...",
+      "pubDate": "Mon, 10 Aug 2026 15:12:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "AI 배우고 금융 익히고 건강까지…임실군, 시민대학 운영",
+      "link": "https://www.nocutnews.co.kr/news/6560638?utm_source=naver&utm_medium=article&utm_campaign=20260810024641",
+      "description": "교육과정은 △임실에서 활용하는 ChatGPT 사용법 △행복한 노후생활과 금융 이해 △한의학을 통한 체질 건강관리 △아로마와 싱잉볼로 설계하는 뇌 휴식 △근기능 회복과 만성질환 예방을 위한 운동법 등이다. 특히...",
+      "pubDate": "Mon, 10 Aug 2026 14:47:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "숭실대 캠퍼스타운사업단, 예비·초기 창업자 위한 '스타트업 아카데미...",
+      "link": "https://www.newspim.com/news/view/20260810001007",
+      "description": "5·6회차는 AI를 활용한 마케팅 콘텐츠 제작과 확산 전략에 집중했다. 정명훈 JSS㈜ 대표는 랜딩페이지와 광고 콘텐츠 기획, Claude와 GPT 활용, 프롬프트 작성법 등을 실습 중심으로 안내했다. 현성준 루프랩 대표는...",
+      "pubDate": "Mon, 10 Aug 2026 14:38:00 +0900",
+      "relativeTime": "2시간 전",
+      "hot": false
+    },
+    {
+      "title": "NH투자증권, OpenAPI ‘PLUG’ 출시…국내주식 수수료 0.01%",
+      "link": "https://www.todayeconomic.com/news/article.html?no=31646",
+      "description": "API를 이용해 첫 거래를 완료한 고객에게는 월 2만9000원 상당의 ChatGPT Plus 1개월 이용권을 제공한다. API 사용 신청을 완료한 고객 가운데 선착순 1000명에게는 PLUG 전용 멀티플러그 굿즈도 지급한다. NH투자증권은 향후...",
+      "pubDate": "Mon, 10 Aug 2026 14:34:00 +0900",
+      "relativeTime": "2시간 전",
       "hot": false
     },
     {
@@ -350,78 +478,6 @@
       "link": "https://news.unn.net/news/articleView.html?idxno=595751",
       "description": "제작, Claude와 GPT의 비교 활용법, 프롬프트 작성 노하우 등을 실습 중심으로 안내했다. 이어 현성준 루프랩 대표는 라이크어로컬 IM택시 Exit 경험을 바탕으로 소재 발굴, AI 기반 기획, 틱톡 중심의 SNS 채널 확산 전략...",
       "pubDate": "Mon, 10 Aug 2026 14:02:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "NH투자증권, 오픈 API 'PLUG' 출시…업계 최저수수료",
-      "link": "https://www.mt.co.kr/stock/2026/08/10/2026081013422282153",
-      "description": "또 API 첫 거래를 완료한 고객에게는 월 2만9000원 상당의 'ChatGPT Plus 1개월 이용권'을 증정한다. API 사용 신청을 완료한 선착순 1000명에게는 전용 멀티플러그 굿즈를 제공한다. 자세한 내용과 이벤트 신청은...",
-      "pubDate": "Mon, 10 Aug 2026 13:54:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "NH투자증권, 오픈API 'PLUG' 출시...AI 활용 투자전략 지원",
-      "link": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=475911",
-      "description": "API 첫 거래를 마친 고객에게는 월 2만9000원 상당의 'ChatGPT Plus 1개월 이용권'을 증정한다. API 사용 신청을 완료한 고객 가운데 선착순 1000명에게는 전용 멀티플러그 굿즈도 제공한다. 세부 내용과 이벤트 신청...",
-      "pubDate": "Mon, 10 Aug 2026 13:52:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "목포대 교수학습이러닝센터 'AI 시대 수업관리·평가 실습 워크숍' 열려",
-      "link": "https://www.kyosu.net/news/articleView.html?idxno=208624",
-      "description": "참가자들은 Claude를 이용한 교육 환경 구축, AI 기반 평가계획 점검, 평가활동 설계와 피드백 운영 방법에 대한 실습도 함께 진행했다. 프로그램은 교수자들이 반복적인 수업 준비와 평가 업무를 효율적으로 처리하고...",
-      "pubDate": "Mon, 10 Aug 2026 13:50:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "NH투자증권, 'PLUS'로 나만의 투자전략 구현한다",
-      "link": "http://www.biztribune.co.kr/news/articleView.html?idxno=357193",
-      "description": "API 첫 거래 고객에게 ChatGPT Plus 1개월 이용권을 제공하는 등 관련 프로모션을 진행한다. 디지털 서비스 확대는 최근 가파른 실적 성장과 맞물린다. NH투자증권의 올해 상반기 연결 기준 당기순이익은 9652억원으로...",
-      "pubDate": "Mon, 10 Aug 2026 13:36:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "NH투자증권, OpenAPI 'PLUG' 출시",
-      "link": "http://www.bizwnews.com/news/articleView.html?idxno=142853",
-      "description": "API 첫 거래를 마친 고객에게는 또 월 2만9000원 상당의 ChatGPT Plus 1개월 이용권을, API 사용 신청을 마친 선착순 1000명에게는 전용 멀티플러그 굿즈를 제공한다. 강민훈 NH투자증권 디지털사업부 대표는 \"이제 투자의...",
-      "pubDate": "Mon, 10 Aug 2026 13:16:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "NH투자증권, 고객 투자프로그램-거래시스템 연결하는 ‘PLUG’ 출시",
-      "link": "https://www.inthenews.co.kr/news/article.html?no=90335",
-      "description": "또한 API 첫 거래를 완료하면 월 2만9000원 상당의 'ChatGPT Plus 1개월 이용권'을 증정하며, API 사용신청을 완료한 선착순 1000명에게는 전용 멀티플러그 굿즈를 제공합니다. 강민훈 디지털사업부 대표는 \"투자의 핵심...",
-      "pubDate": "Mon, 10 Aug 2026 13:04:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "AI로 투자전략 구현…NH투자증권, 오픈API ‘PLUG’ 출시",
-      "link": "https://www.ddaily.co.kr/page/view/2026081012073182832",
-      "description": "API를 이용해 처음 거래한 고객에게는 ‘ChatGPT Plus 1개월 이용권’을 지급하며 사용 신청을 마친 고객 중 선착순 1000명에게 멀티플러그 굿즈를 제공한다. NH투자증권은 기존에도 ‘QV Open API’를 통해 고객의...",
-      "pubDate": "Mon, 10 Aug 2026 12:57:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "[캐시닥 정답] 8월 10일 12시 돈버는 퀴즈 문제 및 정답 확인",
-      "link": "https://www.joongangenews.com/news/articleView.html?idxno=538980",
-      "description": "|중앙이코노미뉴스 김영진 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 김영진] 앱테크(AppTech)는 출석 체크, 걷기, 퀴즈 풀이 등 일상적인 활동을 통해 보상을 받을 수 있는 스마트한 재테크 방법이다....",
-      "pubDate": "Mon, 10 Aug 2026 12:26:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "기업 AI 대화 절반 '개인계정'…업무 파고든 '섀도 AI' 보안 구멍",
-      "link": "https://www.e-science.co.kr/news/articleView.html?idxno=133210",
-      "description": "ChatGPT 대화의 61.36%, Copilot은 63.92%가 비기업 ID를 통해 이뤄졌다. DeepSeek는 해당 비중이 99.83%에 달했다. 반면 기업용으로 제공되는 Gemini Enterprise와 Copilot M365는 기업 ID 이용 비중이 각각 98.15%, 90.55%로 나타났다....",
-      "pubDate": "Mon, 10 Aug 2026 12:24:00 +0900",
       "relativeTime": "2시간 전",
       "hot": false
     },
@@ -430,7 +486,7 @@
       "link": "http://game.dailyesports.com/view.php?ud=20260810115822957043da15d9d2_26",
       "description": "글로벌 AI 기업들이 차세대 모델 출시 전 안전성 검증과 활용 범위에 대한 기준을 강화하고 있다. 사이버... 앤트로픽은 사이버 보안 능력을 강화한 '클로드 미토스 프리뷰(Claude Mythos Preview)'를 준비하면서 잠재적인...",
       "pubDate": "Mon, 10 Aug 2026 12:05:00 +0900",
-      "relativeTime": "2시간 전",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
@@ -438,15 +494,7 @@
       "link": "https://edu.donga.com/news/articleView.html?idxno=110749",
       "description": "제작, Claude와 GPT의 비교 활용법, 프롬프트 작성 노하우 등을 실습 중심으로 안내했다. 이어 현성준 루프랩 대표는 라이크어로컬 IM택시 Exit 경험을 바탕으로 소재 발굴, AI 기반 기획, 틱톡 중심의 SNS 채널 확산 전략...",
       "pubDate": "Mon, 10 Aug 2026 11:34:00 +0900",
-      "relativeTime": "2시간 전",
-      "hot": false
-    },
-    {
-      "title": "\"AI 마케팅부터 북미 진출까지\"… 숭실대, 250명 몰린 '실전 창업 사관학...",
-      "link": "http://www.dailysmart.co.kr/news/articleView.html?idxno=128065",
-      "description": "이와 함께 최근 진행된 5·6회차에서는 최신 AI 기술을 활용한 마케팅 실습이 펼쳐졌다. 정명훈 JSS 대표가 Claude 및 GPT 기반의 광고 콘텐츠 제작과 프롬프트 작성 노하우를 안내했고 현성준 루프랩 대표는 라이크어로컬...",
-      "pubDate": "Mon, 10 Aug 2026 11:18:00 +0900",
-      "relativeTime": "3시간 전",
+      "relativeTime": "5시간 전",
       "hot": false
     },
     {
@@ -454,7 +502,7 @@
       "link": "https://www.veritas-a.com/news/articleView.html?idxno=622573",
       "description": "5·6회차에서는 AI를 활용한 마케팅 콘텐츠 제작과 확산 전략을 다뤘다. 정명훈 JSS(주) 대표 겸 창업진흥원 정부지원과제 평가위원은 랜딩페이지 기획/광고 콘텐츠 제작/Claude와 GPT의 비교 활용법/프롬프트 작성...",
       "pubDate": "Mon, 10 Aug 2026 11:16:00 +0900",
-      "relativeTime": "3시간 전",
+      "relativeTime": "5시간 전",
       "hot": false
     },
     {
@@ -462,7 +510,7 @@
       "link": "https://www.digitaltoday.co.kr/news/articleView.html?idxno=691329",
       "description": "피해자는 구글 검색 후 최상단에 노출된 유료 광고를 클릭해, 앤트로픽 클로드의 공유 주소인 claude.ai 내 단계별 설치 안내 페이지로 이동했다. 이 페이지는 '애플 지원'(Apple Support)이 공유한 문서처럼 표시됐고...",
       "pubDate": "Mon, 10 Aug 2026 10:38:00 +0900",
-      "relativeTime": "3시간 전",
+      "relativeTime": "6시간 전",
       "hot": false
     },
     {
@@ -470,15 +518,7 @@
       "link": "https://it.chosun.com/news/articleView.html?idxno=2023092167687",
       "description": "\"If someone creates a draft using ChatGPT or Claude and then revises it, determining where and how AI was used ultimately depends on the honesty of the creator who used it.\" jubar@chosunbiz.com...",
       "pubDate": "Mon, 10 Aug 2026 10:14:00 +0900",
-      "relativeTime": "4시간 전",
-      "hot": false
-    },
-    {
-      "title": "청구서 폭탄에 놀란 기업들 'AI 라우터'에 열광하는 이유",
-      "link": "https://www.fortunekorea.co.kr/news/articleView.html?idxno=53546",
-      "description": "그러나 올해 앤트로픽의 클로드 코드(Claude Code)나 코덱스(Codex) 같은 인기 AI 코딩 에이전트를 장시간 자율 과제에 투입해 온 수많은 기업이 정확히 이 같은 상황에 직면했다. 챗봇과의 단발성 대화와 달리, 이들...",
-      "pubDate": "Mon, 10 Aug 2026 06:00:00 +0900",
-      "relativeTime": "8시간 전",
+      "relativeTime": "6시간 전",
       "hot": false
     }
   ]
