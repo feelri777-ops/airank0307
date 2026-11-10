@@ -1,508 +1,524 @@
 {
-  "lastUpdated": "2026-11-10T07:01:42.685Z",
+  "lastUpdated": "2026-11-10T16:09:22.811Z",
   "items": [
     {
-      "title": "골드만삭스 CEO \"AI 산업에 대한 투자 수요 여전히 강해\"",
-      "link": "https://www.hankyung.com/article/2026111078517",
-      "description": "글로벌 투자은행 골드만삭스의 데이비드 솔로몬 최고경영자(CEO)는 \"인공지능(AI) 인프라 구축과 AI 성장 관련 기술에 투자하려는 (자금시장의) 수요는 여전히 강하다\"고 9일(현지시간) 밝혔다. 솔로몬 CEO는 이날 미...",
-      "pubDate": "Tue, 10 Nov 2026 15:38:00 +0900",
+      "title": "해킹 여파에 나홀로 뒷걸음질 KT…그래도 믿을 구석 있다는데",
+      "link": "https://www.mk.co.kr/article/12204132",
+      "description": "인공지능(AI)·부동산·콘텐츠 그룹사의 진일보에도 해킹 사태 고객 보상과 사업 비용 부담에 발목이 잡혔다. KT는 AI 인프라 투자와 기업의 AI 전환을 확대해 통신업 성장 둔화를 돌파한다는 구상이다. 10일 KT는 올해...",
+      "pubDate": "Tue, 10 Nov 2026 17:22:00 +0900",
+      "relativeTime": "7시간 전",
+      "hot": true
+    },
+    {
+      "title": "결국 감독관 ‘눈’에 달렸다? AI안경 커닝 막는 신박한 기술 [팩플]",
+      "link": "https://www.joongang.co.kr/article/25477384",
+      "description": "인공지능(AI) 스마트 안경을 몰래 쓰고 시험장에 들어온 부정행위자, 어떻게 탐지해낼까. 대학수학능력시험(수능)을 앞두고 각종 시험에서 스마트 안경을 악용한 ‘지능형 커닝’ 사례가 속속 적발되면서, 스마트 안경을...",
+      "pubDate": "Tue, 10 Nov 2026 17:13:00 +0900",
+      "relativeTime": "7시간 전",
+      "hot": true
+    },
+    {
+      "title": "앤트로픽 신형 AI 모델 성능 ‘1위’",
+      "link": "https://www.mk.co.kr/article/12204038",
+      "description": "페이블 5.2·‘보안용’ 미토스 5.2 공개 지능지수 65점…제미나이·오픈AI 제쳐 속도, 전작보다 30%↑·토큰 소비량 20%↓ 기업공개(IPO)를 앞둔 앤트로픽이 9일(현지 시각) 인공지능(AI) 모델 ‘클로드 페이블 5.2’와...",
+      "pubDate": "Tue, 10 Nov 2026 16:20:00 +0900",
+      "relativeTime": "8시간 전",
+      "hot": true
+    },
+    {
+      "title": "[팩트체크] 나는 AI안경에 기는 대책?…고배점 수학문제 수초만에 '정답...",
+      "link": "https://www.yna.co.kr/view/AKR20261109090100518?input=1195m",
+      "description": "초음파 세척·전파 차단 등 실현 가능성은?…\"비용·제도상 한계\" 전문가들, 육안 판별과 함께 스마트기기와 물리적 거리두기 제안 최근 대학의 수리논술시험장에서 인공지능(AI) 기능이 탑재된 스마트 안경을 착용한...",
+      "pubDate": "Tue, 10 Nov 2026 06:30:00 +0900",
+      "relativeTime": "18시간 전",
+      "hot": true
+    },
+    {
+      "title": "젠슨 황 논란 속 열린 엔비디아 AI 데이…韓, 기술 협력·추가 투자 직진...",
+      "link": "https://www.newsis.com/view/NISX20261109_0003860793",
+      "description": "심지혜 윤현성 윤정민 기자 = 젠슨 황 엔비디아 최고경영자(CEO)를 둘러싼 사생활 논란에도 불구하고 엔비디아가 국내 기업들과 인공지능(AI) 기술 협력을 예정대로 추진하며 한국 AI 생태계와의 협력 기조를 이어갔다....",
+      "pubDate": "Mon, 09 Nov 2026 18:23:00 +0900",
+      "relativeTime": "1일 전",
+      "hot": true
+    },
+    {
+      "title": "미국 10월 소비자물가 0.4% 상승…연준 12월 금리 인상 전망 강화, 0.5%포...",
+      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20261111010003958",
+      "description": "미국 CNBC방송은 인공지능(AI) 기반시설 투자가 물가 압력을 가중하고 있다고 설명했다. 니혼게이자이(日本經濟)신문(닛케이)은 첨단 반도체 수급 압박으로 컴퓨터와 스마트 기기 가격이 올랐다고 분석했다. NYT는...",
+      "pubDate": "Wed, 11 Nov 2026 01:08:00 +0900",
       "relativeTime": "방금 전",
-      "hot": true
+      "hot": false
     },
     {
-      "title": "손동작 로봇 학습·숨소리 탐지 AI…삼성 C랩의 미래기술 [현장]",
-      "link": "http://www.inews24.com/view/2024564",
-      "description": "사람의 손동작을 인공지능(AI)이 학습해 로봇에 가르치고, 호흡 소리로 폐질환을 진단하는 기술도 등장했다. 로봇과 헬스케어, 제조 AI 분야에 뛰어든 스타트업들이 한자리에 모였다. 10일 서울 서초구 삼성전자 서울R...",
-      "pubDate": "Tue, 10 Nov 2026 14:47:00 +0900",
+      "title": "하동군, 천연기념물 소나무 보호대책 강화…지리산포럼서 농업·복지 현...",
+      "link": "https://www.webeconomy.co.kr/news/articleView.html?idxno=2368797",
+      "description": "확대, 농촌관광·농식품 산업 연계를 제안했다. 조흥식 전 한국보건사회연구원장은 초고령사회에 대비한 인공지능(AI) 기반 예방 복지와 맞춤형 서비스, 경로당·마을공동체 중심의 통합 돌봄체계 구축을 강조했다.",
+      "pubDate": "Wed, 11 Nov 2026 01:06:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "경기도교육청, AI 시대 주도 사고력 중심 교육 대전환 선언",
+      "link": "http://www.babytimes.co.kr/news/articleView.html?idxno=74624",
+      "description": "이를 위해 경기도교육청이 인공지능(AI) 시대를 맞아 기존의 주입식·암기식 교육체제를 학생 사고력과 자기 주도성을 키우는 방향으로 전면 개편한다. 안 교육감은 9일 경기도교육청 남부청사 대강당에서 개최한 'AX(AI...",
+      "pubDate": "Wed, 11 Nov 2026 01:02:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "[인더리포트] 미국 ‘블루웨이브’에 한국 산업계 희비…반도체·전력기...",
+      "link": "https://www.inthenews.co.kr/news/article.html?no=94297",
+      "description": "공화당 소속인 도널드 트럼프 미국 대통령의 정책 추진력이 약화되는 가운데 인공지능(AI) 데이터센터 규제와 관세, 친환경 에너지 정책 등이 국내 기업의 투자와 수출에 영향을 미칠 가능성이 현실화 되었기 때문입니다....",
+      "pubDate": "Wed, 11 Nov 2026 01:00:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "박완수 경남지사, 소나무재선충병 확산 현장 점검…예방방제 강화 주문",
+      "link": "https://www.mhns.co.kr/news/articleView.html?idxno=768517",
+      "description": "경남도는 앞서 지난달 27일 정부에 소나무재선충병의 사회재난 지정과 범정부 방제체계 구축, 치료제·백신 개발, 인공지능(AI)·드론 활용 기술 도입 등을 건의했다. 사유림 손실보상과 산주의 방제 참여를 지원하는 제도...",
+      "pubDate": "Wed, 11 Nov 2026 01:00:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "경기도, ‘농수산·축산국 통합’ 철회…조직개편 재입법에도 ‘이민사...",
+      "link": "https://www.segye.com/newsView/20261111500331?OutUrl=naver",
+      "description": "당초 인공지능(AI)과 반도체 등 미래 성장 산업에 역량을 집중하기 위해 대규모 부서 통폐합을 추진했으나, 농축산업계와 시민단체 등에서 제기된 우려를 반영해 일보 후퇴한 것이다. 10일 도에 따르면 이 같은 내용을...",
+      "pubDate": "Wed, 11 Nov 2026 01:00:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "유통부터 기술력까지... K뷰티 해외 공략 다변화 행보 눈길",
+      "link": "https://www.meconomynews.com/news/articleView.html?idxno=203510",
+      "description": "해외 유통망을 직접 확보하는 기업부터 인공지능(AI)과 연구개발(R&D)을 앞세워 기술 경쟁력을 입증하는 제조사, 피부임상 데이터를 활용해 글로벌 브랜드의 시장 진출을 지원하는 전문기업까지 해외 시장을 향한...",
+      "pubDate": "Wed, 11 Nov 2026 01:00:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "공무원연금공단, AI 기반 마음건강 지원기기 5개 기관 시범 운영 外 1건",
+      "link": "http://www.thefirstmedia.net/news/articleView.html?idxno=213243",
+      "description": "생성형 AI(ChatGPT) 활용 제작 공무원연금공단이 인공지능(AI) 기반 마음건강 지원기기를 도입해 공무원의 심리적 어려움을 예방하고 일상적인 마음건강 관리를 지원한다. 공무원연금공단(이사장 김우호)은 지난 9일...",
+      "pubDate": "Wed, 11 Nov 2026 00:58:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "가천대 길병원, 코로나19 에크모 환자 생존 예측 바이오마커 규명",
+      "link": "http://www.thefirstmedia.net/news/articleView.html?idxno=213240",
+      "description": "유전자 발현 정보를 활용한 인공지능(AI) 예측 모델이 임상 정보만을 이용한 모델보다 높은 예측 성능을 보인 것으로 나타났다. 가천대 길병원은 유전체의과학연구소장 조성범 교수와 흉부외과 손국희 교수...",
+      "pubDate": "Wed, 11 Nov 2026 00:58:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "우리은행, AI 음성거래 도입...'스마트키오스크'로 금융업무 간편하게",
+      "link": "https://www.gukjenews.com/news/articleView.html?idxno=3748210",
+      "description": "우리은행, \"이젠 말로 다 해요\"...스마트키오스크에 AI 음성인식 도입  우리은행이 스마트키오스크에 인공지능(AI) 기반 음성 서비스 도입을 추진한다는 계획을 10일 밝혔다. 이번에 도입되는 'AI 업무 검색(AI-Navigator)...",
+      "pubDate": "Wed, 11 Nov 2026 00:58:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "GC메디아이, 3분기 누적 영업이익 121억원…전년比 165.9% 증가",
+      "link": "http://www.thefirstmedia.net/news/articleView.html?idxno=213242",
+      "description": "지난 8월 출시한 인공지능(AI) 진료 솔루션 '의사랑 AI'의 고객 기반을 확대하고, 2027년 출시를 목표로 클라우드 EMR 개발과 상용화를 준비한다. 제약·금융·보험·의료기기 등으로 외부 서비스 연동 범위도 넓혀 신규...",
+      "pubDate": "Wed, 11 Nov 2026 00:58:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "LG생활건강 '그린밸류 YOUTH' 성과공유회…청년 기후활동가 AI 탄소 저감...",
+      "link": "http://www.thefirstmedia.net/news/articleView.html?idxno=213235",
+      "description": "인공지능(AI) 사용 과정에서 발생하는 탄소배출을 줄이기 위한 '에코프롬프팅' 등 생활 속 환경 문제를 해결하기 위한 아이디어도 소개됐다. LG생활건강은 지난 7일 서울 강남구 디캠프 선릉에서 유엔환경계획(UNEP)...",
+      "pubDate": "Wed, 11 Nov 2026 00:58:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "효성중공업 12.72% 급등…외국인·기관 379억 순매수",
+      "link": "http://www.kjdaily.com/article.php?aid=1794326107691876276",
+      "description": "미국의 인공지능(AI) 데이터센터 규제 강화 우려가 부각되면서 효성중공업은 지난 5일 12.59% 하락했다. 당시 LS ELECTRIC과 산일전기 등 주요 전력기기주도 두 자릿수 하락률을 기록했다. 그러나 10일에는 미국...",
+      "pubDate": "Wed, 11 Nov 2026 00:58:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "위븐, 광주서 재밋 활용 실습…“말로 홈페이지 만드는 AI”",
+      "link": "https://www.seoul.co.kr/news/society/2026/11/11/20261111500003?wlog_tag3=naver",
+      "description": "인공지능(AI)에게 원하는 내용을 말로 설명하며 홈페이지를 만드는 실습 교육이 광주에서 열렸다. 다양한 산업 분야 종사자들이 참여해 자신의 사업과 활동을 알릴 웹사이트 제작 방법을 배웠다. 위븐은 10일...",
+      "pubDate": "Wed, 11 Nov 2026 00:57:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "McKinsey Estimates Human Review Makes Up Most Variable Costs for a Bankin...",
+      "link": "https://econotimes.com/McKinsey-Estimates-Human-Review-Makes-Up-Most-Variable-Costs-for-a-Banking-AI-Agent-Task-1774595",
+      "description": "Nearly a quarter used generative AI for financial tasks, and 74% of those using AI for banking turned to ChatGPT, Claude or Gemini. Among surveyed AI users, 62% wanted AI-based financial help...",
+      "pubDate": "Wed, 11 Nov 2026 00:56:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "크래프톤, 숨 고르기 후 반등 채비..PUBG 10주년·신작 8종 예고",
+      "link": "https://kpenews.com/View.aspx?No=4306129",
+      "description": "김 대표는 게임 AI를 개발하며 쌓은 연구 역량을 게임 밖 AI 사업으로 넓히기 위해서라고 답했다. 10월 공개한 ‘라온-1 미니’ 프리뷰는 30B 규모 전문가 혼합(MoE) 모델이다. 국내 30B급 모델 가운데 지식과 코딩, 도구...",
+      "pubDate": "Wed, 11 Nov 2026 00:54:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "한국콜마, 2년 연속 CES 뷰티테크 최고혁신상",
+      "link": "https://www.kmib.co.kr/article/20261110502155",
+      "description": "한국콜마는 인공지능(AI) 기반 맞춤형 립 제조 기기 ‘크로마 플로우’(사진)가 CES 2027 뷰티테크 부문 최고혁신상과 인공지능 부문 혁신상을 받았다고 10일 밝혔다. 지난해 ‘스카 뷰티 디바이스’에 이어 2년 연속...",
+      "pubDate": "Wed, 11 Nov 2026 00:51:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "'금융권 보안 지킴이' 금융보안원마저 뚫렸다…해킹에 정보 유출",
+      "link": "https://www.techm.kr/news/articleView.html?idxno=157180",
+      "description": "사진=생성형 AI 금융권의 사이버 보안을 책임지는 금융보안원이 해킹 공격을 받아 일부 자료가 유출됐다. 최근 금융회사에서 침해 사고가 잇따르는 가운데 보안 점검과 사고 대응을 담당하는 전문기관까지 공격받으면서...",
+      "pubDate": "Wed, 11 Nov 2026 00:46:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "오늘의 MBTI 운세 11월 11일 수요일",
+      "link": "https://www.vegannews.co.kr/news/article.html?no=403280",
+      "description": "- 일·학업: 중요한 과제는 완료 기준과 중간 점검 시점을 정해 보자. - 생활 리듬: 다음 일정 전 짧은 정리 시간을 두면 하루를 이어 가기 좋다. ※ 이 기사는 생성형 AI를 활용해 구성했으며, 가 편집·검수했습니다.",
+      "pubDate": "Wed, 11 Nov 2026 00:40:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "오늘의 별자리 운세 11월 11일 수요일",
+      "link": "https://www.vegannews.co.kr/news/article.html?no=403279",
+      "description": "일정을 마무리할 때는 다음 날 필요한 것을 미리 챙겨두면 편하다. 행운의 색: 회색 오늘의 아이템: 책상 달력 오늘의 흐름: 작은 시작을 만드는 날 ※ 이 기사는 생성형 AI를 활용해 구성했으며, 가 편집·검수했습니다.",
+      "pubDate": "Wed, 11 Nov 2026 00:38:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "AI에 의약품 추천 부탁하니… 특정 브랜드 위주로 골라",
+      "link": "https://www.chosun.com/economy/science/2026/11/11/G6E6V7PFMBC7NBSXWTLIMDWQFM/?utm_source=naver&utm_medium=referral&utm_campaign=naver-news",
+      "description": "최근 기업들은 자사 제품이 AI 답변에 자주 등장하도록 온라인 정보를 관리하는 ‘생성형 검색 최적화(GEO)’에 투자하고 있다. 자금력이 풍부한 대형 제약사가 인터넷에 자사 제품 정보를 널리 노출할수록 AI...",
+      "pubDate": "Wed, 11 Nov 2026 00:37:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세 11월 11일",
+      "link": "https://www.vegannews.co.kr/news/article.html?no=403278",
+      "description": "1995년생: 계획이 바뀌면 대안을 한 가지 정해 주변에 공유하자. 2007년생: 새로운 공부 방법을 시도한다면 짧은 시간부터 적용해보자. ※ 이 기사는 생성형 AI를 활용해 구성했으며, 가 편집·검수했습니다.",
+      "pubDate": "Wed, 11 Nov 2026 00:36:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "\"눈으로 봐도 못 믿겠다\"…정부도 AI 조작사진 발표",
+      "link": "https://www.hankyung.com/article/2026111086511",
+      "description": "생성형 AI 대중화로 손쉽게 이미지와 영상, 음성을 만들 수 있게 되면서 진실과 거짓을 구별하기 어려워졌다. 이 때문에 모든 정보를 일단 의심하고 보는 ‘제로 트러스트’ 원칙이 주목받고 있다. 역사학자 유발...",
+      "pubDate": "Wed, 11 Nov 2026 00:36:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "[청사초롱] AI 시대, 여유를 잃어가는 우리",
+      "link": "https://www.kmib.co.kr/article/20261110502103",
+      "description": "인공지능(AI)이 본격적으로 일상에 들어오기 전에도 우리는 충분히 빠르게 일하고 있다고 생각했다. 이메일로... 그런데 생성형 인공지능이 등장한 뒤 그 기준이 다시 달라지고 있다. 몇 시간 걸리던 자료 정리가 몇 분이면...",
+      "pubDate": "Wed, 11 Nov 2026 00:33:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "이시하 한국음악저작권협회 회장, APMA 의장 선출",
+      "link": "https://sports.khan.co.kr/article/202611110031003?pt=nv",
+      "description": "특히 생성형 AI 확산으로 국가 간 협력의 중요성이 커지는 가운데, 한국이 아·태 지역 저작권 연대의 구심점으로서 공동 대응을 이끌 것으로 기대된다. 음저협은 지난 10월 29일 베트남 호찌민에서 열린 아시아·태평양...",
+      "pubDate": "Wed, 11 Nov 2026 00:32:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "AI로 도약하는 방송미디어 경쟁력 [기고/김종철]",
+      "link": "https://www.donga.com/news/Economy/article/all/20261110/135000163/2",
+      "description": "AI는 단순한 정보 검색이나 콘텐츠 생성 도구를 넘어 산업 전반의 생산성과 경쟁력을 좌우하는 핵심 기술로 자리 잡고 있다. 방송미디어 산업에서도 이러한 변화가 본격화돼 영상 제작과 편집, 음성·자막 생성, 콘텐츠...",
+      "pubDate": "Wed, 11 Nov 2026 00:32:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "“등 떠밀린 AI 투자, 줄 점검없는 번지점프 같아”",
+      "link": "https://www.donga.com/news/Economy/article/all/20261110/135000787/2",
+      "description": "실제로 생성형 AI인 클로드에 과학적 사고방식을 갖췄는지 묻자 클로드 스스로도 “일부 특성을 흉내 낼 수는 있지만 의미 있는 수준에서 갖췄는지는 불확실하다”며 “AI는 독립적인 과학적 사고의 주체라기보다 강력한...",
+      "pubDate": "Wed, 11 Nov 2026 00:31:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "Gadget Korea Knocks on Europe's Door at Web Summit 2026 with USIMSA and S...",
+      "link": "https://us.aving.net/news/articleView.html?idxno=55224",
+      "description": "Eligible data plans do not deduct data consumed while using ChatGPT and Google Maps from the purchased allowance. The feature ensures essential navigation, translation, and search tools remain...",
+      "pubDate": "Wed, 11 Nov 2026 00:28:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "세종시교육청, '대학 연계' 세종형 자율형 공립고 3개교 확대 추진",
+      "link": "http://www.ccnnews.co.kr/news/articleView.html?idxno=417571",
+      "description": "이와 함께 생성형 인공지능(AI)을 활용한 논증 글쓰기와 데이터과학 모델링 등 미래형 수업을 도입했다. 또한 세종시 실생활 데이터를 활용한 프로젝트 수업 및 지속가능발전목표(SDGs) 기반 토론 수업 등 지역과 세계를...",
+      "pubDate": "Wed, 11 Nov 2026 00:28:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "윌러가 누른 빅스텝 발작 버튼…중국이 美 데이터센터 중단시키나[박신...",
+      "link": "https://www.hankyung.com/article/202611118700i",
+      "description": "앤트로픽 투자자인 베일리기포드의 피터 싱글허스트는 AI가 단순한 업무 보조 도구를 넘어 인간과 협업하는 동료로 발전할 것이라고 전망했습니다. 특히 법률과 금융, 의학 연구 등 전문 분야에서 고성능 AI 모델에...",
+      "pubDate": "Wed, 11 Nov 2026 00:24:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "빼빼로데이 선물 만들기…누가 주나요",
+      "link": "https://www.bntnews.co.kr/article/view/bnt202611100218",
+      "description": "정리, ai 이미지 2026 빼빼로데이 날짜는 11월 11일 수요일이다. 빼빼로 등을 나누며 마음을 전하는 날로... 도구는 내열 그릇과 주걱, 종이호일을 깐 쟁반이 기본이다. 처음 도전한다면 재료와 포장 봉투가 함께 들어 있는...",
+      "pubDate": "Wed, 11 Nov 2026 00:16:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "수노, 뮤지션 4명 집단소송 기각 요구…“아티스트 이름 입력은 표현의...",
+      "link": "https://www.wikitree.co.kr/articles/1173536",
+      "description": "클로드·챗GPT·제미나이 같은 AI 비서와 커서·클로드 코드 같은 코딩 도구에서 수노를 쓸 수 있다.해당 앱 안에서 곡을 직접 만들 수 있다. 음성 메모나 루프(짧은 반복 음원)를 곡으로 바꾸고, 커버를 만들고, 곡을 이어...",
+      "pubDate": "Wed, 11 Nov 2026 00:10:00 +0900",
+      "relativeTime": "방금 전",
+      "hot": false
+    },
+    {
+      "title": "힛지스·제너스 뮤직비디오, AI 영상 공모전으로 만든다",
+      "link": "https://sports.khan.co.kr/article/202611110007003?pt=nv",
+      "description": "마인드스파크는 생성형 AI 영상 공모전 ‘제3회 대한민국 AI광고대상’을 열고 지난 9일부터 오는 30일 자정까지 작품을 받는다. 올해 가장 큰 변화는 아이돌 신곡을 활용한 뮤직비디오 부문이다. 지난해 4월 데뷔한...",
+      "pubDate": "Wed, 11 Nov 2026 00:08:00 +0900",
       "relativeTime": "1시간 전",
-      "hot": true
+      "hot": false
     },
     {
-      "title": "[단독] 'AI와 연애' 뤼튼·제타…성인콘텐츠 '청소년 유해물' 지정 수순",
-      "link": "https://biz.sbs.co.kr/article_hub/20000345367?division=NAVER",
-      "description": "기업가치 1조원을 인정받고 기업공개(IPO)를 준비 중인 뤼튼을 비롯해 국내 주요 인공지능(AI) 채팅업체들이 청소년유해매체물 지정 심의 대상에 올랐습니다. 방송미디어통신심의위원회는 AI 채팅 서비스에서 선정적인...",
-      "pubDate": "Tue, 10 Nov 2026 13:39:00 +0900",
+      "title": "[최문형의 만사만감] 위험한 밈과 ‘깊은 기둥’",
+      "link": "https://m.skyedaily.com/news_view.html?ID=314354",
+      "description": "생성형 AI 덕분에 밈을 만드는 비용은 거의 공짜가 되었고, 변이 속도는 상상할 수 없을 만큼 빨라졌다. 호기심이 생명인 아이들은 이런 밈에 쉽게 빠져든다. 자아가 확립되기 전의 아동·청소년은 밈이 자리 잡기 가장...",
+      "pubDate": "Wed, 11 Nov 2026 00:06:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "\"AI, 검색 넘어 일상 창작 파트너로 활용해야\"",
+      "link": "http://www.gjdream.com/news/articleView.html?idxno=674229",
+      "description": "9일 '내 손안의 AI 비서'를 주제로 한 본보 사내 특강에서 이 연구원은 생성형 AI 필요성과 활용 방식, 프롬프트 작성 원칙, 이미지·글쓰기 실습 등을 중심으로 AI 활용 역량을 높이는 방법을 설명했다. 이 연구원은...",
+      "pubDate": "Wed, 11 Nov 2026 00:06:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[로널드 템플의 마켓 나우] AI 투자는 공급망 관점에서 접근해야",
+      "link": "https://www.joongang.co.kr/article/25477490",
+      "description": "AI가 더 복잡한 작업을 수행할수록 더 많은 연산을 요구하고 있기 때문이다. 여러 단계에 걸쳐 문제를 푸는 추론 모델은 최종 답변을 내기까지 긴 추론 과정을 거치며 토큰을 생성한다. 사용자를 대신해 도구를 활용하며...",
+      "pubDate": "Wed, 11 Nov 2026 00:04:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 호랑이띠의 11월 11일 운세가 전하는 메시지...",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=562745",
+      "description": "|중앙이코노미뉴스 조용우 기자|[사진=챗지피티(ChatGPT) 생성 이미지] 호랑이띠의 11월 11일 오늘의 운세를 공개한다. 호랑이는 용기와 결단력을 상징하며 어려운 상황에서도 자신의 길을 개척하는 힘을 나타낸다. 그러나...",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "Manyfast, No. 1 Productivity Tool in 'Everyone's Startup', Knocks on Euro...",
+      "link": "https://us.aving.net/news/articleView.html?idxno=55223",
+      "description": "like ChatGPT and Claude enable anyone to generate software without prior coding knowledge. The... \" He added, \"If Claude or ChatGPT acts as the developer, Manyfast is the manager that delivers...",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 토끼띠 11월 11일 하루의 운세 공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=562743",
+      "description": "|중앙이코노미뉴스 조용우 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 조용우] 토끼띠의 11월 11일 오늘의 운세를 공개한다. 토끼는 부드러움 속에 단단한 생존의 지혜를 품은 상징이다. 세상의 변화에...",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 용띠 11월 11일 운세 흐름 정리",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=562744",
+      "description": "|중앙이코노미뉴스 조용우 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 조용우] 용띠의 11월 11일 오늘의 운세를 공개한다. 용은 큰 뜻과 변화를 향한 의지를 상징하지만, 진정한 힘은 자신이 움직여야 할...",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 소띠의 11월 11일 운세 공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=562747",
+      "description": "|중앙이코노미뉴스 조용우 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 조용우] 소띠의 11월 11일 오늘의 운세를 공개한다. 소는 성실함과 인내, 흔들리지 않는 책임감을 상징한다. 눈에 띄는 변화보다...",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 원숭이띠의 11월 11일 운세 공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=562746",
+      "description": "|중앙이코노미뉴스 조용우 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 조용우] 원숭이띠의 11월 11일 오늘의 운세를 공개한다. 원숭이는 재치와 적응력, 변화하는 환경을 읽어내는 지혜를 상징한다. 빠른...",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 닭띠 11월 11일 운세 대공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=562748",
+      "description": "|중앙이코노미뉴스 조용우 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 조용우] 닭띠의 11월 11일 오늘의 운세를 공개한다. 닭은 질서와 분별력, 새로운 하루를 알리는 명료함을 상징한다. 세밀한 관찰과...",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 쥐띠의 11월 11일 흐름 공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=562750",
+      "description": "|중앙이코노미뉴스 조용우 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 조용우] 쥐띠의 11월 11일 오늘의 운세를 공개한다. 쥐는 예리한 관찰력과 현실적인 지혜, 어려운 환경에서도 길을 찾아내는...",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 뱀띠 11월 11일 하루 운세 대공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=562752",
+      "description": "|중앙이코노미뉴스 조용우 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 조용우] 뱀띠의 11월 11일 오늘의 운세를 공개한다. 뱀은 깊은 통찰과 신중함, 변화 속에서도 본질을 읽어내는 지혜를 상징한다....",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 개띠의 11월 11일 하루 흐름 공개",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=562749",
+      "description": "|중앙이코노미뉴스 조용우 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 조용우] 개띠의 11월 11일 오늘의 운세를 공개한다. 개는 신뢰와 의리, 공동체를 지키는 책임감을 상징한다. 사람을 향한 진심은...",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "[오늘의 운세] 띠별 운세, 말띠 11월 11일 하루의 운세",
+      "link": "https://www.joongangenews.com/news/articleView.html?idxno=562751",
+      "description": "|중앙이코노미뉴스 조용우 기자|[사진=챗지피티(ChatGPT) 생성 이미지][중앙이코노미뉴스 조용우] 말띠의 11월 11일 오늘의 운세를 공개한다. 말은 자유로운 정신과 행동력, 새로운 세계를 향해 나아가는 생명력을 상징한다....",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "앤트로픽, 12일부터 클로드 이용 185개국으로 제한 보도",
+      "link": "https://www.tokenpost.kr/news/breaking/435969",
+      "description": "패뉴스는 Claude.ai, Claude Code, Cowork, API는 물론 클라우드 플랫폼과 공인 리셀러를 통해 제공되는 클로드 모델도 목록에 오른 185개 국가·지역에서만 쓸 수 있다고 전했다. 목록에 없는 지역은 일괄 지원...",
+      "pubDate": "Wed, 11 Nov 2026 00:00:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "래블업, 美 쿠브콘 참가…쿠버네티스 연동 기술 소개",
+      "link": "https://www.edaily.co.kr/News/Read?newsId=08009766645644408&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
+      "description": "AI 학습과 웹 서비스를 서로 다른 환경에서 운영하던 기업들이 기존 도구를 활용하면서 AI 자원을 관리할 수 있도록 지원한다는 취지다. ‘슬럼 프런트엔드’는 연구자가 익숙한 슬럼 명령을 입력하면...",
+      "pubDate": "Tue, 10 Nov 2026 23:56:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "앤트로픽, 86조원 규모 기업공개 가동…기업 가치 1880조원 목표, 나스닥...",
+      "link": "https://www.aitimes.kr/news/articleView.html?idxno=42679",
+      "description": "이미지:본지DB 및 편집 생성형 인공지능(AI) 기업 앤트로픽(Anthropic)이 미국 증시 상장을 위한 투자자... 이는 클로드(Claude)의 수익 기반이 일반 소비자용 구독 서비스뿐 아니라 기업의 대규모 API 이용과 업무 시스템...",
+      "pubDate": "Tue, 10 Nov 2026 23:46:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "앤트로픽, IPO 공모가 70~78달러 제시…눈높이 낮춘 목표 시총 1.3조~1.4조...",
+      "link": "https://www.fnnews.com/news/202611102336056945",
+      "description": "인공지능(AI) 챗봇 '클로드(Claude)' 개발사인 앤트로픽이 이달 나스닥 상장을 앞두고 공모가 범위를 확정했다. 다만 최근 AI 투자 거품론과 미국 내 데이터센터 규제 우려 등 시장의 악재가 겹치면서 당초...",
+      "pubDate": "Tue, 10 Nov 2026 23:39:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "2조달러 기대했는데 '반토막'…앤트로픽 IPO 몸값 낮췄다",
+      "link": "http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202611100184&t=NN",
+      "description": "다만 앤트로픽의 성장세는 이어지고 있다. 대표 AI 모델인 클로드(Claude)의 수요 확대에 힘입어 3분기 매출은 169억6천만달러(약 22조7천억원)로 전 분기보다 47% 증가했다.",
+      "pubDate": "Tue, 10 Nov 2026 23:22:00 +0900",
+      "relativeTime": "1시간 전",
+      "hot": false
+    },
+    {
+      "title": "앤트로픽, IPO 공모가 70~78달러 제시…최대 120조 조달 계획",
+      "link": "https://www.news1.kr/world/usa-canada/6349736",
+      "description": "인공지능(AI) 챗봇 클로드(Claude) 개발사 앤트로픽이 기업공개(IPO) 공모가 범위를 주당 70~78달러로 제시했다. CNBC에 따르면, 앤트로픽은 10일(현지시간) 미 증권거래위원회(SEC)에 제출한 정정 증권신고서에서...",
+      "pubDate": "Tue, 10 Nov 2026 22:26:00 +0900",
       "relativeTime": "2시간 전",
-      "hot": true
-    },
-    {
-      "title": "AI주 폭락에도 앤트로픽, 내주 상장 강행…기업가치 낮추나",
-      "link": "https://www.newsis.com/view/NISX20261110_0003861583",
-      "description": "인공지능(AI) 기업 앤트로픽이 최근 AI 관련주 급락과 시장 변동성 확대에도 불구하고 이달 말 기업공개(IPO)를 예정대로 추진한다. 다만 투자심리 위축으로 목표 기업가치를 낮춰야 할 가능성이 커졌다. 월스트리트저널...",
-      "pubDate": "Tue, 10 Nov 2026 10:55:00 +0900",
-      "relativeTime": "5시간 전",
-      "hot": true
-    },
-    {
-      "title": "젠슨황 스캔들 '對中안보·AI규제' 파장 확산…美민주 파상공세",
-      "link": "https://www.yna.co.kr/view/AKR20261110006400071?input=1195m",
-      "description": "중국의 인공지능(AI) 패권 경쟁에까지 일파만파 파장이 번지는 모습이다. 미국의 첨단 AI 반도체 수출 통제 완화를 주장해온 황 CEO가 논란의 중심에 서면서 엔비디아의 중국 사업에 대한 정치적 압박이 커지고 미국의...",
-      "pubDate": "Tue, 10 Nov 2026 05:53:00 +0900",
-      "relativeTime": "10시간 전",
-      "hot": true
-    },
-    {
-      "title": "재경부, 12일까지 ADB 기후기술허브 파트너십 콘퍼런스",
-      "link": "https://www.yna.co.kr/view/AKR20261110126800002?input=1195m",
-      "description": "문 관리관은 기후 기술 협력이 지속해 확산하기 위해 첨단 기후 기술의 활용뿐 아니라 이를 뒷받침하는 정책·제도 및 시장 기반 혁신도 중요하다며 스마트그리드, 디지털 트윈, 인공지능(AI) 기반 조기 공보 등 사례를...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
       "hot": false
     },
     {
-      "title": "성남 청소년·청년 32명에 장학금 1460만원…AI 인재 육성 결실",
-      "link": "https://www.asiatoday.co.kr/kn/view.php?key=20261110010003579",
-      "description": "약 4개월 동안 인공지능(AI)를 활용한 프로젝트 교육 과정을 마친 수강생들이 직접 기획하고 개발한 작품을 공개하고, 교육 성과를 나눴다. 참가자들은 AI 기술을 바탕으로 자신만의 아이디어를 구체화하고 스스로 기획...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
+      "title": "레비오사에이아이, 서울대와 브라우저 기반 AI 에이전트 고도화…현업 ...",
+      "link": "https://www.venturesquare.net/1127374/",
+      "description": "현재 Yomates는 ChatGPT와 Claude, Gemini 등 사용자가 기존에 이용하는 AI 서비스를 연동해 업무를 실행할 수 있도록 지원한다. 이는 특정 AI 모델에만 의존하기보다 사용자가 익숙한 AI 서비스와 브라우저 기반 업무 실행...",
+      "pubDate": "Tue, 10 Nov 2026 22:00:00 +0900",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
-      "title": "코스피 4.39% 급등한 5239 마감…양 시장 '매수 사이드카' 발동",
-      "link": "http://www.the-biz.co.kr/news/articleView.html?idxno=731092",
-      "description": "다만 미국의 10월 소비자물가지수(CPI)와 인공지능(AI) 인프라 기업 코어위브의 실적 발표를 앞두고 있는 만큼 반등세의 지속 여부는 지켜볼 필요가 있을 것으로 평가됐다. 한지영 키움증권 연구원은 이날...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
+      "title": "Anthropic Targets Valuation of Up to $1.4 Trillion for Blockbuster I.P.O.",
+      "link": "https://www.nytimes.com/2026/11/10/technology/anthropic-ipo-valuation-share-price.html?partner=naver",
+      "description": "Anthropic makes large language models and a chatbot named Claude. Its tools are popular with... As Claude became popular among businesses, Anthropic attracted venture funding from Spark Capital...",
+      "pubDate": "Tue, 10 Nov 2026 21:24:00 +0900",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
-      "title": "㈜두산 3분기 영업익 4,594억원 98.4%↑…AI 수요 업고 전자소재 매출 사...",
-      "link": "http://www.srtimes.kr/news/articleView.html?idxno=217215",
-      "description": "㈜두산이 글로벌 인공지능(AI) 인프라 투자 확대에 따른 전자소재 부문의 호실적과 주요 계열사의 견조한 성장에 힘입어 올해 3분기 영업이익이 지난해 같은 기간보다 2배 가까이 증가했다. ​㈜두산은 연결 기준...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
+      "title": "애플, 발표 없이 클로드 코드에 엑스코드 플러그인 등록…수동 연결은 ...",
+      "link": "https://www.wikitree.co.kr/articles/1173523",
+      "description": "명령 한 줄로 설치, 코드는 마켓플레이스에 없다설치는 클로드 코드에서 ‘/plugin install xcode@claude-plugins... MCP(모델 컨텍스트 프로토콜)는 AI 에이전트가 외부 도구를 공통 규격으로 쓰게 하는 표준이다....",
+      "pubDate": "Tue, 10 Nov 2026 21:10:00 +0900",
+      "relativeTime": "3시간 전",
       "hot": false
     },
     {
-      "title": "[26.11.10 증시 인싸잇] 오늘의 종목 - NHN, 3Q 역대 최대 실적에 상한가...",
-      "link": "https://www.mediawatch.kr/news/article.html?no=261679",
-      "description": "결제 사업의 안정적인 성장에 인공지능(AI) 클라우드 사업의 성장세가 더해지면서 투자심리가 크게 개선된 것으로 풀이되고 있다. 최근 국내 증시의 변동성이 확대된 상황에서도 5거래일 연속 상승세를 이어가고...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
+      "title": "앤스로픽, IPO 공모가 70~78달러 제시…기업가치 최대 1.4조달러",
+      "link": "https://www.newspim.com/news/view/20261110001521",
+      "description": "생성형 AI 모델 '클로드(Claude)'를 개발했으며, 기업 고객을 중심으로 AI 제품과 서비스를 공급하고 있다. 회사는 전날 새로운 AI 모델인 '클로드 페이블 5.2'와 '클로드 미토스 5.2'를 공개했다. 아모데이 CEO가 지난 9월 AI...",
+      "pubDate": "Tue, 10 Nov 2026 20:55:00 +0900",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
-      "title": "AWS, 의료 소외계층 지원에 1억 달러 투자…AI로 의료 접근성 높인다",
-      "link": "https://zdnet.co.kr/view/?no=20261110155855",
-      "description": "아마존웹서비스(AWS)가 전 세계 의료 소외계층의 의료 서비스 접근성을 높이기 위해 향후 5년간 1억 달러 규모 인공지능(AI)·클라우드 기술을 지원한다. 의료기관과 연구기관이 AI 기반 진단·연구 서비스를 개발하고...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
+      "title": "시스코, 앤트로픽 ‘클로드 미토스’로 AI 에이전트 보안 검증…스플렁...",
+      "link": "https://www.venturesquare.net/1127269/",
+      "description": "기존 토큰 비용 추적 기능을 확장해 클로드 코드(Claude Code), 코덱스(Codex), 커서(Cursor) 등 AI 코딩 도구와 에이전트의 비용도 관리한다. 기업은 이를 통해 특정 에이전트에 투입되는 비용과 업무 결과를 비교하고 AI...",
+      "pubDate": "Tue, 10 Nov 2026 20:41:00 +0900",
+      "relativeTime": "4시간 전",
       "hot": false
     },
     {
-      "title": "경상북도, 국토교통과학기술진흥원에 경북혁신도시 이전 건의… 2차 공...",
-      "link": "https://www.getnews.co.kr/news/articleView.html?idxno=886647",
-      "description": "특히 대경권 5극3특 성장 엔진의 핵심 축인 인공지능(AI) 로봇 및 첨단 모빌리티 산업과의 뛰어난 연계성도 강력한 이전 근거로 제시됐다. 현재 경북도 내에는 전국 3위 규모인 1813개의 탄탄한 자동차 부품 관련 기업들이...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
+      "title": "[스타트업-ing] “AI가 초벌 번역, 사람이 완성”…하이브마인드, ‘오로...",
+      "link": "https://it.donga.com/109886/",
+      "description": "생성형 인공지능(AI)이 번역 시장에 빠르게 확산하면서 작업의 생산성이 개선되고 있다. 그러나 맥락과... 참가자들은 작업 화면에서 챗GPT, 클로드(Claude) 등 최신 LLM(대형언어모델) 엔진을 자유롭게 선택해 적용할 수 있다....",
+      "pubDate": "Tue, 10 Nov 2026 18:16:00 +0900",
+      "relativeTime": "6시간 전",
       "hot": false
     },
     {
-      "title": "10일 '삼전닉스' 동반 급등…코스피 4%대 반등",
-      "link": "http://www.breaknews.com/1249884",
-      "description": "앞서 지난 5일 뉴욕증시에서는 민주당이 장악한 의회가 데이터센터 개발에 강도 높은 규제를 가할 수 있다는 우려 속에 인공지능(AI) 관련주가 급락한 바 있다....",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "코스피, 반도체 반등에 5200선 회복…외인·기관 '쌍끌이'",
-      "link": "https://www.newsworks.co.kr/news/articleView.html?idxno=902596",
-      "description": "미국 반도체주 강세와 AI(인공지능) 데이터센터 규제 우려가 진정된 점이 투자심리를 자극한 것으로 보인다. 삼성전자우와 SK스퀘어는 각각 5.37%, 5.26%씩 올랐다. 이밖에 LG에너지솔루션(3.93%), 삼성전기(4.63...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "박완수 경남지사, 소나무재선충병 확산 차단 총력…산불 대응태세도 점...",
-      "link": "https://www.newsfreezone.co.kr/news/articleView.html?idxno=718656",
-      "description": "앞서 경남도는 정부에 소나무재선충병의 사회재난 지정과 범정부 방제체계 구축, 치료제·백신 개발 및 인공지능(AI)·드론 등 첨단 방제기술 도입, 사유림 손실보상과 산주의 방제 참여 지원제도 마련 등을 건의했다....",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "SKT·LGU+ 3분기 영업익 늘었는데, KT만 감소⋯박윤영, 본업 경쟁력 시험...",
-      "link": "https://www.autodaily.co.kr/news/articleView.html?idxno=601972",
-      "description": "인공지능(AI) 데이터센터 등 신사업을 키우는 박윤영 사장에게 통신 본업의 경쟁력 회복이 시급한 과제로 떠올랐다. KT는 올해 3분기 연결 기준 매출 6조9975억원, 영업이익 5053억원을 기록했다. 전년 동기 대비 매출은 1.8...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "취준생 절반은 'AI활용 능력' 중시…기업 10곳 중 7곳 \"기초면 충분\"",
-      "link": "https://www.itbiznews.com/news/articleView.html?idxno=230814",
-      "description": "취업준비생 절반 이상은 인공지능(AI) 결과 검증이나 업무재설계 등 고도화한 역량까지 갖춰야 한다고 생각하는 반면, 기업 10곳 중 7곳은 입사 시 검색·요약·초안 작성 등 기초적인 수준만을 꼽아 AI 활용 수준에서...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "\"검색하지 말고 말하세요\" 넷플릭스가 꿈꾸는 AI 시대",
-      "link": "https://www.fortunekorea.co.kr/news/articleView.html?idxno=54702",
-      "description": "넷플릭스는 현재 숏폼 콘텐츠를 위한 '인큐베이터(INKubator)'라는 AI 애니메이션 스튜디오도 구축하고 있다. 그렇지만 넷플릭스가 속한 엔터테인먼트 업계에서 인공지능은 민감한 문제다. 이 기술이 다른 방법으로는...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "AICA, 23일까지 AI 창업동 입주기업 모집…AI기업·투자지원기관 모집",
-      "link": "https://www.etnews.com/20261110000412",
-      "description": "인공지능(AI) 기술력을 갖춘 유망 기업들이 광주의 첨단 AI 인프라를 기반으로 기술개발부터 실증, 투자유치, 사업화까지 성장할 수 있는 기회가 열린다. 인공지능산업융합사업단(AICA)은 AI 기업의 성장 기반을 강화하고...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "\"쇼핑부터 환불까지 AI 하나로\"…센드버드, 통합 고객응대 솔루션 출시",
-      "link": "https://www.mt.co.kr/future/2026/11/10/2026111010361879779",
-      "description": "AI(인공지능) 커머스 기업 센드버드가 자사의 브랜드 AI 컨시어지 서비스 '딜라이트AI(delight.ai)'에 쇼핑·예약·고객 지원·재구매 업무를 통합한 AI 에이전트 '딜라이트 커스터머 에이전트'와 AI 에이전트 관리 도구...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "\"AI 시대, 디지털 증거로 진실 증명\"... 'K-디지털포렌식 위크 2026' 개막",
-      "link": "https://www.boannews.com/news/articleView.html?idxno=147149",
-      "description": "생성형 AI를 활용한 딥페이크와 음성 합성, 디지털 정보 조작 등 새로운 형태의 범죄가 확산하면서 디지털 정보의 진위를 판별하고 객관적인 증거를 통해 사실관계를 입증하는 역량이 더욱 중요해지고 있다. 디지털포렌식...",
-      "pubDate": "Tue, 10 Nov 2026 16:00:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "앤트로픽, 5.1보다 최대 30% 빠른 '페이블·미토스 5.2' 공개",
-      "link": "https://www.techm.kr/news/articleView.html?idxno=157158",
-      "description": "생성형 AI 모델별 비용 효율 그래프 /사진=앤트로픽 지난 1년 동안 국내에서 꾸준히 이용자를 늘리고 있는 앤트로픽 클로드가 이전 모델보다 최대 30% 빠른 신형 AI 모델을 공개했다. 앤트로픽은 '클로드 페이블 5.2'와...",
-      "pubDate": "Tue, 10 Nov 2026 15:58:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "[AI 모델 신작] 가상 세계 실시간 탐험부터 22MB 이미지 분석 AI까지 6종",
-      "link": "https://www.aitimes.com/news/articleView.html?idxno=217237",
-      "description": "v3 도구 호출 성공률 51%로 공동 1위, τ-Voice 다중 작업 성공률 57.93%로 2위를 기록했다. API와 온라인 체험 서비스를 제공한다. MOSS-Live is here. Our full-duplex, real-time voice AI can listen, speak...",
-      "pubDate": "Tue, 10 Nov 2026 15:58:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "센드버드, 쇼핑·예약·고객지원 통합한 AI 에이전트 출시",
-      "link": "https://www.etnews.com/20261110000406",
-      "description": "센드버드가 쇼핑부터 고객 유지까지 고객 여정 전반 업무를 하나로 통합한 인공지능(AI) 에이전트 '딜라이트 커스터머 에이전트'와 자연어 기반 AI 에이전트 관리 도구 '마이다스'를 10일 출시했다. 딜라이트 커스터머...",
-      "pubDate": "Tue, 10 Nov 2026 15:57:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "에이아이세라, 소상공인 AI 에이전트 1:1 구축 컨설팅 모집…11월 100곳 ...",
-      "link": "https://www.epnc.co.kr/news/articleView.html?idxno=409519",
-      "description": "스탠퍼드대 에릭 브린욜프슨(Erik Brynjolfsson), Danielle Li, Lindsey Raymond가 수행한 고객상담 연구 'Generative AI at Work'는 2025년 Quarterly Journal of Economics 게재본에서 고객상담 직원 5,172명의 데이터를 분석해 생성형 AI 대화...",
-      "pubDate": "Tue, 10 Nov 2026 15:56:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "동일미래과학고, AI 사회정서 교육 '성황'…재참여 희망 96%",
-      "link": "https://www.newsworks.co.kr/news/articleView.html?idxno=902592",
-      "description": "1교시에는 생성형 AI의 원리와 함께 AI에 던지는 질문(프롬프트)을 역할·상황·요청·조건·형식 5요소로 짜는 법, 정답 대신 단계별 힌트를 요청해 스스로 문제를 푸는 학습법을 익혔다. 이름·전화번호·얼굴 사진을 AI에...",
-      "pubDate": "Tue, 10 Nov 2026 15:56:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "증권사 해킹 도미노…전문가 \"AI로 공격 빨라져, 2차 피해 우려\"",
-      "link": "https://www.greened.kr/news/articleView.html?idxno=354278",
-      "description": "[출처=ChatGPT 생성형 이미지]  대신증권과 한양증권, 미래에셋증권 등 증권사에서 해킹 사고가 잇따르는 가운데 보안 전문가들이 금융권을 겨냥한 사이버 공격이 본격화되고 있다고 경고했다. 특히 인공지능(AI)을 활용한...",
-      "pubDate": "Tue, 10 Nov 2026 15:54:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "학생 자살 사망자 증가세...지난해 10대 자살률, 전년도보다 상승",
-      "link": "https://www.kgnews.co.kr/news/article.html?no=918968",
-      "description": "등 관련 시책의 추진과 체계적으로 연계될 수 있도록 이를 구체화할 필요가 있다”고 덧붙였다. [ 경기신문 = 김재민 기자 ] 학생 자살 사망자 수가 좀처럼 줄어들지 않고 있는 것으로 나타났다. (AI 이미지=ChatGPT)",
-      "pubDate": "Tue, 10 Nov 2026 15:54:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "존박 1400만뷰 '맥도날드 랩', 통째로 도둑 맞았다...정식 음원 둔갑 등...",
-      "link": "https://www.sportschosun.com/entertainment/2026-11-10/202611100100072300006629",
-      "description": "일각에서는 생성형 AI 기술을 악용해 존박의 고유 음색을 무단 복제·재현한 것이 아니냐는 의혹까지 제기되고 있다. 피해를 입은 원본 영상은 존박의 공식 유튜브 채널 '존이냐박이냐'에 게재된 '맥도날드에서 랩으로...",
-      "pubDate": "Tue, 10 Nov 2026 15:54:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "[미국 ETF 히든 챔피언] (81) 젠슨 황 스캔들에 RSP 새삼 조명",
-      "link": "https://www.newspim.com/news/view/20261110001245",
-      "description": "생성형 인공지능(AI) 모델의 데이터 분석에 따르면 S&P500 지수에서 엔비디아를 포함한 시가총액 상위 빅테크의 비중은 30% 이상을 차지한다. 특정 빅테크의 주가 급등락이 지수 전체에 작지 않은 영향을 미치는...",
-      "pubDate": "Tue, 10 Nov 2026 15:54:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "전주시 공무원들, AI 활용 행정혁신 성과 공유",
-      "link": "http://www.jeonmin.co.kr/news/articleView.html?idxno=450194",
-      "description": "시는 우수 성과물에 대해 실행 환경과 보안성을 점검한 뒤 전 부서로 확대 적용할 계획이다. 조지훈 전주시장은 \"공무원이 AI로 직접 만든 도구가 행정·민원서비스 개선으로 이어지도록 노력하겠다\"고 밝혔다.",
-      "pubDate": "Tue, 10 Nov 2026 15:54:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "워카토·타임게이트, '엔터프라이즈 AI 오케스트레이션' 세미나 개최",
-      "link": "https://www.nextdaily.co.kr/news/articleView.html?idxno=254756",
-      "description": "워카토는 AI 모델과 MCP(Model Context Protocol) 도구, 에이전트, API 호출을 한곳에서 조율하고 권한·감사·비용 관리를 적용하는 AI 컨트롤 플레인을 소개했다. 모델, MCP 서버, 에이전트, 스킬 등 기업이 보유한 AI 자산을...",
-      "pubDate": "Tue, 10 Nov 2026 15:54:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "초기 임상은 세계 4위…K바이오, 후기 임상 넘어 상업화가 승부처",
-      "link": "http://www.opinionnews.co.kr/news/articleView.html?idxno=146913",
-      "description": "생성형 AI로 만든 이미지.  한국이 글로벌 임상시험 1상 개시 건수에서 세계 4위를 기록했지만 2·3상에서는 10위권 밖에 머물렀다. 국내 제약·바이오기업들이 해외 임상을 확대하는 가운데 초기 연구 성과를 후기...",
-      "pubDate": "Tue, 10 Nov 2026 15:52:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "우송정보대 앵커사업단 'AI창업캠프' 성료",
-      "link": "https://www.ggilbo.com/news/articleView.html?idxno=1192298",
-      "description": "캠프는 생성형 AI를 활용해 전공 분야의 창업 아이디어를 발굴하고, 이를 구체적인 비즈니스모델과 사업계획으로 발전시키는 실전형 창업교육 프로그램으로 마련됐다. 학생들은 창업 아이디어 구상부터 시장조사...",
-      "pubDate": "Tue, 10 Nov 2026 15:52:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "충남교육청, 마을 교사 AI 활용 역량 강화… 8개 지역서 실습 연수",
-      "link": "https://www.newstnt.com/news/articleView.html?idxno=727708",
-      "description": "◆ 생성형 AI 활용 수업 자료 제작 등 5개 과정 운영 이번 연수는 '2026 충남마을교육공동체 권역 토론회'에서 제기된 마을 교사의 전문성 및 역량 강화 요구를 반영해 마련됐다. '인공지능(AI)! 마을 학교를 만나다'를...",
-      "pubDate": "Tue, 10 Nov 2026 15:52:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "에이아이세라, 소상공인 AI 상담원 1개월 무료 적용 이벤트 진행",
-      "link": "https://www.it-b.co.kr/news/articleView.html?idxno=90628",
-      "description": "AI라는 도구를 사용한다는 사실만으로 가게에 관한 모든 내용을 안다고 설명하는 대신 실제 제공된 정보를 중심으로 안내를 마련한다. '모두의 AI'는 정부가 주도하는 AI 활용 정책이다. 국민 누구나 AI를 활용하도록 하고...",
-      "pubDate": "Tue, 10 Nov 2026 15:52:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "유튜브 휩쓴 존박 ‘맥도날드 랩’, 해외서 타인 명의로 무단 음원 유통...",
-      "link": "https://www.sportsseoul.com/news/read/1648828?ref=naver",
-      "description": "가사 내용이 기존과 완전히 달라 생성형 인공지능(AI)을 활용해 존박의 음색을 정교하게 흉내 낸 뒤 덧붙였을 가능성도 거론된다. 앞서 존박은 자신의 공식 유튜브 채널 ‘존이냐박이냐’를 통해 맥도날드...",
-      "pubDate": "Tue, 10 Nov 2026 15:50:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "[ICK 혁신 대학을 가다/연암대학교] AI 혁신·최신 스마트농업 인프라 구...",
-      "link": "https://news.unn.net/news/articleView.html?idxno=599691",
-      "description": "단일 UI 환경에서 연암대의 현장 실무 지식을 집약한 '농업 AI 아카이브'와 최신 상용 생성형 AI를 통합해 활용할 수 있도록 설계됐다. 전문학사과정, 학사학위 전공심화과정, 전문기술석사과정 재학생은 물론 교원과...",
-      "pubDate": "Tue, 10 Nov 2026 15:50:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "“혈액암 환자, 앱으로 24시간 돌보고 AI로 분석해 치료해요!”",
-      "link": "https://kormedi.com/?p=2900341",
-      "description": "고스란히 AI의 학습에 사용됩니다.\" 11개 병원 데이터 한 곳에⋯세계 최초 시도 김 교수에 따르면 H플랫폼은 단순히 환자들을 더 편하게 진료하기 위한 프로그램이 아니다. 아시아 혈액암 공동연구의 핵심 도구로 H플랫폼을...",
-      "pubDate": "Tue, 10 Nov 2026 15:48:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "문휘창 사이버한국외대 총장, 中 CGTN서 AI 시대 '현명한 활용자' 강조",
-      "link": "https://www.ngonews.kr/news/articleView.html?idxno=242762",
-      "description": "이어 AI 시대를 맞이한 청년들에게는 코딩과 알고리즘에 매몰되기보다 자신의 전문 분야에 AI를 도구로 접목하는 '현명한 활용자(Wise User)'가 될 것을 주문했다. AI, 빅데이터, 클라우드, 디지털로 이어지는 'ABCD 기술...",
-      "pubDate": "Tue, 10 Nov 2026 15:48:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "AI 코딩 모바일 앱 공개…Herdr TUI 작업은 미지원",
-      "link": "https://www.tokenpost.kr/news/ai/435709",
-      "description": "출력 내용을 읽고 명령을 입력해 작업을 이어갈 수 있으며, Claude Code와 Codex 같은 AI 코딩 도구도 관리할 수 있다. 모바일에서 코딩 에이전트 작업을 확인하고 이어가는 기능은 다른 서비스에서도 소개됐다. 오픈AI는...",
-      "pubDate": "Tue, 10 Nov 2026 15:46:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "선문대 치위생학과, 치위생학회 학술대회 학부생 포스터 최우수상 수상",
-      "link": "http://www.ccnnews.co.kr/news/articleView.html?idxno=417528",
-      "description": "이번 연구는 지난 5월 춘계학술대회에서 최우수상을 받은 웹 기반 디지털 차트 개발 연구의 후속 연구로서 연구팀은 생성형 AI 도구로 개발한 웹차트를 실제 임상치위생실습 수업에 적용하여 수업에 참여한 학생들의...",
-      "pubDate": "Tue, 10 Nov 2026 15:46:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "숭실대 AI안전성연구센터, 해커 속여 서버 보호 'AI 기만 방어' 개발",
-      "link": "https://www.etnews.com/20261110000395",
-      "description": "숭실대 AI안전성연구센터 최대선 교수 연구팀이 스스로 취약점을 찾아 침투하는 인공지능(AI) 해킹 도구를 가짜 서버로 유인해 무력화하는 기만 방어 기술을 개발했다고 10일 밝혔다. 연구팀은 지난달 마이크로소프트(MS)...",
-      "pubDate": "Tue, 10 Nov 2026 15:46:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "[ICK 혁신 대학을 가다/광주보건대학교] 미래교육체제 구현으로 성과평...",
-      "link": "https://news.unn.net/news/articleView.html?idxno=599591",
-      "description": "대학은 '국가면허시험 토털관리시스템'을 통해 학년별로 필요한 역량을 단계적으로 관리하고, ChatGPT를 활용한 모의고사 출제 시스템을 구축해 학생들이 다양한 문제로 실전에 대비할 수 있도록 했다. 취업 준비...",
-      "pubDate": "Tue, 10 Nov 2026 15:44:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "오픈AI dot, 여러 컴퓨터 연결해 작업별 테스트 지원",
-      "link": "https://www.tokenpost.kr/news/ai/435708",
-      "description": "사용자는 각 컴퓨터의 ChatGPT 앱에서 dot 프로필을 열고 접근을 허용해야 한다. 독립적인 작업은... 개인용 컴퓨터가 dot의 작업에 쓰이려면 온라인 상태여야 하고 ChatGPT 앱이 열려 있어야 한다. 컴퓨터가 오프라인으로...",
-      "pubDate": "Tue, 10 Nov 2026 15:44:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "네이션에이, AI 3D 기술로 CES 혁신상 누적 7개 수상",
-      "link": "https://biz.chosun.com/industry/business_info/2026/11/10/JJGVXW4CTZBW3E7XNMAJW6DAXI/?utm_source=naver&utm_medium=original&utm_campaign=biz",
-      "description": "AI 기반 3D 모션 생성과 공간 인터랙션 시스템을 결합한 기술로, 회사는 단일 콘텐츠 제작 도구를 넘어 메타버스 분야 전반에 활용될 가능성이 있다고 설명했다. 유수연 네이션에이 대표는 “네이션에이는 생성형 AI...",
-      "pubDate": "Tue, 10 Nov 2026 15:44:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "[Digital & Now] 카카오, 오픈AI와 협업한 AI 애니메이션 '그래도, 라이언...",
-      "link": "https://www.ebn.co.kr/news/articleView.html?idxno=1731125",
-      "description": ",장면별 스케치와 프롬프트를 바탕으로 '챗GPT 이미지(ChatGPT Images)' 기능을 활용했으며, 이후 수작업으로 수정하는 과정을 거쳐 완성했다. 특히 한 장면을 구현하는 데 약 1500개의 프롬프트를 활용하는 등 AI 기술과...",
-      "pubDate": "Tue, 10 Nov 2026 15:32:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "앤트로픽 '클로드 페이블 5.2' 출시…코딩 성능↑ 가격 20%↓",
-      "link": "https://it.chosun.com/news/articleView.html?idxno=3000000000635",
-      "description": "앤트로픽(Anthropic)이 고난도 코딩과 과학·공학 업무에 특화한 인공지능(AI) 모델 '클로드 페이블 5.2(Claude Fable 5.2)'를 출시했다. 전작보다 출력 속도를 최대 30% 높이고 API 가격은 20% 낮췄다. 자체 평가 기준 주요...",
-      "pubDate": "Tue, 10 Nov 2026 15:28:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "\"더 똑똑한데 더 싸다\" 앤트로픽이 오픈AI에 던진 도전장",
-      "link": "https://www.fortunekorea.co.kr/news/articleView.html?idxno=54708",
-      "description": "앤트로픽은 11월 9일(현지 시간) 신형 AI 모델 클로드 페이블 5.2(Claude Fable 5.2)와 미토스 5.2(Mythos 5.2)를 공개했다. 두 모델은 앤트로픽이 IPO 이전에 선보이는 마지막 대형 신제품이 될 가능성도 있다. 이번 출시가 중요한...",
-      "pubDate": "Tue, 10 Nov 2026 15:26:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "앤트로픽, '클로드 페이블·미토스 5.2' 공개…코딩·추론 성능 강화",
-      "link": "http://www.worktoday.co.kr/news/articleView.html?idxno=91786",
-      "description": "앤트로픽은 10일 복잡한 기술적 과제 해결을 위해 설계한 최신 AI 모델 '클로드 페이블 5.2(Claude Fable 5.2)'와 '클로드 미토스 5.2(Claude Mythos 5.2)'를 출시했다고 밝혔다. 두 모델은 코딩과 추론, 비전 등 주요 영역에서...",
-      "pubDate": "Tue, 10 Nov 2026 15:24:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "AI 쓴다고 모두 R&D 아니다… \"사업명 아닌 실질로 판단해야\"",
-      "link": "https://www.kyosu.net/news/articleView.html?idxno=212279",
-      "description": "연구진이 생성형 AI(ChatGPT·Claude)에 OECD의 2025년 소프트웨어 개발 보완지침을 추가 학습시켜 판별한 결과, 두 모델이 모두 R&D로 판정한 사업은 49개에서 44개로 줄었다. 현행 분류와 다르게 판정된 13개 중 11개는...",
-      "pubDate": "Tue, 10 Nov 2026 15:18:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "카카오, 오픈AI와 손잡고 라이언 첫 AI 애니메이션 공개…11일 글로벌 동...",
-      "link": "http://www.metroseoul.co.kr/article/20261110500288",
-      "description": "제작 과정에서는 오픈AI의 '챗GPT 이미지(ChatGPT Images)' 기능을 활용했다. 애니메이션 장면의 스케치와 프롬프트를 기반으로 이미지를 생성한 뒤 두 전문가가 직접 수정하고 보완하는 방식으로 완성도를 높였다. 특히 한...",
-      "pubDate": "Tue, 10 Nov 2026 15:16:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "크레이머 \"앤트로픽 IPO 없인 AI주 회복 어렵다\"…기업가치 전망 2조→최...",
-      "link": "http://coinreaders.com/268953",
-      "description": "11월 9일(현지시간) 미국 경제방송 CNBC '매드 머니' 진행자 짐 크레이머는 \"IPO가 없으면 AI 관련주가 어떻게 제대로 회복할 수 있을지 모르겠다\"고 말했다. 클로드(Claude) 개발사 앤트로픽이 증권신고서(S-1)를 제출한 지...",
-      "pubDate": "Tue, 10 Nov 2026 15:12:00 +0900",
-      "relativeTime": "방금 전",
-      "hot": false
-    },
-    {
-      "title": "앤트로픽 클로드 페이블 5.2 등판 \"페르마 정리 증명 30시간 만에\"",
-      "link": "https://www.econovill.com/news/articleView.html?idxno=756694",
-      "description": "앤트로픽이 가장 까다로운 기술 과제를 풀도록 설계한 최신 모델 '클로드 페이블 5.2(Claude Fable 5.2)'와... 오퍼스 5.5의 45.5%, 오픈AI GPT-6 아스트라의 42.8%, 구글 제미나이 4 카본의 41.1%보다 높은 점수다. 비용 측면의...",
-      "pubDate": "Tue, 10 Nov 2026 14:52:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "코인 거래는 하루 3조원인데…채권·펀드 토큰화는 이제 걸음마",
-      "link": "http://www.metroseoul.co.kr/article/20261110500232",
-      "description": "거래 가능 계정 1117만개…RWA 발행액은 6400억원 음악 저작권·미술품에 편중…채권·펀드 토큰화 제한적 토큰화 자산 글로벌 채널·실시간 처리 인프라 과제 ChatGPT로 생성한 이미지. 실물자산과 블록체인 기술의...",
-      "pubDate": "Tue, 10 Nov 2026 14:48:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "강남구, '2026 스마트 정보화 공모전' 시상…AI로 그린 강남의 현재와 미...",
-      "link": "https://www.fntoday.co.kr/news/articleView.html?idxno=397410",
-      "description": "참가자들은 챗GPT(ChatGPT), 제미나이(Gemini) 등 생성형 AI를 활용해 강남의 역사와 문화, 일상생활, 미래 비전을 포스터와 카드뉴스, 숏폼 영상 등 다양한 형태의 콘텐츠로 표현했다. 대상은 카드뉴스 작품인 '80세...",
-      "pubDate": "Tue, 10 Nov 2026 14:40:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "'하이쿠' 성능에 비용은 3분의 1…메타, 에이전트용 '뮤즈 엠버' 출시",
-      "link": "https://www.aitimes.com/news/articleView.html?idxno=217209",
-      "description": "5 (max) at a third of the Cost per Task Muse Ember is Meta's newest efficient-tier model line, with the same input and output token prices as Claude Haiku 5.5 and… pic.twitter.com/ZXq4Zw8DZj — Artificial Analysis (@ArtificialAnlys) November 9, 2026 AI...",
-      "pubDate": "Tue, 10 Nov 2026 14:38:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "시스코, AI 보안 검증·비용 관리 결합한 인프라 신기능 발표",
-      "link": "https://www.dailysecu.com/news/articleView.html?idxno=209429",
-      "description": "호주 멜버른에서 열린 '시스코 라이브 APJC' 행사에서 공개된 이번 기능은 보안 솔루션 '시스코 AI 디펜스'에 앤트로픽의 최신 인공지능 모델 '클로드 미토스(Claude Mythos)'를 탑재하고, '스플렁크 에이전트...",
-      "pubDate": "Tue, 10 Nov 2026 14:36:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "\"AI 쓴다고 다 R&D 아니다\"…정부 재정사업 분류기준 재검토해야",
-      "link": "https://view.asiae.co.kr/article/2026111014242467796",
-      "description": "연구팀은 챗GPT(ChatGPT)와 클로드(Claude)를 활용해 재정사업의 R&D 해당 여부를 분석했다. 기존 경제협력개발기구(OECD) 프라스카티 매뉴얼만 적용했을 때 두 모델이 모두 R&D로 판단한 사업은 49개였지만, 2025년 보완지침을...",
-      "pubDate": "Tue, 10 Nov 2026 14:24:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "만두·햇반 날았다…CJ제일제당, 비핵심 덜고 수익성 승부수(종합)",
-      "link": "https://www.edaily.co.kr/News/Read?newsId=04559206645644408&mediaCodeNo=257&utm_source=naver&utm_medium=referral&utm_campaign=news_syndication&utm_content=original_article",
-      "description": "AI로 만든 CJ제일제당 분기별 실적 추이 (사진=ChatGPT 생성 이미지) 이번 실적에서 눈여겨볼 대목은 해외 식품사업과 핵심소재사업의 성장이다. 만두와 햇반 등 글로벌전략제품(GSP)을 앞세운 해외 식품 매출은...",
-      "pubDate": "Tue, 10 Nov 2026 14:23:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "'10살' 라이언, 챗GPT만나 인생 첫 AI애니메이션 데뷔",
-      "link": "https://www.insight.co.kr/news/581392",
-      "description": "두 전문가는 애니메이션 장면 스케치와 프롬프트를 기반으로 '챗GPT 이미지(ChatGPT Images)' 기능을 활용했다. 한 장면당 약 1500개의 프롬프트를 사용해 세밀한 연출을 구현했다. AI가 생성한 이미지를 전문가가 직접 손으로...",
-      "pubDate": "Tue, 10 Nov 2026 14:22:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "강남구, '2026 스마트 정보화 공모전' 시상…생성형 AI 활용 우수작 10점...",
-      "link": "https://www.job-post.co.kr/news/articleView.html?idxno=237562",
-      "description": "참가자들은 챗GPT(ChatGPT)와 제미나이(Gemini) 등 생성형 AI 도구를 활용해 강남의 역사와 문화, 생활환경, 미래 도시의 모습을 다양한 방식으로 표현했다. 출품작은 포스터와 카드뉴스, 숏폼 영상 등 여러 형태로...",
-      "pubDate": "Tue, 10 Nov 2026 14:22:00 +0900",
-      "relativeTime": "1시간 전",
-      "hot": false
-    },
-    {
-      "title": "상장 코앞인데 공모가 '오락가락'…앤트로픽 90조 IPO 혼선",
-      "link": "http://www.joseilbo.com/news/news_read.php?uid=579322&class=79&grp=",
-      "description": "지난달 AI 에이전트 '클로드 듀엣(Claude Duet)'과 '클로드 페이블 5(Claude Fable 5)'를 선보인 데 이어 지난 9일에는 '클로드 페이블 5.2'와 '클로드 미토스 5.2'를 추가 공개했다. 앤트로픽은 오픈AI와 AI 서비스 경쟁을 벌이는...",
-      "pubDate": "Tue, 10 Nov 2026 14:19:00 +0900",
-      "relativeTime": "1시간 전",
+      "title": "클로드 페이블 5.2, 전자기기 3종 설계…회로 수정 없이 시제품 제작",
+      "link": "https://www.aitimes.com/news/articleView.html?idxno=217243",
+      "description": "오픈AI가 최근 AI를 활용한 전자기기 제작 사례를 공개한 데 이어, AI가 실제 제조 조건까지 고려해... During pre-release testing, Claude Fable 5.2 and Claude Mythos 5.2 worked on ambitious projects in many different fields. Here are a few. From...",
+      "pubDate": "Tue, 10 Nov 2026 18:06:00 +0900",
+      "relativeTime": "7시간 전",
       "hot": false
     }
   ]
